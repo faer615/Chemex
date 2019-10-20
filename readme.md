@@ -20,7 +20,7 @@ TeamOne是一个用于管理员工各方面维度评价以及技能掌握情况�
 
 根目录运行 ``` php artisan optimize ``` 清理缓存
 
-Done！
+Done！请通过 ```domain.com/admin``` 访问，默认登录用户名和密码都为 ```admin```
 
 ## 截图
 
@@ -49,7 +49,7 @@ Done！
 
 ## 安全漏洞
 
-如果您在Mirage中发现安全漏洞，请通过 [famio@qq.com](mailto:famio@qq.com) 发送电子邮件告知我。
+如果您在TeamOne中发现安全漏洞，请通过 [famio@qq.com](mailto:famio@qq.com) 发送电子邮件告知我。
 
 ## 开源协议
 
