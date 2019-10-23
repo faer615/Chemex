@@ -6,7 +6,7 @@ use App\Models\Skill_Class;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Show;
-use James\Admin\Grid;
+use Encore\Admin\Grid;
 
 class SkillClassController extends AdminController
 {

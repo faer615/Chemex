@@ -1,8 +1,8 @@
-<img src="https://images.gitee.com/uploads/images/2019/1020/180446_e3f18517_463895.jpeg">
+## OverTeam
 
-## TeamOne
+团队伙伴能力综合考量管理的工具，可自定义考量维度，定期记录考核指标，并生成每个员工对应的能力成长曲线。
 
-TeamOne是一个用于管理员工各方面维度评价以及技能掌握情况的开源应用。
+同时，还包括了对团队内所需技能的管理，细化到伙伴的技能管理，技能成长度、掌握情况的反应。
 
 ## 安装
 
@@ -12,7 +12,7 @@ TeamOne是一个用于管理员工各方面维度评价以及技能掌握情况�
 
 复制 ```.env.example``` 为 ```.env```
 
-修改根目录 ```.env``` 文件进行本地化配置（数据库名称为teamone）
+修改根目录 ```.env``` 文件进行本地化配置（数据库名称为overteam）
 
 将根目录数据库脚本 ``` init.sql ``` 导入到您的数据库中
 
@@ -24,17 +24,13 @@ Done！请通过 ```domain.com/admin``` 访问，默认登录用户名和密码�
 
 ## 截图
 
-![0.png](https://i.loli.net/2019/10/20/wQzgbOFfvj9hCt7.png)
+![1.png](https://i.loli.net/2019/10/23/i4gFa1Ah5ENuMdk.png)
 
-![1.png](https://i.loli.net/2019/10/20/pFKvbX4172P9fh6.png)
+![2.png](https://i.loli.net/2019/10/23/lISshRAqU4DgfiC.png)
 
-![2.png](https://i.loli.net/2019/10/20/WUQR59LvK4tSfCu.png)
+![3.png](https://i.loli.net/2019/10/23/U2CcdJFa9Oy3Mpi.png)
 
-![3.png](https://i.loli.net/2019/10/20/Y7ViByxQ8fretOJ.png)
-
-![4.png](https://i.loli.net/2019/10/20/ox9zljtCHPnaTc8.png)
-
-![5.png](https://i.loli.net/2019/10/20/A3zlhOeviModuWf.png)
+![4.png](https://i.loli.net/2019/10/23/TC9UAepuc1ydRWH.png)
 
 ## 贡献
 
@@ -49,7 +45,7 @@ Done！请通过 ```domain.com/admin``` 访问，默认登录用户名和密码�
 
 ## 安全漏洞
 
-如果您在TeamOne中发现安全漏洞，请通过 [famio@qq.com](mailto:famio@qq.com) 发送电子邮件告知我。
+如果您在OverTeam中发现安全漏洞，请通过 [famio@qq.com](mailto:famio@qq.com) 发送电子邮件告知我。
 
 ## 开源协议
 

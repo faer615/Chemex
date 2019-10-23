@@ -6,7 +6,7 @@ use App\Models\Dimension_Tracking;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Show;
-use James\Admin\Grid;
+use Encore\Admin\Grid;
 
 class DimensionTrackingController extends AdminController
 {

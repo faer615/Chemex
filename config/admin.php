@@ -1,5 +1,7 @@
 <?php
 
+use Encore\Admin\Grid\Displayers\DropdownActions;
+
 return [
 
     /*
@@ -11,7 +13,7 @@ return [
     | login page.
     |
     */
-    'name' => 'Team One',
+    'name' => 'OverTeam',
 
     /*
     |--------------------------------------------------------------------------
@@ -22,7 +24,7 @@ return [
     | `img` tag, eg '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo' => '<b>Team</b>One',
+    'logo' => 'Over<b>Team</b>',
 
     /*
     |--------------------------------------------------------------------------
@@ -34,7 +36,7 @@ return [
     | '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo-mini' => '<b>TO</b>',
+    'logo-mini' => '<b>OT</b>',
 
     /*
     |--------------------------------------------------------------------------
@@ -85,7 +87,7 @@ return [
     | Html title for all pages.
     |
     */
-    'title' => 'Admin',
+    'title' => 'OverTeam',
 
     /*
     |--------------------------------------------------------------------------
@@ -275,7 +277,7 @@ return [
     |    "skin-red", "skin-red-light", "skin-black", "skin-black-light".
     |
     */
-    'skin' => 'skin-blue-light',
+    'skin' => 'skin-black-light',
 
     /*
     |--------------------------------------------------------------------------
@@ -373,7 +375,7 @@ return [
     | The global Grid action display class.
     |--------------------------------------------------------------------------
     */
-//    'grid_action_class' => \Encore\Admin\Grid\Displayers\DropdownActions::class,
+    'grid_action_class' => DropdownActions::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -400,38 +402,5 @@ return [
             // Set to `false` if you want to disable this extension
             'enable' => true,
         ],
-        'adminlte' => [
-            'theme' => [
-                /*
-                |--------------------------------------------------------------------------
-                |Navbar Theme
-                |--------------------------------------------------------------------------
-                |    "bg-primary", "bg-info", "bg-success", "bg-danger"
-                |    "bg-warning", "bg-white", "bg-gray-light"
-                */
-
-                'navbar' => 'bg-white',
-
-                /*
-                |--------------------------------------------------------------------------
-                |Sidebar Theme
-                |--------------------------------------------------------------------------
-                |    "sidebar-dark-primary", "sidebar-dark-warning", "sidebar-dark-info", "sidebar-dark-danger", "sidebar-dark-success"
-                |    "sidebar-light-primary", "sidebar-light-warning", "sidebar-light-info", "sidebar-light-danger", "sidebar-light-success"
-                */
-
-                'sidebar' => 'sidebar-dark-primary',
-
-                /*
-                |--------------------------------------------------------------------------
-                |LOGO Theme
-                |--------------------------------------------------------------------------
-                |    "bg-primary", "bg-info", "bg-success", "bg-danger"
-                |    "bg-warning", "bg-white", "bg-gray-light"
-                */
-
-                'logo' => ''
-            ]
-        ]
     ],
 ];

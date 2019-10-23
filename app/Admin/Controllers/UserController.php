@@ -6,9 +6,9 @@ use App\Libraries\Maker;
 use App\Models\User;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
+use Encore\Admin\Grid;
 use Encore\Admin\Show;
 use Encore\Admin\Widgets\Box;
-use James\Admin\Grid;
 
 class UserController extends AdminController
 {
