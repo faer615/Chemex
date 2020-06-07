@@ -5,8 +5,8 @@ namespace App\Admin\Controllers;
 use App\Models\Skill_Class;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
-use Encore\Admin\Show;
 use Encore\Admin\Grid;
+use Encore\Admin\Show;
 
 class SkillClassController extends AdminController
 {

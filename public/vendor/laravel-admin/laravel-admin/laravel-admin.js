@@ -109,16 +109,16 @@ $(function () {
         if (matched) {
             $menu.show();
         }
-    }).click(function(event){
+    }).click(function (event) {
         event.stopPropagation();
     });
 
-    $('.sidebar-form .dropdown-menu li a').click(function (){
+    $('.sidebar-form .dropdown-menu li a').click(function () {
         $('.sidebar-form .autocomplete').val($(this).text());
     });
 });
 
-$(window).scroll(function() {
+$(window).scroll(function () {
     if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
         $('#totop').fadeIn(500);
     } else {
@@ -166,7 +166,7 @@ $('#totop').on('click', function (e) {
     };
 
     $.admin.redirect = function (url) {
-        $.pjax({container:'#pjax-container', url: url });
+        $.pjax({container: '#pjax-container', url: url});
         $.admin.grid = new Grid();
     };
 
@@ -176,8 +176,8 @@ $('#totop').on('click', function (e) {
 
     $.admin.loadedScripts = [];
 
-    $.admin.loadScripts = function(arr) {
-        var _arr = $.map(arr, function(src) {
+    $.admin.loadScripts = function (arr) {
+        var _arr = $.map(arr, function (src) {
 
             if ($.inArray(src, $.admin.loadedScripts)) {
                 return;
@@ -188,7 +188,7 @@ $('#totop').on('click', function (e) {
             return $.getScript(src);
         });
 
-        _arr.push($.Deferred(function(deferred){
+        _arr.push($.Deferred(function (deferred) {
             $(deferred.resolve);
         }));
 

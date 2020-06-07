@@ -5,8 +5,8 @@ namespace App\Admin\Controllers;
 use App\Models\Department;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
-use Encore\Admin\Show;
 use Encore\Admin\Grid;
+use Encore\Admin\Show;
 
 class DepartmentController extends AdminController
 {

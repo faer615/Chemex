@@ -57,7 +57,7 @@ a.editable-empty {
     line-height: 1.2;
 }
 
-.table-has-many label.control-label[for=inputError]+br {
+.table-has-many label.control-label[for=inputError] + br {
     display: none;
 }
 

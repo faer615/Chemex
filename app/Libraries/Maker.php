@@ -11,7 +11,7 @@ use App\Models\Skill;
 use App\Models\Skill_Class;
 use App\Models\Skill_Tracking;
 use App\Models\User;
-use Famio\Saber\Facades\LaravelAdmin;
+use Chemex\Plus\LaravelAdmin;
 
 class Maker
 {
