@@ -112,10 +112,6 @@
                             </fieldset>
                         </div>
                     </div>
-                    <a class="btn btn-warning float-left login-btn">
-                        {{ __('custom.register') }}
-                        <i class="feather icon-edit-1"></i>
-                    </a>
                     <button type="submit" class="btn btn-primary float-right login-btn">
                         {{ __('admin.login') }}
                         <i class="feather icon-arrow-right"></i>

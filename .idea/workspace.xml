@@ -19,34 +19,24 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2eb69959-1bc4-4cca-ba7b-26199684f8d0" name="默认的" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Admin/Controllers/AuthController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Admin/Controllers/HomeController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Admin/Controllers/RegisterController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Admin/Metrics/Examples/NewDevices.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Admin/Metrics/Examples/NewUsers.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Admin/Metrics/Examples/ProductOrders.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Admin/Metrics/Examples/Sessions.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Admin/Metrics/Examples/Tickets.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Admin/Metrics/Examples/TotalUsers.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Admin/bootstrap.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Admin/routes.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/seeders/UserSeeder.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/lang/zh-CN/custom.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/login.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/register.blade.php" afterDir="false" />
+    <list default="true" id="2eb69959-1bc4-4cca-ba7b-26199684f8d0" name="默认的" comment="完成Dcat框架依赖">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jsLinters/jshint.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_09_14_153802_create_software_categories_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_09_14_154738_create_vendor_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_09_14_161507_create_software_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/OverTeam.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Celestial.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/symfony2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/symfony2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Admin/Controllers/RegisterController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Admin/routes.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/routes.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/admin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_100000_create_password_resets_table.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2016_01_04_173148_create_admin_tables.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2016_01_04_173148_create_admin_tables.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/register.blade.php" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -198,7 +188,7 @@
     </include_path>
   </component>
   <component name="ProjectId" id="1hFhLWmLCXSAY6zW0QDwFEKQANL" />
-  <component name="ProjectLevelVcsManager">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="新增" />
   </component>
   <component name="ProjectViewState">
@@ -207,10 +197,12 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Genesis" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -237,7 +229,7 @@
       <method v="2" />
     </configuration>
   </component>
-  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -249,7 +241,11 @@
       <option name="presentableId" value="Default" />
       <updated>1599612691401</updated>
       <workItem from="1599612692559" duration="929000" />
-      <workItem from="1599793825034" duration="8893000" />
+      <workItem from="1599793825034" duration="9848000" />
+      <workItem from="1599809067567" duration="7000" />
+      <workItem from="1600067724975" duration="528000" />
+      <workItem from="1600068475808" duration="140000" />
+      <workItem from="1600068621020" duration="4896000" />
     </task>
     <task id="LOCAL-00001" summary="建立Dev分支">
       <created>1599612809268</created>
@@ -258,11 +254,18 @@
       <option name="project" value="LOCAL" />
       <updated>1599612809268</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="完成Dcat框架依赖">
+      <created>1599805071716</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1599805071716</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -277,9 +280,12 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="建立Dev分支" />
-    <option name="LAST_COMMIT_MESSAGE" value="建立Dev分支" />
+    <MESSAGE value="完成Dcat框架依赖" />
+    <option name="LAST_COMMIT_MESSAGE" value="完成Dcat框架依赖" />
   </component>
   <component name="WindowStateProjectService">
     <state x="481" y="227" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1599797696148">
@@ -298,13 +304,17 @@
       <screen x="0" y="0" width="1500" height="960" />
     </state>
     <state x="577" y="403" key="NewPhpFileDialog/0.0.1500.960@0.0.1500.960" timestamp="1599802461466" />
-    <state x="343" y="213" key="Vcs.Push.Dialog.v2" timestamp="1599791415721">
+    <state x="343" y="213" key="Vcs.Push.Dialog.v2" timestamp="1599805074714">
       <screen x="0" y="0" width="1500" height="960" />
     </state>
-    <state x="343" y="213" key="Vcs.Push.Dialog.v2/0.0.1500.960@0.0.1500.960" timestamp="1599791415721" />
+    <state x="343" y="213" key="Vcs.Push.Dialog.v2/0.0.1500.960@0.0.1500.960" timestamp="1599805074714" />
     <state x="410" y="223" key="run.anything.popup" timestamp="1599794905551">
       <screen x="0" y="0" width="1500" height="960" />
     </state>
     <state x="410" y="223" key="run.anything.popup/0.0.1500.960@0.0.1500.960" timestamp="1599794905551" />
+    <state x="520" y="241" width="672" height="678" key="search.everywhere.popup" timestamp="1600069597236">
+      <screen x="0" y="0" width="1714" height="1103" />
+    </state>
+    <state x="520" y="241" width="672" height="678" key="search.everywhere.popup/0.0.1714.1103@0.0.1714.1103" timestamp="1600069597236" />
   </component>
 </project>

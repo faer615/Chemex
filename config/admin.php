@@ -11,7 +11,7 @@ return [
     | login page.
     |
     */
-    'name' => 'OverTeam',
+    'name' => 'Celestial',
 
     /*
     |--------------------------------------------------------------------------
@@ -22,7 +22,7 @@ return [
     | `img` tag, eg '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo' => '<img src="/vendors/dcat-admin/images/logo.png" width="35"> &nbsp;OverTeam',
+    'logo' => '<img src="/vendors/dcat-admin/images/logo.png" width="35"> &nbsp;Celestial',
 
     /*
     |--------------------------------------------------------------------------
@@ -85,7 +85,7 @@ return [
     | Html title for all pages.
     |
     */
-    'title' => 'OverTeam',
+    'title' => 'Celestial',
 
     /*
     |--------------------------------------------------------------------------
@@ -145,7 +145,6 @@ return [
         'except' => [
             'auth/login',
             'auth/logout',
-            'auth/register',
         ],
 
     ],
@@ -185,7 +184,6 @@ return [
         // or specific method to path like: get:auth/users.
         'except' => [
             '/',
-            'auth/register',
             'auth/login',
             'auth/logout',
             'auth/setting',

@@ -13,5 +13,3 @@ Route::group([
 ], function (Router $router) {
     $router->get('/', 'HomeController@index');
 });
-
-Route::get('/auth/register', 'App\Admin\Controllers\RegisterController@getRegister');
