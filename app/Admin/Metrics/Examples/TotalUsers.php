@@ -16,6 +16,22 @@ class TotalUsers extends Card
     protected $footer;
 
     /**
+     * 初始化卡片.
+     */
+    protected function init()
+    {
+        parent::init();
+
+        $this->title('Total Users');
+        $this->dropdown([
+            '7' => 'Last 7 Days',
+            '28' => 'Last 28 Days',
+            '30' => 'Last Month',
+            '365' => 'Last Year',
+        ]);
+    }
+
+    /**
      * 处理请求.
      *
      * @param Request $request
@@ -49,6 +65,18 @@ class TotalUsers extends Card
      *
      * @return $this
      */
+    public function up($percent)
+    {
+        return $this->footer(
+            "<i class=\"feather icon-trending-up text-success\"></i> {$percent}% Increase"
+        );
+    }
+
+    /**
+     * @param int $percent
+     *
+     * @return $this
+     */
     public function down($percent)
     {
         return $this->footer(
@@ -68,18 +96,6 @@ class TotalUsers extends Card
         $this->footer = $footer;
 
         return $this;
-    }
-
-    /**
-     * @param int $percent
-     *
-     * @return $this
-     */
-    public function up($percent)
-    {
-        return $this->footer(
-            "<i class=\"feather icon-trending-up text-success\"></i> {$percent}% Increase"
-        );
     }
 
     /**
@@ -109,21 +125,5 @@ HTML;
     public function renderFooter()
     {
         return $this->toString($this->footer);
-    }
-
-    /**
-     * 初始化卡片.
-     */
-    protected function init()
-    {
-        parent::init();
-
-        $this->title('Total Users');
-        $this->dropdown([
-            '7' => 'Last 7 Days',
-            '28' => 'Last 28 Days',
-            '30' => 'Last Month',
-            '365' => 'Last Year',
-        ]);
     }
 }

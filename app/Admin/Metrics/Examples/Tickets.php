@@ -8,6 +8,25 @@ use Illuminate\Http\Request;
 class Tickets extends RadialBar
 {
     /**
+     * 初始化卡片内容
+     */
+    protected function init()
+    {
+        parent::init();
+
+        $this->title('Tickets');
+        $this->height(400);
+        $this->chartHeight(300);
+        $this->chartLabels('Completed Tickets');
+        $this->dropdown([
+            '7' => 'Last 7 Days',
+            '28' => 'Last 28 Days',
+            '30' => 'Last Month',
+            '365' => 'Last Year',
+        ]);
+    }
+
+    /**
      * 处理请求
      *
      * @param Request $request
@@ -29,6 +48,20 @@ class Tickets extends RadialBar
                 // 图表数据
                 $this->withChart(83);
         }
+    }
+
+    /**
+     * 设置图表数据.
+     *
+     * @param int $data
+     *
+     * @return $this
+     */
+    public function withChart(int $data)
+    {
+        return $this->chart([
+            'series' => [$data],
+        ]);
     }
 
     /**
@@ -79,38 +112,5 @@ HTML
 </div>
 HTML
         );
-    }
-
-    /**
-     * 设置图表数据.
-     *
-     * @param int $data
-     *
-     * @return $this
-     */
-    public function withChart(int $data)
-    {
-        return $this->chart([
-            'series' => [$data],
-        ]);
-    }
-
-    /**
-     * 初始化卡片内容
-     */
-    protected function init()
-    {
-        parent::init();
-
-        $this->title('Tickets');
-        $this->height(400);
-        $this->chartHeight(300);
-        $this->chartLabels('Completed Tickets');
-        $this->dropdown([
-            '7' => 'Last 7 Days',
-            '28' => 'Last 28 Days',
-            '30' => 'Last Month',
-            '365' => 'Last Year',
-        ]);
     }
 }

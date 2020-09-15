@@ -8,6 +8,23 @@ use Illuminate\Http\Request;
 class ProductOrders extends Round
 {
     /**
+     * 初始化卡片内容
+     */
+    protected function init()
+    {
+        parent::init();
+
+        $this->title('Product Orders');
+        $this->chartLabels(['Finished', 'Pending', 'Rejected']);
+        $this->dropdown([
+            '7' => 'Last 7 Days',
+            '28' => 'Last 28 Days',
+            '30' => 'Last Month',
+            '365' => 'Last Year',
+        ]);
+    }
+
+    /**
      * 处理请求
      *
      * @param Request $request
@@ -31,6 +48,20 @@ class ProductOrders extends Round
                 // 总数
                 $this->chartTotal('Total', 344);
         }
+    }
+
+    /**
+     * 设置图表数据.
+     *
+     * @param array $data
+     *
+     * @return $this
+     */
+    public function withChart(array $data)
+    {
+        return $this->chart([
+            'series' => $data,
+        ]);
     }
 
     /**
@@ -79,36 +110,5 @@ class ProductOrders extends Round
 </div>
 HTML
         );
-    }
-
-    /**
-     * 设置图表数据.
-     *
-     * @param array $data
-     *
-     * @return $this
-     */
-    public function withChart(array $data)
-    {
-        return $this->chart([
-            'series' => $data,
-        ]);
-    }
-
-    /**
-     * 初始化卡片内容
-     */
-    protected function init()
-    {
-        parent::init();
-
-        $this->title('Product Orders');
-        $this->chartLabels(['Finished', 'Pending', 'Rejected']);
-        $this->dropdown([
-            '7' => 'Last 7 Days',
-            '28' => 'Last 28 Days',
-            '30' => 'Last Month',
-            '365' => 'Last Year',
-        ]);
     }
 }
