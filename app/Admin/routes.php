@@ -7,11 +7,12 @@ use Illuminate\Support\Facades\Route;
 Admin::routes();
 
 Route::group([
-    'prefix'        => config('admin.route.prefix'),
-    'namespace'     => config('admin.route.namespace'),
-    'middleware'    => config('admin.route.middleware'),
+    'prefix' => config('admin.route.prefix'),
+    'namespace' => config('admin.route.namespace'),
+    'middleware' => config('admin.route.middleware'),
 ], function (Router $router) {
     $router->get('/', 'HomeController@index');
+    $router->resource('/device/records', 'DeviceRecordController');
     $router->resource('/device/categories', 'DeviceCategoryController');
     $router->resource('/software/records', 'SoftwareRecordController');
     $router->resource('/software/categories', 'SoftwareCategoryController');

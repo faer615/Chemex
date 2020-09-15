@@ -71,15 +71,15 @@ class SoftwareRecordController extends AdminController
      */
     protected function form()
     {
-        return Form::make(new SoftwareRecord(), function (Form $form) {
+        return Form::make(new SoftwareRecord(['category','vendor']), function (Form $form) {
             $form->display('id');
             $form->text('name')->required();
             $form->text('description');
-            $form->select('category_id')
+            $form->select('category.name')
                 ->options(SoftwareCategory::all()->pluck('name', 'id'))
                 ->required();
             $form->text('version')->required();
-            $form->select('vendor_id')
+            $form->select('vendor.name')
                 ->options(VendorRecord::all()->pluck('name', 'id'))
                 ->required();
             $form->currency('price');
