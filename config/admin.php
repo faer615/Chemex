@@ -11,7 +11,7 @@ return [
     | login page.
     |
     */
-    'name' => 'Celestial',
+    'name' => 'Dcat Admin',
 
     /*
     |--------------------------------------------------------------------------
@@ -22,7 +22,7 @@ return [
     | `img` tag, eg '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo' => '<img src="/vendors/dcat-admin/images/logo.png" width="35"> &nbsp;Celestial',
+    'logo' => '<img src="/vendors/dcat-admin/images/logo.png" width="35"> &nbsp;Dcat Admin',
 
     /*
     |--------------------------------------------------------------------------
@@ -58,7 +58,7 @@ return [
     */
     'route' => [
 
-        'prefix' => env('ADMIN_ROUTE_PREFIX', ''),
+        'prefix' => env('ADMIN_ROUTE_PREFIX', 'admin'),
 
         'namespace' => 'App\\Admin\\Controllers',
 
@@ -85,7 +85,7 @@ return [
     | Html title for all pages.
     |
     */
-    'title' => 'Celestial',
+    'title' => 'Admin',
 
     /*
     |--------------------------------------------------------------------------
@@ -125,7 +125,7 @@ return [
 
         'guards' => [
             'admin' => [
-                'driver' => 'session',
+                'driver'   => 'session',
                 'provider' => 'admin',
             ],
         ],
@@ -133,7 +133,7 @@ return [
         'providers' => [
             'admin' => [
                 'driver' => 'eloquent',
-                'model' => Dcat\Admin\Models\Administrator::class,
+                'model'  => Dcat\Admin\Models\Administrator::class,
             ],
         ],
 
@@ -156,7 +156,7 @@ return [
         | The global Grid action display class.
         |--------------------------------------------------------------------------
         */
-        'grid_action_class' => Dcat\Admin\Grid\Displayers\ContextMenuActions::class,
+        'grid_action_class' => Dcat\Admin\Grid\Displayers\DropdownActions::class,
     ],
 
     /*
@@ -201,7 +201,7 @@ return [
         'cache' => [
             // enable cache or not
             'enable' => false,
-            'store' => 'file',
+            'store'  => 'file',
         ],
 
         // Whether enable menu bind to a permission.
@@ -226,7 +226,7 @@ return [
         // Image and file upload path under the disk above.
         'directory' => [
             'image' => 'images',
-            'file' => 'files',
+            'file'  => 'files',
         ],
     ],
 
@@ -244,27 +244,27 @@ return [
         'connection' => '',
 
         // User tables and model.
-        'users_table' => 'users',
+        'users_table' => 'admin_users',
         'users_model' => Dcat\Admin\Models\Administrator::class,
 
         // Role table and model.
-        'roles_table' => 'roles',
+        'roles_table' => 'admin_roles',
         'roles_model' => Dcat\Admin\Models\Role::class,
 
         // Permission table and model.
-        'permissions_table' => 'permissions',
+        'permissions_table' => 'admin_permissions',
         'permissions_model' => Dcat\Admin\Models\Permission::class,
 
         // Menu table and model.
-        'menu_table' => 'menu',
+        'menu_table' => 'admin_menu',
         'menu_model' => Dcat\Admin\Models\Menu::class,
 
         // Pivot table for table above.
-        'operation_log_table' => 'operation_log',
-        'role_users_table' => 'role_users',
-        'role_permissions_table' => 'role_permissions',
-        'role_menu_table' => 'role_menu',
-        'permission_menu_table' => 'permission_menu',
+        'operation_log_table'    => 'admin_operation_log',
+        'role_users_table'       => 'admin_role_users',
+        'role_permissions_table' => 'admin_role_permissions',
+        'role_menu_table'        => 'admin_role_menu',
+        'permission_menu_table'  => 'admin_permission_menu',
     ],
 
     /*
@@ -324,14 +324,14 @@ return [
         // indigo, blue, blue-light, blue-dark, green
         'color' => 'indigo',
 
-        'body_class' => 'dark-mode',
+        'body_class' => '',
 
         'sidebar_collapsed' => false,
 
         // light, primary, dark
         'sidebar_style' => 'light',
 
-        'dark_mode_switch' => true,
+        'dark_mode_switch' => false,
 
         // bg-primary, bg-info, bg-warning, bg-success, bg-danger, bg-dark
         'navbar_color' => '',

@@ -21,9 +21,8 @@ class CreateSoftwareTable extends Migration
             $table->string('version');  //版本
             $table->integer('vendor_id');   //供应商
             $table->double('price');    //价格
-            $table->integer('purchased');   //购买日
-            $table->integer('expired'); //有效期
-            $table->
+            $table->dateTime('purchased');   //购买日
+            $table->dateTime('expired'); //有效期
 
             $table->timestamps();
         });
