@@ -10,41 +10,22 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="431f6f14-c5a8-4d38-b8a5-0cd525f182bb" name="默认的" comment="软件分类&amp;软件记录&amp;供应商记录">
-      <change afterPath="$PROJECT_DIR$/app/Admin/Controllers/HardwareCategoryController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Admin/Repositories/HardwareCategory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/HardwareCategory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_09_15_141306_create_hardware_categories_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_09_15_150921_create_device_categories_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/lang/zh-CN/hardware-category.php" afterDir="false" />
+    <list default="true" id="431f6f14-c5a8-4d38-b8a5-0cd525f182bb" name="默认的" comment="硬件分类&amp;硬件记录&amp;设备分类&amp;更新翻译">
+      <change afterPath="$PROJECT_DIR$/app/Admin/Controllers/StaffDepartmentController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Admin/Repositories/StaffDepartment.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/StaffDepartment.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_09_15_152016_create_device_records_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_09_15_152511_create_software_tracks_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_09_15_153901_create_hardware_tracks_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_09_15_155021_create_staff_tracks_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_09_15_155308_create_staff_departments_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_09_15_155508_create_staff_records_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/lang/zh-CN/staff-department.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Admin/Controllers/SoftwareCategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Controllers/SoftwareCategoryController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Admin/Controllers/SoftwareController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Controllers/SoftwareRecordController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Admin/Controllers/VendorController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Controllers/VendorRecordController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Admin/Repositories/Software.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Repositories/SoftwareRecord.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Admin/Repositories/Vendor.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Repositories/VendorRecord.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Admin/routes.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/routes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Software.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/SoftwareRecord.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Vendor.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/VendorRecord.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_15_130705_create_vendor_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_15_130705_create_vendor_records_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_15_134234_create_software_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_15_134234_create_software_records_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Libraries/Data.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Libraries/Data.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dcat_admin_ide_helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/dcat_admin_ide_helper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/editor-md/lib/codemirror/mode/slim/slim.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/editor-md/lib/codemirror/mode/slim/slim.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/editor-md/lib/codemirror/mode/slim/test.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/editor-md/lib/codemirror/mode/slim/test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/editor-md/lib/codemirror/mode/stylus/stylus.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/editor-md/lib/codemirror/mode/stylus/stylus.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/editor-md/lib/codemirror/theme/xq-dark.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/editor-md/lib/codemirror/theme/xq-dark.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/editor-md/lib/codemirror/theme/xq-light.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/editor-md/lib/codemirror/theme/xq-light.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/webuploader/webuploader.custom.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/webuploader/webuploader.custom.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/webuploader/webuploader.fis.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/webuploader/webuploader.fis.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/webuploader/webuploader.html5only.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/webuploader/webuploader.html5only.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/webuploader/webuploader.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/webuploader/webuploader.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/webuploader/webuploader.nolog.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/webuploader/webuploader.nolog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors/dcat-admin/vendors/js/extensions/shepherd.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors/dcat-admin/vendors/js/extensions/shepherd.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors/dcat-admin/vendors/js/forms/extended/typeahead/handlebars.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors/dcat-admin/vendors/js/forms/extended/typeahead/handlebars.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors/dcat-admin/vendors/js/forms/toggle/switchery.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors/dcat-admin/vendors/js/forms/toggle/switchery.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/lang/zh-CN/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/zh-CN/admin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/zh-CN/software.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/zh-CN/software-record.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/zh-CN/vendor.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/zh-CN/vendor-record.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -211,7 +192,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1600142551989</updated>
-      <workItem from="1600142553779" duration="9421000" />
+      <workItem from="1600142553779" duration="13956000" />
     </task>
     <task id="LOCAL-00001" summary="初始化框架">
       <created>1600143374763</created>
@@ -227,7 +208,14 @@
       <option name="project" value="LOCAL" />
       <updated>1600150286559</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="硬件分类&amp;硬件记录&amp;设备分类&amp;更新翻译">
+      <created>1600154367390</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1600154367390</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -250,7 +238,8 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="初始化框架" />
     <MESSAGE value="软件分类&amp;软件记录&amp;供应商记录" />
-    <option name="LAST_COMMIT_MESSAGE" value="软件分类&amp;软件记录&amp;供应商记录" />
+    <MESSAGE value="硬件分类&amp;硬件记录&amp;设备分类&amp;更新翻译" />
+    <option name="LAST_COMMIT_MESSAGE" value="硬件分类&amp;硬件记录&amp;设备分类&amp;更新翻译" />
   </component>
   <component name="WindowStateProjectService">
     <state x="660" y="430" key="#Composer" timestamp="1600142575667">

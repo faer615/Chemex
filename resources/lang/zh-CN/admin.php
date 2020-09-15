@@ -232,6 +232,9 @@ return [
         'hardware_records' => '硬件',
         'device_management' => '设备管理',
         'device_categories' => '设备分类',
-        'device_records' => '设备'
+        'device_records' => '设备',
+        'staff_management' => '雇员管理',
+        'staff_departments' => '部门',
+        'staff_records' => '雇员',
     ],
 ];

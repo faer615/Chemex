@@ -15,4 +15,13 @@ class Data
             'b' => '商业授权'
         ];
     }
+
+    static function genders()
+    {
+        return [
+            '无' => '无',
+            '男' => '男',
+            '女' => '女'
+        ];
+    }
 }

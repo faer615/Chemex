@@ -18,4 +18,6 @@ Route::group([
     $router->resource('/hardware/records', 'HardwareRecordController');
     $router->resource('/hardware/categories', 'HardwareCategoryController');
     $router->resource('/vendor/records', 'VendorRecordController');
+    $router->resource('/staff/records', 'StaffRecordController');
+    $router->resource('/staff/departments', 'StaffDepartmentController');
 });
