@@ -10,18 +10,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="431f6f14-c5a8-4d38-b8a5-0cd525f182bb" name="默认的" comment="雇员管理&amp;雇员&amp;部门&amp;数据库迁移文件">
-      <change afterPath="$PROJECT_DIR$/app/Admin/Controllers/DeviceRecordController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Admin/Repositories/DeviceRecord.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/DeviceRecord.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/lang/zh-CN/device-record.php" afterDir="false" />
+    <list default="true" id="431f6f14-c5a8-4d38-b8a5-0cd525f182bb" name="默认的" comment="更新README&amp;设备记录">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Admin/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Controllers/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Admin/Controllers/SoftwareRecordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Controllers/SoftwareRecordController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Admin/routes.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/routes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dcat_admin_ide_helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/dcat_admin_ide_helper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Admin/Controllers/DeviceRecordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Controllers/DeviceRecordController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_15_152016_create_device_records_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_15_152016_create_device_records_table.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,7 +163,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../dcat-admin" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -195,7 +187,7 @@
       <option name="presentableId" value="Default" />
       <updated>1600142551989</updated>
       <workItem from="1600142553779" duration="14254000" />
-      <workItem from="1600163988237" duration="6145000" />
+      <workItem from="1600163988237" duration="12390000" />
     </task>
     <task id="LOCAL-00001" summary="初始化框架">
       <created>1600143374763</created>
@@ -225,7 +217,14 @@
       <option name="project" value="LOCAL" />
       <updated>1600159063975</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="更新README&amp;设备记录">
+      <created>1600171347253</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1600171347253</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -251,7 +250,8 @@
     <MESSAGE value="软件分类&amp;软件记录&amp;供应商记录" />
     <MESSAGE value="硬件分类&amp;硬件记录&amp;设备分类&amp;更新翻译" />
     <MESSAGE value="雇员管理&amp;雇员&amp;部门&amp;数据库迁移文件" />
-    <option name="LAST_COMMIT_MESSAGE" value="雇员管理&amp;雇员&amp;部门&amp;数据库迁移文件" />
+    <MESSAGE value="更新README&amp;设备记录" />
+    <option name="LAST_COMMIT_MESSAGE" value="更新README&amp;设备记录" />
   </component>
   <component name="WindowStateProjectService">
     <state x="660" y="430" key="#Composer" timestamp="1600142575667">
@@ -262,13 +262,30 @@
       <screen x="0" y="0" width="1714" height="1103" />
     </state>
     <state x="519" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1714.1103@0.0.1714.1103" timestamp="1600151026832" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1600172665698">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1600172665698" />
     <state x="628" y="272" key="NewPhpClassDialog" timestamp="1600149652487">
       <screen x="0" y="0" width="1714" height="1103" />
     </state>
     <state x="628" y="272" key="NewPhpClassDialog/0.0.1714.1103@0.0.1714.1103" timestamp="1600149652487" />
-    <state x="514" y="257" key="run.anything.popup" timestamp="1600143101426">
-      <screen x="0" y="0" width="1714" height="1103" />
+    <state x="785" y="443" key="NewPhpFileDialog" timestamp="1600174024634">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="785" y="443" key="NewPhpFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1600174024634" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1600171349314">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1600171349314" />
+    <state x="822" y="54" width="623" height="891" key="find.popup" timestamp="1600174782284">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="822" y="54" width="623" height="891" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1600174782284" />
+    <state x="576" y="242" key="run.anything.popup" timestamp="1600174623091">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="514" y="257" key="run.anything.popup/0.0.1714.1103@0.0.1714.1103" timestamp="1600143101425" />
+    <state x="576" y="242" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1600174623091" />
   </component>
 </project>

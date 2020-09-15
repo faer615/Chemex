@@ -3,6 +3,8 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Repositories\DeviceRecord;
+use App\Models\DeviceCategory;
+use App\Models\VendorRecord;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
@@ -23,6 +25,7 @@ class DeviceRecordController extends AdminController
             $grid->column('description');
             $grid->column('category_id');
             $grid->column('vendor_id');
+            $grid->column('sn');
             $grid->column('mac');
             $grid->column('ip');
 
@@ -48,6 +51,7 @@ class DeviceRecordController extends AdminController
             $show->field('description');
             $show->field('category_id');
             $show->field('vendor_id');
+            $show->field('sn');
             $show->field('mac');
             $show->field('ip');
             $show->field('created_at');
@@ -64,12 +68,13 @@ class DeviceRecordController extends AdminController
     {
         return Form::make(new DeviceRecord(), function (Form $form) {
             $form->display('id');
-            $form->text('name');
+            $form->text('name')->required();
             $form->text('description');
-            $form->text('category_id');
-            $form->text('vendor_id');
-            $form->text('mac');
-            $form->text('ip');
+            $form->select('category_id')->options(DeviceCategory::all()->pluck('name', 'id'));
+            $form->select('vendor_id')->options(VendorRecord::all()->pluck('name', 'id'));
+            $form->text('sn');
+            $form->switch('mac')->blue();
+            $form->ip('ip');
 
             $form->display('created_at');
             $form->display('updated_at');

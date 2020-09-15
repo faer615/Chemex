@@ -19,6 +19,7 @@ class CreateDeviceRecordsTable extends Migration
             $table->string('description');
             $table->integer('category_id');
             $table->integer('vendor_id');
+            $table->string('sn');
             $table->string('mac');
             $table->string('ip');
             $table->softDeletes();
