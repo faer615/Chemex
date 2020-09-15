@@ -7,9 +7,7 @@
  *
  * @author jqh <841324345@qq.com>
  */
-
 namespace Dcat\Admin {
-
     use Illuminate\Support\Collection;
 
     /**
@@ -44,6 +42,8 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection password
      * @property Grid\Column|Collection avatar
      * @property Grid\Column|Collection remember_token
+     * @property Grid\Column|Collection sort
+     * @property Grid\Column|Collection deleted_at
      * @property Grid\Column|Collection uuid
      * @property Grid\Column|Collection connection
      * @property Grid\Column|Collection queue
@@ -52,14 +52,13 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection failed_at
      * @property Grid\Column|Collection category_id
      * @property Grid\Column|Collection vendor_id
+     * @property Grid\Column|Collection specification
+     * @property Grid\Column|Collection sn
      * @property Grid\Column|Collection price
      * @property Grid\Column|Collection purchased
      * @property Grid\Column|Collection expired
      * @property Grid\Column|Collection distribution
-     * @property Grid\Column|Collection deleted_at
-     * @property Grid\Column|Collection sort
-     * @property Grid\Column|Collection name_chs
-     * @property Grid\Column|Collection name_en
+     * @property Grid\Column|Collection counts
      * @property Grid\Column|Collection location
      *
      * @method Grid\Column|Collection name(string $label = null)
@@ -69,7 +68,7 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection enable(string $label = null)
      * @method Grid\Column|Collection imported(string $label = null)
      * @method Grid\Column|Collection config(string $label = null)
-     * @method Grid\Column|Collection require (string $label = null)
+     * @method Grid\Column|Collection require(string $label = null)
      * @method Grid\Column|Collection require_dev(string $label = null)
      * @method Grid\Column|Collection id(string $label = null)
      * @method Grid\Column|Collection parent_id(string $label = null)
@@ -93,6 +92,8 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection password(string $label = null)
      * @method Grid\Column|Collection avatar(string $label = null)
      * @method Grid\Column|Collection remember_token(string $label = null)
+     * @method Grid\Column|Collection sort(string $label = null)
+     * @method Grid\Column|Collection deleted_at(string $label = null)
      * @method Grid\Column|Collection uuid(string $label = null)
      * @method Grid\Column|Collection connection(string $label = null)
      * @method Grid\Column|Collection queue(string $label = null)
@@ -101,23 +102,18 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection failed_at(string $label = null)
      * @method Grid\Column|Collection category_id(string $label = null)
      * @method Grid\Column|Collection vendor_id(string $label = null)
+     * @method Grid\Column|Collection specification(string $label = null)
+     * @method Grid\Column|Collection sn(string $label = null)
      * @method Grid\Column|Collection price(string $label = null)
      * @method Grid\Column|Collection purchased(string $label = null)
      * @method Grid\Column|Collection expired(string $label = null)
      * @method Grid\Column|Collection distribution(string $label = null)
-     * @method Grid\Column|Collection deleted_at(string $label = null)
-     * @method Grid\Column|Collection sort(string $label = null)
-     * @method Grid\Column|Collection name_chs(string $label = null)
-     * @method Grid\Column|Collection name_en(string $label = null)
+     * @method Grid\Column|Collection counts(string $label = null)
      * @method Grid\Column|Collection location(string $label = null)
      */
-    class Grid
-    {
-    }
+    class Grid {}
 
-    class MiniGrid extends Grid
-    {
-    }
+    class MiniGrid extends Grid {}
 
     /**
      * @property Show\Field|Collection name
@@ -151,6 +147,8 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection password
      * @property Show\Field|Collection avatar
      * @property Show\Field|Collection remember_token
+     * @property Show\Field|Collection sort
+     * @property Show\Field|Collection deleted_at
      * @property Show\Field|Collection uuid
      * @property Show\Field|Collection connection
      * @property Show\Field|Collection queue
@@ -159,14 +157,13 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection failed_at
      * @property Show\Field|Collection category_id
      * @property Show\Field|Collection vendor_id
+     * @property Show\Field|Collection specification
+     * @property Show\Field|Collection sn
      * @property Show\Field|Collection price
      * @property Show\Field|Collection purchased
      * @property Show\Field|Collection expired
      * @property Show\Field|Collection distribution
-     * @property Show\Field|Collection deleted_at
-     * @property Show\Field|Collection sort
-     * @property Show\Field|Collection name_chs
-     * @property Show\Field|Collection name_en
+     * @property Show\Field|Collection counts
      * @property Show\Field|Collection location
      *
      * @method Show\Field|Collection name(string $label = null)
@@ -176,7 +173,7 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection enable(string $label = null)
      * @method Show\Field|Collection imported(string $label = null)
      * @method Show\Field|Collection config(string $label = null)
-     * @method Show\Field|Collection require (string $label = null)
+     * @method Show\Field|Collection require(string $label = null)
      * @method Show\Field|Collection require_dev(string $label = null)
      * @method Show\Field|Collection id(string $label = null)
      * @method Show\Field|Collection parent_id(string $label = null)
@@ -200,6 +197,8 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection password(string $label = null)
      * @method Show\Field|Collection avatar(string $label = null)
      * @method Show\Field|Collection remember_token(string $label = null)
+     * @method Show\Field|Collection sort(string $label = null)
+     * @method Show\Field|Collection deleted_at(string $label = null)
      * @method Show\Field|Collection uuid(string $label = null)
      * @method Show\Field|Collection connection(string $label = null)
      * @method Show\Field|Collection queue(string $label = null)
@@ -208,46 +207,39 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection failed_at(string $label = null)
      * @method Show\Field|Collection category_id(string $label = null)
      * @method Show\Field|Collection vendor_id(string $label = null)
+     * @method Show\Field|Collection specification(string $label = null)
+     * @method Show\Field|Collection sn(string $label = null)
      * @method Show\Field|Collection price(string $label = null)
      * @method Show\Field|Collection purchased(string $label = null)
      * @method Show\Field|Collection expired(string $label = null)
      * @method Show\Field|Collection distribution(string $label = null)
-     * @method Show\Field|Collection deleted_at(string $label = null)
-     * @method Show\Field|Collection sort(string $label = null)
-     * @method Show\Field|Collection name_chs(string $label = null)
-     * @method Show\Field|Collection name_en(string $label = null)
+     * @method Show\Field|Collection counts(string $label = null)
      * @method Show\Field|Collection location(string $label = null)
      */
-    class Show
-    {
-    }
+    class Show {}
 
     /**
+     
      */
-    class Form
-    {
-    }
+    class Form {}
 
 }
 
 namespace Dcat\Admin\Grid {
     /**
+     
      */
-    class Column
-    {
-    }
+    class Column {}
 
     /**
+     
      */
-    class Filter
-    {
-    }
+    class Filter {}
 }
 
 namespace Dcat\Admin\Show {
     /**
+     
      */
-    class Field
-    {
-    }
+    class Field {}
 }

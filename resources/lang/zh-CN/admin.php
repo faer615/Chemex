@@ -227,5 +227,11 @@ return [
         'vendor_management' => '供应商管理',
         'vendor_records' => '供应商',
         'software_records' => '软件',
+        'hardware_management' => '硬件管理',
+        'hardware_categories' => '硬件分类',
+        'hardware_records' => '硬件',
+        'device_management' => '设备管理',
+        'device_categories' => '设备分类',
+        'device_records' => '设备'
     ],
 ];

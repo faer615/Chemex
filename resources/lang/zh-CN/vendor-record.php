@@ -1,7 +1,7 @@
 <?php
 return [
     'labels' => [
-        'Vendor' => '供应商',
+        'VendorRecord' => '供应商',
     ],
     'fields' => [
         'name_chs' => '中文名',

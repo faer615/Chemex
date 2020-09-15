@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSoftwareTable extends Migration
+class CreateSoftwareRecordsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateSoftwareTable extends Migration
      */
     public function up()
     {
-        Schema::create('software', function (Blueprint $table) {
+        Schema::create('software_records', function (Blueprint $table) {
             $table->id();
             $table->string('name'); //软件名称
             $table->string('description')->nullable();  //软件描述
@@ -24,6 +24,8 @@ class CreateSoftwareTable extends Migration
             $table->date('purchased')->nullable();   //购买日
             $table->date('expired')->nullable(); //有效期
             $table->char('distribution')->default('u');   //分发方式,u未知，o开源，f免费，b商业
+            $table->string('sn')->nullable();   //序列号
+            $table->integer('counts')->default(1);  //授权数量
             $table->softDeletes();
             $table->timestamps();
         });
@@ -36,6 +38,6 @@ class CreateSoftwareTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('software');
+        Schema::dropIfExists('software_records');
     }
 }

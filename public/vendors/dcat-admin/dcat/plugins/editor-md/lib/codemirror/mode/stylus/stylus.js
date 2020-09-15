@@ -100,7 +100,7 @@
         }
       }
 
-      // Vendor prefixes
+      // VendorRecord prefixes
       if (stream.match(vendorPrefixesRegexp)) {
         return "meta";
       }

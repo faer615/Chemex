@@ -1,18 +1,26 @@
 <?php
 return [
     'labels' => [
-        'Software' => '软件',
+        'SoftwareRecord' => '软件',
+        'Category' => '分类',
+        'Vendor' => '供应商',
     ],
     'fields' => [
         'name' => '名称',
         'description' => '描述',
-        'category_id' => '分类',
+        'category' => [
+            'name' => '软件分类'
+        ],
         'version' => '版本',
-        'vendor_id' => '供应商',
+        'vendor' => [
+            'name' => '供应商'
+        ],
         'price' => '价格',
         'purchased' => '购入时间',
         'expired' => '过保时间',
         'distribution' => '发行方式',
+        'sn' => '序列号',
+        'counts' => '授权数量'
     ],
     'options' => [
     ],

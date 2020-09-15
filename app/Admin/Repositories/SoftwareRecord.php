@@ -2,10 +2,10 @@
 
 namespace App\Admin\Repositories;
 
-use App\Models\Vendor as Model;
+use App\Models\SoftwareRecord as Model;
 use Dcat\Admin\Repositories\EloquentRepository;
 
-class Vendor extends EloquentRepository
+class SoftwareRecord extends EloquentRepository
 {
     /**
      * Model.

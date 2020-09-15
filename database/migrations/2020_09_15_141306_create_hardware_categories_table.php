@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVendorTable extends Migration
+class CreateHardwareCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateVendorTable extends Migration
      */
     public function up()
     {
-        Schema::create('vendor', function (Blueprint $table) {
+        Schema::create('hardware_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); //供应商名称
-            $table->string('description')->nullable();  //描述
-            $table->string('location')->nullable(); //所在国家、地区
+            $table->string('name');
+            $table->string('description')->nullable();
+            $table->integer('sort')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });
@@ -30,6 +30,6 @@ class CreateVendorTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vendor');
+        Schema::dropIfExists('hardware_categories');
     }
 }

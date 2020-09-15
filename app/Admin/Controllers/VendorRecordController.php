@@ -2,13 +2,13 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Repositories\Vendor;
+use App\Admin\Repositories\VendorRecord;
 use Dcat\Admin\Controllers\AdminController;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
 
-class VendorController extends AdminController
+class VendorRecordController extends AdminController
 {
     /**
      * Make a grid builder.
@@ -17,7 +17,7 @@ class VendorController extends AdminController
      */
     protected function grid()
     {
-        return Grid::make(new Vendor(), function (Grid $grid) {
+        return Grid::make(new VendorRecord(), function (Grid $grid) {
             $grid->column('id')->sortable();
             $grid->column('name');
             $grid->column('description');
@@ -41,7 +41,7 @@ class VendorController extends AdminController
      */
     protected function detail($id)
     {
-        return Show::make($id, new Vendor(), function (Show $show) {
+        return Show::make($id, new VendorRecord(), function (Show $show) {
             $show->field('id');
             $show->field('name');
             $show->field('description');
@@ -58,7 +58,7 @@ class VendorController extends AdminController
      */
     protected function form()
     {
-        return Form::make(new Vendor(), function (Form $form) {
+        return Form::make(new VendorRecord(), function (Form $form) {
             $form->display('id');
             $form->text('name')->required();
             $form->text('description');

@@ -2,16 +2,16 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Repositories\Software;
+use App\Admin\Repositories\SoftwareRecord;
 use App\Libraries\Data;
 use App\Models\SoftwareCategory;
-use App\Models\Vendor;
+use App\Models\VendorRecord;
 use Dcat\Admin\Controllers\AdminController;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
 
-class SoftwareController extends AdminController
+class SoftwareRecordController extends AdminController
 {
     /**
      * Make a grid builder.
@@ -20,7 +20,7 @@ class SoftwareController extends AdminController
      */
     protected function grid()
     {
-        return Grid::make(new Software(['category', 'vendor']), function (Grid $grid) {
+        return Grid::make(new SoftwareRecord(['category', 'vendor']), function (Grid $grid) {
             $grid->column('id')->sortable();
             $grid->column('name');
             $grid->column('description');
@@ -48,7 +48,7 @@ class SoftwareController extends AdminController
      */
     protected function detail($id)
     {
-        return Show::make($id, new Software(['category', 'vendor']), function (Show $show) {
+        return Show::make($id, new SoftwareRecord(['category', 'vendor']), function (Show $show) {
             $show->field('id');
             $show->field('name');
             $show->field('description');
@@ -71,7 +71,7 @@ class SoftwareController extends AdminController
      */
     protected function form()
     {
-        return Form::make(new Software(), function (Form $form) {
+        return Form::make(new SoftwareRecord(), function (Form $form) {
             $form->display('id');
             $form->text('name')->required();
             $form->text('description');
@@ -80,7 +80,7 @@ class SoftwareController extends AdminController
                 ->required();
             $form->text('version')->required();
             $form->select('vendor_id')
-                ->options(Vendor::all()->pluck('name', 'id'))
+                ->options(VendorRecord::all()->pluck('name', 'id'))
                 ->required();
             $form->currency('price');
             $form->date('purchased');
@@ -89,6 +89,12 @@ class SoftwareController extends AdminController
                 ->options(Data::distribution())
                 ->default('u')
                 ->required();
+            $form->text('sn');
+            $form->number('counts')
+                ->min(-1)
+                ->default(1)
+                ->required()
+                ->help('"-1"表示无限制。');
             $form->display('created_at');
             $form->display('updated_at');
         });

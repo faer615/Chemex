@@ -2,13 +2,15 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Repositories\SoftwareCategory;
+use App\Admin\Repositories\HardwareRecord;
+use App\Models\HardwareCategory;
+use App\Models\VendorRecord;
 use Dcat\Admin\Controllers\AdminController;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
 
-class SoftwareCategoryController extends AdminController
+class HardwareRecordController extends AdminController
 {
     /**
      * Make a grid builder.
@@ -17,11 +19,14 @@ class SoftwareCategoryController extends AdminController
      */
     protected function grid()
     {
-        return Grid::make(new SoftwareCategory(), function (Grid $grid) {
+        return Grid::make(new HardwareRecord(['category', 'vendor']), function (Grid $grid) {
             $grid->column('id')->sortable();
             $grid->column('name');
             $grid->column('description');
-            $grid->column('sort');
+            $grid->column('category.name');
+            $grid->column('vendor.name');
+            $grid->column('specification');
+            $grid->column('sn');
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
 
@@ -41,11 +46,14 @@ class SoftwareCategoryController extends AdminController
      */
     protected function detail($id)
     {
-        return Show::make($id, new SoftwareCategory(), function (Show $show) {
+        return Show::make($id, new HardwareRecord(['category', 'vendor']), function (Show $show) {
             $show->field('id');
             $show->field('name');
             $show->field('description');
-            $show->field('sort');
+            $show->field('category.name');
+            $show->field('vendor.name');
+            $show->field('specification');
+            $show->field('sn');
             $show->field('created_at');
             $show->field('updated_at');
         });
@@ -58,13 +66,20 @@ class SoftwareCategoryController extends AdminController
      */
     protected function form()
     {
-        return Form::make(new SoftwareCategory(), function (Form $form) {
+        return Form::make(new HardwareRecord(), function (Form $form) {
             $form->display('id');
             $form->text('name')->required();
             $form->text('description');
-            $form->number('sort')
-                ->min(0)
-                ->help('注意：数字越大，排序越靠前。');
+            $form->select('category_id')
+                ->options(HardwareCategory::all()
+                    ->pluck('name', 'id'))
+                ->required();
+            $form->select('vendor_id')
+                ->options(VendorRecord::all()
+                    ->pluck('name', 'id'))
+                ->required();
+            $form->text('specification')->required();
+            $form->text('sn');
 
             $form->display('created_at');
             $form->display('updated_at');
