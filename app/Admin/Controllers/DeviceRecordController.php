@@ -5,12 +5,14 @@ namespace App\Admin\Controllers;
 use App\Admin\Actions\Grid\DeviceRelatedAction;
 use App\Admin\Actions\Grid\DeviceTrackAction;
 use App\Admin\Repositories\DeviceRecord;
+use App\Libraries\InfoHelper;
 use App\Libraries\TrackHelper;
 use App\Models\DeviceCategory;
 use App\Models\VendorRecord;
 use Dcat\Admin\Controllers\AdminController;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
+use Dcat\Admin\Grid\Tools\Selector;
 use Dcat\Admin\Show;
 
 class DeviceRecordController extends AdminController
@@ -34,14 +36,37 @@ class DeviceRecordController extends AdminController
             $grid->column('sn');
             $grid->column('mac');
             $grid->column('ip');
-            $grid->column('', admin_trans_label('Owner'))->display(function () {
-                return TrackHelper::currentDeviceTrack($this->id);
+            $grid->column('owner')->display(function () {
+                $res = TrackHelper::currentDeviceTrackStaff($this->id);
+                switch ($res) {
+                    case -1:
+                        return '雇员失踪';
+                    case 0:
+                        return '闲置';
+                    default:
+                        return InfoHelper::staffIdToName($res);
+                }
+            });
+            $grid->column('department')->display(function () {
+                $res = TrackHelper::currentDeviceTrackStaff($this->id);
+                if ($res < 0) {
+                    return '';
+                }
+                return InfoHelper::staffIdToDepartmentName($res);
             });
 
             $grid->actions([new DeviceTrackAction(), new DeviceRelatedAction()]);
 
-            $grid->filter(function (Grid\Filter $filter) {
-                $filter->equal('id');
+            $grid->quickSearch('id', 'name')
+                ->placeholder('输入ID或者名称以搜索')
+                ->auto(false);
+
+            $grid->selector(function (Selector $selector) {
+                $selector->select('category_id', '设备分类', DeviceCategory::all()->pluck('name', 'id'));
+                $selector->select('vendor_id', '制造商', VendorRecord::all()->pluck('name', 'id'));
+//                $selector->select('staff', '使用状态', function ($query, $value) {
+//
+//                });
             });
         });
     }

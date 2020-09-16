@@ -2,7 +2,6 @@
 return [
     'labels' => [
         'DeviceRecord' => '设备',
-        'Owner' => '使用者',
         'Category' => '分类',
         'Vendor' => '制造商'
     ],
@@ -19,6 +18,8 @@ return [
         'sn' => '序列号',
         'mac' => 'MAC',
         'ip' => 'IP',
+        'owner' => '雇员',
+        'department' => '部门'
     ],
     'options' => [
     ],

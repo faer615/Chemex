@@ -10,70 +10,18 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="431f6f14-c5a8-4d38-b8a5-0cd525f182bb" name="默认的" comment="设备分配使用者&amp;硬件归属&amp;UI优化">
-      <change afterPath="$PROJECT_DIR$/app/Admin/Actions/Grid/DeviceRelatedAction.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Admin/Actions/Grid/SoftwareTrackAction.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Admin/Controllers/SoftwareTrackController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Admin/Forms/SoftwareTrackForm.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Admin/Repositories/SoftwareTrack.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/SoftwareTrack.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/lang/zh-CN/software-track.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/device_related.blade.php" afterDir="false" />
+    <list default="true" id="431f6f14-c5a8-4d38-b8a5-0cd525f182bb" name="默认的" comment="设备下所有归属的软硬件&amp;更新翻译&amp;优化代码结构&amp;二维码">
+      <change afterPath="$PROJECT_DIR$/app/Libraries/InfoHelper.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Libraries/Network.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Admin/Controllers/DeviceRecordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Controllers/DeviceRecordController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Admin/Controllers/DeviceTrackController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Controllers/DeviceTrackController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Admin/Controllers/HardwareRecordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Controllers/HardwareRecordController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Admin/Controllers/HardwareTrackController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Controllers/HardwareTrackController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Admin/Controllers/SoftwareRecordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Controllers/SoftwareRecordController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Admin/Metrics/Examples/NewDevices.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Metrics/Examples/NewDevices.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Admin/Metrics/Examples/NewUsers.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Metrics/Examples/NewUsers.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Admin/Metrics/Examples/ProductOrders.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Metrics/Examples/ProductOrders.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Admin/Metrics/Examples/Sessions.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Metrics/Examples/Sessions.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Admin/Metrics/Examples/Tickets.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Metrics/Examples/Tickets.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Admin/Metrics/Examples/TotalUsers.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Metrics/Examples/TotalUsers.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Admin/bootstrap.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/bootstrap.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Admin/routes.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/routes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Console/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/Authenticate.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/Authenticate.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/RedirectIfAuthenticated.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/RedirectIfAuthenticated.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Admin/Controllers/StaffRecordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Controllers/StaffRecordController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Admin/Controllers/VendorRecordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Controllers/VendorRecordController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Libraries/TrackHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Libraries/TrackHelper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/DeviceCategory.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/DeviceCategory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/DeviceRecord.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/DeviceRecord.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/HardwareCategory.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/HardwareCategory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/EventServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/EventServiceProvider.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/admin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/cache.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/cache.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/database.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/database.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/filesystems.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/filesystems.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/session.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/session.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_15_130705_create_vendor_records_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_15_130705_create_vendor_records_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_15_134234_create_software_records_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_15_134234_create_software_records_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/extra/action.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/extra/action.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/extra/grid-extend.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/extra/grid-extend.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/extra/resource-selector.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/extra/resource-selector.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/extra/select-table.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/extra/select-table.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/extra/upload.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/extra/upload.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/js/dcat-app.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/js/dcat-app.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/editor-md/css/editormd.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/editor-md/css/editormd.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/editor-md/css/editormd.logo.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/editor-md/css/editormd.logo.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/editor-md/css/editormd.preview.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/editor-md/css/editormd.preview.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/editor-md/lib/codemirror/lib/codemirror.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/editor-md/lib/codemirror/lib/codemirror.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/editor-md/lib/codemirror/lib/codemirror.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/editor-md/lib/codemirror/lib/codemirror.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/editor-md/lib/codemirror/mode/d/d.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/editor-md/lib/codemirror/mode/d/d.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/nestable/jquery.nestable.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/nestable/jquery.nestable.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/nestable/nestable.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/nestable/nestable.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/tinymce/langs/zh-CN.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/tinymce/langs/zh-CN.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/tinymce/plugins/emoticons/js/emojis.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/tinymce/plugins/emoticons/js/emojis.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/zh-CN/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/zh-CN/admin.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/lang/zh-CN/device-record.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/zh-CN/device-record.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/zh-CN/hardware-record.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/zh-CN/hardware-record.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/zh-CN/software-record.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/zh-CN/software-record.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/zh-CN/vendor-record.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/zh-CN/vendor-record.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/CreatesApplication.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/CreatesApplication.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Feature/ExampleTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/ExampleTest.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -253,7 +201,7 @@
       <workItem from="1600142553779" duration="14254000" />
       <workItem from="1600163988237" duration="12390000" />
       <workItem from="1600214725278" duration="790000" />
-      <workItem from="1600216131581" duration="18312000" />
+      <workItem from="1600216131581" duration="21910000" />
     </task>
     <task id="LOCAL-00001" summary="初始化框架">
       <created>1600143374763</created>
@@ -297,7 +245,14 @@
       <option name="project" value="LOCAL" />
       <updated>1600223778043</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="设备下所有归属的软硬件&amp;更新翻译&amp;优化代码结构&amp;二维码">
+      <created>1600238734628</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1600238734628</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -325,7 +280,8 @@
     <MESSAGE value="雇员管理&amp;雇员&amp;部门&amp;数据库迁移文件" />
     <MESSAGE value="更新README&amp;设备记录" />
     <MESSAGE value="设备分配使用者&amp;硬件归属&amp;UI优化" />
-    <option name="LAST_COMMIT_MESSAGE" value="设备分配使用者&amp;硬件归属&amp;UI优化" />
+    <MESSAGE value="设备下所有归属的软硬件&amp;更新翻译&amp;优化代码结构&amp;二维码" />
+    <option name="LAST_COMMIT_MESSAGE" value="设备下所有归属的软硬件&amp;更新翻译&amp;优化代码结构&amp;二维码" />
   </component>
   <component name="WindowStateProjectService">
     <state x="660" y="430" key="#Composer" timestamp="1600142575667">
@@ -344,10 +300,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1600172665698" />
-    <state x="628" y="272" key="NewPhpClassDialog" timestamp="1600220774976">
+    <state x="628" y="272" key="NewPhpClassDialog" timestamp="1600240607280">
       <screen x="0" y="0" width="1714" height="1103" />
     </state>
-    <state x="628" y="272" key="NewPhpClassDialog/0.0.1714.1103@0.0.1714.1103" timestamp="1600220774976" />
+    <state x="628" y="272" key="NewPhpClassDialog/0.0.1714.1103@0.0.1714.1103" timestamp="1600240607280" />
     <state x="701" y="470" key="NewPhpFileDialog" timestamp="1600233898515">
       <screen x="0" y="0" width="1714" height="1103" />
     </state>
@@ -357,10 +313,10 @@
       <screen x="0" y="0" width="1714" height="1103" />
     </state>
     <state x="359" y="196" key="SettingsEditor/0.0.1714.1103@0.0.1714.1103" timestamp="1600216206166" />
-    <state x="493" y="268" key="Vcs.Push.Dialog.v2" timestamp="1600223797053">
+    <state x="493" y="268" key="Vcs.Push.Dialog.v2" timestamp="1600238738138">
       <screen x="0" y="0" width="1714" height="1103" />
     </state>
-    <state x="493" y="268" key="Vcs.Push.Dialog.v2/0.0.1714.1103@0.0.1714.1103" timestamp="1600223797053" />
+    <state x="493" y="268" key="Vcs.Push.Dialog.v2/0.0.1714.1103@0.0.1714.1103" timestamp="1600238738138" />
     <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1600171349314" />
     <state x="734" y="57" width="563" height="945" key="find.popup" timestamp="1600235073083">
       <screen x="0" y="0" width="1714" height="1103" />

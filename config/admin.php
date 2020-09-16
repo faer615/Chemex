@@ -22,7 +22,7 @@ return [
     | `img` tag, eg '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    '<img alt="logo" src="/vendors/dcat-admin/images/logo.png"> &nbsp;Celestial',
+    'logo' => '<img src="/vendors/dcat-admin/images/logo.png"> &nbsp;Celestial',
 
     /*
     |--------------------------------------------------------------------------
