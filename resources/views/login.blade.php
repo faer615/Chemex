@@ -143,7 +143,7 @@
     }
 
     .background {
-        background: url("https://oss.liujunyang.com/images/background.png") top center;
+        background: url("https://oss.liujunyang.com/images/cache/5f61d03c14f37_5f61d03d85aa8.png") top center;
     }
 
     .login-box {
