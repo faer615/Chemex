@@ -158,7 +158,7 @@
         background-repeat: no-repeat;
         background-position: center 0;
         background-size: cover;
-        background-image: url("static/images/background.jpg");
+        background-image: url("/static/images/background.jpg");
     }
 
     .login-box {
