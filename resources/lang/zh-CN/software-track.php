@@ -1,7 +1,7 @@
 <?php
 return [
     'labels' => [
-        'SoftwareTrack' => 'SoftwareTrack',
+        'SoftwareTrack' => '软件追踪',
     ],
     'fields' => [
         'software_id' => '软件',

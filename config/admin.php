@@ -11,7 +11,7 @@ return [
     | login page.
     |
     */
-    'name' => 'Celestial',
+    'name' => '星空运维',
 
     /*
     |--------------------------------------------------------------------------
@@ -22,7 +22,7 @@ return [
     | `img` tag, eg '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo' => '<img src="/vendors/dcat-admin/images/logo.png"> &nbsp;Celestial',
+    'logo' => '<img src="/static/images/logo.png"> &nbsp;星空运维',
 
     /*
     |--------------------------------------------------------------------------
@@ -34,7 +34,7 @@ return [
     | '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo-mini' => '<img src="/vendors/dcat-admin/images/logo.png">',
+    'logo-mini' => '<img src="/static/images/logo.png">',
 
     /*
      |--------------------------------------------------------------------------
@@ -85,7 +85,7 @@ return [
     | Html title for all pages.
     |
     */
-    'title' => 'Celestial',
+    'title' => '星空运维',
 
     /*
     |--------------------------------------------------------------------------
@@ -322,7 +322,7 @@ return [
     */
     'layout' => [
         // indigo, blue, blue-light, blue-dark, green
-        'color' => 'indigo',
+        'color' => 'green',
 
         'body_class' => '',
 

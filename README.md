@@ -57,6 +57,10 @@ Celestial是完全免费且开源的，任何人都可以无限制的修改代�
 
 ## 截图
 
+![](https://oss.liujunyang.com/images/cache/screencapture-127-0-0-1-8000-auth-login-1600257365001.png)
+
+![](https://oss.liujunyang.com/images/cache/screencapture-127-0-0-1-8000-software-records-create-1600257882966.png)
+
 ![](https://oss.liujunyang.com/images/cache/screencapture-127-0-0-1-8000-admin-1600171136666.png)
 
 ![](https://oss.liujunyang.com/images/cache/screencapture-127-0-0-1-8000-admin-software-records-create-1600170694210.png)

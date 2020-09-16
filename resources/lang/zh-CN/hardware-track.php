@@ -1,7 +1,7 @@
 <?php
 return [
     'labels' => [
-        'HardwareTrack' => 'HardwareTrack',
+        'HardwareTrack' => '硬件追踪',
     ],
     'fields' => [
         'hardware_id' => '硬件',

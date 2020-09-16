@@ -1,5 +1,7 @@
 <div class="login-page">
-    <div class="left background"></div>
+    <div class="left background">
+
+    </div>
     <div class="right">
         <div class="login-box">
             <div class="login-logo mb-2">
@@ -134,6 +136,13 @@
         flex: 7;
         width: 100%;
         height: 100vh;
+        overflow: hidden;
+    }
+
+    @media screen and (max-width: 650px) {
+        .left {
+            display: none;
+        }
     }
 
     .right {
@@ -143,7 +152,13 @@
     }
 
     .background {
-        background: url("https://oss.liujunyang.com/images/cache/5f61d03c14f37_5f61d03d85aa8.png") top center;
+        width: 100%;
+        height: 100vh;
+        zoom: 1;
+        background-repeat: no-repeat;
+        background-position: center 0;
+        background-size: cover;
+        background-image: url("static/images/background.jpg");
     }
 
     .login-box {
