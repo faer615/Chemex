@@ -19,7 +19,7 @@ class CreateSoftwareRecordsTable extends Migration
             $table->string('description')->nullable();  //软件描述
             $table->integer('category_id'); //软件分类
             $table->string('version');  //版本
-            $table->integer('vendor_id');   //供应商
+            $table->integer('vendor_id');   //制造商
             $table->double('price')->nullable();    //价格
             $table->date('purchased')->nullable();   //购买日
             $table->date('expired')->nullable(); //有效期

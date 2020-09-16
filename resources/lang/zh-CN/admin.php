@@ -224,8 +224,8 @@ return [
          */
         'software_management' => '软件管理',
         'software_categories' => '软件分类',
-        'vendor_management' => '供应商管理',
-        'vendor_records' => '供应商',
+        'vendor_management' => '制造商管理',
+        'vendor_records' => '制造商',
         'software_records' => '软件',
         'hardware_management' => '硬件管理',
         'hardware_categories' => '硬件分类',

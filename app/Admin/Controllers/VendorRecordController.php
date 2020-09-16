@@ -25,10 +25,9 @@ class VendorRecordController extends AdminController
             $grid->column('created_at');
             $grid->column('updated_at');
 
-            $grid->filter(function (Grid\Filter $filter) {
-                $filter->equal('id');
-
-            });
+            $grid->quickSearch('id', 'name')
+                ->placeholder('输入ID或者名称以搜索')
+                ->auto(false);
         });
     }
 

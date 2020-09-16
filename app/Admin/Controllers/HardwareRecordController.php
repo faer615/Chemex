@@ -2,7 +2,9 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Grid\HardwareTrackAction;
 use App\Admin\Repositories\HardwareRecord;
+use App\Libraries\TrackHelper;
 use App\Models\HardwareCategory;
 use App\Models\VendorRecord;
 use Dcat\Admin\Controllers\AdminController;
@@ -20,20 +22,25 @@ class HardwareRecordController extends AdminController
     protected function grid()
     {
         return Grid::make(new HardwareRecord(['category', 'vendor']), function (Grid $grid) {
-            $grid->column('id')->sortable();
+            $grid->column('id');
+            $grid->column('qrcode')->qrcode(function () {
+                return 'hardware:' . $this->id;
+            }, 200, 200);
             $grid->column('name');
             $grid->column('description');
             $grid->column('category.name');
             $grid->column('vendor.name');
             $grid->column('specification');
             $grid->column('sn');
-            $grid->column('created_at');
-            $grid->column('updated_at')->sortable();
-
-            $grid->filter(function (Grid\Filter $filter) {
-                $filter->equal('id');
-
+            $grid->column('', admin_trans_label('Owner'))->display(function () {
+                return TrackHelper::currentHardwareTrack($this->id);
             });
+
+            $grid->actions([new HardwareTrackAction()]);
+
+            $grid->quickSearch('id', 'name')
+                ->placeholder('输入ID或者名称以搜索')
+                ->auto(false);
         });
     }
 

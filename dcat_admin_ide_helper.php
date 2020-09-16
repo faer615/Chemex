@@ -46,7 +46,10 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection deleted_at
      * @property Grid\Column|Collection category_id
      * @property Grid\Column|Collection vendor_id
+     * @property Grid\Column|Collection sn
      * @property Grid\Column|Collection mac
+     * @property Grid\Column|Collection device_id
+     * @property Grid\Column|Collection staff_id
      * @property Grid\Column|Collection uuid
      * @property Grid\Column|Collection connection
      * @property Grid\Column|Collection queue
@@ -54,9 +57,7 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection exception
      * @property Grid\Column|Collection failed_at
      * @property Grid\Column|Collection specification
-     * @property Grid\Column|Collection sn
      * @property Grid\Column|Collection hardware_id
-     * @property Grid\Column|Collection device_id
      * @property Grid\Column|Collection price
      * @property Grid\Column|Collection purchased
      * @property Grid\Column|Collection expired
@@ -67,7 +68,6 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection gender
      * @property Grid\Column|Collection mobile
      * @property Grid\Column|Collection email
-     * @property Grid\Column|Collection staff_id
      * @property Grid\Column|Collection location
      *
      * @method Grid\Column|Collection name(string $label = null)
@@ -105,7 +105,10 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection deleted_at(string $label = null)
      * @method Grid\Column|Collection category_id(string $label = null)
      * @method Grid\Column|Collection vendor_id(string $label = null)
+     * @method Grid\Column|Collection sn(string $label = null)
      * @method Grid\Column|Collection mac(string $label = null)
+     * @method Grid\Column|Collection device_id(string $label = null)
+     * @method Grid\Column|Collection staff_id(string $label = null)
      * @method Grid\Column|Collection uuid(string $label = null)
      * @method Grid\Column|Collection connection(string $label = null)
      * @method Grid\Column|Collection queue(string $label = null)
@@ -113,9 +116,7 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection exception(string $label = null)
      * @method Grid\Column|Collection failed_at(string $label = null)
      * @method Grid\Column|Collection specification(string $label = null)
-     * @method Grid\Column|Collection sn(string $label = null)
      * @method Grid\Column|Collection hardware_id(string $label = null)
-     * @method Grid\Column|Collection device_id(string $label = null)
      * @method Grid\Column|Collection price(string $label = null)
      * @method Grid\Column|Collection purchased(string $label = null)
      * @method Grid\Column|Collection expired(string $label = null)
@@ -126,7 +127,6 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection gender(string $label = null)
      * @method Grid\Column|Collection mobile(string $label = null)
      * @method Grid\Column|Collection email(string $label = null)
-     * @method Grid\Column|Collection staff_id(string $label = null)
      * @method Grid\Column|Collection location(string $label = null)
      */
     class Grid {}
@@ -169,7 +169,10 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection deleted_at
      * @property Show\Field|Collection category_id
      * @property Show\Field|Collection vendor_id
+     * @property Show\Field|Collection sn
      * @property Show\Field|Collection mac
+     * @property Show\Field|Collection device_id
+     * @property Show\Field|Collection staff_id
      * @property Show\Field|Collection uuid
      * @property Show\Field|Collection connection
      * @property Show\Field|Collection queue
@@ -177,9 +180,7 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection exception
      * @property Show\Field|Collection failed_at
      * @property Show\Field|Collection specification
-     * @property Show\Field|Collection sn
      * @property Show\Field|Collection hardware_id
-     * @property Show\Field|Collection device_id
      * @property Show\Field|Collection price
      * @property Show\Field|Collection purchased
      * @property Show\Field|Collection expired
@@ -190,7 +191,6 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection gender
      * @property Show\Field|Collection mobile
      * @property Show\Field|Collection email
-     * @property Show\Field|Collection staff_id
      * @property Show\Field|Collection location
      *
      * @method Show\Field|Collection name(string $label = null)
@@ -228,7 +228,10 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection deleted_at(string $label = null)
      * @method Show\Field|Collection category_id(string $label = null)
      * @method Show\Field|Collection vendor_id(string $label = null)
+     * @method Show\Field|Collection sn(string $label = null)
      * @method Show\Field|Collection mac(string $label = null)
+     * @method Show\Field|Collection device_id(string $label = null)
+     * @method Show\Field|Collection staff_id(string $label = null)
      * @method Show\Field|Collection uuid(string $label = null)
      * @method Show\Field|Collection connection(string $label = null)
      * @method Show\Field|Collection queue(string $label = null)
@@ -236,9 +239,7 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection exception(string $label = null)
      * @method Show\Field|Collection failed_at(string $label = null)
      * @method Show\Field|Collection specification(string $label = null)
-     * @method Show\Field|Collection sn(string $label = null)
      * @method Show\Field|Collection hardware_id(string $label = null)
-     * @method Show\Field|Collection device_id(string $label = null)
      * @method Show\Field|Collection price(string $label = null)
      * @method Show\Field|Collection purchased(string $label = null)
      * @method Show\Field|Collection expired(string $label = null)
@@ -249,7 +250,6 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection gender(string $label = null)
      * @method Show\Field|Collection mobile(string $label = null)
      * @method Show\Field|Collection email(string $label = null)
-     * @method Show\Field|Collection staff_id(string $label = null)
      * @method Show\Field|Collection location(string $label = null)
      */
     class Show {}
