@@ -15,7 +15,7 @@ class CreateVendorRecordsTable extends Migration
     {
         Schema::create('vendor_records', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); //供应商名称
+            $table->string('name'); //制造商名称
             $table->string('description')->nullable();  //描述
             $table->string('location')->nullable(); //所在国家、地区
             $table->softDeletes();

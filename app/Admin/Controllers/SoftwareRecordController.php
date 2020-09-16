@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Grid\SoftwareTrackAction;
 use App\Admin\Repositories\SoftwareRecord;
 use App\Libraries\Data;
 use App\Models\SoftwareCategory;
@@ -21,7 +22,10 @@ class SoftwareRecordController extends AdminController
     protected function grid()
     {
         return Grid::make(new SoftwareRecord(['category', 'vendor']), function (Grid $grid) {
-            $grid->column('id')->sortable();
+            $grid->column('id');
+            $grid->column('qrcode')->qrcode(function () {
+                return 'software:' . $this->id;
+            }, 200, 200);
             $grid->column('name');
             $grid->column('description');
             $grid->column('category.name');
@@ -32,9 +36,10 @@ class SoftwareRecordController extends AdminController
             $grid->column('expired');
             $grid->column('distribution')->using(Data::distribution());
 
+            $grid->actions([new SoftwareTrackAction()]);
+
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
-
             });
         });
     }
@@ -71,15 +76,15 @@ class SoftwareRecordController extends AdminController
      */
     protected function form()
     {
-        return Form::make(new SoftwareRecord(['category','vendor']), function (Form $form) {
+        return Form::make(new SoftwareRecord(['category', 'vendor']), function (Form $form) {
             $form->display('id');
             $form->text('name')->required();
             $form->text('description');
-            $form->select('category.name')
+            $form->select('category_id', admin_trans_label('Category'))
                 ->options(SoftwareCategory::all()->pluck('name', 'id'))
                 ->required();
             $form->text('version')->required();
-            $form->select('vendor.name')
+            $form->select('vendor_id', admin_trans_label('Vendor'))
                 ->options(VendorRecord::all()->pluck('name', 'id'))
                 ->required();
             $form->currency('price');

@@ -22,7 +22,10 @@ class HardwareRecordController extends AdminController
     protected function grid()
     {
         return Grid::make(new HardwareRecord(['category', 'vendor']), function (Grid $grid) {
-            $grid->column('id')->sortable();
+            $grid->column('id');
+            $grid->column('qrcode')->qrcode(function () {
+                return 'hardware:' . $this->id;
+            }, 200, 200);
             $grid->column('name');
             $grid->column('description');
             $grid->column('category.name');

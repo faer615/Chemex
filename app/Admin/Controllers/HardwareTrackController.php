@@ -3,10 +3,10 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Repositories\HardwareTrack;
+use Dcat\Admin\Controllers\AdminController;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
-use Dcat\Admin\Controllers\AdminController;
 
 class HardwareTrackController extends AdminController
 {
@@ -23,10 +23,10 @@ class HardwareTrackController extends AdminController
             $grid->column('device_id');
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
-        
+
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
-        
+
             });
         });
     }
@@ -60,7 +60,7 @@ class HardwareTrackController extends AdminController
             $form->display('id');
             $form->text('hardware_id');
             $form->text('device_id');
-        
+
             $form->display('created_at');
             $form->display('updated_at');
         });

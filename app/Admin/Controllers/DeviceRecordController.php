@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Grid\DeviceRelatedAction;
 use App\Admin\Actions\Grid\DeviceTrackAction;
 use App\Admin\Repositories\DeviceRecord;
 use App\Libraries\TrackHelper;
@@ -22,7 +23,10 @@ class DeviceRecordController extends AdminController
     protected function grid()
     {
         return Grid::make(new DeviceRecord(['category', 'vendor']), function (Grid $grid) {
-            $grid->column('id')->sortable();
+            $grid->column('id');
+            $grid->column('qrcode')->qrcode(function () {
+                return 'device:' . $this->id;
+            }, 200, 200);
             $grid->column('name');
             $grid->column('description');
             $grid->column('category.name');
@@ -34,7 +38,7 @@ class DeviceRecordController extends AdminController
                 return TrackHelper::currentDeviceTrack($this->id);
             });
 
-            $grid->actions([new DeviceTrackAction()]);
+            $grid->actions([new DeviceTrackAction(), new DeviceRelatedAction()]);
 
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
@@ -72,12 +76,16 @@ class DeviceRecordController extends AdminController
      */
     protected function form()
     {
-        return Form::make(new DeviceRecord(['category', 'vendor']), function (Form $form) {
+        return Form::make(new DeviceRecord(), function (Form $form) {
             $form->display('id');
             $form->text('name')->required();
             $form->text('description');
-            $form->select('category.name')->options(DeviceCategory::all()->pluck('name', 'id'));
-            $form->select('vendor.name')->options(VendorRecord::all()->pluck('name', 'id'));
+            $form->select('category_id', admin_trans_label('Category'))
+                ->options(DeviceCategory::all()
+                    ->pluck('name', 'id'));
+            $form->select('vendor_id', admin_trans_label('Vendor'))
+                ->options(VendorRecord::all()
+                    ->pluck('name', 'id'));
             $form->text('sn');
             $form->text('mac');
             $form->ip('ip');

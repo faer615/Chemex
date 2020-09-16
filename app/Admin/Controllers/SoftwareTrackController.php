@@ -2,13 +2,13 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Repositories\DeviceTrack;
+use App\Admin\Repositories\SoftwareTrack;
 use Dcat\Admin\Controllers\AdminController;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
 
-class DeviceTrackController extends AdminController
+class SoftwareTrackController extends AdminController
 {
     /**
      * Make a grid builder.
@@ -17,10 +17,10 @@ class DeviceTrackController extends AdminController
      */
     protected function grid()
     {
-        return Grid::make(new DeviceTrack(), function (Grid $grid) {
+        return Grid::make(new SoftwareTrack(), function (Grid $grid) {
             $grid->column('id')->sortable();
+            $grid->column('software_id');
             $grid->column('device_id');
-            $grid->column('staff_id');
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
 
@@ -40,10 +40,10 @@ class DeviceTrackController extends AdminController
      */
     protected function detail($id)
     {
-        return Show::make($id, new DeviceTrack(), function (Show $show) {
+        return Show::make($id, new SoftwareTrack(), function (Show $show) {
             $show->field('id');
+            $show->field('software_id');
             $show->field('device_id');
-            $show->field('staff_id');
             $show->field('created_at');
             $show->field('updated_at');
         });
@@ -56,10 +56,10 @@ class DeviceTrackController extends AdminController
      */
     protected function form()
     {
-        return Form::make(new DeviceTrack(), function (Form $form) {
+        return Form::make(new SoftwareTrack(), function (Form $form) {
             $form->display('id');
+            $form->text('software_id');
             $form->text('device_id');
-            $form->text('staff_id');
 
             $form->display('created_at');
             $form->display('updated_at');

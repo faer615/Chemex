@@ -20,7 +20,7 @@ class TrackHelper
             ->where('deleted_at', null)
             ->first();
         if (empty($device_track)) {
-            return '当前无使用者';
+            return '闲置';
         } else {
             $staff = $device_track->staff;
             if (empty($staff)) {
@@ -42,7 +42,7 @@ class TrackHelper
             ->where('deleted_at', null)
             ->first();
         if (empty($hardware_track)) {
-            return '未归属';
+            return '闲置';
         } else {
             $device = $hardware_track->device;
             if (empty($device)) {

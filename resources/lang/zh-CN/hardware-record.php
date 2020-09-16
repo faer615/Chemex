@@ -5,13 +5,14 @@ return [
         'Owner' => '所属设备',
     ],
     'fields' => [
+        'qrcode' => '二维码',
         'name' => '名称',
         'description' => '描述',
         'category' => [
             'name' => '分类'
         ],
         'vendor' => [
-            'name' => '供应商'
+            'name' => '制造商'
         ],
         'specification' => '规格',
         'sn' => '序列号',

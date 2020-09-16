@@ -3,9 +3,10 @@ return [
     'labels' => [
         'SoftwareRecord' => '软件',
         'Category' => '分类',
-        'Vendor' => '供应商',
+        'Vendor' => '制造商',
     ],
     'fields' => [
+        'qrcode' => '二维码',
         'name' => '名称',
         'description' => '描述',
         'category' => [
@@ -13,7 +14,7 @@ return [
         ],
         'version' => '版本',
         'vendor' => [
-            'name' => '供应商'
+            'name' => '制造商'
         ],
         'price' => '价格',
         'purchased' => '购入时间',
