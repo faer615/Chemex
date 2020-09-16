@@ -11,9 +11,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="431f6f14-c5a8-4d38-b8a5-0cd525f182bb" name="默认的" comment="更新README&amp;设备记录">
+      <change afterPath="$PROJECT_DIR$/.idea/symfony2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Admin/Actions/Grid/DeviceTrackAction.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Admin/Actions/Grid/HardwareTrackAction.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Admin/Controllers/DeviceTrackController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Admin/Controllers/HardwareTrackController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Admin/Extensions/DeviceRecordRowAction.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Admin/Forms/DeviceTrackForm.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Admin/Forms/HardwareTrackForm.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Admin/Repositories/DeviceTrack.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Admin/Repositories/HardwareTrack.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Libraries/TrackHelper.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/DeviceTrack.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/HardwareTrack.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_09_16_092109_create_device_tracks_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/lang/zh-CN/device-track.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/lang/zh-CN/hardware-track.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Admin/Controllers/DeviceRecordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Controllers/DeviceRecordController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Admin/Controllers/HardwareRecordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Controllers/HardwareRecordController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Admin/routes.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/routes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/DeviceRecord.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/DeviceRecord.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/admin.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_15_152016_create_device_records_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_15_152016_create_device_records_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dcat_admin_ide_helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/dcat_admin_ide_helper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/zh-CN/device-record.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/zh-CN/device-record.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/zh-CN/hardware-record.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/zh-CN/hardware-record.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,6 +177,7 @@
   </component>
   <component name="ProjectId" id="1hX1J9VTqqMxAmzYVCZB1XvF7pN" />
   <component name="ProjectLevelVcsManager">
+    <OptionsSetting value="false" id="更新" />
     <ConfirmationsSetting value="2" id="新增" />
   </component>
   <component name="ProjectViewState">
@@ -161,10 +186,13 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../dcat-admin" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -188,6 +216,8 @@
       <updated>1600142551989</updated>
       <workItem from="1600142553779" duration="14254000" />
       <workItem from="1600163988237" duration="12390000" />
+      <workItem from="1600214725278" duration="790000" />
+      <workItem from="1600216131581" duration="7382000" />
     </task>
     <task id="LOCAL-00001" summary="初始化框架">
       <created>1600143374763</created>
@@ -258,22 +288,30 @@
       <screen x="0" y="0" width="1714" height="1103" />
     </state>
     <state x="660" y="430" key="#Composer/0.0.1714.1103@0.0.1714.1103" timestamp="1600142575667" />
-    <state x="519" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1600151026832">
+    <state x="519" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1600218273088">
       <screen x="0" y="0" width="1714" height="1103" />
     </state>
-    <state x="519" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1714.1103@0.0.1714.1103" timestamp="1600151026832" />
+    <state x="519" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1714.1103@0.0.1714.1103" timestamp="1600218273088" />
+    <state x="588" y="307" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1600223503603">
+      <screen x="0" y="0" width="1714" height="1103" />
+    </state>
+    <state x="588" y="307" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1714.1103@0.0.1714.1103" timestamp="1600223503603" />
     <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1600172665698">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1600172665698" />
-    <state x="628" y="272" key="NewPhpClassDialog" timestamp="1600149652487">
+    <state x="628" y="272" key="NewPhpClassDialog" timestamp="1600220774976">
       <screen x="0" y="0" width="1714" height="1103" />
     </state>
-    <state x="628" y="272" key="NewPhpClassDialog/0.0.1714.1103@0.0.1714.1103" timestamp="1600149652487" />
+    <state x="628" y="272" key="NewPhpClassDialog/0.0.1714.1103@0.0.1714.1103" timestamp="1600220774976" />
     <state x="785" y="443" key="NewPhpFileDialog" timestamp="1600174024634">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="785" y="443" key="NewPhpFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1600174024634" />
+    <state x="359" y="196" key="SettingsEditor" timestamp="1600216206166">
+      <screen x="0" y="0" width="1714" height="1103" />
+    </state>
+    <state x="359" y="196" key="SettingsEditor/0.0.1714.1103@0.0.1714.1103" timestamp="1600216206166" />
     <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1600171349314">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

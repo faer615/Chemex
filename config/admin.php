@@ -22,7 +22,7 @@ return [
     | `img` tag, eg '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo' => '<img src="/vendors/dcat-admin/images/logo.png" width="35"> &nbsp;Celestial',
+    '<img alt="logo" src="/vendors/dcat-admin/images/logo.png"> &nbsp;Celestial',
 
     /*
     |--------------------------------------------------------------------------
@@ -156,7 +156,7 @@ return [
         | The global Grid action display class.
         |--------------------------------------------------------------------------
         */
-        'grid_action_class' => Dcat\Admin\Grid\Displayers\Actions::class,
+        'grid_action_class' => Dcat\Admin\Grid\Displayers\DropdownActions::class,
     ],
 
     /*
@@ -324,7 +324,7 @@ return [
         // indigo, blue, blue-light, blue-dark, green
         'color' => 'indigo',
 
-        'body_class' => 'dark-mode',
+        'body_class' => '',
 
         'sidebar_collapsed' => false,
 

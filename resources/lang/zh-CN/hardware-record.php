@@ -2,6 +2,7 @@
 return [
     'labels' => [
         'HardwareRecord' => '硬件',
+        'Owner' => '所属设备',
     ],
     'fields' => [
         'name' => '名称',
