@@ -13,7 +13,7 @@ class InfoHelper
      * @param $staff_id
      * @return string
      */
-    static function staffIdToName($staff_id)
+    public static function staffIdToName($staff_id)
     {
         $staff = StaffRecord::where('id', $staff_id)
             ->where('deleted_at', null)
@@ -29,7 +29,7 @@ class InfoHelper
      * @param $staff_id
      * @return mixed
      */
-    static function staffIdToDepartmentName($staff_id)
+    public static function staffIdToDepartmentName($staff_id)
     {
         $staff = StaffRecord::where('id', $staff_id)
             ->where('deleted_at', null)

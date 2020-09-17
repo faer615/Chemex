@@ -6,7 +6,7 @@ namespace App\Libraries;
 
 class Data
 {
-    static function distribution()
+    public static function distribution()
     {
         return [
             'u' => '未知',
@@ -16,7 +16,7 @@ class Data
         ];
     }
 
-    static function genders()
+    public static function genders()
     {
         return [
             '无' => '无',

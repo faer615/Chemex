@@ -14,7 +14,7 @@ class TrackHelper
      * @param $device_id
      * @return string
      */
-    static function currentDeviceTrackStaff($device_id)
+    public static function currentDeviceTrackStaff($device_id)
     {
         $device_track = DeviceTrack::where('device_id', $device_id)
             ->where('deleted_at', null)
@@ -31,7 +31,7 @@ class TrackHelper
         }
     }
 
-    static function currentDeviceTrackDepartment()
+    public static function currentDeviceTrackDepartment()
     {
 
     }
@@ -41,7 +41,7 @@ class TrackHelper
      * @param $hardware_id
      * @return string
      */
-    static function currentHardwareTrack($hardware_id)
+    public static function currentHardwareTrack($hardware_id)
     {
         $hardware_track = HardwareTrack::where('hardware_id', $hardware_id)
             ->where('deleted_at', null)
