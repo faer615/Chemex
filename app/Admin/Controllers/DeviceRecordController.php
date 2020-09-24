@@ -27,7 +27,7 @@ class DeviceRecordController extends AdminController
         return Grid::make(new DeviceRecord(['category', 'vendor']), function (Grid $grid) {
             $grid->column('id');
             $grid->column('qrcode')->qrcode(function () {
-                return 'device:' . $this->id;
+                return base64_encode('device:' . $this->id);
             }, 200, 200);
             $grid->column('name');
             $grid->column('description');

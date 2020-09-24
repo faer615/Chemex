@@ -17,10 +17,10 @@ class HardwareTrackController extends AdminController
      */
     protected function grid()
     {
-        return Grid::make(new HardwareTrack(), function (Grid $grid) {
+        return Grid::make(new HardwareTrack(['hardware', 'device']), function (Grid $grid) {
             $grid->column('id')->sortable();
-            $grid->column('hardware_id');
-            $grid->column('device_id');
+            $grid->column('hardware.name');
+            $grid->column('device.name');
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
 
@@ -40,10 +40,10 @@ class HardwareTrackController extends AdminController
      */
     protected function detail($id)
     {
-        return Show::make($id, new HardwareTrack(), function (Show $show) {
+        return Show::make($id, new HardwareTrack(['hardware', 'device']), function (Show $show) {
             $show->field('id');
-            $show->field('hardware_id');
-            $show->field('device_id');
+            $show->field('hardware.name');
+            $show->field('device.name');
             $show->field('created_at');
             $show->field('updated_at');
         });

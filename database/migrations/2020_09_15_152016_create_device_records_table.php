@@ -16,7 +16,7 @@ class CreateDeviceRecordsTable extends Migration
         Schema::create('device_records', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->integer('category_id');
             $table->integer('vendor_id');
             $table->string('sn')->nullable();

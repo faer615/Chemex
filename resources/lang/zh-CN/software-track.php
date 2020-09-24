@@ -4,8 +4,12 @@ return [
         'SoftwareTrack' => '软件追踪',
     ],
     'fields' => [
-        'software_id' => '软件',
-        'device_id' => '设备',
+        'software' => [
+            'name' => '软件'
+        ],
+        'device' => [
+            'name' => '设备'
+        ],
     ],
     'options' => [
     ],

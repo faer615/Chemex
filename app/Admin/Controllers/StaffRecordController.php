@@ -68,7 +68,7 @@ class StaffRecordController extends AdminController
         return Form::make(new StaffRecord(), function (Form $form) {
             $form->display('id');
             $form->text('name')->required();
-            $form->select('department_id')
+            $form->select('department_id', admin_trans_label('Department'))
                 ->options(StaffDepartment::all()
                     ->pluck('name', 'id'))
                 ->required();

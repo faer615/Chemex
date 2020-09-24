@@ -62,7 +62,7 @@ class StaffDepartmentController extends AdminController
             $form->display('id');
             $form->text('name')->required();
             $form->text('description');
-            $form->select('parent_id')
+            $form->select('parent_id', admin_trans_label('Parent'))
                 ->options(\App\Models\StaffDepartment::all()->pluck('name', 'id'))
                 ->default(0);
 

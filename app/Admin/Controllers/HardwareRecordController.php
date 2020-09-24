@@ -24,7 +24,7 @@ class HardwareRecordController extends AdminController
         return Grid::make(new HardwareRecord(['category', 'vendor']), function (Grid $grid) {
             $grid->column('id');
             $grid->column('qrcode')->qrcode(function () {
-                return 'hardware:' . $this->id;
+                return base64_encode('hardware:' . $this->id);
             }, 200, 200);
             $grid->column('name');
             $grid->column('description');
@@ -73,15 +73,15 @@ class HardwareRecordController extends AdminController
      */
     protected function form()
     {
-        return Form::make(new HardwareRecord(['category', 'vendor']), function (Form $form) {
+        return Form::make(new HardwareRecord(), function (Form $form) {
             $form->display('id');
             $form->text('name')->required();
             $form->text('description');
-            $form->select('category.name')
+            $form->select('category_id', admin_trans_label('Vendor'))
                 ->options(HardwareCategory::all()
                     ->pluck('name', 'id'))
                 ->required();
-            $form->select('vendor.name')
+            $form->select('vendor_id', admin_trans_label('Vendor'))
                 ->options(VendorRecord::all()
                     ->pluck('name', 'id'))
                 ->required();

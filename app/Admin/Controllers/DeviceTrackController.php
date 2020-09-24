@@ -17,16 +17,17 @@ class DeviceTrackController extends AdminController
      */
     protected function grid()
     {
-        return Grid::make(new DeviceTrack(), function (Grid $grid) {
+        return Grid::make(new DeviceTrack(['device', 'staff']), function (Grid $grid) {
             $grid->column('id')->sortable();
-            $grid->column('device_id');
-            $grid->column('staff_id');
+            $grid->column('device.name');
+            $grid->column('staff.name');
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
 
+            $grid->disableCreateButton();
+
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
-
             });
         });
     }
@@ -40,12 +41,18 @@ class DeviceTrackController extends AdminController
      */
     protected function detail($id)
     {
-        return Show::make($id, new DeviceTrack(), function (Show $show) {
+        return Show::make($id, new DeviceTrack(['device', 'staff']), function (Show $show) {
             $show->field('id');
-            $show->field('device_id');
-            $show->field('staff_id');
+            $show->field('device.name');
+            $show->field('staff.name');
             $show->field('created_at');
             $show->field('updated_at');
+
+            $show->panel()
+                ->tools(function ($tools) {
+                    $tools->disableEdit();
+                    $tools->disableDelete();
+                });
         });
     }
 

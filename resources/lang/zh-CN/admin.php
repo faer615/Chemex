@@ -236,8 +236,8 @@ return [
         'staff_management' => '雇员管理',
         'staff_departments' => '部门',
         'staff_records' => '雇员',
-        'hardware_track' => '硬件追踪',
-        'software_track' => '软件追踪',
-        'device_track' => '设备追踪'
+        'hardware_tracks' => '硬件追踪',
+        'software_tracks' => '软件追踪',
+        'device_tracks' => '设备追踪'
     ],
 ];

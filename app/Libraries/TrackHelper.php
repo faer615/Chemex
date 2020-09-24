@@ -6,6 +6,8 @@ namespace App\Libraries;
 
 use App\Models\DeviceTrack;
 use App\Models\HardwareTrack;
+use App\Models\SoftwareRecord;
+use App\Models\SoftwareTrack;
 
 class TrackHelper
 {
@@ -55,6 +57,30 @@ class TrackHelper
             } else {
                 return $device->name;
             }
+        }
+    }
+
+    /**
+     * 获取软件当前剩余授权数量
+     * @param $software_id
+     * @return int|string
+     */
+    public static function leftSoftwareCounts($software_id)
+    {
+        $software = SoftwareRecord::where('id', $software_id)
+            ->where('deleted_at', null)
+            ->first();
+        if (empty($software)) {
+            return '软件状态异常';
+        }
+        $software_tracks = SoftwareTrack::where('deleted_at', null)
+            ->where('software_id', $software_id)
+            ->get();
+        $used = count($software_tracks);
+        if ($software->counts == -1) {
+            return '不受限';
+        } else {
+            return $software->counts - $used;
         }
     }
 }

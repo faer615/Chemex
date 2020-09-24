@@ -4,6 +4,7 @@ return [
         'SoftwareRecord' => '软件',
         'Category' => '分类',
         'Vendor' => '制造商',
+        'Left Counts' => '剩余授权数量'
     ],
     'fields' => [
         'qrcode' => '二维码',

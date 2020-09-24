@@ -13,6 +13,11 @@ class HardwareTrack extends Model
 
     protected $table = 'hardware_tracks';
 
+    public function hardware()
+    {
+        return $this->hasOne(HardwareRecord::class, 'id', 'hardware_id');
+    }
+
     public function device()
     {
         return $this->hasOne(DeviceRecord::class, 'id', 'device_id');

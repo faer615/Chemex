@@ -5,6 +5,7 @@ namespace App\Admin\Controllers;
 use App\Admin\Actions\Grid\SoftwareTrackAction;
 use App\Admin\Repositories\SoftwareRecord;
 use App\Libraries\Data;
+use App\Libraries\TrackHelper;
 use App\Models\SoftwareCategory;
 use App\Models\VendorRecord;
 use Dcat\Admin\Controllers\AdminController;
@@ -24,10 +25,10 @@ class SoftwareRecordController extends AdminController
         return Grid::make(new SoftwareRecord(['category', 'vendor']), function (Grid $grid) {
             $grid->column('id');
             $grid->column('qrcode')->qrcode(function () {
-                return 'software:' . $this->id;
+                return base64_encode('software:' . $this->id);
             }, 200, 200);
             $grid->column('name');
-            $grid->column('description');
+//            $grid->column('description');
             $grid->column('category.name');
             $grid->column('version');
             $grid->column('vendor.name');
@@ -35,6 +36,10 @@ class SoftwareRecordController extends AdminController
             $grid->column('purchased');
             $grid->column('expired');
             $grid->column('distribution')->using(Data::distribution());
+            $grid->column('counts');
+            $grid->column('', admin_trans_label('Left Counts'))->display(function () {
+                return TrackHelper::leftSoftwareCounts($this->id);
+            });
 
             $grid->actions([new SoftwareTrackAction()]);
 
@@ -64,6 +69,7 @@ class SoftwareRecordController extends AdminController
             $show->field('purchased');
             $show->field('expired');
             $show->field('distribution')->using(Data::distribution());
+            $show->field('counts');
             $show->field('created_at');
             $show->field('updated_at');
         });
@@ -76,7 +82,7 @@ class SoftwareRecordController extends AdminController
      */
     protected function form()
     {
-        return Form::make(new SoftwareRecord(['category', 'vendor']), function (Form $form) {
+        return Form::make(new SoftwareRecord(), function (Form $form) {
             $form->display('id');
             $form->text('name')->required();
             $form->text('description');

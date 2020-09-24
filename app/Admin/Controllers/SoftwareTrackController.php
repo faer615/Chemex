@@ -17,16 +17,17 @@ class SoftwareTrackController extends AdminController
      */
     protected function grid()
     {
-        return Grid::make(new SoftwareTrack(), function (Grid $grid) {
+        return Grid::make(new SoftwareTrack(['software', 'device']), function (Grid $grid) {
             $grid->column('id')->sortable();
-            $grid->column('software_id');
-            $grid->column('device_id');
+            $grid->column('software.name');
+            $grid->column('device.name');
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
 
+            $grid->disableCreateButton();
+
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
-
             });
         });
     }
@@ -40,12 +41,18 @@ class SoftwareTrackController extends AdminController
      */
     protected function detail($id)
     {
-        return Show::make($id, new SoftwareTrack(), function (Show $show) {
+        return Show::make($id, new SoftwareTrack(['software', 'device']), function (Show $show) {
             $show->field('id');
-            $show->field('software_id');
-            $show->field('device_id');
+            $show->field('software.name');
+            $show->field('device.name');
             $show->field('created_at');
             $show->field('updated_at');
+
+            $show->panel()
+                ->tools(function ($tools) {
+                    $tools->disableEdit();
+                    $tools->disableDelete();
+                });
         });
     }
 

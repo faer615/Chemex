@@ -13,6 +13,11 @@ class SoftwareTrack extends Model
 
     protected $table = 'software_tracks';
 
+    public function software()
+    {
+        return $this->hasOne(SoftwareRecord::class, 'id', 'software_id');
+    }
+
     public function device()
     {
         return $this->hasOne(DeviceRecord::class, 'id', 'device_id');

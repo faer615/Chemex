@@ -2,6 +2,7 @@
 return [
     'labels' => [
         'StaffRecord' => '雇员',
+        'Department' => '部门'
     ],
     'fields' => [
         'name' => '名称',

@@ -4,8 +4,12 @@ return [
         'DeviceTrack' => '设备追踪',
     ],
     'fields' => [
-        'device_id' => '设备',
-        'staff_id' => '雇员',
+        'device' => [
+            'name' => '设备'
+        ],
+        'staff' => [
+            'name' => '雇员'
+        ],
     ],
     'options' => [
     ],

@@ -13,6 +13,11 @@ class DeviceTrack extends Model
 
     protected $table = 'device_tracks';
 
+    public function device()
+    {
+        return $this->hasOne(DeviceRecord::class, 'id', 'device_id');
+    }
+
     public function staff()
     {
         return $this->hasOne(StaffRecord::class, 'id', 'staff_id');
