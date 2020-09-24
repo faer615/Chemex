@@ -11,7 +11,7 @@ return [
     | login page.
     |
     */
-    'name' => '星空运维',
+    'name' => 'Chemex',
 
     /*
     |--------------------------------------------------------------------------
@@ -22,7 +22,7 @@ return [
     | `img` tag, eg '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo' => '<img src="/static/images/logo.png"> &nbsp;星空运维',
+    'logo' => '<img src="/static/images/logo.png"> &nbsp;Chemex',
 
     /*
     |--------------------------------------------------------------------------
@@ -85,7 +85,7 @@ return [
     | Html title for all pages.
     |
     */
-    'title' => '星空运维',
+    'title' => 'Chemex',
 
     /*
     |--------------------------------------------------------------------------
