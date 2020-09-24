@@ -30,7 +30,7 @@ class DeviceRecordController extends AdminController
                 return base64_encode('device:' . $this->id);
             }, 200, 200);
             $grid->column('name');
-            $grid->column('description');
+//            $grid->column('description');
             $grid->column('category.name');
             $grid->column('vendor.name');
             $grid->column('sn');
@@ -64,10 +64,9 @@ class DeviceRecordController extends AdminController
             $grid->selector(function (Selector $selector) {
                 $selector->select('category_id', '设备分类', DeviceCategory::all()->pluck('name', 'id'));
                 $selector->select('vendor_id', '制造商', VendorRecord::all()->pluck('name', 'id'));
-//                $selector->select('staff', '使用状态', function ($query, $value) {
-//
-//                });
             });
+
+            $grid->enableDialogCreate();
         });
     }
 

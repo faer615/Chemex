@@ -18,17 +18,13 @@ class SoftwareCategoryController extends AdminController
     protected function grid()
     {
         return Grid::make(new SoftwareCategory(), function (Grid $grid) {
-            $grid->column('id')->sortable();
+            $grid->column('id');
             $grid->column('name');
             $grid->column('description');
-            $grid->column('sort');
             $grid->column('created_at');
-            $grid->column('updated_at')->sortable();
+            $grid->column('updated_at');
 
-            $grid->filter(function (Grid\Filter $filter) {
-                $filter->equal('id');
-
-            });
+            $grid->enableDialogCreate();
         });
     }
 
@@ -45,7 +41,6 @@ class SoftwareCategoryController extends AdminController
             $show->field('id');
             $show->field('name');
             $show->field('description');
-            $show->field('sort');
             $show->field('created_at');
             $show->field('updated_at');
         });
@@ -62,10 +57,6 @@ class SoftwareCategoryController extends AdminController
             $form->display('id');
             $form->text('name')->required();
             $form->text('description');
-            $form->number('sort')
-                ->min(0)
-                ->help('注意：数字越大，排序越靠前。');
-
             $form->display('created_at');
             $form->display('updated_at');
         });

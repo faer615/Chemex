@@ -41,6 +41,8 @@ class HardwareRecordController extends AdminController
             $grid->quickSearch('id', 'name')
                 ->placeholder('输入ID或者名称以搜索')
                 ->auto(false);
+
+            $grid->enableDialogCreate();
         });
     }
 

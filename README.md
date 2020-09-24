@@ -1,7 +1,7 @@
-## 关于Celestial
+## 关于Chemex
 
-Celestial是一个轻量的、现代设计风格的ICT设备资产管理系统。得益于 [Laravel](https://laravel.com/) 框架以及 [Dcat Admin](https://dcatadmin.com) 开发平台，使其具备了优雅、简洁的优秀体验。
-Celestial是完全免费且开源的，任何人都可以无限制的修改代码以及部署服务，这对于很多想要对ICT资产做信息化管理的中小型企业来说，是一个很好的选择：低廉的成本换回的是高效的管理方案，同时又有健康的生态提供支持。
+Chemex是一个轻量的、现代设计风格的ICT设备资产管理系统。得益于 [Laravel](https://laravel.com/) 框架以及 [Dcat Admin](https://dcatadmin.com) 开发平台，使其具备了优雅、简洁的优秀体验。
+Chemex是完全免费且开源的，任何人都可以无限制的修改代码以及部署服务，这对于很多想要对ICT资产做信息化管理的中小型企业来说，是一个很好的选择：低廉的成本换回的是高效的管理方案，同时又有健康的生态提供支持。
 
 系统拥有以下模块：
 
@@ -29,7 +29,7 @@ Celestial是完全免费且开源的，任何人都可以无限制的修改代�
 
 ## 最新版本
 
-[1.0.0](https://gitee.com/famio/Celestial/raw/master/releases/Celestial-1.0.0.zip)
+[1.0.0](https://gitee.com/famio/Chemex/raw/master/releases/Chemex-1.0.0.zip)
 
 ## 环境要求
 
@@ -63,7 +63,7 @@ Celestial是完全免费且开源的，任何人都可以无限制的修改代�
 
 ### 开发环境部署
 
-欢迎对此感兴趣的开发者进行协同开发，使 Celestial 更趋于完美。开发过程相对于简单，没有过多的环境配置和改动。
+欢迎对此感兴趣的开发者进行协同开发，使 Chemex 更趋于完美。开发过程相对于简单，没有过多的环境配置和改动。
 
 1：为你的计算机安装 `PHP` 环境，参考：[PHP官方](https://www.php.net/downloads) 。
 
@@ -101,4 +101,4 @@ Celestial是完全免费且开源的，任何人都可以无限制的修改代�
 
 ## 开源协议
 
-Celestial 遵循 MIT 开源协议，任何人和组织都可以任意拷贝源代码进行修改、分发等，不受任何限制。
+Chemex 遵循 MIT 开源协议，任何人和组织都可以任意拷贝源代码进行修改、分发等，不受任何限制。

@@ -20,7 +20,7 @@ class StaffRecordController extends AdminController
     protected function grid()
     {
         return Grid::make(new StaffRecord(['department']), function (Grid $grid) {
-            $grid->column('id')->sortable();
+            $grid->column('id');
             $grid->column('name');
             $grid->column('department.name');
             $grid->column('gender');
@@ -28,11 +28,13 @@ class StaffRecordController extends AdminController
             $grid->column('mobile');
             $grid->column('email');
             $grid->column('created_at');
-            $grid->column('updated_at')->sortable();
+            $grid->column('updated_at');
 
             $grid->quickSearch('id', 'name')
                 ->placeholder('输入ID或者名称以搜索')
                 ->auto(false);
+
+            $grid->enableDialogCreate();
         });
     }
 

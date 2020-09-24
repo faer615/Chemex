@@ -18,7 +18,7 @@ class VendorRecordController extends AdminController
     protected function grid()
     {
         return Grid::make(new VendorRecord(), function (Grid $grid) {
-            $grid->column('id')->sortable();
+            $grid->column('id');
             $grid->column('name');
             $grid->column('description');
             $grid->column('location');
@@ -28,6 +28,8 @@ class VendorRecordController extends AdminController
             $grid->quickSearch('id', 'name')
                 ->placeholder('输入ID或者名称以搜索')
                 ->auto(false);
+
+            $grid->enableDialogCreate();
         });
     }
 

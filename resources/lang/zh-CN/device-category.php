@@ -6,7 +6,6 @@ return [
     'fields' => [
         'name' => '名称',
         'description' => '描述',
-        'sort' => '排序',
     ],
     'options' => [
     ],

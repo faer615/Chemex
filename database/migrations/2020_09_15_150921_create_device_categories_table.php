@@ -17,7 +17,6 @@ class CreateDeviceCategoriesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('description')->nullable();
-            $table->integer('sort')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

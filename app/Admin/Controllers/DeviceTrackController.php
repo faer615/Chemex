@@ -18,17 +18,16 @@ class DeviceTrackController extends AdminController
     protected function grid()
     {
         return Grid::make(new DeviceTrack(['device', 'staff']), function (Grid $grid) {
-            $grid->column('id')->sortable();
+            $grid->column('id');
             $grid->column('device.name');
             $grid->column('staff.name');
             $grid->column('created_at');
-            $grid->column('updated_at')->sortable();
+            $grid->column('updated_at');
 
             $grid->disableCreateButton();
 
-            $grid->filter(function (Grid\Filter $filter) {
-                $filter->equal('id');
-            });
+            $grid->disableRowSelector();
+            $grid->disableBatchDelete();
         });
     }
 

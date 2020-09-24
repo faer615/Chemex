@@ -7,7 +7,6 @@ return [
         'name' => '名称',
         'description' => '描述',
         'icon' => '图标',
-        'sort' => '排序',
     ],
     'options' => [
     ],

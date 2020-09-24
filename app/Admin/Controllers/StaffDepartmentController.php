@@ -18,17 +18,14 @@ class StaffDepartmentController extends AdminController
     protected function grid()
     {
         return Grid::make(new StaffDepartment(['parent']), function (Grid $grid) {
-            $grid->column('id')->sortable();
+            $grid->column('id');
             $grid->column('name');
             $grid->column('description');
             $grid->column('parent.name');
             $grid->column('created_at');
-            $grid->column('updated_at')->sortable();
+            $grid->column('updated_at');
 
-            $grid->filter(function (Grid\Filter $filter) {
-                $filter->equal('id');
-
-            });
+            $grid->enableDialogCreate();
         });
     }
 

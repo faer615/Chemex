@@ -18,17 +18,18 @@ class SoftwareTrackController extends AdminController
     protected function grid()
     {
         return Grid::make(new SoftwareTrack(['software', 'device']), function (Grid $grid) {
-            $grid->column('id')->sortable();
+            $grid->column('id');
             $grid->column('software.name');
             $grid->column('device.name');
             $grid->column('created_at');
-            $grid->column('updated_at')->sortable();
+            $grid->column('updated_at');
 
             $grid->disableCreateButton();
 
-            $grid->filter(function (Grid\Filter $filter) {
-                $filter->equal('id');
-            });
+            $grid->disableRowSelector();
+            $grid->disableBatchDelete();
+
+            $grid->enableDialogCreate();
         });
     }
 
