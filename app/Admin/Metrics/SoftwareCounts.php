@@ -4,7 +4,7 @@
 namespace App\Admin\Metrics;
 
 
-use App\Models\HardwareRecord;
+use App\Models\SoftwareRecord;
 use Dcat\Admin\Widgets\Metrics\Line;
 use Illuminate\Http\Request;
 
@@ -19,7 +19,7 @@ class SoftwareCounts extends Line
      */
     public function handle(Request $request)
     {
-        $software = HardwareRecord::all();
+        $software = SoftwareRecord::all();
         $counts = count($software);
 
         $this->withContent($counts);

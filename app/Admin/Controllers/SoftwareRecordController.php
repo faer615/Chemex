@@ -96,7 +96,7 @@ class SoftwareRecordController extends AdminController
             $form->select('vendor_id', admin_trans_label('Vendor'))
                 ->options(VendorRecord::all()->pluck('name', 'id'))
                 ->required();
-            $form->currency('price');
+            $form->currency('price')->default(0);
             $form->date('purchased');
             $form->date('expired');
             $form->select('distribution')

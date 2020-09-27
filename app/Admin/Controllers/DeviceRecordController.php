@@ -35,7 +35,7 @@ class DeviceRecordController extends AdminController
                 if (empty($tag)) {
                     return $name;
                 } else {
-                    return "<img src='/static/images/icons/$tag.png' /> $name";
+                    return "<img src='/static/images/icons/$tag.png' style='width: 25px;height: 25px;margin-right: 10px'/>$name";
                 }
             });
             $grid->column('category.name');
@@ -113,10 +113,12 @@ class DeviceRecordController extends AdminController
             $form->text('description');
             $form->select('category_id', admin_trans_label('Category'))
                 ->options(DeviceCategory::all()
-                    ->pluck('name', 'id'));
+                    ->pluck('name', 'id'))
+                ->required();
             $form->select('vendor_id', admin_trans_label('Vendor'))
                 ->options(VendorRecord::all()
-                    ->pluck('name', 'id'));
+                    ->pluck('name', 'id'))
+                ->required();
             $form->text('sn');
             $form->text('mac');
             $form->ip('ip');

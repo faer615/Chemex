@@ -48,19 +48,34 @@ class InfoHelper
         $software_tracks = SoftwareTrack::where('device_id', $device_id)
             ->get();
         foreach ($software_tracks as $software_track) {
-            if (strstr($software_track->name, 'win') != false) {
+            if (stristr($software_track->software->name, 'win') != false) {
                 return 'windows';
             }
-            if (strstr($software_track->name, 'linux') != false) {
+            if (stristr($software_track->software->name, 'ubuntu') != false) {
+                return 'ubuntu';
+            }
+            if (stristr($software_track->software->name, 'arch') != false) {
+                return 'arch';
+            }
+            if (stristr($software_track->software->name, 'centos') != false) {
+                return 'centos';
+            }
+            if (stristr($software_track->software->name, 'kali') != false) {
+                return 'kali';
+            }
+            if (stristr($software_track->software->name, 'debian') != false) {
+                return 'debian';
+            }
+            if (stristr($software_track->software->name, 'linux') != false) {
                 return 'linux';
             }
-            if (strstr($software_track->name, 'macos') != false) {
+            if (stristr($software_track->software->name, 'macos') != false) {
                 return 'macos';
             }
-            if (strstr($software_track->name, 'android') != false) {
+            if (stristr($software_track->software->name, 'android') != false) {
                 return 'android';
             }
-            if (strstr($software_track->name, 'ios') != false) {
+            if (stristr($software_track->software->name, 'ios') != false) {
                 return 'windows';
             }
             return '';
