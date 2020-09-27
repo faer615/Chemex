@@ -49,7 +49,6 @@ class HardwareTrackForm extends Form implements LazyRenderable
         // 硬件追踪
         $hardware_track = HardwareTrack::where('hardware_id', $hardware_id)
             ->where('device_id', $device_id)
-            ->where('deleted_at', null)
             ->first();
 
         // 如果硬件追踪非空，则删除旧追踪，为了留下流水记录

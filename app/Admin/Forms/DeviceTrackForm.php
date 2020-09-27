@@ -49,7 +49,6 @@ class DeviceTrackForm extends Form implements LazyRenderable
         // 设备追踪
         $device_track = DeviceTrack::where('device_id', $device_id)
             ->where('staff_id', $staff_id)
-            ->where('deleted_at', null)
             ->first();
 
         // 如果设备追踪非空，则删除旧追踪，为了留下流水记录

@@ -19,17 +19,14 @@ class InfoController extends Controller
         switch ($item_class) {
             case 'device':
                 $item = DeviceRecord::where('id', $item_id)
-                    ->where('deleted_at', null)
                     ->first();
                 break;
             case 'hardware':
                 $item = HardwareRecord::where('id', $item_id)
-                    ->where('deleted_at', null)
                     ->first();
                 break;
             case 'software':
                 $item = SoftwareRecord::where('id', $item_id)
-                    ->where('deleted_at', null)
                     ->first();
                 break;
             default:

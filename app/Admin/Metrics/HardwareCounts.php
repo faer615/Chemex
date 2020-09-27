@@ -19,7 +19,7 @@ class HardwareCounts extends Line
      */
     public function handle(Request $request)
     {
-        $hardware = HardwareRecord::where('deleted_at', null)->get();
+        $hardware = HardwareRecord::all();
         $counts = count($hardware);
 
         $this->withContent($counts);

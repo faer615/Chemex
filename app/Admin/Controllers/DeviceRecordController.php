@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Grid\DeviceHistoryAction;
 use App\Admin\Actions\Grid\DeviceRelatedAction;
 use App\Admin\Actions\Grid\DeviceTrackAction;
 use App\Admin\Repositories\DeviceRecord;
@@ -55,7 +56,7 @@ class DeviceRecordController extends AdminController
                 return InfoHelper::staffIdToDepartmentName($res);
             });
 
-            $grid->actions([new DeviceTrackAction(), new DeviceRelatedAction()]);
+            $grid->actions([new DeviceTrackAction(), new DeviceRelatedAction(), new DeviceHistoryAction()]);
 
             $grid->quickSearch('id', 'name')
                 ->placeholder('输入ID或者名称以搜索')

@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Grid\SoftwareHistoryAction;
 use App\Admin\Actions\Grid\SoftwareTrackAction;
 use App\Admin\Repositories\SoftwareRecord;
 use App\Libraries\Data;
@@ -41,7 +42,7 @@ class SoftwareRecordController extends AdminController
                 return TrackHelper::leftSoftwareCounts($this->id);
             });
 
-            $grid->actions([new SoftwareTrackAction()]);
+            $grid->actions([new SoftwareTrackAction(), new SoftwareHistoryAction()]);
 
             $grid->quickSearch('id', 'name')
                 ->placeholder('输入ID或者名称以搜索')

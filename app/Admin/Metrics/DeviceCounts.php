@@ -19,7 +19,7 @@ class DeviceCounts extends Line
      */
     public function handle(Request $request)
     {
-        $devices = DeviceRecord::where('deleted_at', null)->get();
+        $devices = DeviceRecord::all();
         $counts = count($devices);
 
         $this->withContent($counts);

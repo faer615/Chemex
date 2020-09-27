@@ -19,7 +19,7 @@ class StaffCounts extends Line
      */
     public function handle(Request $request)
     {
-        $staff = StaffRecord::where('deleted_at', null)->get();
+        $staff = StaffRecord::all();
         $counts = count($staff);
 
         $this->withContent($counts);

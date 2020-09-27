@@ -20,7 +20,6 @@ class DeviceRelatedAction extends RowAction
         $id = $this->getKey();
 
         $device = DeviceRecord::where('id', $id)
-            ->where('deleted_at', null)
             ->firstOrFail();
 
         // 获取所有硬件

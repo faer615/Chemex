@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Grid\HardwareHistoryAction;
 use App\Admin\Actions\Grid\HardwareTrackAction;
 use App\Admin\Repositories\HardwareRecord;
 use App\Libraries\TrackHelper;
@@ -36,7 +37,7 @@ class HardwareRecordController extends AdminController
                 return TrackHelper::currentHardwareTrack($this->id);
             });
 
-            $grid->actions([new HardwareTrackAction()]);
+            $grid->actions([new HardwareTrackAction(), new HardwareHistoryAction()]);
 
             $grid->quickSearch('id', 'name')
                 ->placeholder('输入ID或者名称以搜索')

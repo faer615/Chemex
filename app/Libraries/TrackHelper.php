@@ -19,7 +19,6 @@ class TrackHelper
     public static function currentDeviceTrackStaff($device_id)
     {
         $device_track = DeviceTrack::where('device_id', $device_id)
-            ->where('deleted_at', null)
             ->first();
         if (empty($device_track)) {
             return 0;
@@ -46,7 +45,6 @@ class TrackHelper
     public static function currentHardwareTrack($hardware_id)
     {
         $hardware_track = HardwareTrack::where('hardware_id', $hardware_id)
-            ->where('deleted_at', null)
             ->first();
         if (empty($hardware_track)) {
             return '闲置';
@@ -68,13 +66,11 @@ class TrackHelper
     public static function leftSoftwareCounts($software_id)
     {
         $software = SoftwareRecord::where('id', $software_id)
-            ->where('deleted_at', null)
             ->first();
         if (empty($software)) {
             return '软件状态异常';
         }
-        $software_tracks = SoftwareTrack::where('deleted_at', null)
-            ->where('software_id', $software_id)
+        $software_tracks = SoftwareTrack::where('software_id', $software_id)
             ->get();
         $used = count($software_tracks);
         if ($software->counts == -1) {

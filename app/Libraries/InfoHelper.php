@@ -16,7 +16,6 @@ class InfoHelper
     public static function staffIdToName($staff_id)
     {
         $staff = StaffRecord::where('id', $staff_id)
-            ->where('deleted_at', null)
             ->first();
         if (empty($staff)) {
             return '雇员失踪';
@@ -32,7 +31,6 @@ class InfoHelper
     public static function staffIdToDepartmentName($staff_id)
     {
         $staff = StaffRecord::where('id', $staff_id)
-            ->where('deleted_at', null)
             ->first();
         if (!empty($staff)) {
             return $staff->department->name;
