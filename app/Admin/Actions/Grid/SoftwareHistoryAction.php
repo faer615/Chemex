@@ -22,32 +22,40 @@ class SoftwareHistoryAction extends RowAction
 
         $software_tracks = SoftwareTrack::withTrashed()
             ->where('software_id', $id)
-            ->orderBy('updated_at', 'DESC')
             ->get();
 
         foreach ($software_tracks as $software_track) {
-            if (empty($software_track->deleted_at)) {
-                $status = '关联了';
-                $color = '';
-            } else {
-                $status = '解除了';
-                $color = 'table-warning';
-            }
+            $status = '关联了';
+            $color = '';
             $single = [
                 'type' => '设备',
                 'name' => $software_track->device->name,
                 'status' => $status,
                 'color' => $color,
-                'updated_at' => json_decode($software_track, true)['updated_at']
+                'datetime' => json_decode($software_track, true)['created_at']
             ];
-
             array_push($data, $single);
+            if (!empty($software_track->deleted_at)) {
+                $status = '解除了';
+                $color = 'table-warning';
+                $single = [
+                    'type' => '设备',
+                    'name' => $software_track->device->name,
+                    'status' => $status,
+                    'color' => $color,
+                    'datetime' => json_decode($software_track, true)['deleted_at']
+                ];
+                array_push($data, $single);
+            }
         }
+
+        $datetime = array_column($data, 'datetime');
+        array_multisort($datetime, SORT_DESC, $data);
 
         return Modal::make()
             ->lg()
             ->title($this->getRow()->name . ' 的变动履历')
-            ->body(view('device_history')->with('data', $data))
+            ->body(view('software_history')->with('data', $data))
             ->button($this->title);
     }
 }
