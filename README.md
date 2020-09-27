@@ -1,3 +1,20 @@
+<div align="center">
+    <img src="http://chemex.io/assets/images/logo.png"/>
+    <h2>Chemex</h2>
+</div>
+
+<p align="center">
+<a href="http://chemex.io">Chemex 官方网站</a> |
+<a href="http://chemex.io">Demo 演示站点</a>
+</p>
+
+<p align="center">
+    <img src="https://img.shields.io/badge/lincense-GPL3.0-blue" />
+    <img src="https://img.shields.io/badge/release-1.0.0pre-orange" />
+    <img src="https://img.shields.io/badge/PHP-7.3+-green" />
+    <img src="https://img.shields.io/badge/MySQL-5.6+-blueviolet" />
+</p>
+
 ## 关于Chemex
 
 Chemex是一个轻量的、现代设计风格的ICT设备资产管理系统。得益于 [Laravel](https://laravel.com/) 框架以及 [Dcat Admin](https://dcatadmin.com) 开发平台，使其具备了优雅、简洁的优秀体验。

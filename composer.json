@@ -1,12 +1,14 @@
 {
-    "name": "laravel/laravel",
+    "name": "famio/chemex",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "Free MIS.",
     "keywords": [
-        "framework",
-        "laravel"
+        "chemex",
+        "laravel",
+        "dcat-admin",
+        "mis"
     ],
-    "license": "MIT",
+    "license": "GPL-3.0-or-later",
     "require": {
         "php": "^7.3",
         "dcat/laravel-admin": "^1.7",
@@ -15,7 +17,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
-      "ext-json": "*"
+        "ext-json": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",
