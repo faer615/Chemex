@@ -30,8 +30,14 @@ class DeviceRecordController extends AdminController
             $grid->column('qrcode')->qrcode(function () {
                 return base64_encode('device:' . $this->id);
             }, 200, 200);
-            $grid->column('name');
-//            $grid->column('description');
+            $grid->column('name')->display(function ($name) {
+                $tag = InfoHelper::getOSTag($this->id);
+                if (empty($tag)) {
+                    return $name;
+                } else {
+                    return "<img src='/static/images/icons/$tag.png' /> $name";
+                }
+            });
             $grid->column('category.name');
             $grid->column('vendor.name');
             $grid->column('sn');
