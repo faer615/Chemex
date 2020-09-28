@@ -10,7 +10,7 @@
 
 <p align="center">
     <img src="https://img.shields.io/badge/lincense-GPL3.0-blue" />
-    <img src="https://img.shields.io/badge/release-1.0.0pre-orange" />
+    <img src="https://img.shields.io/badge/release-1.1.0-orange" />
     <img src="https://img.shields.io/badge/PHP-7.3+-green" />
     <img src="https://img.shields.io/badge/MySQL-5.6+-blueviolet" />
 </p>
@@ -40,13 +40,13 @@ Chemex是完全免费且开源的，任何人都可以无限制的修改代码�
 
 - 多国语言
 
-    - 目前支持中文简体、中文繁体、英文三种语言。
+    - 目前支持中文简体、英文两种语言，英文翻译进度并非100%，后续会慢慢完善。
 
 - 私有化部署
 
 ## 最新版本
 
-[1.0.0](https://gitee.com/famio/Chemex/raw/master/releases/Chemex-1.0.0.zip)
+[1.1.0](https://gitee.com/famio/Chemex/raw/master/releases/Chemex-1.1.0.zip)
 
 ## 环境要求
 
@@ -66,17 +66,11 @@ Chemex是完全免费且开源的，任何人都可以无限制的修改代码�
 
 3：编辑 `.env` 文件中的数据库连接配置相关字段。
 
-4：在项目根目录中，执行 `php artisan admin:install` 进行安装。
+4：在项目根目录中，执行 `php artisan chemex:install` 进行安装。
 
-5：在项目根目录中，执行 `php artisan migrate` 进行数据库迁移。
+5：你可能使用的web服务器为 `nginx` 以及 `apache`，无论怎样，应用的起始路径在 `/public` 目录，请确保指向正确。
 
-6：在项目根目录中，执行 `php artisan db:seed` 进行数据库填充。
-
-7：在项目根目录中，执行 `php artisan storage:link` 设置存储软链接。
-
-8：你可能使用的web服务器为 `nginx` 以及 `apache`，无论怎样，应用的起始路径在 `/public` 目录，请确保指向正确。
-
-9：修改web服务器的伪静态规则为：`try_files $uri $uri/ /index.php?$args;`。
+6：修改web服务器的伪静态规则为：`try_files $uri $uri/ /index.php?$args;`。
 
 ### 开发环境部署
 
@@ -110,11 +104,9 @@ Chemex是完全免费且开源的，任何人都可以无限制的修改代码�
 
 1：`Fork` 本仓库。
 
-2：新建 `Feat_xxx` 分支。
+2：修改代码。
 
-3：提交代码。
-
-4：新建 `Pull Request`。
+3：新建 `Pull Request`。
 
 ## 开源协议
 
