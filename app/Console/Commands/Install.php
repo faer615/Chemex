@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Libraries\InfoHelper;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
@@ -39,13 +40,46 @@ class Install extends Command
      */
     public function handle()
     {
-        $this->info('正在生成数据库结构！');
-        Artisan::call('migrate');
-        $this->info('正在初始化数据！');
-        DB::unprepared(file_get_contents(base_path('sql/init_data.sql')));
-        $this->info('正在设置存储系统！');
-        Artisan::call('storage:link');
-        $this->info('安装完成！');
-        return 0;
+        $url = $this->ask('填入应用即将使用的URL地址？（例：http://127.0.0.1:8000）');
+        $db_host = $this->ask('填入数据库地址？（不填默认为127.0.0.1）');
+        if (empty($db_host)) $db_host = '127.0.0.1';
+        $db_port = $this->ask('填入数据库端口？（不填默认为3306）');
+        if (empty($db_port)) $db_port = '3306';
+        $db_database = $this->ask('填入数据库名称？');
+        $db_username = $this->ask('填入数据库用户名？');
+        $db_password = $this->ask('填入数据库密码？');
+        $this->info('应用地址：' . $url);
+        $this->info('数据库地址：' . $db_host);
+        $this->info('数据库端口：' . $db_port);
+        $this->info('数据库名称：' . $db_database);
+        $this->info('数据库用户：' . $db_username);
+        $this->info('数据库密码：' . $db_password);
+        $check = $this->ask('请确认上述内容，无误输入"y"确认？');
+        if ($check == 'y' || $check == 'Y') {
+            if (!copy('.env.example', '.env')) {
+                $this->error('配置文件创建失败！');
+                return 0;
+            }
+
+            InfoHelper::setEnv([
+                'APP_URL' => $url,
+                'DB_HOST' => $db_host,
+                'DB_PORT' => $db_port,
+                'DB_DATABASE' => $db_database,
+                'DB_USERNAME' => $db_username,
+                'DB_PASSWORD' => $db_password
+            ]);
+
+            $this->info('正在生成数据库结构！');
+            Artisan::call('migrate');
+            $this->info('正在初始化数据！');
+            DB::unprepared(file_get_contents(base_path('sql/init_data.sql')));
+            $this->info('正在设置存储系统！');
+            Artisan::call('storage:link');
+            $this->info('安装完成！');
+            return 0;
+        } else {
+            return 0;
+        }
     }
 }

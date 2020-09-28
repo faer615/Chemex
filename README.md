@@ -62,11 +62,7 @@ Chemex是完全免费且开源的，任何人都可以无限制的修改代码�
 
 1：为你的计算机安装 `PHP` 环境，参考：[PHP官方](https://www.php.net/downloads) 。
 
-2：在项目根目录中，复制 `.env.example` 为 `.env`。
-
-3：编辑 `.env` 文件中的数据库连接配置相关字段。
-
-4：在项目根目录中，执行 `php artisan chemex:install` 进行安装。
+4：在项目根目录中，执行 `php artisan chemex:install` 根据提示进行安装。
 
 5：你可能使用的web服务器为 `nginx` 以及 `apache`，无论怎样，应用的起始路径在 `/public` 目录，请确保指向正确。
 
