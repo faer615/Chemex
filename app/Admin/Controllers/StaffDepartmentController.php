@@ -22,8 +22,6 @@ class StaffDepartmentController extends AdminController
             $grid->column('name');
             $grid->column('description');
             $grid->column('parent.name');
-            $grid->column('created_at');
-            $grid->column('updated_at');
 
             $grid->enableDialogCreate();
         });

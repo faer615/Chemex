@@ -21,8 +21,6 @@ class SoftwareCategoryController extends AdminController
             $grid->column('id');
             $grid->column('name');
             $grid->column('description');
-            $grid->column('created_at');
-            $grid->column('updated_at');
 
             $grid->enableDialogCreate();
         });

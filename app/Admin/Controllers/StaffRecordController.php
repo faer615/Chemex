@@ -27,8 +27,6 @@ class StaffRecordController extends AdminController
             $grid->column('title');
             $grid->column('mobile');
             $grid->column('email');
-            $grid->column('created_at');
-            $grid->column('updated_at');
 
             $grid->quickSearch('id', 'name')
                 ->placeholder('输入ID或者名称以搜索')

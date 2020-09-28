@@ -22,8 +22,6 @@ class VendorRecordController extends AdminController
             $grid->column('name');
             $grid->column('description');
             $grid->column('location');
-            $grid->column('created_at');
-            $grid->column('updated_at');
 
             $grid->quickSearch('id', 'name')
                 ->placeholder('输入ID或者名称以搜索')

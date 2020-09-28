@@ -9,10 +9,10 @@
 </p>
 
 <p align="center">
-    <img src="https://img.shields.io/badge/lincense-GPL3.0-blue" />
-    <img src="https://img.shields.io/badge/release-1.1.0-orange" />
+    <img src="https://img.shields.io/badge/Latest Release-1.1.0-orange" />
     <img src="https://img.shields.io/badge/PHP-7.3+-green" />
     <img src="https://img.shields.io/badge/MySQL-5.6+-blueviolet" />
+    <img src="https://img.shields.io/badge/License-GPL3.0-blue" />
 </p>
 
 ## 关于Chemex
