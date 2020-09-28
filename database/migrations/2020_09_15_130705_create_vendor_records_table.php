@@ -18,6 +18,7 @@ class CreateVendorRecordsTable extends Migration
             $table->string('name'); //制造商名称
             $table->string('description')->nullable();  //描述
             $table->string('location')->nullable(); //所在国家、地区
+            $table->string('creator');
             $table->softDeletes();
             $table->timestamps();
         });

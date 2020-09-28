@@ -17,6 +17,7 @@ class CreateDeviceTracksTable extends Migration
             $table->id();
             $table->integer('device_id');
             $table->integer('staff_id');
+            $table->string('creator');
             $table->softDeletes();
             $table->timestamps();
         });

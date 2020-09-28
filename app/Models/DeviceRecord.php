@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Dcat\Admin\Admin;
 use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
@@ -14,6 +15,18 @@ class DeviceRecord extends Model
     use SoftDeletes;
 
     protected $table = 'device_records';
+
+    /**
+     * 模型的 "booted" 方法
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::saving(function ($model) {
+            $model->creator = Admin::user()->name;
+        });
+    }
 
     /**
      * 设备分类

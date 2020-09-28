@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Dcat\Admin\Admin;
 use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -12,6 +13,18 @@ class HardwareTrack extends Model
     use SoftDeletes;
 
     protected $table = 'hardware_tracks';
+
+    /**
+     * 模型的 "booted" 方法
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::saving(function ($model) {
+            $model->creator = Admin::user()->name;
+        });
+    }
 
     public function hardware()
     {

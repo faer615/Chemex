@@ -23,6 +23,7 @@ class CreateDeviceRecordsTable extends Migration
             $table->string('mac')->nullable();
             $table->string('ip')->nullable();
             $table->string('photo')->nullable();
+            $table->string('creator');
             $table->softDeletes();
             $table->timestamps();
         });

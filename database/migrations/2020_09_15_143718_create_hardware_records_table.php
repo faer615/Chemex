@@ -21,6 +21,7 @@ class CreateHardwareRecordsTable extends Migration
             $table->integer('vendor_id');
             $table->string('specification');
             $table->string('sn')->nullable();
+            $table->string('creator');
             $table->softDeletes();
             $table->timestamps();
         });

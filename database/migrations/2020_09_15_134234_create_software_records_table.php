@@ -26,6 +26,7 @@ class CreateSoftwareRecordsTable extends Migration
             $table->char('distribution')->default('u');   //分发方式,u未知，o开源，f免费，b商业
             $table->string('sn')->nullable();   //序列号
             $table->integer('counts')->default(1);  //授权数量
+            $table->string('creator');
             $table->softDeletes();
             $table->timestamps();
         });

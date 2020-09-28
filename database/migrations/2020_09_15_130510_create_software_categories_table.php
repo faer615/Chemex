@@ -17,6 +17,7 @@ class CreateSoftwareCategoriesTable extends Migration
             $table->id();
             $table->string('name'); //软件名称
             $table->string('description')->nullable();  //描述
+            $table->string('creator');
             $table->softDeletes();
             $table->timestamps();
         });

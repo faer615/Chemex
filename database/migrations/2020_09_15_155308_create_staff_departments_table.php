@@ -18,6 +18,7 @@ class CreateStaffDepartmentsTable extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->integer('parent_id')->nullable();
+            $table->string('creator');
             $table->softDeletes();
             $table->timestamps();
         });

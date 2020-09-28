@@ -17,6 +17,7 @@ class CreateHardwareTracksTable extends Migration
             $table->id();
             $table->integer('hardware_id');
             $table->integer('device_id');
+            $table->string('creator');
             $table->softDeletes();
             $table->timestamps();
         });

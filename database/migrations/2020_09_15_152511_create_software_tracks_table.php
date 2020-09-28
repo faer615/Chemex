@@ -17,6 +17,7 @@ class CreateSoftwareTracksTable extends Migration
             $table->id();
             $table->integer('software_id');
             $table->integer('device_id');
+            $table->string('creator');
             $table->softDeletes();
             $table->timestamps();
         });
