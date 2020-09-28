@@ -31,7 +31,7 @@ class DeviceRecordController extends AdminController
                 return base64_encode('device:' . $this->id);
             }, 200, 200);
             $grid->column('name')->display(function ($name) {
-                $tag = InfoHelper::getOSTag($this->id);
+                $tag = InfoHelper::getSoftwareIcon($this->id);
                 if (empty($tag)) {
                     return $name;
                 } else {

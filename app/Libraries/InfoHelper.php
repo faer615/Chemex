@@ -44,40 +44,20 @@ class InfoHelper
      * @param $device_id
      * @return string
      */
-    public static function getOSTag($device_id)
+    public static function getSoftwareIcon($device_id)
     {
         $software_tracks = SoftwareTrack::where('device_id', $device_id)
             ->get();
+        $tags = Data::softwareTags();
+        $keys = array_keys($tags);
         foreach ($software_tracks as $software_track) {
-            if (stristr($software_track->software->name, 'win') != false) {
-                return 'windows';
-            }
-            if (stristr($software_track->software->name, 'ubuntu') != false) {
-                return 'ubuntu';
-            }
-            if (stristr($software_track->software->name, 'arch') != false) {
-                return 'arch';
-            }
-            if (stristr($software_track->software->name, 'centos') != false) {
-                return 'centos';
-            }
-            if (stristr($software_track->software->name, 'kali') != false) {
-                return 'kali';
-            }
-            if (stristr($software_track->software->name, 'debian') != false) {
-                return 'debian';
-            }
-            if (stristr($software_track->software->name, 'linux') != false) {
-                return 'linux';
-            }
-            if (stristr($software_track->software->name, 'macos') != false) {
-                return 'macos';
-            }
-            if (stristr($software_track->software->name, 'android') != false) {
-                return 'android';
-            }
-            if (stristr($software_track->software->name, 'ios') != false) {
-                return 'windows';
+            $name = trim($software_track->software->name);
+            for ($n = 0; $n < count($tags); $n++) {
+                for ($i = 0; $i < count($tags[$keys[$n]]); $i++) {
+                    if (stristr($name, $tags[$keys[$n]][$i]) != false) {
+                        return $keys[$n];
+                    }
+                }
             }
         }
         return '';
@@ -90,21 +70,16 @@ class InfoHelper
     public static function setEnv(array $data)
     {
         $envPath = base_path() . DIRECTORY_SEPARATOR . '.env';
-
         $contentArray = collect(file($envPath, FILE_IGNORE_NEW_LINES));
-
         $contentArray->transform(function ($item) use ($data) {
             foreach ($data as $key => $value) {
                 if (str_contains($item, $key)) {
                     return $key . '=' . $value;
                 }
             }
-
             return $item;
         });
-
         $content = implode("\n", $contentArray->toArray());
-
         File::put($envPath, $content);
     }
 }

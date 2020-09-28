@@ -6,6 +6,10 @@ namespace App\Libraries;
 
 class Data
 {
+    /**
+     * 发行方式
+     * @return string[]
+     */
     public static function distribution()
     {
         return [
@@ -16,12 +20,76 @@ class Data
         ];
     }
 
+    /**
+     * 性别
+     * @return string[]
+     */
     public static function genders()
     {
         return [
             '无' => '无',
             '男' => '男',
             '女' => '女'
+        ];
+    }
+
+    /**
+     * 软件标签
+     * @return array
+     */
+    public static function softwareTags()
+    {
+        return [
+            'windows' => [
+                'windows',
+                'win10',
+                'win8'
+            ],
+            'mac' => [
+                'mac',
+                'cheetah',
+                'puma',
+                'jaguar',
+                'panther',
+                'tiger',
+                'leopard',
+                'lion',
+                'mavericks',
+                'yosemite',
+                'capitan',
+                'sierra',
+                'mojave',
+                'catalina',
+                'bigsur'
+            ],
+            'linux' => [
+                'linux',
+                'centos',
+                'ubuntu',
+                'kali',
+                'debian',
+                'arch',
+                'deepin'
+            ],
+            'android' => [
+                'cupcake',
+                'donut',
+                'eclair',
+                'froyo',
+                'gingerbread',
+                'honeycomb',
+                'icecreansandwich',
+                'jellybean',
+                'kitkat',
+                'lollipop',
+                'marshmallow',
+                'nougat',
+                'oreo',
+                'pie'
+            ],
+            'ios' => [
+                'ios'
+            ]
         ];
     }
 }

@@ -40,7 +40,7 @@ class Install extends Command
      */
     public function handle()
     {
-        $url = $this->ask('填入应用即将使用的URL地址？（例：http://127.0.0.1:8000）');
+        $url = $this->ask('填入应用即将使用的URL地址？（格式：http://127.0.0.1:8000）');
         $db_host = $this->ask('填入数据库地址？（不填默认为127.0.0.1）');
         if (empty($db_host)) $db_host = '127.0.0.1';
         $db_port = $this->ask('填入数据库端口？（不填默认为3306）');
@@ -76,9 +76,16 @@ class Install extends Command
             DB::unprepared(file_get_contents(base_path('sql/init_data.sql')));
             $this->info('正在设置存储系统！');
             Artisan::call('storage:link');
-            $this->info('安装完成！');
+            $this->info('正在优化配置！');
+            Artisan::call('config:clear');
+            Artisan::call('route:clear');
+            Artisan::call('view:clear');
+            Artisan::call('cache:clear');
+            $this->info('安装完成！请访问 ' . $url . '/admin');
+            $this->warn('用户名密码都为：admin');
             return 0;
         } else {
+            $this->info('请重新执行 php artisan chemex:install 命令安装！');
             return 0;
         }
     }
