@@ -95,6 +95,7 @@ class DeviceRecordController extends AdminController
             $show->field('sn');
             $show->field('mac');
             $show->field('ip');
+            $show->field('photo')->image();
             $show->field('created_at');
             $show->field('updated_at');
         });
@@ -122,6 +123,9 @@ class DeviceRecordController extends AdminController
             $form->text('sn');
             $form->text('mac');
             $form->ip('ip');
+            $form->image('photo')
+                ->autoUpload()
+                ->uniqueName();
 
             $form->display('created_at');
             $form->display('updated_at');

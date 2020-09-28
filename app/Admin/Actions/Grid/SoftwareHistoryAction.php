@@ -20,31 +20,27 @@ class SoftwareHistoryAction extends RowAction
 
         $data = [];
 
+        $single = [
+            'type' => '',
+            'name' => '',
+            'status' => '',
+            'style' => '',
+            'datetime' => ''
+        ];
+
         $software_tracks = SoftwareTrack::withTrashed()
             ->where('software_id', $id)
             ->get();
 
         foreach ($software_tracks as $software_track) {
-            $status = '关联了';
-            $color = '';
-            $single = [
-                'type' => '设备',
-                'name' => $software_track->device->name,
-                'status' => $status,
-                'color' => $color,
-                'datetime' => json_decode($software_track, true)['created_at']
-            ];
+            $single['type'] = '设备';
+            $single['name'] = $software_track->device->name;
+            $single['status'] = '+';
+            $single['datetime'] = json_decode($software_track, true)['created_at'];
             array_push($data, $single);
             if (!empty($software_track->deleted_at)) {
-                $status = '解除了';
-                $color = 'table-warning';
-                $single = [
-                    'type' => '设备',
-                    'name' => $software_track->device->name,
-                    'status' => $status,
-                    'color' => $color,
-                    'datetime' => json_decode($software_track, true)['deleted_at']
-                ];
+                $single['status'] = '-';
+                $single['datetime'] = json_decode($software_track, true)['deleted_at'];
                 array_push($data, $single);
             }
         }
@@ -55,7 +51,7 @@ class SoftwareHistoryAction extends RowAction
         return Modal::make()
             ->lg()
             ->title($this->getRow()->name . ' 的变动履历')
-            ->body(view('software_history')->with('data', $data))
+            ->body(view('history')->with('data', $data))
             ->button($this->title);
     }
 }

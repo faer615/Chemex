@@ -22,34 +22,29 @@ class DeviceHistoryAction extends RowAction
 
         $data = [];
 
+        $single = [
+            'type' => '',
+            'name' => '',
+            'status' => '',
+            'style' => '',
+            'datetime' => ''
+        ];
+
         // 处理设备使用者变动履历
         $device_tracks = DeviceTrack::withTrashed()
             ->where('device_id', $id)
             ->get();
         foreach ($device_tracks as $device_track) {
-            $status = '关联了';
-            $color = '';
-            $single = [
-                'type' => '用户',
-                'name' => $device_track->staff->name . ' - ' . $device_track->staff->department->name,
-                'status' => $status,
-                'color' => $color,
-                'datetime' => json_decode($device_track, true)['created_at']
-            ];
+            $single['type'] = '用户';
+            $single['name'] = $device_track->staff->name . ' - ' . $device_track->staff->department->name;
+            $single['status'] = '+';
+            $single['datetime'] = json_decode($device_track, true)['created_at'];
             array_push($data, $single);
             if (!empty($device_track->deleted_at)) {
-                $status = '解除了';
-                $color = 'table-warning';
-                $single = [
-                    'type' => '用户',
-                    'name' => $device_track->staff->name . ' - ' . $device_track->staff->department->name,
-                    'status' => $status,
-                    'color' => $color,
-                    'datetime' => json_decode($device_track, true)['deleted_at']
-                ];
+                $single['status'] = '-';
+                $single['datetime'] = json_decode($device_track, true)['deleted_at'];
                 array_push($data, $single);
             }
-
         }
 
         // 处理设备硬件变动履历
@@ -57,26 +52,14 @@ class DeviceHistoryAction extends RowAction
             ->where('device_id', $id)
             ->get();
         foreach ($hardware_tracks as $hardware_track) {
-            $status = '关联了';
-            $color = '';
-            $single = [
-                'type' => '硬件',
-                'name' => $hardware_track->hardware->name . ' - ' . $hardware_track->hardware->specification,
-                'status' => $status,
-                'color' => $color,
-                'datetime' => json_decode($hardware_track, true)['created_at']
-            ];
+            $single['type'] = '硬件';
+            $single['name'] = $hardware_track->hardware->name . ' - ' . $hardware_track->hardware->specification;
+            $single['status'] = '+';
+            $single['datetime'] = json_decode($hardware_track, true)['created_at'];
             array_push($data, $single);
             if (!empty($hardware_track->deleted_at)) {
-                $status = '解除了';
-                $color = 'table-warning';
-                $single = [
-                    'type' => '硬件',
-                    'name' => $hardware_track->hardware->name . ' - ' . $hardware_track->hardware->specification,
-                    'status' => $status,
-                    'color' => $color,
-                    'datetime' => json_decode($hardware_track, true)['deleted_at']
-                ];
+                $single['status'] = '-';
+                $single['datetime'] = json_decode($hardware_track, true)['deleted_at'];
                 array_push($data, $single);
             }
         }
@@ -86,26 +69,14 @@ class DeviceHistoryAction extends RowAction
             ->where('device_id', $id)
             ->get();
         foreach ($software_tracks as $software_track) {
-            $status = '关联了';
-            $color = '';
-            $single = [
-                'type' => '软件',
-                'name' => $software_track->software->name . ' ' . $software_track->software->version,
-                'status' => $status,
-                'color' => $color,
-                'datetime' => json_decode($software_track, true)['created_at']
-            ];
+            $single['type'] = '软件';
+            $single['name'] = $software_track->software->name . ' ' . $software_track->software->version;
+            $single['status'] = '+';
+            $single['datetime'] = json_decode($software_track, true)['created_at'];
             array_push($data, $single);
             if (!empty($software_track->deleted_at)) {
-                $status = '解除了';
-                $color = 'table-warning';
-                $single = [
-                    'type' => '软件',
-                    'name' => $software_track->software->name . ' ' . $software_track->software->version,
-                    'status' => $status,
-                    'color' => $color,
-                    'datetime' => json_decode($software_track, true)['deleted_at']
-                ];
+                $single['status'] = '-';
+                $single['datetime'] = json_decode($software_track, true)['deleted_at'];
                 array_push($data, $single);
             }
         }
@@ -116,7 +87,7 @@ class DeviceHistoryAction extends RowAction
         return Modal::make()
             ->lg()
             ->title($this->getRow()->name . ' 的变动履历')
-            ->body(view('device_history')->with('data', $data))
+            ->body(view('history')->with('data', $data))
             ->button($this->title);
     }
 }

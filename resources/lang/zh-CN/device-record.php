@@ -18,6 +18,7 @@ return [
         'sn' => '序列号',
         'mac' => 'MAC',
         'ip' => 'IP',
+        'photo' => '照片',
         'owner' => '雇员',
         'department' => '部门'
     ],
