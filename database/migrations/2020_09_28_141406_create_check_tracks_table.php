@@ -15,6 +15,10 @@ class CreateCheckTracksTable extends Migration
     {
         Schema::create('check_tracks', function (Blueprint $table) {
             $table->id();
+            $table->integer('check_id');
+            $table->integer('item_id');
+            $table->integer('status');
+            $table->integer('checker');
             $table->string('creator');
             $table->softDeletes();
             $table->timestamps();

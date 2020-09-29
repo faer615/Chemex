@@ -24,4 +24,6 @@ Route::group([
     $router->resource('/vendor/records', 'VendorRecordController');
     $router->resource('/staff/records', 'StaffRecordController');
     $router->resource('/staff/departments', 'StaffDepartmentController');
+    $router->resource('/check/records', 'CheckRecordController');
+    $router->resource('/check/tracks', 'CheckTrackController');
 });

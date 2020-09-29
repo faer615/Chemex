@@ -34,6 +34,19 @@ class Data
     }
 
     /**
+     * 物件
+     * @return string[]
+     */
+    public static function items()
+    {
+        return [
+            'device' => '设备',
+            'hardware' => '硬件',
+            'software' => '软件'
+        ];
+    }
+
+    /**
      * 软件标签
      * @return array
      */
@@ -45,7 +58,7 @@ class Data
                 'win10',
                 'win8'
             ],
-            'mac' => [
+            'macos' => [
                 'mac',
                 'cheetah',
                 'puma',

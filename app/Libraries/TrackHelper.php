@@ -79,4 +79,9 @@ class TrackHelper
             return $software->counts - $used;
         }
     }
+
+    public static function createCheckTracks($check_id)
+    {
+
+    }
 }
