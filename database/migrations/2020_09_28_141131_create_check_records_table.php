@@ -18,7 +18,8 @@ class CreateCheckRecordsTable extends Migration
             $table->string('check_item');
             $table->dateTime('start_time');
             $table->dateTime('end_time');
-            $table->integer('staff_id');
+            $table->integer('user_id');
+            $table->integer('status')->default(0);
             $table->string('creator');
             $table->softDeletes();
             $table->timestamps();

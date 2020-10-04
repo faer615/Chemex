@@ -25,4 +25,9 @@ class CheckTrack extends Model
             $model->creator = Admin::user()->name;
         });
     }
+
+    public function user()
+    {
+        return $this->hasOne(AdminUser::class, 'id', 'checker');
+    }
 }

@@ -47,6 +47,32 @@ class Data
     }
 
     /**
+     * 盘点任务状态
+     * @return string[]
+     */
+    public static function checkRecordStatus()
+    {
+        return [
+            0 => '进行',
+            1 => '完成',
+            2 => '中止'
+        ];
+    }
+
+    /**
+     * 盘点追踪状态
+     * @return string[]
+     */
+    public static function checkTrackStatus()
+    {
+        return [
+            0 => '未盘点',
+            1 => '盘盈',
+            2 => '盘亏'
+        ];
+    }
+
+    /**
      * 软件标签
      * @return array
      */

@@ -1,7 +1,7 @@
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
-// Slim Highlighting for CodeMirror copyright (c) HicknHack SoftwareRecord Gmbh
+// Slim Highlighting for CodeMirror copyright (c) HicknHack Software Gmbh
 
 (function() {
   var mode = CodeMirror.getMode({tabSize: 4, indentUnit: 2}, "slim");

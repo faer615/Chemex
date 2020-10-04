@@ -2,9 +2,15 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Grid\CheckCancelAction;
+use App\Admin\Actions\Grid\CheckFinishAction;
 use App\Admin\Repositories\CheckRecord;
 use App\Libraries\Data;
-use App\Models\StaffRecord;
+use App\Models\AdminUser;
+use App\Models\CheckTrack;
+use App\Models\DeviceRecord;
+use App\Models\HardwareRecord;
+use App\Models\SoftwareRecord;
 use Dcat\Admin\Controllers\AdminController;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -19,17 +25,22 @@ class CheckRecordController extends AdminController
      */
     protected function grid()
     {
-        return Grid::make(new CheckRecord(['staff']), function (Grid $grid) {
+        return Grid::make(new CheckRecord(['user']), function (Grid $grid) {
             $grid->column('id');
             $grid->column('check_item')->using(Data::items());
             $grid->column('start_time');
             $grid->column('end_time');
-            $grid->column('staff.name');
+            $grid->column('user.name');
+            $grid->column('status')->using(Data::checkRecordStatus());
 
-            $grid->filter(function (Grid\Filter $filter) {
-                $filter->equal('id');
+            $grid->actions([new CheckCancelAction(), new CheckFinishAction()]);
 
-            });
+            $grid->disableRowSelector();
+            $grid->disableBatchDelete();
+            $grid->disableEditButton();
+            $grid->disableDeleteButton();
+
+            $grid->enableDialogCreate();
         });
     }
 
@@ -42,14 +53,18 @@ class CheckRecordController extends AdminController
      */
     protected function detail($id)
     {
-        return Show::make($id, new CheckRecord(['staff']), function (Show $show) {
+        return Show::make($id, new CheckRecord(['user']), function (Show $show) {
             $show->field('id');
             $show->field('check_item');
             $show->field('start_time');
             $show->field('end_time');
-            $show->field('staff.name');
+            $show->field('user.name');
+            $show->field('status')->using(Data::checkRecordStatus());
             $show->field('created_at');
             $show->field('updated_at');
+
+            $show->disableEditButton();
+            $show->disableDeleteButton();
         });
     }
 
@@ -69,13 +84,44 @@ class CheckRecordController extends AdminController
                 ->required();
             $form->datetime('end_time')
                 ->required();
-            $form->select('staff_id', admin_trans_label('Staff'))
-                ->options(StaffRecord::all()
+            $form->select('user_id', admin_trans_label('User'))
+                ->options(AdminUser::all()
                     ->pluck('name', 'id'))
                 ->required();
 
             $form->display('created_at');
             $form->display('updated_at');
+
+            $form->submitted(function (Form $form) {
+                $check_record = \App\Models\CheckRecord::where('check_item', $form->check_item)
+                    ->where('status', 0)
+                    ->first();
+                if (!empty($check_record)) {
+                    return $form->error('还有未完成的相同盘点内容，请先处理');
+                }
+            });
+
+            $form->saved(function (Form $form) {
+                $check_record = $form->repository()->eloquent();
+                switch ($check_record->check_item) {
+                    case 'hardware':
+                        $items = HardwareRecord::all();
+                        break;
+                    case 'software':
+                        $items = SoftwareRecord::all();
+                        break;
+                    default:
+                        $items = DeviceRecord::all();
+                }
+                foreach ($items as $item) {
+                    $check_track = new CheckTrack();
+                    $check_track->check_id = $form->getKey();
+                    $check_track->item_id = $item->id;
+                    $check_track->status = 0;
+                    $check_track->checker = 0;
+                    $check_track->save();
+                }
+            });
         });
     }
 }

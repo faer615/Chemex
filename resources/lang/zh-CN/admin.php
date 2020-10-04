@@ -240,7 +240,7 @@ return [
         'software_tracks' => '软件追踪',
         'device_tracks' => '设备追踪',
         'check_management' => '盘点管理',
-        'check_records' => '盘点内容',
+        'check_records' => '盘点任务',
         'check_tracks' => '盘点追踪'
     ],
 ];

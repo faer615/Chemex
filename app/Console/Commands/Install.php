@@ -70,18 +70,20 @@ class Install extends Command
                 'DB_PASSWORD' => $db_password
             ]);
 
+            $this->info('正在优化配置！');
+            Artisan::call('config:clear');
+            Artisan::call('route:clear');
+            Artisan::call('view:clear');
+            Artisan::call('cache:clear');
+            $this->info('正在安装后台脚手架！');
+            Artisan::call('admin:publish');
             $this->info('正在生成数据库结构！');
             Artisan::call('migrate');
             $this->info('正在初始化数据！');
             DB::unprepared(file_get_contents(base_path('sql/init_data.sql')));
             $this->info('正在设置存储系统！');
             Artisan::call('storage:link');
-            $this->info('正在优化配置！');
-            Artisan::call('config:clear');
-            Artisan::call('route:clear');
-            Artisan::call('view:clear');
-            Artisan::call('cache:clear');
-            $this->info('安装完成！请访问 ' . $url . '/admin');
+            $this->info('安装完成！请访问 ' . $url);
             $this->warn('用户名密码都为：admin');
             return 0;
         } else {

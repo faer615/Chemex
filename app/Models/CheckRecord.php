@@ -31,8 +31,8 @@ class CheckRecord extends Model
      * 雇员
      * @return HasOne
      */
-    public function staff()
+    public function user()
     {
-        return $this->hasOne(StaffRecord::class, 'id', 'staff_id');
+        return $this->hasOne(AdminUser::class, 'id', 'user_id');
     }
 }
