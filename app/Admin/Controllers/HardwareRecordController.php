@@ -80,7 +80,7 @@ class HardwareRecordController extends AdminController
             $form->display('id');
             $form->text('name')->required();
             $form->text('description');
-            $form->select('category_id', admin_trans_label('Vendor'))
+            $form->select('category_id', admin_trans_label('Category'))
                 ->options(HardwareCategory::all()
                     ->pluck('name', 'id'))
                 ->required();

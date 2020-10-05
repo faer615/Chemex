@@ -30,4 +30,9 @@ class CheckTrack extends Model
     {
         return $this->hasOne(AdminUser::class, 'id', 'checker');
     }
+
+    public function check()
+    {
+        return $this->hasOne(CheckRecord::class, 'id', 'check_id');
+    }
 }

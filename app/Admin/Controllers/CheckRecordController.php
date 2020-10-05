@@ -33,7 +33,12 @@ class CheckRecordController extends AdminController
             $grid->column('user.name');
             $grid->column('status')->using(Data::checkRecordStatus());
 
-            $grid->actions([new CheckCancelAction(), new CheckFinishAction()]);
+            $grid->actions(function (Grid\Displayers\Actions $actions) {
+                if ($this->status == 0) {
+                    $actions->append(new CheckFinishAction());
+                    $actions->append(new CheckCancelAction());
+                }
+            });
 
             $grid->disableRowSelector();
             $grid->disableBatchDelete();
