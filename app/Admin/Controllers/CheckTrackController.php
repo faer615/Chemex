@@ -40,11 +40,11 @@ class CheckTrackController extends AdminController
                             break;
                         default:
                             $item = DeviceRecord::where('id', $item_id)->first();
-                            if (empty($item)) {
-                                return '物品状态异常';
-                            } else {
-                                return $item->name;
-                            }
+                    }
+                    if (empty($item)) {
+                        return '物品状态异常';
+                    } else {
+                        return $item->name;
                     }
                 }
             });
