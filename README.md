@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-    <img src="https://img.shields.io/badge/Latest Release-1.1.0-orange" />
+    <img src="https://img.shields.io/badge/Latest Release-1.2.0-orange" />
     <img src="https://img.shields.io/badge/PHP-7.3+-green" />
     <img src="https://img.shields.io/badge/MySQL-5.6+-blueviolet" />
     <img src="https://img.shields.io/badge/License-GPL3.0-blue" />
@@ -56,7 +56,7 @@ Chemex是完全免费且开源的，任何人都可以无限制的修改代码�
 
 ## 最新版本
 
-[1.1.0](https://gitee.com/famio/Chemex/raw/master/releases/Chemex-1.1.0.zip)
+[1.2.0](https://gitee.com/famio/Chemex/raw/master/releases/Chemex-1.2.0.zip)
 
 ## 环境要求
 
