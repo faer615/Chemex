@@ -36,13 +36,23 @@ Chemex是完全免费且开源的，任何人都可以无限制的修改代码�
 
 - 雇员管理
 
+- 盘点管理
+    
+    - 设备、硬件、软件盘点任务的创建、完成和取消。
+    
+    - 盘盈盘亏。
+    
+    - 指定盘点负责人员。
+
 - 数据图表
 
 - 多国语言
 
-    - 目前支持中文简体、英文两种语言，英文翻译进度并非100%，后续会慢慢完善。
+    - 目前暂时最优支持中文简体，后续会发布英文语言，同时会支持语言切换。
 
 - 私有化部署
+
+    - 是的，只需要一个 `LNMP` 环境，就可以无限制的私有化部署。
 
 ## 最新版本
 
@@ -61,6 +71,10 @@ Chemex是完全免费且开源的，任何人都可以无限制的修改代码�
 ### 生产环境部署
 
 1：为你的计算机安装 `PHP` 环境，参考：[PHP官方](https://www.php.net/downloads) 。
+
+2：为你的计算机安装 `MySQL` 或者 `mariaDB` 。
+
+3：下载 [发行版](https://github.com/Celaraze/Chemex/releases) ，解压得到程序目录，放置到你想要放置的地方。
 
 4：在项目根目录中，执行 `php artisan chemex:install` 根据提示进行安装。
 
@@ -82,9 +96,9 @@ Chemex是完全免费且开源的，任何人都可以无限制的修改代码�
 
 5：编辑 `.env` 文件中的数据库连接配置相关字段。
 
-5：仍然在项目根目录中，执行 `php artisan migrate` 进行数据库迁移。
+6：仍然在项目根目录中，执行 `php artisan migrate` 进行数据库迁移。
 
-6：参考 [Laravel](https://laravel.com/) 以及 [Dcat Admin](https://dcatadmin.com) 相关文档进行开发。
+7：参考 [Laravel](https://laravel.com/) 以及 [Dcat Admin](https://dcatadmin.com) 相关文档进行开发。
 
 ## 截图
 
