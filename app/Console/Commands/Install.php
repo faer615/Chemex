@@ -40,7 +40,8 @@ class Install extends Command
      */
     public function handle()
     {
-        $url = $this->ask('填入应用即将使用的URL地址？（格式：http://127.0.0.1:8000）');
+        $url = $this->ask('填入应用即将使用的URL地址？（不填默认为http://127.0.0.1:8000）');
+        if (empty($url)) $url = 'http://127.0.0.1:8000';
         $db_host = $this->ask('填入数据库地址？（不填默认为127.0.0.1）');
         if (empty($db_host)) $db_host = '127.0.0.1';
         $db_port = $this->ask('填入数据库端口？（不填默认为3306）');
@@ -75,8 +76,8 @@ class Install extends Command
             Artisan::call('route:clear');
             Artisan::call('view:clear');
             Artisan::call('cache:clear');
-            $this->info('正在安装后台脚手架！');
-            Artisan::call('admin:publish');
+//            $this->info('正在安装后台脚手架！');
+//            Artisan::call('admin:publish');
             $this->info('正在生成数据库结构！');
             Artisan::call('migrate');
             $this->info('正在初始化数据！');
