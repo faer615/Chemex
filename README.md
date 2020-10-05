@@ -1,11 +1,11 @@
 <div align="center">
-    <img src="http://chemex.io/assets/images/logo.png"/>
+    <img src="http://chemex.it/assets/images/logo.png"/>
     <h2>Chemex</h2>
 </div>
 
 <p align="center">
-<a href="http://chemex.io">Chemex 官方网站</a> |
-<a href="http://chemex.io">Demo 演示站点</a>
+<a href="http://chemex.it">Chemex 官方网站</a> |
+<a href="http://chemex.it">Demo 演示站点</a>
 </p>
 
 <p align="center">
