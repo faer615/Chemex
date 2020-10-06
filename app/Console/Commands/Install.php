@@ -81,7 +81,7 @@ class Install extends Command
             $this->info('正在生成数据库结构！');
             Artisan::call('migrate');
             $this->info('正在初始化数据！');
-            DB::unprepared(file_get_contents(base_path('sql/init_data.sql')));
+            DB::unprepared(file_get_contents(base_path('sql/initData.sql')));
             $this->info('正在设置存储系统！');
             Artisan::call('storage:link');
             $this->info('安装完成！请访问 ' . $url);
