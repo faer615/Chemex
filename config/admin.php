@@ -376,4 +376,6 @@ return [
     'extensions' => [
 
     ],
+
+    'demo' => env('ADMIN_DEMO')
 ];
