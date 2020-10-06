@@ -4,8 +4,8 @@
 </div>
 
 <p align="center">
-<a href="http://chemex.it">Chemex 官方网站</a> |
-<a href="http://chemex.it">Demo 演示站点</a>
+<a href="http://chemex.it" target="_blank">Chemex 官方网站</a> |
+<a href="https://chemex.famio.cn" target="_blank">Demo 演示站点</a>
 </p>
 
 <p align="center">
