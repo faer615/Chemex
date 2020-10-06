@@ -322,9 +322,9 @@ return [
     */
     'layout' => [
         // indigo, blue, blue-light, blue-dark, green
-        'color' => 'indigo',
+        'color' => 'blue-light',
 
-        'body_class' => '',
+        'body_class' => 'dark-mode',
 
         'sidebar_collapsed' => false,
 

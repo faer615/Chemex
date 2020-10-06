@@ -22,6 +22,8 @@ class DeviceCategoryController extends AdminController
             $grid->column('name');
             $grid->column('description');
 
+            $grid->toolsWithOutline(false);
+
             $grid->enableDialogCreate();
         });
     }

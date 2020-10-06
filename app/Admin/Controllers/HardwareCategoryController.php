@@ -23,6 +23,8 @@ class HardwareCategoryController extends AdminController
             $grid->column('description');
 
             $grid->enableDialogCreate();
+
+            $grid->toolsWithOutline(false);
         });
     }
 

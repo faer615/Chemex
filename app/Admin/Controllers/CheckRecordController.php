@@ -45,6 +45,8 @@ class CheckRecordController extends AdminController
             $grid->disableEditButton();
             $grid->disableDeleteButton();
 
+            $grid->toolsWithOutline(false);
+
             $grid->enableDialogCreate();
         });
     }

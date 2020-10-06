@@ -148,7 +148,7 @@
     .right {
         flex: 3;
         height: 100vh;
-        background: #ffffff;
+        background: #222233;
     }
 
     .background {

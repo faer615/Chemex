@@ -25,9 +25,10 @@ class DeviceTrackController extends AdminController
             $grid->column('updated_at');
 
             $grid->disableCreateButton();
-
             $grid->disableRowSelector();
             $grid->disableBatchDelete();
+
+            $grid->toolsWithOutline(false);
         });
     }
 

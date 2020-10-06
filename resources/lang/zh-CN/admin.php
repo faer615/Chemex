@@ -241,6 +241,10 @@ return [
         'device_tracks' => '设备追踪',
         'check_management' => '盘点管理',
         'check_records' => '盘点任务',
-        'check_tracks' => '盘点追踪'
+        'check_tracks' => '盘点追踪',
+        'service_management' => '服务管理',
+        'service_records' => '服务',
+        'service_tracks' => '服务追踪',
+        'service_issues' => '服务异常'
     ],
 ];

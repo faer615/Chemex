@@ -24,8 +24,11 @@ class HardwareTrackController extends AdminController
             $grid->column('created_at');
             $grid->column('updated_at');
 
+            $grid->disableCreateButton();
             $grid->disableRowSelector();
             $grid->disableBatchDelete();
+
+            $grid->toolsWithOutline(false);
         });
     }
 

@@ -2,13 +2,15 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Repositories\SoftwareCategory;
+use App\Admin\Actions\Grid\ServiceIssueAction;
+use App\Admin\Actions\Grid\ServiceTrackAction;
+use App\Admin\Repositories\ServiceRecord;
 use Dcat\Admin\Controllers\AdminController;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
 
-class SoftwareCategoryController extends AdminController
+class ServiceRecordController extends AdminController
 {
     /**
      * Make a grid builder.
@@ -17,12 +19,20 @@ class SoftwareCategoryController extends AdminController
      */
     protected function grid()
     {
-        return Grid::make(new SoftwareCategory(), function (Grid $grid) {
+        return Grid::make(new ServiceRecord(), function (Grid $grid) {
             $grid->column('id');
             $grid->column('name');
             $grid->column('description');
+            $grid->column('status')->switch('green');
 
-            $grid->enableDialogCreate();
+            $grid->actions(function (Grid\Displayers\Actions $actions) {
+                $actions->append(new ServiceTrackAction());
+                $actions->append(new ServiceIssueAction());
+            });
+
+            $grid->filter(function (Grid\Filter $filter) {
+                $filter->equal('id');
+            });
 
             $grid->toolsWithOutline(false);
         });
@@ -37,7 +47,7 @@ class SoftwareCategoryController extends AdminController
      */
     protected function detail($id)
     {
-        return Show::make($id, new SoftwareCategory(), function (Show $show) {
+        return Show::make($id, new ServiceRecord(), function (Show $show) {
             $show->field('id');
             $show->field('name');
             $show->field('description');
@@ -53,10 +63,12 @@ class SoftwareCategoryController extends AdminController
      */
     protected function form()
     {
-        return Form::make(new SoftwareCategory(), function (Form $form) {
+        return Form::make(new ServiceRecord(), function (Form $form) {
             $form->display('id');
             $form->text('name')->required();
             $form->text('description');
+            $form->switch('status')->default(0);
+
             $form->display('created_at');
             $form->display('updated_at');
         });

@@ -44,6 +44,8 @@ class HardwareRecordController extends AdminController
                 ->auto(false);
 
             $grid->enableDialogCreate();
+
+            $grid->toolsWithOutline(false);
         });
     }
 

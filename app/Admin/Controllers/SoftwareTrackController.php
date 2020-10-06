@@ -25,11 +25,10 @@ class SoftwareTrackController extends AdminController
             $grid->column('updated_at');
 
             $grid->disableCreateButton();
-
             $grid->disableRowSelector();
             $grid->disableBatchDelete();
 
-            $grid->enableDialogCreate();
+            $grid->toolsWithOutline(false);
         });
     }
 

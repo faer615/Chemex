@@ -24,6 +24,8 @@ class StaffDepartmentController extends AdminController
             $grid->column('parent.name');
 
             $grid->enableDialogCreate();
+
+            $grid->toolsWithOutline(false);
         });
     }
 

@@ -73,6 +73,20 @@ class Data
     }
 
     /**
+     * 服务异常状态
+     * @return string[]
+     */
+    public static function serviceIssueStatus()
+    {
+        return [
+            0 => '正常',
+            1 => '故障',
+            2 => '恢复',
+            3 => '暂停'
+        ];
+    }
+
+    /**
      * 软件标签
      * @return array
      */

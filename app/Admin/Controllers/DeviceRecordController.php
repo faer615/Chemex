@@ -62,6 +62,8 @@ class DeviceRecordController extends AdminController
                 return InfoHelper::staffIdToDepartmentName($res);
             });
 
+            $grid->toolsWithOutline(false);
+
             $grid->actions([new DeviceTrackAction(), new DeviceRelatedAction(), new DeviceHistoryAction()]);
 
             $grid->quickSearch('id', 'name')

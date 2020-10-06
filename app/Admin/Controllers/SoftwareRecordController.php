@@ -49,6 +49,8 @@ class SoftwareRecordController extends AdminController
                 ->auto(false);
 
             $grid->enableDialogCreate();
+
+            $grid->toolsWithOutline(false);
         });
     }
 

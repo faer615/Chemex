@@ -62,6 +62,8 @@ class CheckTrackController extends AdminController
             $grid->disableViewButton();
             $grid->disableDeleteButton();
 
+            $grid->toolsWithOutline(false);
+
             $grid->quickSearch('check_id')
                 ->placeholder('输入任务ID以筛选')
                 ->auto(false);
