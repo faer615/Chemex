@@ -25,6 +25,8 @@ Chemex是完全免费且开源的，任何人都可以无限制的修改代码�
 - 设备台账管理
 
     - 其中包含了设备的名称、所有软硬件、制造商、购入日期、保护日期、IP地址、MAC、使用者等维护内容，同时拥有设备相关历史记录。
+    
+    - 支持在线 SSH 远程访问管理设备。
 
 - 硬件台账管理
 
@@ -36,6 +38,14 @@ Chemex是完全免费且开源的，任何人都可以无限制的修改代码�
 
 - 雇员管理
 
+- 服务管理
+    
+    - 其中包含了服务所在的宿主服务器、服务状态、异常报告等。
+    
+    - 服务异常的修复。
+    
+    - 首页特别的看板。
+
 - 盘点管理
     
     - 设备、硬件、软件盘点任务的创建、完成和取消。
@@ -45,6 +55,10 @@ Chemex是完全免费且开源的，任何人都可以无限制的修改代码�
     - 指定盘点负责人员。
 
 - 数据图表
+
+    - 各模块的基础数据。
+    
+    - 各服务状态实时展示，包括异常内容，发生时间和恢复时间。
 
 - 多国语言
 
@@ -80,6 +94,7 @@ Chemex是完全免费且开源的，任何人都可以无限制的修改代码�
 |20|人性化的站点配置|❌|一般|
 |21|服务管理基础|✔|一般|
 |22|服务状态看板|✔|一般|
+|23|设备在线SSH管理|✔|一般|
 
 ## 最新版本
 
@@ -129,13 +144,17 @@ Chemex是完全免费且开源的，任何人都可以无限制的修改代码�
 
 ## 截图
 
-![](https://oss.liujunyang.com/images/cache/screencapture-127-0-0-1-8000-auth-login-1600257365001.png)
+![](https://i.loli.net/2020/10/07/v9F8BhMuU17fsn3.png)
 
-![](https://oss.liujunyang.com/images/cache/screencapture-127-0-0-1-8000-software-records-create-1600257882966.png)
+![](https://i.loli.net/2020/10/07/IABluLr5JkRyzEQ.png)
 
-![](https://oss.liujunyang.com/images/cache/screencapture-127-0-0-1-8000-admin-1600171136666.png)
+![](https://i.loli.net/2020/10/07/LgU2BalYDtHZTOh.png)
 
-![](https://oss.liujunyang.com/images/cache/screencapture-127-0-0-1-8000-admin-software-records-create-1600170694210.png)
+![](https://i.loli.net/2020/10/07/4IzxYLhHi8feaRV.png)
+
+![](https://i.loli.net/2020/10/07/e9Slp5FCwd1ijqg.png)
+
+![](https://i.loli.net/2020/10/07/7faXkBuUy5D8tbQ.png)
 
 ## 参与贡献
 
