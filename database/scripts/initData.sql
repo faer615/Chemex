@@ -101,7 +101,7 @@ INSERT INTO `admin_users` (`id`, `username`, `password`, `name`, `avatar`, `reme
 DELETE FROM `check_records`;
 /*!40000 ALTER TABLE `check_records` DISABLE KEYS */;
 INSERT INTO `check_records` (`id`, `check_item`, `start_time`, `end_time`, `user_id`, `status`, `creator`, `deleted_at`, `created_at`, `updated_at`) VALUES
-	(10, 'device', '2020-10-05 00:03:53', '2020-10-05 00:03:54', 2, 2, 'Administrator', NULL, '2020-10-05 00:03:57', '2020-10-05 00:20:41'),
+	(10, 'device', '2020-10-05 00:03:53', '2020-10-05 00:03:54', 2, 0, 'Administrator', NULL, '2020-10-05 00:03:57', '2020-10-05 00:20:41'),
 	(11, 'hardware', '2020-10-05 08:59:35', '2020-10-05 08:59:35', 2, 1, 'Administrator', NULL, '2020-10-05 08:59:37', '2020-10-05 20:09:29');
 /*!40000 ALTER TABLE `check_records` ENABLE KEYS */;
 
@@ -126,10 +126,10 @@ INSERT INTO `device_categories` (`id`, `name`, `description`, `creator`, `delete
 -- 正在导出表  chemex.device_records 的数据：~2 rows (大约)
 DELETE FROM `device_records`;
 /*!40000 ALTER TABLE `device_records` DISABLE KEYS */;
-INSERT INTO `device_records` (`id`, `name`, `description`, `category_id`, `vendor_id`, `sn`, `mac`, `ip`, `photo`, `creator`, `deleted_at`, `created_at`, `updated_at`) VALUES
-	(4, 'PC-1', NULL, 3, 1, NULL, NULL, NULL, NULL, 'Administrator', NULL, '2020-10-04 23:05:06', '2020-10-04 23:05:06'),
-	(5, 'PC-2', NULL, 3, 3, NULL, NULL, NULL, NULL, 'Administrator', NULL, '2020-10-04 23:05:14', '2020-10-04 23:05:14'),
-	(6, 'NB-1', NULL, 4, 1, NULL, NULL, NULL, NULL, 'Administrator', NULL, '2020-10-04 23:05:20', '2020-10-04 23:05:20');
+INSERT INTO `device_records` (`id`, `name`, `description`, `category_id`, `vendor_id`, `sn`, `mac`, `ip`, `photo`, `ssh_username`, `ssh_password`, `ssh_port`, `creator`, `deleted_at`, `created_at`, `updated_at`) VALUES
+	(4, 'FAMIO-CLOUD', NULL, 3, 1, NULL, NULL, NULL, NULL, 'root', 'ZmFtaW8uY25AMDYyNQ==', '22', 'Administrator', NULL, '2020-10-04 23:05:06', '2020-10-07 23:20:33'),
+	(5, 'PC-2', NULL, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Administrator', NULL, '2020-10-04 23:05:14', '2020-10-04 23:05:14'),
+	(6, 'NB-1', NULL, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Administrator', NULL, '2020-10-04 23:05:20', '2020-10-04 23:05:20');
 /*!40000 ALTER TABLE `device_records` ENABLE KEYS */;
 
 -- 正在导出表  chemex.device_tracks 的数据：~0 rows (大约)
