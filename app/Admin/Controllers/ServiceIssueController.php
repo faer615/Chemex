@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Grid\ServiceFixAction;
 use App\Admin\Repositories\ServiceIssue;
 use App\Libraries\Data;
 use Dcat\Admin\Controllers\AdminController;
@@ -17,8 +18,9 @@ class ServiceIssueController extends AdminController
      */
     protected function grid()
     {
-        return Grid::make(new ServiceIssue(), function (Grid $grid) {
+        return Grid::make(new ServiceIssue(['service']), function (Grid $grid) {
             $grid->column('id');
+            $grid->column('service.name');
             $grid->column('issue');
             $grid->column('status')->using(Data::serviceIssueStatus());
             $grid->column('start');
@@ -27,6 +29,10 @@ class ServiceIssueController extends AdminController
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
             });
+            $grid->actions(function (Grid\Displayers\Actions $actions) {
+                $actions->append(new ServiceFixAction());
+            });
+
             $grid->toolsWithOutline(false);
 
             $grid->disableCreateButton();
@@ -47,8 +53,9 @@ class ServiceIssueController extends AdminController
      */
     protected function detail($id)
     {
-        return Show::make($id, new ServiceIssue(), function (Show $show) {
+        return Show::make($id, new ServiceIssue(['service']), function (Show $show) {
             $show->field('id');
+            $show->field('service.name');
             $show->field('issue');
             $show->field('status')->using(Data::serviceIssueStatus());
             $show->field('start');

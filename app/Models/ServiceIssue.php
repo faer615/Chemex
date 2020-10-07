@@ -25,4 +25,9 @@ class ServiceIssue extends Model
             $model->creator = Admin::user()->name;
         });
     }
+
+    public function service()
+    {
+        return $this->hasOne(ServiceRecord::class, 'id', 'service_id');
+    }
 }
