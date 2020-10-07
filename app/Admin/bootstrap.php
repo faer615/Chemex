@@ -18,3 +18,6 @@
  * Admin::js('/packages/prettydocs/js/main.js');
  *
  */
+
+//优化页脚显示，隐藏底部文字
+Admin::style('.main-footer {display:none;}[class*=sidebar-dark-] .navbar-header{padding:.35rem 1rem 0;height:auto !important;background:#1e1e2d}');

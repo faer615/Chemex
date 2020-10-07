@@ -19,8 +19,7 @@ class StaffCounts extends Line
      */
     public function handle(Request $request)
     {
-        $staff = StaffRecord::all();
-        $counts = count($staff);
+        $counts = StaffRecord::all()->count();
 
         $this->withContent($counts);
     }

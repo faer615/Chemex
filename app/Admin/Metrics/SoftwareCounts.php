@@ -19,8 +19,7 @@ class SoftwareCounts extends Line
      */
     public function handle(Request $request)
     {
-        $software = SoftwareRecord::all();
-        $counts = count($software);
+        $counts = SoftwareRecord::all()->count();
 
         $this->withContent($counts);
     }

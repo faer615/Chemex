@@ -19,8 +19,7 @@ class HardwareCounts extends Line
      */
     public function handle(Request $request)
     {
-        $hardware = HardwareRecord::all();
-        $counts = count($hardware);
+        $counts = HardwareRecord::all()->count();
 
         $this->withContent($counts);
     }

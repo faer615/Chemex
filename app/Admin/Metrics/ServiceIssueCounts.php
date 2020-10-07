@@ -4,11 +4,12 @@
 namespace App\Admin\Metrics;
 
 
-use App\Models\DeviceRecord;
+use App\Models\ServiceIssue;
+use App\Models\ServiceRecord;
 use Dcat\Admin\Widgets\Metrics\Line;
 use Illuminate\Http\Request;
 
-class DeviceCounts extends Line
+class ServiceIssueCounts extends Line
 {
     /**
      * 处理请求
@@ -19,7 +20,16 @@ class DeviceCounts extends Line
      */
     public function handle(Request $request)
     {
-        $counts = DeviceRecord::all()->count();
+        $counts = 0;
+        $services = ServiceRecord::all();
+        foreach ($services as $service) {
+            $service_issue = ServiceIssue::where('service_id', $service->id)
+                ->where('status', 1)
+                ->first();
+            if (!empty($service_issue)) {
+                $counts++;
+            }
+        }
 
         $this->withContent($counts);
     }
@@ -51,6 +61,6 @@ HTML
     {
         parent::init();
 
-        $this->title('设备数量');
+        $this->title('异常服务数量');
     }
 }

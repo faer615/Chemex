@@ -29,6 +29,10 @@ class ServiceFixAction extends RowAction
             return $this->response()
                 ->error('没有找到此异常！');
         } else {
+            if ($service_issue->status !== 1) {
+                return $this->response()
+                    ->warning('不存在异常！');
+            }
             $service_issue->status = 2;
             $service_issue->end = date('y-m-d h:i:s', time());
             $service_issue->save();

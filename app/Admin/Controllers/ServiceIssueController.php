@@ -30,7 +30,9 @@ class ServiceIssueController extends AdminController
                 $filter->equal('id');
             });
             $grid->actions(function (Grid\Displayers\Actions $actions) {
-                $actions->append(new ServiceFixAction());
+                if ($this->status == 1) {
+                    $actions->append(new ServiceFixAction());
+                }
             });
 
             $grid->toolsWithOutline(false);
