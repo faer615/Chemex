@@ -37,7 +37,10 @@ class HardwareRecordController extends AdminController
                 return TrackHelper::currentHardwareTrack($this->id);
             });
 
-            $grid->actions([new HardwareTrackAction(), new HardwareHistoryAction()]);
+            $grid->actions(function (Grid\Displayers\Actions $actions) {
+                $actions->append(new HardwareTrackAction());
+                $actions->append(new HardwareHistoryAction());
+            });
 
             $grid->quickSearch('id', 'name')
                 ->placeholder('输入ID或者名称以搜索')

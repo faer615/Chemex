@@ -16,7 +16,7 @@ class CheckTrackNoAction extends RowAction
     /**
      * @return string
      */
-    protected $title = '盘亏';
+    protected $title = '🏳 盘亏';
 
     /**
      * Handle the action request.

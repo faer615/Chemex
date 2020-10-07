@@ -16,7 +16,7 @@ class CheckFinishAction extends RowAction
     /**
      * @return string
      */
-    protected $title = '完成任务';
+    protected $title = '⚡ 完成任务';
 
     /**
      * Handle the action request.

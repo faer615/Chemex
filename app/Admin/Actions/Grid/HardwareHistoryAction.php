@@ -11,7 +11,7 @@ class HardwareHistoryAction extends RowAction
     /**
      * @return string
      */
-    protected $title = '硬件变动履历';
+    protected $title = '📃 硬件变动履历';
 
     public function render()
     {

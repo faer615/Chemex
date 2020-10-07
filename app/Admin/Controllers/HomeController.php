@@ -29,7 +29,7 @@ class HomeController extends Controller
                 $row->column(2, new ServiceCounts());
                 $row->column(2, new ServiceIssueCounts());
                 $services = TrackHelper::getServiceIssueStatus();
-                $row->column(12, new Card(view('services_dashboard')->with(['services' => $services])));
+                $row->column(12, new Card('服务状态', view('services_dashboard')->with('services', $services)));
             });
     }
 }

@@ -4,6 +4,7 @@ namespace App\Admin\Controllers;
 
 use App\Admin\Actions\Grid\DeviceHistoryAction;
 use App\Admin\Actions\Grid\DeviceRelatedAction;
+use App\Admin\Actions\Grid\DeviceSSHInfoAction;
 use App\Admin\Actions\Grid\DeviceTrackAction;
 use App\Admin\Repositories\DeviceRecord;
 use App\Libraries\InfoHelper;
@@ -64,7 +65,16 @@ class DeviceRecordController extends AdminController
 
             $grid->toolsWithOutline(false);
 
-            $grid->actions([new DeviceTrackAction(), new DeviceRelatedAction(), new DeviceHistoryAction()]);
+            $grid->actions(function (Grid\Displayers\Actions $actions) {
+                $actions->append(new DeviceTrackAction());
+                $actions->append(new DeviceRelatedAction());
+                $actions->append(new DeviceHistoryAction());
+                if ($this->ip || $this->ssh_username || $this->ssh_password || $this->port) {
+                    $url = InfoHelper::getSSHBaseUrl($this->ip, $this->ssh_port, $this->ssh_username, $this->ssh_password);
+                    $actions->append("<a href='$url' target='_blank'>💻 通过SSH连接...</a>");
+                }
+                $actions->append(new DeviceSSHInfoAction());
+            });
 
             $grid->quickSearch('id', 'name')
                 ->placeholder('输入ID或者名称以搜索')

@@ -11,7 +11,7 @@ class HardwareTrackAction extends RowAction
     /**
      * @return string
      */
-    protected $title = '归属设备';
+    protected $title = '💻 归属设备';
 
     public function render()
     {

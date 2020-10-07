@@ -53,7 +53,10 @@ class CheckTrackController extends AdminController
             $grid->column('created_at');
             $grid->column('updated_at');
 
-            $grid->actions([new CheckTrackYesAction(), new CheckTrackNoAction()]);
+            $grid->actions(function (Grid\Displayers\Actions $actions) {
+                $actions->append(new CheckTrackYesAction());
+                $actions->append(new CheckTrackNoAction());
+            });
 
             $grid->disableRowSelector();
             $grid->disableBatchDelete();

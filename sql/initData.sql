@@ -11,17 +11,17 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- 正在导出表  chemex.admin_menu 的数据：~24 rows (大约)
+-- 正在导出表  chemex.admin_menu 的数据：~31 rows (大约)
 DELETE FROM `admin_menu`;
 /*!40000 ALTER TABLE `admin_menu` DISABLE KEYS */;
 INSERT INTO `admin_menu` (`id`, `parent_id`, `order`, `title`, `icon`, `uri`, `created_at`, `updated_at`) VALUES
 	(1, 0, 1, 'Index', 'feather icon-bar-chart-2', '/', NULL, NULL),
-	(2, 0, 22, 'Admin', 'feather icon-settings', '/', NULL, '2020-10-04 10:44:31'),
-	(3, 2, 23, 'Users', '', 'auth/users', NULL, '2020-10-04 10:44:31'),
-	(4, 2, 24, 'Roles', '', 'auth/roles', NULL, '2020-10-04 10:44:31'),
-	(5, 2, 25, 'Permission', '', 'auth/permissions', NULL, '2020-10-04 10:44:31'),
-	(6, 2, 26, 'Menu', '', 'auth/menu', NULL, '2020-10-04 10:44:31'),
-	(7, 2, 27, 'Operation log', '', 'auth/logs', NULL, '2020-10-04 10:44:31'),
+	(2, 0, 24, 'Admin', 'feather icon-settings', '/', NULL, '2020-10-06 21:39:10'),
+	(3, 2, 25, 'Users', '', 'auth/users', NULL, '2020-10-06 21:39:10'),
+	(4, 2, 26, 'Roles', '', 'auth/roles', NULL, '2020-10-06 21:39:10'),
+	(5, 2, 27, 'Permission', '', 'auth/permissions', NULL, '2020-10-06 21:39:10'),
+	(6, 2, 28, 'Menu', '', 'auth/menu', NULL, '2020-10-06 21:39:10'),
+	(7, 2, 29, 'Operation log', '', 'auth/logs', NULL, '2020-10-06 21:39:10'),
 	(8, 0, 6, 'Software Management', 'feather icon-disc', '', NULL, '2020-10-04 10:44:31'),
 	(9, 8, 8, 'Software Categories', '', 'software/categories', NULL, '2020-10-04 10:44:31'),
 	(10, 0, 14, 'Vendor Management', 'feather icon-zap', '', NULL, '2020-10-04 10:44:31'),
@@ -39,9 +39,13 @@ INSERT INTO `admin_menu` (`id`, `parent_id`, `order`, `title`, `icon`, `uri`, `c
 	(22, 8, 9, 'Software Tracks', '', 'software/tracks', NULL, '2020-10-04 10:44:31'),
 	(23, 13, 13, 'Hardware Tracks', '', 'hardware/tracks', NULL, '2020-10-04 10:44:31'),
 	(24, 16, 5, 'Device Tracks', '', 'device/tracks', NULL, '2020-10-04 10:44:31'),
-	(25, 0, 19, 'Check Management', 'feather icon-check-circle', NULL, '2020-10-04 10:22:42', '2020-10-04 10:44:31'),
-	(26, 25, 20, 'Check Records', NULL, 'check/records', '2020-10-04 10:23:17', '2020-10-04 10:44:31'),
-	(27, 25, 21, 'Check Tracks', NULL, 'check/tracks', '2020-10-04 10:23:33', '2020-10-04 10:44:31');
+	(25, 0, 21, 'Check Management', 'feather icon-check-circle', NULL, '2020-10-04 10:22:42', '2020-10-06 21:39:10'),
+	(26, 25, 22, 'Check Records', NULL, 'check/records', '2020-10-04 10:23:17', '2020-10-06 21:39:10'),
+	(27, 25, 23, 'Check Tracks', NULL, 'check/tracks', '2020-10-04 10:23:33', '2020-10-06 21:39:10'),
+	(28, 0, 19, 'Service Management', 'feather icon-activity', NULL, '2020-10-06 21:38:40', '2020-10-06 21:39:10'),
+	(29, 28, 20, 'Service Records', NULL, 'service/records', '2020-10-06 21:39:02', '2020-10-06 21:39:10'),
+	(30, 28, 30, 'Service Tracks', NULL, 'service/tracks', '2020-10-06 22:02:15', '2020-10-06 22:02:15'),
+	(31, 28, 31, 'Service Issues', NULL, 'service/issues', '2020-10-06 23:23:22', '2020-10-06 23:23:22');
 /*!40000 ALTER TABLE `admin_menu` ENABLE KEYS */;
 
 -- 正在导出表  chemex.admin_permissions 的数据：~6 rows (大约)
@@ -85,7 +89,7 @@ INSERT INTO `admin_role_users` (`role_id`, `user_id`, `created_at`, `updated_at`
 	(1, 1, NULL, NULL);
 /*!40000 ALTER TABLE `admin_role_users` ENABLE KEYS */;
 
--- 正在导出表  chemex.admin_users 的数据：~1 rows (大约)
+-- 正在导出表  chemex.admin_users 的数据：~0 rows (大约)
 DELETE FROM `admin_users`;
 /*!40000 ALTER TABLE `admin_users` DISABLE KEYS */;
 INSERT INTO `admin_users` (`id`, `username`, `password`, `name`, `avatar`, `remember_token`, `created_at`, `updated_at`) VALUES
@@ -93,20 +97,22 @@ INSERT INTO `admin_users` (`id`, `username`, `password`, `name`, `avatar`, `reme
 	(2, 'test_user1', '$2y$10$LkfJ2s63BGHYpYGU.D5JFuym6x9oE2z34JhFkqbtvSgZJQGm05Aoe', '测试用户1', NULL, NULL, '2020-10-04 23:40:28', '2020-10-04 23:40:28');
 /*!40000 ALTER TABLE `admin_users` ENABLE KEYS */;
 
--- 正在导出表  chemex.check_records 的数据：~9 rows (大约)
+-- 正在导出表  chemex.check_records 的数据：~2 rows (大约)
 DELETE FROM `check_records`;
 /*!40000 ALTER TABLE `check_records` DISABLE KEYS */;
 INSERT INTO `check_records` (`id`, `check_item`, `start_time`, `end_time`, `user_id`, `status`, `creator`, `deleted_at`, `created_at`, `updated_at`) VALUES
-	(10, 'device', '2020-10-05 00:03:53', '2020-10-05 00:03:54', 2, 0, 'Administrator', NULL, '2020-10-05 00:03:57', '2020-10-05 00:03:57');
+	(10, 'device', '2020-10-05 00:03:53', '2020-10-05 00:03:54', 2, 2, 'Administrator', NULL, '2020-10-05 00:03:57', '2020-10-05 00:20:41'),
+	(11, 'hardware', '2020-10-05 08:59:35', '2020-10-05 08:59:35', 2, 1, 'Administrator', NULL, '2020-10-05 08:59:37', '2020-10-05 20:09:29');
 /*!40000 ALTER TABLE `check_records` ENABLE KEYS */;
 
--- 正在导出表  chemex.check_tracks 的数据：~3 rows (大约)
+-- 正在导出表  chemex.check_tracks 的数据：~4 rows (大约)
 DELETE FROM `check_tracks`;
 /*!40000 ALTER TABLE `check_tracks` DISABLE KEYS */;
 INSERT INTO `check_tracks` (`id`, `check_id`, `item_id`, `status`, `checker`, `creator`, `deleted_at`, `created_at`, `updated_at`) VALUES
-	(4, 10, 4, 1, 1, 'Administrator', NULL, '2020-10-05 00:03:57', '2020-10-05 00:05:48'),
-	(5, 10, 5, 0, 0, 'Administrator', NULL, '2020-10-05 00:03:57', '2020-10-05 00:03:57'),
-	(6, 10, 6, 0, 0, 'Administrator', NULL, '2020-10-05 00:03:57', '2020-10-05 00:03:57');
+	(4, 10, 4, 1, 1, 'Administrator', '2020-10-05 00:20:41', '2020-10-05 00:03:57', '2020-10-05 00:20:41'),
+	(5, 10, 5, 0, 0, 'Administrator', '2020-10-05 00:20:41', '2020-10-05 00:03:57', '2020-10-05 00:20:41'),
+	(6, 10, 6, 0, 0, 'Administrator', '2020-10-05 00:20:41', '2020-10-05 00:03:57', '2020-10-05 00:20:41'),
+	(7, 11, 4, 1, 1, 'Administrator', NULL, '2020-10-05 08:59:37', '2020-10-05 20:09:24');
 /*!40000 ALTER TABLE `check_tracks` ENABLE KEYS */;
 
 -- 正在导出表  chemex.device_categories 的数据：~2 rows (大约)
@@ -117,7 +123,7 @@ INSERT INTO `device_categories` (`id`, `name`, `description`, `creator`, `delete
 	(4, '笔记本', NULL, 'Administrator', NULL, '2020-10-04 23:04:56', '2020-10-04 23:04:56');
 /*!40000 ALTER TABLE `device_categories` ENABLE KEYS */;
 
--- 正在导出表  chemex.device_records 的数据：~3 rows (大约)
+-- 正在导出表  chemex.device_records 的数据：~2 rows (大约)
 DELETE FROM `device_records`;
 /*!40000 ALTER TABLE `device_records` DISABLE KEYS */;
 INSERT INTO `device_records` (`id`, `name`, `description`, `category_id`, `vendor_id`, `sn`, `mac`, `ip`, `photo`, `creator`, `deleted_at`, `created_at`, `updated_at`) VALUES
@@ -150,12 +156,54 @@ INSERT INTO `hardware_categories` (`id`, `name`, `description`, `creator`, `dele
 -- 正在导出表  chemex.hardware_records 的数据：~1 rows (大约)
 DELETE FROM `hardware_records`;
 /*!40000 ALTER TABLE `hardware_records` DISABLE KEYS */;
+INSERT INTO `hardware_records` (`id`, `name`, `description`, `category_id`, `vendor_id`, `specification`, `sn`, `creator`, `deleted_at`, `created_at`, `updated_at`) VALUES
+	(4, 'SN720', NULL, 3, 3, '500G', NULL, 'Administrator', NULL, '2020-10-05 08:55:28', '2020-10-05 08:55:28');
 /*!40000 ALTER TABLE `hardware_records` ENABLE KEYS */;
 
 -- 正在导出表  chemex.hardware_tracks 的数据：~1 rows (大约)
 DELETE FROM `hardware_tracks`;
 /*!40000 ALTER TABLE `hardware_tracks` DISABLE KEYS */;
 /*!40000 ALTER TABLE `hardware_tracks` ENABLE KEYS */;
+
+-- 正在导出表  chemex.service_issues 的数据：~9 rows (大约)
+DELETE FROM `service_issues`;
+/*!40000 ALTER TABLE `service_issues` DISABLE KEYS */;
+INSERT INTO `service_issues` (`id`, `service_id`, `issue`, `status`, `start`, `end`, `creator`, `deleted_at`, `created_at`, `updated_at`) VALUES
+	(1, 1, '电源故障', 2, '2020-10-06 23:40:46', '2020-10-07 07:07:17', 'Administrator', NULL, '2020-10-06 23:40:48', '2020-10-07 19:07:17'),
+	(2, 1, '网线脱落', 2, '2020-10-07 19:58:22', '2020-10-07 08:00:04', 'Administrator', NULL, '2020-10-07 19:58:23', '2020-10-07 20:00:04'),
+	(3, 5, 'I/O阻塞', 1, '2020-10-07 20:22:23', NULL, 'Administrator', NULL, '2020-10-07 20:22:24', '2020-10-07 20:22:24'),
+	(4, 4, '数据读取异常缓慢', 2, '2020-10-07 20:23:37', '2020-10-07 08:23:44', 'Administrator', NULL, '2020-10-07 20:23:38', '2020-10-07 20:23:44'),
+	(5, 2, '网络丢包', 1, '2020-10-06 20:24:03', NULL, 'Administrator', NULL, '2020-10-07 20:24:05', '2020-10-07 20:24:05'),
+	(6, 6, '存储区域配额已满', 2, '2020-10-07 20:24:55', '2020-10-07 08:25:15', 'Administrator', NULL, '2020-10-07 20:24:56', '2020-10-07 20:25:15'),
+	(7, 7, '部分用户无法连接打印机', 2, '2020-10-07 20:25:30', '2020-10-07 08:25:39', 'Administrator', NULL, '2020-10-07 20:25:31', '2020-10-07 20:25:39'),
+	(8, 7, '打印延迟较大', 1, '2020-10-07 20:25:50', NULL, 'Administrator', NULL, '2020-10-07 20:25:50', '2020-10-07 20:25:50'),
+	(9, 7, '打印服务器丢包严重', 1, '2020-10-07 20:26:05', NULL, 'Administrator', NULL, '2020-10-07 20:26:05', '2020-10-07 20:26:05');
+/*!40000 ALTER TABLE `service_issues` ENABLE KEYS */;
+
+-- 正在导出表  chemex.service_records 的数据：~7 rows (大约)
+DELETE FROM `service_records`;
+/*!40000 ALTER TABLE `service_records` DISABLE KEYS */;
+INSERT INTO `service_records` (`id`, `name`, `description`, `status`, `creator`, `deleted_at`, `created_at`, `updated_at`) VALUES
+	(1, 'AD服务', NULL, 0, 'Administrator', NULL, '2020-10-06 21:50:55', '2020-10-07 20:07:43'),
+	(2, 'MES 服务', NULL, 1, 'Administrator', NULL, '2020-10-07 19:26:44', '2020-10-07 20:07:44'),
+	(3, 'ERP 服务', NULL, 0, 'Administrator', NULL, '2020-10-07 19:26:48', '2020-10-07 19:26:48'),
+	(4, 'ERP DB 服务', NULL, 0, 'Administrator', NULL, '2020-10-07 19:26:54', '2020-10-07 19:26:54'),
+	(5, 'Redis 缓存服务', NULL, 0, 'Administrator', NULL, '2020-10-07 20:22:10', '2020-10-07 20:22:10'),
+	(6, 'FileServer 文件共享服务', NULL, 0, 'Administrator', NULL, '2020-10-07 20:24:40', '2020-10-07 20:24:40'),
+	(7, '打印服务', NULL, 0, 'Administrator', NULL, '2020-10-07 20:25:10', '2020-10-07 20:25:10');
+/*!40000 ALTER TABLE `service_records` ENABLE KEYS */;
+
+-- 正在导出表  chemex.service_tracks 的数据：~6 rows (大约)
+DELETE FROM `service_tracks`;
+/*!40000 ALTER TABLE `service_tracks` DISABLE KEYS */;
+INSERT INTO `service_tracks` (`id`, `service_id`, `device_id`, `creator`, `deleted_at`, `created_at`, `updated_at`) VALUES
+	(1, 1, 4, 'Administrator', NULL, '2020-10-06 22:59:53', '2020-10-06 22:59:53'),
+	(2, 1, 5, 'Administrator', NULL, '2020-10-07 20:24:10', '2020-10-07 20:24:10'),
+	(3, 2, 4, 'Administrator', NULL, '2020-10-07 20:24:13', '2020-10-07 20:24:13'),
+	(4, 3, 5, 'Administrator', NULL, '2020-10-07 20:24:17', '2020-10-07 20:24:17'),
+	(5, 4, 6, 'Administrator', NULL, '2020-10-07 20:24:20', '2020-10-07 20:24:20'),
+	(6, 5, 4, 'Administrator', NULL, '2020-10-07 20:24:23', '2020-10-07 20:24:23');
+/*!40000 ALTER TABLE `service_tracks` ENABLE KEYS */;
 
 -- 正在导出表  chemex.software_categories 的数据：~4 rows (大约)
 DELETE FROM `software_categories`;

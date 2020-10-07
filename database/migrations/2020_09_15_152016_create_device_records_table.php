@@ -23,6 +23,9 @@ class CreateDeviceRecordsTable extends Migration
             $table->string('mac')->nullable();
             $table->string('ip')->nullable();
             $table->string('photo')->nullable();
+            $table->string('ssh_username')->nullable();
+            $table->string('ssh_password')->nullable();
+            $table->string('ssh_port')->nullable();
             $table->string('creator');
             $table->softDeletes();
             $table->timestamps();

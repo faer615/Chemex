@@ -82,4 +82,17 @@ class InfoHelper
         $content = implode("\n", $contentArray->toArray());
         File::put($envPath, $content);
     }
+
+    /**
+     * 构造WebSSH连接字符串
+     * @param $host
+     * @param $port
+     * @param $username
+     * @param $password
+     * @return string
+     */
+    public static function getSSHBaseUrl($host, $port, $username, $password)
+    {
+        return "http://127.0.0.1:8222/?hostname=$host&port=$port&username=$username&password=$password";
+    }
 }

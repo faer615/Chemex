@@ -12,7 +12,7 @@ class DeviceRelatedAction extends RowAction
     /**
      * @return string
      */
-    protected $title = '软硬件清单';
+    protected $title = '📝 软硬件清单';
 
     public function render()
     {

@@ -13,7 +13,7 @@ class DeviceHistoryAction extends RowAction
     /**
      * @return string
      */
-    protected $title = '设备变动履历';
+    protected $title = '📃 设备变动履历';
 
     public function render()
     {

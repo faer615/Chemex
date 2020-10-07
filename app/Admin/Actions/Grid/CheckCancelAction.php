@@ -16,7 +16,7 @@ class CheckCancelAction extends RowAction
     /**
      * @return string
      */
-    protected $title = '取消盘点任务';
+    protected $title = '❌ 取消盘点任务';
 
     /**
      * Handle the action request.

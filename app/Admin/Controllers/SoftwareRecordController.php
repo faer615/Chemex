@@ -42,7 +42,10 @@ class SoftwareRecordController extends AdminController
                 return TrackHelper::leftSoftwareCounts($this->id);
             });
 
-            $grid->actions([new SoftwareTrackAction(), new SoftwareHistoryAction()]);
+            $grid->actions(function (Grid\Displayers\Actions $actions) {
+                $actions->append(new SoftwareTrackAction());
+                $actions->append(new SoftwareHistoryAction());
+            });
 
             $grid->quickSearch('id', 'name')
                 ->placeholder('输入ID或者名称以搜索')
