@@ -5,7 +5,7 @@ namespace App\Admin\Controllers;
 use App\Admin\Actions\Grid\HardwareHistoryAction;
 use App\Admin\Actions\Grid\HardwareTrackAction;
 use App\Admin\Repositories\HardwareRecord;
-use App\Libraries\TrackHelper;
+use App\Libraries\Track;
 use App\Models\HardwareCategory;
 use App\Models\VendorRecord;
 use Dcat\Admin\Controllers\AdminController;
@@ -34,7 +34,7 @@ class HardwareRecordController extends AdminController
             $grid->column('specification');
             $grid->column('sn');
             $grid->column('', admin_trans_label('Owner'))->display(function () {
-                return TrackHelper::currentHardwareTrack($this->id);
+                return Track::currentHardwareTrack($this->id);
             });
 
             $grid->actions(function (Grid\Displayers\Actions $actions) {

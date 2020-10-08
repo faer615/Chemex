@@ -7,8 +7,9 @@ use App\Admin\Actions\Grid\DeviceRelatedAction;
 use App\Admin\Actions\Grid\DeviceSSHInfoAction;
 use App\Admin\Actions\Grid\DeviceTrackAction;
 use App\Admin\Repositories\DeviceRecord;
-use App\Libraries\InfoHelper;
-use App\Libraries\TrackHelper;
+use App\Libraries\Info;
+use App\Libraries\System;
+use App\Libraries\Track;
 use App\Models\DeviceCategory;
 use App\Models\VendorRecord;
 use Dcat\Admin\Controllers\AdminController;
@@ -32,7 +33,7 @@ class DeviceRecordController extends AdminController
                 return base64_encode('device:' . $this->id);
             }, 200, 200);
             $grid->column('name')->display(function ($name) {
-                $tag = InfoHelper::getSoftwareIcon($this->id);
+                $tag = Info::getSoftwareIcon($this->id);
                 if (empty($tag)) {
                     return $name;
                 } else {
@@ -45,22 +46,22 @@ class DeviceRecordController extends AdminController
             $grid->column('mac');
             $grid->column('ip');
             $grid->column('owner')->display(function () {
-                $res = TrackHelper::currentDeviceTrackStaff($this->id);
+                $res = Track::currentDeviceTrackStaff($this->id);
                 switch ($res) {
                     case -1:
                         return '雇员失踪';
                     case 0:
                         return '闲置';
                     default:
-                        return InfoHelper::staffIdToName($res);
+                        return Info::staffIdToName($res);
                 }
             });
             $grid->column('department')->display(function () {
-                $res = TrackHelper::currentDeviceTrackStaff($this->id);
+                $res = Track::currentDeviceTrackStaff($this->id);
                 if ($res < 0) {
                     return '';
                 }
-                return InfoHelper::staffIdToDepartmentName($res);
+                return Info::staffIdToDepartmentName($res);
             });
 
             $grid->toolsWithOutline(false);
@@ -69,9 +70,14 @@ class DeviceRecordController extends AdminController
                 $actions->append(new DeviceTrackAction());
                 $actions->append(new DeviceRelatedAction());
                 $actions->append(new DeviceHistoryAction());
-                if ($this->ip || $this->ssh_username || $this->ssh_password || $this->port) {
-                    $url = InfoHelper::getSSHBaseUrl($this->ip, $this->ssh_port, $this->ssh_username, $this->ssh_password);
-                    $actions->append("<a href='$url' target='_blank'>💻 通过SSH连接...</a>");
+                if (!empty($this->ip) && !empty($this->ssh_username) && !empty($this->ssh_password) && !empty($this->ssh_port)) {
+                    $url = Info::getSSHBaseUrl($this->ip, $this->ssh_port, $this->ssh_username, $this->ssh_password);
+                    $web_ssh_status = System::checkWebSSHServiceStatus($url);
+                    if ($web_ssh_status == 200) {
+                        $actions->append("<a href='$url' target='_blank'>💻 通过SSH连接...</a>");
+                    } else {
+                        $actions->append("<a disabled>💻 通过SSH连接...（WebSSH服务未启动）</a>");
+                    }
                 }
                 $actions->append(new DeviceSSHInfoAction());
             });

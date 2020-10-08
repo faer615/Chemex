@@ -13,7 +13,7 @@ use App\Models\SoftwareRecord;
 use App\Models\SoftwareTrack;
 use Illuminate\Database\Eloquent\Collection;
 
-class TrackHelper
+class Track
 {
     /**
      * 获取设备当前最新的使用者

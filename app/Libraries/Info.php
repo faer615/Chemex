@@ -8,7 +8,7 @@ use App\Models\SoftwareTrack;
 use App\Models\StaffRecord;
 use Illuminate\Support\Facades\File;
 
-class InfoHelper
+class Info
 {
     /**
      * 雇员id换取name

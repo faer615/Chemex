@@ -6,7 +6,7 @@ use App\Admin\Actions\Grid\SoftwareHistoryAction;
 use App\Admin\Actions\Grid\SoftwareTrackAction;
 use App\Admin\Repositories\SoftwareRecord;
 use App\Libraries\Data;
-use App\Libraries\TrackHelper;
+use App\Libraries\Track;
 use App\Models\SoftwareCategory;
 use App\Models\VendorRecord;
 use Dcat\Admin\Controllers\AdminController;
@@ -39,7 +39,7 @@ class SoftwareRecordController extends AdminController
             $grid->column('distribution')->using(Data::distribution());
             $grid->column('counts');
             $grid->column('', admin_trans_label('Left Counts'))->display(function () {
-                return TrackHelper::leftSoftwareCounts($this->id);
+                return Track::leftSoftwareCounts($this->id);
             });
 
             $grid->actions(function (Grid\Displayers\Actions $actions) {

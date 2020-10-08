@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Libraries\InfoHelper;
+use App\Libraries\Info;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
@@ -62,7 +62,7 @@ class Install extends Command
                 return 0;
             }
 
-            InfoHelper::setEnv([
+            Info::setEnv([
                 'APP_URL' => $url,
                 'DB_HOST' => $db_host,
                 'DB_PORT' => $db_port,
