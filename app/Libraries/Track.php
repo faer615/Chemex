@@ -36,6 +36,7 @@ class Track
         }
     }
 
+    //TODO
     public static function currentDeviceTrackDepartment()
     {
 
@@ -136,5 +137,10 @@ class Track
         }
         $services = json_decode($services, true);
         return $services;
+    }
+
+    public function deleteSoftwareTracks($software_id)
+    {
+
     }
 }

@@ -36,7 +36,14 @@ class DeviceHistoryAction extends RowAction
             ->get();
         foreach ($device_tracks as $device_track) {
             $single['type'] = '用户';
-            $single['name'] = $device_track->staff->name . ' - ' . $device_track->staff->department->name;
+            $device = $device_track->staff()->withTrashed()->first();
+            $single['name'] = $device->name . ' - ' . $device_track->staff()
+                    ->withTrashed()
+                    ->first()
+                    ->department()
+                    ->withTrashed()
+                    ->first()
+                    ->name;
             $single['status'] = '+';
             $single['datetime'] = json_decode($device_track, true)['created_at'];
             array_push($data, $single);
@@ -53,7 +60,8 @@ class DeviceHistoryAction extends RowAction
             ->get();
         foreach ($hardware_tracks as $hardware_track) {
             $single['type'] = '硬件';
-            $single['name'] = $hardware_track->hardware->name . ' - ' . $hardware_track->hardware->specification;
+            $hardware = $hardware_track->hardware()->withTrashed()->first();
+            $single['name'] = $hardware->name . ' - ' . $hardware->specification;
             $single['status'] = '+';
             $single['datetime'] = json_decode($hardware_track, true)['created_at'];
             array_push($data, $single);
@@ -70,7 +78,8 @@ class DeviceHistoryAction extends RowAction
             ->get();
         foreach ($software_tracks as $software_track) {
             $single['type'] = '软件';
-            $single['name'] = $software_track->software->name . ' ' . $software_track->software->version;
+            $software = $software_track->software()->withTrashed()->first();
+            $single['name'] = $software->name . ' ' . $software->version;
             $single['status'] = '+';
             $single['datetime'] = json_decode($software_track, true)['created_at'];
             array_push($data, $single);

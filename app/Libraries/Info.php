@@ -51,7 +51,7 @@ class Info
         $tags = Data::softwareTags();
         $keys = array_keys($tags);
         foreach ($software_tracks as $software_track) {
-            $name = trim($software_track->software->name);
+            $name = trim($software_track->software()->withTrashed()->first()->name);
             for ($n = 0; $n < count($tags); $n++) {
                 for ($i = 0; $i < count($tags[$keys[$n]]); $i++) {
                     if (stristr($name, $tags[$keys[$n]][$i]) != false) {
