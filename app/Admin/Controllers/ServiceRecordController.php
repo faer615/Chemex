@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Grid\ServiceDeleteAction;
 use App\Admin\Actions\Grid\ServiceIssueAction;
 use App\Admin\Actions\Grid\ServiceTrackAction;
 use App\Admin\Repositories\ServiceRecord;
@@ -26,9 +27,13 @@ class ServiceRecordController extends AdminController
             $grid->column('status')->switch('green');
 
             $grid->actions(function (Grid\Displayers\Actions $actions) {
+                $actions->append(new ServiceDeleteAction());
                 $actions->append(new ServiceTrackAction());
                 $actions->append(new ServiceIssueAction());
             });
+
+            $grid->enableDialogCreate();
+            $grid->disableDeleteButton();
 
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
@@ -53,6 +58,8 @@ class ServiceRecordController extends AdminController
             $show->field('description');
             $show->field('created_at');
             $show->field('updated_at');
+
+            $show->disableDeleteButton();
         });
     }
 
@@ -71,6 +78,8 @@ class ServiceRecordController extends AdminController
 
             $form->display('created_at');
             $form->display('updated_at');
+
+            $form->disableDeleteButton();
         });
     }
 }

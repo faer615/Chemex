@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Grid\SoftwareDeleteAction;
 use App\Admin\Actions\Grid\SoftwareHistoryAction;
 use App\Admin\Actions\Grid\SoftwareTrackAction;
 use App\Admin\Repositories\SoftwareRecord;
@@ -29,7 +30,6 @@ class SoftwareRecordController extends AdminController
                 return base64_encode('software:' . $this->id);
             }, 200, 200);
             $grid->column('name');
-//            $grid->column('description');
             $grid->column('category.name');
             $grid->column('version');
             $grid->column('vendor.name');
@@ -43,6 +43,7 @@ class SoftwareRecordController extends AdminController
             });
 
             $grid->actions(function (Grid\Displayers\Actions $actions) {
+                $actions->append(new SoftwareDeleteAction());
                 $actions->append(new SoftwareTrackAction());
                 $actions->append(new SoftwareHistoryAction());
             });
@@ -52,6 +53,7 @@ class SoftwareRecordController extends AdminController
                 ->auto(false);
 
             $grid->enableDialogCreate();
+            $grid->disableDeleteButton();
 
             $grid->toolsWithOutline(false);
         });
@@ -80,6 +82,8 @@ class SoftwareRecordController extends AdminController
             $show->field('counts');
             $show->field('created_at');
             $show->field('updated_at');
+
+            $show->disableDeleteButton();
         });
     }
 
@@ -116,6 +120,8 @@ class SoftwareRecordController extends AdminController
                 ->help('"-1"表示无限制。');
             $form->display('created_at');
             $form->display('updated_at');
+
+            $form->disableDeleteButton();
         });
     }
 }

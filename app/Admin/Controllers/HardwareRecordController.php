@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Grid\HardwareDeleteAction;
 use App\Admin\Actions\Grid\HardwareHistoryAction;
 use App\Admin\Actions\Grid\HardwareTrackAction;
 use App\Admin\Repositories\HardwareRecord;
@@ -38,6 +39,7 @@ class HardwareRecordController extends AdminController
             });
 
             $grid->actions(function (Grid\Displayers\Actions $actions) {
+                $actions->append(new HardwareDeleteAction());
                 $actions->append(new HardwareTrackAction());
                 $actions->append(new HardwareHistoryAction());
             });
@@ -47,6 +49,7 @@ class HardwareRecordController extends AdminController
                 ->auto(false);
 
             $grid->enableDialogCreate();
+            $grid->disableDeleteButton();
 
             $grid->toolsWithOutline(false);
         });
@@ -71,6 +74,8 @@ class HardwareRecordController extends AdminController
             $show->field('sn');
             $show->field('created_at');
             $show->field('updated_at');
+
+            $show->disableDeleteButton();
         });
     }
 
@@ -98,6 +103,8 @@ class HardwareRecordController extends AdminController
 
             $form->display('created_at');
             $form->display('updated_at');
+
+            $form->disableDeleteButton();
         });
     }
 }

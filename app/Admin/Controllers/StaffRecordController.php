@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Grid\StaffDeleteAction;
 use App\Admin\Repositories\StaffRecord;
 use App\Libraries\Data;
 use App\Models\StaffDepartment;
@@ -33,6 +34,11 @@ class StaffRecordController extends AdminController
                 ->auto(false);
 
             $grid->enableDialogCreate();
+            $grid->disableDeleteButton();
+
+            $grid->actions(function (Grid\Displayers\Actions $actions) {
+                $actions->append(new StaffDeleteAction());
+            });
 
             $grid->toolsWithOutline(false);
         });
@@ -57,6 +63,8 @@ class StaffRecordController extends AdminController
             $show->field('email');
             $show->field('created_at');
             $show->field('updated_at');
+
+            $show->disableDeleteButton();
         });
     }
 
@@ -83,6 +91,8 @@ class StaffRecordController extends AdminController
 
             $form->display('created_at');
             $form->display('updated_at');
+
+            $form->disableDeleteButton();
         });
     }
 }
