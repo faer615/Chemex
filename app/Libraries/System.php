@@ -23,4 +23,18 @@ class System
             return $e->getCode();
         }
     }
+
+    /**
+     * 检查WebSSH服务是否被安装
+     * @return int
+     */
+    public static function checkWebSSHServiceInstalled()
+    {
+        $result = exec('which wssh', $outputs);
+        if (empty($result)) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
 }

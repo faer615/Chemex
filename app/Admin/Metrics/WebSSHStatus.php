@@ -4,7 +4,7 @@
 namespace App\Admin\Metrics;
 
 
-use App\Models\DeviceRecord;
+use App\Libraries\System;
 use Dcat\Admin\Widgets\Metrics\Line;
 use Illuminate\Http\Request;
 
@@ -19,24 +19,36 @@ class WebSSHStatus extends Line
      */
     public function handle(Request $request)
     {
-        $counts = DeviceRecord::all()->count();
+        $web_ssh_installed = System::checkWebSSHServiceInstalled();
+        $web_ssh_service = System::checkWebSSHServiceStatus('http://127.0.0.1:8222');
+        if ($web_ssh_service == 200) {
+            $text = '正常';
+            $color = '#00c054';
+        } else {
+            $text = '未启动';
+            $color = '#997643';
+        }
+        if ($web_ssh_installed == 0) {
+            $text = '未安装';
+            $color = '#9f1447';
+        }
 
-        $this->withContent($counts);
+        $this->withContent($text, $color);
     }
 
     /**
      * 设置卡片内容.
      *
-     * @param string $content
-     *
+     * @param $text
+     * @param $color
      * @return $this
      */
-    public function withContent($content)
+    public function withContent($text, $color)
     {
         return $this->content(
             <<<HTML
 <div class="d-flex justify-content-between align-items-center mt-1" style="margin-bottom: 2px">
-    <h2 class="ml-1 font-lg-1">{$content}</h2>
+    <h2 class="ml-1 font-lg-1" style="color: $color;">{$text}</h2>
 </div>
 HTML
         );
@@ -51,6 +63,6 @@ HTML
     {
         parent::init();
 
-        $this->title('设备数量');
+        $this->title('WebSSH服务')->height(120);
     }
 }

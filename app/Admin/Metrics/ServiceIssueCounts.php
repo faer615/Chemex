@@ -61,6 +61,6 @@ HTML
     {
         parent::init();
 
-        $this->title('异常服务数量');
+        $this->title('异常服务')->height(120);
     }
 }

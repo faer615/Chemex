@@ -51,6 +51,6 @@ HTML
     {
         parent::init();
 
-        $this->title('软件数量');
+        $this->title('软件')->height(120);
     }
 }

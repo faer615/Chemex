@@ -51,6 +51,6 @@ HTML
     {
         parent::init();
 
-        $this->title('设备数量');
+        $this->title('设备')->height(120);
     }
 }

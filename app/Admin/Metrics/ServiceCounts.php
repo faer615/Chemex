@@ -51,6 +51,6 @@ HTML
     {
         parent::init();
 
-        $this->title('服务数量');
+        $this->title('服务')->height(120);
     }
 }

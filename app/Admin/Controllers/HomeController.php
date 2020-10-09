@@ -8,6 +8,7 @@ use App\Admin\Metrics\ServiceCounts;
 use App\Admin\Metrics\ServiceIssueCounts;
 use App\Admin\Metrics\SoftwareCounts;
 use App\Admin\Metrics\StaffCounts;
+use App\Admin\Metrics\WebSSHStatus;
 use App\Http\Controllers\Controller;
 use App\Libraries\System;
 use App\Libraries\Track;
@@ -29,6 +30,7 @@ class HomeController extends Controller
                 $row->column(1, new StaffCounts());
                 $row->column(1, new ServiceCounts());
                 $row->column(2, new ServiceIssueCounts());
+                $row->column(2, new WebSSHStatus());
                 $services = Track::getServiceIssueStatus();
                 $row->column(12, new Card('服务状态', view('services_dashboard')->with('services', $services)));
             });

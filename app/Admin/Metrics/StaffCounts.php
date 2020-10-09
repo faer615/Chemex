@@ -51,6 +51,6 @@ HTML
     {
         parent::init();
 
-        $this->title('雇员数量');
+        $this->title('雇员')->height(120);
     }
 }
