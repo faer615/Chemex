@@ -49,8 +49,11 @@ class SoftwareRelatedAction extends RowAction
             $grid->disablePagination();
         });
 
+        // 指定了modal窗体的id，为了能够在解除归属后可以直接取得modal窗体的id来自动弹出
+        // 实现连续的解除归属动作，提升用户操作便利性
         return Modal::make()
             ->lg()
+            ->id('software-related-modal-' . $this->getKey())
             ->title('管理' . $this->getRow()->name . '归属')
             ->body($grid)
             ->button($this->title);

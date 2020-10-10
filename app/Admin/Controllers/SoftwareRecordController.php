@@ -11,6 +11,7 @@ use App\Libraries\Data;
 use App\Libraries\Track;
 use App\Models\SoftwareCategory;
 use App\Models\VendorRecord;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Controllers\AdminController;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -25,6 +26,19 @@ class SoftwareRecordController extends AdminController
      */
     protected function grid()
     {
+        // 获取URL上的srmi参数，模态窗体的id，如果没有则为空
+        // srmi = Software Related Modal ID
+        $modal_id = request('srmi') ?? null;
+
+        // 执行JS自动弹出模态窗体
+        Admin::script(
+            <<<JS
+$(document).ready(function(){
+		$("#software-related-modal-{$modal_id}").modal("show");
+	})
+JS
+
+        );
         return Grid::make(new SoftwareRecord(['category', 'vendor']), function (Grid $grid) {
             $grid->column('id');
             $grid->column('qrcode')->qrcode(function () {

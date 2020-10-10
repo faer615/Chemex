@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Grid\SoftwareTrackDisableAction;
 use App\Admin\Repositories\SoftwareTrack;
 use Dcat\Admin\Controllers\AdminController;
 use Dcat\Admin\Form;
@@ -27,6 +28,15 @@ class SoftwareTrackController extends AdminController
             $grid->disableCreateButton();
             $grid->disableRowSelector();
             $grid->disableBatchDelete();
+            $grid->disableViewButton();
+            $grid->disableEditButton();
+            $grid->disableDeleteButton();
+
+            $grid->setActionClass(Grid\Displayers\Actions::class);
+
+            $grid->actions(function (Grid\Displayers\Actions $actions) {
+                $actions->append(new SoftwareTrackDisableAction());
+            });
 
             $grid->toolsWithOutline(false);
         });
@@ -48,11 +58,8 @@ class SoftwareTrackController extends AdminController
             $show->field('created_at');
             $show->field('updated_at');
 
-            $show->panel()
-                ->tools(function ($tools) {
-                    $tools->disableEdit();
-                    $tools->disableDelete();
-                });
+            $show->disableEditButton();
+            $show->disableDeleteButton();
         });
     }
 
@@ -70,6 +77,9 @@ class SoftwareTrackController extends AdminController
 
             $form->display('created_at');
             $form->display('updated_at');
+
+            $form->disableDeleteButton();
+            $form->disableViewButton();
         });
     }
 }
