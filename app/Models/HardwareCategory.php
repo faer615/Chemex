@@ -7,6 +7,9 @@ use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @method static where(string $key, string $value)
+ */
 class HardwareCategory extends Model
 {
     use HasDateTimeFormatter;

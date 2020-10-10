@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @method static where(string $key, string $value)
+ */
 class CheckRecord extends Model
 {
     use HasDateTimeFormatter;

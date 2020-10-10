@@ -5,7 +5,6 @@ namespace App\Admin\Actions\Grid;
 use App\Models\SoftwareTrack;
 use Dcat\Admin\Actions\Response;
 use Dcat\Admin\Grid\RowAction;
-use Illuminate\Http\Request;
 
 class SoftwareTrackDisableAction extends RowAction
 {
@@ -17,11 +16,9 @@ class SoftwareTrackDisableAction extends RowAction
     /**
      * Handle the action request.
      *
-     * @param Request $request
-     *
      * @return Response
      */
-    public function handle(Request $request)
+    public function handle()
     {
         $software_track = SoftwareTrack::where('id', $this->getKey())->first();
         $software_id = $software_track->software_id;

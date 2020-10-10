@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @method static where(string $key, string $value)
+ */
 class DeviceRecord extends Model
 {
     use HasDateTimeFormatter;

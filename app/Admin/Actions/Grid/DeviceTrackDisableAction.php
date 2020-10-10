@@ -17,11 +17,9 @@ class DeviceTrackDisableAction extends RowAction
     /**
      * Handle the action request.
      *
-     * @param Request $request
-     *
      * @return Response
      */
-    public function handle(Request $request)
+    public function handle()
     {
         $device_track = DeviceTrack::where('id', $this->getKey())->first();
 

@@ -5,7 +5,6 @@ namespace App\Admin\Actions\Grid;
 use App\Models\HardwareTrack;
 use Dcat\Admin\Actions\Response;
 use Dcat\Admin\Grid\RowAction;
-use Illuminate\Http\Request;
 
 class HardwareTrackDisableAction extends RowAction
 {
@@ -17,11 +16,9 @@ class HardwareTrackDisableAction extends RowAction
     /**
      * Handle the action request.
      *
-     * @param Request $request
-     *
      * @return Response
      */
-    public function handle(Request $request)
+    public function handle()
     {
         $hardware_track = HardwareTrack::where('id', $this->getKey())->first();
 

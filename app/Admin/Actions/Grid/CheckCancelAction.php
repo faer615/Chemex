@@ -6,10 +6,6 @@ use App\Models\CheckRecord;
 use App\Models\CheckTrack;
 use Dcat\Admin\Actions\Response;
 use Dcat\Admin\Grid\RowAction;
-use Dcat\Admin\Traits\HasPermissions;
-use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 class CheckCancelAction extends RowAction
 {
@@ -21,11 +17,9 @@ class CheckCancelAction extends RowAction
     /**
      * Handle the action request.
      *
-     * @param Request $request
-     *
      * @return Response
      */
-    public function handle(Request $request)
+    public function handle()
     {
         $check_tracks = CheckTrack::where('check_id', $this->getKey())->get();
         foreach ($check_tracks as $check_track) {
@@ -53,23 +47,5 @@ class CheckCancelAction extends RowAction
     public function confirm()
     {
         return ['取消此盘点任务？', '取消后，相应的盘点追踪将全部被移除。'];
-    }
-
-    /**
-     * @param Model|Authenticatable|HasPermissions|null $user
-     *
-     * @return bool
-     */
-    protected function authorize($user): bool
-    {
-        return true;
-    }
-
-    /**
-     * @return array
-     */
-    protected function parameters()
-    {
-        return [];
     }
 }

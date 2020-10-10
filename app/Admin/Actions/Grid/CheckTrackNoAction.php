@@ -9,7 +9,6 @@ use Dcat\Admin\Grid\RowAction;
 use Dcat\Admin\Traits\HasPermissions;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 class CheckTrackNoAction extends RowAction
 {
@@ -21,11 +20,9 @@ class CheckTrackNoAction extends RowAction
     /**
      * Handle the action request.
      *
-     * @param Request $request
-     *
      * @return Response
      */
-    public function handle(Request $request)
+    public function handle()
     {
         $check_track = CheckTrack::where('id', $this->getKey())->first();
         if (empty($check_track)) {
@@ -39,15 +36,5 @@ class CheckTrackNoAction extends RowAction
                 ->success('已盘亏')
                 ->refresh();
         }
-    }
-
-    /**
-     * @param Model|Authenticatable|HasPermissions|null $user
-     *
-     * @return bool
-     */
-    protected function authorize($user): bool
-    {
-        return true;
     }
 }

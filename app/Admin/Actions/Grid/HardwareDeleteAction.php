@@ -21,11 +21,9 @@ class HardwareDeleteAction extends RowAction
     /**
      * Handle the action request.
      *
-     * @param Request $request
-     *
      * @return Response
      */
-    public function handle(Request $request)
+    public function handle()
     {
         $hardware = HardwareRecord::where('id', $this->getKey())->first();
         if (empty($hardware)) {
@@ -52,15 +50,5 @@ class HardwareDeleteAction extends RowAction
     public function confirm()
     {
         return ['确认删除？', '删除的同时将会解除所有与之关联的归属关系'];
-    }
-
-    /**
-     * @param Model|Authenticatable|HasPermissions|null $user
-     *
-     * @return bool
-     */
-    protected function authorize($user): bool
-    {
-        return true;
     }
 }

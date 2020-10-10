@@ -5,7 +5,6 @@ namespace App\Admin\Actions\Grid;
 use App\Models\ServiceTrack;
 use Dcat\Admin\Actions\Response;
 use Dcat\Admin\Grid\RowAction;
-use Illuminate\Http\Request;
 
 class ServiceTrackDisableAction extends RowAction
 {
@@ -17,11 +16,9 @@ class ServiceTrackDisableAction extends RowAction
     /**
      * Handle the action request.
      *
-     * @param Request $request
-     *
      * @return Response
      */
-    public function handle(Request $request)
+    public function handle()
     {
         $service_track = ServiceTrack::where('id', $this->getKey())->first();
 
