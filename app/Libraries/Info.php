@@ -4,6 +4,9 @@
 namespace App\Libraries;
 
 
+use App\Models\DeviceRecord;
+use App\Models\HardwareRecord;
+use App\Models\SoftwareRecord;
 use App\Models\SoftwareTrack;
 use App\Models\StaffRecord;
 use Illuminate\Support\Facades\File;
@@ -94,5 +97,30 @@ class Info
     public static function getSSHBaseUrl($host, $port, $username, $password)
     {
         return "http://127.0.0.1:8222/?hostname=$host&port=$port&username=$username&password=$password";
+    }
+
+    /**
+     * 物品id换取物品名称
+     * @param $item
+     * @param $item_id
+     * @return string
+     */
+    public static function itemIdToItemName($item, $item_id)
+    {
+        switch ($item) {
+            case 'hardware':
+                $item_record = HardwareRecord::where('id', $item_id)->first();
+                break;
+            case 'software':
+                $item_record = SoftwareRecord::where('id', $item_id)->first();
+                break;
+            default:
+                $item_record = DeviceRecord::where('id', $item_id)->first();
+        }
+        if (empty($item_record)) {
+            return '失踪了';
+        } else {
+            return $item_record->name;
+        }
     }
 }

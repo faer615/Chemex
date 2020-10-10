@@ -32,4 +32,5 @@ Route::group([
     $router->resource('/service/records', 'ServiceRecordController');
     $router->resource('/service/tracks', 'ServiceTrackController');
     $router->resource('/service/issues', 'ServiceIssueController');
+    $router->resource('/maintenance/records', 'MaintenanceRecordController');
 });

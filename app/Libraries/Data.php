@@ -62,6 +62,19 @@ class Data
     }
 
     /**
+     * 维修状态
+     * @return string[]
+     */
+    public static function maintenanceStatus()
+    {
+        return [
+            0 => '报修',
+            1 => '维修完毕',
+            2 => '取消'
+        ];
+    }
+
+    /**
      * 盘点追踪状态
      * @return string[]
      */

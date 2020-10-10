@@ -5,6 +5,7 @@ namespace App\Admin\Controllers;
 use App\Admin\Actions\Grid\HardwareDeleteAction;
 use App\Admin\Actions\Grid\HardwareHistoryAction;
 use App\Admin\Actions\Grid\HardwareTrackAction;
+use App\Admin\Actions\Grid\MaintenanceAction;
 use App\Admin\Repositories\HardwareRecord;
 use App\Libraries\Track;
 use App\Models\HardwareCategory;
@@ -42,6 +43,7 @@ class HardwareRecordController extends AdminController
                 $actions->append(new HardwareDeleteAction());
                 $actions->append(new HardwareTrackAction());
                 $actions->append(new HardwareHistoryAction());
+                $actions->append(new MaintenanceAction('hardware'));
             });
 
             $grid->quickSearch('id', 'name')

@@ -6,6 +6,7 @@ use App\Admin\Actions\Grid\DeviceHistoryAction;
 use App\Admin\Actions\Grid\DeviceRelatedAction;
 use App\Admin\Actions\Grid\DeviceSSHInfoAction;
 use App\Admin\Actions\Grid\DeviceTrackAction;
+use App\Admin\Actions\Grid\MaintenanceAction;
 use App\Admin\Repositories\DeviceRecord;
 use App\Libraries\Info;
 use App\Libraries\System;
@@ -80,6 +81,7 @@ class DeviceRecordController extends AdminController
                     }
                 }
                 $actions->append(new DeviceSSHInfoAction());
+                $actions->append(new MaintenanceAction('device'));
             });
 
             $grid->quickSearch('id', 'name')
