@@ -8,6 +8,7 @@ use App\Libraries\Data;
 use App\Libraries\Info;
 use Dcat\Admin\Controllers\AdminController;
 use Dcat\Admin\Grid;
+use Dcat\Admin\Grid\Tools\Selector;
 use Dcat\Admin\Widgets\Alert;
 
 class MaintenanceRecordController extends AdminController
@@ -37,15 +38,26 @@ class MaintenanceRecordController extends AdminController
             $grid->disableDeleteButton();
             $grid->disableBatchActions();
             $grid->disableRowSelector();
+            $grid->disableRefreshButton();
+
+            $grid->toolsWithOutline(false);
 
             $grid->setActionClass(Grid\Displayers\Actions::class);
 
             $grid->actions(function (Grid\Displayers\Actions $actions) {
-                $actions->append(new MaintenanceFixAction());
+                if ($this->status == 0) {
+                    $actions->append(new MaintenanceFixAction());
+                }
             });
 
-            $grid->filter(function (Grid\Filter $filter) {
-                $filter->equal('id');
+            $grid->quickSearch();
+
+            $grid->selector(function (Selector $selector) {
+                $selector->select('status', '状态', [
+                    0 => '等待处理',
+                    1 => '处理完毕',
+                    2 => '取消'
+                ]);
             });
         });
     }

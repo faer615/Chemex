@@ -68,8 +68,8 @@ class Data
     public static function maintenanceStatus()
     {
         return [
-            0 => '报修',
-            1 => '维修完毕',
+            0 => '等待处理',
+            1 => '处理完毕',
             2 => '取消'
         ];
     }
