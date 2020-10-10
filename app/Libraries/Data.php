@@ -4,6 +4,8 @@
 namespace App\Libraries;
 
 
+use Dcat\Admin\Widgets\Alert;
+
 class Data
 {
     /**
@@ -144,5 +146,17 @@ class Data
                 'ios'
             ]
         ];
+    }
+
+    /**
+     * 返回不支持操作的错误信息 warning
+     * @return Alert
+     */
+    public static function unsupportedOperationWarning()
+    {
+        $alert = Alert::make('此功能不允许通过此操作实现。', '未提供的操作');
+        $alert->warning();
+        $alert->icon('feather icon-alert-triangle');
+        return $alert;
     }
 }

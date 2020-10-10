@@ -2,11 +2,12 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Grid\HardwareTrackDisableAction;
 use App\Admin\Repositories\HardwareTrack;
+use App\Libraries\Data;
 use Dcat\Admin\Controllers\AdminController;
-use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
-use Dcat\Admin\Show;
+use Dcat\Admin\Widgets\Alert;
 
 class HardwareTrackController extends AdminController
 {
@@ -27,6 +28,14 @@ class HardwareTrackController extends AdminController
             $grid->disableCreateButton();
             $grid->disableRowSelector();
             $grid->disableBatchDelete();
+            $grid->disableViewButton();
+            $grid->disableEditButton();
+            $grid->disableDeleteButton();
+            $grid->setActionClass(Grid\Displayers\Actions::class);
+
+            $grid->actions(function (Grid\Displayers\Actions $actions) {
+                $actions->append(new HardwareTrackDisableAction());
+            });
 
             $grid->toolsWithOutline(false);
         });
@@ -37,33 +46,20 @@ class HardwareTrackController extends AdminController
      *
      * @param mixed $id
      *
-     * @return Show
+     * @return Alert
      */
     protected function detail($id)
     {
-        return Show::make($id, new HardwareTrack(['hardware', 'device']), function (Show $show) {
-            $show->field('id');
-            $show->field('hardware.name');
-            $show->field('device.name');
-            $show->field('created_at');
-            $show->field('updated_at');
-        });
+        return Data::unsupportedOperationWarning();
     }
 
     /**
      * Make a form builder.
      *
-     * @return Form
+     * @return Alert
      */
     protected function form()
     {
-        return Form::make(new HardwareTrack(), function (Form $form) {
-            $form->display('id');
-            $form->text('hardware_id');
-            $form->text('device_id');
-
-            $form->display('created_at');
-            $form->display('updated_at');
-        });
+        return Data::unsupportedOperationWarning();
     }
 }

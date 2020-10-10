@@ -1,7 +1,7 @@
 <?php
 return [
     'labels' => [
-        'DeviceTrack' => '设备追踪',
+        'DeviceTrack' => '设备归属记录',
     ],
     'fields' => [
         'device' => [

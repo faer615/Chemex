@@ -8,6 +8,7 @@ use App\Libraries\Data;
 use Dcat\Admin\Controllers\AdminController;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
+use Dcat\Admin\Widgets\Alert;
 
 class ServiceIssueController extends AdminController
 {
@@ -26,9 +27,8 @@ class ServiceIssueController extends AdminController
             $grid->column('start');
             $grid->column('end');
 
-            $grid->filter(function (Grid\Filter $filter) {
-                $filter->equal('id');
-            });
+            $grid->setActionClass(Grid\Displayers\Actions::class);
+
             $grid->actions(function (Grid\Displayers\Actions $actions) {
                 if ($this->status == 1) {
                     $actions->append(new ServiceFixAction());
@@ -40,6 +40,7 @@ class ServiceIssueController extends AdminController
             $grid->disableCreateButton();
             $grid->disableRowSelector();
             $grid->disableBatchDelete();
+            $grid->disableViewButton();
             $grid->disableEditButton();
             $grid->disableDeleteButton();
 
@@ -73,20 +74,10 @@ class ServiceIssueController extends AdminController
     /**
      * Make a form builder.
      *
-     * @return void
+     * @return Alert
      */
     protected function form()
     {
-        return;
-//        return Form::make(new ServiceIssue(), function (Form $form) {
-//            $form->display('id');
-//            $form->text('issue');
-//            $form->text('status');
-//            $form->text('start');
-//            $form->text('end');
-//
-//            $form->display('created_at');
-//            $form->display('updated_at');
-//        });
+        return Data::unsupportedOperationWarning();
     }
 }

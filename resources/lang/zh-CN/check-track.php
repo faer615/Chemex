@@ -1,7 +1,7 @@
 <?php
 return [
     'labels' => [
-        'CheckTrack' => '盘点追踪',
+        'CheckTrack' => '盘点明细记录',
     ],
     'fields' => [
         'check_id' => '任务ID',

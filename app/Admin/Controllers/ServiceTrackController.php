@@ -2,10 +2,12 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Grid\ServiceTrackDisableAction;
 use App\Admin\Repositories\ServiceTrack;
+use App\Libraries\Data;
 use Dcat\Admin\Controllers\AdminController;
 use Dcat\Admin\Grid;
-use Dcat\Admin\Show;
+use Dcat\Admin\Widgets\Alert;
 
 class ServiceTrackController extends AdminController
 {
@@ -28,8 +30,15 @@ class ServiceTrackController extends AdminController
             $grid->disableCreateButton();
             $grid->disableRowSelector();
             $grid->disableBatchDelete();
+            $grid->disableViewButton();
             $grid->disableEditButton();
             $grid->disableDeleteButton();
+
+            $grid->setActionClass(Grid\Displayers\Actions::class);
+
+            $grid->actions(function (Grid\Displayers\Actions $actions) {
+                $actions->append(new ServiceTrackDisableAction());
+            });
         });
     }
 
@@ -38,39 +47,20 @@ class ServiceTrackController extends AdminController
      *
      * @param mixed $id
      *
-     * @return Show
+     * @return Alert
      */
     protected function detail($id)
     {
-        return Show::make($id, new ServiceTrack(), function (Show $show) {
-            $show->field('id');
-            $show->field('service_id');
-            $show->field('device_id');
-            $show->field('creator');
-            $show->field('created_at');
-            $show->field('updated_at');
-
-            $show->disableDeleteButton();
-            $show->disableEditButton();
-        });
+        return Data::unsupportedOperationWarning();
     }
 
     /**
      * Make a form builder.
      *
-     * @return void
+     * @return Alert
      */
     protected function form()
     {
-        return;
-//        return Form::make(new ServiceTrack(), function (Form $form) {
-//            $form->display('id');
-//            $form->text('service_id');
-//            $form->text('device_id');
-//            $form->text('creator');
-//
-//            $form->display('created_at');
-//            $form->display('updated_at');
-//        });
+        return Data::unsupportedOperationWarning();
     }
 }

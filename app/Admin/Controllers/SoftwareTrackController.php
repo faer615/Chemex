@@ -4,10 +4,10 @@ namespace App\Admin\Controllers;
 
 use App\Admin\Actions\Grid\SoftwareTrackDisableAction;
 use App\Admin\Repositories\SoftwareTrack;
+use App\Libraries\Data;
 use Dcat\Admin\Controllers\AdminController;
-use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
-use Dcat\Admin\Show;
+use Dcat\Admin\Widgets\Alert;
 
 class SoftwareTrackController extends AdminController
 {
@@ -47,39 +47,20 @@ class SoftwareTrackController extends AdminController
      *
      * @param mixed $id
      *
-     * @return Show
+     * @return Alert
      */
     protected function detail($id)
     {
-        return Show::make($id, new SoftwareTrack(['software', 'device']), function (Show $show) {
-            $show->field('id');
-            $show->field('software.name');
-            $show->field('device.name');
-            $show->field('created_at');
-            $show->field('updated_at');
-
-            $show->disableEditButton();
-            $show->disableDeleteButton();
-        });
+        return Data::unsupportedOperationWarning();
     }
 
     /**
      * Make a form builder.
      *
-     * @return Form
+     * @return Alert
      */
     protected function form()
     {
-        return Form::make(new SoftwareTrack(), function (Form $form) {
-            $form->display('id');
-            $form->text('software_id');
-            $form->text('device_id');
-
-            $form->display('created_at');
-            $form->display('updated_at');
-
-            $form->disableDeleteButton();
-            $form->disableViewButton();
-        });
+        return Data::unsupportedOperationWarning();
     }
 }

@@ -12,6 +12,7 @@ use App\Models\HardwareRecord;
 use App\Models\SoftwareRecord;
 use Dcat\Admin\Controllers\AdminController;
 use Dcat\Admin\Grid;
+use Dcat\Admin\Widgets\Alert;
 
 class CheckTrackController extends AdminController
 {
@@ -78,42 +79,20 @@ class CheckTrackController extends AdminController
      *
      * @param mixed $id
      *
-     * @return void
+     * @return Alert
      */
     protected function detail($id)
     {
-        return;
-//        return Show::make($id, new CheckTrack(), function (Show $show) {
-//            $show->field('id');
-//            $show->field('check_id');
-//            $show->field('item_id');
-//            $show->field('status');
-//            $show->field('checker');
-//            $show->field('created_at');
-//            $show->field('updated_at');
-//
-//            $show->disableEditButton();
-//            $show->disableDeleteButton();
-//        });
+        return Data::unsupportedOperationWarning();
     }
 
     /**
      * Make a form builder.
      *
-     * @return void
+     * @return Alert
      */
     protected function form()
     {
-        return;
-//        return Form::make(new CheckTrack(), function (Form $form) {
-//            $form->display('id');
-//            $form->text('check_id');
-//            $form->text('item_id');
-//            $form->text('status');
-//            $form->text('checker');
-//
-//            $form->display('created_at');
-//            $form->display('updated_at');
-//        });
+        return Data::unsupportedOperationWarning();
     }
 }
