@@ -11,7 +11,7 @@ class SoftwareHistoryAction extends RowAction
     /**
      * @return string
      */
-    protected $title = '📃 软件件变动履历';
+    protected $title = '📃 软件变动履历';
 
     public function render()
     {

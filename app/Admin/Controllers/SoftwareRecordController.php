@@ -4,6 +4,7 @@ namespace App\Admin\Controllers;
 
 use App\Admin\Actions\Grid\SoftwareDeleteAction;
 use App\Admin\Actions\Grid\SoftwareHistoryAction;
+use App\Admin\Actions\Grid\SoftwareRelatedAction;
 use App\Admin\Actions\Grid\SoftwareTrackAction;
 use App\Admin\Repositories\SoftwareRecord;
 use App\Libraries\Data;
@@ -46,6 +47,7 @@ class SoftwareRecordController extends AdminController
                 $actions->append(new SoftwareDeleteAction());
                 $actions->append(new SoftwareTrackAction());
                 $actions->append(new SoftwareHistoryAction());
+                $actions->append(new SoftwareRelatedAction());
             });
 
             $grid->quickSearch('id', 'name')

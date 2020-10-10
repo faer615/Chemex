@@ -324,7 +324,7 @@ return [
         // indigo, blue, blue-light, blue-dark, green
         'color' => 'blue-light',
 
-        'body_class' => 'dark-mode',
+        'body_class' => '',
 
         'sidebar_collapsed' => false,
 
