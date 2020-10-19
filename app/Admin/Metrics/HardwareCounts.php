@@ -51,6 +51,8 @@ HTML
     {
         parent::init();
 
-        $this->title('硬件')->height(120);
+        $this->title('硬件')
+            ->height(120)
+            ->appendHtmlAttribute('style', "background:rgba(19,185,203,0.1);");
     }
 }

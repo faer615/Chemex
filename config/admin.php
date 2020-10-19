@@ -324,7 +324,7 @@ return [
         // indigo, blue, blue-light, blue-dark, green
         'color' => 'blue-light',
 
-        'body_class' => '',
+        'body_class' => 'sidebar-separate',
 
         'sidebar_collapsed' => false,
 
@@ -334,7 +334,7 @@ return [
         'dark_mode_switch' => true,
 
         // bg-primary, bg-info, bg-warning, bg-success, bg-danger, bg-dark
-        'navbar_color' => '',
+        'navbar_color' => 'colorful',
     ],
 
     /*

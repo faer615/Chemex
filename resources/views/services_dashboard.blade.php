@@ -20,13 +20,13 @@
                     正常
                     @break
                     @case(1)
-                    <span style="color: #9f1447;font-weight: 600;">异常</span>
+                    <span style="color: rgba(231,72,98,0.7);font-weight: 600;">异常</span>
                     @break
                     @case(2)
-                    <span style="color: #4199DE;font-weight: 600;">恢复</span>
+                    <span style="color: rgba(19,185,203,0.7);font-weight: 600;">恢复</span>
                     @break
                     @case(3)
-                    <span style="color: #997643;font-weight: 600;">暂停</span>
+                    <span style="color: rgba(246,204,51,0.7);font-weight: 600;">暂停</span>
                     @break
                 @endswitch
             </td>

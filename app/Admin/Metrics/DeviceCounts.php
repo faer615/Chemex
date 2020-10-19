@@ -51,6 +51,8 @@ HTML
     {
         parent::init();
 
-        $this->title('设备')->height(120);
+        $this->title('设备')
+            ->height(120)
+            ->appendHtmlAttribute('style', "background:rgba(237,132,193,0.1);");
     }
 }

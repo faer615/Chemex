@@ -6,11 +6,13 @@ namespace App\Admin\Metrics;
 
 use App\Models\ServiceIssue;
 use App\Models\ServiceRecord;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Widgets\Metrics\Line;
 use Illuminate\Http\Request;
 
 class ServiceIssueCounts extends Line
 {
+
     /**
      * 处理请求
      *
@@ -37,7 +39,7 @@ class ServiceIssueCounts extends Line
     /**
      * 设置卡片内容.
      *
-     * @param string $content
+     * @param $content
      *
      * @return $this
      */
@@ -45,7 +47,7 @@ class ServiceIssueCounts extends Line
     {
         return $this->content(
             <<<HTML
-<div class="d-flex justify-content-between align-items-center mt-1" style="margin-bottom: 2px">
+<div class="d-flex justify-content-between align-items-center mt-1" style="margin-bottom: 2px;">
     <h2 class="ml-1 font-lg-1">{$content}</h2>
 </div>
 HTML
@@ -61,6 +63,8 @@ HTML
     {
         parent::init();
 
-        $this->title('异常服务')->height(120);
+        $this->title('异常服务')
+            ->height(120)
+            ->appendHtmlAttribute('style', "background:rgba(168,47,67,0.1);");
     }
 }

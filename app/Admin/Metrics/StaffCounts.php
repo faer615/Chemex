@@ -51,6 +51,8 @@ HTML
     {
         parent::init();
 
-        $this->title('雇员')->height(120);
+        $this->title('雇员')
+            ->height(120)
+            ->appendHtmlAttribute('style', "background:rgba(187,198,28,0.1);");
     }
 }
