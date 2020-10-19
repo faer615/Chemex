@@ -23,6 +23,7 @@ class SoftwareRelatedAction extends RowAction
     public function render()
     {
         $software_id = $this->getKey();
+
         $grid = Grid::make(new SoftwareTrack(['device']), function (Grid $grid) use ($software_id) {
 
             $grid->model()->where('software_id', $software_id);
