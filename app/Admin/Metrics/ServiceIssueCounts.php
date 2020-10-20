@@ -64,7 +64,7 @@ HTML
         parent::init();
 
         $this->title('异常服务')
-            ->height(120)
-            ->appendHtmlAttribute('style', "background:rgba(168,47,67,0.1);");
+            ->height(120);
+//            ->appendHtmlAttribute('style', "background:rgba(168,47,67,0.1);");
     }
 }

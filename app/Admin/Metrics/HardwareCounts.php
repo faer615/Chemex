@@ -27,7 +27,7 @@ class HardwareCounts extends Line
     /**
      * 设置卡片内容.
      *
-     * @param string $content
+     * @param $content
      *
      * @return $this
      */
@@ -52,7 +52,7 @@ HTML
         parent::init();
 
         $this->title('硬件')
-            ->height(120)
-            ->appendHtmlAttribute('style', "background:rgba(19,185,203,0.1);");
+            ->height(120);
+//            ->appendHtmlAttribute('style', "background:rgba(19,185,203,0.1);");
     }
 }

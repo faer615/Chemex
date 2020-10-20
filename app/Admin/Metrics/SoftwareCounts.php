@@ -27,7 +27,7 @@ class SoftwareCounts extends Line
     /**
      * 设置卡片内容.
      *
-     * @param string $content
+     * @param $content
      *
      * @return $this
      */
@@ -52,7 +52,7 @@ HTML
         parent::init();
 
         $this->title('软件')
-            ->height(120)
-            ->appendHtmlAttribute('style', "background:rgba(171,204,208,0.1);");
+            ->height(120);
+//            ->appendHtmlAttribute('style', "background:rgba(171,204,208,0.1);");
     }
 }
