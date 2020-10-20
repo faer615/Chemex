@@ -26,7 +26,7 @@ class CheckRecordsReview extends Card
         $counts = CheckRecord::where('status', 1)->get()->count();
         $route = route('device.records.index');
         $html = <<<HTML
-<div class="info-box" style="margin-bottom: 0;">
+<div class="info-box" style="background:transparent;margin-bottom: 0;">
   <span class="info-box-icon" style="background: rgba(99,181,247,1);color: white"><i class="feather icon-message-square"></i></span>
   <div class="info-box-content">
     <span class="info-box-text">在列的盘点任务</span>

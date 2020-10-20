@@ -10,22 +10,12 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d1e740c9-80f3-485c-8fe8-2e9ce3bf4f0a" name="默认的" comment="🌏 更新面包屑翻译">
-      <change afterPath="$PROJECT_DIR$/.idea/Chemex.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jsLinters/jshint.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/phpunit.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/symfony2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Admin/Metrics/CheckDevicePercentage.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Admin/Metrics/CheckHardwarePercentage.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Admin/Metrics/CheckRecordsReview.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Admin/Metrics/CheckSoftwarePercentage.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Admin/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Controllers/HomeController.php" afterDir="false" />
+    <list default="true" id="d1e740c9-80f3-485c-8fe8-2e9ce3bf4f0a" name="默认的" comment="🔧 首页增加盘点进度图标">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Admin/Metrics/CheckDevicePercentage.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Metrics/CheckDevicePercentage.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Admin/Metrics/CheckHardwarePercentage.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Metrics/CheckHardwarePercentage.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Admin/Metrics/CheckRecordsReview.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Metrics/CheckRecordsReview.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Admin/Metrics/CheckSoftwarePercentage.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Metrics/CheckSoftwarePercentage.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -214,7 +204,7 @@
       <workItem from="1603005040312" duration="320000" />
       <workItem from="1603100969070" duration="11109000" />
       <workItem from="1603185532886" duration="1917000" />
-      <workItem from="1603187826941" duration="5247000" />
+      <workItem from="1603187826941" duration="8361000" />
     </task>
     <task id="LOCAL-00001" summary="🚧 优化路由&amp;禁止在演示模式下修改部分内容">
       <created>1602502403254</created>
@@ -237,7 +227,14 @@
       <option name="project" value="LOCAL" />
       <updated>1603125186838</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="🔧 首页增加盘点进度图标">
+      <created>1603197986733</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1603197986733</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -256,11 +253,14 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value=" 优化路由&amp;禁止在演示模式下修改部分内容" />
     <MESSAGE value=" 更新UI" />
     <MESSAGE value=" 更新面包屑翻译" />
-    <option name="LAST_COMMIT_MESSAGE" value=" 更新面包屑翻译" />
+    <MESSAGE value=" 首页增加盘点进度图标" />
+    <option name="LAST_COMMIT_MESSAGE" value=" 首页增加盘点进度图标" />
   </component>
   <component name="WindowStateProjectService">
     <state x="556" y="260" key="#CLI_Interpreters" timestamp="1602430779490">
@@ -287,10 +287,10 @@
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
     <state x="477" y="250" width="1350" height="710" key="SettingsEditor/0.0.2194.1194@0.0.2194.1194" timestamp="1603192697514" />
-    <state x="690" y="330" key="Vcs.Push.Dialog.v2" timestamp="1603125188664">
+    <state x="690" y="330" key="Vcs.Push.Dialog.v2" timestamp="1603198031145">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
-    <state x="690" y="330" key="Vcs.Push.Dialog.v2/0.0.2194.1194@0.0.2194.1194" timestamp="1603125188664" />
+    <state x="690" y="330" key="Vcs.Push.Dialog.v2/0.0.2194.1194@0.0.2194.1194" timestamp="1603198031145" />
     <state x="911" y="510" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1603100970359">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>

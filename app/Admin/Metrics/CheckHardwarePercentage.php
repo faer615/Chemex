@@ -27,27 +27,27 @@ class CheckHardwarePercentage extends Card
         }
 
         $hardware_records_all = HardwareRecord::all()->count();
-        $check_record = CheckRecord::where('check_item', 'software')->where('status', 1)->first();
+        $check_record = CheckRecord::where('check_item', 'software')->where('status', 0)->first();
         if (!empty($check_record)) {
             $check_tracks_counts = CheckTrack::where('check_id', $check_record->id)
                 ->where('status', '!=', 0)
                 ->get()
                 ->count();
             $done_counts = ($hardware_records_all - $check_tracks_counts) . ' / ' . $hardware_records_all;
-            $percentage = ($hardware_records_all - $check_tracks_counts) / $hardware_records_all;
+            $percentage = ($hardware_records_all - $check_tracks_counts) / $hardware_records_all * 100;
         } else {
             $done_counts = '未找到在列的盘点任务';
             $percentage = 0;
         }
 
         $html = <<<HTML
-<div class="info-box" style="margin-bottom: 0;">
-  <span class="info-box-icon bg-info"><i class="far fa-bookmark"></i></span>
+<div class="info-box" style="background:transparent;margin-bottom: 0;padding: 0;">
+  <span class="info-box-icon" style="background: rgba(89,160,217,1);color: white;border-radius: .25rem;"><i class="feather icon-crosshair"></i></span>
   <div class="info-box-content">
     <span class="info-box-text">硬件盘点进度</span>
     <span class="info-box-number">{$done_counts}</span>
     <div class="progress">
-      <div class="progress-bar bg-info" style="width: {$percentage}%"></div>
+      <div class="progress-bar bg-info" style="background: rgba(89,160,217,1);width: {$percentage}%"></div>
     </div>
     <span class="progress-description">
       {$percentage}%
