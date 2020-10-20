@@ -141,17 +141,15 @@ Chemex是完全免费且开源的，任何人都可以无限制的修改代码�
 
 ## 截图
 
-![](https://i.loli.net/2020/10/07/v9F8BhMuU17fsn3.png)
+![](https://oss.celaraze.com/cache/qnGfHILR.png)
 
-![](https://i.loli.net/2020/10/07/IABluLr5JkRyzEQ.png)
+![](https://oss.celaraze.com/cache/MpWykr4L.png)
 
-![](https://i.loli.net/2020/10/07/LgU2BalYDtHZTOh.png)
+![](https://oss.celaraze.com/cache/7RLZFaul.png)
 
-![](https://i.loli.net/2020/10/07/4IzxYLhHi8feaRV.png)
+![](https://oss.celaraze.com/cache/N67KSqQk.png)
 
-![](https://i.loli.net/2020/10/07/e9Slp5FCwd1ijqg.png)
-
-![](https://i.loli.net/2020/10/07/7faXkBuUy5D8tbQ.png)
+![](https://oss.celaraze.com/cache/6UR87L3n.png)
 
 ## 参与贡献
 
