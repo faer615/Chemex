@@ -2,7 +2,8 @@
 return [
     'labels' => [
         'StaffDepartment' => '部门',
-        'Parent' => '父级部门'
+        'Parent' => '父级部门',
+        'departments' => '部门'
     ],
     'fields' => [
         'name' => '名称',

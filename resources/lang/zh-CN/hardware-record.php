@@ -4,7 +4,8 @@ return [
         'HardwareRecord' => '硬件',
         'Owner' => '所属设备',
         'Category' => '分类',
-        'Vendor' => '供应商'
+        'Vendor' => '供应商',
+        'records' => '硬件'
     ],
     'fields' => [
         'qrcode' => '二维码',

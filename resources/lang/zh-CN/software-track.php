@@ -2,6 +2,7 @@
 return [
     'labels' => [
         'SoftwareTrack' => '软件归属记录',
+        'tracks' => '软件归属记录'
     ],
     'fields' => [
         'software' => [

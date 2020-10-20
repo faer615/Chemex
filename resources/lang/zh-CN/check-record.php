@@ -2,7 +2,8 @@
 return [
     'labels' => [
         'CheckRecord' => '盘点任务',
-        'User' => '负责人'
+        'User' => '负责人',
+        'records' => '盘点任务'
     ],
     'fields' => [
         'check_item' => '盘点项目',

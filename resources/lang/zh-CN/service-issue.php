@@ -2,6 +2,7 @@
 return [
     'labels' => [
         'ServiceIssue' => '服务异常',
+        'issue' => '服务异常'
     ],
     'fields' => [
         'service' => [

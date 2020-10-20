@@ -2,6 +2,7 @@
 return [
     'labels' => [
         'MaintenanceRecord' => '维修记录',
+        'records' => '维修记录'
     ],
     'fields' => [
         'item' => '物品类型',

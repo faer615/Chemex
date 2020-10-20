@@ -2,6 +2,7 @@
 return [
     'labels' => [
         'CheckTrack' => '盘点明细记录',
+        'tracks' => '盘点明细记录'
     ],
     'fields' => [
         'check_id' => '任务ID',

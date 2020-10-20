@@ -18,7 +18,7 @@ class SoftwareTrackController extends AdminController
      */
     protected function grid()
     {
-        return Grid::make(new SoftwareTrack(['software', 'device']), function (Grid $grid) use ($software_id) {
+        return Grid::make(new SoftwareTrack(['software', 'device']), function (Grid $grid) {
             $grid->column('id');
             $grid->column('software.name');
             $grid->column('device.name');

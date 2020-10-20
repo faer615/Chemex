@@ -5,7 +5,7 @@ return [
         'Category' => '分类',
         'Vendor' => '制造商',
         'Left Counts' => '剩余授权数量',
-        ''
+        'records' => '软件'
     ],
     'fields' => [
         'qrcode' => '二维码',
