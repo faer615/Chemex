@@ -141,7 +141,7 @@ class DeviceRecordController extends AdminController
                     ->pluck('name', 'id'))
                 ->required();
             $form->text('sn');
-            $form->text('mac');
+            $form->mac('mac');
             $form->ip('ip');
             $form->image('photo')
                 ->autoUpload()
