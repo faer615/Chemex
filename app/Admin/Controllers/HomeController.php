@@ -2,6 +2,9 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Metrics\CheckDevicePercentage;
+use App\Admin\Metrics\CheckHardwarePercentage;
+use App\Admin\Metrics\CheckSoftwarePercentage;
 use App\Admin\Metrics\DeviceCounts;
 use App\Admin\Metrics\HardwareCounts;
 use App\Admin\Metrics\ServiceCounts;
@@ -29,6 +32,9 @@ class HomeController extends Controller
                 $row->column(2, new StaffCounts());
                 $row->column(2, new ServiceCounts());
                 $row->column(2, new ServiceIssueCounts());
+                $row->column(4, new CheckDevicePercentage());
+                $row->column(4, new CheckHardwarePercentage());
+                $row->column(4, new CheckSoftwarePercentage());
                 $services = Track::getServiceIssueStatus();
                 $row->column(12, new Card(view('services_dashboard')->with('services', $services)));
             });
