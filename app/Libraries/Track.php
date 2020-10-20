@@ -119,7 +119,7 @@ class Track
                 }
                 if ($service_issue->status == 2) {
                     $service->status = 0;
-                    $issue = '<span style="color: #00c054;font-weight: 600;">[已修复最近一个问题]</span>' . $service_issue->issue . '<br>';
+                    $issue = '<span class="status-recovery">[已修复最近一个问题]</span> ' . $service_issue->issue . '<br>';
                     array_push($issues, $issue);
                     if (empty($service->end)) {
                         $service->end = $service_issue->end;

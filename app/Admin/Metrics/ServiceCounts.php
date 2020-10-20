@@ -5,54 +5,44 @@ namespace App\Admin\Metrics;
 
 
 use App\Models\ServiceRecord;
-use Dcat\Admin\Widgets\Metrics\Line;
-use Illuminate\Http\Request;
+use Closure;
+use Dcat\Admin\Grid\LazyRenderable as LazyGrid;
+use Dcat\Admin\Traits\LazyWidget;
+use Dcat\Admin\Widgets\Card;
+use Illuminate\Contracts\Support\Renderable;
 
-class ServiceCounts extends Line
+class ServiceCounts extends Card
 {
     /**
-     * 处理请求
-     *
-     * @param Request $request
-     *
-     * @return mixed|void
-     */
-    public function handle(Request $request)
-    {
-        $counts = ServiceRecord::all()->count();
-
-        $this->withContent($counts);
-    }
-
-    /**
-     * 设置卡片内容.
-     *
-     * @param $content
+     * @param string|Closure|Renderable|LazyWidget $content
      *
      * @return $this
      */
-    public function withContent($content)
+    public function content($content)
     {
-        return $this->content(
-            <<<HTML
-<div class="d-flex justify-content-between align-items-center mt-1" style="margin-bottom: 2px">
-    <h2 class="ml-1 font-lg-1">{$content}</h2>
+        if ($content instanceof LazyGrid) {
+            $content->simple();
+        }
+        $counts = ServiceRecord::all()->count();
+        $route = route('service.records.index');
+        $html = <<<HTML
+<div class="small-box" style="margin-bottom: 0;background: rgba(255,109,0,0.7)">
+  <div class="inner">
+    <h3 style="color: #ffffff;">{$counts}</h3>
+    <p style="color: white;">服务数量</p>
+  </div>
+  <div class="icon">
+    <i class="feather icon-activity"></i>
+  </div>
+  <a href="{$route}" class="small-box-footer">
+    前往查看 <i class="feather icon-arrow-right"></i>
+  </a>
 </div>
-HTML
-        );
-    }
+HTML;
 
-    /**
-     * 初始化卡片内容
-     *
-     * @return void
-     */
-    protected function init()
-    {
-        parent::init();
+        $this->content = $this->lazyRenderable($html);
+        $this->noPadding();
 
-        $this->title('服务')
-            ->height(120);
-//            ->appendHtmlAttribute('style', "background:rgba(229,129,67,0.1);");
+        return $this;
     }
 }

@@ -6,22 +6,24 @@ namespace App\Admin\Metrics;
 
 use App\Models\ServiceIssue;
 use App\Models\ServiceRecord;
-use Dcat\Admin\Admin;
-use Dcat\Admin\Widgets\Metrics\Line;
-use Illuminate\Http\Request;
+use Closure;
+use Dcat\Admin\Grid\LazyRenderable as LazyGrid;
+use Dcat\Admin\Traits\LazyWidget;
+use Dcat\Admin\Widgets\Card;
+use Illuminate\Contracts\Support\Renderable;
 
-class ServiceIssueCounts extends Line
+class ServiceIssueCounts extends Card
 {
-
     /**
-     * 处理请求
+     * @param string|Closure|Renderable|LazyWidget $content
      *
-     * @param Request $request
-     *
-     * @return mixed|void
+     * @return $this
      */
-    public function handle(Request $request)
+    public function content($content)
     {
+        if ($content instanceof LazyGrid) {
+            $content->simple();
+        }
         $counts = 0;
         $services = ServiceRecord::all();
         foreach ($services as $service) {
@@ -32,39 +34,25 @@ class ServiceIssueCounts extends Line
                 $counts++;
             }
         }
-
-        $this->withContent($counts);
-    }
-
-    /**
-     * 设置卡片内容.
-     *
-     * @param $content
-     *
-     * @return $this
-     */
-    public function withContent($content)
-    {
-        return $this->content(
-            <<<HTML
-<div class="d-flex justify-content-between align-items-center mt-1" style="margin-bottom: 2px;">
-    <h2 class="ml-1 font-lg-1">{$content}</h2>
+        $route = route('service.issues.index');
+        $html = <<<HTML
+<div class="small-box" style="margin-bottom: 0;background: rgba(239,83,80,0.7)">
+  <div class="inner">
+    <h3 style="color: #ffffff;">{$counts}</h3>
+    <p style="color: white;">服务异常</p>
+  </div>
+  <div class="icon">
+    <i class="feather icon-power"></i>
+  </div>
+  <a href="{$route}" class="small-box-footer">
+    前往查看 <i class="feather icon-arrow-right"></i>
+  </a>
 </div>
-HTML
-        );
-    }
+HTML;
 
-    /**
-     * 初始化卡片内容
-     *
-     * @return void
-     */
-    protected function init()
-    {
-        parent::init();
+        $this->content = $this->lazyRenderable($html);
+        $this->noPadding();
 
-        $this->title('异常服务')
-            ->height(120);
-//            ->appendHtmlAttribute('style', "background:rgba(168,47,67,0.1);");
+        return $this;
     }
 }

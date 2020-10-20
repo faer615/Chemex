@@ -1,4 +1,4 @@
-<table class="table table-bordered">
+<table class="table">
     <thead>
     <tr>
         <th scope="col">宿主设备名称</th>
@@ -14,19 +14,19 @@
         <tr>
             <td>{{$service['device_name']}}</td>
             <td>{{$service['name']}}</td>
-            <td>
+            <td class="status">
                 @switch($service['status'])
                     @case(0)
-                    正常
+                    <span class="status-bg-green">正常</span>
                     @break
                     @case(1)
-                    <span style="color: rgba(231,72,98,0.7);font-weight: 600;">异常</span>
+                    <span class="status-bg-red">异常</span>
                     @break
                     @case(2)
-                    <span style="color: rgba(19,185,203,0.7);font-weight: 600;">恢复</span>
+                    <span class="status-bg-blue">恢复</span>
                     @break
                     @case(3)
-                    <span style="color: rgba(246,204,51,0.7);font-weight: 600;">暂停</span>
+                    <span class="status-bg-orange">暂停</span>
                     @break
                 @endswitch
             </td>
@@ -39,3 +39,37 @@
     @endforeach
     </tbody>
 </table>
+<style>
+    .status {
+        font-weight: 600;
+    }
+
+    .status > span {
+        padding: 2px 4px;
+        border-radius: 4px;
+    }
+
+    .status-bg-red {
+        background: rgba(244, 134, 132, 0.1);
+        color: rgba(244, 134, 132, 1);
+    }
+
+    .status-bg-orange {
+        background: rgba(255, 153, 76, 0.1);
+        color: rgba(255, 153, 76, 1);
+    }
+
+    .status-bg-green {
+        background: rgba(76, 181, 171, 0.1);
+        color: rgba(76, 181, 171, 1);
+    }
+
+    .status-bg-blue {
+        background: rgba(99, 181, 247, 0.1);
+        color: rgba(99, 181, 247, 1);
+    }
+
+    .status-recovery {
+        color: rgba(76, 181, 171, 1);
+    }
+</style>

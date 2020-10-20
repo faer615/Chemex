@@ -14,7 +14,9 @@ Route::group([
     $router->get('/', 'HomeController@index');
     $router->get('/test', 'HomeController@test');
     $router->resource('/device/tracks', 'DeviceTrackController');
-    $router->resource('/device/records', 'DeviceRecordController');
+    $router->resource('/device/records', 'DeviceRecordController', ['names' => [
+        'index' => 'device.records.index'
+    ]]);
     $router->resource('/device/categories', 'DeviceCategoryController');
     $router->resource('/software/tracks', 'SoftwareTrackController', ['names' => [
         'index' => 'software.tracks.index'
@@ -24,15 +26,23 @@ Route::group([
     ]]);
     $router->resource('/software/categories', 'SoftwareCategoryController');
     $router->resource('/hardware/tracks', 'HardwareTrackController');
-    $router->resource('/hardware/records', 'HardwareRecordController');
+    $router->resource('/hardware/records', 'HardwareRecordController', ['names' => [
+        'index' => 'hardware.records.index'
+    ]]);
     $router->resource('/hardware/categories', 'HardwareCategoryController');
     $router->resource('/vendor/records', 'VendorRecordController');
-    $router->resource('/staff/records', 'StaffRecordController');
+    $router->resource('/staff/records', 'StaffRecordController', ['names' => [
+        'index' => 'staff.records.index'
+    ]]);
     $router->resource('/staff/departments', 'StaffDepartmentController');
     $router->resource('/check/records', 'CheckRecordController');
     $router->resource('/check/tracks', 'CheckTrackController');
-    $router->resource('/service/records', 'ServiceRecordController');
+    $router->resource('/service/records', 'ServiceRecordController', ['names' => [
+        'index' => 'service.records.index'
+    ]]);
     $router->resource('/service/tracks', 'ServiceTrackController');
-    $router->resource('/service/issues', 'ServiceIssueController');
+    $router->resource('/service/issues', 'ServiceIssueController', ['names' => [
+        'index' => 'service.issues.index'
+    ]]);
     $router->resource('/maintenance/records', 'MaintenanceRecordController');
 });
