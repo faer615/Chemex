@@ -16,7 +16,9 @@ Route::group([
     $router->resource('/device/tracks', 'DeviceTrackController');
     $router->resource('/device/records', 'DeviceRecordController');
     $router->resource('/device/categories', 'DeviceCategoryController');
-    $router->resource('/software/tracks', 'SoftwareTrackController');
+    $router->resource('/software/tracks', 'SoftwareTrackController', ['names' => [
+        'index' => 'software.tracks.index'
+    ]]);
     $router->resource('/software/records', 'SoftwareRecordController', ['names' => [
         'index' => 'software.records.index'
     ]]);
