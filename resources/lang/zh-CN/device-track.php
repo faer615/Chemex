@@ -2,6 +2,7 @@
 return [
     'labels' => [
         'DeviceTrack' => '设备归属记录',
+        'tracks' => '设备归属记录'
     ],
     'fields' => [
         'device' => [

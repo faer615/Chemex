@@ -3,7 +3,8 @@ return [
     'labels' => [
         'DeviceRecord' => '设备',
         'Category' => '分类',
-        'Vendor' => '制造商'
+        'Vendor' => '制造商',
+        'records' => '设备'
     ],
     'fields' => [
         'qrcode' => '二维码',
