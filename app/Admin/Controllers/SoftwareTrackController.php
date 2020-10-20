@@ -18,25 +18,7 @@ class SoftwareTrackController extends AdminController
      */
     protected function grid()
     {
-        $software_id = request('software_id') ?? null;
-
-//        Admin::script(
-//            <<<JS
-//$(document).ready(function(){
-//    $("#select-software").change(function (e){
-//        window.location.href= '?software_id='+$(this).val();
-//        console.log($(this).val());
-//    })
-//})
-//JS
-//        );
-
-
         return Grid::make(new SoftwareTrack(['software', 'device']), function (Grid $grid) use ($software_id) {
-            if (!empty($software_id)) {
-                $grid->model()->where('software_id', $software_id);
-            }
-
             $grid->column('id');
             $grid->column('software.name');
             $grid->column('device.name');
@@ -54,10 +36,6 @@ class SoftwareTrackController extends AdminController
 
             $grid->actions(function (Grid\Displayers\Actions $actions) {
                 $actions->append(new SoftwareTrackDisableAction());
-            });
-
-            $grid->header(function ($collection) use ($grid) {
-
             });
 
             $grid->quickSearch('software_id')
