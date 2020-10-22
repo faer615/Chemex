@@ -19,11 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d1e740c9-80f3-485c-8fe8-2e9ce3bf4f0a" name="默认的" comment="🔧 首页增加盘点进度图标">
+    <list default="true" id="d1e740c9-80f3-485c-8fe8-2e9ce3bf4f0a" name="默认的" comment="🚗 发布1.4.0">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Console/Commands/Install.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/Install.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Libraries/Track.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Libraries/Track.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Admin/Actions/Grid/HardwareHistoryAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Actions/Grid/HardwareHistoryAction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Admin/Actions/Grid/SoftwareHistoryAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Actions/Grid/SoftwareHistoryAction.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,13 +176,14 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Admin/Metrics" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/database/scripts" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\celar\Repositories\Chemex\database\scripts" />
       <recent name="C:\Users\celar\Repositories\Chemex\app\Admin\Metrics" />
     </key>
   </component>
@@ -242,7 +242,14 @@
       <option name="project" value="LOCAL" />
       <updated>1603197986733</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="🚗 发布1.4.0">
+      <created>1603333016596</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1603333016596</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -268,7 +275,8 @@
     <MESSAGE value=" 更新UI" />
     <MESSAGE value=" 更新面包屑翻译" />
     <MESSAGE value=" 首页增加盘点进度图标" />
-    <option name="LAST_COMMIT_MESSAGE" value=" 首页增加盘点进度图标" />
+    <MESSAGE value=" 发布1.4.0" />
+    <option name="LAST_COMMIT_MESSAGE" value=" 发布1.4.0" />
   </component>
   <component name="WindowStateProjectService">
     <state x="556" y="260" key="#CLI_Interpreters" timestamp="1602430779490">
@@ -295,9 +303,10 @@
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
     <state x="477" y="250" width="1350" height="710" key="SettingsEditor/0.0.2194.1194@0.0.2194.1194" timestamp="1603192697514" />
-    <state x="690" y="330" key="Vcs.Push.Dialog.v2" timestamp="1603198031145">
-      <screen x="0" y="0" width="2194" height="1194" />
+    <state x="472" y="265" key="Vcs.Push.Dialog.v2" timestamp="1603333019563">
+      <screen x="0" y="0" width="1500" height="960" />
     </state>
+    <state x="472" y="265" key="Vcs.Push.Dialog.v2/0.0.1500.960@0.0.1500.960" timestamp="1603333019563" />
     <state x="690" y="330" key="Vcs.Push.Dialog.v2/0.0.2194.1194@0.0.2194.1194" timestamp="1603198031145" />
     <state x="911" y="510" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1603100970359">
       <screen x="0" y="0" width="2194" height="1194" />
