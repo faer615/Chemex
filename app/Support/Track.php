@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Libraries;
+namespace App\Support;
 
 
 use App\Models\DeviceTrack;

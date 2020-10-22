@@ -19,26 +19,39 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d1e740c9-80f3-485c-8fe8-2e9ce3bf4f0a" name="默认的" comment="📝 更新说明文件">
-      <change afterPath="$PROJECT_DIR$/database/scripts/initDB.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/downloads/Update/update1.4.0-fixed_software_records_query_error.zip" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/install.blade.php" afterDir="false" />
+    <list default="true" id="d1e740c9-80f3-485c-8fe8-2e9ce3bf4f0a" name="默认的" comment="⚙ 更新了部分与部署相关的代码&amp;发布1.4.2">
+      <change afterPath="$PROJECT_DIR$/app/Admin/Controllers/UpdateController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Support/Network.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/lang/zh-CN/update.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/update.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Chemex.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Chemex.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/LICENSE" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Admin/Actions/Grid/DeviceRelatedAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Actions/Grid/DeviceRelatedAction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Admin/Controllers/CheckRecordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Controllers/CheckRecordController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Admin/Controllers/CheckTrackController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Controllers/CheckTrackController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Admin/Controllers/DeviceRecordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Controllers/DeviceRecordController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Admin/Controllers/DeviceTrackController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Controllers/DeviceTrackController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Admin/Controllers/HardwareRecordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Controllers/HardwareRecordController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Admin/Controllers/HardwareTrackController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Controllers/HardwareTrackController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Admin/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Controllers/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Console/Commands/Install.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/Install.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Admin/Controllers/MaintenanceRecordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Controllers/MaintenanceRecordController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Admin/Controllers/ServiceIssueController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Controllers/ServiceIssueController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Admin/Controllers/ServiceTrackController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Controllers/ServiceTrackController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Admin/Controllers/SoftwareRecordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Controllers/SoftwareRecordController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Admin/Controllers/SoftwareTrackController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Controllers/SoftwareTrackController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Admin/Controllers/StaffRecordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Controllers/StaffRecordController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Admin/Metrics/WebSSHStatus.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Metrics/WebSSHStatus.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Admin/routes.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/routes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Libraries/Data.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Support/Data.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Libraries/Info.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Support/Info.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Libraries/Network.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Libraries/System.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Support/System.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Libraries/Track.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Support/Track.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/admin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/scripts/initData.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/downloads/Chemex-1.3.0.zip" beforeDir="false" afterPath="$PROJECT_DIR$/docs/downloads/Chemex-1.4.2.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/downloads/Chemex-1.4.1.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/editor-md/lib/codemirror/mode/rpm/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/editor-md/lib/codemirror/mode/rpm/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/tinymce/license.txt" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors/dcat-admin/dcat/plugins/tinymce/license.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/zh-CN/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/zh-CN/admin.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -192,13 +205,15 @@
     <property name="DatabaseDriversLRU" value="mariadb" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/database/scripts" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/lang/zh-CN" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\celar\Repositories\Chemex\resources\lang\zh-CN" />
+      <recent name="C:\Users\celar\Repositories\Chemex\app\Admin\Controllers" />
       <recent name="C:\Users\celar\Repositories\Chemex\database\scripts" />
       <recent name="C:\Users\celar\Repositories\Chemex" />
       <recent name="C:\Users\celar\Repositories\Chemex\app\Admin\Metrics" />
@@ -230,7 +245,7 @@
       <workItem from="1603100969070" duration="11109000" />
       <workItem from="1603185532886" duration="1917000" />
       <workItem from="1603187826941" duration="8361000" />
-      <workItem from="1603336724411" duration="8396000" />
+      <workItem from="1603336724411" duration="11462000" />
     </task>
     <task id="LOCAL-00001" summary="🚧 优化路由&amp;禁止在演示模式下修改部分内容">
       <created>1602502403254</created>
@@ -295,7 +310,14 @@
       <option name="project" value="LOCAL" />
       <updated>1603337530857</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="⚙ 更新了部分与部署相关的代码&amp;发布1.4.2">
+      <created>1603346827786</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1603346827786</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -325,7 +347,8 @@
     <MESSAGE value=" 解决了一些BUG" />
     <MESSAGE value=" 发布1.4.1" />
     <MESSAGE value=" 更新说明文件" />
-    <option name="LAST_COMMIT_MESSAGE" value=" 更新说明文件" />
+    <MESSAGE value="⚙ 更新了部分与部署相关的代码&amp;发布1.4.2" />
+    <option name="LAST_COMMIT_MESSAGE" value="⚙ 更新了部分与部署相关的代码&amp;发布1.4.2" />
   </component>
   <component name="WindowStateProjectService">
     <state x="556" y="260" key="#CLI_Interpreters" timestamp="1602430779490">
@@ -348,18 +371,18 @@
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
     <state x="756" y="360" key="FileChooserDialogImpl/0.0.2194.1194@0.0.2194.1194" timestamp="1602435759079" />
-    <state x="577" y="403" key="NewPhpFileDialog" timestamp="1603338298689">
+    <state x="577" y="403" key="NewPhpFileDialog" timestamp="1603348042374">
       <screen x="0" y="0" width="1500" height="960" />
     </state>
-    <state x="577" y="403" key="NewPhpFileDialog/0.0.1500.960@0.0.1500.960" timestamp="1603338298689" />
+    <state x="577" y="403" key="NewPhpFileDialog/0.0.1500.960@0.0.1500.960" timestamp="1603348042374" />
     <state x="477" y="250" width="1350" height="710" key="SettingsEditor" timestamp="1603192697514">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
     <state x="477" y="250" width="1350" height="710" key="SettingsEditor/0.0.2194.1194@0.0.2194.1194" timestamp="1603192697514" />
-    <state x="472" y="265" key="Vcs.Push.Dialog.v2" timestamp="1603337532704">
+    <state x="472" y="265" key="Vcs.Push.Dialog.v2" timestamp="1603346831556">
       <screen x="0" y="0" width="1500" height="960" />
     </state>
-    <state x="472" y="265" key="Vcs.Push.Dialog.v2/0.0.1500.960@0.0.1500.960" timestamp="1603337532704" />
+    <state x="472" y="265" key="Vcs.Push.Dialog.v2/0.0.1500.960@0.0.1500.960" timestamp="1603346831556" />
     <state x="690" y="330" key="Vcs.Push.Dialog.v2/0.0.2194.1194@0.0.2194.1194" timestamp="1603198031145" />
     <state x="911" y="510" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1603100970359">
       <screen x="0" y="0" width="2194" height="1194" />

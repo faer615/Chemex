@@ -5,7 +5,7 @@ namespace App\Admin\Controllers;
 use App\Admin\Actions\Grid\CheckTrackNoAction;
 use App\Admin\Actions\Grid\CheckTrackYesAction;
 use App\Admin\Repositories\CheckTrack;
-use App\Libraries\Data;
+use App\Support\Data;
 use App\Models\CheckRecord;
 use App\Models\DeviceRecord;
 use App\Models\HardwareRecord;

@@ -7,7 +7,7 @@ use App\Admin\Actions\Grid\HardwareHistoryAction;
 use App\Admin\Actions\Grid\HardwareTrackAction;
 use App\Admin\Actions\Grid\MaintenanceAction;
 use App\Admin\Repositories\HardwareRecord;
-use App\Libraries\Track;
+use App\Support\Track;
 use App\Models\HardwareCategory;
 use App\Models\VendorRecord;
 use Dcat\Admin\Controllers\AdminController;

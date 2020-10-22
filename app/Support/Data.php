@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Libraries;
+namespace App\Support;
 
 
 use Dcat\Admin\Widgets\Alert;

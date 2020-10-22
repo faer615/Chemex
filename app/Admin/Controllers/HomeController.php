@@ -12,7 +12,7 @@ use App\Admin\Metrics\ServiceIssueCounts;
 use App\Admin\Metrics\SoftwareCounts;
 use App\Admin\Metrics\StaffCounts;
 use App\Http\Controllers\Controller;
-use App\Libraries\Track;
+use App\Support\Track;
 use Dcat\Admin\Layout\Content;
 use Dcat\Admin\Layout\Row;
 use Dcat\Admin\Widgets\Card;

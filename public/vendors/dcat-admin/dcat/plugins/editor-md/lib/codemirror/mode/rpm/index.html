@@ -63,7 +63,7 @@ Wed Oct  5 14:34:10 UTC 2011 - misterx@example.com
     </script>
 
 <h2>RPM spec mode</h2>
-    
+
     <div><textarea id="code2" name="code2">
 #
 # spec file for package minidlna
@@ -84,7 +84,7 @@ Name:           libupnp6
 Version:        1.6.13
 Release:        0
 Summary:        Portable Universal Plug and Play (UPnP) SDK
-Group:          System/Libraries
+Group:          System/Support
 License:        BSD-3-Clause
 Url:            http://sourceforge.net/projects/pupnp/
 Source0:        http://downloads.sourceforge.net/pupnp/libupnp-%{version}.tar.bz2
@@ -97,7 +97,7 @@ systems.
 
 %package -n libupnp-devel
 Summary:        Portable Universal Plug and Play (UPnP) SDK
-Group:          Development/Libraries/C and C++
+Group:          Development/Support/C and C++
 Provides:       pkgconfig(libupnp)
 Requires:       %{name} = %{version}
 

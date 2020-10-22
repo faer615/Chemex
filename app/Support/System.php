@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Libraries;
+namespace App\Support;
 
 
 use Exception;
@@ -36,5 +36,27 @@ class System
         } else {
             return 1;
         }
+    }
+
+    /**
+     * 比较两个语义化版本的大小
+     * @param $old
+     * @param $new
+     * @param string $delimiter
+     * @return int
+     */
+    public static function diffVersion($old, $new, $delimiter = '.')
+    {
+        $old = explode($delimiter, $old);
+        $new = explode($delimiter, $new);
+        $res = $old[0] <=> $new[0];
+        if ($res == 0) {
+            $res = $old[1] <=> $new[1];
+            if ($res == 0) {
+                return $old[2] <=> $new[2];
+            }
+            return $res;
+        }
+        return $res;
     }
 }

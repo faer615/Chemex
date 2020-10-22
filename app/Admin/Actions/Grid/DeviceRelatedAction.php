@@ -2,7 +2,7 @@
 
 namespace App\Admin\Actions\Grid;
 
-use App\Libraries\Data;
+use App\Support\Data;
 use App\Models\DeviceRecord;
 use Dcat\Admin\Grid\RowAction;
 use Dcat\Admin\Widgets\Modal;

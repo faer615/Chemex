@@ -377,5 +377,6 @@ return [
 
     ],
 
-    'demo' => env('ADMIN_DEMO')
+    'demo' => env('ADMIN_DEMO'),
+    'chemex_version' => env('CHEMEX_VERSION')
 ];
