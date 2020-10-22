@@ -19,7 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d1e740c9-80f3-485c-8fe8-2e9ce3bf4f0a" name="默认的" comment="🚗 发布1.4.0">
+    <list default="true" id="d1e740c9-80f3-485c-8fe8-2e9ce3bf4f0a" name="默认的" comment="🐞 解决了一些BUG">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Admin/Actions/Grid/HardwareHistoryAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Actions/Grid/HardwareHistoryAction.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Admin/Actions/Grid/SoftwareHistoryAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Actions/Grid/SoftwareHistoryAction.php" afterDir="false" />
@@ -249,7 +249,14 @@
       <option name="project" value="LOCAL" />
       <updated>1603333016596</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="🐞 解决了一些BUG">
+      <created>1603334565484</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1603334565484</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -276,7 +283,8 @@
     <MESSAGE value=" 更新面包屑翻译" />
     <MESSAGE value=" 首页增加盘点进度图标" />
     <MESSAGE value=" 发布1.4.0" />
-    <option name="LAST_COMMIT_MESSAGE" value=" 发布1.4.0" />
+    <MESSAGE value=" 解决了一些BUG" />
+    <option name="LAST_COMMIT_MESSAGE" value=" 解决了一些BUG" />
   </component>
   <component name="WindowStateProjectService">
     <state x="556" y="260" key="#CLI_Interpreters" timestamp="1602430779490">
@@ -303,10 +311,10 @@
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
     <state x="477" y="250" width="1350" height="710" key="SettingsEditor/0.0.2194.1194@0.0.2194.1194" timestamp="1603192697514" />
-    <state x="472" y="265" key="Vcs.Push.Dialog.v2" timestamp="1603333019563">
+    <state x="472" y="265" key="Vcs.Push.Dialog.v2" timestamp="1603334567423">
       <screen x="0" y="0" width="1500" height="960" />
     </state>
-    <state x="472" y="265" key="Vcs.Push.Dialog.v2/0.0.1500.960@0.0.1500.960" timestamp="1603333019563" />
+    <state x="472" y="265" key="Vcs.Push.Dialog.v2/0.0.1500.960@0.0.1500.960" timestamp="1603334567423" />
     <state x="690" y="330" key="Vcs.Push.Dialog.v2/0.0.2194.1194@0.0.2194.1194" timestamp="1603198031145" />
     <state x="911" y="510" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1603100970359">
       <screen x="0" y="0" width="2194" height="1194" />
