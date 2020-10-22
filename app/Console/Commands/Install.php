@@ -46,8 +46,10 @@ class Install extends Command
         Artisan::call('cache:clear');
         $this->info('正在设置存储系统！');
         Artisan::call('storage:link');
+        $this->info('正在生成表结构！');
+        Artisan::call('migrate');
         $this->info('正在初始化数据！');
-        DB::unprepared(file_get_contents(base_path('database/scripts/initData.sql')));
+        DB::unprepared(file_get_contents(base_path('database/scripts/initDB.sql')));
         $this->info('安装完成！');
         $this->warn('用户名密码都为：admin');
         return 0;

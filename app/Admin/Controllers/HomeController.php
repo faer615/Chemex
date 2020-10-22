@@ -12,7 +12,6 @@ use App\Admin\Metrics\ServiceIssueCounts;
 use App\Admin\Metrics\SoftwareCounts;
 use App\Admin\Metrics\StaffCounts;
 use App\Http\Controllers\Controller;
-use App\Libraries\System;
 use App\Libraries\Track;
 use Dcat\Admin\Layout\Content;
 use Dcat\Admin\Layout\Row;
@@ -38,10 +37,5 @@ class HomeController extends Controller
                 $services = Track::getServiceIssueStatus();
                 $row->column(12, new Card(view('services_dashboard')->with('services', $services)));
             });
-    }
-
-    public function test()
-    {
-        System::checkWebSSHServiceStatus('http://127.0.0.1:8888');
     }
 }

@@ -11,13 +11,14 @@
     "license": "GPL-3.0-or-later",
     "require": {
         "php": "^7.3",
+        "ext-json": "*",
+        "celaraze/pour": "dev-master",
         "dcat/laravel-admin": "^1.7",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.0",
-        "laravel/tinker": "^2.0",
-        "ext-json": "*"
+        "laravel/tinker": "^2.0"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",

@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-    <img src="https://img.shields.io/badge/Latest Release-1.4.1-orange" />
+    <img src="https://img.shields.io/badge/Latest Release-1.4.2-orange" />
     <img src="https://img.shields.io/badge/PHP-7.3+-green" />
     <img src="https://img.shields.io/badge/MariaDB-10.5+-blueviolet" />
     <img src="https://img.shields.io/badge/License-GPL3.0-blue" />
@@ -101,7 +101,7 @@ Chemex是完全免费且开源的，任何人都可以无限制的修改代码�
 
 `PHP 7.3 +`
 
-`Mysql 5.6 +`
+`MariaDB 10.5 +`
 
 源码开发依赖于`composer`包管理器。
 
@@ -109,19 +109,21 @@ Chemex是完全免费且开源的，任何人都可以无限制的修改代码�
 
 ### 生产环境部署
 
+生产环境下为遵守安全策略，我们非常建议在服务器本地进行部署，暂时不提供相关线上初始化安装的功能。因此，虽然前期部署的步骤较多，但已经为大家自动化处理了很大部分的流程，只需要跟着下面的命令一步步执行，一般是不会有部署问题的。
+
 1：为你的计算机安装 `PHP` 环境，参考：[PHP官方](https://www.php.net/downloads) 。
 
-2：为你的计算机安装 `MySQL` 或者 `mariaDB`，同时数据库字符集为 `utf8-general-ci`。
+2：为你的计算机安装 `mariaDB` ，并且有可以使用的 `mariadb-client` 客户端工具，一般安装完 `MariaDB` 会自动安装，如果在 Ubuntu 上可能需要另外执行 `sudo apt install mariadb-client` 进行安装。
 
-3：下载 [发行版](https://gitee.com/celaraze/Chemex/releases) ，解压得到程序目录，放置到你想要放置的地方。
+3：创建一个数据库，命名任意，但记得之后填写配置时需要对应正确，并且数据库字符集为 `utf8-general-ci`。
 
-4：在项目根目录中，复制 `.env.example` 文件一份新的，并重命名为 `.env`。
+4：下载 [发行版](https://gitee.com/celaraze/Chemex/releases) ，解压得到程序目录，放置到你想要放置的地方。
 
-5：在 `.env` 中配置数据库信息，`DB_` 前缀开头的一段。
+5：在项目根目录中，复制 `.env.example` 文件为一份新的，并重命名为 `.env`。
 
-6：执行 `php artisan migrate`。
+6：在 `.env` 中配置数据库信息。
 
-7：执行 `php artisan chemex:install`。
+7：执行 `php artisan chemex:install` 进行安装。
 
 8：你可能使用的web服务器为 `nginx` 以及 `apache`，无论怎样，应用的起始路径在 `/public` 目录，请确保指向正确。
 
@@ -144,6 +146,10 @@ Chemex是完全免费且开源的，任何人都可以无限制的修改代码�
 6：仍然在项目根目录中，执行 `php artisan migrate` 进行数据库迁移。
 
 7：参考 [Laravel](https://laravel.com/) 以及 [Dcat Admin](https://dcatadmin.com) 相关文档进行开发。
+
+### 更新
+
+下载最新的 Release 包，覆盖文件到根目录即可，其它可能的配置修改参考 Release 说明。
 
 ## 截图
 
