@@ -113,13 +113,19 @@ Chemex是完全免费且开源的，任何人都可以无限制的修改代码�
 
 2：为你的计算机安装 `MySQL` 或者 `mariaDB` 。
 
-3：下载 [发行版](https://github.com/Celaraze/Chemex/releases) ，解压得到程序目录，放置到你想要放置的地方。
+3：下载 [发行版](https://gitee.com/celaraze/Chemex/releases) ，解压得到程序目录，放置到你想要放置的地方。
 
-4：在项目根目录中，执行 `php artisan chemex:install` 根据提示进行安装。
+4：在项目根目录中，复制 `.env.example` 文件一份新的，并重命名为 `.env`。
 
-5：你可能使用的web服务器为 `nginx` 以及 `apache`，无论怎样，应用的起始路径在 `/public` 目录，请确保指向正确。
+5：在 `.env` 中配置数据库信息，`DB_` 前缀开头的一段。
 
-6：修改web服务器的伪静态规则为：`try_files $uri $uri/ /index.php?$args;`。
+6：执行 `php artisan migrate`。
+
+7：执行 `php artisan chemex:install`。
+
+8：你可能使用的web服务器为 `nginx` 以及 `apache`，无论怎样，应用的起始路径在 `/public` 目录，请确保指向正确。
+
+9：修改web服务器的伪静态规则为：`try_files $uri $uri/ /index.php?$args;`。
 
 ### 开发环境部署
 

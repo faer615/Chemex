@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Libraries\Info;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
@@ -40,61 +39,17 @@ class Install extends Command
      */
     public function handle()
     {
-        $url = $this->ask('填入应用即将使用的URL地址？（不填默认为http://127.0.0.1）');
-        if (empty($url)) $url = 'http://127.0.0.1';
-        $db_host = $this->ask('填入数据库地址？（不填默认为127.0.0.1）');
-        if (empty($db_host)) $db_host = '127.0.0.1';
-        $db_port = $this->ask('填入数据库端口？（不填默认为3306）');
-        if (empty($db_port)) $db_port = '3306';
-        $db_database = $this->ask('填入数据库名称？');
-        $db_username = $this->ask('填入数据库用户名？');
-        $db_password = $this->ask('填入数据库密码？');
-        $this->info('应用地址：' . $url);
-        $this->info('数据库地址：' . $db_host);
-        $this->info('数据库端口：' . $db_port);
-        $this->info('数据库名称：' . $db_database);
-        $this->info('数据库用户：' . $db_username);
-        $this->info('数据库密码：' . $db_password);
-        $check = $this->ask('请确认上述内容，无误输入"y"确认？');
-        if ($check == 'y' || $check == 'Y') {
-            if (!copy('.env.example', '.env')) {
-                $this->error('配置文件创建失败！');
-                return 0;
-            }
-
-            Info::setEnv([
-                'APP_URL' => $url,
-                'DB_HOST' => $db_host,
-                'DB_PORT' => $db_port,
-                'DB_DATABASE' => $db_database,
-                'DB_USERNAME' => $db_username,
-                'DB_PASSWORD' => $db_password
-            ]);
-            $this->info('正在写入配置！');
-            sleep(2);
-
-            $this->info('正在优化配置！');
-            Artisan::call('config:clear');
-            sleep(2);
-            Artisan::call('route:clear');
-            sleep(2);
-            Artisan::call('view:clear');
-            sleep(2);
-            Artisan::call('cache:clear');
-            sleep(2);
-            $this->info('正在设置存储系统！');
-            Artisan::call('storage:link');
-            $this->info('正在生成数据库结构！');
-            Artisan::call('migrate');
-            sleep(5);
-            $this->info('正在初始化数据！');
-            DB::unprepared(file_get_contents(base_path('database/scripts/initData.sql')));
-            $this->info('安装完成！请访问 ' . $url);
-            $this->warn('用户名密码都为：admin');
-            return 0;
-        } else {
-            $this->info('请重新执行 php artisan chemex:install 命令安装！');
-            return 0;
-        }
+        $this->info('正在优化配置！');
+        Artisan::call('config:clear');
+        Artisan::call('route:clear');
+        Artisan::call('view:clear');
+        Artisan::call('cache:clear');
+        $this->info('正在设置存储系统！');
+        Artisan::call('storage:link');
+        $this->info('正在初始化数据！');
+        DB::unprepared(file_get_contents(base_path('database/scripts/initData.sql')));
+        $this->info('安装完成！');
+        $this->warn('用户名密码都为：admin');
+        return 0;
     }
 }

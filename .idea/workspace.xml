@@ -6,16 +6,24 @@
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
       </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
     </expand>
     <select />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d1e740c9-80f3-485c-8fe8-2e9ce3bf4f0a" name="默认的" comment="🔧 首页增加盘点进度图标">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Admin/Metrics/CheckDevicePercentage.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Metrics/CheckDevicePercentage.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Admin/Metrics/CheckHardwarePercentage.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Metrics/CheckHardwarePercentage.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Admin/Metrics/CheckRecordsReview.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Metrics/CheckRecordsReview.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Admin/Metrics/CheckSoftwarePercentage.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Metrics/CheckSoftwarePercentage.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Commands/Install.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/Install.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Libraries/Track.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Libraries/Track.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

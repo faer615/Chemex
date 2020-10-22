@@ -98,7 +98,7 @@ class Track
             $service->end = null;
             $service_track = ServiceTrack::where('service_id', $service->id)
                 ->first();
-            if (empty($service_track)) {
+            if (empty($service_track) || empty($service_track->device)) {
                 $service->device_name = '未知';
             } else {
                 $service->device_name = $service_track->device->name;
