@@ -21,8 +21,8 @@
   <component name="ChangeListManager">
     <list default="true" id="d1e740c9-80f3-485c-8fe8-2e9ce3bf4f0a" name="默认的" comment="🐞 解决了一些BUG">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Admin/Actions/Grid/HardwareHistoryAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Actions/Grid/HardwareHistoryAction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Admin/Actions/Grid/SoftwareHistoryAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Actions/Grid/SoftwareHistoryAction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -213,6 +213,7 @@
       <workItem from="1603100969070" duration="11109000" />
       <workItem from="1603185532886" duration="1917000" />
       <workItem from="1603187826941" duration="8361000" />
+      <workItem from="1603336724411" duration="407000" />
     </task>
     <task id="LOCAL-00001" summary="🚧 优化路由&amp;禁止在演示模式下修改部分内容">
       <created>1602502403254</created>
@@ -256,7 +257,14 @@
       <option name="project" value="LOCAL" />
       <updated>1603334565484</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="🐞 解决了一些BUG">
+      <created>1603334778491</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1603334778491</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -311,10 +319,10 @@
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
     <state x="477" y="250" width="1350" height="710" key="SettingsEditor/0.0.2194.1194@0.0.2194.1194" timestamp="1603192697514" />
-    <state x="472" y="265" key="Vcs.Push.Dialog.v2" timestamp="1603334567423">
+    <state x="472" y="265" key="Vcs.Push.Dialog.v2" timestamp="1603334780597">
       <screen x="0" y="0" width="1500" height="960" />
     </state>
-    <state x="472" y="265" key="Vcs.Push.Dialog.v2/0.0.1500.960@0.0.1500.960" timestamp="1603334567423" />
+    <state x="472" y="265" key="Vcs.Push.Dialog.v2/0.0.1500.960@0.0.1500.960" timestamp="1603334780597" />
     <state x="690" y="330" key="Vcs.Push.Dialog.v2/0.0.2194.1194@0.0.2194.1194" timestamp="1603198031145" />
     <state x="911" y="510" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1603100970359">
       <screen x="0" y="0" width="2194" height="1194" />

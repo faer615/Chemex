@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-    <img src="https://img.shields.io/badge/Latest Release-1.3.0-orange" />
+    <img src="https://img.shields.io/badge/Latest Release-1.4.1-orange" />
     <img src="https://img.shields.io/badge/PHP-7.3+-green" />
     <img src="https://img.shields.io/badge/MySQL-5.6+-blueviolet" />
     <img src="https://img.shields.io/badge/License-GPL3.0-blue" />
@@ -111,7 +111,7 @@ Chemex是完全免费且开源的，任何人都可以无限制的修改代码�
 
 1：为你的计算机安装 `PHP` 环境，参考：[PHP官方](https://www.php.net/downloads) 。
 
-2：为你的计算机安装 `MySQL` 或者 `mariaDB` 。
+2：为你的计算机安装 `MySQL` 或者 `mariaDB`，同时数据库字符集为 `utf8-general-ci`。
 
 3：下载 [发行版](https://gitee.com/celaraze/Chemex/releases) ，解压得到程序目录，放置到你想要放置的地方。
 
