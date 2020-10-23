@@ -64,7 +64,7 @@ class UpdateController extends Controller
                     $zip->extractTo($out_path);
                     $zip->close();
                 }
-                $return = Uni::rr(200, '更新成功');
+                $return = Uni::rr(200, '更新成功，请刷新页面');
             } else {
                 $return = Uni::rr(500, '更新文件下载失败');
             }

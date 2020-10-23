@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-    <img src="https://img.shields.io/badge/Latest Release-1.5.0-orange" />
+    <img src="https://img.shields.io/badge/Latest Release-1.5.2-orange" />
     <img src="https://img.shields.io/badge/PHP-7.3+-green" />
     <img src="https://img.shields.io/badge/MariaDB-10.5+-blueviolet" />
     <img src="https://img.shields.io/badge/License-GPL3.0-blue" />
@@ -128,6 +128,8 @@ Chemex是完全免费且开源的，任何人都可以无限制的修改代码�
 8：你可能使用的web服务器为 `nginx` 以及 `apache`，无论怎样，应用的起始路径在 `/public` 目录，请确保指向正确。
 
 9：修改web服务器的伪静态规则为：`try_files $uri $uri/ /index.php?$args;`。
+
+10：为了确保在线自动更新可用，请确认网站根目录及其所有子目录的权限为 `755`，拥有者为 `www`。
 
 ### 开发环境部署
 
