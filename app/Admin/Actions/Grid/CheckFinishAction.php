@@ -6,9 +6,6 @@ use App\Models\CheckRecord;
 use App\Models\CheckTrack;
 use Dcat\Admin\Actions\Response;
 use Dcat\Admin\Grid\RowAction;
-use Dcat\Admin\Traits\HasPermissions;
-use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Model;
 
 class CheckFinishAction extends RowAction
 {
@@ -24,7 +21,7 @@ class CheckFinishAction extends RowAction
      */
     public function handle()
     {
-        $check_track = CheckTrack::where('status', 0)->first();
+        $check_track = CheckTrack::where('status', 0)->where('check_id', $this->getKey())->first();
         if (empty($check_track)) {
             $check_record = CheckRecord::where('id', $this->getKey())->firstOrFail();
             if ($check_record->status == 1) {
