@@ -11,7 +11,7 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- 正在导出表  chemex-demo.admin_menu 的数据：~26 rows (大约)
+-- 正在导出表  chemex-demo.admin_menu 的数据：~27 rows (大约)
 DELETE FROM `admin_menu`;
 /*!40000 ALTER TABLE `admin_menu` DISABLE KEYS */;
 INSERT INTO `admin_menu` (`id`, `parent_id`, `order`, `title`, `icon`, `uri`, `created_at`, `updated_at`) VALUES
@@ -40,7 +40,8 @@ INSERT INTO `admin_menu` (`id`, `parent_id`, `order`, `title`, `icon`, `uri`, `c
 	(29, 28, 20, 'Service Records', NULL, 'service/records', '2020-10-06 21:39:02', '2020-10-06 21:39:10'),
 	(30, 28, 30, 'Service Tracks', NULL, 'service/tracks', '2020-10-06 22:02:15', '2020-10-06 22:02:15'),
 	(31, 28, 31, 'Service Issues', NULL, 'service/issues', '2020-10-06 23:23:22', '2020-10-06 23:23:22'),
-	(53, 0, 32, 'Maintenance Records', 'feather icon-shield', 'maintenance/records', '2020-10-10 15:06:15', '2020-10-10 15:06:16');
+	(53, 0, 32, 'Maintenance Records', 'feather icon-shield', 'maintenance/records', '2020-10-10 15:06:15', '2020-10-10 15:06:16'),
+	(54, 0, 33, 'Update', 'feather icon-chevrons-down', 'update', '2020-10-22 15:05:00', '2020-10-22 15:05:00');
 /*!40000 ALTER TABLE `admin_menu` ENABLE KEYS */;
 
 -- 正在导出表  chemex-demo.admin_permissions 的数据：~6 rows (大约)
@@ -194,7 +195,7 @@ INSERT INTO `admin_role_users` (`role_id`, `user_id`, `created_at`, `updated_at`
 DELETE FROM `admin_users`;
 /*!40000 ALTER TABLE `admin_users` DISABLE KEYS */;
 INSERT INTO `admin_users` (`id`, `username`, `password`, `name`, `avatar`, `remember_token`, `created_at`, `updated_at`) VALUES
-	(1, 'admin', '$2y$10$0FABOJldsayevR1lGRlHSuIEVANwUN0NQ56VPZC6AMMHy3GsTL1nm', 'Administrator', NULL, 'fUaMhbBTyy5Nn2Cmegb2aiA12wXJJdhV1Lj7VT76xQ9gh1rssUQFTef6SZSU', '2020-09-18 09:45:49', '2020-10-12 19:30:10'),
+	(1, 'admin', '$2y$10$0FABOJldsayevR1lGRlHSuIEVANwUN0NQ56VPZC6AMMHy3GsTL1nm', 'Administrator', NULL, 'zLxXcJFYmbwa6KOLx50BL1wwPlXdEu0swQcfExBDHEx2WRoy0qGcthSU72Cx', '2020-09-18 09:45:49', '2020-10-12 19:30:10'),
 	(2, 'test_user1', '$2y$10$LkfJ2s63BGHYpYGU.D5JFuym6x9oE2z34JhFkqbtvSgZJQGm05Aoe', '测试用户1', NULL, NULL, '2020-10-04 23:40:28', '2020-10-04 23:40:28');
 /*!40000 ALTER TABLE `admin_users` ENABLE KEYS */;
 

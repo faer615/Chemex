@@ -11,6 +11,7 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;
 use Pour\Base\Uni;
+use ZipArchive;
 
 class UpdateController extends Controller
 {
@@ -52,37 +53,23 @@ class UpdateController extends Controller
      */
     public function unzip()
     {
-//        $download_url = request('url');
-        $download_url = "https://oss.celaraze.com/cache/Chemex-1.4.5.zip";
-        if (copy(trim($download_url), base_path() . '/public/' . basename($download_url))) {
-            $filename = basename($download_url);
-            $path = base_path();
-            if (file_exists($filename)) {
-                try {
-                    $resource = zip_open($filename);
-                    while ($zip = zip_read($resource)) {
-                        if (zip_entry_open($resource, $zip)) {
-                            $file_content = zip_entry_name($zip);
-                            dd($file_content);
-                            $file_name = substr($file_content, strrpos($file_content, '/'));
-                            if (!is_dir($file_name) && $file_name) {
-                                $file_size = zip_entry_filesize($zip);
-                                $file = zip_entry_read($zip, $file_size);
-                                file_put_contents($path . '/' . $file_name, $file);
-                                zip_entry_close($zip);
-                            }
-                        }
-                    }
-                    zip_close($resource);
-                    $return = Uni::rr(200, '更新成功');
-                } catch (Exception $exception) {
-                    $return = Uni::rr(500, $exception);
+        $download_url = request('url');
+        try {
+            if (copy(trim($download_url), base_path() . '/public/' . basename($download_url))) {
+                $file = base_path() . '/public/' . basename($download_url);
+                $out_path = base_path();
+                $zip = new ZipArchive();
+                $openRes = $zip->open($file);
+                if ($openRes === TRUE) {
+                    $zip->extractTo($out_path);
+                    $zip->close();
                 }
+                $return = Uni::rr(200, '更新成功');
             } else {
-                $return = Uni::rr(500, '更新文件写入失败');
+                $return = Uni::rr(500, '更新文件下载失败');
             }
-        } else {
-            $return = Uni::rr(500, '更新文件下载失败');
+        } catch (Exception $exception) {
+            $return = Uni::rr(500, $exception);
         }
         return response()->json($return);
     }
