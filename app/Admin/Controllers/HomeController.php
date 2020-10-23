@@ -22,7 +22,7 @@ class HomeController extends Controller
     public function index(Content $content)
     {
         return $content
-            ->header('仪表盘')
+            ->header('仪表盘222')
             ->description('随时掌握你的资源情况')
             ->body(function (Row $row) {
                 $row->column(2, new DeviceCounts());
