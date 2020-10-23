@@ -8,11 +8,11 @@ use App\Admin\Actions\Grid\DeviceSSHInfoAction;
 use App\Admin\Actions\Grid\DeviceTrackAction;
 use App\Admin\Actions\Grid\MaintenanceAction;
 use App\Admin\Repositories\DeviceRecord;
+use App\Models\DeviceCategory;
+use App\Models\VendorRecord;
 use App\Support\Info;
 use App\Support\System;
 use App\Support\Track;
-use App\Models\DeviceCategory;
-use App\Models\VendorRecord;
 use Dcat\Admin\Controllers\AdminController;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -141,7 +141,7 @@ class DeviceRecordController extends AdminController
                     ->pluck('name', 'id'))
                 ->required();
             $form->text('sn');
-            $form->mac('mac');
+            $form->text('mac');
             $form->ip('ip');
             $form->image('photo')
                 ->autoUpload()

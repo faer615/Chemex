@@ -35,10 +35,6 @@ class ServiceRecordController extends AdminController
             $grid->enableDialogCreate();
             $grid->disableDeleteButton();
 
-            $grid->filter(function (Grid\Filter $filter) {
-                $filter->equal('id');
-            });
-
             $grid->toolsWithOutline(false);
         });
     }

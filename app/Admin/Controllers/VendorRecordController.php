@@ -61,7 +61,8 @@ class VendorRecordController extends AdminController
     {
         return Form::make(new VendorRecord(), function (Form $form) {
             $form->display('id');
-            $form->text('name')->required();
+            $form->text('name')
+                ->required();
             $form->text('description');
             $form->text('location');
             $form->display('created_at');
