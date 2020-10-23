@@ -13,6 +13,7 @@ Route::group([
 ], function (Router $router) {
     $router->get('/', 'HomeController@index');
     $router->get('/update', 'UpdateController@index');
+    $router->get('/unzip', 'UpdateController@unzip')->name('unzip');
     $router->get('/test', 'HomeController@test');
     $router->resource('/device/tracks', 'DeviceTrackController');
     $router->resource('/device/records', 'DeviceRecordController', ['names' => [
