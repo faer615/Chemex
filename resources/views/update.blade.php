@@ -11,8 +11,9 @@
         $.ajax({
             url: '/unzip?url=' + url,
             type: 'get',
-            success: function () {
-                window.location.reload();
+            success: function (res) {
+                console.log(res);
+                Dcat.success(res.data.message);
             },
             complete: function () {
                 document.getElementById('update').setAttribute('disabled', '');
