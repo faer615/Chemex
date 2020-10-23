@@ -38,9 +38,11 @@ class UpdateController extends Controller
         return $content
             ->header('更新')
             ->description('使应用保持最新')
-            ->body(function (Row $row) use ($data, $description) {
+            ->body(function (Row $row) use ($res, $data, $description) {
                 $row->column(2, new Card(view('update')->with('data', $data)));
-                $row->column(10, new Card($data['new'] . '更新说明', $description));
+                if ($res == -1) {
+                    $row->column(10, new Card($data['new'] . '更新说明', $description));
+                }
             });
     }
 
