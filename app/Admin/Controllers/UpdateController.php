@@ -52,7 +52,8 @@ class UpdateController extends Controller
      */
     public function unzip()
     {
-        $download_url = request('url');
+//        $download_url = request('url');
+        $download_url = "https://oss.celaraze.com/cache/Chemex-1.4.5.zip";
         if (copy(trim($download_url), base_path() . '/public/' . basename($download_url))) {
             $filename = basename($download_url);
             $path = base_path();
@@ -62,8 +63,8 @@ class UpdateController extends Controller
                     while ($zip = zip_read($resource)) {
                         if (zip_entry_open($resource, $zip)) {
                             $file_content = zip_entry_name($zip);
+                            dd($file_content);
                             $file_name = substr($file_content, strrpos($file_content, '/'));
-
                             if (!is_dir($file_name) && $file_name) {
                                 $file_size = zip_entry_filesize($zip);
                                 $file = zip_entry_read($zip, $file_size);
