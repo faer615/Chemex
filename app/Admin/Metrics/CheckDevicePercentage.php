@@ -33,8 +33,8 @@ class CheckDevicePercentage extends Card
                 ->where('status', '!=', 0)
                 ->get()
                 ->count();
-            $done_counts = ($device_records_all - $check_tracks_counts) . ' / ' . $device_records_all;
-            $percentage = ($device_records_all - $check_tracks_counts) / $device_records_all * 100;
+            $done_counts = $check_tracks_counts . ' / ' . $device_records_all;
+            $percentage = $check_tracks_counts / $device_records_all * 100;
         } else {
             $done_counts = '未找到在列的盘点任务';
             $percentage = 0;
