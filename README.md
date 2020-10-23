@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-    <img src="https://img.shields.io/badge/Latest Release-1.4.3-orange" />
+    <img src="https://img.shields.io/badge/Latest Release-1.5.0-orange" />
     <img src="https://img.shields.io/badge/PHP-7.3+-green" />
     <img src="https://img.shields.io/badge/MariaDB-10.5+-blueviolet" />
     <img src="https://img.shields.io/badge/License-GPL3.0-blue" />
