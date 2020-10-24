@@ -12,6 +12,7 @@
     "require": {
         "php": "^7.3",
         "ext-json": "*",
+        "ext-zip": "*",
         "celaraze/pour": "dev-master",
         "dcat/laravel-admin": "^1.7",
         "fideloper/proxy": "^4.2",
@@ -19,7 +20,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
-      "ext-zip": "*"
+        "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",

@@ -14,3 +14,4 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('info/{item_id}', 'InfoController@info');
+Route::get('check/{string}', 'InfoController@check');
