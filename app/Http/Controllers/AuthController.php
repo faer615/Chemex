@@ -30,7 +30,7 @@ class AuthController extends Controller
      */
     public function login()
     {
-        $credentials = request(['email', 'password']);
+        $credentials = request(['username', 'password']);
 
         if (!$token = auth('api')->attempt($credentials)) {
             return response()->json(['error' => '未授权的操作'], 401);
