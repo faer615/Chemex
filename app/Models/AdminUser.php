@@ -4,13 +4,13 @@ namespace App\Models;
 
 use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
  * @method static where(string $key, string $value)
  */
-class AdminUser extends Model implements JWTSubject
+class AdminUser extends User implements JWTSubject
 {
     use HasFactory;
     use HasDateTimeFormatter;

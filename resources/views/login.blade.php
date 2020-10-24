@@ -2,7 +2,7 @@
     <div class="left background">
 
     </div>
-    <div class="right">
+    <div class="right bg-white">
         <div class="login-box">
             <div class="login-logo mb-2">
                 {{ config('admin.name') }}
@@ -148,7 +148,7 @@
     .right {
         flex: 3;
         height: 100vh;
-        background: #222233;
+        /*background: #222233;*/
     }
 
     .background {
