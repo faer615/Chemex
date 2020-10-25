@@ -1,6 +1,6 @@
 <template>
 	<view>
-
+		<view class="scan" @click="scan()" style="background-color: rgba(76,181,171,1);">扫码盘点</view>
 	</view>
 </template>
 
@@ -8,17 +8,16 @@
 	export default {
 		data() {
 			return {
-				config: '',
+				settings: '',
 				string: '',
 			}
 		},
 		onLoad() {
 			let that = this;
 			uni.getStorage({
-				key: 'config',
+				key: 'settings',
 				success(res) {
-					that.jwt = res.data;
-					that.scan();
+					that.settings = res.data;
 				},
 				fail() {
 					uni.showModal({
@@ -39,20 +38,19 @@
 				let that = this;
 				uni.scanCode({
 					success: function(res) {
-						console.log('条码类型：' + res.scanType);
-						console.log('条码内容：' + res.result);
 						that.string = res.result;
 						uni.showLoading({
 							title: '正在读取'
 						})
 						uni.request({
-							url: that.config.domain + '/api/check/' + that.string,
+							url: that.settings.domain + '/api/check/' + that.string,
 							method: 'GET',
 							header: {
-								Authorization: that.config.jwt
+								Authorization: that.settings.jwt
 							},
-							success(res) {
-								if (res.statusCode == 200 && res.data.code == 200) {
+							success(item) {
+								console.log(item);
+								if (item.statusCode == 200 && item.data.code == 200) {
 									uni.showModal({
 										title: '盘点选项',
 										content: '请选择盘点结果',
@@ -60,14 +58,17 @@
 										cancelText: '盘亏',
 										success(res) {
 											if (res.confirm) {
-												that.check(res.data.data.id, 1);
+												that.check(item.data.data.id, 1);
 											}
 											if (res.cancel) {
-												that.check(res.data.data.id, 2);
+												that.check(item.data.data.id, 2);
 											}
 										}
 									})
 								}
+							},
+							fail(res) {
+								console.log(res);
 							},
 							complete() {
 								uni.hideLoading();
@@ -80,13 +81,13 @@
 				let that = this;
 				uni.request({
 					method: 'POST',
-					url: that.config.domain + '/api/check/do',
+					url: that.settings.domain + '/api/check/do',
 					data: {
 						track_id: id,
 						option: option
 					},
 					header: {
-						Authorization: that.config.jwt
+						Authorization: that.settings.jwt
 					},
 					success(res) {
 						if (res.statusCode == 200 & res.data.code == 200) {
@@ -96,6 +97,9 @@
 								showCancel: false
 							})
 						}
+					},
+					fail(res) {
+						console.log(res);
 					}
 				})
 			}
@@ -104,5 +108,15 @@
 </script>
 
 <style>
-
+	.scan {
+		color: white;
+		width: 400upx;
+		height: 150upx;
+		margin: 50upx auto 0 auto;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-size: 40upx;
+		border-radius: 20upx;
+	}
 </style>
