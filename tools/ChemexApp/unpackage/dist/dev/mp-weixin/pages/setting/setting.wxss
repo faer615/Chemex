@@ -1,9 +1,0 @@
-
-.input {
-	margin: 20rpx 40rpx 0 40rpx;
-	border: solid 1rpx rgba(0, 0, 0, 0.3);
-	padding: 20rpx;
-	font-size: 40rpx;
-	border-radius: 10rpx;
-}
-
