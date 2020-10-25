@@ -17,6 +17,8 @@ class AdminUser extends User implements JWTSubject
 
     protected $table = 'admin_users';
 
+    protected $hidden = ['password'];
+
     /**
      * 模型的 "booted" 方法
      *
