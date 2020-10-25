@@ -6,9 +6,6 @@ use App\Models\DeviceTrack;
 use App\Models\StaffRecord;
 use Dcat\Admin\Actions\Response;
 use Dcat\Admin\Grid\RowAction;
-use Dcat\Admin\Traits\HasPermissions;
-use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Model;
 
 class StaffDeleteAction extends RowAction
 {

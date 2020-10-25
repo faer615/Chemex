@@ -4,8 +4,8 @@ namespace App\Admin\Controllers;
 
 use App\Admin\Actions\Grid\StaffDeleteAction;
 use App\Admin\Repositories\StaffRecord;
-use App\Support\Data;
 use App\Models\StaffDepartment;
+use App\Support\Data;
 use Dcat\Admin\Controllers\AdminController;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;

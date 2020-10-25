@@ -12,8 +12,11 @@
             url: '/unzip?url=' + url,
             type: 'get',
             success: function (res) {
+                Dcat.success(res.message);
+            },
+            error: function (res) {
                 console.log(res);
-                Dcat.success(res.data.message);
+                Dcat.error('更新失败，请重新尝试');
             },
             complete: function () {
                 document.getElementById('update').setAttribute('disabled', '');

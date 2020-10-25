@@ -2,8 +2,8 @@
 
 namespace App\Admin\Actions\Grid;
 
-use App\Support\Data;
 use App\Models\DeviceRecord;
+use App\Support\Data;
 use Dcat\Admin\Grid\RowAction;
 use Dcat\Admin\Widgets\Modal;
 
