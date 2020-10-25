@@ -5,7 +5,6 @@ namespace App\Admin\Actions\Grid;
 use App\Models\DeviceTrack;
 use Dcat\Admin\Actions\Response;
 use Dcat\Admin\Grid\RowAction;
-use Illuminate\Http\Request;
 
 class DeviceTrackDisableAction extends RowAction
 {

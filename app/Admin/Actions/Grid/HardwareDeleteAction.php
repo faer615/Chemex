@@ -6,10 +6,6 @@ use App\Models\HardwareRecord;
 use App\Models\HardwareTrack;
 use Dcat\Admin\Actions\Response;
 use Dcat\Admin\Grid\RowAction;
-use Dcat\Admin\Traits\HasPermissions;
-use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 class HardwareDeleteAction extends RowAction
 {
