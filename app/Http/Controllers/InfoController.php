@@ -27,7 +27,7 @@ class InfoController extends Controller
      */
     public function info($string)
     {
-//        $string = base64_decode($string);
+        $string = base64_decode($string);
         $item = explode(':', $string)[0];
         $id = explode(':', $string)[1];
         switch ($item) {
@@ -63,6 +63,7 @@ class InfoController extends Controller
      */
     public function check($string)
     {
+        $string = base64_decode($string);
         $item = explode(':', $string)[0];
         $id = explode(':', $string)[1];
         if (!empty($item) && !empty($id)) {
