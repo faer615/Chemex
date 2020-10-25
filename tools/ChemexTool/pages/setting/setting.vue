@@ -11,7 +11,7 @@
 	export default {
 		data() {
 			return {
-				config: {
+				settings: {
 					domain: '',
 					username: '',
 					password: '',
@@ -21,13 +21,13 @@
 		},
 		methods: {
 			bindDomainChange(e) {
-				this.config.domain = e.target.value;
+				this.settings.domain = e.target.value;
 			},
 			bindUsernameChange(e) {
-				this.config.username = e.target.value;
+				this.settings.username = e.target.value;
 			},
 			bindPasswordChange(e) {
-				this.config.password = e.target.value;
+				this.settings.password = e.target.value;
 			},
 			save() {
 				let that = this;
@@ -36,17 +36,18 @@
 				});
 				uni.request({
 					method: 'POST',
-					url: that.config.domain + '/api/auth/login',
+					url: that.settings.domain + '/api/auth/login',
 					data: {
-						username: that.config.username,
-						password: that.config.password
+						username: that.settings.username,
+						password: that.settings.password
 					},
 					success(res) {
 						if (res.statusCode == 200) {
-							that.config.jwt = 'bearer ' + res.data.access_token;
+							that.settings.jwt = 'bearer ' + res.data.access_token;
+							console.log(that.settings);
 							uni.setStorage({
-								key: 'config',
-								data: that.config,
+								key: 'settings',
+								data: that.settings,
 								success() {
 									uni.showModal({
 										title: '提示',
