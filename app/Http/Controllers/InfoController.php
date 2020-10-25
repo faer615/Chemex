@@ -7,37 +7,51 @@ use App\Models\CheckTrack;
 use App\Models\DeviceRecord;
 use App\Models\HardwareRecord;
 use App\Models\SoftwareRecord;
+use App\Support\Info;
+use App\Support\Track;
 use Illuminate\Http\JsonResponse;
 use Pour\Base\Uni;
 
 class InfoController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('jwt.auth');
+    }
+
     /**
      * 移动端扫码查看设备硬件软件详情
-     * @param $item_id
+     * @param $string
      * @return JsonResponse
      */
-    public function info($item_id)
+    public function info($string)
     {
-        $item_id = base64_decode($item_id);
-        $item_class = explode(':', $item_id)[0];
-        $item_id = explode(':', $item_id)[1];
-        switch ($item_class) {
+//        $string = base64_decode($string);
+        $item = explode(':', $string)[0];
+        $id = explode(':', $string)[1];
+        switch ($item) {
             case 'device':
-                $item = DeviceRecord::where('id', $item_id)
+                $item = DeviceRecord::where('id', $id)
                     ->first();
+                if (!empty($item)) {
+                    $staff_id = Track::currentDeviceTrackStaff($item->id);
+                    $item->staff = Info::staffIdToName($staff_id);
+                }
                 break;
             case 'hardware':
-                $item = HardwareRecord::where('id', $item_id)
+                $item = HardwareRecord::where('id', $id)
                     ->first();
                 break;
             case 'software':
-                $item = SoftwareRecord::where('id', $item_id)
+                $item = SoftwareRecord::where('id', $id)
                     ->first();
                 break;
             default:
                 $item = [];
         }
+        $item->category;
+        $item->vendor;
         $return = Uni::rr(200, '查询成功', $item);
         return response()->json($return);
     }
@@ -91,14 +105,14 @@ class InfoController extends Controller
     {
         $track_id = request('track_id') ?? null;
         $check_option = request('option') ?? null;
-        if (!$track_id && !$check_option) {
+        if (!empty($track_id) && !empty($check_option)) {
             $user = auth('api')->user();
             $check_track = CheckTrack::where('id', $track_id)->first();
             if (empty($check_track)) {
                 $return = Uni::rr(404, '没有找到盘点内容');
             } else {
                 $check_track->status = $check_option;
-                $check_track->checker = $user->name;
+                $check_track->checker = $user->id;
                 $check_track->save();
                 $return = Uni::rr(200, '操作成功');
             }

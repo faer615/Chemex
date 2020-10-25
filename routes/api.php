@@ -13,6 +13,7 @@
 */
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\InfoController;
 use Illuminate\Support\Facades\Route;
 
 Route::group([
@@ -23,3 +24,7 @@ Route::group([
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
 });
+
+Route::get('info/{item_id}', [InfoController::class, 'info']);
+Route::get('check/{string}', [InfoController::class, 'check']);
+Route::post('check/do', [InfoController::class, 'checkDo']);
