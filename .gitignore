@@ -13,4 +13,4 @@ npm-debug.log
 yarn-error.log
 composer.lock
 .idea/workspace.xml
-/tools/ChemexApp/unpackage
+/tools/ChemexTool/unpackage

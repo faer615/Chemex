@@ -4,6 +4,7 @@ namespace App\Admin\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Support\System;
+use Dcat\Admin\Layout\Column;
 use Dcat\Admin\Layout\Content;
 use Dcat\Admin\Layout\Row;
 use Dcat\Admin\Widgets\Card;
@@ -40,7 +41,10 @@ class UpdateController extends Controller
             ->header('更新')
             ->description('使应用保持最新')
             ->body(function (Row $row) use ($res, $data, $description) {
-                $row->column(2, new Card(view('update')->with('data', $data)));
+                $row->column(2, function (Column $column) use ($res, $data, $description) {
+                    $column->row(new Card(view('update')->with('data', $data)));
+                    $column->row(new Card(view('app_downloads')));
+                });
                 if ($res == -1) {
                     $row->column(10, new Card($data['new'] . '更新说明', $description));
                 }
