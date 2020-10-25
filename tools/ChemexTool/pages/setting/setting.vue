@@ -14,8 +14,9 @@
 				config: {
 					domain: '',
 					username: '',
-					password: ''
-				}
+					password: '',
+					jwt: ''
+				},
 			}
 		},
 		methods: {
@@ -33,26 +34,39 @@
 				uni.showLoading({
 					title: '正在保存'
 				});
-				uni.setStorage({
-					key: 'config',
-					data: that.config,
-					success() {
-						uni.showModal({
-							title: '提示',
-							content: '保存成功',
-							showCancel: false
-						})
+				uni.request({
+					method: 'POST',
+					url: that.config.domain + '/api/auth/login',
+					data: {
+						username: that.config.username,
+						password: that.config.password
 					},
-					fail(res) {
-						console.log(res);
-						uni.showModal({
-							title: '提示',
-							content: '保存失败',
-							showCancel: false
-						})
-					},
-					complete() {
-						uni.hideLoading();
+					success(res) {
+						if (res.statusCode == 200) {
+							that.config.jwt = 'bearer ' + res.data.access_token;
+							uni.setStorage({
+								key: 'config',
+								data: that.config,
+								success() {
+									uni.showModal({
+										title: '提示',
+										content: '登录成功',
+										showCancel: false
+									})
+								},
+								fail(res) {
+									console.log(res);
+									uni.showModal({
+										title: '提示',
+										content: '认证失败，请检查',
+										showCancel: false
+									})
+								},
+								complete() {
+									uni.hideLoading();
+								}
+							})
+						}
 					}
 				})
 			}

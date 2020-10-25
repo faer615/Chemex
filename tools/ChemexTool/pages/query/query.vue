@@ -1,6 +1,13 @@
 <template>
 	<view>
-
+		<view>名称</view>
+		<view>描述</view>
+		<view>分类</view>
+		<view>制造商</view>
+		<view>序列号</view>
+		<view>MAC</view>
+		<view>IP</view>
+		<view>照片</view>
 	</view>
 </template>
 
@@ -8,8 +15,8 @@
 	export default {
 		data() {
 			return {
-				url: '',
-				config: ''
+				config: '',
+				item: ''
 			}
 		},
 		onLoad() {
@@ -22,7 +29,13 @@
 				fail() {
 					uni.showModal({
 						title: '提示',
-						content: '没有找到配置信息'
+						content: '没有找到配置信息',
+						showCancel: false,
+						success() {
+							uni.navigateTo({
+								url: '../setting/setting'
+							})
+						}
 					})
 				}
 			})
