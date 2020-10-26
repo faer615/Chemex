@@ -27,16 +27,26 @@ Chemex是完全免费且开源的，任何人都可以无限制的修改代码�
     - 其中包含了设备的名称、所有软硬件、制造商、购入日期、保护日期、IP地址、MAC、使用者等维护内容，同时拥有设备相关历史记录。
     
     - 支持在线 SSH 远程访问管理设备。
+    
+    - 设备归属到使用者。
+    
+    - 设备故障报告。
 
 - 硬件台账管理
 
     - 其中包含了硬件的名称、规格、序列号、归属设备管理等维护内容，同时拥有硬件相关历史记录。
+    
+    - 设备故障报告。
 
 - 软件台账管理
     
     - 其中包含了软件的名称、版本、分发方式、授权方式、购入金额、序列号、授权数量管理等维护内容，也有软件相关历史记录。
 
 - 雇员管理
+
+    - 雇员清单。
+    
+    - 部门清单。
 
 - 服务管理
     
@@ -61,6 +71,8 @@ Chemex是完全免费且开源的，任何人都可以无限制的修改代码�
     - 各模块的基础数据。
     
     - 各服务状态实时展示，包括异常内容，发生时间和恢复时间。
+    
+    - 盘点进度展示。
 
 - 多国语言
 
@@ -162,15 +174,21 @@ Chemex是完全免费且开源的，任何人都可以无限制的修改代码�
 
 ## 截图
 
-![](https://oss.celaraze.com/cache/qnGfHILR.png)
+![](https://oss.celaraze.com/cache/screencapture-chemex-dev-famio-cn-auth-login-1603706219204.png)
 
-![](https://oss.celaraze.com/cache/MpWykr4L.png)
+![](https://oss.celaraze.com/cache/screencapture-chemex-dev-famio-cn-1603706238227.png)
 
-![](https://oss.celaraze.com/cache/7RLZFaul.png)
+![](https://oss.celaraze.com/cache/screencapture-chemex-dev-famio-cn-device-records-1603706430021.png)
 
-![](https://oss.celaraze.com/cache/N67KSqQk.png)
+![](https://oss.celaraze.com/cache/screencapture-chemex-dev-famio-cn-1603706418946.png)
 
-![](https://oss.celaraze.com/cache/6UR87L3n.png)
+![](https://oss.celaraze.com/cache/screencapture-chemex-dev-famio-cn-update-1603706399037.png)
+
+![](https://oss.celaraze.com/cache/screencapture-chemex-dev-famio-cn-device-records-1603706347150.png)
+
+![](https://oss.celaraze.com/cache/screencapture-chemex-dev-famio-cn-software-records-1603706367326.png)
+
+![](https://oss.celaraze.com/cache/screencapture-chemex-dev-famio-cn-software-records-1603706441673.png)
 
 ## 参与贡献
 
