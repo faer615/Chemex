@@ -22,14 +22,6 @@
 //优化页脚显示，隐藏底部文字
 Admin::style(
     <<<CSS
-*{
-    box-shadow: none !important;
-}
-
-.shadow{
-    box-shadow: none !important;
-}
-
 .main-footer {
     display:none;
 }
