@@ -26,7 +26,7 @@ class ServiceCounts extends Card
         $counts = ServiceRecord::all()->count();
         $route = route('service.records.index');
         $html = <<<HTML
-<div class="small-box" style="margin-bottom: 0;background: rgba(255,109,0,0.7)">
+<div class="small-box" style="margin-bottom: 0;background: rgba(255,109,0,0.7);border-radius: .25rem">
   <div class="inner">
     <h3 style="color: #ffffff;">{$counts}</h3>
     <p style="color: white;">服务数量</p>

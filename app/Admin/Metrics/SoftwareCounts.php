@@ -22,7 +22,7 @@ class SoftwareCounts extends Card
         $counts = SoftwareRecord::all()->count();
         $route = route('software.records.index');
         $html = <<<HTML
-<div class="small-box" style="margin-bottom: 0;background: rgba(0,150,136,0.7)">
+<div class="small-box" style="margin-bottom: 0;background: rgba(0,150,136,0.7);border-radius: .25rem">
   <div class="inner">
     <h3 style="color: #ffffff;">{$counts}</h3>
     <p style="color: white;">软件数量</p>

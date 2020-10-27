@@ -26,7 +26,7 @@ class DeviceCounts extends Card
         $counts = DeviceRecord::all()->count();
         $route = route('device.records.index');
         $html = <<<HTML
-<div class="small-box" style="margin-bottom: 0;background: rgba(103,58,183,0.7)">
+<div class="small-box" style="margin-bottom: 0;background: rgba(103,58,183,0.7);border-radius: .25rem">
   <div class="inner">
     <h3 style="color: white;">{$counts}</h3>
     <p style="color: white;">设备数量</p>

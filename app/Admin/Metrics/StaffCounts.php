@@ -22,7 +22,7 @@ class StaffCounts extends Card
         $counts = StaffRecord::all()->count();
         $route = route('staff.records.index');
         $html = <<<HTML
-<div class="small-box" style="margin-bottom: 0;background: rgba(139,195,74,0.7)">
+<div class="small-box" style="margin-bottom: 0;background: rgba(139,195,74,0.7);border-radius: .25rem">
   <div class="inner">
     <h3 style="color: #ffffff;">{$counts}</h3>
     <p style="color: white;">雇员数量</p>
