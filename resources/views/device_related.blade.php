@@ -13,7 +13,7 @@
         </thead>
         <tbody>
         @foreach($data['hardware'] as $item)
-            <tr>
+            <tr class="tr">
                 <td>{{$item->id}}</td>
                 <td>{{$item->category->name}}</td>
                 <td>{{$item->name}}</td>
@@ -42,7 +42,7 @@
         </thead>
         <tbody>
         @foreach($data['software'] as $item)
-            <tr>
+            <tr class="tr">
                 <td>{{$item->id}}</td>
                 <td>{{$item->category->name}}</td>
                 <td>{{$item->name}}</td>
@@ -56,3 +56,9 @@
 @else
     <div style="text-align: center;color: rgba(0,0,0,0.7)">无内容</div>
 @endif
+<style>
+    .tr td {
+        height: auto;
+        vertical-align: center;
+    }
+</style>

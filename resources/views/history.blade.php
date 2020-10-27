@@ -9,7 +9,7 @@
         </thead>
         <tbody>
         @foreach($data as $item)
-            <tr>
+            <tr class="tr">
                 @if($item['status']=='+')
                     <td><i class="feather icon-plus" style="color:royalblue"></i></td>
                     <td>关联了{{$item['type'].' : '.$item['name']}}</td>
@@ -25,3 +25,9 @@
 @else
     <div style="text-align: center;color: rgba(0,0,0,0.7)">无内容</div>
 @endif
+<style>
+    .tr td {
+        height: auto;
+        vertical-align: center;
+    }
+</style>
