@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-    <img src="https://img.shields.io/badge/Latest Release-1.5.4-orange" />
+    <img src="https://img.shields.io/badge/Latest Release-1.6.0-orange" />
     <img src="https://img.shields.io/badge/PHP-7.3+-green" />
     <img src="https://img.shields.io/badge/MariaDB-10.5+-blueviolet" />
     <img src="https://img.shields.io/badge/License-GPL3.0-blue" />
@@ -110,7 +110,11 @@ Chemex是完全免费且开源的，任何人都可以无限制的修改代码�
 
 `MariaDB 10.5 +`
 
-源码开发依赖于`composer`包管理器。
+`ext-zip` 扩展，注意和 PHP 版本相同
+
+`ext-json` 扩展，注意和 PHP 版本相同
+
+源码开发依赖于 `composer` 包管理器。
 
 ## 部署
 
