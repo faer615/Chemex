@@ -3,7 +3,7 @@
 namespace App\Admin\Controllers;
 
 use Dcat\Admin\Admin;
-use Dcat\Admin\Controllers\AuthController as BaseAuthController;
+use Dcat\Admin\Http\Controllers\AuthController as BaseAuthController;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends BaseAuthController

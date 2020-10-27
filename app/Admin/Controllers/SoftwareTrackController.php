@@ -5,7 +5,7 @@ namespace App\Admin\Controllers;
 use App\Admin\Actions\Grid\SoftwareTrackDisableAction;
 use App\Admin\Repositories\SoftwareTrack;
 use App\Support\Data;
-use Dcat\Admin\Controllers\AdminController;
+use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Widgets\Alert;
 

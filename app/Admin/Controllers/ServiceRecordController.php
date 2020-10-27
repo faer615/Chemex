@@ -6,7 +6,7 @@ use App\Admin\Actions\Grid\ServiceDeleteAction;
 use App\Admin\Actions\Grid\ServiceIssueAction;
 use App\Admin\Actions\Grid\ServiceTrackAction;
 use App\Admin\Repositories\ServiceRecord;
-use Dcat\Admin\Controllers\AdminController;
+use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
