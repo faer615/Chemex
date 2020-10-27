@@ -41,12 +41,12 @@ class UpdateController extends Controller
             ->header('更新')
             ->description('使应用保持最新')
             ->body(function (Row $row) use ($res, $data, $description) {
-                $row->column(2, function (Column $column) use ($res, $data, $description) {
+                $row->column(3, function (Column $column) use ($res, $data, $description) {
                     $column->row(new Card(view('update')->with('data', $data)));
                     $column->row(new Card(view('app_downloads')));
                 });
                 if ($res == -1) {
-                    $row->column(10, new Card($data['new'] . '更新说明', $description));
+                    $row->column(9, new Card($data['new'] . '更新说明', $description));
                 }
             });
     }
@@ -67,8 +67,10 @@ class UpdateController extends Controller
                 if ($openRes === TRUE) {
                     $zip->extractTo($out_path);
                     $zip->close();
+                    $return = Uni::rr(200, '更新成功，请刷新页面');
+                } else {
+                    $return = Uni::rr(500, '更新包读取失败，可能已经损坏');
                 }
-                $return = Uni::rr(200, '更新成功，请刷新页面');
             } else {
                 $return = Uni::rr(500, '更新文件下载失败');
             }
