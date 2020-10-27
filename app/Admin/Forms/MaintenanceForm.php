@@ -30,7 +30,7 @@ class MaintenanceForm extends Form implements LazyRenderable
 
         // 如果没有物品、物品id、故障说明、故障时间则返回错误
         if (!$item || !$item_id || !$ng_description || !$ng_time) {
-            return $this->error('参数错误');
+            return $this->response()->alert()->error('参数错误');
         }
 
         switch ($item) {
@@ -43,7 +43,7 @@ class MaintenanceForm extends Form implements LazyRenderable
 
         // 如果没有找到这个物品记录则返回错误
         if (!$item_record) {
-            return $this->error('物品不存在');
+            return $this->response()->alert()->error('物品不存在');
         }
 
         // 创建新的硬件追踪
@@ -55,7 +55,7 @@ class MaintenanceForm extends Form implements LazyRenderable
         $maintenance_record->status = 0;
         $maintenance_record->save();
 
-        return $this->success('维修记录保存成功');
+        return $this->response()->alert()->success('维修记录保存成功')->refresh();
     }
 
     /**

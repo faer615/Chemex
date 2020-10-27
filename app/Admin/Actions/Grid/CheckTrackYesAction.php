@@ -24,12 +24,14 @@ class CheckTrackYesAction extends RowAction
         $check_track = CheckTrack::where('id', $this->getKey())->first();
         if (empty($check_track)) {
             return $this->response()
+                ->alert()
                 ->error('没有找到此盘点追踪');
         } else {
             $check_track->status = 1;
             $check_track->checker = Admin::user()->id;
             $check_track->save();
             return $this->response()
+                ->alert()
                 ->success('已盘盈')
                 ->refresh();
         }

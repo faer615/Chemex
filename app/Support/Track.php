@@ -104,7 +104,8 @@ class Track
                 $service->device_name = $service_track->device->name;
             }
             $issues = [];
-            $service_issues = ServiceIssue::where('service_id', $service->id)->take(3)->get();
+            $service_issues = ServiceIssue::where('service_id', $service->id)
+                ->get();
             foreach ($service_issues as $service_issue) {
                 if (empty($service->start)) {
                     $service->start = $service_issue->start;
@@ -112,23 +113,33 @@ class Track
                 if (strtotime($service_issue->start) < strtotime($service->start)) {
                     $service->start = $service_issue->start;
                 }
+                // 如果异常待修复
                 if ($service_issue->status == 1) {
                     $service->status = 1;
                     $issue = $service_issue->issue . '<br>';
                     array_push($issues, $issue);
                 }
+                // 如果是修复的
                 if ($service_issue->status == 2) {
                     $service->status = 0;
                     $issue = '<span class="status-recovery">[已修复最近一个问题]</span> ' . $service_issue->issue . '<br>';
+                    if ((time() - strtotime($service_issue->end)) > (24 * 60 * 60)) {
+                        $issue = '';
+                        $service->start = '';
+                    } else {
+                        // 如果结束时间是空，还没修复
+                        if (empty($service->end)) {
+                            $service->end = $service_issue->end;
+                        }
+                        // 如果结束时间大于开始时间，修复了
+                        if (strtotime($service_issue->end) > strtotime($service->end)) {
+                            $service->end = $service_issue->end;
+                        }
+                    }
                     array_push($issues, $issue);
-                    if (empty($service->end)) {
-                        $service->end = $service_issue->end;
-                    }
-                    if (strtotime($service_issue->end) > strtotime($service->end)) {
-                        $service->end = $service_issue->end;
-                    }
                 }
             }
+            // 如果暂停了
             if ($service_status == 1) {
                 $service->status = 3;
                 $service->start = date('Y-m-d H:i:s', strtotime($service->updated_at));

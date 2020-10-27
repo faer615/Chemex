@@ -14,7 +14,7 @@
         "ext-json": "*",
         "ext-zip": "*",
         "celaraze/pour": "dev-master",
-        "dcat/laravel-admin": "^1.7",
+        "dcat/laravel-admin": "2.*",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",

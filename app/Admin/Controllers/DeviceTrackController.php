@@ -5,8 +5,8 @@ namespace App\Admin\Controllers;
 use App\Admin\Actions\Grid\DeviceTrackDisableAction;
 use App\Admin\Repositories\DeviceTrack;
 use App\Support\Data;
-use Dcat\Admin\Controllers\AdminController;
 use Dcat\Admin\Grid;
+use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Widgets\Alert;
 
 class DeviceTrackController extends AdminController

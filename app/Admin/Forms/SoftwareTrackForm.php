@@ -29,26 +29,25 @@ class SoftwareTrackForm extends Form implements LazyRenderable
 
         // 如果没有软件id或者设备id则返回错误
         if (!$software_id || !$device_id) {
-            return $this->error('参数错误');
+            return $this->response()->alert()->error('参数错误');
         }
 
         // 软件记录
         $software = SoftwareRecord::where('id', $software_id)->first();
         // 如果没有找到这个软件记录则返回错误
         if (!$software) {
-            return $this->error('软件不存在');
+            return $this->response()->alert()->error('软件不存在');
         }
 
         // 设备记录
         $device = DeviceRecord::where('id', $device_id)->first();
         // 如果没有找到这个设备记录则返回错误
         if (!$device) {
-            return $this->error('设备不存在');
+            return $this->response()->alert()->error('设备不存在');
         }
 
         // 软件追踪
         $software_track = SoftwareTrack::where('software_id', $software_id)
-            ->where('device_id', $device_id)
             ->first();
 
         // 如果软件授权数量为非无限制
@@ -58,7 +57,7 @@ class SoftwareTrackForm extends Form implements LazyRenderable
             $used = count($software_tracks);
             $diff = $software->counts - $used;
             if ($diff <= 0) {
-                return $this->error('软件可用授权数量不足，无法归属');
+                return $this->response()->alert()->error('软件可用授权数量不足，无法归属');
             }
         }
 
@@ -66,7 +65,7 @@ class SoftwareTrackForm extends Form implements LazyRenderable
         if (!empty($software_track)) {
             // 如果新设备和旧设备相同，返回错误
             if ($software_track->device_id == $device_id) {
-                return $this->error('设备没有改变，无需重新归属');
+                return $this->response()->alert()->error('设备没有改变，无需重新归属');
             }
         }
 
@@ -76,7 +75,7 @@ class SoftwareTrackForm extends Form implements LazyRenderable
         $software_track->device_id = $device_id;
         $software_track->save();
 
-        return $this->success('软件归属成功');
+        return $this->response()->alert()->success('软件归属成功')->refresh();
     }
 
     /**

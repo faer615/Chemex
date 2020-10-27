@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-    <img src="https://img.shields.io/badge/Latest Release-1.5.4-orange" />
+    <img src="https://img.shields.io/badge/Latest Release-1.6.0-orange" />
     <img src="https://img.shields.io/badge/PHP-7.3+-green" />
     <img src="https://img.shields.io/badge/MariaDB-10.5+-blueviolet" />
     <img src="https://img.shields.io/badge/License-GPL3.0-blue" />
@@ -48,11 +48,11 @@ Chemex是完全免费且开源的，任何人都可以无限制的修改代码�
     
     - 部门清单。
 
-- 服务管理
+- 服务程序管理
     
-    - 其中包含了服务所在的宿主服务器、服务状态、异常报告等。
+    - 其中包含了服务程序所在的宿主服务器、服务状态、异常报告等。
     
-    - 服务异常的修复。
+    - 服务程序异常的修复。
     
     - 首页特别的看板。
 
@@ -110,8 +110,8 @@ Chemex是完全免费且开源的，任何人都可以无限制的修改代码�
 |18|移动端盘点|✔|一般|
 |19|数据库导出（备份）|❌|紧急|
 |20|人性化的站点配置|❌|一般|
-|21|服务管理基础|✔|一般|
-|22|服务状态看板|✔|一般|
+|21|服务程序管理基础|✔|一般|
+|22|服务程序状态看板|✔|一般|
 |23|设备在线SSH管理|✔|一般|
 |24|维修管理基础|✔|紧急|
 |25|支持OTA升级|✔|紧急|
@@ -122,7 +122,11 @@ Chemex是完全免费且开源的，任何人都可以无限制的修改代码�
 
 `MariaDB 10.5 +`
 
-源码开发依赖于`composer`包管理器。
+`ext-zip` 扩展，注意和 PHP 版本相同
+
+`ext-json` 扩展，注意和 PHP 版本相同
+
+源码开发依赖于 `composer` 包管理器。
 
 ## 部署
 

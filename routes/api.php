@@ -28,3 +28,9 @@ Route::group([
 Route::get('info/{item_id}', [InfoController::class, 'info']);
 Route::get('check/{string}', [InfoController::class, 'check']);
 Route::post('check/do', [InfoController::class, 'checkDo']);
+
+Route::get('check/{string}', [InfoController::class, 'check']);
+
+Route::get('phpinfo', function () {
+    return phpinfo();
+});

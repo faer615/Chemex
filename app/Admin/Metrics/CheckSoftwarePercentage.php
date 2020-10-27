@@ -34,7 +34,7 @@ class CheckSoftwarePercentage extends Card
                 ->get()
                 ->count();
             $done_counts = $check_tracks_counts . ' / ' . $software_records_all;
-            $percentage = $check_tracks_counts / $software_records_all * 100;
+            $percentage = round($check_tracks_counts / $software_records_all * 100, 2);
         } else {
             $done_counts = '未找到在列的盘点任务';
             $percentage = 0;
@@ -56,7 +56,7 @@ class CheckSoftwarePercentage extends Card
 </div>
 HTML;
 
-        $this->content = $this->lazyRenderable($html);
+        $this->content = $this->formatRenderable($html);
         $this->noPadding();
 
         return $this;

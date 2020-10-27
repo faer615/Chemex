@@ -23,7 +23,9 @@ class ServiceDeleteAction extends RowAction
     {
         $service = ServiceRecord::where('id', $this->getKey())->first();
         if (empty($service)) {
-            return $this->response()->error('没有此服务记录！');
+            return $this->response()
+                ->alert()
+                ->error('没有此服务记录！');
         }
 
         $service_tracks = ServiceTrack::where('service_id', $service->id)
@@ -36,6 +38,7 @@ class ServiceDeleteAction extends RowAction
         $service->delete();
 
         return $this->response()
+            ->alert()
             ->success('成功删除服务: ' . $service->name)
             ->refresh();
     }

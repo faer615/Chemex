@@ -13,10 +13,10 @@ use App\Models\VendorRecord;
 use App\Support\Info;
 use App\Support\System;
 use App\Support\Track;
-use Dcat\Admin\Controllers\AdminController;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Grid\Tools\Selector;
+use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Show;
 
 class DeviceRecordController extends AdminController

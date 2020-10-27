@@ -6,9 +6,9 @@ use App\Admin\Actions\Grid\MaintenanceFixAction;
 use App\Admin\Repositories\MaintenanceRecord;
 use App\Support\Data;
 use App\Support\Info;
-use Dcat\Admin\Controllers\AdminController;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Grid\Tools\Selector;
+use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Widgets\Alert;
 
 class MaintenanceRecordController extends AdminController

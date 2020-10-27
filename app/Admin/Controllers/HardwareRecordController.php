@@ -10,9 +10,9 @@ use App\Admin\Repositories\HardwareRecord;
 use App\Models\HardwareCategory;
 use App\Models\VendorRecord;
 use App\Support\Track;
-use Dcat\Admin\Controllers\AdminController;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
+use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Show;
 
 class HardwareRecordController extends AdminController

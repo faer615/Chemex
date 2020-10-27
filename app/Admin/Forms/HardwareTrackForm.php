@@ -29,35 +29,35 @@ class HardwareTrackForm extends Form implements LazyRenderable
 
         // 如果没有硬件id或者设备id则返回错误
         if (!$hardware_id || !$device_id) {
-            return $this->error('参数错误');
+            return $this->response()->alert()->error('参数错误');
         }
 
         // 硬件记录
         $hardware = HardwareRecord::where('id', $hardware_id)->first();
         // 如果没有找到这个硬件记录则返回错误
         if (!$hardware) {
-            return $this->error('硬件不存在');
+            return $this->response()->alert()->error('硬件不存在');
         }
 
         // 设备记录
         $device = DeviceRecord::where('id', $device_id)->first();
         // 如果没有找到这个设备记录则返回错误
         if (!$device) {
-            return $this->error('设备不存在');
+            return $this->response()->alert()->error('设备不存在');
         }
 
         // 硬件追踪
         $hardware_track = HardwareTrack::where('hardware_id', $hardware_id)
-            ->where('device_id', $device_id)
             ->first();
 
         // 如果硬件追踪非空，则删除旧追踪，为了留下流水记录
         if (!empty($hardware_track)) {
             // 如果新设备和旧设备相同，返回错误
             if ($hardware_track->device_id == $device_id) {
-                return $this->error('设备没有改变，无需重新归属');
+                return $this->response()->alert()->error('设备没有改变，无需重新归属');
+            } else {
+                $hardware_track->delete();
             }
-            $hardware_track->delete();
         }
 
         // 创建新的硬件追踪
@@ -66,7 +66,7 @@ class HardwareTrackForm extends Form implements LazyRenderable
         $hardware_track->device_id = $device_id;
         $hardware_track->save();
 
-        return $this->success('硬件归属成功');
+        return $this->response()->alert()->success('硬件归属成功')->refresh();
     }
 
     /**
