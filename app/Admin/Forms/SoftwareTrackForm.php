@@ -48,7 +48,6 @@ class SoftwareTrackForm extends Form implements LazyRenderable
 
         // 软件追踪
         $software_track = SoftwareTrack::where('software_id', $software_id)
-            ->where('device_id', $device_id)
             ->first();
 
         // 如果软件授权数量为非无限制

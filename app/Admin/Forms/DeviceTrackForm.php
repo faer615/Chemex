@@ -48,7 +48,6 @@ class DeviceTrackForm extends Form implements LazyRenderable
 
         // 设备追踪
         $device_track = DeviceTrack::where('device_id', $device_id)
-            ->where('staff_id', $staff_id)
             ->first();
 
         // 如果设备追踪非空，则删除旧追踪，为了留下流水记录
@@ -56,8 +55,9 @@ class DeviceTrackForm extends Form implements LazyRenderable
             // 如果新使用者和旧使用者相同，返回错误
             if ($device_track->staff_id == $staff_id) {
                 return $this->response()->alert()->error('使用者没有改变，无需重新分配');
+            } else {
+                $device_track->delete();
             }
-            $device_track->delete();
         }
 
         // 创建新的设备追踪

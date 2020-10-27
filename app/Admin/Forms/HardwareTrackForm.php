@@ -48,7 +48,6 @@ class HardwareTrackForm extends Form implements LazyRenderable
 
         // 硬件追踪
         $hardware_track = HardwareTrack::where('hardware_id', $hardware_id)
-            ->where('device_id', $device_id)
             ->first();
 
         // 如果硬件追踪非空，则删除旧追踪，为了留下流水记录
@@ -56,8 +55,9 @@ class HardwareTrackForm extends Form implements LazyRenderable
             // 如果新设备和旧设备相同，返回错误
             if ($hardware_track->device_id == $device_id) {
                 return $this->response()->alert()->error('设备没有改变，无需重新归属');
+            } else {
+                $hardware_track->delete();
             }
-            $hardware_track->delete();
         }
 
         // 创建新的硬件追踪
