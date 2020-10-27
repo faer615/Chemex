@@ -5,8 +5,8 @@ namespace App\Admin\Controllers;
 use App\Admin\Actions\Grid\HardwareTrackDisableAction;
 use App\Admin\Repositories\HardwareTrack;
 use App\Support\Data;
-use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Grid;
+use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Widgets\Alert;
 
 class HardwareTrackController extends AdminController

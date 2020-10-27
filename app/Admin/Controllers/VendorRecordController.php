@@ -3,9 +3,9 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Repositories\VendorRecord;
-use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
+use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Show;
 
 class VendorRecordController extends AdminController

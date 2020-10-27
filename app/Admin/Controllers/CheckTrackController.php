@@ -10,8 +10,8 @@ use App\Models\DeviceRecord;
 use App\Models\HardwareRecord;
 use App\Models\SoftwareRecord;
 use App\Support\Data;
-use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Grid;
+use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Widgets\Alert;
 
 class CheckTrackController extends AdminController

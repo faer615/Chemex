@@ -40,7 +40,7 @@ class HardwareCounts extends Card
 </div>
 HTML;
 
-        $this->content = $this->lazyRenderable($html);
+        $this->content = $this->formatRenderable($html);
         $this->noPadding();
 
         return $this;

@@ -3,9 +3,9 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Repositories\HardwareCategory;
-use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
+use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Show;
 
 class HardwareCategoryController extends AdminController
