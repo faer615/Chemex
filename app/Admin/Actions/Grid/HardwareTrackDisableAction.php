@@ -23,12 +23,15 @@ class HardwareTrackDisableAction extends RowAction
         $hardware_track = HardwareTrack::where('id', $this->getKey())->first();
 
         if (empty($hardware_track)) {
-            return $this->response()->error('找不到此硬件归属记录！');
+            return $this->response()
+                ->alert()
+                ->error('找不到此硬件归属记录！');
         }
 
         $hardware_track->delete();
 
         return $this->response()
+            ->alert()
             ->success('硬件归属解除成功！')
             ->refresh();
     }

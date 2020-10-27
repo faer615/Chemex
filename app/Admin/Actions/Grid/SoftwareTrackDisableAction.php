@@ -24,12 +24,15 @@ class SoftwareTrackDisableAction extends RowAction
         $software_id = $software_track->software_id;
 
         if (empty($software_track)) {
-            return $this->response()->error('找不到此软件归属记录！');
+            return $this->response()
+                ->alert()
+                ->error('找不到此软件归属记录！');
         }
 
         $software_track->delete();
 
         return $this->response()
+            ->alert()
             ->success('软件归属解除成功！')
             ->redirect(route('software.records.index'));
     }

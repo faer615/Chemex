@@ -6,6 +6,7 @@ use App\Models\DeviceRecord;
 use App\Models\ServiceRecord;
 use App\Models\ServiceTrack;
 use Dcat\Admin\Contracts\LazyRenderable;
+use Dcat\Admin\Http\JsonResponse;
 use Dcat\Admin\Traits\LazyWidget;
 use Dcat\Admin\Widgets\Form;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,7 +20,7 @@ class ServiceTrackForm extends Form implements LazyRenderable
      *
      * @param array $input
      *
-     * @return Response
+     * @return JsonResponse|Response
      */
     public function handle(array $input)
     {
@@ -31,21 +32,21 @@ class ServiceTrackForm extends Form implements LazyRenderable
 
         // 如果没有服务id或者设备id则返回错误
         if (!$service_id || !$device_id) {
-            return $this->error('参数错误');
+            return $this->response()->alert()->error('参数错误');
         }
 
         // 服务记录
         $service = ServiceRecord::where('id', $service_id)->first();
         // 如果没有找到这个服务记录则返回错误
         if (!$service) {
-            return $this->error('服务不存在');
+            return $this->response()->alert()->error('服务程序不存在');
         }
 
         // 设备记录
         $device = DeviceRecord::where('id', $device_id)->first();
         // 如果没有找到这个设备记录则返回错误
         if (!$device) {
-            return $this->error('设备不存在');
+            return $this->response()->alert()->error('设备不存在');
         }
 
         // 服务追踪
@@ -57,7 +58,7 @@ class ServiceTrackForm extends Form implements LazyRenderable
         if (!empty($service_track)) {
             // 如果新设备和旧设备相同，返回错误
             if ($service_track->device_id == $device_id) {
-                return $this->error('设备没有改变，无需重新归属');
+                return $this->response()->alert()->error('设备没有改变，无需重新归属');
             }
             $service_track->delete();
         }
@@ -68,7 +69,7 @@ class ServiceTrackForm extends Form implements LazyRenderable
         $service_track->device_id = $device_id;
         $service_track->save();
 
-        return $this->success('服务归属成功');
+        return $this->response()->alert()->success('服务程序归属成功')->refresh();
     }
 
     /**

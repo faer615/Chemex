@@ -5,6 +5,7 @@ namespace App\Admin\Forms;
 use App\Models\ServiceIssue;
 use App\Models\ServiceRecord;
 use Dcat\Admin\Contracts\LazyRenderable;
+use Dcat\Admin\Http\JsonResponse;
 use Dcat\Admin\Traits\LazyWidget;
 use Dcat\Admin\Widgets\Form;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +19,7 @@ class ServiceIssueForm extends Form implements LazyRenderable
      *
      * @param array $input
      *
-     * @return Response
+     * @return JsonResponse|Response
      */
     public function handle(array $input)
     {
@@ -33,14 +34,14 @@ class ServiceIssueForm extends Form implements LazyRenderable
 
         // 如果没有服务id或者设备id则返回错误
         if (!$service_id || !$issue || !$start) {
-            return $this->error('参数错误');
+            return $this->response()->alert()->error('参数错误');
         }
 
         // 服务记录
         $service = ServiceRecord::where('id', $service_id)->first();
         // 如果没有找到这个服务记录则返回错误
         if (!$service) {
-            return $this->error('服务不存在');
+            return $this->response()->alert()->error('服务程序不存在');
         }
 
         $service_issue = new ServiceIssue();
@@ -50,7 +51,7 @@ class ServiceIssueForm extends Form implements LazyRenderable
         $service_issue->start = $start;
         $service_issue->save();
 
-        return $this->success('异常报告成功');
+        return $this->response()->alert()->success('服务程序异常报告成功')->refresh();
     }
 
     /**

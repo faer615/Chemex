@@ -23,12 +23,15 @@ class ServiceTrackDisableAction extends RowAction
         $service_track = ServiceTrack::where('id', $this->getKey())->first();
 
         if (empty($service_track)) {
-            return $this->response()->error('找不到此服务归属记录！');
+            return $this->response()
+                ->alert()
+                ->error('找不到此服务归属记录！');
         }
 
         $service_track->delete();
 
         return $this->response()
+            ->alert()
             ->success('服务归属解除成功！')
             ->refresh();
     }

@@ -1,12 +1,12 @@
 <?php
 return [
     'labels' => [
-        'ServiceIssue' => '服务异常',
-        'issue' => '服务异常'
+        'ServiceIssue' => '服务程序异常',
+        'issue' => '服务程序异常'
     ],
     'fields' => [
         'service' => [
-            'name' => '服务名称'
+            'name' => '服务程序名称'
         ],
         'issue' => '异常',
         'status' => '状态',

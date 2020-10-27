@@ -2,7 +2,7 @@
     <thead>
     <tr>
         <th scope="col">宿主设备名称</th>
-        <th scope="col">服务名称</th>
+        <th scope="col">服务程序名称</th>
         <th scope="col">状态</th>
         <th scope="col">异常说明</th>
         <th scope="col">开始时间</th>

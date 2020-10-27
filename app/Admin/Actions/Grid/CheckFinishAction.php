@@ -26,19 +26,23 @@ class CheckFinishAction extends RowAction
             $check_record = CheckRecord::where('id', $this->getKey())->firstOrFail();
             if ($check_record->status == 1) {
                 return $this->response()
+                    ->alert()
                     ->warning('失败，此项盘点任务已经被完成过了。');
             }
             if ($check_record->status == 2) {
                 return $this->response()
+                    ->alert()
                     ->warning('失败，此项盘点任务已经被提前中止了。');
             }
             $check_record->status = 1;
             $check_record->save();
             return $this->response()
+                ->alert()
                 ->success('太棒了，已经完成了此项盘点全部内容！')
                 ->refresh();
         } else {
             return $this->response()
+                ->alert()
                 ->error('失败，至少还有一项未完成的盘点追踪：' . $check_track->id);
         }
     }
