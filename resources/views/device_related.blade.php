@@ -15,11 +15,11 @@
         @foreach($data['hardware'] as $item)
             <tr class="tr">
                 <td>{{$item->id}}</td>
-                <td>{{$item->category->name}}</td>
+                <td>{{optional($item->category)->name}}</td>
                 <td>{{$item->name}}</td>
                 <td>{{$item->specification}}</td>
                 <td>{{$item->sn}}</td>
-                <td>{{$item->vendor->name}}</td>
+                <td>{{optional($item->vendor)->name}}</td>
             </tr>
         @endforeach
         </tbody>
@@ -44,11 +44,11 @@
         @foreach($data['software'] as $item)
             <tr class="tr">
                 <td>{{$item->id}}</td>
-                <td>{{$item->category->name}}</td>
+                <td>{{optional($item->category)->name}}</td>
                 <td>{{$item->name}}</td>
                 <td>{{$item->version}}</td>
                 <td>{{$item->distribution}}</td>
-                <td>{{$item->vendor->name}}</td>
+                <td>{{optional($item->vendor)->name}}</td>
             </tr>
         @endforeach
         </tbody>
