@@ -34,11 +34,7 @@ class HardwareHistoryAction extends RowAction
 
         foreach ($hardware_tracks as $hardware_track) {
             $single['type'] = '设备';
-            if (!empty($hardware_track) && !empty($hardware_track->device)) {
-                $single['name'] = $hardware_track->device->name;
-            } else {
-                $single['name'] = '未知';
-            }
+            $single['name'] = optional($hardware_track->device)->name;
             $single['status'] = '+';
             $single['datetime'] = json_decode($hardware_track, true)['created_at'];
             array_push($data, $single);

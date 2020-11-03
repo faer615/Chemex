@@ -34,11 +34,7 @@ class SoftwareHistoryAction extends RowAction
 
         foreach ($software_tracks as $software_track) {
             $single['type'] = '设备';
-            if (!empty($software_track && !empty($software_track->device))) {
-                $single['name'] = $software_track->device->name;
-            } else {
-                $single['name'] = '未知';
-            }
+            $single['name'] = optional($software_track->device)->name;
             $single['status'] = '+';
             $single['datetime'] = json_decode($software_track, true)['created_at'];
             array_push($data, $single);
