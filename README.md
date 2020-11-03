@@ -16,6 +16,7 @@
 </p>
 
 <p align="center">
+    <img src='https://gitee.com/celaraze/Chemex/badge/giteego.svg?name=PHP base env build&id=13010' />
     <img src="https://github.com/Celaraze/Chemex/workflows/Laravel/badge.svg?event=push" />
     <img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FCelaraze%2FChemex.svg?type=shield" />
 </p>
