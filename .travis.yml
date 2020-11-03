@@ -12,7 +12,7 @@ env:
 #  - chmod 600 ~/.ssh/id_rsa
 
 install:
-  - composer install --prefer-dist --optimize-autoloader --quiet
+  - php -d memory_limit=-1 `which composer` update/install -vvv
 
 notifications:
   email:
