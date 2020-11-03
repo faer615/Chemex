@@ -11,7 +11,7 @@
 <p align="center">
     <img src="https://img.shields.io/badge/Latest Release-1.6.1-orange" />
     <img src="https://img.shields.io/badge/PHP-7.3+-green" />
-    <img src="https://img.shields.io/badge/MariaDB-10.5+-blueviolet" />
+    <img src="https://img.shields.io/badge/MariaDB-10.2+-blueviolet" />
     <img src="https://img.shields.io/badge/License-GPL3.0-blue" />
 </p>
 
@@ -28,8 +28,8 @@
 
 ## 关于Chemex
 
-Chemex是一个轻量的、现代设计风格的ICT设备资产管理系统。得益于 [Laravel](https://laravel.com/) 框架以及 [Dcat Admin](https://dcatadmin.com) 开发平台，使其具备了优雅、简洁的优秀体验。
-Chemex是完全免费且开源的，任何人都可以无限制的修改代码以及部署服务，这对于很多想要对ICT资产做信息化管理的中小型企业来说，是一个很好的选择：低廉的成本换回的是高效的管理方案，同时又有健康的生态提供支持。
+Chemex 是一个轻量的、现代设计风格的 ICT 资产管理系统。得益于 [Laravel](https://laravel.com/) 框架以及 [Dcat Admin](https://dcatadmin.com) 开发平台，使其具备了优雅、简洁的优秀体验。
+Chemex 是完全免费且开源的，任何人都可以无限制的修改代码以及部署服务，这对于很多想要对ICT资产做信息化管理的中小型企业来说，是一个很好的选择：低廉的成本换回的是高效的管理方案，同时又有健康的生态提供支持。
 
 系统拥有以下模块：
 
@@ -93,7 +93,7 @@ Chemex是完全免费且开源的，任何人都可以无限制的修改代码�
 
     - 是的，只需要一个 `LNMP` 环境，就可以无限制的私有化部署。
     
-- OTA升级
+- OTA 升级
 
     - 已经支持了在线升级，不用本地手工进行版本维护。
     
@@ -131,11 +131,11 @@ Chemex是完全免费且开源的，任何人都可以无限制的修改代码�
 
 `PHP 7.3 +`
 
-`MariaDB 10.5 +`
+`MariaDB 10.2 +`
 
-`ext-zip` 扩展，注意和 PHP 版本相同
+`ext-zip` 扩展，注意和 PHP 版本相同。
 
-`ext-json` 扩展，注意和 PHP 版本相同
+`ext-json` 扩展，注意和 PHP 版本相同。
 
 源码开发依赖于 `composer` 包管理器。
 
@@ -164,6 +164,24 @@ Chemex是完全免费且开源的，任何人都可以无限制的修改代码�
 9：修改web服务器的伪静态规则为：`try_files $uri $uri/ /index.php?$args;`。
 
 10：为了确保在线自动更新可用，请确认网站根目录及其所有子目录的权限为 `755`，拥有者为 `www`。
+
+### 开发虚拟机格式部署（OVF）
+
+下载地址：[Chemex_OVF.7z](https://pan.baidu.com/s/1BuuXEI9rGL3x3mG-idvsMw) ，提取码： `nh5o` 。
+
+出于此系统使用的最终用户均以IT运维人员居多，考虑到部署过程中可能涉及到的开发相关配置，为了减少这部分的依赖，我们也提供了 `OVF` 的开发虚拟机格式部署方式。支持 `ESXi 6.5+` 和 `VMWare WorkStation 10+` ，只需要导入即可完成部署。
+
+导入方式不再赘述了，这是IT运维人员的基本操作，这里有一些配置需要注意：
+
+`LNMP` 环境我使用了 [AppNode](https://www.appnode.com/) 作为面板，访问地址：`http://127.0.0.1:8888`，用户名密码均为 `admin`。
+
+在面板中已经部署好了 Chemex 最新版本，可以在 `AppNode面板` 中找到 `网站管理` 查看，面板的使用方法也请移步参照官方。
+
+此 `OVF` 基于 `CentOS 7` 制作，`root` 密码为 `123456`，桌面 GUI 环境登录用户为 `chemex`，密码为 `ITuser123!`。
+
+数据库 `root` 密码为 `123456`。
+
+Chemex 访问地址 `http://127.0.0.1`，剩下的本地化配置还请自行修改站点配置。
 
 ### 开发环境部署
 
