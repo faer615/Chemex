@@ -15,12 +15,13 @@
     <img src="https://img.shields.io/badge/License-GPL3.0-blue" />
 </p>
 
+<p align="center">
+    <img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FCelaraze%2FChemex.svg?type=shield" />
+</p>
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FCelaraze%2FChemex.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FCelaraze%2FChemex?ref=badge_large)
 
 ## 关于Chemex
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FCelaraze%2FChemex.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FCelaraze%2FChemex?ref=badge_shield)
-
 
 Chemex是一个轻量的、现代设计风格的ICT设备资产管理系统。得益于 [Laravel](https://laravel.com/) 框架以及 [Dcat Admin](https://dcatadmin.com) 开发平台，使其具备了优雅、简洁的优秀体验。
 Chemex是完全免费且开源的，任何人都可以无限制的修改代码以及部署服务，这对于很多想要对ICT资产做信息化管理的中小型企业来说，是一个很好的选择：低廉的成本换回的是高效的管理方案，同时又有健康的生态提供支持。
