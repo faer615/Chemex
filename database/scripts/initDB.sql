@@ -11,8 +11,15 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- 正在导出表  chemex-demo.admin_menu 的数据：~27 rows (大约)
-DELETE FROM `admin_menu`;
+-- 正在导出表  chemex-dev.admin_extensions 的数据：~0 rows (大约)
+/*!40000 ALTER TABLE `admin_extensions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `admin_extensions` ENABLE KEYS */;
+
+-- 正在导出表  chemex-dev.admin_extension_histories 的数据：~0 rows (大约)
+/*!40000 ALTER TABLE `admin_extension_histories` DISABLE KEYS */;
+/*!40000 ALTER TABLE `admin_extension_histories` ENABLE KEYS */;
+
+-- 正在导出表  chemex-dev.admin_menu 的数据：~27 rows (大约)
 /*!40000 ALTER TABLE `admin_menu` DISABLE KEYS */;
 INSERT INTO `admin_menu` (`id`, `parent_id`, `order`, `title`, `icon`, `uri`, `created_at`, `updated_at`) VALUES
 	(1, 0, 1, 'Index', 'feather icon-bar-chart-2', '/', '2020-10-10 15:06:20', '2020-10-10 15:06:20'),
@@ -33,19 +40,23 @@ INSERT INTO `admin_menu` (`id`, `parent_id`, `order`, `title`, `icon`, `uri`, `c
 	(22, 8, 9, 'Software Tracks', '', 'software/tracks', '2020-10-10 15:06:28', '2020-10-04 10:44:31'),
 	(23, 13, 13, 'Hardware Tracks', '', 'hardware/tracks', '2020-10-10 15:06:29', '2020-10-04 10:44:31'),
 	(24, 16, 5, 'Device Tracks', '', 'device/tracks', '2020-10-10 15:06:29', '2020-10-04 10:44:31'),
-	(25, 0, 21, 'Check Management', 'feather icon-check-circle', NULL, '2020-10-04 10:22:42', '2020-10-06 21:39:10'),
-	(26, 25, 22, 'Check Records', NULL, 'check/records', '2020-10-04 10:23:17', '2020-10-06 21:39:10'),
-	(27, 25, 23, 'Check Tracks', NULL, 'check/tracks', '2020-10-04 10:23:33', '2020-10-06 21:39:10'),
+	(25, 0, 23, 'Check Management', 'feather icon-check-circle', NULL, '2020-10-04 10:22:42', '2020-11-03 14:23:24'),
+	(26, 25, 24, 'Check Records', NULL, 'check/records', '2020-10-04 10:23:17', '2020-11-03 14:23:24'),
+	(27, 25, 25, 'Check Tracks', NULL, 'check/tracks', '2020-10-04 10:23:33', '2020-11-03 14:23:24'),
 	(28, 0, 19, 'Service Management', 'feather icon-activity', NULL, '2020-10-06 21:38:40', '2020-10-06 21:39:10'),
 	(29, 28, 20, 'Service Records', NULL, 'service/records', '2020-10-06 21:39:02', '2020-10-06 21:39:10'),
-	(30, 28, 30, 'Service Tracks', NULL, 'service/tracks', '2020-10-06 22:02:15', '2020-10-06 22:02:15'),
-	(31, 28, 31, 'Service Issues', NULL, 'service/issues', '2020-10-06 23:23:22', '2020-10-06 23:23:22'),
-	(53, 0, 32, 'Maintenance Records', 'feather icon-shield', 'maintenance/records', '2020-10-10 15:06:15', '2020-10-10 15:06:16'),
-	(54, 0, 33, 'Update', 'feather icon-chevrons-down', 'update', '2020-10-22 15:05:00', '2020-10-22 15:05:00');
+	(30, 28, 21, 'Service Tracks', NULL, 'service/tracks', '2020-10-06 22:02:15', '2020-11-03 14:23:24'),
+	(31, 28, 22, 'Service Issues', NULL, 'service/issues', '2020-10-06 23:23:22', '2020-11-03 14:23:24'),
+	(53, 0, 26, 'Maintenance Records', 'feather icon-shield', 'maintenance/records', '2020-10-10 15:06:15', '2020-11-03 14:23:24'),
+	(54, 0, 27, 'Update', 'feather icon-chevrons-down', 'update', '2020-10-22 15:05:00', '2020-11-03 14:23:24'),
+	(55, 56, 32, 'Menu', NULL, 'auth/menu', '2020-11-03 14:22:49', '2020-11-03 14:27:25'),
+	(56, 0, 28, 'Settings', NULL, NULL, '2020-11-03 14:23:14', '2020-11-03 14:24:27'),
+	(57, 56, 29, 'Users', NULL, 'auth/users', '2020-11-03 14:25:13', '2020-11-03 14:27:25'),
+	(58, 56, 30, 'Roles', NULL, 'auth/roles', '2020-11-03 14:25:25', '2020-11-03 14:27:25'),
+	(59, 56, 31, 'Permissions', NULL, 'auth/permissions', '2020-11-03 14:26:37', '2020-11-03 14:27:25');
 /*!40000 ALTER TABLE `admin_menu` ENABLE KEYS */;
 
--- 正在导出表  chemex-demo.admin_permissions 的数据：~6 rows (大约)
-DELETE FROM `admin_permissions`;
+-- 正在导出表  chemex-dev.admin_permissions 的数据：~6 rows (大约)
 /*!40000 ALTER TABLE `admin_permissions` DISABLE KEYS */;
 INSERT INTO `admin_permissions` (`id`, `name`, `slug`, `http_method`, `http_path`, `order`, `parent_id`, `created_at`, `updated_at`) VALUES
 	(1, 'Auth management', 'auth-management', '', '', 1, 0, '2020-09-18 09:45:49', NULL),
@@ -56,8 +67,7 @@ INSERT INTO `admin_permissions` (`id`, `name`, `slug`, `http_method`, `http_path
 	(6, 'Operation log', 'operation-log', '', '/auth/logs*', 6, 1, '2020-09-18 09:45:49', NULL);
 /*!40000 ALTER TABLE `admin_permissions` ENABLE KEYS */;
 
--- 正在导出表  chemex-demo.admin_permission_menu 的数据：~105 rows (大约)
-DELETE FROM `admin_permission_menu`;
+-- 正在导出表  chemex-dev.admin_permission_menu 的数据：~105 rows (大约)
 /*!40000 ALTER TABLE `admin_permission_menu` DISABLE KEYS */;
 INSERT INTO `admin_permission_menu` (`permission_id`, `menu_id`, `created_at`, `updated_at`) VALUES
 	(2, 32, NULL, NULL),
@@ -167,35 +177,34 @@ INSERT INTO `admin_permission_menu` (`permission_id`, `menu_id`, `created_at`, `
 	(6, 52, NULL, NULL);
 /*!40000 ALTER TABLE `admin_permission_menu` ENABLE KEYS */;
 
--- 正在导出表  chemex-demo.admin_roles 的数据：~0 rows (大约)
-DELETE FROM `admin_roles`;
+-- 正在导出表  chemex-dev.admin_roles 的数据：~0 rows (大约)
 /*!40000 ALTER TABLE `admin_roles` DISABLE KEYS */;
 INSERT INTO `admin_roles` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
 	(1, 'Administrator', 'administrator', '2020-09-18 09:45:49', '2020-09-18 09:45:49');
 /*!40000 ALTER TABLE `admin_roles` ENABLE KEYS */;
 
--- 正在导出表  chemex-demo.admin_role_menu 的数据：~0 rows (大约)
-DELETE FROM `admin_role_menu`;
+-- 正在导出表  chemex-dev.admin_role_menu 的数据：~0 rows (大约)
 /*!40000 ALTER TABLE `admin_role_menu` DISABLE KEYS */;
 /*!40000 ALTER TABLE `admin_role_menu` ENABLE KEYS */;
 
--- 正在导出表  chemex-demo.admin_role_permissions 的数据：~0 rows (大约)
-DELETE FROM `admin_role_permissions`;
+-- 正在导出表  chemex-dev.admin_role_permissions 的数据：~0 rows (大约)
 /*!40000 ALTER TABLE `admin_role_permissions` DISABLE KEYS */;
 /*!40000 ALTER TABLE `admin_role_permissions` ENABLE KEYS */;
 
--- 正在导出表  chemex-demo.admin_role_users 的数据：~0 rows (大约)
-DELETE FROM `admin_role_users`;
+-- 正在导出表  chemex-dev.admin_role_users 的数据：~0 rows (大约)
 /*!40000 ALTER TABLE `admin_role_users` DISABLE KEYS */;
 INSERT INTO `admin_role_users` (`role_id`, `user_id`, `created_at`, `updated_at`) VALUES
 	(1, 1, NULL, NULL);
 /*!40000 ALTER TABLE `admin_role_users` ENABLE KEYS */;
 
--- 正在导出表  chemex-demo.admin_users 的数据：~2 rows (大约)
-DELETE FROM `admin_users`;
+-- 正在导出表  chemex-dev.admin_settings 的数据：~0 rows (大约)
+/*!40000 ALTER TABLE `admin_settings` DISABLE KEYS */;
+/*!40000 ALTER TABLE `admin_settings` ENABLE KEYS */;
+
+-- 正在导出表  chemex-dev.admin_users 的数据：~2 rows (大约)
 /*!40000 ALTER TABLE `admin_users` DISABLE KEYS */;
 INSERT INTO `admin_users` (`id`, `username`, `password`, `name`, `avatar`, `remember_token`, `created_at`, `updated_at`) VALUES
-	(1, 'admin', '$2y$10$0FABOJldsayevR1lGRlHSuIEVANwUN0NQ56VPZC6AMMHy3GsTL1nm', 'Administrator', NULL, 'zLxXcJFYmbwa6KOLx50BL1wwPlXdEu0swQcfExBDHEx2WRoy0qGcthSU72Cx', '2020-09-18 09:45:49', '2020-10-12 19:30:10'),
+	(1, 'admin', '$2y$10$0FABOJldsayevR1lGRlHSuIEVANwUN0NQ56VPZC6AMMHy3GsTL1nm', 'Administrator', NULL, '9FYVEHFWRSn4i5CC4QVw6DnHfc0xyPqwBJXwDEsamQqI6o7N76hezUMEVP6z', '2020-09-18 09:45:49', '2020-10-12 19:30:10'),
 	(2, 'test_user1', '$2y$10$LkfJ2s63BGHYpYGU.D5JFuym6x9oE2z34JhFkqbtvSgZJQGm05Aoe', '测试用户1', NULL, NULL, '2020-10-04 23:40:28', '2020-10-04 23:40:28');
 /*!40000 ALTER TABLE `admin_users` ENABLE KEYS */;
 
