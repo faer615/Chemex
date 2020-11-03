@@ -22,7 +22,9 @@
     <img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FCelaraze%2FChemex.svg?type=shield" />
 </p>
 
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FCelaraze%2FChemex.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FCelaraze%2FChemex?ref=badge_large)
+<p align="center">
+    <img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FCelaraze%2FChemex.svg?type=large" />
+</p>
 
 ## 关于Chemex
 
