@@ -1,0 +1,32 @@
+language: php
+
+php:
+  - 7.4
+  - nightly
+
+env:
+  - APP_DEBUG=false
+
+#before_install:
+#  - openssl aes-256-cbc -K $encrypted_d89376f3278d_key -iv $encrypted_d89376f3278d_iv
+#    -in id_rsa.enc -out ~/.ssh/id_rsa -d
+#  - chmod 600 ~/.ssh/id_rsa
+
+install:
+  - composer install --prefer-dist --optimize-autoloader --quiet
+
+notifications:
+  email:
+    recipients:
+      - celaraze@qq.com
+    on_success: always
+    on_failure: always
+
+script:
+  - phpunit -c phpunit.xml --coverage-text
+
+#after_success:
+#  - ssh xxx@xxxx.xxxx.xxxx.xxxx "./travis_build" # 请替换成自己的登录IP和登录用户
+#
+#addons:
+#  ssh_known_hosts: xxxx.xxxx.xxxx.xxxx # 请替换成自己的服务器IP
