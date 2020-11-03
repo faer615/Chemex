@@ -3,9 +3,9 @@
 # 功能：实现在构建中输出当前 PHP 构建环境的环境信息
 # ========================================================
 name: gitee-go-php-base-env-build
-displayName: 'PHP base env build'               
+displayName: 'PHP base env build'
 triggers:                             # 流水线触发器配置
-  push:                               # 设置 master 分支 在产生代码 push 时精确触发（PRECISE）构建
+  push:                               # 设置 main 分支 在产生代码 push 时精确触发（PRECISE）构建
     - matchType: PRECISE
       branch: main
 commitMessage: ''                     # 通过匹配当前提交的 CommitMessage 决定是否执行流水线
