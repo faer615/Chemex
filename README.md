@@ -28,11 +28,13 @@
 
 ## 鸣谢
 
-没有它们就没有咖啡壶
+没有它们就没有 Chemex 咖啡壶：
 
-[Laravel](https://laravel.com/) ，优雅的PHP Web框架。
+[Laravel](https://laravel.com/) ，优雅的 PHP Web 框架。
 
 [Dcat Admin](https://dcatadmin.com) ，高颜值、高效率的后台开发框架。
+
+`Dr. Peter Schlumbohm`，感谢发明了 Chemex 冲煮咖啡。
 
 ## 简介
 
@@ -50,8 +52,6 @@ Chemex 咖啡壶将会以咖啡豆品种作为 `major` 版本的命名，例如 
 |major|版本名|发布|
 |----|----|----|
 |1.x|肯亚（Kenya）|✔|
-|2.x|耶加雪菲（Yirgacheffe）|❌|
-|3.x|牙买加蓝山（Jamaica Blue Mountain）|❌|
     
 ### 开发计划
 
