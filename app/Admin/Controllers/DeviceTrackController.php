@@ -2,7 +2,8 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Actions\Grid\DeviceTrackDisableAction;
+use App\Admin\Actions\Grid\AbstractTool\DeviceTrackTrashedAction;
+use App\Admin\Actions\Grid\RowAction\DeviceTrackDisableAction;
 use App\Admin\Repositories\DeviceTrack;
 use App\Support\Data;
 use Dcat\Admin\Grid;
@@ -19,6 +20,7 @@ class DeviceTrackController extends AdminController
     protected function grid()
     {
         return Grid::make(new DeviceTrack(['device', 'staff']), function (Grid $grid) {
+
             $grid->column('id');
             $grid->column('device.name');
             $grid->column('staff.name');

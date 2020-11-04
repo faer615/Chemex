@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Actions\Grid\HardwareTrackDisableAction;
+use App\Admin\Actions\Grid\RowAction\HardwareTrackDisableAction;
 use App\Admin\Repositories\HardwareTrack;
 use App\Support\Data;
 use Dcat\Admin\Grid;

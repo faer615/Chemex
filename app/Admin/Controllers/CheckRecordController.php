@@ -2,8 +2,8 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Actions\Grid\CheckCancelAction;
-use App\Admin\Actions\Grid\CheckFinishAction;
+use App\Admin\Actions\Grid\RowAction\CheckCancelAction;
+use App\Admin\Actions\Grid\RowAction\CheckFinishAction;
 use App\Admin\Repositories\CheckRecord;
 use App\Models\AdminUser;
 use App\Models\CheckTrack;

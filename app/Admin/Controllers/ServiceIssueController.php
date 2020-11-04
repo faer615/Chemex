@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Actions\Grid\ServiceFixAction;
+use App\Admin\Actions\Grid\RowAction\ServiceFixAction;
 use App\Admin\Repositories\ServiceIssue;
 use App\Support\Data;
 use Dcat\Admin\Grid;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Admin\Actions\Grid;
+namespace App\Admin\Actions\Grid\RowAction;
 
 use App\Models\HardwareRecord;
 use App\Models\HardwareTrack;

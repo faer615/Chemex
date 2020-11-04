@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Admin\Actions\Grid;
+namespace App\Admin\Actions\Grid\RowAction;
 
-use App\Admin\Forms\SoftwareTrackForm;
+use App\Admin\Forms\ServiceTrackForm;
 use Dcat\Admin\Grid\RowAction;
 use Dcat\Admin\Widgets\Modal;
 
-class SoftwareTrackAction extends RowAction
+class ServiceTrackAction extends RowAction
 {
     /**
      * @return string
      */
-    protected $title = '💻 归属到设备';
+    protected $title = '💻 归属设备';
 
     public function render()
     {
         // 实例化表单类并传递自定义参数
-        $form = SoftwareTrackForm::make()->payload(['id' => $this->getKey()]);
+        $form = ServiceTrackForm::make()->payload(['id' => $this->getKey()]);
 
         return Modal::make()
             ->lg()

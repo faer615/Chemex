@@ -2,9 +2,9 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Actions\Grid\ServiceDeleteAction;
-use App\Admin\Actions\Grid\ServiceIssueAction;
-use App\Admin\Actions\Grid\ServiceTrackAction;
+use App\Admin\Actions\Grid\RowAction\ServiceDeleteAction;
+use App\Admin\Actions\Grid\RowAction\ServiceIssueAction;
+use App\Admin\Actions\Grid\RowAction\ServiceTrackAction;
 use App\Admin\Repositories\ServiceRecord;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;

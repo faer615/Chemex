@@ -2,11 +2,12 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Actions\Grid\DeviceHistoryAction;
-use App\Admin\Actions\Grid\DeviceRelatedAction;
-use App\Admin\Actions\Grid\DeviceSSHInfoAction;
-use App\Admin\Actions\Grid\DeviceTrackAction;
-use App\Admin\Actions\Grid\MaintenanceAction;
+use App\Admin\Actions\Grid\RowAction\DeviceDeleteAction;
+use App\Admin\Actions\Grid\RowAction\DeviceHistoryAction;
+use App\Admin\Actions\Grid\RowAction\DeviceRelatedAction;
+use App\Admin\Actions\Grid\RowAction\DeviceSSHInfoAction;
+use App\Admin\Actions\Grid\RowAction\DeviceTrackAction;
+use App\Admin\Actions\Grid\RowAction\MaintenanceAction;
 use App\Admin\Repositories\DeviceRecord;
 use App\Models\DeviceCategory;
 use App\Models\VendorRecord;
@@ -67,7 +68,10 @@ class DeviceRecordController extends AdminController
 
             $grid->toolsWithOutline(false);
 
+            $grid->disableDeleteButton();
+
             $grid->actions(function (Grid\Displayers\Actions $actions) {
+                $actions->append(new DeviceDeleteAction());
                 $actions->append(new DeviceTrackAction());
                 $actions->append(new DeviceRelatedAction());
                 $actions->append(new DeviceHistoryAction());
@@ -118,6 +122,8 @@ class DeviceRecordController extends AdminController
             $show->field('photo')->image();
             $show->field('created_at');
             $show->field('updated_at');
+
+            $show->disableDeleteButton();
         });
     }
 
@@ -149,6 +155,8 @@ class DeviceRecordController extends AdminController
 
             $form->display('created_at');
             $form->display('updated_at');
+
+            $form->disableDeleteButton();
         });
     }
 }

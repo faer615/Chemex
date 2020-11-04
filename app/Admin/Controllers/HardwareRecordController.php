@@ -2,10 +2,10 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Actions\Grid\HardwareDeleteAction;
-use App\Admin\Actions\Grid\HardwareHistoryAction;
-use App\Admin\Actions\Grid\HardwareTrackAction;
-use App\Admin\Actions\Grid\MaintenanceAction;
+use App\Admin\Actions\Grid\RowAction\HardwareDeleteAction;
+use App\Admin\Actions\Grid\RowAction\HardwareHistoryAction;
+use App\Admin\Actions\Grid\RowAction\HardwareTrackAction;
+use App\Admin\Actions\Grid\RowAction\MaintenanceAction;
 use App\Admin\Repositories\HardwareRecord;
 use App\Models\HardwareCategory;
 use App\Models\VendorRecord;

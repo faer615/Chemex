@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Admin\Actions\Grid;
+namespace App\Admin\Actions\Grid\RowAction;
 
-use App\Models\ServiceTrack;
+use App\Models\DeviceTrack;
 use Dcat\Admin\Actions\Response;
 use Dcat\Admin\Grid\RowAction;
 
-class ServiceTrackDisableAction extends RowAction
+class DeviceTrackDisableAction extends RowAction
 {
     /**
      * @return string
@@ -20,19 +20,19 @@ class ServiceTrackDisableAction extends RowAction
      */
     public function handle()
     {
-        $service_track = ServiceTrack::where('id', $this->getKey())->first();
+        $device_track = DeviceTrack::where('id', $this->getKey())->first();
 
-        if (empty($service_track)) {
+        if (empty($device_track)) {
             return $this->response()
                 ->alert()
-                ->error('找不到此服务归属记录！');
+                ->error('找不到此设备归属记录！');
         }
 
-        $service_track->delete();
+        $device_track->delete();
 
         return $this->response()
             ->alert()
-            ->success('服务归属解除成功！')
+            ->success('设备归属解除成功！')
             ->refresh();
     }
 
@@ -41,6 +41,6 @@ class ServiceTrackDisableAction extends RowAction
      */
     public function confirm()
     {
-        return ['确认解除与此设备的关联？'];
+        return ['确认解除与此雇员的关联？'];
     }
 }

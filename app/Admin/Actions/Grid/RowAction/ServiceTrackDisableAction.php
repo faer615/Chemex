@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Admin\Actions\Grid;
+namespace App\Admin\Actions\Grid\RowAction;
 
-use App\Models\HardwareTrack;
+use App\Models\ServiceTrack;
 use Dcat\Admin\Actions\Response;
 use Dcat\Admin\Grid\RowAction;
 
-class HardwareTrackDisableAction extends RowAction
+class ServiceTrackDisableAction extends RowAction
 {
     /**
      * @return string
@@ -20,19 +20,19 @@ class HardwareTrackDisableAction extends RowAction
      */
     public function handle()
     {
-        $hardware_track = HardwareTrack::where('id', $this->getKey())->first();
+        $service_track = ServiceTrack::where('id', $this->getKey())->first();
 
-        if (empty($hardware_track)) {
+        if (empty($service_track)) {
             return $this->response()
                 ->alert()
-                ->error('找不到此硬件归属记录！');
+                ->error('找不到此服务归属记录！');
         }
 
-        $hardware_track->delete();
+        $service_track->delete();
 
         return $this->response()
             ->alert()
-            ->success('硬件归属解除成功！')
+            ->success('服务归属解除成功！')
             ->refresh();
     }
 

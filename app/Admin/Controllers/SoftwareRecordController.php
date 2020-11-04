@@ -2,9 +2,9 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Actions\Grid\SoftwareDeleteAction;
-use App\Admin\Actions\Grid\SoftwareHistoryAction;
-use App\Admin\Actions\Grid\SoftwareTrackAction;
+use App\Admin\Actions\Grid\RowAction\SoftwareDeleteAction;
+use App\Admin\Actions\Grid\RowAction\SoftwareHistoryAction;
+use App\Admin\Actions\Grid\RowAction\SoftwareTrackAction;
 use App\Admin\Repositories\SoftwareRecord;
 use App\Models\SoftwareCategory;
 use App\Models\VendorRecord;

@@ -2,8 +2,8 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Actions\Grid\CheckTrackNoAction;
-use App\Admin\Actions\Grid\CheckTrackYesAction;
+use App\Admin\Actions\Grid\RowAction\CheckTrackNoAction;
+use App\Admin\Actions\Grid\RowAction\CheckTrackYesAction;
 use App\Admin\Repositories\CheckTrack;
 use App\Models\CheckRecord;
 use App\Models\DeviceRecord;

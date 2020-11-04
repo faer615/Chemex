@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Actions\Grid\StaffDeleteAction;
+use App\Admin\Actions\Grid\RowAction\StaffDeleteAction;
 use App\Admin\Repositories\StaffRecord;
 use App\Models\StaffDepartment;
 use App\Support\Data;

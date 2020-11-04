@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Admin\Actions\Grid;
+namespace App\Admin\Actions\Grid\RowAction;
 
 use App\Admin\Forms\DeviceTrackForm;
 use Dcat\Admin\Grid\RowAction;

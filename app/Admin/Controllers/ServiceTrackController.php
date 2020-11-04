@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Actions\Grid\ServiceTrackDisableAction;
+use App\Admin\Actions\Grid\RowAction\ServiceTrackDisableAction;
 use App\Admin\Repositories\ServiceTrack;
 use App\Support\Data;
 use Dcat\Admin\Grid;

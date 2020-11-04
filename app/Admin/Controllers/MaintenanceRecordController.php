@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Actions\Grid\MaintenanceFixAction;
+use App\Admin\Actions\Grid\RowAction\MaintenanceFixAction;
 use App\Admin\Repositories\MaintenanceRecord;
 use App\Support\Data;
 use App\Support\Info;
