@@ -4,6 +4,7 @@ namespace App\Admin\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Support\System;
+use App\Support\Version;
 use Dcat\Admin\Layout\Column;
 use Dcat\Admin\Layout\Content;
 use Dcat\Admin\Layout\Row;
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\Http;
 use Pour\Base\Uni;
 use ZipArchive;
 
-class UpdateController extends Controller
+class VersionController extends Controller
 {
     /**
      * 页面
@@ -36,15 +37,18 @@ class UpdateController extends Controller
         $data['url'] = $response['download_url'];
 
         $description = $response['description'];
+        // TODO 版本提示
+        $version = Version::list()['kenya'];
 
         return $content
-            ->header('更新')
-            ->description('使应用保持最新')
-            ->body(function (Row $row) use ($res, $data, $description) {
+            ->header('版本')
+            ->description('列出了与咖啡壶相关的版本信息')
+            ->body(function (Row $row) use ($res, $data, $description, $version) {
                 $row->column(3, function (Column $column) use ($res, $data, $description) {
                     $column->row(new Card(view('update')->with('data', $data)));
                     $column->row(new Card(view('app_downloads')));
                 });
+                $row->column(9, new Card($version['name'], $version['description']));
                 if ($res == -1) {
                     $row->column(9, new Card($data['new'] . '更新说明', $description));
                 }

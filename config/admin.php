@@ -11,7 +11,7 @@ return [
     | login page.
     |
     */
-    'name' => 'Chemex',
+    'name' => '咖啡壶',
 
     /*
     |--------------------------------------------------------------------------
@@ -22,7 +22,7 @@ return [
     | `img` tag, eg '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo' => '<img src="/static/images/logo.png" width="35"> &nbsp;Chemex',
+    'logo' => '<img src="/static/images/logo.png" width="35"> &nbsp;咖啡壶',
 
     /*
     |--------------------------------------------------------------------------
@@ -85,7 +85,7 @@ return [
     | Html title for all pages.
     |
     */
-    'title' => 'Chemex',
+    'title' => '咖啡壶',
 
     /*
     |--------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 <div align="center">
     <img src="http://chemex.it/assets/images/logo.png"/>
-    <h2>Chemex</h2>
+    <h2>Chemex 咖啡壶</h2>
 </div>
 
 <p align="center">
@@ -32,7 +32,7 @@
 
 [Dcat Admin](https://dcatadmin.com) ，高颜值、高效率的后台开发框架。
 
-## 关于Chemex
+## 关于 Chemex
 
 Chemex 是一个轻量的、现代设计风格的 ICT 资产管理系统。得益于 [Laravel](https://laravel.com/) 框架以及 [Dcat Admin](https://dcatadmin.com) 开发平台，使其具备了优雅、简洁的优秀体验。
 Chemex 是完全免费且开源的，任何人都可以无限制的修改代码以及部署服务，这对于很多想要对ICT资产做信息化管理的中小型企业来说，是一个很好的选择：低廉的成本换回的是高效的管理方案，同时又有健康的生态提供支持。
@@ -102,6 +102,10 @@ Chemex 是完全免费且开源的，任何人都可以无限制的修改代码�
 - OTA 升级
 
     - 已经支持了在线升级，不用本地手工进行版本维护。
+    
+## 版本号命名
+
+Chemex 咖啡壶将会以咖啡豆品种作为 `major` 版本的命名，例如 `1.x` 版本称为 `肯亚（Kenya）`，旨在为 ICT 运维人员提供管理能力的同时，普及咖啡知识，静下心喝一杯属于当前版本的冲煮咖啡。
     
 ## 开发计划
 

@@ -5,14 +5,12 @@ namespace App\Admin\Controllers;
 use App\Admin\Actions\Grid\RowAction\DeviceDeleteAction;
 use App\Admin\Actions\Grid\RowAction\DeviceHistoryAction;
 use App\Admin\Actions\Grid\RowAction\DeviceRelatedAction;
-use App\Admin\Actions\Grid\RowAction\DeviceSSHInfoAction;
 use App\Admin\Actions\Grid\RowAction\DeviceTrackAction;
 use App\Admin\Actions\Grid\RowAction\MaintenanceAction;
 use App\Admin\Repositories\DeviceRecord;
 use App\Models\DeviceCategory;
 use App\Models\VendorRecord;
 use App\Support\Info;
-use App\Support\System;
 use App\Support\Track;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -75,16 +73,16 @@ class DeviceRecordController extends AdminController
                 $actions->append(new DeviceTrackAction());
                 $actions->append(new DeviceRelatedAction());
                 $actions->append(new DeviceHistoryAction());
-                if (!empty($this->ip) && !empty($this->ssh_username) && !empty($this->ssh_password) && !empty($this->ssh_port)) {
-                    $url = Info::getSSHBaseUrl($this->ip, $this->ssh_port, $this->ssh_username, $this->ssh_password);
-                    $web_ssh_status = System::checkWebSSHServiceStatus($url);
-                    if ($web_ssh_status == 200) {
-                        $actions->append("<a href='$url' target='_blank'>💻 通过SSH连接...</a>");
-                    } else {
-                        $actions->append("<a disabled>💻 通过SSH连接...（WebSSH服务未启动）</a>");
-                    }
-                }
-                $actions->append(new DeviceSSHInfoAction());
+//                if (!empty($this->ip) && !empty($this->ssh_username) && !empty($this->ssh_password) && !empty($this->ssh_port)) {
+//                    $url = Info::getSSHBaseUrl($this->ip, $this->ssh_port, $this->ssh_username, $this->ssh_password);
+//                    $web_ssh_status = System::checkWebSSHServiceStatus($url);
+//                    if ($web_ssh_status == 200) {
+//                        $actions->append("<a href='$url' target='_blank'>💻 通过SSH连接...</a>");
+//                    } else {
+//                        $actions->append("<a disabled>💻 通过SSH连接...（WebSSH服务未启动）</a>");
+//                    }
+//                }
+//                $actions->append(new DeviceSSHInfoAction());
                 $actions->append(new MaintenanceAction('device'));
             });
 
