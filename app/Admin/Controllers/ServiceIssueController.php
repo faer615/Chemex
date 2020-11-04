@@ -20,6 +20,9 @@ class ServiceIssueController extends AdminController
     protected function grid()
     {
         return Grid::make(new ServiceIssue(['service']), function (Grid $grid) {
+
+            $grid->model()->orderBy('status', 'ASC');
+
             $grid->column('id');
             $grid->column('service.name');
             $grid->column('issue');

@@ -1,21 +1,14 @@
-# Security Policy
+# 安全策略
 
-## Supported Versions
+## 版本支持
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+1.5以下版本由于存在大量的不合规问题，已经不建议使用。后续版本从1.6开始将得到长期支持。
 
-| Version | Supported          |
+| 版本 | 支持          |
 | ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+| 1.6.x     | :white_check_mark: |
+| <= 1.5.x     | :x: |
 
-## Reporting a Vulnerability
+## 反馈一个安全问题
 
-Use this section to tell people how to report a vulnerability.
-
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+可以在issue中提出，或者通过邮件通知我：`famio#qq.com`。

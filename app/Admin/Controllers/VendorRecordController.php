@@ -64,9 +64,9 @@ class VendorRecordController extends AdminController
             $form->text('name')->creationRules(function (Form $form) {
                 // 如果不是编辑状态，则添加字段唯一验证
                 if (!$id = $form->model()->id) {
-                    return 'unique:vendor_records,name';
+                    return 'required|unique:vendor_records,name';
                 }
-            });
+            })->required();
             $form->text('description');
             $form->text('location');
             $form->display('created_at');
