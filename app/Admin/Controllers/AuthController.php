@@ -4,6 +4,7 @@ namespace App\Admin\Controllers;
 
 use Dcat\Admin\Admin;
 use Dcat\Admin\Http\Controllers\AuthController as BaseAuthController;
+use Dcat\Admin\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends BaseAuthController
@@ -13,14 +14,14 @@ class AuthController extends BaseAuthController
     /**
      * Update user setting.
      *
-     * @return Response
+     * @return JsonResponse|Response
      */
     public function putSetting()
     {
         $form = $this->settingForm();
 
         if (config('admin.demo')) {
-            return $form->error('演示模式下不允许此修改操作');
+            return $form->response()->error('演示模式下不允许此修改操作');
         }
 
         if (!$this->validateCredentialsWhenUpdatingPassword()) {

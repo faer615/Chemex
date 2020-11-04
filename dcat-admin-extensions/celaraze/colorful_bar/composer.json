@@ -1,0 +1,34 @@
+{
+    "name": "celaraze/colorful-bar",
+    "description": "在顶部的导航栏加上微微的彩色模糊背景",
+    "type": "library",
+    "keywords": [
+        "celaraze",
+        "extension"
+    ],
+    "homepage": "https://github.com/celaraze/colorful_bar",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Celaraze",
+            "email": "celaraze@qq.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.0",
+        "dcat/laravel-admin": "^2.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Celaraze\\ColorfulBar\\": "src/"
+        }
+    },
+    "extra": {
+        "dcat-admin": "Celaraze\\ColorfulBar\\ColorfulBarServiceProvider",
+        "laravel": {
+            "providers": [
+                "Celaraze\\ColorfulBar\\ColorfulBarServiceProvider"
+            ]
+        }
+    }
+}

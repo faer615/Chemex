@@ -1,0 +1,34 @@
+{
+    "name": "celaraze/chemex-observer-message",
+    "description": "为Chemex加入观察者模式，可定义数据读写都将发送邮件通知给用户",
+    "type": "library",
+    "keywords": [
+        "dcat-admin",
+        "extension"
+    ],
+    "homepage": "https://github.com/celaraze/chemex-observer-message",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Celaraze",
+            "email": "celaraze@qq.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.0",
+        "dcat/laravel-admin": "^2.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Celaraze\\ChemexObserverMessage\\": "src/"
+        }
+    },
+    "extra": {
+        "dcat-admin": "Celaraze\\ChemexObserverMessage\\ChemexObserverMessageServiceProvider",
+        "laravel": {
+            "providers": [
+                "Celaraze\\ChemexObserverMessage\\ChemexObserverMessageServiceProvider"
+            ]
+        }
+    }
+}

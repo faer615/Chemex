@@ -104,7 +104,8 @@ class CheckRecordController extends AdminController
                     ->where('status', 0)
                     ->first();
                 if (!empty($check_record)) {
-                    return $form->error('还有未完成的相同盘点内容，请先处理');
+                    return $form->response()
+                        ->error('还有未完成的相同盘点内容，请先处理');
                 }
             });
 

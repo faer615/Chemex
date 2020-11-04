@@ -23,7 +23,7 @@ class MaintenanceRecordController extends AdminController
         return Grid::make(new MaintenanceRecord(), function (Grid $grid) {
 
             $grid->model()->orderBy('status', 'ASC');
-            
+
             $grid->column('id');
             $grid->column('item')->using(Data::items());
             $grid->column('item_id')->display(function () {
