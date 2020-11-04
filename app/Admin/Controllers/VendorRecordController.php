@@ -67,6 +67,10 @@ class VendorRecordController extends AdminController
             $form->text('location');
             $form->display('created_at');
             $form->display('updated_at');
+
+            $form->saving(function () {
+
+            });
         });
     }
 }

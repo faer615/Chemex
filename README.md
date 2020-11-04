@@ -26,6 +26,12 @@
     <img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FCelaraze%2FChemex.svg?type=large" />
 </p>
 
+## 鸣谢，没有它们就没有Chemex
+
+[Laravel](https://laravel.com/) ，优雅的PHP Web框架。
+
+[Dcat Admin](https://dcatadmin.com) ，高颜值、高效率的后台开发框架。
+
 ## 关于Chemex
 
 Chemex 是一个轻量的、现代设计风格的 ICT 资产管理系统。得益于 [Laravel](https://laravel.com/) 框架以及 [Dcat Admin](https://dcatadmin.com) 开发平台，使其具备了优雅、简洁的优秀体验。
