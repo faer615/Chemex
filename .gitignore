@@ -2,7 +2,6 @@
 /public/hot
 /public/storage
 /storage/*.key
-/vendor
 /.idea
 .env
 .env.backup
@@ -14,3 +13,4 @@ yarn-error.log
 composer.lock
 .idea/workspace.xml
 /tools/ChemexTool/unpackage
+/vendor/bin

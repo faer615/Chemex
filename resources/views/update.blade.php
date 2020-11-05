@@ -9,7 +9,7 @@
         document.getElementById('update').setAttribute('disabled', 'disabled');
         document.getElementById('update').innerText = '正在更新';
         $.ajax({
-            url: '/unzip?url=' + url,
+            url: '/version/unzip?url=' + url,
             type: 'get',
             success: function (res) {
                 Dcat.success(res.message);
