@@ -97,6 +97,8 @@ Chemex 咖啡壶将会以咖啡豆品种作为 `major` 版本的命名，例如 
 
 ## 部署
 
+> 注意：使用过程中，必须避免直接修改数据库数据，Laravel 拥有强大的 Eloquent ORM 模型层，Chemex 中的所有逻辑交互都由模型关联完成，直接修改数据库数据将会导致未知的错误。应用脱离数据库直接交互是现在最流行的做法。
+
 ### 生产环境
 
 #### 纯净部署
@@ -113,15 +115,17 @@ Chemex 咖啡壶将会以咖啡豆品种作为 `major` 版本的命名，例如 
 
 5：在项目根目录中，复制 `.env.example` 文件为一份新的，并重命名为 `.env`。
 
-6：在 `.env` 中配置数据库信息。
+6：在 `.env` 中配置数据库信息以及 `APP_URL` 信息。
 
 7：执行 `php artisan chemex:install` 进行安装。
 
-8：你可能使用的web服务器为 `nginx` 以及 `apache`，无论怎样，应用的起始路径在 `/public` 目录，请确保指向正确。
+8: 执行 `php artisan jwt:secret` 对 JWT 密钥进行重新生成。
 
-9：修改web服务器的伪静态规则为：`try_files $uri $uri/ /index.php?$args;`。
+9：你可能使用的web服务器为 `nginx` 以及 `apache`，无论怎样，应用的起始路径在 `/public` 目录，请确保指向正确。
 
-10：为了确保在线自动更新可用，请确认网站根目录及其所有子目录的权限为 `755`，拥有者为 `www`。
+10：修改web服务器的伪静态规则为：`try_files $uri $uri/ /index.php?$args;`。
+
+11：为了确保在线自动更新可用，请确认网站根目录及其所有子目录的权限为 `755`，拥有者为 `www`。
 
 #### OVF部署
 
@@ -151,13 +155,13 @@ Chemex 访问地址 `http://127.0.0.1`，剩下的本地化配置还请自行修
 
 2：安装 `composer` 包管理工具，参考：[composer官方](https://getcomposer.org/download/) 。
 
-3：进入项目根目录，执行 `composer install`以安装相关依赖。
+3：在项目根目录中，复制 `.env.example` 为 `.env`。
 
-4：在项目根目录中，复制 `.env.example` 为 `.env`。
+4：在 `.env` 中配置数据库信息以及 `APP_URL` 信息。
 
-5：编辑 `.env` 文件中的数据库连接配置相关字段。
+5: 进入项目根目录，执行 `php artisan migrate` 进行数据库迁移。
 
-6：仍然在项目根目录中，执行 `php artisan migrate` 进行数据库迁移。
+6：仍然在项目根目录中，执行 `composer install`以安装相关依赖。
 
 7：参考 [Laravel](https://laravel.com/) 以及 [Dcat Admin](https://dcatadmin.com) 相关文档进行开发。
 

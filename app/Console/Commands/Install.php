@@ -46,6 +46,8 @@ class Install extends Command
         Artisan::call('cache:clear');
         $this->info('正在设置存储系统！');
         Artisan::call('storage:link');
+        $this->info('正在配置密钥！');
+        Artisan::call('key:generate');
         $this->info('正在生成表结构！');
         Artisan::call('migrate');
         $this->info('正在初始化数据！');
