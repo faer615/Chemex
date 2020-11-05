@@ -11,6 +11,7 @@ use Dcat\Admin\Layout\Row;
 use Dcat\Admin\Widgets\Card;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Http;
 use Pour\Base\Uni;
 use ZipArchive;
@@ -71,6 +72,7 @@ class VersionController extends Controller
                 if ($openRes === TRUE) {
                     $zip->extractTo($out_path);
                     $zip->close();
+                    Artisan::call('migrate');
                     $return = Uni::rr(200, '更新成功，请刷新页面');
                 } else {
                     $return = Uni::rr(500, '更新包读取失败，可能已经损坏');
