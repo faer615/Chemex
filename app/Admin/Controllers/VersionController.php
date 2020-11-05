@@ -49,10 +49,12 @@ class VersionController extends Controller
                     $column->row(new Card(view('update')->with('data', $data)));
                     $column->row(new Card(view('app_downloads')));
                 });
-                $row->column(9, new Card($version['name'], $version['description']));
-                if ($res == -1) {
-                    $row->column(9, new Card($data['new'] . '更新说明', $description));
-                }
+                $row->column(9, function (Column $column) use ($res, $data, $description, $version) {
+                    $column->row(new Card($version['name'], $version['description']));
+                    if ($res == -1) {
+                        $column->row(new Card($data['new'] . '更新说明', $description));
+                    }
+                });
             });
     }
 
