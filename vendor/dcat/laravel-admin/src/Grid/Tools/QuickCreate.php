@@ -10,9 +10,12 @@ use Dcat\Admin\Form\Field\Text;
 use Dcat\Admin\Grid;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Traits\Macroable;
 
 class QuickCreate implements Renderable
 {
+    use Macroable;
+
     /**
      * @var Grid
      */
@@ -150,21 +153,6 @@ class QuickCreate implements Renderable
         return $this->text($column, $placeholder)
             ->inputmask(['alias' => 'integer'])
             ->attribute('style', 'width:150px');
-    }
-
-    /**
-     * @param string $column
-     * @param string $placeholder
-     *
-     * @return Field\SelectResource
-     */
-    public function selectResource($column, $placeholder = '')
-    {
-        $field = new Field\SelectResource($column, $this->formatPlaceholder($placeholder));
-
-        $this->addField($field->attribute('style', 'width:150px'));
-
-        return $field;
     }
 
     /**

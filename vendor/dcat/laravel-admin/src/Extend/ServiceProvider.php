@@ -11,6 +11,8 @@ use Symfony\Component\Console\Output\NullOutput;
 
 abstract class ServiceProvider extends LaravelServiceProvider
 {
+    use CanImportMenu;
+
     const TYPE_THEME = 'theme';
 
     /**
@@ -108,7 +110,7 @@ abstract class ServiceProvider extends LaravelServiceProvider
             $this->registerRoutes($routes);
         }
 
-        if ($this->middleware) {
+        if ($this->middleware()) {
             $this->addMiddleware();
         }
 
@@ -124,7 +126,7 @@ abstract class ServiceProvider extends LaravelServiceProvider
      */
     protected function autoRegister()
     {
-        if (! $this->getName()) {
+        if ($this->getName()) {
             return;
         }
 
@@ -294,10 +296,24 @@ abstract class ServiceProvider extends LaravelServiceProvider
     }
 
     /**
+     * 更新扩展.
+     *
+     * @param $currentVersion
+     * @param $stopOnVersion
+     *
+     * @throws \Exception
+     */
+    public function update($currentVersion, $stopOnVersion)
+    {
+        $this->refreshMenu();
+    }
+
+    /**
      * 卸载扩展.
      */
     public function uninstall()
     {
+        $this->flushMenu();
     }
 
     /**
@@ -340,18 +356,37 @@ abstract class ServiceProvider extends LaravelServiceProvider
     }
 
     /**
+     * 获取中间件.
+     *
+     * @return array
+     */
+    protected function middleware()
+    {
+        return $this->middleware;
+    }
+
+    /**
      * 注册中间件.
      */
     protected function addMiddleware()
     {
-        $middleware = (array) config('admin.route.middleware');
+        $adminMiddleware = (array) config('admin.route.middleware');
+        $middleware = $this->middleware();
 
-        $before = $this->middleware['before'] ?? [];
-        $after = $this->middleware['after'] ?? [];
+        $before = $middleware['before'] ?? [];
+        $middle = $middleware['middle'] ?? [];
+        $after = $middleware['after'] ?? [];
+
+        $this->mixMiddleware($middle);
 
         config([
-            'admin.route.middleware' => array_merge((array) $before, $middleware, (array) $after),
+            'admin.route.middleware' => array_merge((array) $before, $adminMiddleware, (array) $after),
         ]);
+    }
+
+    protected function mixMiddleware(array $middle)
+    {
+        Admin::mixMiddlewareGroup($middle);
     }
 
     /**
@@ -434,11 +469,35 @@ abstract class ServiceProvider extends LaravelServiceProvider
      */
     public static function setting($key = null, $value = null)
     {
-        $extension = app(static::class);
+        $extension = static::instance();
 
         if ($extension && $extension instanceof ServiceProvider) {
             return $extension->config($key, $value);
         }
+    }
+
+    /**
+     * 翻译.
+     *
+     * @param string $key
+     * @param array  $replace
+     * @param null   $locale
+     *
+     * @return array|string|null
+     */
+    public static function trans($key, $replace = [], $locale = null)
+    {
+        return trans(static::instance()->getName().'::'.$key, $replace, $locale);
+    }
+
+    /**
+     * 获取自身实例.
+     *
+     * @return $this
+     */
+    public static function instance()
+    {
+        return app(static::class);
     }
 
     /**

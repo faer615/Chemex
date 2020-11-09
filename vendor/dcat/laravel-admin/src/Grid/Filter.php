@@ -36,6 +36,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Illuminate\Support\Traits\Macroable;
 
 /**
  * Class Filter.
@@ -66,6 +67,7 @@ use Illuminate\Support\Str;
 class Filter implements Renderable
 {
     use HasBuilderEvents;
+    use Macroable;
 
     const MODE_RIGHT_SIDE = 'right-side';
     const MODE_PANEL = 'panel';
@@ -720,7 +722,7 @@ class Filter implements Renderable
         $filters = collect($this->filters);
 
         /** @var Collection $columns */
-        $columns = $filters->map->column()->flatten();
+        $columns = $filters->map->originalColumn()->flatten();
 
         $columns->push(
             $this->grid()->model()->getPageName()

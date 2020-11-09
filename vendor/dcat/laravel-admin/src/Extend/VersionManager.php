@@ -51,6 +51,8 @@ class VersionManager
             return;
         }
 
+        $this->manager->get($extension)->update($databaseVersion, $stopOnVersion ?: $currentVersion);
+
         $newUpdates = $this->getNewFileVersions($name, $databaseVersion);
 
         foreach ($newUpdates as $version => $details) {
@@ -304,12 +306,12 @@ class VersionManager
         $updateFile = $this->manager->path($name, 'updates/'.$script);
 
         if (! is_file($updateFile)) {
-            $this->note('- <error>v'.$version.':  Migration file "'.$script.'" not found</error>');
+            $this->note(sprintf('- <error>v%s:  Migration file "%s" not found</error>', $version, $script));
 
             return;
         }
 
-        $this->updater->setUp($updateFile, function () use ($name, $version, $script) {
+        $this->updater->setUp($this->resolveUpdater($name, $updateFile), function () use ($name, $version, $script) {
             ExtensionHistory::query()->create([
                 'name'    => $name,
                 'type'    => static::HISTORY_TYPE_SCRIPT,
@@ -317,13 +319,26 @@ class VersionManager
                 'detail'  => $script,
             ]);
         });
+
+        $this->note(sprintf('- <info>v%s:  Migrated</info> %s', $version, $script));
+    }
+
+    protected function resolveUpdater($name, $updateFile)
+    {
+        $updater = $this->updater->resolve($updateFile);
+
+        if (method_exists($updater, 'setExtension')) {
+            $updater->setExtension($this->manager->get($name));
+        }
+
+        return $updater;
     }
 
     protected function removeDatabaseScript($name, $version, $script)
     {
         $updateFile = $this->manager->path($name, 'updates/'.$script);
 
-        $this->updater->packDown($updateFile, function () use ($name, $version, $script) {
+        $this->updater->packDown($this->resolveUpdater($name, $updateFile), function () use ($name, $version, $script) {
             ExtensionHistory::query()
                 ->where('name', $name)
                 ->where('type', static::HISTORY_TYPE_SCRIPT)

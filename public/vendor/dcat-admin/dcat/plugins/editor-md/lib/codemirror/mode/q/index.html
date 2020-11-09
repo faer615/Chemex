@@ -64,9 +64,7 @@ CHUNKSIZE:50000000 / used in fs2 (modified .Q.fs)
 k)nameltrim:{$[~@x;.z.s'x;~(*x)in aA:.Q.a,.Q.A;(+/&\~x in aA)_x;x]}
 k)fs2:{[f;s]((-7!s)>){[f;s;x]i:1+last@&0xa=r:1:(s;x;CHUNKSIZE);f@`\:i#r;x+i}[f;s]/0j}
 cleanhdrs:{{$[ZAPHDRS;lower x except"_";x]}x where x in DELIM,.Q.an}
-cancast:{nw:x$"";if[not x in"BXCS";nw:(min 0#;max 0#;::)@\:nw];$[not any nw in x$(11&count y)#y;$[11<count (exec
-                                                                                                           )xcol(exec
-                                                                                                           0xa=read1(file;0;WIDTHHDR))}
+cancast:{nw:x$"";if[not x in"BXCS";nw:(min 0#;max 0#;::)@\:nw];$[not any nw in x$(11&count y)#y;$[11<count (exec )xcol(exec 0xa=read1(file;0;WIDTHHDR))}
                                                                                                            0xa=read1(file;0;15*WIDTHHDR))}
                                                                                                            0xa=read1(file;0;WIDTHHDR));
 
@@ -75,21 +73,17 @@ cancast:{nw:x$"";if[not x in"BXCS";nw:(min 0#;max 0#;::)@\:nw];$[not any nw in x
 
                                                                                                            DELIM
                                                                                                            DELIM)0:file}
-                                                                                                           `$nameltrim
-                                                                                                           any
+                                                                                                           `$nameltrim any
                                                                                                            c
                                                                                                            cleanhdrs
                                                                                                            cleanhdrs
                                                                                                            colhdrs)#
                                                                                                            colhdrs:`$nameltrim
                                                                                                            colhdrs:{[file]
-                                                                                                           data10:{[file;info]
-                                                                                                           data:{[file;info]
-                                                                                                           data[;info](file;0;1+last
+                                                                                                           data10:{[file;info] data:{[file;info] data[;info](file;0;1+last
                                                                                                            first first
                                                                                                            from from
-                                                                                                           head:read0(file;0;1+last
-                                                                                                           in
+                                                                                                           head:read0(file;0;1+last in
                                                                                                            info
                                                                                                            info0:{[file;onlycols]
                                                                                                            info;enlist
