@@ -11,6 +11,7 @@ use Closure;
 use Dcat\Admin\Grid\LazyRenderable as LazyGrid;
 use Dcat\Admin\Traits\LazyWidget;
 use Dcat\Admin\Widgets\Card;
+use Exception;
 use Illuminate\Contracts\Support\Renderable;
 
 class CheckDevicePercentage extends Card
@@ -34,7 +35,11 @@ class CheckDevicePercentage extends Card
                 ->get()
                 ->count();
             $done_counts = $check_tracks_counts . ' / ' . $device_records_all;
-            $percentage = round($check_tracks_counts / $device_records_all * 100, 2);
+            try {
+                $percentage = round($check_tracks_counts / $device_records_all * 100, 2);
+            } catch (Exception $exception) {
+                $percentage = 0;
+            }
         } else {
             $done_counts = '未找到在列的盘点任务';
             $percentage = 0;
