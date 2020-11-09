@@ -1,3 +1,5 @@
+<img style="width: 100%" src="https://oss.celaraze.com/chemex/chemex_banner.svg"/>
+
 <div align="center">
     <img src="http://chemex.it/assets/images/logo.png"/>
     <h2>Chemex 咖啡壶</h2>
@@ -34,7 +36,7 @@
 
 [Dcat Admin](https://dcatadmin.com) ，高颜值、高效率的后台开发框架。
 
-`Dr. Peter Schlumbohm`，感谢发明了 Chemex 冲煮咖啡。
+`Dr. Peter Schlumbohm`，感谢发明了 Chemex 冲煮咖啡。pip install --upgrade tensorflow
 
 ## 简介
 
