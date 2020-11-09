@@ -1,4 +1,4 @@
-<img style="width: 100%" src="https://oss.celaraze.com/chemex/chemex_banner.svg"/>
+<img style="width: 100%" src="https://oss.celaraze.com/chemex/banner.gif"/>
 
 <div align="center">
     <img src="https://oss.celaraze.com/chemex/logo.png" />
