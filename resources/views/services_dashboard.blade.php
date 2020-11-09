@@ -11,7 +11,7 @@
     </thead>
     <tbody>
     @foreach($services as $service)
-        <tr>
+        <tr class="table-content">
             <td>{{$service['device_name']}}</td>
             <td>{{$service['name']}}</td>
             <td class="status">
@@ -71,5 +71,10 @@
 
     .status-recovery {
         color: rgba(76, 181, 171, 1);
+    }
+
+    .table-content > td {
+        display: table-cell;
+        vertical-align: middle
     }
 </style>

@@ -36,6 +36,8 @@ class ServiceRecordController extends AdminController
             $grid->disableDeleteButton();
 
             $grid->toolsWithOutline(false);
+
+            $grid->export();
         });
     }
 

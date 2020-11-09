@@ -48,6 +48,8 @@ class CheckRecordController extends AdminController
             $grid->toolsWithOutline(false);
 
             $grid->enableDialogCreate();
+
+            $grid->export();
         });
     }
 

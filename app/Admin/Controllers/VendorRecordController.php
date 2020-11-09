@@ -30,6 +30,8 @@ class VendorRecordController extends AdminController
             $grid->enableDialogCreate();
 
             $grid->toolsWithOutline(false);
+
+            $grid->export();
         });
     }
 

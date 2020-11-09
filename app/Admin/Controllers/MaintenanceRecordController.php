@@ -62,6 +62,8 @@ class MaintenanceRecordController extends AdminController
                     2 => '取消'
                 ]);
             });
+
+            $grid->export();
         });
     }
 

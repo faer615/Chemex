@@ -96,6 +96,8 @@ class DeviceRecordController extends AdminController
             });
 
             $grid->enableDialogCreate();
+
+            $grid->export();
         });
     }
 

@@ -58,6 +58,8 @@ class SoftwareRecordController extends AdminController
             $grid->disableDeleteButton();
 
             $grid->toolsWithOutline(false);
+
+            $grid->export();
         });
     }
 

@@ -41,6 +41,8 @@ class StaffRecordController extends AdminController
             });
 
             $grid->toolsWithOutline(false);
+
+            $grid->export();
         });
     }
 
