@@ -1,8 +1,7 @@
 <img style="width: 100%" src="https://oss.celaraze.com/chemex/chemex_banner.svg"/>
 
 <div align="center">
-    <img src="http://chemex.it/assets/images/logo.svg"/>
-    <h2>Chemex 咖啡壶</h2>
+    <img src="https://oss.celaraze.com/chemex/logo.png" style="width: 230px;height: 70px"/>
 </div>
 
 <p align="center">
