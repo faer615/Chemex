@@ -11,7 +11,7 @@ class AdminMenu extends Model
     use HasFactory;
     use HasDateTimeFormatter;
 
-    protected $table = 'admin_users';
+    protected $table = 'admin_menu';
 
     /**
      * 模型的 "booted" 方法

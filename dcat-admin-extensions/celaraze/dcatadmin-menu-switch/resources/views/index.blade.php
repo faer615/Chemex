@@ -8,6 +8,6 @@
 	}
 </style>
 
-<script require="@celaraze.chemex-ldap-importer">
+<script require="@celaraze.dcatadmin-menu-switch">
 	$('.extension-demo').extensionDemo();
 </script>
