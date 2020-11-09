@@ -1,7 +1,7 @@
 <img style="width: 100%" src="https://oss.celaraze.com/chemex/chemex_banner.svg"/>
 
 <div align="center">
-    <img src="https://oss.celaraze.com/chemex/logo.png" style="width: 230px;height: 70px"/>
+    <img src="https://oss.celaraze.com/chemex/logo.png" />
 </div>
 
 <p align="center">
