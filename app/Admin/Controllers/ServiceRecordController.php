@@ -33,7 +33,8 @@ class ServiceRecordController extends AdminController
             });
 
             $grid->enableDialogCreate();
-            $grid->disableDeleteButton();
+            $grid->disableRowSelector();
+            $grid->disableBatchActions();
 
             $grid->toolsWithOutline(false);
 

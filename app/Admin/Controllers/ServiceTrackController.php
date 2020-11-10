@@ -29,7 +29,7 @@ class ServiceTrackController extends AdminController
 
             $grid->disableCreateButton();
             $grid->disableRowSelector();
-            $grid->disableBatchDelete();
+            $grid->disableBatchActions();
             $grid->disableViewButton();
             $grid->disableEditButton();
             $grid->disableDeleteButton();

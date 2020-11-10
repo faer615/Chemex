@@ -34,7 +34,8 @@ class StaffRecordController extends AdminController
                 ->auto(false);
 
             $grid->enableDialogCreate();
-            $grid->disableDeleteButton();
+            $grid->disableRowSelector();
+            $grid->disableBatchActions();
 
             $grid->actions(function (Grid\Displayers\Actions $actions) {
                 $actions->append(new StaffDeleteAction());

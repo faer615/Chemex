@@ -41,7 +41,7 @@ class CheckRecordController extends AdminController
             });
 
             $grid->disableRowSelector();
-            $grid->disableBatchDelete();
+            $grid->disableBatchActions();
             $grid->disableEditButton();
             $grid->disableDeleteButton();
 

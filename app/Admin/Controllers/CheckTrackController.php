@@ -60,7 +60,7 @@ class CheckTrackController extends AdminController
             });
 
             $grid->disableRowSelector();
-            $grid->disableBatchDelete();
+            $grid->disableBatchActions();
             $grid->disableCreateButton();
             $grid->disableEditButton();
             $grid->disableViewButton();

@@ -28,6 +28,8 @@ class VendorRecordController extends AdminController
                 ->auto(false);
 
             $grid->enableDialogCreate();
+            $grid->disableRowSelector();
+            $grid->disableBatchActions();
 
             $grid->toolsWithOutline(false);
 

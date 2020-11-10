@@ -27,7 +27,7 @@ class HardwareTrackController extends AdminController
 
             $grid->disableCreateButton();
             $grid->disableRowSelector();
-            $grid->disableBatchDelete();
+            $grid->disableBatchActions();
             $grid->disableViewButton();
             $grid->disableEditButton();
             $grid->disableDeleteButton();
