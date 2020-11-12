@@ -1,4 +1,5 @@
 <?php
+
 namespace Lcobucci\JWT\Signer\Ecdsa;
 
 use InvalidArgumentException;
@@ -24,9 +25,10 @@ final class MultibyteStringConverterTest extends TestCase
         $r,
         $s,
         $asn1
-    ) {
+    )
+    {
         $converter = new MultibyteStringConverter();
-        $message   = hex2bin($r . $s);
+        $message = hex2bin($r . $s);
 
         self::assertSame($asn1, bin2hex($converter->toAsn1($message, strlen($r))));
     }
@@ -57,7 +59,7 @@ final class MultibyteStringConverterTest extends TestCase
     public function fromAsn1ShouldReturnTheConcatenatedPoints($r, $s, $asn1)
     {
         $converter = new MultibyteStringConverter();
-        $message   = hex2bin($asn1);
+        $message = hex2bin($asn1);
 
         self::assertSame($r . $s, bin2hex($converter->fromAsn1($message, strlen($r))));
     }
@@ -105,7 +107,7 @@ final class MultibyteStringConverterTest extends TestCase
     public function fromAsn1ShouldRaiseExceptionOnInvalidMessage($message)
     {
         $converter = new MultibyteStringConverter();
-        $message   = hex2bin($message);
+        $message = hex2bin($message);
 
         $this->expectException(InvalidArgumentException::class);
         $converter->fromAsn1($message, 64);
@@ -117,11 +119,11 @@ final class MultibyteStringConverterTest extends TestCase
     public function invalidAsn1Structures()
     {
         return [
-            'Not a sequence'           => [''],
-            'Sequence without length'  => ['30'],
-            'Only one string element'  => ['3006030204f0'],
+            'Not a sequence' => [''],
+            'Sequence without length' => ['30'],
+            'Only one string element' => ['3006030204f0'],
             'Only one integer element' => ['3004020101'],
-            'Integer+string elements'  => ['300a020101030204f0'],
+            'Integer+string elements' => ['300a020101030204f0'],
         ];
     }
 }

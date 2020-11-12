@@ -55,7 +55,7 @@ class CollectionConfigurator
      */
     final public function collection(string $name = ''): self
     {
-        return new self($this->collection, $this->name.$name, $this, $this->prefixes);
+        return new self($this->collection, $this->name . $name, $this, $this->prefixes);
     }
 
     /**
@@ -78,7 +78,7 @@ class CollectionConfigurator
                         throw new \LogicException(sprintf('Collection "%s" with locale "%s" is missing a corresponding prefix in its parent collection.', $this->name, $locale));
                     }
 
-                    $prefix[$locale] = $this->parentPrefixes[$locale].$localePrefix;
+                    $prefix[$locale] = $this->parentPrefixes[$locale] . $localePrefix;
                 }
             }
             $this->prefixes = $prefix;

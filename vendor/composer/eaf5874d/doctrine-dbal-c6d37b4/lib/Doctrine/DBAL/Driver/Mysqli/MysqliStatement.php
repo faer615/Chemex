@@ -38,12 +38,12 @@ class MysqliStatement implements IteratorAggregate, StatementInterface, Result
 {
     /** @var string[] */
     protected static $_paramTypeMap = [
-        ParameterType::ASCII        => 's',
-        ParameterType::STRING       => 's',
-        ParameterType::BINARY       => 's',
-        ParameterType::BOOLEAN      => 'i',
-        ParameterType::NULL         => 's',
-        ParameterType::INTEGER      => 'i',
+        ParameterType::ASCII => 's',
+        ParameterType::STRING => 's',
+        ParameterType::BINARY => 's',
+        ParameterType::BOOLEAN => 'i',
+        ParameterType::NULL => 's',
+        ParameterType::INTEGER => 'i',
         ParameterType::LARGE_OBJECT => 'b',
     ];
 
@@ -83,11 +83,11 @@ class MysqliStatement implements IteratorAggregate, StatementInterface, Result
     private $result = false;
 
     /**
-     * @internal The statement can be only instantiated by its driver connection.
-     *
      * @param string $prepareString
      *
      * @throws MysqliException
+     * @internal The statement can be only instantiated by its driver connection.
+     *
      */
     public function __construct(mysqli $conn, $prepareString)
     {
@@ -106,7 +106,7 @@ class MysqliStatement implements IteratorAggregate, StatementInterface, Result
             return;
         }
 
-        $this->types         = str_repeat('s', $paramCount);
+        $this->types = str_repeat('s', $paramCount);
         $this->_bindedValues = array_fill(1, $paramCount, null);
     }
 
@@ -117,12 +117,12 @@ class MysqliStatement implements IteratorAggregate, StatementInterface, Result
     {
         assert(is_int($param));
 
-        if (! isset(self::$_paramTypeMap[$type])) {
+        if (!isset(self::$_paramTypeMap[$type])) {
             throw UnknownType::new($type);
         }
 
         $this->_bindedValues[$param] =& $variable;
-        $this->types[$param - 1]     = self::$_paramTypeMap[$type];
+        $this->types[$param - 1] = self::$_paramTypeMap[$type];
 
         return true;
     }
@@ -134,13 +134,13 @@ class MysqliStatement implements IteratorAggregate, StatementInterface, Result
     {
         assert(is_int($param));
 
-        if (! isset(self::$_paramTypeMap[$type])) {
+        if (!isset(self::$_paramTypeMap[$type])) {
             throw UnknownType::new($type);
         }
 
-        $this->_values[$param]       = $value;
+        $this->_values[$param] = $value;
         $this->_bindedValues[$param] =& $this->_values[$param];
-        $this->types[$param - 1]     = self::$_paramTypeMap[$type];
+        $this->types[$param - 1] = self::$_paramTypeMap[$type];
 
         return true;
     }
@@ -152,7 +152,7 @@ class MysqliStatement implements IteratorAggregate, StatementInterface, Result
     {
         if ($this->_bindedValues !== null) {
             if ($params !== null) {
-                if (! $this->bindUntypedValues($params)) {
+                if (!$this->bindUntypedValues($params)) {
                     throw StatementError::new($this->_stmt);
                 }
             } else {
@@ -160,7 +160,7 @@ class MysqliStatement implements IteratorAggregate, StatementInterface, Result
             }
         }
 
-        if (! $this->_stmt->execute()) {
+        if (!$this->_stmt->execute()) {
             throw StatementError::new($this->_stmt);
         }
 
@@ -207,7 +207,7 @@ class MysqliStatement implements IteratorAggregate, StatementInterface, Result
                 $refs[$key] =& $value;
             }
 
-            if (! $this->_stmt->bind_result(...$refs)) {
+            if (!$this->_stmt->bind_result(...$refs)) {
                 throw StatementError::new($this->_stmt);
             }
         }
@@ -215,109 +215,6 @@ class MysqliStatement implements IteratorAggregate, StatementInterface, Result
         $this->result = true;
 
         return true;
-    }
-
-    /**
-     * Binds parameters with known types previously bound to the statement
-     */
-    private function bindTypedParameters(): void
-    {
-        $streams = $values = [];
-        $types   = $this->types;
-
-        foreach ($this->_bindedValues as $parameter => $value) {
-            assert(is_int($parameter));
-
-            if (! isset($types[$parameter - 1])) {
-                $types[$parameter - 1] = static::$_paramTypeMap[ParameterType::STRING];
-            }
-
-            if ($types[$parameter - 1] === static::$_paramTypeMap[ParameterType::LARGE_OBJECT]) {
-                if (is_resource($value)) {
-                    if (get_resource_type($value) !== 'stream') {
-                        throw new InvalidArgumentException(
-                            'Resources passed with the LARGE_OBJECT parameter type must be stream resources.'
-                        );
-                    }
-
-                    $streams[$parameter] = $value;
-                    $values[$parameter]  = null;
-                    continue;
-                }
-
-                $types[$parameter - 1] = static::$_paramTypeMap[ParameterType::STRING];
-            }
-
-            $values[$parameter] = $value;
-        }
-
-        if (! $this->_stmt->bind_param($types, ...$values)) {
-            throw StatementError::new($this->_stmt);
-        }
-
-        $this->sendLongData($streams);
-    }
-
-    /**
-     * Handle $this->_longData after regular query parameters have been bound
-     *
-     * @param array<int, resource> $streams
-     *
-     * @throws MysqliException
-     */
-    private function sendLongData(array $streams): void
-    {
-        foreach ($streams as $paramNr => $stream) {
-            while (! feof($stream)) {
-                $chunk = fread($stream, 8192);
-
-                if ($chunk === false) {
-                    throw FailedReadingStreamOffset::new($paramNr);
-                }
-
-                if (! $this->_stmt->send_long_data($paramNr - 1, $chunk)) {
-                    throw StatementError::new($this->_stmt);
-                }
-            }
-        }
-    }
-
-    /**
-     * Binds a array of values to bound parameters.
-     *
-     * @param mixed[] $values
-     *
-     * @return bool
-     */
-    private function bindUntypedValues(array $values)
-    {
-        $params = [];
-        $types  = str_repeat('s', count($values));
-
-        foreach ($values as &$v) {
-            $params[] =& $v;
-        }
-
-        return $this->_stmt->bind_param($types, ...$params);
-    }
-
-    /**
-     * @return mixed[]|false|null
-     */
-    private function _fetch()
-    {
-        $ret = $this->_stmt->fetch();
-
-        if ($ret === true) {
-            $values = [];
-            foreach ($this->_rowBindedValues as $v) {
-                $values[] = $v;
-            }
-
-            return $values;
-        }
-
-        return $ret;
     }
 
     /**
@@ -329,7 +226,7 @@ class MysqliStatement implements IteratorAggregate, StatementInterface, Result
     {
         // do not try fetching from the statement if it's not expected to contain result
         // in order to prevent exceptional situation
-        if (! $this->result) {
+        if (!$this->result) {
             return false;
         }
 
@@ -365,7 +262,7 @@ class MysqliStatement implements IteratorAggregate, StatementInterface, Result
                 return $assoc + $values;
 
             case FetchMode::STANDARD_OBJECT:
-                return (object) $assoc;
+                return (object)$assoc;
 
             default:
                 throw new MysqliException(sprintf("Unknown fetch type '%s'", $fetchMode));
@@ -421,7 +318,7 @@ class MysqliStatement implements IteratorAggregate, StatementInterface, Result
     {
         // do not try fetching from the statement if it's not expected to contain the result
         // in order to prevent exceptional situation
-        if (! $this->result) {
+        if (!$this->result) {
             return false;
         }
 
@@ -499,9 +396,9 @@ class MysqliStatement implements IteratorAggregate, StatementInterface, Result
     /**
      * {@inheritdoc}
      *
+     * @return string
      * @deprecated The error information is available via exceptions.
      *
-     * @return string
      */
     public function errorInfo()
     {
@@ -566,5 +463,108 @@ class MysqliStatement implements IteratorAggregate, StatementInterface, Result
     public function getIterator()
     {
         return new StatementIterator($this);
+    }
+
+    /**
+     * Binds parameters with known types previously bound to the statement
+     */
+    private function bindTypedParameters(): void
+    {
+        $streams = $values = [];
+        $types = $this->types;
+
+        foreach ($this->_bindedValues as $parameter => $value) {
+            assert(is_int($parameter));
+
+            if (!isset($types[$parameter - 1])) {
+                $types[$parameter - 1] = static::$_paramTypeMap[ParameterType::STRING];
+            }
+
+            if ($types[$parameter - 1] === static::$_paramTypeMap[ParameterType::LARGE_OBJECT]) {
+                if (is_resource($value)) {
+                    if (get_resource_type($value) !== 'stream') {
+                        throw new InvalidArgumentException(
+                            'Resources passed with the LARGE_OBJECT parameter type must be stream resources.'
+                        );
+                    }
+
+                    $streams[$parameter] = $value;
+                    $values[$parameter] = null;
+                    continue;
+                }
+
+                $types[$parameter - 1] = static::$_paramTypeMap[ParameterType::STRING];
+            }
+
+            $values[$parameter] = $value;
+        }
+
+        if (!$this->_stmt->bind_param($types, ...$values)) {
+            throw StatementError::new($this->_stmt);
+        }
+
+        $this->sendLongData($streams);
+    }
+
+    /**
+     * Handle $this->_longData after regular query parameters have been bound
+     *
+     * @param array<int, resource> $streams
+     *
+     * @throws MysqliException
+     */
+    private function sendLongData(array $streams): void
+    {
+        foreach ($streams as $paramNr => $stream) {
+            while (!feof($stream)) {
+                $chunk = fread($stream, 8192);
+
+                if ($chunk === false) {
+                    throw FailedReadingStreamOffset::new($paramNr);
+                }
+
+                if (!$this->_stmt->send_long_data($paramNr - 1, $chunk)) {
+                    throw StatementError::new($this->_stmt);
+                }
+            }
+        }
+    }
+
+    /**
+     * Binds a array of values to bound parameters.
+     *
+     * @param mixed[] $values
+     *
+     * @return bool
+     */
+    private function bindUntypedValues(array $values)
+    {
+        $params = [];
+        $types = str_repeat('s', count($values));
+
+        foreach ($values as &$v) {
+            $params[] =& $v;
+        }
+
+        return $this->_stmt->bind_param($types, ...$params);
+    }
+
+    /**
+     * @return mixed[]|false|null
+     */
+    private function _fetch()
+    {
+        $ret = $this->_stmt->fetch();
+
+        if ($ret === true) {
+            $values = [];
+            foreach ($this->_rowBindedValues as $v) {
+                $values[] = $v;
+            }
+
+            return $values;
+        }
+
+        return $ret;
     }
 }

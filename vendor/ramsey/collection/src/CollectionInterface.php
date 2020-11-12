@@ -141,7 +141,7 @@ interface CollectionInterface extends ArrayInterface
      * a new one.
      *
      * @param string $propertyOrMethod The property or method to evaluate.
-     * @param mixed  $value The value to match.
+     * @param mixed $value The value to match.
      *
      * @return CollectionInterface<mixed, mixed>
      */

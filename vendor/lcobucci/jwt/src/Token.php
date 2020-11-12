@@ -64,7 +64,8 @@ class Token
         array $claims = [],
         Signature $signature = null,
         array $payload = ['', '']
-    ) {
+    )
+    {
         $this->headers = $headers;
         $this->claims = $claims;
         $this->signature = $signature;
@@ -114,24 +115,6 @@ class Token
         }
 
         return $default;
-    }
-
-    /**
-     * Returns the value stored in header
-     *
-     * @param string $name
-     *
-     * @return mixed
-     */
-    private function getHeaderValue($name)
-    {
-        $header = $this->headers[$name];
-
-        if ($header instanceof Claim) {
-            return $header->getValue();
-        }
-
-        return $header;
     }
 
     /**
@@ -244,20 +227,6 @@ class Token
     }
 
     /**
-     * Yields the validatable claims
-     *
-     * @return Generator
-     */
-    private function getValidatableClaims()
-    {
-        foreach ($this->claims as $claim) {
-            if ($claim instanceof Validatable) {
-                yield $claim;
-            }
-        }
-    }
-
-    /**
      * Returns the token payload
      *
      * @return string
@@ -281,5 +250,37 @@ class Token
         }
 
         return $data;
+    }
+
+    /**
+     * Returns the value stored in header
+     *
+     * @param string $name
+     *
+     * @return mixed
+     */
+    private function getHeaderValue($name)
+    {
+        $header = $this->headers[$name];
+
+        if ($header instanceof Claim) {
+            return $header->getValue();
+        }
+
+        return $header;
+    }
+
+    /**
+     * Yields the validatable claims
+     *
+     * @return Generator
+     */
+    private function getValidatableClaims()
+    {
+        foreach ($this->claims as $claim) {
+            if ($claim instanceof Validatable) {
+                yield $claim;
+            }
+        }
     }
 }

@@ -29,10 +29,10 @@ class ErrorLogHandler extends AbstractProcessingHandler
     protected $expandNewlines;
 
     /**
-     * @param int        $messageType    Says where the error should go.
-     * @param int|string $level          The minimum logging level at which this handler will be triggered
-     * @param bool       $bubble         Whether the messages that are handled can bubble up the stack or not
-     * @param bool       $expandNewlines If set to true, newlines in the message will be expanded to be take multiple log entries
+     * @param int $messageType Says where the error should go.
+     * @param int|string $level The minimum logging level at which this handler will be triggered
+     * @param bool $bubble Whether the messages that are handled can bubble up the stack or not
+     * @param bool $expandNewlines If set to true, newlines in the message will be expanded to be take multiple log entries
      */
     public function __construct(int $messageType = self::OPERATING_SYSTEM, $level = Logger::DEBUG, bool $bubble = true, bool $expandNewlines = false)
     {
@@ -73,12 +73,12 @@ class ErrorLogHandler extends AbstractProcessingHandler
     protected function write(array $record): void
     {
         if (!$this->expandNewlines) {
-            error_log((string) $record['formatted'], $this->messageType);
+            error_log((string)$record['formatted'], $this->messageType);
 
             return;
         }
 
-        $lines = preg_split('{[\r\n]+}', (string) $record['formatted']);
+        $lines = preg_split('{[\r\n]+}', (string)$record['formatted']);
         foreach ($lines as $line) {
             error_log($line, $this->messageType);
         }

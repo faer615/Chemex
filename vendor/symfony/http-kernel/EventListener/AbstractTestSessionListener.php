@@ -39,6 +39,14 @@ abstract class AbstractTestSessionListener implements EventSubscriberInterface
         $this->sessionOptions = $sessionOptions;
     }
 
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            KernelEvents::REQUEST => ['onKernelRequest', 192],
+            KernelEvents::RESPONSE => ['onKernelResponse', -128],
+        ];
+    }
+
     public function onKernelRequest(RequestEvent $event)
     {
         if (!$event->isMasterRequest()) {
@@ -95,14 +103,6 @@ abstract class AbstractTestSessionListener implements EventSubscriberInterface
             $event->getResponse()->headers->setCookie(new Cookie($session->getName(), $session->getId(), 0 === $params['lifetime'] ? 0 : time() + $params['lifetime'], $params['path'], $params['domain'], $params['secure'], $params['httponly'], false, $params['samesite'] ?: null));
             $this->sessionId = $session->getId();
         }
-    }
-
-    public static function getSubscribedEvents(): array
-    {
-        return [
-            KernelEvents::REQUEST => ['onKernelRequest', 192],
-            KernelEvents::RESPONSE => ['onKernelResponse', -128],
-        ];
     }
 
     /**

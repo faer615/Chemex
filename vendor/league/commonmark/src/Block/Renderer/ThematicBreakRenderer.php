@@ -22,9 +22,9 @@ use League\CommonMark\HtmlElement;
 final class ThematicBreakRenderer implements BlockRendererInterface
 {
     /**
-     * @param ThematicBreak            $block
+     * @param ThematicBreak $block
      * @param ElementRendererInterface $htmlRenderer
-     * @param bool                     $inTightList
+     * @param bool $inTightList
      *
      * @return HtmlElement
      */

@@ -42,8 +42,8 @@ trait ManagesComponents
     /**
      * Start a component rendering process.
      *
-     * @param  \Illuminate\Contracts\View\View|\Illuminate\Contracts\Support\Htmlable|\Closure|string  $view
-     * @param  array  $data
+     * @param \Illuminate\Contracts\View\View|\Illuminate\Contracts\Support\Htmlable|\Closure|string $view
+     * @param array $data
      * @return void
      */
     public function startComponent($view, array $data = [])
@@ -60,8 +60,8 @@ trait ManagesComponents
     /**
      * Get the first view that actually exists from the given list, and start a component.
      *
-     * @param  array  $names
-     * @param  array  $data
+     * @param array $names
+     * @param array $data
      * @return void
      */
     public function startComponentFirst(array $names, array $data = [])
@@ -98,37 +98,16 @@ trait ManagesComponents
     }
 
     /**
-     * Get the data for the given component.
-     *
-     * @return array
-     */
-    protected function componentData()
-    {
-        $defaultSlot = new HtmlString(trim(ob_get_clean()));
-
-        $slots = array_merge([
-            '__default' => $defaultSlot,
-        ], $this->slots[count($this->componentStack)]);
-
-        return array_merge(
-            $this->componentData[count($this->componentStack)],
-            ['slot' => $defaultSlot],
-            $this->slots[count($this->componentStack)],
-            ['__laravel_slots' => $slots]
-        );
-    }
-
-    /**
      * Start the slot rendering process.
      *
-     * @param  string  $name
-     * @param  string|null  $content
+     * @param string $name
+     * @param string|null $content
      * @return void
      */
     public function slot($name, $content = null)
     {
         if (func_num_args() > 2) {
-            throw new InvalidArgumentException('You passed too many arguments to the ['.$name.'] slot.');
+            throw new InvalidArgumentException('You passed too many arguments to the [' . $name . '] slot.');
         } elseif (func_num_args() === 2) {
             $this->slots[$this->currentComponent()][$name] = $content;
         } elseif (ob_start()) {
@@ -152,7 +131,28 @@ trait ManagesComponents
         );
 
         $this->slots[$this->currentComponent()]
-                    [$currentSlot] = new HtmlString(trim(ob_get_clean()));
+        [$currentSlot] = new HtmlString(trim(ob_get_clean()));
+    }
+
+    /**
+     * Get the data for the given component.
+     *
+     * @return array
+     */
+    protected function componentData()
+    {
+        $defaultSlot = new HtmlString(trim(ob_get_clean()));
+
+        $slots = array_merge([
+            '__default' => $defaultSlot,
+        ], $this->slots[count($this->componentStack)]);
+
+        return array_merge(
+            $this->componentData[count($this->componentStack)],
+            ['slot' => $defaultSlot],
+            $this->slots[count($this->componentStack)],
+            ['__laravel_slots' => $slots]
+        );
     }
 
     /**

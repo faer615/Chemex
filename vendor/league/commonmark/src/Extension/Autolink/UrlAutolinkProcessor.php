@@ -52,23 +52,6 @@ final class UrlAutolinkProcessor
         $this->finalRegex = \sprintf(self::REGEX, \implode('|', $allowedProtocols));
     }
 
-    /**
-     * @param DocumentParsedEvent $e
-     *
-     * @return void
-     */
-    public function __invoke(DocumentParsedEvent $e)
-    {
-        $walker = $e->getDocument()->walker();
-
-        while ($event = $walker->next()) {
-            $node = $event->getNode();
-            if ($node instanceof Text && !($node->parent() instanceof Link)) {
-                self::processAutolinks($node, $this->finalRegex);
-            }
-        }
-    }
-
     private static function processAutolinks(Text $node, string $regex): void
     {
         $contents = \preg_split($regex, $node->getContent(), -1, PREG_SPLIT_DELIM_CAPTURE);
@@ -149,5 +132,22 @@ final class UrlAutolinkProcessor
         }
 
         return $charCount[')'] - $charCount['('];
+    }
+
+    /**
+     * @param DocumentParsedEvent $e
+     *
+     * @return void
+     */
+    public function __invoke(DocumentParsedEvent $e)
+    {
+        $walker = $e->getDocument()->walker();
+
+        while ($event = $walker->next()) {
+            $node = $event->getNode();
+            if ($node instanceof Text && !($node->parent() instanceof Link)) {
+                self::processAutolinks($node, $this->finalRegex);
+            }
+        }
     }
 }

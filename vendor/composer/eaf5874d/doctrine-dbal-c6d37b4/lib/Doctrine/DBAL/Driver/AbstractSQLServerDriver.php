@@ -29,11 +29,11 @@ abstract class AbstractSQLServerDriver implements Driver, VersionAwarePlatformDr
     public function createDatabasePlatformForVersion($version)
     {
         if (
-            ! preg_match(
-                '/^(?P<major>\d+)(?:\.(?P<minor>\d+)(?:\.(?P<patch>\d+)(?:\.(?P<build>\d+))?)?)?/',
-                $version,
-                $versionParts
-            )
+        !preg_match(
+            '/^(?P<major>\d+)(?:\.(?P<minor>\d+)(?:\.(?P<patch>\d+)(?:\.(?P<build>\d+))?)?)?/',
+            $version,
+            $versionParts
+        )
         ) {
             throw Exception::invalidPlatformVersionSpecified(
                 $version,
@@ -45,7 +45,7 @@ abstract class AbstractSQLServerDriver implements Driver, VersionAwarePlatformDr
         $minorVersion = $versionParts['minor'] ?? 0;
         $patchVersion = $versionParts['patch'] ?? 0;
         $buildVersion = $versionParts['build'] ?? 0;
-        $version      = $majorVersion . '.' . $minorVersion . '.' . $patchVersion . '.' . $buildVersion;
+        $version = $majorVersion . '.' . $minorVersion . '.' . $patchVersion . '.' . $buildVersion;
 
         switch (true) {
             case version_compare($version, '11.00.2100', '>='):

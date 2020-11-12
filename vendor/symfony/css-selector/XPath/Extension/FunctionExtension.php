@@ -62,7 +62,7 @@ class FunctionExtension extends AbstractExtension
         }
 
         if (0 === $a) {
-            return $xpath->addCondition('position() = '.($last ? 'last() - '.($b - 1) : $b));
+            return $xpath->addCondition('position() = ' . ($last ? 'last() - ' . ($b - 1) : $b));
         }
 
         if ($a < 0) {
@@ -78,12 +78,12 @@ class FunctionExtension extends AbstractExtension
         $expr = 'position()';
 
         if ($last) {
-            $expr = 'last() - '.$expr;
+            $expr = 'last() - ' . $expr;
             --$b;
         }
 
         if (0 !== $b) {
-            $expr .= ' - '.$b;
+            $expr .= ' - ' . $b;
         }
 
         $conditions = [sprintf('%s %s 0', $expr, $sign)];
@@ -133,7 +133,7 @@ class FunctionExtension extends AbstractExtension
         $arguments = $function->getArguments();
         foreach ($arguments as $token) {
             if (!($token->isString() || $token->isIdentifier())) {
-                throw new ExpressionErrorException('Expected a single string or identifier for :contains(), got '.implode(', ', $arguments));
+                throw new ExpressionErrorException('Expected a single string or identifier for :contains(), got ' . implode(', ', $arguments));
             }
         }
 
@@ -151,7 +151,7 @@ class FunctionExtension extends AbstractExtension
         $arguments = $function->getArguments();
         foreach ($arguments as $token) {
             if (!($token->isString() || $token->isIdentifier())) {
-                throw new ExpressionErrorException('Expected a single string or identifier for :lang(), got '.implode(', ', $arguments));
+                throw new ExpressionErrorException('Expected a single string or identifier for :lang(), got ' . implode(', ', $arguments));
             }
         }
 

@@ -6,23 +6,6 @@ class Swift_Bug76Test extends \PHPUnit\Framework\TestCase
     private $outputFile;
     private $encoder;
 
-    protected function setUp()
-    {
-        $this->inputFile = sys_get_temp_dir().'/in.bin';
-        file_put_contents($this->inputFile, '');
-
-        $this->outputFile = sys_get_temp_dir().'/out.bin';
-        file_put_contents($this->outputFile, '');
-
-        $this->encoder = $this->createEncoder();
-    }
-
-    protected function tearDown()
-    {
-        unlink($this->inputFile);
-        unlink($this->outputFile);
-    }
-
     public function testBase64EncodedLineLengthNeverExceeds76CharactersEvenIfArgsDo()
     {
         $this->fillFileWithRandomBytes(1000, $this->inputFile);
@@ -43,6 +26,23 @@ class Swift_Bug76Test extends \PHPUnit\Framework\TestCase
         foreach ($lines as $line) {
             $this->assertTrue((strlen(trim($line)) <= 76), $message);
         }
+    }
+
+    protected function setUp()
+    {
+        $this->inputFile = sys_get_temp_dir() . '/in.bin';
+        file_put_contents($this->inputFile, '');
+
+        $this->outputFile = sys_get_temp_dir() . '/out.bin';
+        file_put_contents($this->outputFile, '');
+
+        $this->encoder = $this->createEncoder();
+    }
+
+    protected function tearDown()
+    {
+        unlink($this->inputFile);
+        unlink($this->outputFile);
     }
 
     private function fillFileWithRandomBytes($byteCount, $file)

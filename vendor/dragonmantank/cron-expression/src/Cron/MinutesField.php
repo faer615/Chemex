@@ -24,7 +24,7 @@ class MinutesField extends AbstractField
     /**
      * {@inheritdoc}
      */
-    public function isSatisfiedBy(DateTimeInterface $date, $value):bool
+    public function isSatisfiedBy(DateTimeInterface $date, $value): bool
     {
         if ($value == '?') {
             return true;
@@ -38,7 +38,7 @@ class MinutesField extends AbstractField
      * {@inheritDoc}
      *
      * @param \DateTime|\DateTimeImmutable &$date
-     * @param string|null                  $parts
+     * @param string|null $parts
      */
     public function increment(DateTimeInterface &$date, $invert = false, $parts = null): FieldInterface
     {
@@ -68,9 +68,9 @@ class MinutesField extends AbstractField
 
         if ((!$invert && $current_minute >= $minutes[$position]) || ($invert && $current_minute <= $minutes[$position])) {
             $date = $date->modify(($invert ? '-' : '+') . '1 hour');
-            $date = $date->setTime((int) $date->format('H'), $invert ? 59 : 0);
+            $date = $date->setTime((int)$date->format('H'), $invert ? 59 : 0);
         } else {
-            $date = $date->setTime((int) $date->format('H'), (int) $minutes[$position]);
+            $date = $date->setTime((int)$date->format('H'), (int)$minutes[$position]);
         }
 
         return $this;

@@ -35,7 +35,7 @@ class Converter implements ConverterInterface
     /**
      * Create a new commonmark converter instance.
      *
-     * @param DocParserInterface       $docParser
+     * @param DocParserInterface $docParser
      * @param ElementRendererInterface $htmlRenderer
      */
     public function __construct(DocParserInterface $docParser, ElementRendererInterface $htmlRenderer)
@@ -53,9 +53,9 @@ class Converter implements ConverterInterface
      *
      * @param string $commonMark
      *
-     * @throws \RuntimeException
-     *
      * @return string
+     *
+     * @throws \RuntimeException
      *
      * @api
      */
@@ -69,13 +69,13 @@ class Converter implements ConverterInterface
     /**
      * Converts CommonMark to HTML.
      *
-     * @see Converter::convertToHtml
-     *
      * @param string $commonMark
      *
+     * @return string
      * @throws \RuntimeException
      *
-     * @return string
+     * @see Converter::convertToHtml
+     *
      */
     public function __invoke(string $commonMark): string
     {

@@ -33,11 +33,11 @@ class StreamHandler extends AbstractProcessingHandler
     private $dirCreated;
 
     /**
-     * @param resource|string $stream         If a missing path can't be created, an UnexpectedValueException will be thrown on first write
-     * @param string|int      $level          The minimum logging level at which this handler will be triggered
-     * @param bool            $bubble         Whether the messages that are handled can bubble up the stack or not
-     * @param int|null        $filePermission Optional file permissions (default (0644) are only for owner read/write)
-     * @param bool            $useLocking     Try to lock log file before doing any writes
+     * @param resource|string $stream If a missing path can't be created, an UnexpectedValueException will be thrown on first write
+     * @param string|int $level The minimum logging level at which this handler will be triggered
+     * @param bool $bubble Whether the messages that are handled can bubble up the stack or not
+     * @param int|null $filePermission Optional file permissions (default (0644) are only for owner read/write)
+     * @param bool $useLocking Try to lock log file before doing any writes
      *
      * @throws \InvalidArgumentException If stream is not a resource or string
      */
@@ -108,7 +108,7 @@ class StreamHandler extends AbstractProcessingHandler
             if (!is_resource($this->stream)) {
                 $this->stream = null;
 
-                throw new \UnexpectedValueException(sprintf('The stream or file "%s" could not be opened in append mode: '.$this->errorMessage, $this->url));
+                throw new \UnexpectedValueException(sprintf('The stream or file "%s" could not be opened in append mode: ' . $this->errorMessage, $this->url));
             }
         }
 
@@ -127,11 +127,11 @@ class StreamHandler extends AbstractProcessingHandler
     /**
      * Write to stream
      * @param resource $stream
-     * @param array    $record
+     * @param array $record
      */
     protected function streamWrite($stream, array $record): void
     {
-        fwrite($stream, (string) $record['formatted']);
+        fwrite($stream, (string)$record['formatted']);
     }
 
     private function customErrorHandler($code, $msg): bool
@@ -169,7 +169,7 @@ class StreamHandler extends AbstractProcessingHandler
             $status = mkdir($dir, 0777, true);
             restore_error_handler();
             if (false === $status && !is_dir($dir)) {
-                throw new \UnexpectedValueException(sprintf('There is no existing directory at "%s" and it could not be created: '.$this->errorMessage, $dir));
+                throw new \UnexpectedValueException(sprintf('There is no existing directory at "%s" and it could not be created: ' . $this->errorMessage, $dir));
             }
         }
         $this->dirCreated = true;

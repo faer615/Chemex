@@ -108,7 +108,7 @@ class PendingRequest
     /**
      * Create a new HTTP Client instance.
      *
-     * @param  \Illuminate\Http\Client\Factory|null  $factory
+     * @param \Illuminate\Http\Client\Factory|null $factory
      * @return void
      */
     public function __construct(Factory $factory = null)
@@ -130,7 +130,7 @@ class PendingRequest
     /**
      * Set the base URL for the pending request.
      *
-     * @param  string  $url
+     * @param string $url
      * @return $this
      */
     public function baseUrl(string $url)
@@ -143,8 +143,8 @@ class PendingRequest
     /**
      * Attach a raw body to the request.
      *
-     * @param  resource|string  $content
-     * @param  string  $contentType
+     * @param resource|string $content
+     * @param string $contentType
      * @return $this
      */
     public function withBody($content, $contentType)
@@ -181,10 +181,10 @@ class PendingRequest
     /**
      * Attach a file to the request.
      *
-     * @param  string|array  $name
-     * @param  string  $contents
-     * @param  string|null  $filename
-     * @param  array  $headers
+     * @param string|array $name
+     * @param string $contents
+     * @param string|null $filename
+     * @param array $headers
      * @return $this
      */
     public function attach($name, $contents = '', $filename = null, array $headers = [])
@@ -222,7 +222,7 @@ class PendingRequest
     /**
      * Specify the body format of the request.
      *
-     * @param  string  $format
+     * @param string $format
      * @return $this
      */
     public function bodyFormat(string $format)
@@ -235,7 +235,7 @@ class PendingRequest
     /**
      * Specify the request's content type.
      *
-     * @param  string  $contentType
+     * @param string $contentType
      * @return $this
      */
     public function contentType(string $contentType)
@@ -256,7 +256,7 @@ class PendingRequest
     /**
      * Indicate the type of content that should be returned by the server.
      *
-     * @param  string  $contentType
+     * @param string $contentType
      * @return $this
      */
     public function accept($contentType)
@@ -267,7 +267,7 @@ class PendingRequest
     /**
      * Add the given headers to the request.
      *
-     * @param  array  $headers
+     * @param array $headers
      * @return $this
      */
     public function withHeaders(array $headers)
@@ -282,8 +282,8 @@ class PendingRequest
     /**
      * Specify the basic authentication username and password for the request.
      *
-     * @param  string  $username
-     * @param  string  $password
+     * @param string $username
+     * @param string $password
      * @return $this
      */
     public function withBasicAuth(string $username, string $password)
@@ -296,8 +296,8 @@ class PendingRequest
     /**
      * Specify the digest authentication username and password for the request.
      *
-     * @param  string  $username
-     * @param  string  $password
+     * @param string $username
+     * @param string $password
      * @return $this
      */
     public function withDigestAuth($username, $password)
@@ -310,21 +310,21 @@ class PendingRequest
     /**
      * Specify an authorization token for the request.
      *
-     * @param  string  $token
-     * @param  string  $type
+     * @param string $token
+     * @param string $type
      * @return $this
      */
     public function withToken($token, $type = 'Bearer')
     {
         return tap($this, function ($request) use ($token, $type) {
-            return $this->options['headers']['Authorization'] = trim($type.' '.$token);
+            return $this->options['headers']['Authorization'] = trim($type . ' ' . $token);
         });
     }
 
     /**
      * Specify the user agent for the request.
      *
-     * @param  string  $userAgent
+     * @param string $userAgent
      * @return $this
      */
     public function withUserAgent($userAgent)
@@ -335,8 +335,8 @@ class PendingRequest
     /**
      * Specify the cookies that should be included with the request.
      *
-     * @param  array  $cookies
-     * @param  string  $domain
+     * @param array $cookies
+     * @param string $domain
      * @return $this
      */
     public function withCookies(array $cookies, string $domain)
@@ -375,7 +375,7 @@ class PendingRequest
     /**
      * Specify the path where the body of the response should be stored.
      *
-     * @param  string|resource  $to
+     * @param string|resource $to
      * @return $this
      */
     public function sink($to)
@@ -388,7 +388,7 @@ class PendingRequest
     /**
      * Specify the timeout (in seconds) for the request.
      *
-     * @param  int  $seconds
+     * @param int $seconds
      * @return $this
      */
     public function timeout(int $seconds)
@@ -401,8 +401,8 @@ class PendingRequest
     /**
      * Specify the number of times the request should be attempted.
      *
-     * @param  int  $times
-     * @param  int  $sleep
+     * @param int $times
+     * @param int $sleep
      * @return $this
      */
     public function retry(int $times, int $sleep = 0)
@@ -416,7 +416,7 @@ class PendingRequest
     /**
      * Merge new options into the client.
      *
-     * @param  array  $options
+     * @param array $options
      * @return $this
      */
     public function withOptions(array $options)
@@ -429,7 +429,7 @@ class PendingRequest
     /**
      * Add new middleware the client handler stack.
      *
-     * @param  callable  $middleware
+     * @param callable $middleware
      * @return $this
      */
     public function withMiddleware(callable $middleware)
@@ -442,7 +442,7 @@ class PendingRequest
     /**
      * Add a new "before sending" callback to the request.
      *
-     * @param  callable  $callback
+     * @param callable $callback
      * @return $this
      */
     public function beforeSending($callback)
@@ -455,8 +455,8 @@ class PendingRequest
     /**
      * Issue a GET request to the given URL.
      *
-     * @param  string  $url
-     * @param  array|string|null  $query
+     * @param string $url
+     * @param array|string|null $query
      * @return \Illuminate\Http\Client\Response
      */
     public function get(string $url, $query = null)
@@ -469,8 +469,8 @@ class PendingRequest
     /**
      * Issue a HEAD request to the given URL.
      *
-     * @param  string  $url
-     * @param  array|string|null  $query
+     * @param string $url
+     * @param array|string|null $query
      * @return \Illuminate\Http\Client\Response
      */
     public function head(string $url, $query = null)
@@ -483,8 +483,8 @@ class PendingRequest
     /**
      * Issue a POST request to the given URL.
      *
-     * @param  string  $url
-     * @param  array  $data
+     * @param string $url
+     * @param array $data
      * @return \Illuminate\Http\Client\Response
      */
     public function post(string $url, array $data = [])
@@ -497,8 +497,8 @@ class PendingRequest
     /**
      * Issue a PATCH request to the given URL.
      *
-     * @param  string  $url
-     * @param  array  $data
+     * @param string $url
+     * @param array $data
      * @return \Illuminate\Http\Client\Response
      */
     public function patch($url, $data = [])
@@ -511,8 +511,8 @@ class PendingRequest
     /**
      * Issue a PUT request to the given URL.
      *
-     * @param  string  $url
-     * @param  array  $data
+     * @param string $url
+     * @param array $data
      * @return \Illuminate\Http\Client\Response
      */
     public function put($url, $data = [])
@@ -525,8 +525,8 @@ class PendingRequest
     /**
      * Issue a DELETE request to the given URL.
      *
-     * @param  string  $url
-     * @param  array  $data
+     * @param string $url
+     * @param array $data
      * @return \Illuminate\Http\Client\Response
      */
     public function delete($url, $data = [])
@@ -539,16 +539,16 @@ class PendingRequest
     /**
      * Send the request to the given URL.
      *
-     * @param  string  $method
-     * @param  string  $url
-     * @param  array  $options
+     * @param string $method
+     * @param string $url
+     * @param array $options
      * @return \Illuminate\Http\Client\Response
      *
      * @throws \Exception
      */
     public function send(string $method, string $url, array $options = [])
     {
-        $url = ltrim(rtrim($this->baseUrl, '/').'/'.ltrim($url, '/'), '/');
+        $url = ltrim(rtrim($this->baseUrl, '/') . '/' . ltrim($url, '/'), '/');
 
         if (isset($options[$this->bodyFormat])) {
             if ($this->bodyFormat === 'multipart') {
@@ -579,7 +579,7 @@ class PendingRequest
                     $response->cookies = $this->cookies;
                     $response->transferStats = $this->transferStats;
 
-                    if ($this->tries > 1 && ! $response->successful()) {
+                    if ($this->tries > 1 && !$response->successful()) {
                         $response->throw();
                     }
                 });
@@ -587,46 +587,6 @@ class PendingRequest
                 throw new ConnectionException($e->getMessage(), 0, $e);
             }
         }, $this->retryDelay ?? 100);
-    }
-
-    /**
-     * Parse multi-part form data.
-     *
-     * @param  array  $data
-     * @return array|array[]
-     */
-    protected function parseMultipartBodyFormat(array $data)
-    {
-        return collect($data)->map(function ($value, $key) {
-            return is_array($value) ? $value : ['name' => $key, 'contents' => $value];
-        })->values()->all();
-    }
-
-    /**
-     * Get the request data as an array so that we can attach it to the request for convenient assertions.
-     *
-     * @param  string  $method
-     * @param  string  $url
-     * @param  array  $options
-     * @return array
-     */
-    protected function parseRequestData($method, $url, array $options)
-    {
-        $laravelData = $options[$this->bodyFormat] ?? $options['query'] ?? [];
-
-        $urlString = Str::of($url);
-
-        if (empty($laravelData) && $method === 'GET' && $urlString->contains('?')) {
-            $laravelData = (string) $urlString->after('?');
-        }
-
-        if (is_string($laravelData)) {
-            parse_str($laravelData, $parsedData);
-
-            $laravelData = is_array($parsedData) ? $parsedData : [];
-        }
-
-        return $laravelData;
     }
 
     /**
@@ -707,10 +667,10 @@ class PendingRequest
         return function ($handler) {
             return function ($request, $options) use ($handler) {
                 $response = ($this->stubCallbacks ?? collect())
-                     ->map
-                     ->__invoke((new Request($request))->withData($options['laravel_data']), $options)
-                     ->filter()
-                     ->first();
+                    ->map
+                    ->__invoke((new Request($request))->withData($options['laravel_data']), $options)
+                    ->filter()
+                    ->first();
 
                 if (is_null($response)) {
                     return $handler($request, $options);
@@ -730,9 +690,90 @@ class PendingRequest
     }
 
     /**
+     * Execute the "before sending" callbacks.
+     *
+     * @param \GuzzleHttp\Psr7\RequestInterface $request
+     * @param array $options
+     * @return \Closure
+     */
+    public function runBeforeSendingCallbacks($request, array $options)
+    {
+        return tap($request, function ($request) use ($options) {
+            $this->beforeSendingCallbacks->each->__invoke(
+                (new Request($request))->withData($options['laravel_data']),
+                $options
+            );
+        });
+    }
+
+    /**
+     * Merge the given options with the current request options.
+     *
+     * @param array $options
+     * @return array
+     */
+    public function mergeOptions(...$options)
+    {
+        return array_merge_recursive($this->options, ...$options);
+    }
+
+    /**
+     * Register a stub callable that will intercept requests and be able to return stub responses.
+     *
+     * @param callable $callback
+     * @return $this
+     */
+    public function stub($callback)
+    {
+        $this->stubCallbacks = collect($callback);
+
+        return $this;
+    }
+
+    /**
+     * Parse multi-part form data.
+     *
+     * @param array $data
+     * @return array|array[]
+     */
+    protected function parseMultipartBodyFormat(array $data)
+    {
+        return collect($data)->map(function ($value, $key) {
+            return is_array($value) ? $value : ['name' => $key, 'contents' => $value];
+        })->values()->all();
+    }
+
+    /**
+     * Get the request data as an array so that we can attach it to the request for convenient assertions.
+     *
+     * @param string $method
+     * @param string $url
+     * @param array $options
+     * @return array
+     */
+    protected function parseRequestData($method, $url, array $options)
+    {
+        $laravelData = $options[$this->bodyFormat] ?? $options['query'] ?? [];
+
+        $urlString = Str::of($url);
+
+        if (empty($laravelData) && $method === 'GET' && $urlString->contains('?')) {
+            $laravelData = (string)$urlString->after('?');
+        }
+
+        if (is_string($laravelData)) {
+            parse_str($laravelData, $parsedData);
+
+            $laravelData = is_array($parsedData) ? $parsedData : [];
+        }
+
+        return $laravelData;
+    }
+
+    /**
      * Get the sink stub handler callback.
      *
-     * @param  string  $sink
+     * @param string $sink
      * @return \Closure
      */
     protected function sinkStubHandler($sink)
@@ -749,46 +790,5 @@ class PendingRequest
             fwrite($sink, $body);
             rewind($sink);
         };
-    }
-
-    /**
-     * Execute the "before sending" callbacks.
-     *
-     * @param  \GuzzleHttp\Psr7\RequestInterface  $request
-     * @param  array  $options
-     * @return \Closure
-     */
-    public function runBeforeSendingCallbacks($request, array $options)
-    {
-        return tap($request, function ($request) use ($options) {
-            $this->beforeSendingCallbacks->each->__invoke(
-                (new Request($request))->withData($options['laravel_data']),
-                $options
-            );
-        });
-    }
-
-    /**
-     * Merge the given options with the current request options.
-     *
-     * @param  array  $options
-     * @return array
-     */
-    public function mergeOptions(...$options)
-    {
-        return array_merge_recursive($this->options, ...$options);
-    }
-
-    /**
-     * Register a stub callable that will intercept requests and be able to return stub responses.
-     *
-     * @param  callable  $callback
-     * @return $this
-     */
-    public function stub($callback)
-    {
-        $this->stubCallbacks = collect($callback);
-
-        return $this;
     }
 }

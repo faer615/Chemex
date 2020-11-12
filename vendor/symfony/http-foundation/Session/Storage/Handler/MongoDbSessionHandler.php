@@ -88,18 +88,6 @@ class MongoDbSessionHandler extends AbstractSessionHandler
     }
 
     /**
-     * {@inheritdoc}
-     */
-    protected function doDestroy(string $sessionId)
-    {
-        $this->getCollection()->deleteOne([
-            $this->options['id_field'] => $sessionId,
-        ]);
-
-        return true;
-    }
-
-    /**
      * @return bool
      */
     public function gc($maxlifetime)
@@ -112,11 +100,41 @@ class MongoDbSessionHandler extends AbstractSessionHandler
     }
 
     /**
+     * @return bool
+     */
+    public function updateTimestamp($sessionId, $data)
+    {
+        $expiry = new \MongoDB\BSON\UTCDateTime((time() + (int)ini_get('session.gc_maxlifetime')) * 1000);
+
+        $this->getCollection()->updateOne(
+            [$this->options['id_field'] => $sessionId],
+            ['$set' => [
+                $this->options['time_field'] => new \MongoDB\BSON\UTCDateTime(),
+                $this->options['expiry_field'] => $expiry,
+            ]]
+        );
+
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function doDestroy(string $sessionId)
+    {
+        $this->getCollection()->deleteOne([
+            $this->options['id_field'] => $sessionId,
+        ]);
+
+        return true;
+    }
+
+    /**
      * {@inheritdoc}
      */
     protected function doWrite(string $sessionId, string $data)
     {
-        $expiry = new \MongoDB\BSON\UTCDateTime((time() + (int) ini_get('session.gc_maxlifetime')) * 1000);
+        $expiry = new \MongoDB\BSON\UTCDateTime((time() + (int)ini_get('session.gc_maxlifetime')) * 1000);
 
         $fields = [
             $this->options['time_field'] => new \MongoDB\BSON\UTCDateTime(),
@@ -128,24 +146,6 @@ class MongoDbSessionHandler extends AbstractSessionHandler
             [$this->options['id_field'] => $sessionId],
             ['$set' => $fields],
             ['upsert' => true]
-        );
-
-        return true;
-    }
-
-    /**
-     * @return bool
-     */
-    public function updateTimestamp($sessionId, $data)
-    {
-        $expiry = new \MongoDB\BSON\UTCDateTime((time() + (int) ini_get('session.gc_maxlifetime')) * 1000);
-
-        $this->getCollection()->updateOne(
-            [$this->options['id_field'] => $sessionId],
-            ['$set' => [
-                $this->options['time_field'] => new \MongoDB\BSON\UTCDateTime(),
-                $this->options['expiry_field'] => $expiry,
-            ]]
         );
 
         return true;
@@ -168,6 +168,14 @@ class MongoDbSessionHandler extends AbstractSessionHandler
         return $dbData[$this->options['data_field']]->getData();
     }
 
+    /**
+     * @return \MongoDB\Client
+     */
+    protected function getMongo()
+    {
+        return $this->mongo;
+    }
+
     private function getCollection(): \MongoDB\Collection
     {
         if (null === $this->collection) {
@@ -175,13 +183,5 @@ class MongoDbSessionHandler extends AbstractSessionHandler
         }
 
         return $this->collection;
-    }
-
-    /**
-     * @return \MongoDB\Client
-     */
-    protected function getMongo()
-    {
-        return $this->mongo;
     }
 }

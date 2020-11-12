@@ -4,17 +4,6 @@ class Swift_ByteStream_FileByteStreamAcceptanceTest extends \PHPUnit\Framework\T
 {
     private $_testFile;
 
-    protected function setUp()
-    {
-        $this->testFile = sys_get_temp_dir().'/swift-test-file'.__CLASS__;
-        file_put_contents($this->testFile, 'abcdefghijklm');
-    }
-
-    protected function tearDown()
-    {
-        unlink($this->testFile);
-    }
-
     public function testFileDataCanBeRead()
     {
         $file = $this->createFileStream($this->testFile);
@@ -104,7 +93,7 @@ class Swift_ByteStream_FileByteStreamAcceptanceTest extends \PHPUnit\Framework\T
     {
         $file = $this->createFileStream(
             $this->testFile, true
-            );
+        );
         $is1 = $this->createMockInputStream();
         $is2 = $this->createMockInputStream();
 
@@ -143,6 +132,17 @@ class Swift_ByteStream_FileByteStreamAcceptanceTest extends \PHPUnit\Framework\T
         $file->unbind($is2);
 
         $file->write('y');
+    }
+
+    protected function setUp()
+    {
+        $this->testFile = sys_get_temp_dir() . '/swift-test-file' . __CLASS__;
+        file_put_contents($this->testFile, 'abcdefghijklm');
+    }
+
+    protected function tearDown()
+    {
+        unlink($this->testFile);
     }
 
     private function createFilter($search, $replace)

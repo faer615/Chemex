@@ -37,7 +37,7 @@ class XmlFileLoader extends FileLoader
     /**
      * Loads an XML file.
      *
-     * @param string      $file An XML file path
+     * @param string $file An XML file path
      * @param string|null $type The resource type
      *
      * @return RouteCollection A RouteCollection instance
@@ -67,11 +67,19 @@ class XmlFileLoader extends FileLoader
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function supports($resource, string $type = null)
+    {
+        return \is_string($resource) && 'xml' === pathinfo($resource, \PATHINFO_EXTENSION) && (!$type || 'xml' === $type);
+    }
+
+    /**
      * Parses a node from a loaded XML file.
      *
      * @param \DOMElement $node Element to parse
-     * @param string      $path Full path of the XML file being processed
-     * @param string      $file Loaded file name
+     * @param string $path Full path of the XML file being processed
+     * @param string $file Loaded file name
      *
      * @throws \InvalidArgumentException When the XML is invalid
      */
@@ -94,18 +102,10 @@ class XmlFileLoader extends FileLoader
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function supports($resource, string $type = null)
-    {
-        return \is_string($resource) && 'xml' === pathinfo($resource, \PATHINFO_EXTENSION) && (!$type || 'xml' === $type);
-    }
-
-    /**
      * Parses a route and adds it to the RouteCollection.
      *
      * @param \DOMElement $node Element to parse that represents a Route
-     * @param string      $path Full path of the XML file being processed
+     * @param string $path Full path of the XML file being processed
      *
      * @throws \InvalidArgumentException When the XML is invalid
      */
@@ -145,8 +145,8 @@ class XmlFileLoader extends FileLoader
      * Parses an import and adds the routes in the resource to the RouteCollection.
      *
      * @param \DOMElement $node Element to parse that represents a Route
-     * @param string      $path Full path of the XML file being processed
-     * @param string      $file Loaded file name
+     * @param string $path Full path of the XML file being processed
+     * @param string $file Loaded file name
      *
      * @throws \InvalidArgumentException When the XML is invalid
      */
@@ -232,7 +232,7 @@ class XmlFileLoader extends FileLoader
      */
     protected function loadFile(string $file)
     {
-        return XmlUtils::loadFile($file, __DIR__.static::SCHEME_PATH);
+        return XmlUtils::loadFile($file, __DIR__ . static::SCHEME_PATH);
     }
 
     /**
@@ -292,7 +292,7 @@ class XmlFileLoader extends FileLoader
             if (isset($defaults['_controller'])) {
                 $name = $node->hasAttribute('id') ? sprintf('"%s".', $node->getAttribute('id')) : sprintf('the "%s" tag.', $node->tagName);
 
-                throw new \InvalidArgumentException(sprintf('The routing file "%s" must not specify both the "controller" attribute and the defaults key "_controller" for ', $path).$name);
+                throw new \InvalidArgumentException(sprintf('The routing file "%s" must not specify both the "controller" attribute and the defaults key "_controller" for ', $path) . $name);
             }
 
             $defaults['_controller'] = $controller;
@@ -310,7 +310,7 @@ class XmlFileLoader extends FileLoader
             if (isset($defaults['_stateless'])) {
                 $name = $node->hasAttribute('id') ? sprintf('"%s".', $node->getAttribute('id')) : sprintf('the "%s" tag.', $node->tagName);
 
-                throw new \InvalidArgumentException(sprintf('The routing file "%s" must not specify both the "stateless" attribute and the defaults key "_stateless" for ', $path).$name);
+                throw new \InvalidArgumentException(sprintf('The routing file "%s" must not specify both the "stateless" attribute and the defaults key "_stateless" for ', $path) . $name);
             }
 
             $defaults['_stateless'] = XmlUtils::phpize($stateless);
@@ -372,9 +372,9 @@ class XmlFileLoader extends FileLoader
             case 'bool':
                 return 'true' === trim($node->nodeValue) || '1' === trim($node->nodeValue);
             case 'int':
-                return (int) trim($node->nodeValue);
+                return (int)trim($node->nodeValue);
             case 'float':
-                return (float) trim($node->nodeValue);
+                return (float)trim($node->nodeValue);
             case 'string':
                 return trim($node->nodeValue);
             case 'list':

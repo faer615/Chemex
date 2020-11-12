@@ -56,7 +56,7 @@ final class SetExtHeadingParser implements BlockParserInterface
      *
      * @see https://github.com/commonmark/commonmark.js/commit/993bbe335931af847460effa99b2411eb643577d
      *
-     * @param string[]        $strings
+     * @param string[] $strings
      * @param ReferenceParser $referenceParser
      *
      * @return string[]

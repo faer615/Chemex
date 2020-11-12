@@ -36,6 +36,11 @@ final class Headers
         }
     }
 
+    public static function isUniqueHeader(string $name): bool
+    {
+        return \in_array($name, self::$uniqueHeaders, true);
+    }
+
     public function __clone()
     {
         foreach ($this->headers as $name => $collection) {
@@ -199,16 +204,11 @@ final class Headers
         unset($this->headers[strtolower($name)]);
     }
 
-    public static function isUniqueHeader(string $name): bool
-    {
-        return \in_array($name, self::$uniqueHeaders, true);
-    }
-
     public function toString(): string
     {
         $string = '';
         foreach ($this->toArray() as $str) {
-            $string .= $str."\r\n";
+            $string .= $str . "\r\n";
         }
 
         return $string;
@@ -242,7 +242,7 @@ final class Headers
         if ($this->has($name)) {
             $this->get($name)->setBody($body);
         } else {
-            $this->{'add'.$type.'Header'}($name, $body);
+            $this->{'add' . $type . 'Header'}($name, $body);
         }
     }
 

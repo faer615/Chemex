@@ -6,11 +6,6 @@ class Swift_Mime_SimpleHeaderFactoryTest extends \PHPUnit\Framework\TestCase
 {
     private $factory;
 
-    protected function setUp()
-    {
-        $this->factory = $this->createFactory();
-    }
-
     public function testMailboxHeaderIsCorrectType()
     {
         $header = $this->factory->createMailboxHeader('X-Foo');
@@ -27,7 +22,7 @@ class Swift_Mime_SimpleHeaderFactoryTest extends \PHPUnit\Framework\TestCase
     {
         $header = $this->factory->createMailboxHeader('X-Foo',
             ['foo@bar' => 'FooBar']
-            );
+        );
         $this->assertEquals(['foo@bar' => 'FooBar'], $header->getFieldBodyModel());
     }
 
@@ -90,7 +85,7 @@ class Swift_Mime_SimpleHeaderFactoryTest extends \PHPUnit\Framework\TestCase
     {
         $header = $this->factory->createParameterizedHeader('X-Foo', 'bar',
             ['zip' => 'button']
-            );
+        );
         $this->assertEquals(['zip' => 'button'], $header->getParameters());
     }
 
@@ -134,16 +129,21 @@ class Swift_Mime_SimpleHeaderFactoryTest extends \PHPUnit\Framework\TestCase
     {
         $encoder = $this->createHeaderEncoder();
         $encoder->expects($this->once())
-                ->method('charsetChanged')
-                ->with('utf-8');
+            ->method('charsetChanged')
+            ->with('utf-8');
         $paramEncoder = $this->createParamEncoder();
         $paramEncoder->expects($this->once())
-                     ->method('charsetChanged')
-                     ->with('utf-8');
+            ->method('charsetChanged')
+            ->with('utf-8');
 
         $factory = $this->createFactory($encoder, $paramEncoder);
 
         $factory->charsetChanged('utf-8');
+    }
+
+    protected function setUp()
+    {
+        $this->factory = $this->createFactory();
     }
 
     private function createFactory($encoder = null, $paramEncoder = null)
@@ -154,7 +154,7 @@ class Swift_Mime_SimpleHeaderFactoryTest extends \PHPUnit\Framework\TestCase
             $paramEncoder
                 ? $paramEncoder : $this->createParamEncoder(),
             new EmailValidator()
-            );
+        );
     }
 
     private function createHeaderEncoder()

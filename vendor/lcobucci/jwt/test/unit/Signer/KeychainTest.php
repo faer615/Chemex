@@ -16,7 +16,7 @@ class KeychainTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses Lcobucci\JWT\Signer\Key
+     * @uses   Lcobucci\JWT\Signer\Key
      *
      * @covers Lcobucci\JWT\Signer\Keychain::getPrivateKey
      */
@@ -33,7 +33,7 @@ class KeychainTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses Lcobucci\JWT\Signer\Key
+     * @uses   Lcobucci\JWT\Signer\Key
      *
      * @covers Lcobucci\JWT\Signer\Keychain::getPublicKey
      */

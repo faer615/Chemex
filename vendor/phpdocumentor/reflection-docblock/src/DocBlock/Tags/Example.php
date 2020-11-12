@@ -51,14 +51,15 @@ final class Example implements Tag, Factory\StaticMethod
         int $startingLine,
         int $lineCount,
         ?string $content
-    ) {
+    )
+    {
         Assert::stringNotEmpty($filePath);
         Assert::greaterThanEq($startingLine, 1);
         Assert::greaterThanEq($lineCount, 0);
 
-        $this->filePath     = $filePath;
+        $this->filePath = $filePath;
         $this->startingLine = $startingLine;
-        $this->lineCount    = $lineCount;
+        $this->lineCount = $lineCount;
         if ($content !== null) {
             $this->content = trim($content);
         }
@@ -66,28 +67,7 @@ final class Example implements Tag, Factory\StaticMethod
         $this->isURI = $isURI;
     }
 
-    public function getContent() : string
-    {
-        if ($this->content === null || $this->content === '') {
-            $filePath = $this->filePath;
-            if ($this->isURI) {
-                $filePath = $this->isUriRelative($this->filePath)
-                    ? str_replace('%2F', '/', rawurlencode($this->filePath))
-                    : $this->filePath;
-            }
-
-            return trim($filePath);
-        }
-
-        return $this->content;
-    }
-
-    public function getDescription() : ?string
-    {
-        return $this->content;
-    }
-
-    public static function create(string $body) : ?Tag
+    public static function create(string $body): ?Tag
     {
         // File component: File path in quotes or File URI / Source information
         if (!preg_match('/^\s*(?:(\"[^\"]+\")|(\S+))(?:\s+(.*))?$/sux', $body, $matches)) {
@@ -95,7 +75,7 @@ final class Example implements Tag, Factory\StaticMethod
         }
 
         $filePath = null;
-        $fileUri  = null;
+        $fileUri = null;
         if ($matches[1] !== '') {
             $filePath = $matches[1];
         } else {
@@ -103,17 +83,17 @@ final class Example implements Tag, Factory\StaticMethod
         }
 
         $startingLine = 1;
-        $lineCount    = 0;
-        $description  = null;
+        $lineCount = 0;
+        $description = null;
 
         if (array_key_exists(3, $matches)) {
             $description = $matches[3];
 
             // Starting line / Number of lines / Description
             if (preg_match('/^([1-9]\d*)(?:\s+((?1))\s*)?(.*)$/sux', $matches[3], $contentMatches)) {
-                $startingLine = (int) $contentMatches[1];
+                $startingLine = (int)$contentMatches[1];
                 if (isset($contentMatches[2])) {
-                    $lineCount = (int) $contentMatches[2];
+                    $lineCount = (int)$contentMatches[2];
                 }
 
                 if (array_key_exists(3, $contentMatches)) {
@@ -131,13 +111,34 @@ final class Example implements Tag, Factory\StaticMethod
         );
     }
 
+    public function getContent(): string
+    {
+        if ($this->content === null || $this->content === '') {
+            $filePath = $this->filePath;
+            if ($this->isURI) {
+                $filePath = $this->isUriRelative($this->filePath)
+                    ? str_replace('%2F', '/', rawurlencode($this->filePath))
+                    : $this->filePath;
+            }
+
+            return trim($filePath);
+        }
+
+        return $this->content;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->content;
+    }
+
     /**
      * Returns the file path.
      *
      * @return string Path to a file to use as an example.
      *     May also be an absolute URI.
      */
-    public function getFilePath() : string
+    public function getFilePath(): string
     {
         return trim($this->filePath, '"');
     }
@@ -145,13 +146,13 @@ final class Example implements Tag, Factory\StaticMethod
     /**
      * Returns a string representation for this tag.
      */
-    public function __toString() : string
+    public function __toString(): string
     {
-        $filePath = (string) $this->filePath;
+        $filePath = (string)$this->filePath;
         $isDefaultLine = $this->startingLine === 1 && $this->lineCount === 0;
-        $startingLine = !$isDefaultLine ? (string) $this->startingLine : '';
-        $lineCount = !$isDefaultLine ? (string) $this->lineCount : '';
-        $content = (string) $this->content;
+        $startingLine = !$isDefaultLine ? (string)$this->startingLine : '';
+        $lineCount = !$isDefaultLine ? (string)$this->lineCount : '';
+        $content = (string)$this->content;
 
         return $filePath
             . ($startingLine !== ''
@@ -165,35 +166,35 @@ final class Example implements Tag, Factory\StaticMethod
                 : '');
     }
 
-    /**
-     * Returns true if the provided URI is relative or contains a complete scheme (and thus is absolute).
-     */
-    private function isUriRelative(string $uri) : bool
-    {
-        return strpos($uri, ':') === false;
-    }
-
-    public function getStartingLine() : int
+    public function getStartingLine(): int
     {
         return $this->startingLine;
     }
 
-    public function getLineCount() : int
+    public function getLineCount(): int
     {
         return $this->lineCount;
     }
 
-    public function getName() : string
+    public function getName(): string
     {
         return 'example';
     }
 
-    public function render(?Formatter $formatter = null) : string
+    public function render(?Formatter $formatter = null): string
     {
         if ($formatter === null) {
             $formatter = new Formatter\PassthroughFormatter();
         }
 
         return $formatter->format($this);
+    }
+
+    /**
+     * Returns true if the provided URI is relative or contains a complete scheme (and thus is absolute).
+     */
+    private function isUriRelative(string $uri): bool
+    {
+        return strpos($uri, ':') === false;
     }
 }

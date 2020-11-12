@@ -25,20 +25,17 @@ use Psr\Log\LogLevel;
  */
 class ErrorHandler
 {
+    private static $fatalErrors = [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR, E_USER_ERROR];
     private $logger;
-
     private $previousExceptionHandler;
     private $uncaughtExceptionLevelMap;
-
     private $previousErrorHandler;
     private $errorLevelMap;
     private $handleOnlyReportedErrors;
-
     private $hasFatalErrorHandler;
     private $fatalLevel;
     private $reservedMemory;
     private $lastFatalTrace;
-    private static $fatalErrors = [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR, E_USER_ERROR];
 
     public function __construct(LoggerInterface $logger)
     {
@@ -50,10 +47,10 @@ class ErrorHandler
      *
      * By default it will handle errors, exceptions and fatal errors
      *
-     * @param  LoggerInterface   $logger
-     * @param  array|false       $errorLevelMap     an array of E_* constant to LogLevel::* constant mapping, or false to disable error handling
-     * @param  array|false       $exceptionLevelMap an array of class name to LogLevel::* constant mapping, or false to disable exception handling
-     * @param  string|null|false $fatalLevel        a LogLevel::* constant, null to use the default LogLevel::ALERT or false to disable fatal error handling
+     * @param LoggerInterface $logger
+     * @param array|false $errorLevelMap an array of E_* constant to LogLevel::* constant mapping, or false to disable error handling
+     * @param array|false $exceptionLevelMap an array of class name to LogLevel::* constant mapping, or false to disable exception handling
+     * @param string|null|false $fatalLevel a LogLevel::* constant, null to use the default LogLevel::ALERT or false to disable fatal error handling
      * @return ErrorHandler
      */
     public static function register(LoggerInterface $logger, $errorLevelMap = [], $exceptionLevelMap = [], $fatalLevel = null): self
@@ -70,6 +67,44 @@ class ErrorHandler
         }
 
         return $handler;
+    }
+
+    private static function codeToString($code): string
+    {
+        switch ($code) {
+            case E_ERROR:
+                return 'E_ERROR';
+            case E_WARNING:
+                return 'E_WARNING';
+            case E_PARSE:
+                return 'E_PARSE';
+            case E_NOTICE:
+                return 'E_NOTICE';
+            case E_CORE_ERROR:
+                return 'E_CORE_ERROR';
+            case E_CORE_WARNING:
+                return 'E_CORE_WARNING';
+            case E_COMPILE_ERROR:
+                return 'E_COMPILE_ERROR';
+            case E_COMPILE_WARNING:
+                return 'E_COMPILE_WARNING';
+            case E_USER_ERROR:
+                return 'E_USER_ERROR';
+            case E_USER_WARNING:
+                return 'E_USER_WARNING';
+            case E_USER_NOTICE:
+                return 'E_USER_NOTICE';
+            case E_STRICT:
+                return 'E_STRICT';
+            case E_RECOVERABLE_ERROR:
+                return 'E_RECOVERABLE_ERROR';
+            case E_DEPRECATED:
+                return 'E_DEPRECATED';
+            case E_USER_DEPRECATED:
+                return 'E_USER_DEPRECATED';
+        }
+
+        return 'Unknown PHP error';
     }
 
     public function registerExceptionHandler($levelMap = [], $callPrevious = true): self
@@ -102,8 +137,8 @@ class ErrorHandler
     }
 
     /**
-     * @param string|null $level              a LogLevel::* constant, null to use the default LogLevel::ALERT or false to disable fatal error handling
-     * @param int         $reservedMemorySize Amount of KBs to reserve in memory so that it can be freed when handling fatal errors giving Monolog some room in memory to get its job done
+     * @param string|null $level a LogLevel::* constant, null to use the default LogLevel::ALERT or false to disable fatal error handling
+     * @param int $reservedMemorySize Amount of KBs to reserve in memory so that it can be freed when handling fatal errors giving Monolog some room in memory to get its job done
      */
     public function registerFatalHandler($level = null, int $reservedMemorySize = 20): self
     {
@@ -114,35 +149,6 @@ class ErrorHandler
         $this->hasFatalErrorHandler = true;
 
         return $this;
-    }
-
-    protected function defaultExceptionLevelMap(): array
-    {
-        return [
-            'ParseError' => LogLevel::CRITICAL,
-            'Throwable' => LogLevel::ERROR,
-        ];
-    }
-
-    protected function defaultErrorLevelMap(): array
-    {
-        return [
-            E_ERROR             => LogLevel::CRITICAL,
-            E_WARNING           => LogLevel::WARNING,
-            E_PARSE             => LogLevel::ALERT,
-            E_NOTICE            => LogLevel::NOTICE,
-            E_CORE_ERROR        => LogLevel::CRITICAL,
-            E_CORE_WARNING      => LogLevel::WARNING,
-            E_COMPILE_ERROR     => LogLevel::ALERT,
-            E_COMPILE_WARNING   => LogLevel::WARNING,
-            E_USER_ERROR        => LogLevel::ERROR,
-            E_USER_WARNING      => LogLevel::WARNING,
-            E_USER_NOTICE       => LogLevel::NOTICE,
-            E_STRICT            => LogLevel::NOTICE,
-            E_RECOVERABLE_ERROR => LogLevel::ERROR,
-            E_DEPRECATED        => LogLevel::NOTICE,
-            E_USER_DEPRECATED   => LogLevel::NOTICE,
-        ];
     }
 
     /**
@@ -188,7 +194,7 @@ class ErrorHandler
         // fatal error codes are ignored if a fatal error handler is present as well to avoid duplicate log entries
         if (!$this->hasFatalErrorHandler || !in_array($code, self::$fatalErrors, true)) {
             $level = $this->errorLevelMap[$code] ?? LogLevel::CRITICAL;
-            $this->logger->log($level, self::codeToString($code).': '.$message, ['code' => $code, 'message' => $message, 'file' => $file, 'line' => $line]);
+            $this->logger->log($level, self::codeToString($code) . ': ' . $message, ['code' => $code, 'message' => $message, 'file' => $file, 'line' => $line]);
         } else {
             $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
             array_shift($trace); // Exclude handleError from trace
@@ -215,7 +221,7 @@ class ErrorHandler
         if ($lastError && in_array($lastError['type'], self::$fatalErrors, true)) {
             $this->logger->log(
                 $this->fatalLevel === null ? LogLevel::ALERT : $this->fatalLevel,
-                'Fatal Error ('.self::codeToString($lastError['type']).'): '.$lastError['message'],
+                'Fatal Error (' . self::codeToString($lastError['type']) . '): ' . $lastError['message'],
                 ['code' => $lastError['type'], 'message' => $lastError['message'], 'file' => $lastError['file'], 'line' => $lastError['line'], 'trace' => $this->lastFatalTrace]
             );
 
@@ -227,41 +233,32 @@ class ErrorHandler
         }
     }
 
-    private static function codeToString($code): string
+    protected function defaultExceptionLevelMap(): array
     {
-        switch ($code) {
-            case E_ERROR:
-                return 'E_ERROR';
-            case E_WARNING:
-                return 'E_WARNING';
-            case E_PARSE:
-                return 'E_PARSE';
-            case E_NOTICE:
-                return 'E_NOTICE';
-            case E_CORE_ERROR:
-                return 'E_CORE_ERROR';
-            case E_CORE_WARNING:
-                return 'E_CORE_WARNING';
-            case E_COMPILE_ERROR:
-                return 'E_COMPILE_ERROR';
-            case E_COMPILE_WARNING:
-                return 'E_COMPILE_WARNING';
-            case E_USER_ERROR:
-                return 'E_USER_ERROR';
-            case E_USER_WARNING:
-                return 'E_USER_WARNING';
-            case E_USER_NOTICE:
-                return 'E_USER_NOTICE';
-            case E_STRICT:
-                return 'E_STRICT';
-            case E_RECOVERABLE_ERROR:
-                return 'E_RECOVERABLE_ERROR';
-            case E_DEPRECATED:
-                return 'E_DEPRECATED';
-            case E_USER_DEPRECATED:
-                return 'E_USER_DEPRECATED';
-        }
+        return [
+            'ParseError' => LogLevel::CRITICAL,
+            'Throwable' => LogLevel::ERROR,
+        ];
+    }
 
-        return 'Unknown PHP error';
+    protected function defaultErrorLevelMap(): array
+    {
+        return [
+            E_ERROR => LogLevel::CRITICAL,
+            E_WARNING => LogLevel::WARNING,
+            E_PARSE => LogLevel::ALERT,
+            E_NOTICE => LogLevel::NOTICE,
+            E_CORE_ERROR => LogLevel::CRITICAL,
+            E_CORE_WARNING => LogLevel::WARNING,
+            E_COMPILE_ERROR => LogLevel::ALERT,
+            E_COMPILE_WARNING => LogLevel::WARNING,
+            E_USER_ERROR => LogLevel::ERROR,
+            E_USER_WARNING => LogLevel::WARNING,
+            E_USER_NOTICE => LogLevel::NOTICE,
+            E_STRICT => LogLevel::NOTICE,
+            E_RECOVERABLE_ERROR => LogLevel::ERROR,
+            E_DEPRECATED => LogLevel::NOTICE,
+            E_USER_DEPRECATED => LogLevel::NOTICE,
+        ];
     }
 }

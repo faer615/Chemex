@@ -12,14 +12,14 @@ class NullDispatcher implements DispatcherContract
     /**
      * The underlying event dispatcher instance.
      *
-     * @var \Illuminate\Contracts\Bus\Dispatcher
+     * @var \Illuminate\Contracts\Events\Dispatcher
      */
     protected $dispatcher;
 
     /**
      * Create a new event dispatcher instance that does not fire.
      *
-     * @param  \Illuminate\Contracts\Events\Dispatcher  $dispatcher
+     * @param \Illuminate\Contracts\Events\Dispatcher $dispatcher
      * @return void
      */
     public function __construct(DispatcherContract $dispatcher)
@@ -30,9 +30,9 @@ class NullDispatcher implements DispatcherContract
     /**
      * Don't fire an event.
      *
-     * @param  string|object  $event
-     * @param  mixed  $payload
-     * @param  bool  $halt
+     * @param string|object $event
+     * @param mixed $payload
+     * @param bool $halt
      * @return void
      */
     public function dispatch($event, $payload = [], $halt = false)
@@ -42,8 +42,8 @@ class NullDispatcher implements DispatcherContract
     /**
      * Don't register an event and payload to be fired later.
      *
-     * @param  string  $event
-     * @param  array  $payload
+     * @param string $event
+     * @param array $payload
      * @return void
      */
     public function push($event, $payload = [])
@@ -53,8 +53,8 @@ class NullDispatcher implements DispatcherContract
     /**
      * Don't dispatch an event.
      *
-     * @param  string|object  $event
-     * @param  mixed  $payload
+     * @param string|object $event
+     * @param mixed $payload
      * @return array|null
      */
     public function until($event, $payload = [])
@@ -64,8 +64,8 @@ class NullDispatcher implements DispatcherContract
     /**
      * Register an event listener with the dispatcher.
      *
-     * @param  \Closure|string|array  $events
-     * @param  \Closure|string|null  $listener
+     * @param \Closure|string|array $events
+     * @param \Closure|string|null $listener
      * @return void
      */
     public function listen($events, $listener = null)
@@ -76,7 +76,7 @@ class NullDispatcher implements DispatcherContract
     /**
      * Determine if a given event has listeners.
      *
-     * @param  string  $eventName
+     * @param string $eventName
      * @return bool
      */
     public function hasListeners($eventName)
@@ -87,7 +87,7 @@ class NullDispatcher implements DispatcherContract
     /**
      * Register an event subscriber with the dispatcher.
      *
-     * @param  object|string  $subscriber
+     * @param object|string $subscriber
      * @return void
      */
     public function subscribe($subscriber)
@@ -98,7 +98,7 @@ class NullDispatcher implements DispatcherContract
     /**
      * Flush a set of pushed events.
      *
-     * @param  string  $event
+     * @param string $event
      * @return void
      */
     public function flush($event)
@@ -109,7 +109,7 @@ class NullDispatcher implements DispatcherContract
     /**
      * Remove a set of listeners from the dispatcher.
      *
-     * @param  string  $event
+     * @param string $event
      * @return void
      */
     public function forget($event)
@@ -130,8 +130,8 @@ class NullDispatcher implements DispatcherContract
     /**
      * Dynamically pass method calls to the underlying dispatcher.
      *
-     * @param  string  $method
-     * @param  array  $parameters
+     * @param string $method
+     * @param array $parameters
      * @return mixed
      */
     public function __call($method, $parameters)

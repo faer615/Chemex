@@ -8,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Carbon\Traits;
 
 use Carbon\Carbon;
@@ -54,7 +55,7 @@ trait IntervalStep
      * The interval/step is applied negatively (typically subtraction instead of addition) if $negated is true.
      *
      * @param DateTimeInterface $dateTime
-     * @param bool              $negated
+     * @param bool $negated
      *
      * @return CarbonInterface
      */

@@ -26,7 +26,7 @@ final class AttributesInline extends AbstractInline
 
     /**
      * @param array<string, mixed> $attributes
-     * @param bool                 $block
+     * @param bool $block
      */
     public function __construct(array $attributes, bool $block)
     {

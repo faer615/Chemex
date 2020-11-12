@@ -57,18 +57,17 @@ class Translator implements TranslatorInterface
             ->registerExtension(new Extension\CombinationExtension())
             ->registerExtension(new Extension\FunctionExtension())
             ->registerExtension(new Extension\PseudoClassExtension())
-            ->registerExtension(new Extension\AttributeMatchingExtension())
-        ;
+            ->registerExtension(new Extension\AttributeMatchingExtension());
     }
 
     public static function getXpathLiteral(string $element): string
     {
         if (false === strpos($element, "'")) {
-            return "'".$element."'";
+            return "'" . $element . "'";
         }
 
         if (false === strpos($element, '"')) {
-            return '"'.$element.'"';
+            return '"' . $element . '"';
         }
 
         $string = $element;
@@ -111,7 +110,7 @@ class Translator implements TranslatorInterface
      */
     public function selectorToXPath(SelectorNode $selector, string $prefix = 'descendant-or-self::'): string
     {
-        return ($prefix ?: '').$this->nodeToXPath($selector);
+        return ($prefix ?: '') . $this->nodeToXPath($selector);
     }
 
     /**

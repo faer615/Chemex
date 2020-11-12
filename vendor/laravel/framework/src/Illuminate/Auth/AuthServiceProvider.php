@@ -57,8 +57,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->app->bind(
             AuthenticatableContract::class, function ($app) {
-                return call_user_func($app['auth']->userResolver());
-            }
+            return call_user_func($app['auth']->userResolver());
+        }
         );
     }
 
@@ -85,12 +85,12 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->app->bind(
             RequirePassword::class, function ($app) {
-                return new RequirePassword(
-                    $app[ResponseFactory::class],
-                    $app[UrlGenerator::class],
-                    $app['config']->get('auth.password_timeout')
-                );
-            }
+            return new RequirePassword(
+                $app[ResponseFactory::class],
+                $app[UrlGenerator::class],
+                $app['config']->get('auth.password_timeout')
+            );
+        }
         );
     }
 
@@ -116,7 +116,7 @@ class AuthServiceProvider extends ServiceProvider
     protected function registerEventRebindHandler()
     {
         $this->app->rebinding('events', function ($app, $dispatcher) {
-            if (! $app->resolved('auth')) {
+            if (!$app->resolved('auth')) {
                 return;
             }
 

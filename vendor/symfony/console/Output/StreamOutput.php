@@ -32,9 +32,9 @@ class StreamOutput extends Output
     private $stream;
 
     /**
-     * @param resource                      $stream    A stream resource
-     * @param int                           $verbosity The verbosity level (one of the VERBOSITY constants in OutputInterface)
-     * @param bool|null                     $decorated Whether to decorate messages (null for auto-guessing)
+     * @param resource $stream A stream resource
+     * @param int $verbosity The verbosity level (one of the VERBOSITY constants in OutputInterface)
+     * @param bool|null $decorated Whether to decorate messages (null for auto-guessing)
      * @param OutputFormatterInterface|null $formatter Output formatter instance (null to use default OutputFormatter)
      *
      * @throws InvalidArgumentException When first argument is not a real stream
@@ -104,7 +104,7 @@ class StreamOutput extends Output
 
         if (\DIRECTORY_SEPARATOR === '\\') {
             return (\function_exists('sapi_windows_vt100_support')
-                && @sapi_windows_vt100_support($this->stream))
+                    && @sapi_windows_vt100_support($this->stream))
                 || false !== getenv('ANSICON')
                 || 'ON' === getenv('ConEmuANSI')
                 || 'xterm' === getenv('TERM');

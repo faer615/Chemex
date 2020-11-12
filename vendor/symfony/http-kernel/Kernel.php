@@ -55,38 +55,91 @@ class_exists(ConfigCache::class);
  */
 abstract class Kernel implements KernelInterface, RebootableInterface, TerminableInterface
 {
-    /**
-     * @var BundleInterface[]
-     */
-    protected $bundles = [];
-
-    protected $container;
-    protected $environment;
-    protected $debug;
-    protected $booted = false;
-    protected $startTime;
-
-    private $projectDir;
-    private $warmupDir;
-    private $requestStackSize = 0;
-    private $resetServices = false;
-
-    private static $freshCache = [];
-
     const VERSION = '5.1.8';
     const VERSION_ID = 50108;
     const MAJOR_VERSION = 5;
     const MINOR_VERSION = 1;
     const RELEASE_VERSION = 8;
     const EXTRA_VERSION = '';
-
     const END_OF_MAINTENANCE = '01/2021';
     const END_OF_LIFE = '01/2021';
+    private static $freshCache = [];
+    /**
+     * @var BundleInterface[]
+     */
+    protected $bundles = [];
+    protected $container;
+    protected $environment;
+    protected $debug;
+    protected $booted = false;
+    protected $startTime;
+    private $projectDir;
+    private $warmupDir;
+    private $requestStackSize = 0;
+    private $resetServices = false;
 
     public function __construct(string $environment, bool $debug)
     {
         $this->environment = $environment;
         $this->debug = $debug;
+    }
+
+    /**
+     * Removes comments from a PHP source string.
+     *
+     * We don't use the PHP php_strip_whitespace() function
+     * as we want the content to be readable and well-formatted.
+     *
+     * @return string The PHP string with the comments removed
+     */
+    public static function stripComments(string $source)
+    {
+        if (!\function_exists('token_get_all')) {
+            return $source;
+        }
+
+        $rawChunk = '';
+        $output = '';
+        $tokens = token_get_all($source);
+        $ignoreSpace = false;
+        for ($i = 0; isset($tokens[$i]); ++$i) {
+            $token = $tokens[$i];
+            if (!isset($token[1]) || 'b"' === $token) {
+                $rawChunk .= $token;
+            } elseif (\T_START_HEREDOC === $token[0]) {
+                $output .= $rawChunk . $token[1];
+                do {
+                    $token = $tokens[++$i];
+                    $output .= isset($token[1]) && 'b"' !== $token ? $token[1] : $token;
+                } while (\T_END_HEREDOC !== $token[0]);
+                $rawChunk = '';
+            } elseif (\T_WHITESPACE === $token[0]) {
+                if ($ignoreSpace) {
+                    $ignoreSpace = false;
+
+                    continue;
+                }
+
+                // replace multiple new lines with a single newline
+                $rawChunk .= preg_replace(['/\n{2,}/S'], "\n", $token[1]);
+            } elseif (\in_array($token[0], [\T_COMMENT, \T_DOC_COMMENT])) {
+                $ignoreSpace = true;
+            } else {
+                $rawChunk .= $token[1];
+
+                // The PHP-open tag already has a new-line
+                if (\T_OPEN_TAG === $token[0]) {
+                    $ignoreSpace = true;
+                }
+            }
+        }
+
+        $output .= $rawChunk;
+
+        unset($tokens, $rawChunk);
+        gc_mem_caches();
+
+        return $output;
     }
 
     public function __clone()
@@ -200,16 +253,6 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
     }
 
     /**
-     * Gets a HTTP kernel from the container.
-     *
-     * @return HttpKernelInterface
-     */
-    protected function getHttpKernel()
-    {
-        return $this->container->get('http_kernel');
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function getBundles()
@@ -249,7 +292,7 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
         }
 
         $bundle = $this->getBundle($bundleName);
-        if (file_exists($file = $bundle->getPath().'/'.$path)) {
+        if (file_exists($file = $bundle->getPath() . '/' . $path)) {
             return $file;
         }
 
@@ -287,7 +330,7 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
             }
 
             $dir = $rootDir = \dirname($dir);
-            while (!is_file($dir.'/composer.json')) {
+            while (!is_file($dir . '/composer.json')) {
                 if ($dir === \dirname($dir)) {
                     return $this->projectDir = $rootDir;
                 }
@@ -316,7 +359,7 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
      */
     public function setAnnotatedClassCache(array $annotatedClasses)
     {
-        file_put_contents(($this->warmupDir ?: $this->getCacheDir()).'/annotations.map', sprintf('<?php return %s;', var_export($annotatedClasses, true)));
+        file_put_contents(($this->warmupDir ?: $this->getCacheDir()) . '/annotations.map', sprintf('<?php return %s;', var_export($annotatedClasses, true)));
     }
 
     /**
@@ -332,7 +375,7 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
      */
     public function getCacheDir()
     {
-        return $this->getProjectDir().'/var/cache/'.$this->environment;
+        return $this->getProjectDir() . '/var/cache/' . $this->environment;
     }
 
     /**
@@ -340,7 +383,7 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
      */
     public function getLogDir()
     {
-        return $this->getProjectDir().'/var/log';
+        return $this->getProjectDir() . '/var/log';
     }
 
     /**
@@ -357,6 +400,29 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
     public function getAnnotatedClassesToCompile(): array
     {
         return [];
+    }
+
+    /**
+     * @return array
+     */
+    public function __sleep()
+    {
+        return ['environment', 'debug'];
+    }
+
+    public function __wakeup()
+    {
+        $this->__construct($this->environment, $this->debug);
+    }
+
+    /**
+     * Gets a HTTP kernel from the container.
+     *
+     * @return HttpKernelInterface
+     */
+    protected function getHttpKernel()
+    {
+        return $this->container->get('http_kernel');
     }
 
     /**
@@ -389,15 +455,15 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
     /**
      * Gets the container class.
      *
+     * @return string The container class
      * @throws \InvalidArgumentException If the generated classname is invalid
      *
-     * @return string The container class
      */
     protected function getContainerClass()
     {
         $class = static::class;
-        $class = false !== strpos($class, "@anonymous\0") ? get_parent_class($class).str_replace('.', '_', ContainerBuilder::hash($class)) : $class;
-        $class = str_replace('\\', '_', $class).ucfirst($this->environment).($this->debug ? 'Debug' : '').'Container';
+        $class = false !== strpos($class, "@anonymous\0") ? get_parent_class($class) . str_replace('.', '_', ContainerBuilder::hash($class)) : $class;
+        $class = str_replace('\\', '_', $class) . ucfirst($this->environment) . ($this->debug ? 'Debug' : '') . 'Container';
 
         if (!preg_match('/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$/', $class)) {
             throw new \InvalidArgumentException(sprintf('The environment "%s" contains invalid characters, it can only contain characters allowed in PHP class names.', $this->environment));
@@ -428,7 +494,7 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
     {
         $class = $this->getContainerClass();
         $cacheDir = $this->warmupDir ?: $this->getCacheDir();
-        $cache = new ConfigCache($cacheDir.'/'.$class.'.php', $this->debug);
+        $cache = new ConfigCache($cacheDir . '/' . $class . '.php', $this->debug);
         $cachePath = $cache->getPath();
 
         // Silence E_WARNING to ignore "include" failures - don't use "@" to prevent silencing fatal errors
@@ -452,7 +518,7 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
         try {
             is_dir($cacheDir) ?: mkdir($cacheDir, 0777, true);
 
-            if ($lock = fopen($cachePath.'.lock', 'w')) {
+            if ($lock = fopen($cachePath . '.lock', 'w')) {
                 flock($lock, \LOCK_EX | \LOCK_NB, $wouldBlock);
 
                 if (!flock($lock, $wouldBlock ? \LOCK_SH : \LOCK_EX)) {
@@ -535,8 +601,8 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
             if ($collectDeprecations) {
                 restore_error_handler();
 
-                file_put_contents($cacheDir.'/'.$class.'Deprecations.log', serialize(array_values($collectedLogs)));
-                file_put_contents($cacheDir.'/'.$class.'Compiler.log', null !== $container ? implode("\n", $container->getCompiler()->getLog()) : '');
+                file_put_contents($cacheDir . '/' . $class . 'Deprecations.log', serialize(array_values($collectedLogs)));
+                file_put_contents($cacheDir . '/' . $class . 'Compiler.log', null !== $container ? implode("\n", $container->getCompiler()->getLog()) : '');
             }
         }
 
@@ -556,23 +622,23 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
             // but on a next dump of the container.
             static $legacyContainers = [];
             $oldContainerDir = \dirname($oldContainer->getFileName());
-            $legacyContainers[$oldContainerDir.'.legacy'] = true;
-            foreach (glob(\dirname($oldContainerDir).\DIRECTORY_SEPARATOR.'*.legacy', \GLOB_NOSORT) as $legacyContainer) {
+            $legacyContainers[$oldContainerDir . '.legacy'] = true;
+            foreach (glob(\dirname($oldContainerDir) . \DIRECTORY_SEPARATOR . '*.legacy', \GLOB_NOSORT) as $legacyContainer) {
                 if (!isset($legacyContainers[$legacyContainer]) && @unlink($legacyContainer)) {
                     (new Filesystem())->remove(substr($legacyContainer, 0, -7));
                 }
             }
 
-            touch($oldContainerDir.'.legacy');
+            touch($oldContainerDir . '.legacy');
         }
 
-        $preload = $this instanceof WarmableInterface ? (array) $this->warmUp($this->container->getParameter('kernel.cache_dir')) : [];
+        $preload = $this instanceof WarmableInterface ? (array)$this->warmUp($this->container->getParameter('kernel.cache_dir')) : [];
 
         if ($this->container->has('cache_warmer')) {
-            $preload = array_merge($preload, (array) $this->container->get('cache_warmer')->warmUp($this->container->getParameter('kernel.cache_dir')));
+            $preload = array_merge($preload, (array)$this->container->get('cache_warmer')->warmUp($this->container->getParameter('kernel.cache_dir')));
         }
 
-        if ($preload && method_exists(Preloader::class, 'append') && file_exists($preloadFile = $cacheDir.'/'.$class.'.preload.php')) {
+        if ($preload && method_exists(Preloader::class, 'append') && file_exists($preloadFile = $cacheDir . '/' . $class . '.preload.php')) {
             Preloader::append($preloadFile, $preload);
         }
     }
@@ -693,7 +759,7 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
     /**
      * Dumps the service container to PHP code in the cache.
      *
-     * @param string $class     The name of the class to generate
+     * @param string $class The name of the class to generate
      * @param string $baseClass The name of the container's base class
      */
     protected function dumpContainer(ConfigCache $cache, ContainerBuilder $container, string $class, string $baseClass)
@@ -716,14 +782,14 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
         ]);
 
         $rootCode = array_pop($content);
-        $dir = \dirname($cache->getPath()).'/';
+        $dir = \dirname($cache->getPath()) . '/';
         $fs = new Filesystem();
 
         foreach ($content as $file => $code) {
-            $fs->dumpFile($dir.$file, $code);
-            @chmod($dir.$file, 0666 & ~umask());
+            $fs->dumpFile($dir . $file, $code);
+            @chmod($dir . $file, 0666 & ~umask());
         }
-        $legacyFile = \dirname($dir.key($content)).'.legacy';
+        $legacyFile = \dirname($dir . key($content)) . '.legacy';
         if (file_exists($legacyFile)) {
             @unlink($legacyFile);
         }
@@ -750,76 +816,5 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
         ]);
 
         return new DelegatingLoader($resolver);
-    }
-
-    /**
-     * Removes comments from a PHP source string.
-     *
-     * We don't use the PHP php_strip_whitespace() function
-     * as we want the content to be readable and well-formatted.
-     *
-     * @return string The PHP string with the comments removed
-     */
-    public static function stripComments(string $source)
-    {
-        if (!\function_exists('token_get_all')) {
-            return $source;
-        }
-
-        $rawChunk = '';
-        $output = '';
-        $tokens = token_get_all($source);
-        $ignoreSpace = false;
-        for ($i = 0; isset($tokens[$i]); ++$i) {
-            $token = $tokens[$i];
-            if (!isset($token[1]) || 'b"' === $token) {
-                $rawChunk .= $token;
-            } elseif (\T_START_HEREDOC === $token[0]) {
-                $output .= $rawChunk.$token[1];
-                do {
-                    $token = $tokens[++$i];
-                    $output .= isset($token[1]) && 'b"' !== $token ? $token[1] : $token;
-                } while (\T_END_HEREDOC !== $token[0]);
-                $rawChunk = '';
-            } elseif (\T_WHITESPACE === $token[0]) {
-                if ($ignoreSpace) {
-                    $ignoreSpace = false;
-
-                    continue;
-                }
-
-                // replace multiple new lines with a single newline
-                $rawChunk .= preg_replace(['/\n{2,}/S'], "\n", $token[1]);
-            } elseif (\in_array($token[0], [\T_COMMENT, \T_DOC_COMMENT])) {
-                $ignoreSpace = true;
-            } else {
-                $rawChunk .= $token[1];
-
-                // The PHP-open tag already has a new-line
-                if (\T_OPEN_TAG === $token[0]) {
-                    $ignoreSpace = true;
-                }
-            }
-        }
-
-        $output .= $rawChunk;
-
-        unset($tokens, $rawChunk);
-        gc_mem_caches();
-
-        return $output;
-    }
-
-    /**
-     * @return array
-     */
-    public function __sleep()
-    {
-        return ['environment', 'debug'];
-    }
-
-    public function __wakeup()
-    {
-        $this->__construct($this->environment, $this->debug);
     }
 }

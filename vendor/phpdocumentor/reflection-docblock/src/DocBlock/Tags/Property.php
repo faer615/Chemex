@@ -39,10 +39,10 @@ final class Property extends TagWithType implements Factory\StaticMethod
     {
         Assert::string($variableName);
 
-        $this->name         = 'property';
+        $this->name = 'property';
         $this->variableName = $variableName;
-        $this->type         = $type;
-        $this->description  = $description;
+        $this->type = $type;
+        $this->description = $description;
     }
 
     public static function create(
@@ -50,14 +50,15 @@ final class Property extends TagWithType implements Factory\StaticMethod
         ?TypeResolver $typeResolver = null,
         ?DescriptionFactory $descriptionFactory = null,
         ?TypeContext $context = null
-    ) : self {
+    ): self
+    {
         Assert::stringNotEmpty($body);
         Assert::notNull($typeResolver);
         Assert::notNull($descriptionFactory);
 
         [$firstPart, $body] = self::extractTypeFromBody($body);
-        $type               = null;
-        $parts              = Utils::pregSplit('/(\s+)/Su', $body, 2, PREG_SPLIT_DELIM_CAPTURE);
+        $type = null;
+        $parts = Utils::pregSplit('/(\s+)/Su', $body, 2, PREG_SPLIT_DELIM_CAPTURE);
         $variableName = '';
 
         // if the first item that is encountered is not a variable; it is a type
@@ -88,7 +89,7 @@ final class Property extends TagWithType implements Factory\StaticMethod
     /**
      * Returns the variable's name.
      */
-    public function getVariableName() : ?string
+    public function getVariableName(): ?string
     {
         return $this->variableName;
     }
@@ -96,7 +97,7 @@ final class Property extends TagWithType implements Factory\StaticMethod
     /**
      * Returns a string representation for this tag.
      */
-    public function __toString() : string
+    public function __toString(): string
     {
         if ($this->description) {
             $description = $this->description->render();
@@ -110,7 +111,7 @@ final class Property extends TagWithType implements Factory\StaticMethod
             $variableName = '';
         }
 
-        $type = (string) $this->type;
+        $type = (string)$this->type;
 
         return $type
             . ($variableName !== '' ? ($type !== '' ? ' ' : '') . $variableName : '')

@@ -46,7 +46,7 @@ final class AttributesHelper
 
         $attributes = [];
         $regex = '/^\s*([.#][_a-z0-9-]+|' . RegexHelper::PARTIAL_ATTRIBUTENAME . RegexHelper::PARTIAL_ATTRIBUTEVALUESPEC . ')(?<!})\s*/i';
-        while ($attribute = \trim((string) $cursor->match($regex))) {
+        while ($attribute = \trim((string)$cursor->match($regex))) {
             if ($attribute[0] === '#') {
                 $attributes['id'] = \substr($attribute, 1);
 
@@ -88,7 +88,7 @@ final class AttributesHelper
         }
 
         if (isset($attributes['class'])) {
-            $attributes['class'] = \implode(' ', (array) $attributes['class']);
+            $attributes['class'] = \implode(' ', (array)$attributes['class']);
         }
 
         return $attributes;
@@ -109,7 +109,7 @@ final class AttributesHelper
             }
 
             /** @var array<string, mixed> $arg */
-            $arg = (array) $arg;
+            $arg = (array)$arg;
             if (isset($arg['class'])) {
                 foreach (\array_filter(\explode(' ', \trim($arg['class']))) as $class) {
                     $attributes['class'][] = $class;

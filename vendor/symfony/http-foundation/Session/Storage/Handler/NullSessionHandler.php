@@ -35,19 +35,27 @@ class NullSessionHandler extends AbstractSessionHandler
     }
 
     /**
-     * {@inheritdoc}
-     */
-    protected function doRead(string $sessionId)
-    {
-        return '';
-    }
-
-    /**
      * @return bool
      */
     public function updateTimestamp($sessionId, $data)
     {
         return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function gc($maxlifetime)
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function doRead(string $sessionId)
+    {
+        return '';
     }
 
     /**
@@ -62,14 +70,6 @@ class NullSessionHandler extends AbstractSessionHandler
      * {@inheritdoc}
      */
     protected function doDestroy(string $sessionId)
-    {
-        return true;
-    }
-
-    /**
-     * @return bool
-     */
-    public function gc($maxlifetime)
     {
         return true;
     }

@@ -8,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Carbon\Exceptions;
 
 use BadMethodCallException as BaseBadMethodCallException;
@@ -18,8 +19,8 @@ class BadFluentConstructorException extends BaseBadMethodCallException implement
     /**
      * Constructor.
      *
-     * @param string         $method
-     * @param int            $code
+     * @param string $method
+     * @param int $code
      * @param Exception|null $previous
      */
     public function __construct($method, $code = 0, Exception $previous = null)

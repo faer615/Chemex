@@ -36,10 +36,10 @@ class Swift_Mime_Headers_UnstructuredHeader extends Swift_Mime_Headers_AbstractH
     /**
      * Get the type of Header that this instance represents.
      *
-     * @see TYPE_TEXT, TYPE_PARAMETERIZED, TYPE_MAILBOX
+     * @return int
      * @see TYPE_DATE, TYPE_ID, TYPE_PATH
      *
-     * @return int
+     * @see TYPE_TEXT, TYPE_PARAMETERIZED, TYPE_MAILBOX
      */
     public function getFieldType()
     {
@@ -101,7 +101,7 @@ class Swift_Mime_Headers_UnstructuredHeader extends Swift_Mime_Headers_AbstractH
         if (!$this->getCachedValue()) {
             $this->setCachedValue(
                 $this->encodeWords($this, $this->value)
-                );
+            );
         }
 
         return $this->getCachedValue();

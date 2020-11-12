@@ -56,6 +56,11 @@ final class FootnoteRefParser implements InlineParserInterface, ConfigurationAwa
         return false;
     }
 
+    public function setConfiguration(ConfigurationInterface $config): void
+    {
+        $this->config = $config;
+    }
+
     private function createReference(string $label): Reference
     {
         return new Reference(
@@ -63,10 +68,5 @@ final class FootnoteRefParser implements InlineParserInterface, ConfigurationAwa
             '#' . $this->config->get('footnote/footnote_id_prefix', 'fn:') . $label,
             $label
         );
-    }
-
-    public function setConfiguration(ConfigurationInterface $config): void
-    {
-        $this->config = $config;
     }
 }

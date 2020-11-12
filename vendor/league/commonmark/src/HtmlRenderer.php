@@ -39,7 +39,7 @@ final class HtmlRenderer implements ElementRendererInterface
 
     /**
      * @param string $option
-     * @param mixed  $default
+     * @param mixed $default
      *
      * @return mixed|null
      */
@@ -51,9 +51,9 @@ final class HtmlRenderer implements ElementRendererInterface
     /**
      * @param AbstractInline $inline
      *
+     * @return string
      * @throws \RuntimeException
      *
-     * @return string
      */
     public function renderInline(AbstractInline $inline): string
     {
@@ -86,11 +86,11 @@ final class HtmlRenderer implements ElementRendererInterface
 
     /**
      * @param AbstractBlock $block
-     * @param bool          $inTightList
-     *
-     * @throws \RuntimeException
+     * @param bool $inTightList
      *
      * @return string
+     * @throws \RuntimeException
+     *
      */
     public function renderBlock(AbstractBlock $block, bool $inTightList = false): string
     {
@@ -108,7 +108,7 @@ final class HtmlRenderer implements ElementRendererInterface
 
     /**
      * @param AbstractBlock[] $blocks
-     * @param bool            $inTightList
+     * @param bool $inTightList
      *
      * @return string
      */

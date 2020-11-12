@@ -63,7 +63,7 @@ abstract class AbstractField implements FieldInterface
             return $this->isInRange($dateValue, $value);
         }
 
-        return '*' === $value || $dateValue === (int) $value;
+        return '*' === $value || $dateValue === (int)$value;
     }
 
     /**
@@ -152,7 +152,7 @@ abstract class AbstractField implements FieldInterface
         if ($step >= $this->rangeEnd) {
             $thisRange = [$this->fullRange[$step % \count($this->fullRange)]];
         } else {
-            $thisRange = range($rangeStart, $rangeEnd, (int) $step);
+            $thisRange = range($rangeStart, $rangeEnd, (int)$step);
         }
 
         return \in_array($dateValue, $thisRange, true);
@@ -201,7 +201,7 @@ abstract class AbstractField implements FieldInterface
                 $values = [$this->fullRange[$stepSize % \count($this->fullRange)]];
             } else {
                 for ($i = $offset; $i <= $to; $i += $stepSize) {
-                    $values[] = (int) $i;
+                    $values[] = (int)$i;
                 }
             }
             sort($values);
@@ -210,25 +210,6 @@ abstract class AbstractField implements FieldInterface
         }
 
         return $values;
-    }
-
-    /**
-     * Convert literal.
-     *
-     * @param string $value
-     *
-     * @return string
-     */
-    protected function convertLiterals(string $value): string
-    {
-        if (\count($this->literals)) {
-            $key = array_search(strtoupper($value), $this->literals, true);
-            if (false !== $key) {
-                return (string) $key;
-            }
-        }
-
-        return $value;
     }
 
     /**
@@ -294,8 +275,27 @@ abstract class AbstractField implements FieldInterface
         }
 
         // We should have a numeric by now, so coerce this into an integer
-        $value = (int) $value;
+        $value = (int)$value;
 
         return \in_array($value, $this->fullRange, true);
+    }
+
+    /**
+     * Convert literal.
+     *
+     * @param string $value
+     *
+     * @return string
+     */
+    protected function convertLiterals(string $value): string
+    {
+        if (\count($this->literals)) {
+            $key = array_search(strtoupper($value), $this->literals, true);
+            if (false !== $key) {
+                return (string)$key;
+            }
+        }
+
+        return $value;
     }
 }

@@ -39,7 +39,7 @@ class ArrayStatement implements IteratorAggregate, ResultStatement, Result
     public function __construct(array $data)
     {
         $this->data = $data;
-        if (! count($data)) {
+        if (!count($data)) {
             return;
         }
 
@@ -109,11 +109,11 @@ class ArrayStatement implements IteratorAggregate, ResultStatement, Result
      */
     public function fetch($fetchMode = null, $cursorOrientation = PDO::FETCH_ORI_NEXT, $cursorOffset = 0)
     {
-        if (! isset($this->data[$this->num])) {
+        if (!isset($this->data[$this->num])) {
             return false;
         }
 
-        $row       = $this->data[$this->num++];
+        $row = $this->data[$this->num++];
         $fetchMode = $fetchMode ?: $this->defaultFetchMode;
 
         if ($fetchMode === FetchMode::ASSOCIATIVE) {
@@ -233,7 +233,7 @@ class ArrayStatement implements IteratorAggregate, ResultStatement, Result
      */
     private function doFetch()
     {
-        if (! isset($this->data[$this->num])) {
+        if (!isset($this->data[$this->num])) {
             return false;
         }
 

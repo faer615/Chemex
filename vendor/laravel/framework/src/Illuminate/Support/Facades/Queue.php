@@ -31,8 +31,8 @@ class Queue extends Facade
     /**
      * Register a callback to be executed to pick jobs.
      *
-     * @param  string  $workerName
-     * @param  callable  $callback
+     * @param string $workerName
+     * @param callable $callback
      * @return void
      */
     public static function popUsing($workerName, $callback)

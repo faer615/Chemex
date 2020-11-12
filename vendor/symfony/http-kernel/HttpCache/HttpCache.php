@@ -462,7 +462,7 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
      * All backend requests (cache passes, fetches, cache validations)
      * run through this method.
      *
-     * @param bool          $catch Whether to catch exceptions or not
+     * @param bool $catch Whether to catch exceptions or not
      * @param Response|null $entry A Response instance (the stale entry if present, null otherwise)
      *
      * @return Response A Response instance
@@ -634,7 +634,7 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
             if ($response->headers->has('X-Body-File')) {
                 include $response->headers->get('X-Body-File');
             } else {
-                eval('; ?>'.$response->getContent().'<?php ;');
+                eval('; ?>' . $response->getContent() . '<?php ;');
             }
 
             $response->setContent(ob_get_clean());
@@ -698,10 +698,10 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
     {
         $path = $request->getPathInfo();
         if ($qs = $request->getQueryString()) {
-            $path .= '?'.$qs;
+            $path .= '?' . $qs;
         }
 
-        return $request->getMethod().' '.$path;
+        return $request->getMethod() . ' ' . $path;
     }
 
     /**

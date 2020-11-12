@@ -91,19 +91,20 @@ class PrimaryReadReplicaConnection extends Connection
     /**
      * Creates Primary Replica Connection.
      *
-     * @internal The connection can be only instantiated by the driver manager.
-     *
      * @param mixed[] $params
      *
      * @throws InvalidArgumentException
+     * @internal The connection can be only instantiated by the driver manager.
+     *
      */
     public function __construct(
         array $params,
         Driver $driver,
         ?Configuration $config = null,
         ?EventManager $eventManager = null
-    ) {
-        if (! isset($params['replica'], $params['primary'])) {
+    )
+    {
+        if (!isset($params['replica'], $params['primary'])) {
             throw new InvalidArgumentException('primary or replica configuration missing');
         }
 
@@ -116,7 +117,7 @@ class PrimaryReadReplicaConnection extends Connection
             $params['replica'][$replicaKey]['driver'] = $params['driver'];
         }
 
-        $this->keepReplica = (bool) ($params['keepReplica'] ?? false);
+        $this->keepReplica = (bool)($params['keepReplica'] ?? false);
 
         parent::__construct($params, $driver, $config, $eventManager);
     }
@@ -139,63 +140,11 @@ class PrimaryReadReplicaConnection extends Connection
         if ($connectionName !== null) {
             throw new InvalidArgumentException(
                 'Passing a connection name as first argument is not supported anymore.'
-                    . ' Use ensureConnectedToPrimary()/ensureConnectedToReplica() instead.'
+                . ' Use ensureConnectedToPrimary()/ensureConnectedToReplica() instead.'
             );
         }
 
         return $this->performConnect();
-    }
-
-    protected function performConnect(?string $connectionName = null): bool
-    {
-        $requestedConnectionChange = ($connectionName !== null);
-        $connectionName            = $connectionName ?: 'replica';
-
-        if ($connectionName !== 'replica' && $connectionName !== 'primary') {
-            throw new InvalidArgumentException('Invalid option to connect(), only primary or replica allowed.');
-        }
-
-        // If we have a connection open, and this is not an explicit connection
-        // change request, then abort right here, because we are already done.
-        // This prevents writes to the replica in case of "keepReplica" option enabled.
-        if ($this->_conn !== null && ! $requestedConnectionChange) {
-            return false;
-        }
-
-        $forcePrimaryAsReplica = false;
-
-        if ($this->getTransactionNestingLevel() > 0) {
-            $connectionName        = 'primary';
-            $forcePrimaryAsReplica = true;
-        }
-
-        if (isset($this->connections[$connectionName])) {
-            $this->_conn = $this->connections[$connectionName];
-
-            if ($forcePrimaryAsReplica && ! $this->keepReplica) {
-                $this->connections['replica'] = $this->_conn;
-            }
-
-            return false;
-        }
-
-        if ($connectionName === 'primary') {
-            $this->connections['primary'] = $this->_conn = $this->connectTo($connectionName);
-
-            // Set replica connection to primary to avoid invalid reads
-            if (! $this->keepReplica) {
-                $this->connections['replica'] = $this->connections['primary'];
-            }
-        } else {
-            $this->connections['replica'] = $this->_conn = $this->connectTo($connectionName);
-        }
-
-        if ($this->_eventManager->hasListeners(Events::postConnect)) {
-            $eventArgs = new ConnectionEventArgs($this);
-            $this->_eventManager->dispatchEvent(Events::postConnect, $eventArgs);
-        }
-
-        return true;
     }
 
     /**
@@ -218,48 +167,6 @@ class PrimaryReadReplicaConnection extends Connection
     public function ensureConnectedToReplica(): bool
     {
         return $this->performConnect('replica');
-    }
-
-    /**
-     * Connects to a specific connection.
-     *
-     * @param string $connectionName
-     *
-     * @return DriverConnection
-     */
-    protected function connectTo($connectionName)
-    {
-        $params = $this->getParams();
-
-        $driverOptions = $params['driverOptions'] ?? [];
-
-        $connectionParams = $this->chooseConnectionConfiguration($connectionName, $params);
-
-        $user     = $connectionParams['user'] ?? null;
-        $password = $connectionParams['password'] ?? null;
-
-        return $this->_driver->connect($connectionParams, $user, $password, $driverOptions);
-    }
-
-    /**
-     * @param string  $connectionName
-     * @param mixed[] $params
-     *
-     * @return mixed
-     */
-    protected function chooseConnectionConfiguration($connectionName, $params)
-    {
-        if ($connectionName === 'primary') {
-            return $params['primary'];
-        }
-
-        $config = $params['replica'][array_rand($params['replica'])];
-
-        if (! isset($config['charset']) && isset($params['primary']['charset'])) {
-            $config['charset'] = $params['primary']['charset'];
-        }
-
-        return $config;
     }
 
     /**
@@ -333,7 +240,7 @@ class PrimaryReadReplicaConnection extends Connection
 
         parent::close();
 
-        $this->_conn       = null;
+        $this->_conn = null;
         $this->connections = ['primary' => null, 'replica' => null];
     }
 
@@ -431,5 +338,99 @@ class PrimaryReadReplicaConnection extends Connection
         $this->ensureConnectedToPrimary();
 
         return parent::prepare($statement);
+    }
+
+    protected function performConnect(?string $connectionName = null): bool
+    {
+        $requestedConnectionChange = ($connectionName !== null);
+        $connectionName = $connectionName ?: 'replica';
+
+        if ($connectionName !== 'replica' && $connectionName !== 'primary') {
+            throw new InvalidArgumentException('Invalid option to connect(), only primary or replica allowed.');
+        }
+
+        // If we have a connection open, and this is not an explicit connection
+        // change request, then abort right here, because we are already done.
+        // This prevents writes to the replica in case of "keepReplica" option enabled.
+        if ($this->_conn !== null && !$requestedConnectionChange) {
+            return false;
+        }
+
+        $forcePrimaryAsReplica = false;
+
+        if ($this->getTransactionNestingLevel() > 0) {
+            $connectionName = 'primary';
+            $forcePrimaryAsReplica = true;
+        }
+
+        if (isset($this->connections[$connectionName])) {
+            $this->_conn = $this->connections[$connectionName];
+
+            if ($forcePrimaryAsReplica && !$this->keepReplica) {
+                $this->connections['replica'] = $this->_conn;
+            }
+
+            return false;
+        }
+
+        if ($connectionName === 'primary') {
+            $this->connections['primary'] = $this->_conn = $this->connectTo($connectionName);
+
+            // Set replica connection to primary to avoid invalid reads
+            if (!$this->keepReplica) {
+                $this->connections['replica'] = $this->connections['primary'];
+            }
+        } else {
+            $this->connections['replica'] = $this->_conn = $this->connectTo($connectionName);
+        }
+
+        if ($this->_eventManager->hasListeners(Events::postConnect)) {
+            $eventArgs = new ConnectionEventArgs($this);
+            $this->_eventManager->dispatchEvent(Events::postConnect, $eventArgs);
+        }
+
+        return true;
+    }
+
+    /**
+     * Connects to a specific connection.
+     *
+     * @param string $connectionName
+     *
+     * @return DriverConnection
+     */
+    protected function connectTo($connectionName)
+    {
+        $params = $this->getParams();
+
+        $driverOptions = $params['driverOptions'] ?? [];
+
+        $connectionParams = $this->chooseConnectionConfiguration($connectionName, $params);
+
+        $user = $connectionParams['user'] ?? null;
+        $password = $connectionParams['password'] ?? null;
+
+        return $this->_driver->connect($connectionParams, $user, $password, $driverOptions);
+    }
+
+    /**
+     * @param string $connectionName
+     * @param mixed[] $params
+     *
+     * @return mixed
+     */
+    protected function chooseConnectionConfiguration($connectionName, $params)
+    {
+        if ($connectionName === 'primary') {
+            return $params['primary'];
+        }
+
+        $config = $params['replica'][array_rand($params['replica'])];
+
+        if (!isset($config['charset']) && isset($params['primary']['charset'])) {
+            $config['charset'] = $params['primary']['charset'];
+        }
+
+        return $config;
     }
 }

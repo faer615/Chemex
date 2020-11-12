@@ -40,10 +40,10 @@ class BeanstalkdQueue extends Queue implements QueueContract
     /**
      * Create a new Beanstalkd queue instance.
      *
-     * @param  \Pheanstalk\Pheanstalk  $pheanstalk
-     * @param  string  $default
-     * @param  int  $timeToRun
-     * @param  int  $blockFor
+     * @param \Pheanstalk\Pheanstalk $pheanstalk
+     * @param string $default
+     * @param int $timeToRun
+     * @param int $blockFor
      * @return void
      */
     public function __construct(Pheanstalk $pheanstalk, $default, $timeToRun, $blockFor = 0)
@@ -57,22 +57,22 @@ class BeanstalkdQueue extends Queue implements QueueContract
     /**
      * Get the size of the queue.
      *
-     * @param  string|null  $queue
+     * @param string|null $queue
      * @return int
      */
     public function size($queue = null)
     {
         $queue = $this->getQueue($queue);
 
-        return (int) $this->pheanstalk->statsTube($queue)->current_jobs_ready;
+        return (int)$this->pheanstalk->statsTube($queue)->current_jobs_ready;
     }
 
     /**
      * Push a new job onto the queue.
      *
-     * @param  string  $job
-     * @param  mixed  $data
-     * @param  string|null  $queue
+     * @param string $job
+     * @param mixed $data
+     * @param string|null $queue
      * @return mixed
      */
     public function push($job, $data = '', $queue = null)
@@ -83,9 +83,9 @@ class BeanstalkdQueue extends Queue implements QueueContract
     /**
      * Push a raw payload onto the queue.
      *
-     * @param  string  $payload
-     * @param  string|null  $queue
-     * @param  array  $options
+     * @param string $payload
+     * @param string|null $queue
+     * @param array $options
      * @return mixed
      */
     public function pushRaw($payload, $queue = null, array $options = [])
@@ -98,10 +98,10 @@ class BeanstalkdQueue extends Queue implements QueueContract
     /**
      * Push a new job onto the queue after a delay.
      *
-     * @param  \DateTimeInterface|\DateInterval|int  $delay
-     * @param  string  $job
-     * @param  mixed  $data
-     * @param  string|null  $queue
+     * @param \DateTimeInterface|\DateInterval|int $delay
+     * @param string $job
+     * @param mixed $data
+     * @param string|null $queue
      * @return mixed
      */
     public function later($delay, $job, $data = '', $queue = null)
@@ -119,7 +119,7 @@ class BeanstalkdQueue extends Queue implements QueueContract
     /**
      * Pop the next job off of the queue.
      *
-     * @param  string|null  $queue
+     * @param string|null $queue
      * @return \Illuminate\Contracts\Queue\Job|null
      */
     public function pop($queue = null)
@@ -138,8 +138,8 @@ class BeanstalkdQueue extends Queue implements QueueContract
     /**
      * Delete a message from the Beanstalk queue.
      *
-     * @param  string  $queue
-     * @param  string|int  $id
+     * @param string $queue
+     * @param string|int $id
      * @return void
      */
     public function deleteMessage($queue, $id)
@@ -152,7 +152,7 @@ class BeanstalkdQueue extends Queue implements QueueContract
     /**
      * Get the queue or return the default.
      *
-     * @param  string|null  $queue
+     * @param string|null $queue
      * @return string
      */
     public function getQueue($queue)

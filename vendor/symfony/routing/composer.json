@@ -2,7 +2,12 @@
     "name": "symfony/routing",
     "type": "library",
     "description": "Symfony Routing Component",
-    "keywords": ["routing", "router", "URL", "URI"],
+    "keywords": [
+        "routing",
+        "router",
+        "URL",
+        "URI"
+    ],
     "homepage": "https://symfony.com",
     "license": "MIT",
     "authors": [
@@ -42,7 +47,9 @@
         "doctrine/annotations": "For using the annotation loader"
     },
     "autoload": {
-        "psr-4": { "Symfony\\Component\\Routing\\": "" },
+        "psr-4": {
+            "Symfony\\Component\\Routing\\": ""
+        },
         "exclude-from-classmap": [
             "/Tests/"
         ]

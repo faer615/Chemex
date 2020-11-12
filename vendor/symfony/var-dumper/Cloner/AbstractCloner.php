@@ -243,8 +243,8 @@ abstract class AbstractCloner implements ClonerInterface
     /**
      * Clones a PHP variable.
      *
-     * @param mixed $var    Any PHP variable
-     * @param int   $filter A bit field of Caster::EXCLUDE_* constants
+     * @param mixed $var Any PHP variable
+     * @param int $filter A bit field of Caster::EXCLUDE_* constants
      *
      * @return Data The cloned variable represented by a Data object
      */
@@ -340,7 +340,7 @@ abstract class AbstractCloner implements ClonerInterface
                 }
             }
         } catch (\Exception $e) {
-            $a = [(Stub::TYPE_OBJECT === $stub->type ? Caster::PREFIX_VIRTUAL : '').'⚠' => new ThrowingCasterException($e)] + $a;
+            $a = [(Stub::TYPE_OBJECT === $stub->type ? Caster::PREFIX_VIRTUAL : '') . '⚠' => new ThrowingCasterException($e)] + $a;
         }
 
         return $a;
@@ -360,13 +360,13 @@ abstract class AbstractCloner implements ClonerInterface
         $type = $stub->class;
 
         try {
-            if (!empty($this->casters[':'.$type])) {
-                foreach ($this->casters[':'.$type] as $callback) {
+            if (!empty($this->casters[':' . $type])) {
+                foreach ($this->casters[':' . $type] as $callback) {
                     $a = $callback($res, $a, $stub, $isNested, $this->filter);
                 }
             }
         } catch (\Exception $e) {
-            $a = [(Stub::TYPE_OBJECT === $stub->type ? Caster::PREFIX_VIRTUAL : '').'⚠' => new ThrowingCasterException($e)] + $a;
+            $a = [(Stub::TYPE_OBJECT === $stub->type ? Caster::PREFIX_VIRTUAL : '') . '⚠' => new ThrowingCasterException($e)] + $a;
         }
 
         return $a;

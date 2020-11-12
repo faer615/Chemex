@@ -62,8 +62,8 @@ final class TableOfContentsBuilder implements ConfigurationAwareInterface
         $generator = new TableOfContentsGenerator(
             $this->config->get('table_of_contents/style', TableOfContentsGenerator::STYLE_BULLET),
             $this->config->get('table_of_contents/normalize', TableOfContentsGenerator::NORMALIZE_RELATIVE),
-            (int) $this->config->get('table_of_contents/min_heading_level', 1),
-            (int) $this->config->get('table_of_contents/max_heading_level', 6)
+            (int)$this->config->get('table_of_contents/min_heading_level', 1),
+            (int)$this->config->get('table_of_contents/max_heading_level', 6)
         );
 
         $toc = $generator->generate($document);
@@ -89,6 +89,11 @@ final class TableOfContentsBuilder implements ConfigurationAwareInterface
         } else {
             throw new InvalidOptionException(\sprintf('Invalid config option "%s" for "table_of_contents/position"', $position));
         }
+    }
+
+    public function setConfiguration(ConfigurationInterface $config)
+    {
+        $this->config = $config;
     }
 
     private function insertBeforeFirstLinkedHeading(Document $document, TableOfContents $toc): void
@@ -118,10 +123,5 @@ final class TableOfContentsBuilder implements ConfigurationAwareInterface
 
             $event->getNode()->replaceWith(clone $toc);
         }
-    }
-
-    public function setConfiguration(ConfigurationInterface $config)
-    {
-        $this->config = $config;
     }
 }

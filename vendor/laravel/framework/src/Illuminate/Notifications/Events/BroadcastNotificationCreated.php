@@ -35,9 +35,9 @@ class BroadcastNotificationCreated implements ShouldBroadcast
     /**
      * Create a new event instance.
      *
-     * @param  mixed  $notifiable
-     * @param  \Illuminate\Notifications\Notification  $notification
-     * @param  array  $data
+     * @param mixed $notifiable
+     * @param \Illuminate\Notifications\Notification $notification
+     * @param array $data
      * @return void
      */
     public function __construct($notifiable, $notification, $data)
@@ -56,7 +56,7 @@ class BroadcastNotificationCreated implements ShouldBroadcast
     {
         $channels = $this->notification->broadcastOn();
 
-        if (! empty($channels)) {
+        if (!empty($channels)) {
             return $channels;
         }
 
@@ -67,6 +67,35 @@ class BroadcastNotificationCreated implements ShouldBroadcast
         return collect($channels)->map(function ($channel) {
             return new PrivateChannel($channel);
         })->all();
+    }
+
+    /**
+     * Get the data that should be sent with the broadcasted event.
+     *
+     * @return array
+     */
+    public function broadcastWith()
+    {
+        if (method_exists($this->notification, 'broadcastWith')) {
+            return $this->notification->broadcastWith();
+        }
+
+        return array_merge($this->data, [
+            'id' => $this->notification->id,
+            'type' => $this->broadcastType(),
+        ]);
+    }
+
+    /**
+     * Get the type of the notification being broadcast.
+     *
+     * @return string
+     */
+    public function broadcastType()
+    {
+        return method_exists($this->notification, 'broadcastType')
+            ? $this->notification->broadcastType()
+            : get_class($this->notification);
     }
 
     /**
@@ -82,31 +111,6 @@ class BroadcastNotificationCreated implements ShouldBroadcast
 
         $class = str_replace('\\', '.', get_class($this->notifiable));
 
-        return $class.'.'.$this->notifiable->getKey();
-    }
-
-    /**
-     * Get the data that should be sent with the broadcasted event.
-     *
-     * @return array
-     */
-    public function broadcastWith()
-    {
-        return array_merge($this->data, [
-            'id' => $this->notification->id,
-            'type' => $this->broadcastType(),
-        ]);
-    }
-
-    /**
-     * Get the type of the notification being broadcast.
-     *
-     * @return string
-     */
-    public function broadcastType()
-    {
-        return method_exists($this->notification, 'broadcastType')
-                    ? $this->notification->broadcastType()
-                    : get_class($this->notification);
+        return $class . '.' . $this->notifiable->getKey();
     }
 }

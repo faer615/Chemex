@@ -16,8 +16,8 @@ class Sha256Test extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses Lcobucci\JWT\Signer\Ecdsa
-     * @uses Lcobucci\JWT\Signer\OpenSSL
+     * @uses   Lcobucci\JWT\Signer\Ecdsa
+     * @uses   Lcobucci\JWT\Signer\OpenSSL
      *
      * @covers Lcobucci\JWT\Signer\Ecdsa\Sha256::getAlgorithmId
      */
@@ -31,8 +31,8 @@ class Sha256Test extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses Lcobucci\JWT\Signer\Ecdsa
-     * @uses Lcobucci\JWT\Signer\OpenSSL
+     * @uses   Lcobucci\JWT\Signer\Ecdsa
+     * @uses   Lcobucci\JWT\Signer\OpenSSL
      *
      * @covers Lcobucci\JWT\Signer\Ecdsa\Sha256::getAlgorithm
      */
@@ -46,8 +46,8 @@ class Sha256Test extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses Lcobucci\JWT\Signer\Ecdsa
-     * @uses Lcobucci\JWT\Signer\OpenSSL
+     * @uses   Lcobucci\JWT\Signer\Ecdsa
+     * @uses   Lcobucci\JWT\Signer\OpenSSL
      *
      * @covers Lcobucci\JWT\Signer\Ecdsa\Sha256::getKeyLength
      */

@@ -172,7 +172,7 @@ final class EntryParser
     /**
      * Process the given token.
      *
-     * @param int    $state
+     * @param int $state
      * @param string $token
      *
      * @return \GrahamCampbell\ResultType\Result<array{string,bool,int},string>
@@ -244,7 +244,7 @@ final class EntryParser
                     $first = Str::substr($token, 0, 1);
                     if (\in_array($first, ['f', 'n', 'r', 't', 'v'], true)) {
                         /** @var \GrahamCampbell\ResultType\Result<array{string,bool,int},string> */
-                        return Success::create([\stripcslashes('\\'.$first).Str::substr($token, 1), false, self::DOUBLE_QUOTED_STATE]);
+                        return Success::create([\stripcslashes('\\' . $first) . Str::substr($token, 1), false, self::DOUBLE_QUOTED_STATE]);
                     } else {
                         /** @var \GrahamCampbell\ResultType\Result<array{string,bool,int},string> */
                         return Error::create('an unexpected escape sequence');

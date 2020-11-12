@@ -24,7 +24,7 @@ class Manager
     /**
      * Create a new database capsule manager.
      *
-     * @param  \Illuminate\Container\Container|null  $container
+     * @param \Illuminate\Container\Container|null $container
      * @return void
      */
     public function __construct(Container $container = null)
@@ -40,33 +40,9 @@ class Manager
     }
 
     /**
-     * Setup the default database configuration options.
-     *
-     * @return void
-     */
-    protected function setupDefaultConfiguration()
-    {
-        $this->container['config']['database.fetch'] = PDO::FETCH_OBJ;
-
-        $this->container['config']['database.default'] = 'default';
-    }
-
-    /**
-     * Build the database manager instance.
-     *
-     * @return void
-     */
-    protected function setupManager()
-    {
-        $factory = new ConnectionFactory($this->container);
-
-        $this->manager = new DatabaseManager($this->container, $factory);
-    }
-
-    /**
      * Get a connection instance from the global manager.
      *
-     * @param  string|null  $connection
+     * @param string|null $connection
      * @return \Illuminate\Database\Connection
      */
     public static function connection($connection = null)
@@ -77,9 +53,9 @@ class Manager
     /**
      * Get a fluent query builder instance.
      *
-     * @param  \Closure|\Illuminate\Database\Query\Builder|string  $table
-     * @param  string|null  $as
-     * @param  string|null  $connection
+     * @param \Closure|\Illuminate\Database\Query\Builder|string $table
+     * @param string|null $as
+     * @param string|null $connection
      * @return \Illuminate\Database\Query\Builder
      */
     public static function table($table, $as = null, $connection = null)
@@ -90,7 +66,7 @@ class Manager
     /**
      * Get a schema builder instance.
      *
-     * @param  string|null  $connection
+     * @param string|null $connection
      * @return \Illuminate\Database\Schema\Builder
      */
     public static function schema($connection = null)
@@ -99,9 +75,21 @@ class Manager
     }
 
     /**
+     * Dynamically pass methods to the default connection.
+     *
+     * @param string $method
+     * @param array $parameters
+     * @return mixed
+     */
+    public static function __callStatic($method, $parameters)
+    {
+        return static::connection()->$method(...$parameters);
+    }
+
+    /**
      * Get a registered connection instance.
      *
-     * @param  string|null  $name
+     * @param string|null $name
      * @return \Illuminate\Database\Connection
      */
     public function getConnection($name = null)
@@ -112,8 +100,8 @@ class Manager
     /**
      * Register a connection with the manager.
      *
-     * @param  array  $config
-     * @param  string  $name
+     * @param array $config
+     * @param string $name
      * @return void
      */
     public function addConnection(array $config, $name = 'default')
@@ -145,7 +133,7 @@ class Manager
     /**
      * Set the fetch mode for the database connections.
      *
-     * @param  int  $fetchMode
+     * @param int $fetchMode
      * @return $this
      */
     public function setFetchMode($fetchMode)
@@ -180,7 +168,7 @@ class Manager
     /**
      * Set the event dispatcher instance to be used by connections.
      *
-     * @param  \Illuminate\Contracts\Events\Dispatcher  $dispatcher
+     * @param \Illuminate\Contracts\Events\Dispatcher $dispatcher
      * @return void
      */
     public function setEventDispatcher(Dispatcher $dispatcher)
@@ -189,14 +177,26 @@ class Manager
     }
 
     /**
-     * Dynamically pass methods to the default connection.
+     * Setup the default database configuration options.
      *
-     * @param  string  $method
-     * @param  array  $parameters
-     * @return mixed
+     * @return void
      */
-    public static function __callStatic($method, $parameters)
+    protected function setupDefaultConfiguration()
     {
-        return static::connection()->$method(...$parameters);
+        $this->container['config']['database.fetch'] = PDO::FETCH_OBJ;
+
+        $this->container['config']['database.default'] = 'default';
+    }
+
+    /**
+     * Build the database manager instance.
+     *
+     * @return void
+     */
+    protected function setupManager()
+    {
+        $factory = new ConnectionFactory($this->container);
+
+        $this->manager = new DatabaseManager($this->container, $factory);
     }
 }

@@ -21,8 +21,8 @@ class RouteUri
     /**
      * Create a new route URI instance.
      *
-     * @param  string  $uri
-     * @param  array  $bindingFields
+     * @param string $uri
+     * @param array $bindingFields
      * @return void
      */
     public function __construct(string $uri, array $bindingFields = [])
@@ -34,7 +34,7 @@ class RouteUri
     /**
      * Parse the given URI.
      *
-     * @param  string  $uri
+     * @param string $uri
      * @return static
      */
     public static function parse($uri)
@@ -53,8 +53,8 @@ class RouteUri
             $bindingFields[$segments[0]] = $segments[1];
 
             $uri = strpos($match, '?') !== false
-                    ? str_replace($match, '{'.$segments[0].'?}', $uri)
-                    : str_replace($match, '{'.$segments[0].'}', $uri);
+                ? str_replace($match, '{' . $segments[0] . '?}', $uri)
+                : str_replace($match, '{' . $segments[0] . '}', $uri);
         }
 
         return new static($uri, $bindingFields);

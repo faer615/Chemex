@@ -40,21 +40,6 @@ final class Reference implements ReferenceInterface
         $this->title = $title;
     }
 
-    public function getLabel(): string
-    {
-        return $this->label;
-    }
-
-    public function getDestination(): string
-    {
-        return $this->destination;
-    }
-
-    public function getTitle(): string
-    {
-        return $this->title;
-    }
-
     /**
      * Normalize reference label
      *
@@ -72,5 +57,20 @@ final class Reference implements ReferenceInterface
         @trigger_error(sprintf('%s::normlizeReference() is deprecated; use %s::normalize() instead', self::class, TextNormalizer::class), E_USER_DEPRECATED);
 
         return (new TextNormalizer())->normalize($string);
+    }
+
+    public function getLabel(): string
+    {
+        return $this->label;
+    }
+
+    public function getDestination(): string
+    {
+        return $this->destination;
+    }
+
+    public function getTitle(): string
+    {
+        return $this->title;
     }
 }

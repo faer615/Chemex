@@ -45,7 +45,9 @@ final class Grapheme
 
         if (!\is_scalar($s)) {
             $hasError = false;
-            set_error_handler(function () use (&$hasError) { $hasError = true; });
+            set_error_handler(function () use (&$hasError) {
+                $hasError = true;
+            });
             $next = substr($s, $start);
             restore_error_handler();
             if ($hasError) {
@@ -57,9 +59,9 @@ final class Grapheme
         } else {
             $s = substr($s, $start);
         }
-        $size = (int) $size;
-        $type = (int) $type;
-        $start = (int) $start;
+        $size = (int)$size;
+        $type = (int)$type;
+        $start = (int)$start;
 
         if (!isset($s[0]) || 0 > $size || 0 > $start || 0 > $type || 2 < $type) {
             return false;
@@ -70,7 +72,7 @@ final class Grapheme
 
         $next = $start;
 
-        $s = preg_split('/('.SYMFONY_GRAPHEME_CLUSTER_RX.')/u', "\r\n".$s, $size + 1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+        $s = preg_split('/(' . SYMFONY_GRAPHEME_CLUSTER_RX . ')/u', "\r\n" . $s, $size + 1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 
         if (!isset($s[1])) {
             return false;
@@ -100,7 +102,7 @@ final class Grapheme
 
     public static function grapheme_strlen($s)
     {
-        preg_replace('/'.SYMFONY_GRAPHEME_CLUSTER_RX.'/u', '', $s, -1, $len);
+        preg_replace('/' . SYMFONY_GRAPHEME_CLUSTER_RX . '/u', '', $s, -1, $len);
 
         return 0 === $len && '' !== $s ? null : $len;
     }
@@ -111,10 +113,10 @@ final class Grapheme
             $len = 2147483647;
         }
 
-        preg_match_all('/'.SYMFONY_GRAPHEME_CLUSTER_RX.'/u', $s, $s);
+        preg_match_all('/' . SYMFONY_GRAPHEME_CLUSTER_RX . '/u', $s, $s);
 
         $slen = \count($s[0]);
-        $start = (int) $start;
+        $start = (int)$start;
 
         if (0 > $start) {
             $start += $slen;
@@ -180,11 +182,11 @@ final class Grapheme
 
     private static function grapheme_position($s, $needle, $offset, $mode)
     {
-        $needle = (string) $needle;
+        $needle = (string)$needle;
         if (!preg_match('/./us', $needle)) {
             return false;
         }
-        $s = (string) $s;
+        $s = (string)$s;
         if (!preg_match('/./us', $s)) {
             return false;
         }
@@ -206,10 +208,18 @@ final class Grapheme
         }
 
         switch ($mode) {
-            case 0: $needle = iconv_strpos($s, $needle, 0, 'UTF-8'); break;
-            case 1: $needle = mb_stripos($s, $needle, 0, 'UTF-8'); break;
-            case 2: $needle = iconv_strrpos($s, $needle, 'UTF-8'); break;
-            default: $needle = mb_strripos($s, $needle, 0, 'UTF-8'); break;
+            case 0:
+                $needle = iconv_strpos($s, $needle, 0, 'UTF-8');
+                break;
+            case 1:
+                $needle = mb_stripos($s, $needle, 0, 'UTF-8');
+                break;
+            case 2:
+                $needle = iconv_strrpos($s, $needle, 'UTF-8');
+                break;
+            default:
+                $needle = mb_strripos($s, $needle, 0, 'UTF-8');
+                break;
         }
 
         return false !== $needle ? self::grapheme_strlen(iconv_substr($s, 0, $needle, 'UTF-8')) + $offset : false;

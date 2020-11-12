@@ -30,7 +30,7 @@ final class LinkRenderer implements InlineRendererInterface, ConfigurationAwareI
     protected $config;
 
     /**
-     * @param Link                     $inline
+     * @param Link $inline
      * @param ElementRendererInterface $htmlRenderer
      *
      * @return HtmlElement

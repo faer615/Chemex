@@ -30,8 +30,8 @@ abstract class AbstractException extends BaseException implements DriverExceptio
     private $sqlState;
 
     /**
-     * @param string          $message   The driver error message.
-     * @param string|null     $sqlState  The SQLSTATE the driver is in at the time the error occurred, if any.
+     * @param string $message The driver error message.
+     * @param string|null $sqlState The SQLSTATE the driver is in at the time the error occurred, if any.
      * @param int|string|null $errorCode The driver specific error code if any.
      */
     public function __construct($message, $sqlState = null, $errorCode = null)
@@ -39,7 +39,7 @@ abstract class AbstractException extends BaseException implements DriverExceptio
         parent::__construct($message);
 
         $this->errorCode = $errorCode;
-        $this->sqlState  = $sqlState;
+        $this->sqlState = $sqlState;
     }
 
     /**

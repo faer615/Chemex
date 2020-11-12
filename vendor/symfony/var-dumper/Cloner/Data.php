@@ -58,7 +58,7 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
             return $item->class;
         }
         if (Stub::TYPE_RESOURCE === $item->type) {
-            return $item->class.' resource';
+            return $item->class . ' resource';
         }
 
         return null;
@@ -95,7 +95,7 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
 
             if ($recursive) {
                 if (Stub::TYPE_REF === $v->type && ($v = $this->getStub($v->value)) instanceof Stub) {
-                    $recursive = (array) $recursive;
+                    $recursive = (array)$recursive;
                     if (isset($recursive[$v->position])) {
                         continue;
                     }
@@ -162,12 +162,12 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
 
     public function offsetSet($key, $value)
     {
-        throw new \BadMethodCallException(self::class.' objects are immutable.');
+        throw new \BadMethodCallException(self::class . ' objects are immutable.');
     }
 
     public function offsetUnset($key)
     {
-        throw new \BadMethodCallException(self::class.' objects are immutable.');
+        throw new \BadMethodCallException(self::class . ' objects are immutable.');
     }
 
     /**
@@ -178,7 +178,7 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
         $value = $this->getValue();
 
         if (!\is_array($value)) {
-            return (string) $value;
+            return (string)$value;
         }
 
         return sprintf('%s (count=%d)', $this->getType(), \count($value));
@@ -192,7 +192,7 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
     public function withMaxDepth(int $maxDepth)
     {
         $data = clone $this;
-        $data->maxDepth = (int) $maxDepth;
+        $data->maxDepth = (int)$maxDepth;
 
         return $data;
     }
@@ -205,7 +205,7 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
     public function withMaxItemsPerDepth(int $maxItemsPerDepth)
     {
         $data = clone $this;
-        $data->maxItemsPerDepth = (int) $maxItemsPerDepth;
+        $data->maxItemsPerDepth = (int)$maxItemsPerDepth;
 
         return $data;
     }
@@ -257,11 +257,11 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
 
         switch ($item->type) {
             case Stub::TYPE_OBJECT:
-                $keys[] = Caster::PREFIX_DYNAMIC.$key;
-                $keys[] = Caster::PREFIX_PROTECTED.$key;
-                $keys[] = Caster::PREFIX_VIRTUAL.$key;
+                $keys[] = Caster::PREFIX_DYNAMIC . $key;
+                $keys[] = Caster::PREFIX_PROTECTED . $key;
+                $keys[] = Caster::PREFIX_VIRTUAL . $key;
                 $keys[] = "\0$item->class\0$key";
-                // no break
+            // no break
             case Stub::TYPE_ARRAY:
             case Stub::TYPE_RESOURCE:
                 break;
@@ -372,7 +372,7 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
                     $item = clone $item;
                     $item->type = $item->class;
                     $item->class = $item->value;
-                    // no break
+                // no break
                 case Stub::TYPE_OBJECT:
                 case Stub::TYPE_RESOURCE:
                     $withChildren = $children && $cursor->depth !== $this->maxDepth && $this->maxItemsPerDepth;

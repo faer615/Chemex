@@ -19,6 +19,20 @@ class MailServiceProvider extends ServiceProvider implements DeferrableProvider
     }
 
     /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return [
+            'mail.manager',
+            'mailer',
+            Markdown::class,
+        ];
+    }
+
+    /**
      * Register the Illuminate mailer instance.
      *
      * @return void
@@ -43,7 +57,7 @@ class MailServiceProvider extends ServiceProvider implements DeferrableProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/resources/views' => $this->app->resourcePath('views/vendor/mail'),
+                __DIR__ . '/resources/views' => $this->app->resourcePath('views/vendor/mail'),
             ], 'laravel-mail');
         }
 
@@ -55,19 +69,5 @@ class MailServiceProvider extends ServiceProvider implements DeferrableProvider
                 'paths' => $config->get('mail.markdown.paths', []),
             ]);
         });
-    }
-
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
-    public function provides()
-    {
-        return [
-            'mail.manager',
-            'mailer',
-            Markdown::class,
-        ];
     }
 }

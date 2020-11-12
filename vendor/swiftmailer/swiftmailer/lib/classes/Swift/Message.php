@@ -46,7 +46,7 @@ class Swift_Message extends Swift_Mime_SimpleMessage
             [$this, 'Swift_Mime_SimpleMessage::__construct'],
             Swift_DependencyContainer::getInstance()
                 ->createDependenciesFor('mime.message')
-            );
+        );
 
         if (!isset($charset)) {
             $charset = Swift_DependencyContainer::getInstance()
@@ -64,8 +64,8 @@ class Swift_Message extends Swift_Mime_SimpleMessage
      * Add a MimePart to this Message.
      *
      * @param string|Swift_OutputByteStream $body
-     * @param string                        $contentType
-     * @param string                        $charset
+     * @param string $contentType
+     * @param string $charset
      *
      * @return $this
      */
@@ -179,6 +179,23 @@ class Swift_Message extends Swift_Mime_SimpleMessage
     }
 
     /**
+     * Clone Message Signers.
+     *
+     * @see Swift_Mime_SimpleMimeEntity::__clone()
+     */
+    public function __clone()
+    {
+        parent::__clone();
+        foreach ($this->bodySigners as $key => $bodySigner) {
+            $this->bodySigners[$key] = clone $bodySigner;
+        }
+
+        foreach ($this->headerSigners as $key => $headerSigner) {
+            $this->headerSigners[$key] = clone $headerSigner;
+        }
+    }
+
+    /**
      * loops through signers and apply the signatures.
      */
     protected function doSign()
@@ -258,22 +275,5 @@ class Swift_Message extends Swift_Mime_SimpleMessage
 
         $this->restoreHeaders();
         $this->savedMessage = [];
-    }
-
-    /**
-     * Clone Message Signers.
-     *
-     * @see Swift_Mime_SimpleMimeEntity::__clone()
-     */
-    public function __clone()
-    {
-        parent::__clone();
-        foreach ($this->bodySigners as $key => $bodySigner) {
-            $this->bodySigners[$key] = clone $bodySigner;
-        }
-
-        foreach ($this->headerSigners as $key => $headerSigner) {
-            $this->headerSigners[$key] = clone $headerSigner;
-        }
     }
 }

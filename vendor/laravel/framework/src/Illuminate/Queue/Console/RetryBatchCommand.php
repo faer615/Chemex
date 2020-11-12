@@ -30,7 +30,7 @@ class RetryBatchCommand extends Command
     {
         $batch = $this->laravel[BatchRepository::class]->find($id = $this->argument('id'));
 
-        if (! $batch) {
+        if (!$batch) {
             $this->error("Unable to find a batch with ID [{$id}].");
 
             return 1;

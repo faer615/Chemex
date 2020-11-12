@@ -48,7 +48,7 @@ class DownCommand extends Command
 
             file_put_contents(
                 storage_path('framework/maintenance.php'),
-                file_get_contents(__DIR__.'/stubs/maintenance-mode.stub')
+                file_get_contents(__DIR__ . '/stubs/maintenance-mode.stub')
             );
 
             $this->comment('Application is now in maintenance mode.');
@@ -72,7 +72,7 @@ class DownCommand extends Command
             'redirect' => $this->redirectPath(),
             'retry' => $this->getRetryTime(),
             'secret' => $this->option('secret'),
-            'status' => (int) $this->option('status', 503),
+            'status' => (int)$this->option('status', 503),
             'template' => $this->option('render') ? $this->prerenderView() : null,
         ];
     }
@@ -85,7 +85,7 @@ class DownCommand extends Command
     protected function redirectPath()
     {
         if ($this->option('redirect') && $this->option('redirect') !== '/') {
-            return '/'.trim($this->option('redirect'), '/');
+            return '/' . trim($this->option('redirect'), '/');
         }
 
         return $this->option('redirect');
@@ -112,6 +112,6 @@ class DownCommand extends Command
     {
         $retry = $this->option('retry');
 
-        return is_numeric($retry) && $retry > 0 ? (int) $retry : null;
+        return is_numeric($retry) && $retry > 0 ? (int)$retry : null;
     }
 }

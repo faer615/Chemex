@@ -28,17 +28,6 @@ trait FormattableHandlerTrait
 
     /**
      * {@inheritdoc}
-     * @suppress PhanTypeMismatchReturn
-     */
-    public function setFormatter(FormatterInterface $formatter): HandlerInterface
-    {
-        $this->formatter = $formatter;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
      */
     public function getFormatter(): FormatterInterface
     {
@@ -47,6 +36,17 @@ trait FormattableHandlerTrait
         }
 
         return $this->formatter;
+    }
+
+    /**
+     * {@inheritdoc}
+     * @suppress PhanTypeMismatchReturn
+     */
+    public function setFormatter(FormatterInterface $formatter): HandlerInterface
+    {
+        $this->formatter = $formatter;
+
+        return $this;
     }
 
     /**

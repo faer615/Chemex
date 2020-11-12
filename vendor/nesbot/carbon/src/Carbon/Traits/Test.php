@@ -8,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Carbon\Traits;
 
 use Closure;
@@ -25,34 +26,6 @@ trait Test
      * @var static
      */
     protected static $testNow;
-
-    /**
-     * Set a Carbon instance (real or mock) to be returned when a "now"
-     * instance is created.  The provided instance will be returned
-     * specifically under the following conditions:
-     *   - A call to the static now() method, ex. Carbon::now()
-     *   - When a null (or blank string) is passed to the constructor or parse(), ex. new Carbon(null)
-     *   - When the string "now" is passed to the constructor or parse(), ex. new Carbon('now')
-     *   - When a string containing the desired time is passed to Carbon::parse().
-     *
-     * Note the timezone parameter was left out of the examples above and
-     * has no affect as the mock value will be returned regardless of its value.
-     *
-     * To clear the test instance call this method using the default
-     * parameter of null.
-     *
-     * /!\ Use this method for unit tests only.
-     *
-     * @param Closure|static|string|false|null $testNow real or mock Carbon instance
-     */
-    public static function setTestNow($testNow = null)
-    {
-        if ($testNow === false) {
-            $testNow = null;
-        }
-
-        static::$testNow = \is_string($testNow) ? static::parse($testNow) : $testNow;
-    }
 
     /**
      * Temporarily sets a static date to be used within the callback.
@@ -83,6 +56,34 @@ trait Test
     }
 
     /**
+     * Set a Carbon instance (real or mock) to be returned when a "now"
+     * instance is created.  The provided instance will be returned
+     * specifically under the following conditions:
+     *   - A call to the static now() method, ex. Carbon::now()
+     *   - When a null (or blank string) is passed to the constructor or parse(), ex. new Carbon(null)
+     *   - When the string "now" is passed to the constructor or parse(), ex. new Carbon('now')
+     *   - When a string containing the desired time is passed to Carbon::parse().
+     *
+     * Note the timezone parameter was left out of the examples above and
+     * has no affect as the mock value will be returned regardless of its value.
+     *
+     * To clear the test instance call this method using the default
+     * parameter of null.
+     *
+     * /!\ Use this method for unit tests only.
+     *
+     * @param Closure|static|string|false|null $testNow real or mock Carbon instance
+     */
+    public static function setTestNow($testNow = null)
+    {
+        if ($testNow === false) {
+            $testNow = null;
+        }
+
+        static::$testNow = \is_string($testNow) ? static::parse($testNow) : $testNow;
+    }
+
+    /**
      * Determine if there is a valid test instance set. A valid test instance
      * is anything that is not null.
      *
@@ -97,7 +98,7 @@ trait Test
      * Return the given timezone and set it to the test instance if not null.
      * If null, get the timezone from the test instance and return it.
      *
-     * @param string|\DateTimeZone    $tz
+     * @param string|\DateTimeZone $tz
      * @param \Carbon\CarbonInterface $testInstance
      *
      * @return string|\DateTimeZone

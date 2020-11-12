@@ -33,7 +33,7 @@ class FreshCommand extends Command
      */
     public function handle()
     {
-        if (! $this->confirmToProceed()) {
+        if (!$this->confirmToProceed()) {
             return 1;
         }
 
@@ -55,14 +55,14 @@ class FreshCommand extends Command
             '--step' => $this->option('step'),
         ]));
 
-        if ($this->needsSeeding()) {
-            $this->runSeeder($database);
-        }
-
         if ($this->laravel->bound(Dispatcher::class)) {
             $this->laravel[Dispatcher::class]->dispatch(
                 new DatabaseRefreshed
             );
+        }
+
+        if ($this->needsSeeding()) {
+            $this->runSeeder($database);
         }
 
         return 0;
@@ -81,7 +81,7 @@ class FreshCommand extends Command
     /**
      * Run the database seeder command.
      *
-     * @param  string  $database
+     * @param string $database
      * @return void
      */
     protected function runSeeder($database)

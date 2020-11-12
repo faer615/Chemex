@@ -51,10 +51,10 @@ class Swift_Mime_Headers_IdentificationHeader extends Swift_Mime_Headers_Abstrac
     /**
      * Get the type of Header that this instance represents.
      *
-     * @see TYPE_TEXT, TYPE_PARAMETERIZED, TYPE_MAILBOX
+     * @return int
      * @see TYPE_DATE, TYPE_ID, TYPE_PATH
      *
-     * @return int
+     * @see TYPE_TEXT, TYPE_PARAMETERIZED, TYPE_MAILBOX
      */
     public function getFieldType()
     {
@@ -114,6 +114,16 @@ class Swift_Mime_Headers_IdentificationHeader extends Swift_Mime_Headers_Abstrac
     }
 
     /**
+     * Get the list of IDs used in this Header.
+     *
+     * @return string[]
+     */
+    public function getIds()
+    {
+        return $this->ids;
+    }
+
+    /**
      * Set a collection of IDs to use in the value of this Header.
      *
      * @param string[] $ids
@@ -134,26 +144,16 @@ class Swift_Mime_Headers_IdentificationHeader extends Swift_Mime_Headers_Abstrac
     }
 
     /**
-     * Get the list of IDs used in this Header.
-     *
-     * @return string[]
-     */
-    public function getIds()
-    {
-        return $this->ids;
-    }
-
-    /**
      * Get the string value of the body in this Header.
      *
      * This is not necessarily RFC 2822 compliant since folding white space will
      * not be added at this stage (see {@see toString()} for that).
      *
-     * @see toString()
-     *
+     * @return string
      * @throws Swift_RfcComplianceException
      *
-     * @return string
+     * @see toString()
+     *
      */
     public function getFieldBody()
     {
@@ -161,7 +161,7 @@ class Swift_Mime_Headers_IdentificationHeader extends Swift_Mime_Headers_Abstrac
             $angleAddrs = [];
 
             foreach ($this->ids as $id) {
-                $angleAddrs[] = '<'.$this->addressEncoder->encodeString($id).'>';
+                $angleAddrs[] = '<' . $this->addressEncoder->encodeString($id) . '>';
             }
 
             $this->setCachedValue(implode(' ', $angleAddrs));
@@ -180,7 +180,7 @@ class Swift_Mime_Headers_IdentificationHeader extends Swift_Mime_Headers_Abstrac
     private function assertValidId($id)
     {
         if (!$this->emailValidator->isValid($id, new RFCValidation())) {
-            throw new Swift_RfcComplianceException('Invalid ID given <'.$id.'>');
+            throw new Swift_RfcComplianceException('Invalid ID given <' . $id . '>');
         }
     }
 }

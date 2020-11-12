@@ -2,26 +2,6 @@
 
 class Swift_Transport_SendmailTransportTest extends Swift_Transport_AbstractSmtpEventSupportTest
 {
-    protected function getTransport($buf, $dispatcher = null, $addressEncoder = null, $command = '/usr/sbin/sendmail -bs')
-    {
-        if (!$dispatcher) {
-            $dispatcher = $this->createEventDispatcher();
-        }
-        $transport = new Swift_Transport_SendmailTransport($buf, $dispatcher, 'example.org', $addressEncoder);
-        $transport->setCommand($command);
-
-        return $transport;
-    }
-
-    protected function getSendmail($buf, $dispatcher = null)
-    {
-        if (!$dispatcher) {
-            $dispatcher = $this->createEventDispatcher();
-        }
-
-        return new Swift_Transport_SendmailTransport($buf, $dispatcher);
-    }
-
     public function testCommandCanBeSetAndFetched()
     {
         $buf = $this->getBuffer();
@@ -40,11 +20,11 @@ class Swift_Transport_SendmailTransportTest extends Swift_Transport_AbstractSmtp
         $message = $this->createMessage();
 
         $message->shouldReceive('getTo')
-                ->zeroOrMoreTimes()
-                ->andReturn(['foo@bar' => 'Foobar', 'zip@button' => 'Zippy']);
+            ->zeroOrMoreTimes()
+            ->andReturn(['foo@bar' => 'Foobar', 'zip@button' => 'Zippy']);
         $message->shouldReceive('toByteStream')
-                ->once()
-                ->with($buf);
+            ->once()
+            ->with($buf);
         $buf->shouldReceive('initialize')
             ->once();
         $buf->shouldReceive('terminate')
@@ -67,11 +47,11 @@ class Swift_Transport_SendmailTransportTest extends Swift_Transport_AbstractSmtp
         $message = $this->createMessage();
 
         $message->shouldReceive('getTo')
-                ->zeroOrMoreTimes()
-                ->andReturn(['foo@bar' => 'Foobar', 'zip@button' => 'Zippy']);
+            ->zeroOrMoreTimes()
+            ->andReturn(['foo@bar' => 'Foobar', 'zip@button' => 'Zippy']);
         $message->shouldReceive('toByteStream')
-                ->once()
-                ->with($buf);
+            ->once()
+            ->with($buf);
         $buf->shouldReceive('initialize')
             ->once();
         $buf->shouldReceive('terminate')
@@ -94,11 +74,11 @@ class Swift_Transport_SendmailTransportTest extends Swift_Transport_AbstractSmtp
         $message = $this->createMessage();
 
         $message->shouldReceive('getTo')
-                ->zeroOrMoreTimes()
-                ->andReturn(['foo@bar' => 'Foobar', 'zip@button' => 'Zippy']);
+            ->zeroOrMoreTimes()
+            ->andReturn(['foo@bar' => 'Foobar', 'zip@button' => 'Zippy']);
         $message->shouldReceive('toByteStream')
-                ->once()
-                ->with($buf);
+            ->once()
+            ->with($buf);
         $buf->shouldReceive('initialize')
             ->once();
         $buf->shouldReceive('terminate')
@@ -121,8 +101,8 @@ class Swift_Transport_SendmailTransportTest extends Swift_Transport_AbstractSmtp
         $message = $this->createMessage();
 
         $message->shouldReceive('getTo')
-                ->zeroOrMoreTimes()
-                ->andReturn(['foo@bar' => 'Foobar', 'zip@button' => 'Zippy']);
+            ->zeroOrMoreTimes()
+            ->andReturn(['foo@bar' => 'Foobar', 'zip@button' => 'Zippy']);
         $message->shouldReceive('generateId');
         $buf->shouldReceive('initialize')
             ->once();
@@ -146,5 +126,25 @@ class Swift_Transport_SendmailTransportTest extends Swift_Transport_AbstractSmtp
 
         $ref = $sendmail->setCommand('/foo');
         $this->assertEquals($ref, $sendmail);
+    }
+
+    protected function getTransport($buf, $dispatcher = null, $addressEncoder = null, $command = '/usr/sbin/sendmail -bs')
+    {
+        if (!$dispatcher) {
+            $dispatcher = $this->createEventDispatcher();
+        }
+        $transport = new Swift_Transport_SendmailTransport($buf, $dispatcher, 'example.org', $addressEncoder);
+        $transport->setCommand($command);
+
+        return $transport;
+    }
+
+    protected function getSendmail($buf, $dispatcher = null)
+    {
+        if (!$dispatcher) {
+            $dispatcher = $this->createEventDispatcher();
+        }
+
+        return new Swift_Transport_SendmailTransport($buf, $dispatcher);
     }
 }

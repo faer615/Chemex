@@ -2,8 +2,6 @@
 
 abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
 {
-    abstract protected function getTransport($buf);
-
     public function testStartAccepts220ServiceGreeting()
     {
         /* -- RFC 2821, 4.2.
@@ -108,7 +106,7 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $buf->shouldReceive('readLine')
             ->once()
             ->with(1)
-            ->andReturn('250 ServerName'."\r\n");
+            ->andReturn('250 ServerName' . "\r\n");
 
         $this->finishBuffer($buf);
         try {
@@ -136,7 +134,7 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $buf->shouldReceive('readLine')
             ->once()
             ->with(1)
-            ->andReturn('504 WTF'."\r\n");
+            ->andReturn('504 WTF' . "\r\n");
 
         $this->finishBuffer($buf);
         try {
@@ -177,7 +175,7 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $buf->shouldReceive('readLine')
             ->once()
             ->with(1)
-            ->andReturn('250 ServerName'."\r\n");
+            ->andReturn('250 ServerName' . "\r\n");
 
         $this->finishBuffer($buf);
         $smtp->setLocalDomain('mydomain.com');
@@ -225,11 +223,11 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $smtp = $this->getTransport($buf);
         $message = $this->createMessage();
         $message->shouldReceive('getFrom')
-                ->once()
-                ->andReturn(['me@domain.com' => 'Me']);
+            ->once()
+            ->andReturn(['me@domain.com' => 'Me']);
         $message->shouldReceive('getTo')
-                ->once()
-                ->andReturn(['foo@bar' => null]);
+            ->once()
+            ->andReturn(['foo@bar' => null]);
         $buf->shouldReceive('initialize')
             ->once();
         $buf->shouldReceive('write')
@@ -257,11 +255,11 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $message = $this->createMessage();
 
         $message->shouldReceive('getFrom')
-                ->once()
-                ->andReturn(['me@domain.com' => 'Me']);
+            ->once()
+            ->andReturn(['me@domain.com' => 'Me']);
         $message->shouldReceive('getTo')
-                ->once()
-                ->andReturn(['foo@bar' => null]);
+            ->once()
+            ->andReturn(['foo@bar' => null]);
         $buf->shouldReceive('write')
             ->once()
             ->with("MAIL FROM:<me@domain.com>\r\n")
@@ -269,7 +267,7 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $buf->shouldReceive('readLine')
             ->once()
             ->with(1)
-            ->andReturn('553 Bad'."\r\n");
+            ->andReturn('553 Bad' . "\r\n");
 
         $this->finishBuffer($buf);
         try {
@@ -287,14 +285,14 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $message = $this->createMessage();
 
         $message->shouldReceive('getFrom')
-                ->once()
-                ->andReturn(['me@domain.com' => 'Me']);
+            ->once()
+            ->andReturn(['me@domain.com' => 'Me']);
         $message->shouldReceive('getSender')
-                ->once()
-                ->andReturn(['another@domain.com' => 'Someone']);
+            ->once()
+            ->andReturn(['another@domain.com' => 'Someone']);
         $message->shouldReceive('getTo')
-                ->once()
-                ->andReturn(['foo@bar' => null]);
+            ->once()
+            ->andReturn(['foo@bar' => null]);
         $buf->shouldReceive('write')
             ->once()
             ->with("MAIL FROM:<another@domain.com>\r\n")
@@ -302,7 +300,7 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $buf->shouldReceive('readLine')
             ->once()
             ->with(1)
-            ->andReturn('250 OK'."\r\n");
+            ->andReturn('250 OK' . "\r\n");
 
         $this->finishBuffer($buf);
         $smtp->start();
@@ -316,17 +314,17 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $message = $this->createMessage();
 
         $message->shouldReceive('getFrom')
-                ->once()
-                ->andReturn(['me@domain.com' => 'Me']);
+            ->once()
+            ->andReturn(['me@domain.com' => 'Me']);
         $message->shouldReceive('getSender')
-                ->once()
-                ->andReturn(['another@domain.com' => 'Someone']);
+            ->once()
+            ->andReturn(['another@domain.com' => 'Someone']);
         $message->shouldReceive('getReturnPath')
-                ->once()
-                ->andReturn('more@domain.com');
+            ->once()
+            ->andReturn('more@domain.com');
         $message->shouldReceive('getTo')
-                ->once()
-                ->andReturn(['foo@bar' => null]);
+            ->once()
+            ->andReturn(['foo@bar' => null]);
         $buf->shouldReceive('write')
             ->once()
             ->with("MAIL FROM:<more@domain.com>\r\n")
@@ -334,7 +332,7 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $buf->shouldReceive('readLine')
             ->once()
             ->with(1)
-            ->andReturn('250 OK'."\r\n");
+            ->andReturn('250 OK' . "\r\n");
 
         $this->finishBuffer($buf);
         $smtp->start();
@@ -396,11 +394,11 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $message = $this->createMessage();
 
         $message->shouldReceive('getFrom')
-                ->once()
-                ->andReturn(['me@domain.com' => 'Me']);
+            ->once()
+            ->andReturn(['me@domain.com' => 'Me']);
         $message->shouldReceive('getTo')
-                ->once()
-                ->andReturn(['foo@bar' => null]);
+            ->once()
+            ->andReturn(['foo@bar' => null]);
         $buf->shouldReceive('write')
             ->once()
             ->with("MAIL FROM:<me@domain.com>\r\n")
@@ -408,7 +406,7 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $buf->shouldReceive('readLine')
             ->once()
             ->with(1)
-            ->andReturn('250 OK'."\r\n");
+            ->andReturn('250 OK' . "\r\n");
         $buf->shouldReceive('write')
             ->once()
             ->with("RCPT TO:<foo@bar>\r\n")
@@ -416,7 +414,7 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $buf->shouldReceive('readLine')
             ->once()
             ->with(2)
-            ->andReturn('250 OK'."\r\n");
+            ->andReturn('250 OK' . "\r\n");
 
         $this->finishBuffer($buf);
         try {
@@ -434,11 +432,11 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $message = $this->createMessage();
 
         $message->shouldReceive('getFrom')
-                ->once()
-                ->andReturn(['me@dömain.com' => 'Me']);
+            ->once()
+            ->andReturn(['me@dömain.com' => 'Me']);
         $message->shouldReceive('getTo')
-                ->once()
-                ->andReturn(['foo@bär' => null]);
+            ->once()
+            ->andReturn(['foo@bär' => null]);
         $buf->shouldReceive('write')
             ->once()
             ->with("MAIL FROM:<me@xn--dmain-jua.com>\r\n")
@@ -450,7 +448,7 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $buf->shouldReceive('readLine')
             ->once()
             ->with(1)
-            ->andReturn('250 OK'."\r\n");
+            ->andReturn('250 OK' . "\r\n");
 
         $this->finishBuffer($buf);
         $smtp->start();
@@ -464,11 +462,11 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $message = $this->createMessage();
 
         $message->shouldReceive('getFrom')
-                ->once()
-                ->andReturn(['më@dömain.com' => 'Me']);
+            ->once()
+            ->andReturn(['më@dömain.com' => 'Me']);
         $message->shouldReceive('getTo')
-                ->once()
-                ->andReturn(['föö@bär' => null]);
+            ->once()
+            ->andReturn(['föö@bär' => null]);
         $buf->shouldReceive('write')
             ->once()
             ->with("MAIL FROM:<më@dömain.com>\r\n")
@@ -480,7 +478,7 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $buf->shouldReceive('readLine')
             ->once()
             ->with(1)
-            ->andReturn('250 OK'."\r\n");
+            ->andReturn('250 OK' . "\r\n");
 
         $this->finishBuffer($buf);
         $smtp->start();
@@ -494,11 +492,11 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $message = $this->createMessage();
 
         $message->shouldReceive('getFrom')
-                ->once()
-                ->andReturn(['më@domain.com' => 'Me']);
+            ->once()
+            ->andReturn(['më@domain.com' => 'Me']);
         $message->shouldReceive('getTo')
-                ->once()
-                ->andReturn(['foo@bar' => null]);
+            ->once()
+            ->andReturn(['foo@bar' => null]);
 
         $this->finishBuffer($buf);
         try {
@@ -517,11 +515,11 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $message = $this->createMessage();
 
         $message->shouldReceive('getFrom')
-                ->once()
-                ->andReturn(['me@domain.com' => 'Me']);
+            ->once()
+            ->andReturn(['me@domain.com' => 'Me']);
         $message->shouldReceive('getTo')
-                ->once()
-                ->andReturn(['foo@bar' => null]);
+            ->once()
+            ->andReturn(['foo@bar' => null]);
         $buf->shouldReceive('write')
             ->once()
             ->with("MAIL FROM:<me@domain.com>\r\n")
@@ -529,7 +527,7 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $buf->shouldReceive('readLine')
             ->once()
             ->with(1)
-            ->andReturn('250 OK'."\r\n");
+            ->andReturn('250 OK' . "\r\n");
         $buf->shouldReceive('write')
             ->once()
             ->with("RCPT TO:<foo@bar>\r\n")
@@ -537,7 +535,7 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $buf->shouldReceive('readLine')
             ->once()
             ->with(2)
-            ->andReturn('250 OK'."\r\n");
+            ->andReturn('250 OK' . "\r\n");
         $buf->shouldReceive('write')
             ->never()
             ->with("MAIL FROM:<me@domain.com>\r\n");
@@ -554,16 +552,16 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $message = $this->createMessage();
 
         $message->shouldReceive('getFrom')
-                ->once()
-                ->andReturn(['me@domain.com' => 'Me']);
+            ->once()
+            ->andReturn(['me@domain.com' => 'Me']);
         $message->shouldReceive('getTo')
-                ->once()
-                ->andReturn([
-                    'foo@bar' => null,
-                    'zip@button' => 'Zip Button',
-                    'test@domain' => 'Test user',
-                    'tëst@domain' => 'Test user',
-                ]);
+            ->once()
+            ->andReturn([
+                'foo@bar' => null,
+                'zip@button' => 'Zip Button',
+                'test@domain' => 'Test user',
+                'tëst@domain' => 'Test user',
+            ]);
         $buf->shouldReceive('write')
             ->once()
             ->with("RCPT TO:<foo@bar>\r\n")
@@ -571,7 +569,7 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $buf->shouldReceive('readLine')
             ->once()
             ->with(1)
-            ->andReturn('250 OK'."\r\n");
+            ->andReturn('250 OK' . "\r\n");
         $buf->shouldReceive('write')
             ->once()
             ->with("RCPT TO:<zip@button>\r\n")
@@ -579,7 +577,7 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $buf->shouldReceive('readLine')
             ->once()
             ->with(2)
-            ->andReturn('250 OK'."\r\n");
+            ->andReturn('250 OK' . "\r\n");
         $buf->shouldReceive('write')
             ->once()
             ->with("RCPT TO:<test@domain>\r\n")
@@ -587,7 +585,7 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $buf->shouldReceive('readLine')
             ->once()
             ->with(3)
-            ->andReturn('250 OK'."\r\n");
+            ->andReturn('250 OK' . "\r\n");
 
         $this->finishBuffer($buf);
         $smtp->start();
@@ -601,17 +599,17 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $message = $this->createMessage();
 
         $message->shouldReceive('getFrom')
-                ->once()
-                ->andReturn(['me@domain.com' => 'Me']);
+            ->once()
+            ->andReturn(['me@domain.com' => 'Me']);
         $message->shouldReceive('getTo')
-                ->once()
-                ->andReturn(['foo@bar' => null]);
+            ->once()
+            ->andReturn(['foo@bar' => null]);
         $message->shouldReceive('getCc')
-                ->once()
-                ->andReturn([
-                    'zip@button' => 'Zip Button',
-                    'test@domain' => 'Test user',
-                ]);
+            ->once()
+            ->andReturn([
+                'zip@button' => 'Zip Button',
+                'test@domain' => 'Test user',
+            ]);
         $buf->shouldReceive('write')
             ->once()
             ->with("RCPT TO:<foo@bar>\r\n")
@@ -619,7 +617,7 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $buf->shouldReceive('readLine')
             ->once()
             ->with(1)
-            ->andReturn('250 OK'."\r\n");
+            ->andReturn('250 OK' . "\r\n");
         $buf->shouldReceive('write')
             ->once()
             ->with("RCPT TO:<zip@button>\r\n")
@@ -627,7 +625,7 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $buf->shouldReceive('readLine')
             ->once()
             ->with(2)
-            ->andReturn('250 OK'."\r\n");
+            ->andReturn('250 OK' . "\r\n");
         $buf->shouldReceive('write')
             ->once()
             ->with("RCPT TO:<test@domain>\r\n")
@@ -635,7 +633,7 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $buf->shouldReceive('readLine')
             ->once()
             ->with(3)
-            ->andReturn('250 OK'."\r\n");
+            ->andReturn('250 OK' . "\r\n");
 
         $this->finishBuffer($buf);
         $smtp->start();
@@ -649,17 +647,17 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $message = $this->createMessage();
 
         $message->shouldReceive('getFrom')
-                ->once()
-                ->andReturn(['me@domain.com' => 'Me']);
+            ->once()
+            ->andReturn(['me@domain.com' => 'Me']);
         $message->shouldReceive('getTo')
-                ->once()
-                ->andReturn(['foo@bar' => null]);
+            ->once()
+            ->andReturn(['foo@bar' => null]);
         $message->shouldReceive('getCc')
-                ->once()
-                ->andReturn([
-                    'zip@button' => 'Zip Button',
-                    'test@domain' => 'Test user',
-                ]);
+            ->once()
+            ->andReturn([
+                'zip@button' => 'Zip Button',
+                'test@domain' => 'Test user',
+            ]);
         $buf->shouldReceive('write')
             ->once()
             ->with("RCPT TO:<foo@bar>\r\n")
@@ -667,7 +665,7 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $buf->shouldReceive('readLine')
             ->once()
             ->with(1)
-            ->andReturn('250 OK'."\r\n");
+            ->andReturn('250 OK' . "\r\n");
         $buf->shouldReceive('write')
             ->once()
             ->with("RCPT TO:<zip@button>\r\n")
@@ -675,7 +673,7 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $buf->shouldReceive('readLine')
             ->once()
             ->with(2)
-            ->andReturn('501 Nobody here'."\r\n");
+            ->andReturn('501 Nobody here' . "\r\n");
         $buf->shouldReceive('write')
             ->once()
             ->with("RCPT TO:<test@domain>\r\n")
@@ -683,13 +681,13 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $buf->shouldReceive('readLine')
             ->once()
             ->with(3)
-            ->andReturn('250 OK'."\r\n");
+            ->andReturn('250 OK' . "\r\n");
 
         $this->finishBuffer($buf);
         $smtp->start();
         $this->assertEquals(2, $smtp->send($message),
             '%s: 1 of 3 recipients failed so 2 should be returned'
-            );
+        );
     }
 
     public function testRsetIsSentIfNoSuccessfulRecipients()
@@ -713,11 +711,11 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $message = $this->createMessage();
 
         $message->shouldReceive('getFrom')
-                ->once()
-                ->andReturn(['me@domain.com' => 'Me']);
+            ->once()
+            ->andReturn(['me@domain.com' => 'Me']);
         $message->shouldReceive('getTo')
-                ->once()
-                ->andReturn(['foo@bar' => null]);
+            ->once()
+            ->andReturn(['foo@bar' => null]);
         $buf->shouldReceive('write')
             ->once()
             ->with("RCPT TO:<foo@bar>\r\n")
@@ -725,7 +723,7 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $buf->shouldReceive('readLine')
             ->once()
             ->with(1)
-            ->andReturn('503 Bad'."\r\n");
+            ->andReturn('503 Bad' . "\r\n");
         $buf->shouldReceive('write')
             ->once()
             ->with("RSET\r\n")
@@ -733,13 +731,13 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $buf->shouldReceive('readLine')
             ->once()
             ->with(2)
-            ->andReturn('250 OK'."\r\n");
+            ->andReturn('250 OK' . "\r\n");
 
         $this->finishBuffer($buf);
         $smtp->start();
         $this->assertEquals(0, $smtp->send($message),
             '%s: 1 of 1 recipients failed so 0 should be returned'
-            );
+        );
     }
 
     public function testSuccessfulDataCommand()
@@ -779,11 +777,11 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $message = $this->createMessage();
 
         $message->shouldReceive('getFrom')
-                ->once()
-                ->andReturn(['me@domain.com' => 'Me']);
+            ->once()
+            ->andReturn(['me@domain.com' => 'Me']);
         $message->shouldReceive('getTo')
-                ->once()
-                ->andReturn(['foo@bar' => null]);
+            ->once()
+            ->andReturn(['foo@bar' => null]);
         $buf->shouldReceive('write')
             ->once()
             ->with("DATA\r\n")
@@ -791,7 +789,7 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $buf->shouldReceive('readLine')
             ->once()
             ->with(1)
-            ->andReturn('354 Go ahead'."\r\n");
+            ->andReturn('354 Go ahead' . "\r\n");
 
         $this->finishBuffer($buf);
         try {
@@ -809,11 +807,11 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $message = $this->createMessage();
 
         $message->shouldReceive('getFrom')
-                ->once()
-                ->andReturn(['me@domain.com' => 'Me']);
+            ->once()
+            ->andReturn(['me@domain.com' => 'Me']);
         $message->shouldReceive('getTo')
-                ->once()
-                ->andReturn(['foo@bar' => null]);
+            ->once()
+            ->andReturn(['foo@bar' => null]);
         $buf->shouldReceive('write')
             ->once()
             ->with("DATA\r\n")
@@ -821,7 +819,7 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $buf->shouldReceive('readLine')
             ->once()
             ->with(1)
-            ->andReturn('451 Bad'."\r\n");
+            ->andReturn('451 Bad' . "\r\n");
 
         $this->finishBuffer($buf);
         try {
@@ -839,11 +837,11 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $message = $this->createMessage();
 
         $message->shouldReceive('getFrom')
-                ->once()
-                ->andReturn(['me@domain.com' => 'Me']);
+            ->once()
+            ->andReturn(['me@domain.com' => 'Me']);
         $message->shouldReceive('getTo')
-                ->once()
-                ->andReturn(['foo@bar' => null]);
+            ->once()
+            ->andReturn(['foo@bar' => null]);
         $buf->shouldReceive('write')
             ->once()
             ->with("DATA\r\n")
@@ -851,7 +849,7 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $buf->shouldReceive('readLine')
             ->once()
             ->with(1)
-            ->andReturn('354 OK'."\r\n");
+            ->andReturn('354 OK' . "\r\n");
         $buf->shouldReceive('write')
             ->once()
             ->with("\r\n.\r\n")
@@ -859,7 +857,7 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $buf->shouldReceive('readLine')
             ->once()
             ->with(2)
-            ->andReturn('250 OK'."\r\n");
+            ->andReturn('250 OK' . "\r\n");
 
         $this->finishBuffer($buf);
         $smtp->start();
@@ -873,11 +871,11 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $message = $this->createMessage();
 
         $message->shouldReceive('getFrom')
-                ->once()
-                ->andReturn(['me@domain.com' => 'Me']);
+            ->once()
+            ->andReturn(['me@domain.com' => 'Me']);
         $message->shouldReceive('getTo')
-                ->once()
-                ->andReturn(['foo@bar' => null]);
+            ->once()
+            ->andReturn(['foo@bar' => null]);
         $buf->shouldReceive('write')
             ->once()
             ->with("DATA\r\n")
@@ -885,7 +883,7 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $buf->shouldReceive('readLine')
             ->once()
             ->with(1)
-            ->andReturn('354 OK'."\r\n");
+            ->andReturn('354 OK' . "\r\n");
         $buf->shouldReceive('write')
             ->once()
             ->with("\r\n.\r\n")
@@ -893,7 +891,7 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $buf->shouldReceive('readLine')
             ->once()
             ->with(2)
-            ->andReturn('554 Error'."\r\n");
+            ->andReturn('554 Error' . "\r\n");
 
         $this->finishBuffer($buf);
         try {
@@ -927,22 +925,22 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $smtp = $this->getTransport($buf);
         $message = $this->createMessage();
         $message->shouldReceive('getFrom')
-                ->zeroOrMoreTimes()
-                ->andReturn(['me@domain.com' => 'Me']);
+            ->zeroOrMoreTimes()
+            ->andReturn(['me@domain.com' => 'Me']);
         $message->shouldReceive('getTo')
-                ->zeroOrMoreTimes()
-                ->andReturn(['foo@bar' => null]);
+            ->zeroOrMoreTimes()
+            ->andReturn(['foo@bar' => null]);
         $message->shouldReceive('getBcc')
-                ->zeroOrMoreTimes()
-                ->andReturn([
-                    'zip@button' => 'Zip Button',
-                    'test@domain' => 'Test user',
-                ]);
+            ->zeroOrMoreTimes()
+            ->andReturn([
+                'zip@button' => 'Zip Button',
+                'test@domain' => 'Test user',
+            ]);
         $message->shouldReceive('setBcc')
-                ->once()
-                ->with([]);
+            ->once()
+            ->with([]);
         $message->shouldReceive('setBcc')
-                ->zeroOrMoreTimes();
+            ->zeroOrMoreTimes();
 
         $this->finishBuffer($buf);
         $smtp->start();
@@ -956,32 +954,32 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $message = $this->createMessage();
 
         $message->shouldReceive('getFrom')
-                ->zeroOrMoreTimes()
-                ->andReturn(['me@domain.com' => 'Me']);
+            ->zeroOrMoreTimes()
+            ->andReturn(['me@domain.com' => 'Me']);
         $message->shouldReceive('getTo')
-                ->zeroOrMoreTimes()
-                ->andReturn(['foo@bar' => null]);
+            ->zeroOrMoreTimes()
+            ->andReturn(['foo@bar' => null]);
         $message->shouldReceive('getBcc')
-                ->zeroOrMoreTimes()
-                ->andReturn([
-                    'zip@button' => 'Zip Button',
-                    'test@domain' => 'Test user',
-                ]);
+            ->zeroOrMoreTimes()
+            ->andReturn([
+                'zip@button' => 'Zip Button',
+                'test@domain' => 'Test user',
+            ]);
         $message->shouldReceive('setBcc')
-                ->atLeast()->once()
-                ->with([]);
+            ->atLeast()->once()
+            ->with([]);
         $message->shouldReceive('setBcc')
-                ->once()
-                ->with(['zip@button' => 'Zip Button']);
+            ->once()
+            ->with(['zip@button' => 'Zip Button']);
         $message->shouldReceive('setBcc')
-                ->once()
-                ->with(['test@domain' => 'Test user']);
+            ->once()
+            ->with(['test@domain' => 'Test user']);
         $message->shouldReceive('setBcc')
-                ->atLeast()->once()
-                ->with([
-                    'zip@button' => 'Zip Button',
-                    'test@domain' => 'Test user',
-                ]);
+            ->atLeast()->once()
+            ->with([
+                'zip@button' => 'Zip Button',
+                'test@domain' => 'Test user',
+            ]);
 
         $buf->shouldReceive('write')->once()->with("MAIL FROM:<me@domain.com>\r\n")->andReturn(1);
         $buf->shouldReceive('readLine')->once()->with(1)->andReturn("250 OK\r\n");
@@ -1022,26 +1020,26 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $message = $this->createMessage();
 
         $message->shouldReceive('getFrom')
-                ->zeroOrMoreTimes()
-                ->andReturn(['me@domain.com' => 'Me']);
+            ->zeroOrMoreTimes()
+            ->andReturn(['me@domain.com' => 'Me']);
         $message->shouldReceive('getTo')
-                ->zeroOrMoreTimes()
-                ->andReturn(['foo@bar' => null]);
+            ->zeroOrMoreTimes()
+            ->andReturn(['foo@bar' => null]);
         $message->shouldReceive('getBcc')
-                ->zeroOrMoreTimes()
-                ->andReturn([
-                    'zip@button' => 'Zip Button',
-                    'test@domain' => 'Test user',
-                ]);
+            ->zeroOrMoreTimes()
+            ->andReturn([
+                'zip@button' => 'Zip Button',
+                'test@domain' => 'Test user',
+            ]);
         $message->shouldReceive('setBcc')
-                ->once()
-                ->with([]);
+            ->once()
+            ->with([]);
         $message->shouldReceive('setBcc')
-                ->once()
-                ->with([
-                    'zip@button' => 'Zip Button',
-                    'test@domain' => 'Test user',
-                ]);
+            ->once()
+            ->with([
+                'zip@button' => 'Zip Button',
+                'test@domain' => 'Test user',
+            ]);
         $buf->shouldReceive('write')
             ->once()
             ->with("MAIL FROM:<me@domain.com>\r\n")
@@ -1180,32 +1178,32 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $message = $this->createMessage();
 
         $message->shouldReceive('getFrom')
-                ->zeroOrMoreTimes()
-                ->andReturn(['me@domain.com' => 'Me']);
+            ->zeroOrMoreTimes()
+            ->andReturn(['me@domain.com' => 'Me']);
         $message->shouldReceive('getTo')
-                ->zeroOrMoreTimes()
-                ->andReturn(['foo@bar' => null]);
+            ->zeroOrMoreTimes()
+            ->andReturn(['foo@bar' => null]);
         $message->shouldReceive('getBcc')
-                ->zeroOrMoreTimes()
-                ->andReturn([
-                    'zip@button' => 'Zip Button',
-                    'test@domain' => 'Test user',
-                ]);
+            ->zeroOrMoreTimes()
+            ->andReturn([
+                'zip@button' => 'Zip Button',
+                'test@domain' => 'Test user',
+            ]);
         $message->shouldReceive('setBcc')
-                ->atLeast()->once()
-                ->with([]);
+            ->atLeast()->once()
+            ->with([]);
         $message->shouldReceive('setBcc')
-                ->once()
-                ->with(['zip@button' => 'Zip Button']);
+            ->once()
+            ->with(['zip@button' => 'Zip Button']);
         $message->shouldReceive('setBcc')
-                ->once()
-                ->with(['test@domain' => 'Test user']);
+            ->once()
+            ->with(['test@domain' => 'Test user']);
         $message->shouldReceive('setBcc')
-                ->atLeast()->once()
-                ->with([
-                    'zip@button' => 'Zip Button',
-                    'test@domain' => 'Test user',
-                ]);
+            ->atLeast()->once()
+            ->with([
+                'zip@button' => 'Zip Button',
+                'test@domain' => 'Test user',
+            ]);
 
         $buf->shouldReceive('write')->once()->with("MAIL FROM:<me@domain.com>\r\n")->andReturn(1);
         $buf->shouldReceive('readLine')->once()->with(1)->andReturn("250 OK\r\n");
@@ -1235,7 +1233,7 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $this->assertEquals(1, $smtp->send($message, $failures));
         $this->assertEquals(['zip@button', 'test@domain'], $failures,
             '%s: Failures should be caught in an array'
-            );
+        );
     }
 
     public function testSendingRegeneratesMessageId()
@@ -1244,13 +1242,13 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $smtp = $this->getTransport($buf);
         $message = $this->createMessage();
         $message->shouldReceive('getFrom')
-                ->zeroOrMoreTimes()
-                ->andReturn(['me@domain.com' => 'Me']);
+            ->zeroOrMoreTimes()
+            ->andReturn(['me@domain.com' => 'Me']);
         $message->shouldReceive('getTo')
-                ->zeroOrMoreTimes()
-                ->andReturn(['foo@bar' => null]);
+            ->zeroOrMoreTimes()
+            ->andReturn(['foo@bar' => null]);
         $message->shouldReceive('generateId')
-                ->once();
+            ->once();
 
         $this->finishBuffer($buf);
         $smtp->start();
@@ -1275,7 +1273,7 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $buf->shouldReceive('readLine')
             ->once()
             ->with(1)
-            ->andReturn('250 OK'."\r\n");
+            ->andReturn('250 OK' . "\r\n");
 
         $this->finishBuffer($buf);
         $this->assertTrue($smtp->ping());
@@ -1325,6 +1323,8 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $this->assertEquals('[IPv6:fd00::]', $smtp->getLocalDomain());
     }
 
+    abstract protected function getTransport($buf);
+
     protected function getBuffer()
     {
         return $this->getMockery('Swift_Transport_IoBuffer')->shouldIgnoreMissing();
@@ -1340,7 +1340,7 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $buf->shouldReceive('readLine')
             ->zeroOrMoreTimes()
             ->with(0)
-            ->andReturn('220 server.com foo'."\r\n");
+            ->andReturn('220 server.com foo' . "\r\n");
         $buf->shouldReceive('write')
             ->zeroOrMoreTimes()
             ->with('~^(EH|HE)LO .*?\r\n$~D')
@@ -1348,7 +1348,7 @@ abstract class Swift_Transport_AbstractSmtpTest extends \SwiftMailerTestCase
         $buf->shouldReceive('readLine')
             ->zeroOrMoreTimes()
             ->with($x)
-            ->andReturn('250 ServerName'."\r\n");
+            ->andReturn('250 ServerName' . "\r\n");
         $buf->shouldReceive('write')
             ->zeroOrMoreTimes()
             ->with('~^MAIL FROM:<.*?>\r\n$~D')

@@ -8,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Carbon\Traits;
 
 use Closure;
@@ -33,6 +34,11 @@ trait Mixin
     /**
      * Mix another object into the class.
      *
+     * @param object|string $mixin
+     *
+     * @return void
+     * @throws ReflectionException
+     *
      * @example
      * ```
      * Carbon::mixin(new class {
@@ -55,11 +61,6 @@ trait Mixin
      * echo "$previousBlackMoon\n";
      * ```
      *
-     * @param object|string $mixin
-     *
-     * @throws ReflectionException
-     *
-     * @return void
      */
     public static function mixin($mixin)
     {
@@ -69,66 +70,14 @@ trait Mixin
     }
 
     /**
-     * @param string $mixin
-     *
-     * @throws ReflectionException
-     */
-    private static function loadMixinClass($mixin)
-    {
-        $methods = (new ReflectionClass($mixin))->getMethods(
-            ReflectionMethod::IS_PUBLIC | ReflectionMethod::IS_PROTECTED
-        );
-
-        foreach ($methods as $method) {
-            if ($method->isConstructor() || $method->isDestructor()) {
-                continue;
-            }
-
-            $method->setAccessible(true);
-
-            static::macro($method->name, $method->invoke($mixin));
-        }
-    }
-
-    /**
-     * @param string $trait
-     */
-    private static function loadMixinTrait($trait)
-    {
-        $baseClass = static::class;
-        $context = eval('return new class() extends '.$baseClass.' {use '.$trait.';};');
-        $className = \get_class($context);
-
-        foreach (get_class_methods($context) as $name) {
-            if (method_exists($baseClass, $name)) {
-                continue;
-            }
-
-            $closureBase = Closure::fromCallable([$context, $name]);
-
-            static::macro($name, function () use ($closureBase, $className) {
-                $context = isset($this) ? $this->cast($className) : new $className();
-
-                try {
-                    $closure = $closureBase->bindTo($context);
-                } catch (Throwable $throwable) {
-                    $closure = $closureBase;
-                }
-
-                return $closure(...\func_get_args());
-            });
-        }
-    }
-
-    /**
      * Stack a Carbon context from inside calls of self::this() and execute a given action.
      *
      * @param static|null $context
-     * @param callable    $callable
-     *
-     * @throws Throwable
+     * @param callable $callable
      *
      * @return mixed
+     * @throws Throwable
+     *
      */
     protected static function bindMacroContext($context, callable $callable)
     {
@@ -159,5 +108,57 @@ trait Mixin
     protected static function this()
     {
         return end(static::$macroContextStack) ?: new static();
+    }
+
+    /**
+     * @param string $mixin
+     *
+     * @throws ReflectionException
+     */
+    private static function loadMixinClass($mixin)
+    {
+        $methods = (new ReflectionClass($mixin))->getMethods(
+            ReflectionMethod::IS_PUBLIC | ReflectionMethod::IS_PROTECTED
+        );
+
+        foreach ($methods as $method) {
+            if ($method->isConstructor() || $method->isDestructor()) {
+                continue;
+            }
+
+            $method->setAccessible(true);
+
+            static::macro($method->name, $method->invoke($mixin));
+        }
+    }
+
+    /**
+     * @param string $trait
+     */
+    private static function loadMixinTrait($trait)
+    {
+        $baseClass = static::class;
+        $context = eval('return new class() extends ' . $baseClass . ' {use ' . $trait . ';};');
+        $className = \get_class($context);
+
+        foreach (get_class_methods($context) as $name) {
+            if (method_exists($baseClass, $name)) {
+                continue;
+            }
+
+            $closureBase = Closure::fromCallable([$context, $name]);
+
+            static::macro($name, function () use ($closureBase, $className) {
+                $context = isset($this) ? $this->cast($className) : new $className();
+
+                try {
+                    $closure = $closureBase->bindTo($context);
+                } catch (Throwable $throwable) {
+                    $closure = $closureBase;
+                }
+
+                return $closure(...\func_get_args());
+            });
+        }
     }
 }

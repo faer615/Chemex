@@ -11,7 +11,7 @@ trait InteractsWithTime
     /**
      * Begin travelling to another time.
      *
-     * @param  int  $value
+     * @param int $value
      * @return \Illuminate\Foundation\Testing\Wormhole
      */
     public function travel($value)
@@ -22,8 +22,8 @@ trait InteractsWithTime
     /**
      * Travel to another time.
      *
-     * @param  \DateTimeInterface  $date
-     * @param  callable|null  $callback
+     * @param \DateTimeInterface $date
+     * @param callable|null $callback
      * @return mixed
      */
     public function travelTo(DateTimeInterface $date, $callback = null)

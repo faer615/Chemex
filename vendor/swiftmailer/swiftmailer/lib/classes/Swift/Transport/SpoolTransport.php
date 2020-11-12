@@ -31,6 +31,16 @@ class Swift_Transport_SpoolTransport implements Swift_Transport
     }
 
     /**
+     * Get the spool object.
+     *
+     * @return Swift_Spool
+     */
+    public function getSpool()
+    {
+        return $this->spool;
+    }
+
+    /**
      * Sets the spool object.
      *
      * @return $this
@@ -40,16 +50,6 @@ class Swift_Transport_SpoolTransport implements Swift_Transport
         $this->spool = $spool;
 
         return $this;
-    }
-
-    /**
-     * Get the spool object.
-     *
-     * @return Swift_Spool
-     */
-    public function getSpool()
-    {
-        return $this->spool;
     }
 
     /**

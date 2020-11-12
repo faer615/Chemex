@@ -17,6 +17,16 @@ abstract class AbstractAdapter implements AdapterInterface
     protected $pathSeparator = '/';
 
     /**
+     * Get the path prefix.
+     *
+     * @return string|null path prefix or null if pathPrefix is empty
+     */
+    public function getPathPrefix()
+    {
+        return $this->pathPrefix;
+    }
+
+    /**
      * Set the path prefix.
      *
      * @param string $prefix
@@ -25,7 +35,7 @@ abstract class AbstractAdapter implements AdapterInterface
      */
     public function setPathPrefix($prefix)
     {
-        $prefix = (string) $prefix;
+        $prefix = (string)$prefix;
 
         if ($prefix === '') {
             $this->pathPrefix = null;
@@ -34,16 +44,6 @@ abstract class AbstractAdapter implements AdapterInterface
         }
 
         $this->pathPrefix = rtrim($prefix, '\\/') . $this->pathSeparator;
-    }
-
-    /**
-     * Get the path prefix.
-     *
-     * @return string|null path prefix or null if pathPrefix is empty
-     */
-    public function getPathPrefix()
-    {
-        return $this->pathPrefix;
     }
 
     /**

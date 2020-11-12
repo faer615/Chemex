@@ -16,14 +16,14 @@ class DB2Driver extends AbstractDB2Driver
      */
     public function connect(array $params, $username = null, $password = null, array $driverOptions = [])
     {
-        $params['user']     = $username;
+        $params['user'] = $username;
         $params['password'] = $password;
-        $params['dbname']   = DataSourceName::fromConnectionParameters($params)->toString();
+        $params['dbname'] = DataSourceName::fromConnectionParameters($params)->toString();
 
         return new Connection(
             $params,
-            (string) $username,
-            (string) $password,
+            (string)$username,
+            (string)$password,
             $driverOptions
         );
     }

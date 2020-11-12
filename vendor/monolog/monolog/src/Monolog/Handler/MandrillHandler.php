@@ -27,10 +27,10 @@ class MandrillHandler extends MailHandler
     /**
      * @psalm-param Swift_Message|callable(string, array): Swift_Message $message
      *
-     * @param string                  $apiKey  A valid Mandrill API key
+     * @param string $apiKey A valid Mandrill API key
      * @param callable|\Swift_Message $message An example message for real messages, only the body will be replaced
-     * @param string|int              $level   The minimum logging level at which this handler will be triggered
-     * @param bool                    $bubble  Whether the messages that are handled can bubble up the stack or not
+     * @param string|int $level The minimum logging level at which this handler will be triggered
+     * @param bool $bubble Whether the messages that are handled can bubble up the stack or not
      */
     public function __construct(string $apiKey, $message, $level = Logger::ERROR, bool $bubble = true)
     {
@@ -71,7 +71,7 @@ class MandrillHandler extends MailHandler
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
             'key' => $this->apiKey,
-            'raw_message' => (string) $message,
+            'raw_message' => (string)$message,
             'async' => false,
         ]));
 

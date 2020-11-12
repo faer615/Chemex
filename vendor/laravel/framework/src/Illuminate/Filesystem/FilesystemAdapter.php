@@ -40,7 +40,7 @@ class FilesystemAdapter implements CloudFilesystemContract
     /**
      * Create a new filesystem adapter instance.
      *
-     * @param  \League\Flysystem\FilesystemInterface  $driver
+     * @param \League\Flysystem\FilesystemInterface $driver
      * @return void
      */
     public function __construct(FilesystemInterface $driver)
@@ -51,7 +51,7 @@ class FilesystemAdapter implements CloudFilesystemContract
     /**
      * Assert that the given file exists.
      *
-     * @param  string|array  $path
+     * @param string|array $path
      * @return $this
      */
     public function assertExists($path)
@@ -70,7 +70,7 @@ class FilesystemAdapter implements CloudFilesystemContract
     /**
      * Assert that the given file does not exist.
      *
-     * @param  string|array  $path
+     * @param string|array $path
      * @return $this
      */
     public function assertMissing($path)
@@ -89,7 +89,7 @@ class FilesystemAdapter implements CloudFilesystemContract
     /**
      * Determine if a file exists.
      *
-     * @param  string  $path
+     * @param string $path
      * @return bool
      */
     public function exists($path)
@@ -100,18 +100,18 @@ class FilesystemAdapter implements CloudFilesystemContract
     /**
      * Determine if a file or directory is missing.
      *
-     * @param  string  $path
+     * @param string $path
      * @return bool
      */
     public function missing($path)
     {
-        return ! $this->exists($path);
+        return !$this->exists($path);
     }
 
     /**
      * Get the full path for the file at the given "short" path.
      *
-     * @param  string  $path
+     * @param string $path
      * @return string
      */
     public function path($path)
@@ -122,13 +122,13 @@ class FilesystemAdapter implements CloudFilesystemContract
             $adapter = $adapter->getAdapter();
         }
 
-        return $adapter->getPathPrefix().$path;
+        return $adapter->getPathPrefix() . $path;
     }
 
     /**
      * Get the contents of a file.
      *
-     * @param  string  $path
+     * @param string $path
      * @return string
      *
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
@@ -145,10 +145,10 @@ class FilesystemAdapter implements CloudFilesystemContract
     /**
      * Create a streamed response for a given file.
      *
-     * @param  string  $path
-     * @param  string|null  $name
-     * @param  array|null  $headers
-     * @param  string|null  $disposition
+     * @param string $path
+     * @param string|null $name
+     * @param array|null $headers
+     * @param string|null $disposition
      * @return \Symfony\Component\HttpFoundation\StreamedResponse
      */
     public function response($path, $name = null, array $headers = [], $disposition = 'inline')
@@ -162,10 +162,10 @@ class FilesystemAdapter implements CloudFilesystemContract
         );
 
         $response->headers->replace($headers + [
-            'Content-Type' => $this->mimeType($path),
-            'Content-Length' => $this->size($path),
-            'Content-Disposition' => $disposition,
-        ]);
+                'Content-Type' => $this->mimeType($path),
+                'Content-Length' => $this->size($path),
+                'Content-Disposition' => $disposition,
+            ]);
 
         $response->setCallback(function () use ($path) {
             $stream = $this->readStream($path);
@@ -179,9 +179,9 @@ class FilesystemAdapter implements CloudFilesystemContract
     /**
      * Create a streamed download response for a given file.
      *
-     * @param  string  $path
-     * @param  string|null  $name
-     * @param  array|null  $headers
+     * @param string $path
+     * @param string|null $name
+     * @param array|null $headers
      * @return \Symfony\Component\HttpFoundation\StreamedResponse
      */
     public function download($path, $name = null, array $headers = [])
@@ -190,29 +190,18 @@ class FilesystemAdapter implements CloudFilesystemContract
     }
 
     /**
-     * Convert the string to ASCII characters that are equivalent to the given name.
-     *
-     * @param  string  $name
-     * @return string
-     */
-    protected function fallbackName($name)
-    {
-        return str_replace('%', '', Str::ascii($name));
-    }
-
-    /**
      * Write the contents of a file.
      *
-     * @param  string  $path
-     * @param  string|resource  $contents
-     * @param  mixed  $options
+     * @param string $path
+     * @param string|resource $contents
+     * @param mixed $options
      * @return bool
      */
     public function put($path, $contents, $options = [])
     {
         $options = is_string($options)
-                     ? ['visibility' => $options]
-                     : (array) $options;
+            ? ['visibility' => $options]
+            : (array)$options;
 
         // If the given contents is actually a file or uploaded file instance than we will
         // automatically store the file using a stream. This provides a convenient path
@@ -227,16 +216,16 @@ class FilesystemAdapter implements CloudFilesystemContract
         }
 
         return is_resource($contents)
-                ? $this->driver->putStream($path, $contents, $options)
-                : $this->driver->put($path, $contents, $options);
+            ? $this->driver->putStream($path, $contents, $options)
+            : $this->driver->put($path, $contents, $options);
     }
 
     /**
      * Store the uploaded file on the disk.
      *
-     * @param  string  $path
-     * @param  \Illuminate\Http\File|\Illuminate\Http\UploadedFile|string  $file
-     * @param  mixed  $options
+     * @param string $path
+     * @param \Illuminate\Http\File|\Illuminate\Http\UploadedFile|string $file
+     * @param mixed $options
      * @return string|false
      */
     public function putFile($path, $file, $options = [])
@@ -249,10 +238,10 @@ class FilesystemAdapter implements CloudFilesystemContract
     /**
      * Store the uploaded file on the disk with a given name.
      *
-     * @param  string  $path
-     * @param  \Illuminate\Http\File|\Illuminate\Http\UploadedFile|string  $file
-     * @param  string  $name
-     * @param  mixed  $options
+     * @param string $path
+     * @param \Illuminate\Http\File|\Illuminate\Http\UploadedFile|string $file
+     * @param string $name
+     * @param mixed $options
      * @return string|false
      */
     public function putFileAs($path, $file, $name, $options = [])
@@ -263,7 +252,7 @@ class FilesystemAdapter implements CloudFilesystemContract
         // they provide better performance than alternatives. Once we write the file this
         // stream will get closed automatically by us so the developer doesn't have to.
         $result = $this->put(
-            $path = trim($path.'/'.$name, '/'), $stream, $options
+            $path = trim($path . '/' . $name, '/'), $stream, $options
         );
 
         if (is_resource($stream)) {
@@ -276,7 +265,7 @@ class FilesystemAdapter implements CloudFilesystemContract
     /**
      * Get the visibility for the given path.
      *
-     * @param  string  $path
+     * @param string $path
      * @return string
      */
     public function getVisibility($path)
@@ -291,8 +280,8 @@ class FilesystemAdapter implements CloudFilesystemContract
     /**
      * Set the visibility for the given path.
      *
-     * @param  string  $path
-     * @param  string  $visibility
+     * @param string $path
+     * @param string $visibility
      * @return bool
      */
     public function setVisibility($path, $visibility)
@@ -303,15 +292,15 @@ class FilesystemAdapter implements CloudFilesystemContract
     /**
      * Prepend to a file.
      *
-     * @param  string  $path
-     * @param  string  $data
-     * @param  string  $separator
+     * @param string $path
+     * @param string $data
+     * @param string $separator
      * @return bool
      */
     public function prepend($path, $data, $separator = PHP_EOL)
     {
         if ($this->exists($path)) {
-            return $this->put($path, $data.$separator.$this->get($path));
+            return $this->put($path, $data . $separator . $this->get($path));
         }
 
         return $this->put($path, $data);
@@ -320,15 +309,15 @@ class FilesystemAdapter implements CloudFilesystemContract
     /**
      * Append to a file.
      *
-     * @param  string  $path
-     * @param  string  $data
-     * @param  string  $separator
+     * @param string $path
+     * @param string $data
+     * @param string $separator
      * @return bool
      */
     public function append($path, $data, $separator = PHP_EOL)
     {
         if ($this->exists($path)) {
-            return $this->put($path, $this->get($path).$separator.$data);
+            return $this->put($path, $this->get($path) . $separator . $data);
         }
 
         return $this->put($path, $data);
@@ -337,7 +326,7 @@ class FilesystemAdapter implements CloudFilesystemContract
     /**
      * Delete the file at a given path.
      *
-     * @param  string|array  $paths
+     * @param string|array $paths
      * @return bool
      */
     public function delete($paths)
@@ -348,7 +337,7 @@ class FilesystemAdapter implements CloudFilesystemContract
 
         foreach ($paths as $path) {
             try {
-                if (! $this->driver->delete($path)) {
+                if (!$this->driver->delete($path)) {
                     $success = false;
                 }
             } catch (FileNotFoundException $e) {
@@ -362,8 +351,8 @@ class FilesystemAdapter implements CloudFilesystemContract
     /**
      * Copy a file to a new location.
      *
-     * @param  string  $from
-     * @param  string  $to
+     * @param string $from
+     * @param string $to
      * @return bool
      */
     public function copy($from, $to)
@@ -374,8 +363,8 @@ class FilesystemAdapter implements CloudFilesystemContract
     /**
      * Move a file to a new location.
      *
-     * @param  string  $from
-     * @param  string  $to
+     * @param string $from
+     * @param string $to
      * @return bool
      */
     public function move($from, $to)
@@ -386,7 +375,7 @@ class FilesystemAdapter implements CloudFilesystemContract
     /**
      * Get the file size of a given file.
      *
-     * @param  string  $path
+     * @param string $path
      * @return int
      */
     public function size($path)
@@ -397,7 +386,7 @@ class FilesystemAdapter implements CloudFilesystemContract
     /**
      * Get the mime-type of a given file.
      *
-     * @param  string  $path
+     * @param string $path
      * @return string|false
      */
     public function mimeType($path)
@@ -408,7 +397,7 @@ class FilesystemAdapter implements CloudFilesystemContract
     /**
      * Get the file's last modification time.
      *
-     * @param  string  $path
+     * @param string $path
      * @return int
      */
     public function lastModified($path)
@@ -419,7 +408,7 @@ class FilesystemAdapter implements CloudFilesystemContract
     /**
      * Get the URL for the file at the given path.
      *
-     * @param  string  $path
+     * @param string $path
      * @return string
      *
      * @throws \RuntimeException
@@ -472,76 +461,11 @@ class FilesystemAdapter implements CloudFilesystemContract
     }
 
     /**
-     * Get the URL for the file at the given path.
-     *
-     * @param  \League\Flysystem\AwsS3v3\AwsS3Adapter  $adapter
-     * @param  string  $path
-     * @return string
-     */
-    protected function getAwsUrl($adapter, $path)
-    {
-        // If an explicit base URL has been set on the disk configuration then we will use
-        // it as the base URL instead of the default path. This allows the developer to
-        // have full control over the base path for this filesystem's generated URLs.
-        if (! is_null($url = $this->driver->getConfig()->get('url'))) {
-            return $this->concatPathToUrl($url, $adapter->getPathPrefix().$path);
-        }
-
-        return $adapter->getClient()->getObjectUrl(
-            $adapter->getBucket(), $adapter->getPathPrefix().$path
-        );
-    }
-
-    /**
-     * Get the URL for the file at the given path.
-     *
-     * @param  string  $path
-     * @return string
-     */
-    protected function getFtpUrl($path)
-    {
-        $config = $this->driver->getConfig();
-
-        return $config->has('url')
-                ? $this->concatPathToUrl($config->get('url'), $path)
-                : $path;
-    }
-
-    /**
-     * Get the URL for the file at the given path.
-     *
-     * @param  string  $path
-     * @return string
-     */
-    protected function getLocalUrl($path)
-    {
-        $config = $this->driver->getConfig();
-
-        // If an explicit base URL has been set on the disk configuration then we will use
-        // it as the base URL instead of the default path. This allows the developer to
-        // have full control over the base path for this filesystem's generated URLs.
-        if ($config->has('url')) {
-            return $this->concatPathToUrl($config->get('url'), $path);
-        }
-
-        $path = '/storage/'.$path;
-
-        // If the path contains "storage/public", it probably means the developer is using
-        // the default disk to generate the path instead of the "public" disk like they
-        // are really supposed to use. We will remove the public from this path here.
-        if (Str::contains($path, '/storage/public/')) {
-            return Str::replaceFirst('/public/', '/', $path);
-        }
-
-        return $path;
-    }
-
-    /**
      * Get a temporary URL for the file at the given path.
      *
-     * @param  string  $path
-     * @param  \DateTimeInterface  $expiration
-     * @param  array  $options
+     * @param string $path
+     * @param \DateTimeInterface $expiration
+     * @param array $options
      * @return string
      *
      * @throws \RuntimeException
@@ -566,10 +490,10 @@ class FilesystemAdapter implements CloudFilesystemContract
     /**
      * Get a temporary URL for the file at the given path.
      *
-     * @param  \League\Flysystem\AwsS3v3\AwsS3Adapter  $adapter
-     * @param  string  $path
-     * @param  \DateTimeInterface  $expiration
-     * @param  array  $options
+     * @param \League\Flysystem\AwsS3v3\AwsS3Adapter $adapter
+     * @param string $path
+     * @param \DateTimeInterface $expiration
+     * @param array $options
      * @return string
      */
     public function getAwsTemporaryUrl($adapter, $path, $expiration, $options)
@@ -578,31 +502,19 @@ class FilesystemAdapter implements CloudFilesystemContract
 
         $command = $client->getCommand('GetObject', array_merge([
             'Bucket' => $adapter->getBucket(),
-            'Key' => $adapter->getPathPrefix().$path,
+            'Key' => $adapter->getPathPrefix() . $path,
         ], $options));
 
-        return (string) $client->createPresignedRequest(
+        return (string)$client->createPresignedRequest(
             $command, $expiration
         )->getUri();
     }
 
     /**
-     * Concatenate a path to a URL.
-     *
-     * @param  string  $url
-     * @param  string  $path
-     * @return string
-     */
-    protected function concatPathToUrl($url, $path)
-    {
-        return rtrim($url, '/').'/'.ltrim($path, '/');
-    }
-
-    /**
      * Get an array of all files in a directory.
      *
-     * @param  string|null  $directory
-     * @param  bool  $recursive
+     * @param string|null $directory
+     * @param bool $recursive
      * @return array
      */
     public function files($directory = null, $recursive = false)
@@ -615,7 +527,7 @@ class FilesystemAdapter implements CloudFilesystemContract
     /**
      * Get all of the files from the given directory (recursive).
      *
-     * @param  string|null  $directory
+     * @param string|null $directory
      * @return array
      */
     public function allFiles($directory = null)
@@ -626,8 +538,8 @@ class FilesystemAdapter implements CloudFilesystemContract
     /**
      * Get all of the directories within a given directory.
      *
-     * @param  string|null  $directory
-     * @param  bool  $recursive
+     * @param string|null $directory
+     * @param bool $recursive
      * @return array
      */
     public function directories($directory = null, $recursive = false)
@@ -640,7 +552,7 @@ class FilesystemAdapter implements CloudFilesystemContract
     /**
      * Get all (recursive) of the directories within a given directory.
      *
-     * @param  string|null  $directory
+     * @param string|null $directory
      * @return array
      */
     public function allDirectories($directory = null)
@@ -651,7 +563,7 @@ class FilesystemAdapter implements CloudFilesystemContract
     /**
      * Create a directory.
      *
-     * @param  string  $path
+     * @param string $path
      * @return bool
      */
     public function makeDirectory($path)
@@ -662,7 +574,7 @@ class FilesystemAdapter implements CloudFilesystemContract
     /**
      * Recursively delete a directory.
      *
-     * @param  string  $directory
+     * @param string $directory
      * @return bool
      */
     public function deleteDirectory($directory)
@@ -695,10 +607,112 @@ class FilesystemAdapter implements CloudFilesystemContract
     }
 
     /**
+     * Pass dynamic methods call onto Flysystem.
+     *
+     * @param string $method
+     * @param array $parameters
+     * @return mixed
+     *
+     * @throws \BadMethodCallException
+     */
+    public function __call($method, array $parameters)
+    {
+        return $this->driver->{$method}(...array_values($parameters));
+    }
+
+    /**
+     * Convert the string to ASCII characters that are equivalent to the given name.
+     *
+     * @param string $name
+     * @return string
+     */
+    protected function fallbackName($name)
+    {
+        return str_replace('%', '', Str::ascii($name));
+    }
+
+    /**
+     * Get the URL for the file at the given path.
+     *
+     * @param \League\Flysystem\AwsS3v3\AwsS3Adapter $adapter
+     * @param string $path
+     * @return string
+     */
+    protected function getAwsUrl($adapter, $path)
+    {
+        // If an explicit base URL has been set on the disk configuration then we will use
+        // it as the base URL instead of the default path. This allows the developer to
+        // have full control over the base path for this filesystem's generated URLs.
+        if (!is_null($url = $this->driver->getConfig()->get('url'))) {
+            return $this->concatPathToUrl($url, $adapter->getPathPrefix() . $path);
+        }
+
+        return $adapter->getClient()->getObjectUrl(
+            $adapter->getBucket(), $adapter->getPathPrefix() . $path
+        );
+    }
+
+    /**
+     * Get the URL for the file at the given path.
+     *
+     * @param string $path
+     * @return string
+     */
+    protected function getFtpUrl($path)
+    {
+        $config = $this->driver->getConfig();
+
+        return $config->has('url')
+            ? $this->concatPathToUrl($config->get('url'), $path)
+            : $path;
+    }
+
+    /**
+     * Get the URL for the file at the given path.
+     *
+     * @param string $path
+     * @return string
+     */
+    protected function getLocalUrl($path)
+    {
+        $config = $this->driver->getConfig();
+
+        // If an explicit base URL has been set on the disk configuration then we will use
+        // it as the base URL instead of the default path. This allows the developer to
+        // have full control over the base path for this filesystem's generated URLs.
+        if ($config->has('url')) {
+            return $this->concatPathToUrl($config->get('url'), $path);
+        }
+
+        $path = '/storage/' . $path;
+
+        // If the path contains "storage/public", it probably means the developer is using
+        // the default disk to generate the path instead of the "public" disk like they
+        // are really supposed to use. We will remove the public from this path here.
+        if (Str::contains($path, '/storage/public/')) {
+            return Str::replaceFirst('/public/', '/', $path);
+        }
+
+        return $path;
+    }
+
+    /**
+     * Concatenate a path to a URL.
+     *
+     * @param string $url
+     * @param string $path
+     * @return string
+     */
+    protected function concatPathToUrl($url, $path)
+    {
+        return rtrim($url, '/') . '/' . ltrim($path, '/');
+    }
+
+    /**
      * Filter directory contents by type.
      *
-     * @param  array  $contents
-     * @param  string  $type
+     * @param array $contents
+     * @param string $type
      * @return array
      */
     protected function filterContentsByType($contents, $type)
@@ -713,7 +727,7 @@ class FilesystemAdapter implements CloudFilesystemContract
     /**
      * Parse the given visibility value.
      *
-     * @param  string|null  $visibility
+     * @param string|null $visibility
      * @return string|null
      *
      * @throws \InvalidArgumentException
@@ -732,19 +746,5 @@ class FilesystemAdapter implements CloudFilesystemContract
         }
 
         throw new InvalidArgumentException("Unknown visibility: {$visibility}.");
-    }
-
-    /**
-     * Pass dynamic methods call onto Flysystem.
-     *
-     * @param  string  $method
-     * @param  array  $parameters
-     * @return mixed
-     *
-     * @throws \BadMethodCallException
-     */
-    public function __call($method, array $parameters)
-    {
-        return $this->driver->{$method}(...array_values($parameters));
     }
 }

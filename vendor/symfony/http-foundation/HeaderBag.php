@@ -48,7 +48,7 @@ class HeaderBag implements \IteratorAggregate, \Countable
         foreach ($headers as $name => $values) {
             $name = ucwords($name, '-');
             foreach ($values as $value) {
-                $content .= sprintf("%-{$max}s %s\r\n", $name.':', $value);
+                $content .= sprintf("%-{$max}s %s\r\n", $name . ':', $value);
             }
         }
 
@@ -117,14 +117,14 @@ class HeaderBag implements \IteratorAggregate, \Countable
             return null;
         }
 
-        return (string) $headers[0];
+        return (string)$headers[0];
     }
 
     /**
      * Sets a header by name.
      *
-     * @param string|string[] $values  The value or an array of values
-     * @param bool            $replace Whether to replace the actual value or not (true by default)
+     * @param string|string[] $values The value or an array of values
+     * @param bool $replace Whether to replace the actual value or not (true by default)
      */
     public function set(string $key, $values, bool $replace = true)
     {

@@ -71,11 +71,11 @@ class Configuration
      * schema instances generated for the active connection when calling
      * {AbstractSchemaManager#createSchema()}.
      *
-     * @deprecated Use Configuration::setSchemaAssetsFilter() instead
-     *
      * @param string|null $filterExpression
      *
      * @return void
+     * @deprecated Use Configuration::setSchemaAssetsFilter() instead
+     *
      */
     public function setFilterSchemaAssetsExpression($filterExpression)
     {
@@ -91,27 +91,13 @@ class Configuration
     /**
      * Returns filter schema assets expression.
      *
+     * @return string|null
      * @deprecated Use Configuration::getSchemaAssetsFilter() instead
      *
-     * @return string|null
      */
     public function getFilterSchemaAssetsExpression()
     {
         return $this->_attributes['filterSchemaAssetsExpression'] ?? null;
-    }
-
-    /**
-     * @param string $filterExpression
-     */
-    private function buildSchemaAssetsFilterFromExpression($filterExpression): callable
-    {
-        return static function ($assetName) use ($filterExpression) {
-            if ($assetName instanceof AbstractAsset) {
-                $assetName = $assetName->getName();
-            }
-
-            return preg_match($filterExpression, $assetName);
-        };
     }
 
     /**
@@ -139,26 +125,40 @@ class Configuration
      * transactions. Otherwise, its SQL statements are grouped into transactions that are terminated by a call to either
      * the method commit or the method rollback. By default, new connections are in auto-commit mode.
      *
-     * @see   getAutoCommit
-     *
      * @param bool $autoCommit True to enable auto-commit mode; false to disable it.
      *
      * @return void
+     * @see   getAutoCommit
+     *
      */
     public function setAutoCommit($autoCommit)
     {
-        $this->_attributes['autoCommit'] = (bool) $autoCommit;
+        $this->_attributes['autoCommit'] = (bool)$autoCommit;
     }
 
     /**
      * Returns the default auto-commit mode for connections.
      *
+     * @return bool True if auto-commit mode is enabled by default for connections, false otherwise.
      * @see    setAutoCommit
      *
-     * @return bool True if auto-commit mode is enabled by default for connections, false otherwise.
      */
     public function getAutoCommit()
     {
         return $this->_attributes['autoCommit'] ?? true;
+    }
+
+    /**
+     * @param string $filterExpression
+     */
+    private function buildSchemaAssetsFilterFromExpression($filterExpression): callable
+    {
+        return static function ($assetName) use ($filterExpression) {
+            if ($assetName instanceof AbstractAsset) {
+                $assetName = $assetName->getName();
+            }
+
+            return preg_match($filterExpression, $assetName);
+        };
     }
 }

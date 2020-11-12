@@ -111,7 +111,7 @@ class SystemDceSecurityProvider implements DceSecurityProviderInterface
             case 'FRE':
             case 'LIN':
             default:
-                return trim((string) shell_exec('id -u'));
+                return trim((string)shell_exec('id -u'));
         }
     }
 
@@ -131,7 +131,7 @@ class SystemDceSecurityProvider implements DceSecurityProviderInterface
             case 'FRE':
             case 'LIN':
             default:
-                return trim((string) shell_exec('id -g'));
+                return trim((string)shell_exec('id -g'));
         }
     }
 
@@ -140,7 +140,7 @@ class SystemDceSecurityProvider implements DceSecurityProviderInterface
      */
     private function hasShellExec(): bool
     {
-        $disabledFunctions = strtolower((string) ini_get('disable_functions'));
+        $disabledFunctions = strtolower((string)ini_get('disable_functions'));
 
         return strpos($disabledFunctions, 'shell_exec') === false;
     }
@@ -230,6 +230,6 @@ class SystemDceSecurityProvider implements DceSecurityProviderInterface
             return '';
         }
 
-        return trim((string) substr($sid, $lastHyphen + 1));
+        return trim((string)substr($sid, $lastHyphen + 1));
     }
 }

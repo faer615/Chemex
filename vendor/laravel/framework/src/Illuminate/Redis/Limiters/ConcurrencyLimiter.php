@@ -39,10 +39,10 @@ class ConcurrencyLimiter
     /**
      * Create a new concurrency limiter instance.
      *
-     * @param  \Illuminate\Redis\Connections\Connection  $redis
-     * @param  string  $name
-     * @param  int  $maxLocks
-     * @param  int  $releaseAfter
+     * @param \Illuminate\Redis\Connections\Connection $redis
+     * @param string $name
+     * @param int $maxLocks
+     * @param int $releaseAfter
      * @return void
      */
     public function __construct($redis, $name, $maxLocks, $releaseAfter)
@@ -56,8 +56,8 @@ class ConcurrencyLimiter
     /**
      * Attempt to acquire the lock for the given number of seconds.
      *
-     * @param  int  $timeout
-     * @param  callable|null  $callback
+     * @param int $timeout
+     * @param callable|null $callback
      * @return bool
      *
      * @throws \Illuminate\Contracts\Redis\LimiterTimeoutException
@@ -69,7 +69,7 @@ class ConcurrencyLimiter
 
         $id = Str::random(20);
 
-        while (! $slot = $this->acquire($id)) {
+        while (!$slot = $this->acquire($id)) {
             if (time() - $timeout >= $starting) {
                 throw new LimiterTimeoutException;
             }
@@ -95,13 +95,13 @@ class ConcurrencyLimiter
     /**
      * Attempt to acquire the lock.
      *
-     * @param  string  $id  A unique identifier for this lock
+     * @param string $id A unique identifier for this lock
      * @return mixed
      */
     protected function acquire($id)
     {
         $slots = array_map(function ($i) {
-            return $this->name.$i;
+            return $this->name . $i;
         }, range(1, $this->maxLocks));
 
         return $this->redis->eval(...array_merge(
@@ -135,8 +135,8 @@ LUA;
     /**
      * Release the lock.
      *
-     * @param  string  $key
-     * @param  string  $id
+     * @param string $key
+     * @param string $id
      * @return void
      */
     protected function release($key, $id)

@@ -41,9 +41,9 @@ class FencedCode extends AbstractStringContainerBlock
     protected $offset;
 
     /**
-     * @param int    $length
+     * @param int $length
      * @param string $char
-     * @param int    $offset
+     * @param int $offset
      */
     public function __construct(int $length, string $char, int $offset)
     {

@@ -47,7 +47,7 @@ final class Decimal implements NumberInterface
      */
     public function __construct($value)
     {
-        $value = (string) $value;
+        $value = (string)$value;
 
         if (!is_numeric($value)) {
             throw new InvalidArgumentException(
@@ -62,7 +62,7 @@ final class Decimal implements NumberInterface
         }
 
         // For cases like `-0` or `-0.0000`, convert the value to `0`.
-        if (abs((float) $value) === 0.0) {
+        if (abs((float)$value) === 0.0) {
             $value = '0';
         }
 

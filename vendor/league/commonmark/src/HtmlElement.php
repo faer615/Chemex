@@ -39,10 +39,10 @@ class HtmlElement
     protected $selfClosing = false;
 
     /**
-     * @param string                                $tagName     Name of the HTML tag
-     * @param string[]                              $attributes  Array of attributes (values should be unescaped)
-     * @param HtmlElement|HtmlElement[]|string|null $contents    Inner contents, pre-escaped if needed
-     * @param bool                                  $selfClosing Whether the tag is self-closing
+     * @param string $tagName Name of the HTML tag
+     * @param string[] $attributes Array of attributes (values should be unescaped)
+     * @param HtmlElement|HtmlElement[]|string|null $contents Inner contents, pre-escaped if needed
+     * @param bool $selfClosing Whether the tag is self-closing
      */
     public function __construct(string $tagName, array $attributes = [], $contents = '', bool $selfClosing = false)
     {
@@ -141,6 +141,6 @@ class HtmlElement
             return \implode('', $this->contents);
         }
 
-        return (string) $this->contents;
+        return (string)$this->contents;
     }
 }

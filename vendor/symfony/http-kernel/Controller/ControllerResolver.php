@@ -64,7 +64,7 @@ class ControllerResolver implements ControllerResolverInterface
             }
 
             if (!\is_callable($controller)) {
-                throw new \InvalidArgumentException(sprintf('The controller for URI "%s" is not callable: ', $request->getPathInfo()).$this->getControllerError($controller));
+                throw new \InvalidArgumentException(sprintf('The controller for URI "%s" is not callable: ', $request->getPathInfo()) . $this->getControllerError($controller));
             }
 
             return $controller;
@@ -72,7 +72,7 @@ class ControllerResolver implements ControllerResolverInterface
 
         if (\is_object($controller)) {
             if (!\is_callable($controller)) {
-                throw new \InvalidArgumentException(sprintf('The controller for URI "%s" is not callable: ', $request->getPathInfo()).$this->getControllerError($controller));
+                throw new \InvalidArgumentException(sprintf('The controller for URI "%s" is not callable: ', $request->getPathInfo()) . $this->getControllerError($controller));
             }
 
             return $controller;
@@ -85,11 +85,11 @@ class ControllerResolver implements ControllerResolverInterface
         try {
             $callable = $this->createController($controller);
         } catch (\InvalidArgumentException $e) {
-            throw new \InvalidArgumentException(sprintf('The controller for URI "%s" is not callable: ', $request->getPathInfo()).$e->getMessage(), 0, $e);
+            throw new \InvalidArgumentException(sprintf('The controller for URI "%s" is not callable: ', $request->getPathInfo()) . $e->getMessage(), 0, $e);
         }
 
         if (!\is_callable($callable)) {
-            throw new \InvalidArgumentException(sprintf('The controller for URI "%s" is not callable: ', $request->getPathInfo()).$this->getControllerError($callable));
+            throw new \InvalidArgumentException(sprintf('The controller for URI "%s" is not callable: ', $request->getPathInfo()) . $this->getControllerError($callable));
         }
 
         return $callable;
@@ -121,7 +121,7 @@ class ControllerResolver implements ControllerResolverInterface
         } catch (\Error | \LogicException $e) {
             try {
                 if ((new \ReflectionMethod($class, $method))->isStatic()) {
-                    return $class.'::'.$method;
+                    return $class . '::' . $method;
                 }
             } catch (\ReflectionException $reflectionException) {
                 throw $e;

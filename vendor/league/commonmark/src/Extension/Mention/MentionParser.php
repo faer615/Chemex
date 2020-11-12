@@ -35,6 +35,16 @@ final class MentionParser implements InlineParserInterface
         $this->mentionGenerator = $mentionGenerator;
     }
 
+    public static function createWithStringTemplate(string $symbol, string $mentionRegex, string $urlTemplate): MentionParser
+    {
+        return new self($symbol, $mentionRegex, new StringTemplateLinkGenerator($urlTemplate));
+    }
+
+    public static function createWithCallback(string $symbol, string $mentionRegex, callable $callback): MentionParser
+    {
+        return new self($symbol, $mentionRegex, new CallbackGenerator($callback));
+    }
+
     public function getCharacters(): array
     {
         return [$this->symbol];
@@ -77,15 +87,5 @@ final class MentionParser implements InlineParserInterface
         $inlineContext->getContainer()->appendChild($mention);
 
         return true;
-    }
-
-    public static function createWithStringTemplate(string $symbol, string $mentionRegex, string $urlTemplate): MentionParser
-    {
-        return new self($symbol, $mentionRegex, new StringTemplateLinkGenerator($urlTemplate));
-    }
-
-    public static function createWithCallback(string $symbol, string $mentionRegex, callable $callback): MentionParser
-    {
-        return new self($symbol, $mentionRegex, new CallbackGenerator($callback));
     }
 }

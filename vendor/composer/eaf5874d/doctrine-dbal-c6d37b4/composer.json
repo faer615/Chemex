@@ -26,10 +26,22 @@
     "homepage": "https://www.doctrine-project.org/projects/dbal.html",
     "license": "MIT",
     "authors": [
-        {"name": "Guilherme Blanco", "email": "guilhermeblanco@gmail.com"},
-        {"name": "Roman Borschel", "email": "roman@code-factory.org"},
-        {"name": "Benjamin Eberlei", "email": "kontakt@beberlei.de"},
-        {"name": "Jonathan Wage", "email": "jonwage@gmail.com"}
+        {
+            "name": "Guilherme Blanco",
+            "email": "guilhermeblanco@gmail.com"
+        },
+        {
+            "name": "Roman Borschel",
+            "email": "roman@code-factory.org"
+        },
+        {
+            "name": "Benjamin Eberlei",
+            "email": "kontakt@beberlei.de"
+        },
+        {
+            "name": "Jonathan Wage",
+            "email": "jonwage@gmail.com"
+        }
     ],
     "require": {
         "php": "^7.3 || ^8",
@@ -49,7 +61,9 @@
     "suggest": {
         "symfony/console": "For helpful console commands such as SQL execution and import of files."
     },
-    "bin": ["bin/doctrine-dbal"],
+    "bin": [
+        "bin/doctrine-dbal"
+    ],
     "config": {
         "sort-packages": true,
         "platform": {
@@ -57,10 +71,14 @@
         }
     },
     "autoload": {
-        "psr-4": { "Doctrine\\DBAL\\": "lib/Doctrine/DBAL" }
+        "psr-4": {
+            "Doctrine\\DBAL\\": "lib/Doctrine/DBAL"
+        }
     },
     "autoload-dev": {
-        "psr-4": { "Doctrine\\Tests\\": "tests/Doctrine/Tests" }
+        "psr-4": {
+            "Doctrine\\Tests\\": "tests/Doctrine/Tests"
+        }
     },
     "extra": {
         "branch-alias": {

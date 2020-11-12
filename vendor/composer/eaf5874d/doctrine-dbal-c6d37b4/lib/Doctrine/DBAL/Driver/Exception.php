@@ -14,12 +14,12 @@ interface Exception extends Throwable
     /**
      * Returns the driver specific error code if available.
      *
+     * @return int|string|null
      * @deprecated Use {@link getCode()} or {@link getSQLState()} instead
      *
      * Returns null if no driver specific error code is available
      * for the error raised by the driver.
      *
-     * @return int|string|null
      */
     public function getErrorCode();
 

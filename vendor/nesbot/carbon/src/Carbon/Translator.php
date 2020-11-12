@@ -8,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Carbon;
 
 use Closure;
@@ -55,6 +56,15 @@ class Translator extends Translation\Translator
         'scr' => 'sh',
     ];
 
+    public function __construct($locale, Translation\Formatter\MessageFormatterInterface $formatter = null, $cacheDir = null, $debug = false)
+    {
+        $this->initializing = true;
+        $this->directories = [__DIR__ . '/Lang'];
+        $this->addLoader('array', new Translation\Loader\ArrayLoader());
+        parent::__construct($locale, $formatter, $cacheDir, $debug);
+        $this->initializing = false;
+    }
+
     /**
      * Return a singleton instance of Translator.
      *
@@ -73,13 +83,23 @@ class Translator extends Translation\Translator
         return static::$singletons[$locale];
     }
 
-    public function __construct($locale, Translation\Formatter\MessageFormatterInterface $formatter = null, $cacheDir = null, $debug = false)
+    private static function compareChunkLists($referenceChunks, $chunks)
     {
-        $this->initializing = true;
-        $this->directories = [__DIR__.'/Lang'];
-        $this->addLoader('array', new Translation\Loader\ArrayLoader());
-        parent::__construct($locale, $formatter, $cacheDir, $debug);
-        $this->initializing = false;
+        $score = 0;
+
+        foreach ($referenceChunks as $index => $chunk) {
+            if (!isset($chunks[$index])) {
+                $score++;
+
+                continue;
+            }
+
+            if (strtolower($chunks[$index]) === strtolower($chunk)) {
+                $score += 10;
+            }
+        }
+
+        return $score;
     }
 
     /**
@@ -140,7 +160,7 @@ class Translator extends Translation\Translator
      * Returns the translation.
      *
      * @param string $id
-     * @param array  $parameters
+     * @param array $parameters
      * @param string $domain
      * @param string $locale
      *
@@ -152,7 +172,7 @@ class Translator extends Translation\Translator
             $domain = 'messages';
         }
 
-        $format = $this->getCatalogue($locale)->get((string) $id, $domain);
+        $format = $this->getCatalogue($locale)->get((string)$id, $domain);
 
         if ($format instanceof Closure) {
             // @codeCoverageIgnoreStart
@@ -244,42 +264,6 @@ class Translator extends Translation\Translator
     }
 
     /**
-     * Init messages language from matching file in Lang directory.
-     *
-     * @param string $locale
-     *
-     * @return bool
-     */
-    protected function loadMessagesFromFile($locale)
-    {
-        if (isset($this->messages[$locale])) {
-            return true;
-        }
-
-        return $this->resetMessages($locale);
-    }
-
-    /**
-     * Set messages of a locale and take file first if present.
-     *
-     * @param string $locale
-     * @param array  $messages
-     *
-     * @return $this
-     */
-    public function setMessages($locale, $messages)
-    {
-        $this->loadMessagesFromFile($locale);
-        $this->addResource('array', $messages, $locale);
-        $this->messages[$locale] = array_merge(
-            isset($this->messages[$locale]) ? $this->messages[$locale] : [],
-            $messages
-        );
-
-        return $this;
-    }
-
-    /**
      * Set messages of the current locale and take file first if present.
      *
      * @param array $messages
@@ -305,6 +289,26 @@ class Translator extends Translation\Translator
     }
 
     /**
+     * Set messages of a locale and take file first if present.
+     *
+     * @param string $locale
+     * @param array $messages
+     *
+     * @return $this
+     */
+    public function setMessages($locale, $messages)
+    {
+        $this->loadMessagesFromFile($locale);
+        $this->addResource('array', $messages, $locale);
+        $this->messages[$locale] = array_merge(
+            isset($this->messages[$locale]) ? $this->messages[$locale] : [],
+            $messages
+        );
+
+        return $this;
+    }
+
+    /**
      * Set the current translator locale and indicate if the source locale file exists
      *
      * @param string $locale locale ex. en
@@ -321,7 +325,7 @@ class Translator extends Translation\Translator
                 return "_$upper";
             }
 
-            return '_'.ucfirst($matches[1]);
+            return '_' . ucfirst($matches[1]);
         }, strtolower($locale));
 
         $previousLocale = $this->getLocale();
@@ -382,22 +386,19 @@ class Translator extends Translation\Translator
         ];
     }
 
-    private static function compareChunkLists($referenceChunks, $chunks)
+    /**
+     * Init messages language from matching file in Lang directory.
+     *
+     * @param string $locale
+     *
+     * @return bool
+     */
+    protected function loadMessagesFromFile($locale)
     {
-        $score = 0;
-
-        foreach ($referenceChunks as $index => $chunk) {
-            if (!isset($chunks[$index])) {
-                $score++;
-
-                continue;
-            }
-
-            if (strtolower($chunks[$index]) === strtolower($chunk)) {
-                $score += 10;
-            }
+        if (isset($this->messages[$locale])) {
+            return true;
         }
 
-        return $score;
+        return $this->resetMessages($locale);
     }
 }

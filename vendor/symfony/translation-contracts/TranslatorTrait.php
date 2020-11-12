@@ -25,17 +25,17 @@ trait TranslatorTrait
     /**
      * {@inheritdoc}
      */
-    public function setLocale(string $locale)
+    public function getLocale()
     {
-        $this->locale = $locale;
+        return $this->locale ?: (class_exists(\Locale::class) ? \Locale::getDefault() : 'en');
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getLocale()
+    public function setLocale(string $locale)
     {
-        return $this->locale ?: (class_exists(\Locale::class) ? \Locale::getDefault() : 'en');
+        $this->locale = $locale;
     }
 
     /**
@@ -51,7 +51,7 @@ trait TranslatorTrait
             return strtr($id, $parameters);
         }
 
-        $number = (float) $parameters['%count%'];
+        $number = (float)$parameters['%count%'];
         $locale = $locale ?: $this->getLocale();
 
         $parts = [];
@@ -92,8 +92,8 @@ EOF;
                         }
                     }
                 } else {
-                    $leftNumber = '-Inf' === $matches['left'] ? -\INF : (float) $matches['left'];
-                    $rightNumber = is_numeric($matches['right']) ? (float) $matches['right'] : \INF;
+                    $leftNumber = '-Inf' === $matches['left'] ? -\INF : (float)$matches['left'];
+                    $rightNumber = is_numeric($matches['right']) ? (float)$matches['right'] : \INF;
 
                     if (('[' === $matches['left_delimiter'] ? $number >= $leftNumber : $number > $leftNumber)
                         && (']' === $matches['right_delimiter'] ? $number <= $rightNumber : $number < $rightNumber)

@@ -99,7 +99,7 @@ class ResponseHeaderBag extends HeaderBag
         }
 
         foreach ($this->getCookies() as $cookie) {
-            $headers['set-cookie'][] = (string) $cookie;
+            $headers['set-cookie'][] = (string)$cookie;
         }
 
         return $headers;
@@ -116,7 +116,7 @@ class ResponseHeaderBag extends HeaderBag
             if ($replace) {
                 $this->cookies = [];
             }
-            foreach ((array) $values as $cookie) {
+            foreach ((array)$values as $cookie) {
                 $this->setCookie(Cookie::fromString($cookie));
             }
             $this->headerNames[$uniqueKey] = $key;
@@ -278,7 +278,7 @@ class ResponseHeaderBag extends HeaderBag
 
         // public if s-maxage is defined, private otherwise
         if (!isset($this->cacheControl['s-maxage'])) {
-            return $header.', private';
+            return $header . ', private';
         }
 
         return $header;
@@ -286,6 +286,6 @@ class ResponseHeaderBag extends HeaderBag
 
     private function initDate(): void
     {
-        $this->set('Date', gmdate('D, d M Y H:i:s').' GMT');
+        $this->set('Date', gmdate('D, d M Y H:i:s') . ' GMT');
     }
 }

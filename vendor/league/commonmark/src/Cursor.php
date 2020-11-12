@@ -220,7 +220,7 @@ class Cursor
     /**
      * Move the cursor forwards
      *
-     * @param int  $characters       Number of characters to advance by
+     * @param int $characters Number of characters to advance by
      * @param bool $advanceByColumns Whether to advance by columns instead of spaces
      *
      * @return void
@@ -238,11 +238,11 @@ class Cursor
 
         // Optimization to avoid tab handling logic if we have no tabs
         if (!$this->lineContainsTabs || false === \strpos(
-            $nextFewChars = $this->isMultibyte ?
-                \mb_substr($this->line, $this->currentPosition, $characters, 'UTF-8') :
-                \substr($this->line, $this->currentPosition, $characters),
-            "\t"
-        )) {
+                $nextFewChars = $this->isMultibyte ?
+                    \mb_substr($this->line, $this->currentPosition, $characters, 'UTF-8') :
+                    \substr($this->line, $this->currentPosition, $characters),
+                "\t"
+            )) {
             $length = \min($characters, $this->length - $this->currentPosition);
             $this->partiallyConsumedTab = false;
             $this->currentPosition += $length;
@@ -471,7 +471,7 @@ class Cursor
             $this->indent,
             $this->column,
             $this->partiallyConsumedTab,
-          ) = $state;
+            ) = $state;
     }
 
     public function getPosition(): int

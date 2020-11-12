@@ -47,13 +47,14 @@ final class Param extends TagWithType implements Factory\StaticMethod
         bool $isVariadic = false,
         ?Description $description = null,
         bool $isReference = false
-    ) {
-        $this->name         = 'param';
+    )
+    {
+        $this->name = 'param';
         $this->variableName = $variableName;
-        $this->type         = $type;
-        $this->isVariadic   = $isVariadic;
-        $this->description  = $description;
-        $this->isReference  = $isReference;
+        $this->type = $type;
+        $this->isVariadic = $isVariadic;
+        $this->description = $description;
+        $this->isReference = $isReference;
     }
 
     public static function create(
@@ -61,18 +62,19 @@ final class Param extends TagWithType implements Factory\StaticMethod
         ?TypeResolver $typeResolver = null,
         ?DescriptionFactory $descriptionFactory = null,
         ?TypeContext $context = null
-    ) : self {
+    ): self
+    {
         Assert::stringNotEmpty($body);
         Assert::notNull($typeResolver);
         Assert::notNull($descriptionFactory);
 
         [$firstPart, $body] = self::extractTypeFromBody($body);
 
-        $type         = null;
-        $parts        = Utils::pregSplit('/(\s+)/Su', $body, 2, PREG_SPLIT_DELIM_CAPTURE);
+        $type = null;
+        $parts = Utils::pregSplit('/(\s+)/Su', $body, 2, PREG_SPLIT_DELIM_CAPTURE);
         $variableName = '';
-        $isVariadic   = false;
-        $isReference   = false;
+        $isVariadic = false;
+        $isReference = false;
 
         // if the first item that is encountered is not a variable; it is a type
         if ($firstPart && !self::strStartsWithVariable($firstPart)) {
@@ -100,8 +102,8 @@ final class Param extends TagWithType implements Factory\StaticMethod
                 $isVariadic = true;
                 $variableName = substr($variableName, 4);
             } elseif (strpos($variableName, '&...$') === 0) {
-                $isVariadic   = true;
-                $isReference  = true;
+                $isVariadic = true;
+                $isReference = true;
                 $variableName = substr($variableName, 5);
             }
         }
@@ -111,10 +113,21 @@ final class Param extends TagWithType implements Factory\StaticMethod
         return new static($variableName, $type, $isVariadic, $description, $isReference);
     }
 
+    private static function strStartsWithVariable(string $str): bool
+    {
+        return strpos($str, '$') === 0
+            ||
+            strpos($str, '...$') === 0
+            ||
+            strpos($str, '&$') === 0
+            ||
+            strpos($str, '&...$') === 0;
+    }
+
     /**
      * Returns the variable's name.
      */
-    public function getVariableName() : ?string
+    public function getVariableName(): ?string
     {
         return $this->variableName;
     }
@@ -122,7 +135,7 @@ final class Param extends TagWithType implements Factory\StaticMethod
     /**
      * Returns whether this tag is variadic.
      */
-    public function isVariadic() : bool
+    public function isVariadic(): bool
     {
         return $this->isVariadic;
     }
@@ -130,7 +143,7 @@ final class Param extends TagWithType implements Factory\StaticMethod
     /**
      * Returns whether this tag is passed by reference.
      */
-    public function isReference() : bool
+    public function isReference(): bool
     {
         return $this->isReference;
     }
@@ -138,7 +151,7 @@ final class Param extends TagWithType implements Factory\StaticMethod
     /**
      * Returns a string representation for this tag.
      */
-    public function __toString() : string
+    public function __toString(): string
     {
         if ($this->description) {
             $description = $this->description->render();
@@ -152,21 +165,10 @@ final class Param extends TagWithType implements Factory\StaticMethod
             $variableName .= '$' . $this->variableName;
         }
 
-        $type = (string) $this->type;
+        $type = (string)$this->type;
 
         return $type
             . ($variableName !== '' ? ($type !== '' ? ' ' : '') . $variableName : '')
             . ($description !== '' ? ($type !== '' || $variableName !== '' ? ' ' : '') . $description : '');
-    }
-
-    private static function strStartsWithVariable(string $str) : bool
-    {
-        return strpos($str, '$') === 0
-               ||
-               strpos($str, '...$') === 0
-               ||
-               strpos($str, '&$') === 0
-               ||
-               strpos($str, '&...$') === 0;
     }
 }

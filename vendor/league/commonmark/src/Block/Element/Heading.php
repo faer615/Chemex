@@ -25,7 +25,7 @@ class Heading extends AbstractStringContainerBlock implements InlineContainerInt
     protected $level;
 
     /**
-     * @param int             $level
+     * @param int $level
      * @param string|string[] $contents
      */
     public function __construct(int $level, $contents)

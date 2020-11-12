@@ -92,9 +92,9 @@ class DB2Statement implements IteratorAggregate, StatementInterface, Result
     private $result = false;
 
     /**
+     * @param resource $stmt
      * @internal The statement can be only instantiated by its driver connection.
      *
-     * @param resource $stmt
      */
     public function __construct($stmt)
     {
@@ -130,7 +130,7 @@ class DB2Statement implements IteratorAggregate, StatementInterface, Result
                 }
 
                 $handle = $this->createTemporaryFile();
-                $path   = stream_get_meta_data($handle)['uri'];
+                $path = stream_get_meta_data($handle)['uri'];
 
                 $this->bind($param, $path, DB2_PARAM_FILE, DB2_BINARY);
 
@@ -146,21 +146,6 @@ class DB2Statement implements IteratorAggregate, StatementInterface, Result
     }
 
     /**
-     * @param int   $position Parameter position
-     * @param mixed $variable
-     *
-     * @throws DB2Exception
-     */
-    private function bind($position, &$variable, int $parameterType, int $dataType): void
-    {
-        $this->bindParam[$position] =& $variable;
-
-        if (! db2_bind_param($this->stmt, $position, 'variable', $parameterType, $dataType)) {
-            throw StatementError::new($this->stmt);
-        }
-    }
-
-    /**
      * {@inheritdoc}
      *
      * @deprecated Use free() instead.
@@ -169,7 +154,7 @@ class DB2Statement implements IteratorAggregate, StatementInterface, Result
     {
         $this->bindParam = [];
 
-        if (! db2_free_result($this->stmt)) {
+        if (!db2_free_result($this->stmt)) {
             return false;
         }
 
@@ -258,9 +243,9 @@ class DB2Statement implements IteratorAggregate, StatementInterface, Result
      */
     public function setFetchMode($fetchMode, $arg2 = null, $arg3 = null)
     {
-        $this->defaultFetchMode          = $fetchMode;
-        $this->defaultFetchClass         = $arg2 ?: $this->defaultFetchClass;
-        $this->defaultFetchClassCtorArgs = $arg3 ? (array) $arg3 : $this->defaultFetchClassCtorArgs;
+        $this->defaultFetchMode = $fetchMode;
+        $this->defaultFetchClass = $arg2 ?: $this->defaultFetchClass;
+        $this->defaultFetchClassCtorArgs = $arg3 ? (array)$arg3 : $this->defaultFetchClassCtorArgs;
 
         return true;
     }
@@ -284,7 +269,7 @@ class DB2Statement implements IteratorAggregate, StatementInterface, Result
     {
         // do not try fetching from the statement if it's not expected to contain result
         // in order to prevent exceptional situation
-        if (! $this->result) {
+        if (!$this->result) {
             return false;
         }
 
@@ -301,12 +286,12 @@ class DB2Statement implements IteratorAggregate, StatementInterface, Result
 
             case FetchMode::CUSTOM_OBJECT:
                 $className = $this->defaultFetchClass;
-                $ctorArgs  = $this->defaultFetchClassCtorArgs;
+                $ctorArgs = $this->defaultFetchClassCtorArgs;
 
                 if (func_num_args() >= 2) {
-                    $args      = func_get_args();
+                    $args = func_get_args();
                     $className = $args[1];
-                    $ctorArgs  = $args[2] ?? [];
+                    $ctorArgs = $args[2] ?? [];
                 }
 
                 $result = db2_fetch_object($this->stmt);
@@ -382,7 +367,7 @@ class DB2Statement implements IteratorAggregate, StatementInterface, Result
      */
     public function fetchNumeric()
     {
-        if (! $this->result) {
+        if (!$this->result) {
             return false;
         }
 
@@ -396,7 +381,7 @@ class DB2Statement implements IteratorAggregate, StatementInterface, Result
     {
         // do not try fetching from the statement if it's not expected to contain the result
         // in order to prevent exceptional situation
-        if (! $this->result) {
+        if (!$this->result) {
             return false;
         }
 
@@ -440,7 +425,7 @@ class DB2Statement implements IteratorAggregate, StatementInterface, Result
      */
     public function rowCount()
     {
-        return @db2_num_rows($this->stmt) ? : 0;
+        return @db2_num_rows($this->stmt) ?: 0;
     }
 
     public function free(): void
@@ -453,11 +438,26 @@ class DB2Statement implements IteratorAggregate, StatementInterface, Result
     }
 
     /**
+     * @param int $position Parameter position
+     * @param mixed $variable
+     *
+     * @throws DB2Exception
+     */
+    private function bind($position, &$variable, int $parameterType, int $dataType): void
+    {
+        $this->bindParam[$position] =& $variable;
+
+        if (!db2_bind_param($this->stmt, $position, 'variable', $parameterType, $dataType)) {
+            throw StatementError::new($this->stmt);
+        }
+    }
+
+    /**
      * Casts a stdClass object to the given class name mapping its' properties.
      *
-     * @param stdClass            $sourceObject     Object to cast from.
+     * @param stdClass $sourceObject Object to cast from.
      * @param class-string|object $destinationClass Name of the class or class instance to cast to.
-     * @param mixed[]             $ctorArgs         Arguments to use for constructing the destination class instance.
+     * @param mixed[] $ctorArgs Arguments to use for constructing the destination class instance.
      *
      * @return object
      *
@@ -465,8 +465,8 @@ class DB2Statement implements IteratorAggregate, StatementInterface, Result
      */
     private function castObject(stdClass $sourceObject, $destinationClass, array $ctorArgs = [])
     {
-        if (! is_string($destinationClass)) {
-            if (! is_object($destinationClass)) {
+        if (!is_string($destinationClass)) {
+            if (!is_object($destinationClass)) {
                 throw new DB2Exception(sprintf(
                     'Destination class has to be of type string or object, %s given.',
                     gettype($destinationClass)
@@ -477,7 +477,7 @@ class DB2Statement implements IteratorAggregate, StatementInterface, Result
             $destinationClass = $destinationClass->newInstanceArgs($ctorArgs);
         }
 
-        $sourceReflection           = new ReflectionObject($sourceObject);
+        $sourceReflection = new ReflectionObject($sourceObject);
         $destinationClassReflection = new ReflectionObject($destinationClass);
         /** @var ReflectionProperty[] $destinationProperties */
         $destinationProperties = array_change_key_case($destinationClassReflection->getProperties(), CASE_LOWER);
@@ -485,7 +485,7 @@ class DB2Statement implements IteratorAggregate, StatementInterface, Result
         foreach ($sourceReflection->getProperties() as $sourceProperty) {
             $sourceProperty->setAccessible(true);
 
-            $name  = $sourceProperty->getName();
+            $name = $sourceProperty->getName();
             $value = $sourceProperty->getValue($sourceObject);
 
             // Try to find a case-matching property.

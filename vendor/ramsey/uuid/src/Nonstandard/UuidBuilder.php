@@ -48,7 +48,8 @@ class UuidBuilder implements UuidBuilderInterface
     public function __construct(
         NumberConverterInterface $numberConverter,
         TimeConverterInterface $timeConverter
-    ) {
+    )
+    {
         $this->numberConverter = $numberConverter;
         $this->timeConverter = $timeConverter;
     }
@@ -74,7 +75,7 @@ class UuidBuilder implements UuidBuilderInterface
                 $this->timeConverter
             );
         } catch (Throwable $e) {
-            throw new UnableToBuildUuidException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new UnableToBuildUuidException($e->getMessage(), (int)$e->getCode(), $e);
         }
     }
 

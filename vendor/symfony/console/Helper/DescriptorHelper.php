@@ -37,8 +37,7 @@ class DescriptorHelper extends Helper
             ->register('txt', new TextDescriptor())
             ->register('xml', new XmlDescriptor())
             ->register('json', new JsonDescriptor())
-            ->register('md', new MarkdownDescriptor())
-        ;
+            ->register('md', new MarkdownDescriptor());
     }
 
     /**

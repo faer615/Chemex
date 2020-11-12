@@ -215,7 +215,7 @@ final class Ctype
         }
 
         if ($int < -128 || $int > 255) {
-            return (string) $int;
+            return (string)$int;
         }
 
         if ($int < 0) {

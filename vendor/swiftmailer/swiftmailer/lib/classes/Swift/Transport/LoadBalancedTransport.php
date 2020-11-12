@@ -16,29 +16,38 @@
 class Swift_Transport_LoadBalancedTransport implements Swift_Transport
 {
     /**
-     * Transports which are deemed useless.
-     *
-     * @var Swift_Transport[]
-     */
-    private $deadTransports = [];
-
-    /**
      * The Transports which are used in rotation.
      *
      * @var Swift_Transport[]
      */
     protected $transports = [];
-
     /**
      * The Transport used in the last successful send operation.
      *
      * @var Swift_Transport
      */
     protected $lastUsedTransport = null;
+    /**
+     * Transports which are deemed useless.
+     *
+     * @var Swift_Transport[]
+     */
+    private $deadTransports = [];
 
     // needed as __construct is called from elsewhere explicitly
+
     public function __construct()
     {
+    }
+
+    /**
+     * Get $transports to delegate to.
+     *
+     * @return Swift_Transport[]
+     */
+    public function getTransports()
+    {
+        return array_merge($this->transports, $this->deadTransports);
     }
 
     /**
@@ -50,16 +59,6 @@ class Swift_Transport_LoadBalancedTransport implements Swift_Transport
     {
         $this->transports = $transports;
         $this->deadTransports = [];
-    }
-
-    /**
-     * Get $transports to delegate to.
-     *
-     * @return Swift_Transport[]
-     */
-    public function getTransports()
-    {
-        return array_merge($this->transports, $this->deadTransports);
     }
 
     /**
@@ -131,7 +130,7 @@ class Swift_Transport_LoadBalancedTransport implements Swift_Transport
         $this->lastUsedTransport = null;
 
         for ($i = 0; $i < $maxTransports
-            && $transport = $this->getNextTransport(); ++$i) {
+        && $transport = $this->getNextTransport(); ++$i) {
             try {
                 if (!$transport->isStarted()) {
                     $transport->start();
@@ -148,7 +147,7 @@ class Swift_Transport_LoadBalancedTransport implements Swift_Transport
         if (0 == count($this->transports)) {
             throw new Swift_TransportException(
                 'All Transports in LoadBalancedTransport failed, or no Transports available'
-                );
+            );
         }
 
         return $sent;

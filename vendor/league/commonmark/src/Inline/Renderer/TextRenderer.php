@@ -22,7 +22,7 @@ use League\CommonMark\Util\Xml;
 final class TextRenderer implements InlineRendererInterface
 {
     /**
-     * @param Text                     $inline
+     * @param Text $inline
      * @param ElementRendererInterface $htmlRenderer
      *
      * @return string

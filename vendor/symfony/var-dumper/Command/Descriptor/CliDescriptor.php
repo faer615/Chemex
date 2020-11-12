@@ -56,7 +56,7 @@ class CliDescriptor implements DumpDescriptorInterface
             }
         } elseif (isset($context['cli'])) {
             $this->lastIdentifier = $context['cli']['identifier'];
-            $section = '$ '.$context['cli']['command_line'];
+            $section = '$ ' . $context['cli']['command_line'];
         }
 
         if ($this->lastIdentifier !== $lastIdentifier) {

@@ -33,7 +33,7 @@ class RefreshCommand extends Command
      */
     public function handle()
     {
-        if (! $this->confirmToProceed()) {
+        if (!$this->confirmToProceed()) {
             return 1;
         }
 
@@ -65,14 +65,14 @@ class RefreshCommand extends Command
             '--force' => true,
         ]));
 
-        if ($this->needsSeeding()) {
-            $this->runSeeder($database);
-        }
-
         if ($this->laravel->bound(Dispatcher::class)) {
             $this->laravel[Dispatcher::class]->dispatch(
                 new DatabaseRefreshed
             );
+        }
+
+        if ($this->needsSeeding()) {
+            $this->runSeeder($database);
         }
 
         return 0;
@@ -81,9 +81,9 @@ class RefreshCommand extends Command
     /**
      * Run the rollback command.
      *
-     * @param  string  $database
-     * @param  string  $path
-     * @param  int  $step
+     * @param string $database
+     * @param string $path
+     * @param int $step
      * @return void
      */
     protected function runRollback($database, $path, $step)
@@ -100,8 +100,8 @@ class RefreshCommand extends Command
     /**
      * Run the reset command.
      *
-     * @param  string  $database
-     * @param  string  $path
+     * @param string $database
+     * @param string $path
      * @return void
      */
     protected function runReset($database, $path)
@@ -127,7 +127,7 @@ class RefreshCommand extends Command
     /**
      * Run the database seeder command.
      *
-     * @param  string  $database
+     * @param string $database
      * @return void
      */
     protected function runSeeder($database)

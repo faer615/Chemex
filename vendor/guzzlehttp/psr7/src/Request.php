@@ -24,11 +24,11 @@ class Request implements RequestInterface
     private $uri;
 
     /**
-     * @param string                               $method  HTTP method
-     * @param string|UriInterface                  $uri     URI
-     * @param array                                $headers Request headers
-     * @param string|null|resource|StreamInterface $body    Request body
-     * @param string                               $version Protocol version
+     * @param string $method HTTP method
+     * @param string|UriInterface $uri URI
+     * @param array $headers Request headers
+     * @param string|null|resource|StreamInterface $body Request body
+     * @param string $version Protocol version
      */
     public function __construct(
         $method,
@@ -36,7 +36,8 @@ class Request implements RequestInterface
         array $headers = [],
         $body = null,
         $version = '1.1'
-    ) {
+    )
+    {
         $this->assertMethod($method);
         if (!($uri instanceof UriInterface)) {
             $uri = new Uri($uri);

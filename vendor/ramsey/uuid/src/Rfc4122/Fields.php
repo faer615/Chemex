@@ -179,7 +179,7 @@ final class Fields implements FieldsInterface
 
         $parts = unpack('n*', $this->bytes);
 
-        return (int) $parts[4] >> 12;
+        return (int)$parts[4] >> 12;
     }
 
     private function isCorrectVariant(): bool

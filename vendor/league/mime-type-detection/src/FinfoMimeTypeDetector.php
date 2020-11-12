@@ -35,7 +35,7 @@ class FinfoMimeTypeDetector implements MimeTypeDetector
             ? (@$this->finfo->buffer($contents) ?: null)
             : null;
 
-        if ($mimeType !== null && ! in_array($mimeType, self::INCONCLUSIVE_MIME_TYPES)) {
+        if ($mimeType !== null && !in_array($mimeType, self::INCONCLUSIVE_MIME_TYPES)) {
             return $mimeType;
         }
 

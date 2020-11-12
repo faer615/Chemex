@@ -9,26 +9,11 @@ use Illuminate\Support\Str;
 class RouteUrlGenerator
 {
     /**
-     * The URL generator instance.
-     *
-     * @var \Illuminate\Routing\UrlGenerator
-     */
-    protected $url;
-
-    /**
-     * The request instance.
-     *
-     * @var \Illuminate\Http\Request
-     */
-    protected $request;
-
-    /**
      * The named parameter defaults.
      *
      * @var array
      */
     public $defaultParameters = [];
-
     /**
      * Characters that should not be URL encoded.
      *
@@ -50,12 +35,24 @@ class RouteUrlGenerator
         '%23' => '#',
         '%25' => '%',
     ];
+    /**
+     * The URL generator instance.
+     *
+     * @var \Illuminate\Routing\UrlGenerator
+     */
+    protected $url;
+    /**
+     * The request instance.
+     *
+     * @var \Illuminate\Http\Request
+     */
+    protected $request;
 
     /**
      * Create a new Route URL generator.
      *
-     * @param  \Illuminate\Routing\UrlGenerator  $url
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Routing\UrlGenerator $url
+     * @param \Illuminate\Http\Request $request
      * @return void
      */
     public function __construct($url, $request)
@@ -67,9 +64,9 @@ class RouteUrlGenerator
     /**
      * Generate a URL for the given route.
      *
-     * @param  \Illuminate\Routing\Route  $route
-     * @param  array  $parameters
-     * @param  bool  $absolute
+     * @param \Illuminate\Routing\Route $route
+     * @param array $parameters
+     * @param bool $absolute
      * @return string
      *
      * @throws \Illuminate\Routing\Exceptions\UrlGenerationException
@@ -96,24 +93,37 @@ class RouteUrlGenerator
         // be absolute, we will return it as-is. Otherwise we will remove the URL's root.
         $uri = strtr(rawurlencode($uri), $this->dontEncode);
 
-        if (! $absolute) {
+        if (!$absolute) {
             $uri = preg_replace('#^(//|[^/?])+#', '', $uri);
 
             if ($base = $this->request->getBaseUrl()) {
-                $uri = preg_replace('#^'.$base.'#i', '', $uri);
+                $uri = preg_replace('#^' . $base . '#i', '', $uri);
             }
 
-            return '/'.ltrim($uri, '/');
+            return '/' . ltrim($uri, '/');
         }
 
         return $uri;
     }
 
     /**
+     * Set the default named parameters used by the URL generator.
+     *
+     * @param array $defaults
+     * @return void
+     */
+    public function defaults(array $defaults)
+    {
+        $this->defaultParameters = array_merge(
+            $this->defaultParameters, $defaults
+        );
+    }
+
+    /**
      * Get the formatted domain for a given route.
      *
-     * @param  \Illuminate\Routing\Route  $route
-     * @param  array  $parameters
+     * @param \Illuminate\Routing\Route $route
+     * @param array $parameters
      * @return string
      */
     protected function getRouteDomain($route, &$parameters)
@@ -124,21 +134,21 @@ class RouteUrlGenerator
     /**
      * Format the domain and port for the route and request.
      *
-     * @param  \Illuminate\Routing\Route  $route
-     * @param  array  $parameters
+     * @param \Illuminate\Routing\Route $route
+     * @param array $parameters
      * @return string
      */
     protected function formatDomain($route, &$parameters)
     {
         return $this->addPortToDomain(
-            $this->getRouteScheme($route).$route->getDomain()
+            $this->getRouteScheme($route) . $route->getDomain()
         );
     }
 
     /**
      * Get the scheme for the given route.
      *
-     * @param  \Illuminate\Routing\Route  $route
+     * @param \Illuminate\Routing\Route $route
      * @return string
      */
     protected function getRouteScheme($route)
@@ -155,25 +165,25 @@ class RouteUrlGenerator
     /**
      * Add the port to the domain if necessary.
      *
-     * @param  string  $domain
+     * @param string $domain
      * @return string
      */
     protected function addPortToDomain($domain)
     {
         $secure = $this->request->isSecure();
 
-        $port = (int) $this->request->getPort();
+        $port = (int)$this->request->getPort();
 
-        return ($secure && $port === 443) || (! $secure && $port === 80)
-                    ? $domain : $domain.':'.$port;
+        return ($secure && $port === 443) || (!$secure && $port === 80)
+            ? $domain : $domain . ':' . $port;
     }
 
     /**
      * Replace the parameters on the root path.
      *
-     * @param  \Illuminate\Routing\Route  $route
-     * @param  string  $domain
-     * @param  array  $parameters
+     * @param \Illuminate\Routing\Route $route
+     * @param string $domain
+     * @param array $parameters
      * @return string
      */
     protected function replaceRootParameters($route, $domain, &$parameters)
@@ -188,8 +198,8 @@ class RouteUrlGenerator
     /**
      * Replace all of the wildcard parameters for a route path.
      *
-     * @param  string  $path
-     * @param  array  $parameters
+     * @param string $path
+     * @param array $parameters
      * @return string
      */
     protected function replaceRouteParameters($path, array &$parameters)
@@ -200,9 +210,9 @@ class RouteUrlGenerator
             // Reset only the numeric keys...
             $parameters = array_merge($parameters);
 
-            return (! isset($parameters[0]) && ! Str::endsWith($match[0], '?}'))
-                        ? $match[0]
-                        : Arr::pull($parameters, 0);
+            return (!isset($parameters[0]) && !Str::endsWith($match[0], '?}'))
+                ? $match[0]
+                : Arr::pull($parameters, 0);
         }, $path);
 
         return trim(preg_replace('/\{.*?\?\}/', '', $path), '/');
@@ -211,8 +221,8 @@ class RouteUrlGenerator
     /**
      * Replace all of the named parameters in the path.
      *
-     * @param  string  $path
-     * @param  array  $parameters
+     * @param string $path
+     * @param array $parameters
      * @return string
      */
     protected function replaceNamedParameters($path, &$parameters)
@@ -233,8 +243,8 @@ class RouteUrlGenerator
     /**
      * Add a query string to the URI.
      *
-     * @param  string  $uri
-     * @param  array  $parameters
+     * @param string $uri
+     * @param array $parameters
      * @return mixed|string
      */
     protected function addQueryString($uri, array $parameters)
@@ -242,19 +252,19 @@ class RouteUrlGenerator
         // If the URI has a fragment we will move it to the end of this URI since it will
         // need to come after any query string that may be added to the URL else it is
         // not going to be available. We will remove it then append it back on here.
-        if (! is_null($fragment = parse_url($uri, PHP_URL_FRAGMENT))) {
+        if (!is_null($fragment = parse_url($uri, PHP_URL_FRAGMENT))) {
             $uri = preg_replace('/#.*/', '', $uri);
         }
 
         $uri .= $this->getRouteQueryString($parameters);
 
-        return is_null($fragment) ? $uri : $uri."#{$fragment}";
+        return is_null($fragment) ? $uri : $uri . "#{$fragment}";
     }
 
     /**
      * Get the query string for a given route.
      *
-     * @param  array  $parameters
+     * @param array $parameters
      * @return string
      */
     protected function getRouteQueryString(array $parameters)
@@ -274,9 +284,9 @@ class RouteUrlGenerator
         // parameters that are in the array and add them to the query string or we
         // will make the initial query string if it wasn't started with strings.
         if (count($keyed) < count($parameters)) {
-            $query .= '&'.implode(
-                '&', $this->getNumericParameters($parameters)
-            );
+            $query .= '&' . implode(
+                    '&', $this->getNumericParameters($parameters)
+                );
         }
 
         $query = trim($query, '&');
@@ -287,7 +297,7 @@ class RouteUrlGenerator
     /**
      * Get the string parameters from a given list.
      *
-     * @param  array  $parameters
+     * @param array $parameters
      * @return array
      */
     protected function getStringParameters(array $parameters)
@@ -298,24 +308,11 @@ class RouteUrlGenerator
     /**
      * Get the numeric parameters from a given list.
      *
-     * @param  array  $parameters
+     * @param array $parameters
      * @return array
      */
     protected function getNumericParameters(array $parameters)
     {
         return array_filter($parameters, 'is_numeric', ARRAY_FILTER_USE_KEY);
-    }
-
-    /**
-     * Set the default named parameters used by the URL generator.
-     *
-     * @param  array  $defaults
-     * @return void
-     */
-    public function defaults(array $defaults)
-    {
-        $this->defaultParameters = array_merge(
-            $this->defaultParameters, $defaults
-        );
     }
 }

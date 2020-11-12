@@ -120,7 +120,7 @@ abstract class Parser
             throw new CRNoLF();
         }
 
-        if ($this->lexer->isNextToken(EmailLexer::GENERIC) && $previous['type']  !== EmailLexer::S_AT) {
+        if ($this->lexer->isNextToken(EmailLexer::GENERIC) && $previous['type'] !== EmailLexer::S_AT) {
             throw new AtextAfterCFWS();
         }
 
@@ -128,7 +128,7 @@ abstract class Parser
             throw new ExpectingCTEXT();
         }
 
-        if ($this->lexer->isNextToken(EmailLexer::S_AT) || $previous['type']  === EmailLexer::S_AT) {
+        if ($this->lexer->isNextToken(EmailLexer::S_AT) || $previous['type'] === EmailLexer::S_AT) {
             $this->warnings[CFWSNearAt::CODE] = new CFWSNearAt();
         } else {
             $this->warnings[CFWSWithFWS::CODE] = new CFWSWithFWS();

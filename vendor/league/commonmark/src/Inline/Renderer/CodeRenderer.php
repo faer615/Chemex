@@ -23,7 +23,7 @@ use League\CommonMark\Util\Xml;
 final class CodeRenderer implements InlineRendererInterface
 {
     /**
-     * @param Code                     $inline
+     * @param Code $inline
      * @param ElementRendererInterface $htmlRenderer
      *
      * @return HtmlElement

@@ -72,6 +72,16 @@ final class IdentificationHeader extends AbstractHeader
     }
 
     /**
+     * Get the list of IDs used in this Header.
+     *
+     * @return string[]
+     */
+    public function getIds(): array
+    {
+        return $this->ids;
+    }
+
+    /**
      * Set a collection of IDs to use in the value of this Header.
      *
      * @param string[] $ids
@@ -88,21 +98,11 @@ final class IdentificationHeader extends AbstractHeader
         }
     }
 
-    /**
-     * Get the list of IDs used in this Header.
-     *
-     * @return string[]
-     */
-    public function getIds(): array
-    {
-        return $this->ids;
-    }
-
     public function getBodyAsString(): string
     {
         $addrs = [];
         foreach ($this->idsAsAddresses as $address) {
-            $addrs[] = '<'.$address->toString().'>';
+            $addrs[] = '<' . $address->toString() . '>';
         }
 
         return implode(' ', $addrs);

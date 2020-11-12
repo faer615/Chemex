@@ -41,8 +41,8 @@ class FactoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses Lcobucci\JWT\Claim\Factory::__construct
-     * @uses Lcobucci\JWT\Claim\Basic::__construct
+     * @uses   Lcobucci\JWT\Claim\Factory::__construct
+     * @uses   Lcobucci\JWT\Claim\Basic::__construct
      *
      * @covers Lcobucci\JWT\Claim\Factory::create
      * @covers Lcobucci\JWT\Claim\Factory::createLesserOrEqualsTo
@@ -57,8 +57,8 @@ class FactoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses Lcobucci\JWT\Claim\Factory::__construct
-     * @uses Lcobucci\JWT\Claim\Basic::__construct
+     * @uses   Lcobucci\JWT\Claim\Factory::__construct
+     * @uses   Lcobucci\JWT\Claim\Basic::__construct
      *
      * @covers Lcobucci\JWT\Claim\Factory::create
      * @covers Lcobucci\JWT\Claim\Factory::createLesserOrEqualsTo
@@ -73,8 +73,8 @@ class FactoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses Lcobucci\JWT\Claim\Factory::__construct
-     * @uses Lcobucci\JWT\Claim\Basic::__construct
+     * @uses   Lcobucci\JWT\Claim\Factory::__construct
+     * @uses   Lcobucci\JWT\Claim\Basic::__construct
      *
      * @covers Lcobucci\JWT\Claim\Factory::create
      * @covers Lcobucci\JWT\Claim\Factory::createGreaterOrEqualsTo
@@ -89,8 +89,8 @@ class FactoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses Lcobucci\JWT\Claim\Factory::__construct
-     * @uses Lcobucci\JWT\Claim\Basic::__construct
+     * @uses   Lcobucci\JWT\Claim\Factory::__construct
+     * @uses   Lcobucci\JWT\Claim\Basic::__construct
      *
      * @covers Lcobucci\JWT\Claim\Factory::create
      * @covers Lcobucci\JWT\Claim\Factory::createEqualsTo
@@ -105,8 +105,8 @@ class FactoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses Lcobucci\JWT\Claim\Factory::__construct
-     * @uses Lcobucci\JWT\Claim\Basic::__construct
+     * @uses   Lcobucci\JWT\Claim\Factory::__construct
+     * @uses   Lcobucci\JWT\Claim\Basic::__construct
      *
      * @covers Lcobucci\JWT\Claim\Factory::create
      * @covers Lcobucci\JWT\Claim\Factory::createEqualsTo
@@ -121,8 +121,8 @@ class FactoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses Lcobucci\JWT\Claim\Factory::__construct
-     * @uses Lcobucci\JWT\Claim\Basic::__construct
+     * @uses   Lcobucci\JWT\Claim\Factory::__construct
+     * @uses   Lcobucci\JWT\Claim\Basic::__construct
      *
      * @covers Lcobucci\JWT\Claim\Factory::create
      * @covers Lcobucci\JWT\Claim\Factory::createEqualsTo
@@ -137,8 +137,8 @@ class FactoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses Lcobucci\JWT\Claim\Factory::__construct
-     * @uses Lcobucci\JWT\Claim\Basic::__construct
+     * @uses   Lcobucci\JWT\Claim\Factory::__construct
+     * @uses   Lcobucci\JWT\Claim\Basic::__construct
      *
      * @covers Lcobucci\JWT\Claim\Factory::create
      * @covers Lcobucci\JWT\Claim\Factory::createEqualsTo
@@ -153,8 +153,8 @@ class FactoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses Lcobucci\JWT\Claim\Factory::__construct
-     * @uses Lcobucci\JWT\Claim\Basic::__construct
+     * @uses   Lcobucci\JWT\Claim\Factory::__construct
+     * @uses   Lcobucci\JWT\Claim\Basic::__construct
      *
      * @covers Lcobucci\JWT\Claim\Factory::create
      * @covers Lcobucci\JWT\Claim\Factory::createBasic

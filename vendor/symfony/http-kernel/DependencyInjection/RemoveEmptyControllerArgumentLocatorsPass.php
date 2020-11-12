@@ -34,7 +34,7 @@ class RemoveEmptyControllerArgumentLocatorsPass implements CompilerPassInterface
         $controllers = $controllerLocator->getArgument(0);
 
         foreach ($controllers as $controller => $argumentRef) {
-            $argumentLocator = $container->getDefinition((string) $argumentRef->getValues()[0]);
+            $argumentLocator = $container->getDefinition((string)$argumentRef->getValues()[0]);
 
             if (!$argumentLocator->getArgument(0)) {
                 // remove empty argument locators
@@ -57,7 +57,7 @@ class RemoveEmptyControllerArgumentLocatorsPass implements CompilerPassInterface
                 }
                 if (!$reason) {
                     // see Symfony\Component\HttpKernel\Controller\ContainerControllerResolver
-                    $controllers[$id.':'.$action] = $argumentRef;
+                    $controllers[$id . ':' . $action] = $argumentRef;
 
                     if ('__invoke' === $action) {
                         $controllers[$id] = $argumentRef;

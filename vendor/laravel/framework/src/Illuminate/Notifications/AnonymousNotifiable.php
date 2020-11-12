@@ -17,8 +17,8 @@ class AnonymousNotifiable
     /**
      * Add routing information to the target.
      *
-     * @param  string  $channel
-     * @param  mixed  $route
+     * @param string $channel
+     * @param mixed $route
      * @return $this
      */
     public function route($channel, $route)
@@ -35,7 +35,7 @@ class AnonymousNotifiable
     /**
      * Send the given notification.
      *
-     * @param  mixed  $notification
+     * @param mixed $notification
      * @return void
      */
     public function notify($notification)
@@ -46,7 +46,7 @@ class AnonymousNotifiable
     /**
      * Send the given notification immediately.
      *
-     * @param  mixed  $notification
+     * @param mixed $notification
      * @return void
      */
     public function notifyNow($notification)
@@ -57,7 +57,7 @@ class AnonymousNotifiable
     /**
      * Get the notification routing information for the given driver.
      *
-     * @param  string  $driver
+     * @param string $driver
      * @return mixed
      */
     public function routeNotificationFor($driver)

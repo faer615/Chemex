@@ -76,7 +76,7 @@ class DBALException extends \Exception
     /**
      * Returns a new instance for an invalid specified platform version.
      *
-     * @param string $version        The invalid platform version given.
+     * @param string $version The invalid platform version given.
      * @param string $expectedFormat The expected platform version format.
      *
      * @return Exception
@@ -94,9 +94,9 @@ class DBALException extends \Exception
     }
 
     /**
+     * @return Exception
      * @deprecated Passing a PDO instance in connection parameters is deprecated.
      *
-     * @return Exception
      */
     public static function invalidPdoInstance()
     {
@@ -128,7 +128,7 @@ class DBALException extends \Exception
     }
 
     /**
-     * @param string   $unknownDriverName
+     * @param string $unknownDriverName
      * @param string[] $knownDrivers
      *
      * @return Exception
@@ -140,12 +140,12 @@ class DBALException extends \Exception
     }
 
     /**
-     * @deprecated
-     *
-     * @param string  $sql
+     * @param string $sql
      * @param mixed[] $params
      *
      * @return Exception
+     * @deprecated
+     *
      */
     public static function driverExceptionDuringQuery(Driver $driver, Throwable $driverEx, $sql, array $params = [])
     {
@@ -160,55 +160,13 @@ class DBALException extends \Exception
     }
 
     /**
+     * @return Exception
      * @deprecated
      *
-     * @return Exception
      */
     public static function driverException(Driver $driver, Throwable $driverEx)
     {
         return static::wrapException($driver, $driverEx, 'An exception occurred in driver: ' . $driverEx->getMessage());
-    }
-
-    /**
-     * @return Exception
-     */
-    private static function wrapException(Driver $driver, Throwable $driverEx, string $msg)
-    {
-        if ($driverEx instanceof DriverException) {
-            return $driverEx;
-        }
-
-        if ($driver instanceof ExceptionConverterDriver && $driverEx instanceof DeprecatedDriverException) {
-            return $driver->convertException($msg, $driverEx);
-        }
-
-        return new Exception($msg, 0, $driverEx);
-    }
-
-    /**
-     * Returns a human-readable representation of an array of parameters.
-     * This properly handles binary data by returning a hex representation.
-     *
-     * @param mixed[] $params
-     *
-     * @return string
-     */
-    private static function formatParameters(array $params)
-    {
-        return '[' . implode(', ', array_map(static function ($param) {
-            if (is_resource($param)) {
-                return (string) $param;
-            }
-
-            $json = @json_encode($param);
-
-            if (! is_string($json) || $json === 'null' && is_string($param)) {
-                // JSON encoding failed, this is not a UTF-8 string.
-                return sprintf('"%s"', preg_replace('/.{2}/', '\\x$0', bin2hex($param)));
-            }
-
-            return $json;
-        }, $params)) . ']';
     }
 
     /**
@@ -310,5 +268,47 @@ class DBALException extends \Exception
         return new Exception(
             sprintf('Type of the class %s@%s is already registered.', get_class($type), spl_object_hash($type))
         );
+    }
+
+    /**
+     * @return Exception
+     */
+    private static function wrapException(Driver $driver, Throwable $driverEx, string $msg)
+    {
+        if ($driverEx instanceof DriverException) {
+            return $driverEx;
+        }
+
+        if ($driver instanceof ExceptionConverterDriver && $driverEx instanceof DeprecatedDriverException) {
+            return $driver->convertException($msg, $driverEx);
+        }
+
+        return new Exception($msg, 0, $driverEx);
+    }
+
+    /**
+     * Returns a human-readable representation of an array of parameters.
+     * This properly handles binary data by returning a hex representation.
+     *
+     * @param mixed[] $params
+     *
+     * @return string
+     */
+    private static function formatParameters(array $params)
+    {
+        return '[' . implode(', ', array_map(static function ($param) {
+                if (is_resource($param)) {
+                    return (string)$param;
+                }
+
+                $json = @json_encode($param);
+
+                if (!is_string($json) || $json === 'null' && is_string($param)) {
+                    // JSON encoding failed, this is not a UTF-8 string.
+                    return sprintf('"%s"', preg_replace('/.{2}/', '\\x$0', bin2hex($param)));
+                }
+
+                return $json;
+            }, $params)) . ']';
     }
 }

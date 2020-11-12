@@ -12,7 +12,7 @@ class Parser
     /**
      * Parse the given console command definition into an array.
      *
-     * @param  string  $expression
+     * @param string $expression
      * @return array
      *
      * @throws \InvalidArgumentException
@@ -33,14 +33,14 @@ class Parser
     /**
      * Extract the name of the command from the expression.
      *
-     * @param  string  $expression
+     * @param string $expression
      * @return string
      *
      * @throws \InvalidArgumentException
      */
     protected static function name($expression)
     {
-        if (! preg_match('/[^\s]+/', $expression, $matches)) {
+        if (!preg_match('/[^\s]+/', $expression, $matches)) {
             throw new InvalidArgumentException('Unable to determine command name from signature.');
         }
 
@@ -50,7 +50,7 @@ class Parser
     /**
      * Extract all of the parameters from the tokens.
      *
-     * @param  array  $tokens
+     * @param array $tokens
      * @return array
      */
     protected static function parameters(array $tokens)
@@ -73,7 +73,7 @@ class Parser
     /**
      * Parse an argument expression.
      *
-     * @param  string  $token
+     * @param string $token
      * @return \Symfony\Component\Console\Input\InputArgument
      */
     protected static function parseArgument($token)
@@ -99,7 +99,7 @@ class Parser
     /**
      * Parse an option expression.
      *
-     * @param  string  $token
+     * @param string $token
      * @return \Symfony\Component\Console\Input\InputOption
      */
     protected static function parseOption($token)
@@ -132,7 +132,7 @@ class Parser
     /**
      * Parse the token into its token and description segments.
      *
-     * @param  string  $token
+     * @param string $token
      * @return array
      */
     protected static function extractDescription($token)

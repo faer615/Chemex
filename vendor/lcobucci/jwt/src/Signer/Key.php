@@ -38,6 +38,22 @@ final class Key
     }
 
     /**
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassphrase()
+    {
+        return $this->passphrase;
+    }
+
+    /**
      * @param string $content
      *
      * @throws InvalidArgumentException
@@ -61,10 +77,10 @@ final class Key
     private function readFile($content)
     {
         try {
-            $file    = new SplFileObject(substr($content, 7));
+            $file = new SplFileObject(substr($content, 7));
             $content = '';
 
-            while (! $file->eof()) {
+            while (!$file->eof()) {
                 $content .= $file->fgets();
             }
 
@@ -72,21 +88,5 @@ final class Key
         } catch (Exception $exception) {
             throw new InvalidArgumentException('You must provide a valid key file', 0, $exception);
         }
-    }
-
-    /**
-     * @return string
-     */
-    public function getContent()
-    {
-        return $this->content;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPassphrase()
-    {
-        return $this->passphrase;
     }
 }

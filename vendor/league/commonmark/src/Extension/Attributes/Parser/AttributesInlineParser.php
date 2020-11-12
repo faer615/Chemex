@@ -38,7 +38,7 @@ final class AttributesInlineParser implements InlineParserInterface
 
         $char = $cursor->getCharacter();
         if ($char === '{') {
-            $char = (string) $cursor->getCharacter($cursor->getPosition() - 1);
+            $char = (string)$cursor->getCharacter($cursor->getPosition() - 1);
         }
 
         $attributes = AttributesHelper::parseAttributes($cursor);

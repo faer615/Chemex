@@ -49,12 +49,12 @@ class FingersCrossedHandler extends Handler implements ProcessableHandlerInterfa
     /**
      * @psalm-param HandlerInterface|callable(?array, FingersCrossedHandler): HandlerInterface $handler
      *
-     * @param callable|HandlerInterface              $handler            Handler or factory callable($record|null, $fingersCrossedHandler).
+     * @param callable|HandlerInterface $handler Handler or factory callable($record|null, $fingersCrossedHandler).
      * @param int|string|ActivationStrategyInterface $activationStrategy Strategy which determines when this handler takes action, or a level name/value at which the handler is activated
-     * @param int                                    $bufferSize         How many entries should be buffered at most, beyond that the oldest items are removed from the buffer.
-     * @param bool                                   $bubble             Whether the messages that are handled can bubble up the stack or not
-     * @param bool                                   $stopBuffering      Whether the handler should stop buffering after being triggered (default true)
-     * @param int|string                             $passthruLevel      Minimum level to always flush to handler on close, even if strategy not triggered
+     * @param int $bufferSize How many entries should be buffered at most, beyond that the oldest items are removed from the buffer.
+     * @param bool $bubble Whether the messages that are handled can bubble up the stack or not
+     * @param bool $stopBuffering Whether the handler should stop buffering after being triggered (default true)
+     * @param int|string $passthruLevel Minimum level to always flush to handler on close, even if strategy not triggered
      */
     public function __construct($handler, $activationStrategy = null, int $bufferSize = 0, bool $bubble = true, bool $stopBuffering = true, $passthruLevel = null)
     {
@@ -78,7 +78,7 @@ class FingersCrossedHandler extends Handler implements ProcessableHandlerInterfa
         }
 
         if (!$this->handler instanceof HandlerInterface && !is_callable($this->handler)) {
-            throw new \RuntimeException("The given handler (".json_encode($this->handler).") is not a callable nor a Monolog\Handler\HandlerInterface object");
+            throw new \RuntimeException("The given handler (" . json_encode($this->handler) . ") is not a callable nor a Monolog\Handler\HandlerInterface object");
         }
     }
 

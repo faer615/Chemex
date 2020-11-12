@@ -71,7 +71,8 @@ class DceSecurityGenerator implements DceSecurityGeneratorInterface
         NumberConverterInterface $numberConverter,
         TimeGeneratorInterface $timeGenerator,
         DceSecurityProviderInterface $dceSecurityProvider
-    ) {
+    )
+    {
         $this->numberConverter = $numberConverter;
         $this->timeGenerator = $timeGenerator;
         $this->dceSecurityProvider = $dceSecurityProvider;
@@ -82,7 +83,8 @@ class DceSecurityGenerator implements DceSecurityGeneratorInterface
         ?IntegerObject $localIdentifier = null,
         ?Hexadecimal $node = null,
         ?int $clockSeq = null
-    ): string {
+    ): string
+    {
         if (!in_array($localDomain, self::DOMAINS)) {
             throw new DceSecurityException(
                 'Local domain must be a valid DCE Security domain'

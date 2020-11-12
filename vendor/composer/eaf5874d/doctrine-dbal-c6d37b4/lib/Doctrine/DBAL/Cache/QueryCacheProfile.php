@@ -26,13 +26,13 @@ class QueryCacheProfile
     private $cacheKey;
 
     /**
-     * @param int         $lifetime
+     * @param int $lifetime
      * @param string|null $cacheKey
      */
     public function __construct($lifetime = 0, $cacheKey = null, ?Cache $resultCache = null)
     {
-        $this->lifetime          = $lifetime;
-        $this->cacheKey          = $cacheKey;
+        $this->lifetime = $lifetime;
+        $this->cacheKey = $cacheKey;
         $this->resultCacheDriver = $resultCache;
     }
 
@@ -45,11 +45,29 @@ class QueryCacheProfile
     }
 
     /**
+     * @return QueryCacheProfile
+     */
+    public function setResultCacheDriver(Cache $cache)
+    {
+        return new QueryCacheProfile($this->lifetime, $this->cacheKey, $cache);
+    }
+
+    /**
      * @return int
      */
     public function getLifetime()
     {
         return $this->lifetime;
+    }
+
+    /**
+     * @param int $lifetime
+     *
+     * @return QueryCacheProfile
+     */
+    public function setLifetime($lifetime)
+    {
+        return new QueryCacheProfile($lifetime, $this->cacheKey, $this->resultCacheDriver);
     }
 
     /**
@@ -67,12 +85,22 @@ class QueryCacheProfile
     }
 
     /**
+     * @param string|null $cacheKey
+     *
+     * @return QueryCacheProfile
+     */
+    public function setCacheKey($cacheKey)
+    {
+        return new QueryCacheProfile($this->lifetime, $cacheKey, $this->resultCacheDriver);
+    }
+
+    /**
      * Generates the real cache key from query, params, types and connection parameters.
      *
-     * @param string                                                               $sql
-     * @param array<int, mixed>|array<string, mixed>                               $params
+     * @param string $sql
+     * @param array<int, mixed>|array<string, mixed> $params
      * @param array<int, Type|int|string|null>|array<string, Type|int|string|null> $types
-     * @param array<string, mixed>                                                 $connectionParams
+     * @param array<string, mixed> $connectionParams
      *
      * @return string[]
      */
@@ -91,33 +119,5 @@ class QueryCacheProfile
         }
 
         return [$cacheKey, $realCacheKey];
-    }
-
-    /**
-     * @return QueryCacheProfile
-     */
-    public function setResultCacheDriver(Cache $cache)
-    {
-        return new QueryCacheProfile($this->lifetime, $this->cacheKey, $cache);
-    }
-
-    /**
-     * @param string|null $cacheKey
-     *
-     * @return QueryCacheProfile
-     */
-    public function setCacheKey($cacheKey)
-    {
-        return new QueryCacheProfile($this->lifetime, $cacheKey, $this->resultCacheDriver);
-    }
-
-    /**
-     * @param int $lifetime
-     *
-     * @return QueryCacheProfile
-     */
-    public function setLifetime($lifetime)
-    {
-        return new QueryCacheProfile($lifetime, $this->cacheKey, $this->resultCacheDriver);
     }
 }

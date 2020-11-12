@@ -74,14 +74,13 @@ Or of a whole directory:
   <info>php %command.full_name% dirname --format=json</info>
 
 EOF
-            )
-        ;
+            );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
-        $filenames = (array) $input->getArgument('filename');
+        $filenames = (array)$input->getArgument('filename');
         $this->format = $input->getOption('format');
         $this->displayCorrectFiles = $output->isVerbose();
 
@@ -171,10 +170,10 @@ EOF
 
         foreach ($filesInfo as $info) {
             if ($info['valid'] && $this->displayCorrectFiles) {
-                $io->comment('<info>OK</info>'.($info['file'] ? sprintf(' in %s', $info['file']) : ''));
+                $io->comment('<info>OK</info>' . ($info['file'] ? sprintf(' in %s', $info['file']) : ''));
             } elseif (!$info['valid']) {
                 ++$erroredFiles;
-                $io->text('<error> ERROR </error>'.($info['file'] ? sprintf(' in %s', $info['file']) : ''));
+                $io->text('<error> ERROR </error>' . ($info['file'] ? sprintf(' in %s', $info['file']) : ''));
                 $io->listing(array_map(function ($error) {
                     // general document errors have a '-1' line number
                     return -1 === $error['line'] ? $error['message'] : sprintf('Line %d, Column %d: %s', $error['line'], $error['column'], $error['message']);
@@ -196,7 +195,7 @@ EOF
         $errors = 0;
 
         array_walk($filesInfo, function (&$v) use (&$errors) {
-            $v['file'] = (string) $v['file'];
+            $v['file'] = (string)$v['file'];
             if (!$v['valid']) {
                 ++$errors;
             }

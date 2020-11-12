@@ -75,7 +75,7 @@ class SystemNodeProvider implements NodeProviderInterface
         static $node = null;
 
         if ($node !== null) {
-            return (string) $node;
+            return (string)$node;
         }
 
         // First, try a Linux-specific approach.
@@ -98,7 +98,7 @@ class SystemNodeProvider implements NodeProviderInterface
      */
     protected function getIfconfig(): string
     {
-        $disabledFunctions = strtolower((string) ini_get('disable_functions'));
+        $disabledFunctions = strtolower((string)ini_get('disable_functions'));
 
         if (strpos($disabledFunctions, 'passthru') !== false) {
             return '';
@@ -125,14 +125,14 @@ class SystemNodeProvider implements NodeProviderInterface
                 break;
         }
 
-        $ifconfig = (string) ob_get_clean();
+        $ifconfig = (string)ob_get_clean();
 
         $node = '';
         if (preg_match_all(self::IFCONFIG_PATTERN, $ifconfig, $matches, PREG_PATTERN_ORDER)) {
             $node = $matches[1][0] ?? '';
         }
 
-        return (string) $node;
+        return (string)$node;
     }
 
     /**
@@ -168,6 +168,6 @@ class SystemNodeProvider implements NodeProviderInterface
             $mac = reset($macs);
         }
 
-        return (string) $mac;
+        return (string)$mac;
     }
 }

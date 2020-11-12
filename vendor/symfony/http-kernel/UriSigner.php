@@ -24,7 +24,7 @@ class UriSigner
     private $parameter;
 
     /**
-     * @param string $secret    A secret
+     * @param string $secret A secret
      * @param string $parameter Query string parameter to use
      */
     public function __construct(string $secret, string $parameter = '_hash')
@@ -82,10 +82,10 @@ class UriSigner
 
     public function checkRequest(Request $request): bool
     {
-        $qs = ($qs = $request->server->get('QUERY_STRING')) ? '?'.$qs : '';
+        $qs = ($qs = $request->server->get('QUERY_STRING')) ? '?' . $qs : '';
 
         // we cannot use $request->getUri() here as we want to work with the original URI (no query string reordering)
-        return $this->check($request->getSchemeAndHttpHost().$request->getBaseUrl().$request->getPathInfo().$qs);
+        return $this->check($request->getSchemeAndHttpHost() . $request->getBaseUrl() . $request->getPathInfo() . $qs);
     }
 
     private function computeHash(string $uri): string
@@ -98,16 +98,16 @@ class UriSigner
         ksort($params, \SORT_STRING);
         $url['query'] = http_build_query($params, '', '&');
 
-        $scheme = isset($url['scheme']) ? $url['scheme'].'://' : '';
+        $scheme = isset($url['scheme']) ? $url['scheme'] . '://' : '';
         $host = isset($url['host']) ? $url['host'] : '';
-        $port = isset($url['port']) ? ':'.$url['port'] : '';
+        $port = isset($url['port']) ? ':' . $url['port'] : '';
         $user = isset($url['user']) ? $url['user'] : '';
-        $pass = isset($url['pass']) ? ':'.$url['pass'] : '';
+        $pass = isset($url['pass']) ? ':' . $url['pass'] : '';
         $pass = ($user || $pass) ? "$pass@" : '';
         $path = isset($url['path']) ? $url['path'] : '';
-        $query = isset($url['query']) && $url['query'] ? '?'.$url['query'] : '';
-        $fragment = isset($url['fragment']) ? '#'.$url['fragment'] : '';
+        $query = isset($url['query']) && $url['query'] ? '?' . $url['query'] : '';
+        $fragment = isset($url['fragment']) ? '#' . $url['fragment'] : '';
 
-        return $scheme.$user.$pass.$host.$port.$path.$query.$fragment;
+        return $scheme . $user . $pass . $host . $port . $path . $query . $fragment;
     }
 }

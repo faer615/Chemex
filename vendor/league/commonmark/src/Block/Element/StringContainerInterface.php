@@ -36,7 +36,7 @@ interface StringContainerInterface
 
     /**
      * @param ContextInterface $context
-     * @param Cursor           $cursor
+     * @param Cursor $cursor
      *
      * @return void
      */

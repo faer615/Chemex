@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 $processHoursFunction = function (\Carbon\CarbonInterface $date, string $format) {
-    return $format.'о'.($date->hour === 11 ? 'б' : '').'] LT';
+    return $format . 'о' . ($date->hour === 11 ? 'б' : '') . '] LT';
 };
 
 /*
@@ -159,9 +159,9 @@ return [
             case 'DDD':
             case 'w':
             case 'W':
-                return $number.'-й';
+                return $number . '-й';
             case 'D':
-                return $number.'-го';
+                return $number . '-го';
             default:
                 return $number;
         }
@@ -193,9 +193,9 @@ return [
         $nounCase = preg_match('/(\[(В|в|У|у)\])\s+dddd/', $format)
             ? 'accusative'
             : (
-                preg_match('/\[?(?:минулої|наступної)?\s*\]\s+dddd/', $format)
-                    ? 'genitive'
-                    : 'nominative'
+            preg_match('/\[?(?:минулої|наступної)?\s*\]\s+dddd/', $format)
+                ? 'genitive'
+                : 'nominative'
             );
 
         return $words[$nounCase][$index] ?? null;

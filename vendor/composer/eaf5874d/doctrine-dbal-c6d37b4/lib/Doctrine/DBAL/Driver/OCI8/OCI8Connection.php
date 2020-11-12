@@ -41,16 +41,16 @@ class OCI8Connection implements ConnectionInterface, ServerInfoAwareConnection
     /**
      * Creates a Connection to an Oracle Database using oci8 extension.
      *
-     * @internal The connection can be only instantiated by its driver.
-     *
      * @param string $username
      * @param string $password
      * @param string $db
      * @param string $charset
-     * @param int    $sessionMode
-     * @param bool   $persistent
+     * @param int $sessionMode
+     * @param bool $persistent
      *
      * @throws OCI8Exception
+     * @internal The connection can be only instantiated by its driver.
+     *
      */
     public function __construct(
         $username,
@@ -59,7 +59,8 @@ class OCI8Connection implements ConnectionInterface, ServerInfoAwareConnection
         $charset = '',
         $sessionMode = OCI_NO_AUTO_COMMIT,
         $persistent = false
-    ) {
+    )
+    {
         $dbh = $persistent
             ? @oci_pconnect($username, $password, $db, $charset, $sessionMode)
             : @oci_connect($username, $password, $db, $charset, $sessionMode);
@@ -85,7 +86,7 @@ class OCI8Connection implements ConnectionInterface, ServerInfoAwareConnection
             throw OCI8Exception::fromErrorInfo(oci_error($this->dbh));
         }
 
-        if (! preg_match('/\s+(\d+\.\d+\.\d+\.\d+\.\d+)\s+/', $version, $matches)) {
+        if (!preg_match('/\s+(\d+\.\d+\.\d+\.\d+\.\d+)\s+/', $version, $matches)) {
             throw new UnexpectedValueException(
                 sprintf(
                     'Unexpected database version string "%s". Cannot parse an appropriate version number from it. ' .
@@ -120,7 +121,7 @@ class OCI8Connection implements ConnectionInterface, ServerInfoAwareConnection
     public function query()
     {
         $args = func_get_args();
-        $sql  = $args[0];
+        $sql = $args[0];
         //$fetchMode = $args[1];
         $stmt = $this->prepare($sql);
         $stmt->execute();
@@ -164,23 +165,23 @@ class OCI8Connection implements ConnectionInterface, ServerInfoAwareConnection
             return false;
         }
 
-        $sql    = 'SELECT ' . $name . '.CURRVAL FROM DUAL';
-        $stmt   = $this->query($sql);
+        $sql = 'SELECT ' . $name . '.CURRVAL FROM DUAL';
+        $stmt = $this->query($sql);
         $result = $stmt->fetchColumn();
 
         if ($result === false) {
             throw SequenceDoesNotExist::new();
         }
 
-        return (int) $result;
+        return (int)$result;
     }
 
     /**
      * Returns the current execution mode.
      *
+     * @return int
      * @internal
      *
-     * @return int
      */
     public function getExecuteMode()
     {
@@ -202,7 +203,7 @@ class OCI8Connection implements ConnectionInterface, ServerInfoAwareConnection
      */
     public function commit()
     {
-        if (! oci_commit($this->dbh)) {
+        if (!oci_commit($this->dbh)) {
             throw OCI8Exception::fromErrorInfo($this->errorInfo());
         }
 
@@ -216,7 +217,7 @@ class OCI8Connection implements ConnectionInterface, ServerInfoAwareConnection
      */
     public function rollBack()
     {
-        if (! oci_rollback($this->dbh)) {
+        if (!oci_rollback($this->dbh)) {
             throw OCI8Exception::fromErrorInfo($this->errorInfo());
         }
 

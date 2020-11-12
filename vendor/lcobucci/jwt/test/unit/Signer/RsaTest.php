@@ -1,4 +1,5 @@
 <?php
+
 namespace Lcobucci\JWT\Signer;
 
 use InvalidArgumentException;
@@ -23,14 +24,14 @@ final class RsaTest extends TestCase
      * @covers \Lcobucci\JWT\Signer\OpenSSL
      * @covers \Lcobucci\JWT\Signer\BaseSigner
      *
-     * @uses \Lcobucci\JWT\Signer\Key
-     * @uses \Lcobucci\JWT\Signature
+     * @uses   \Lcobucci\JWT\Signer\Key
+     * @uses   \Lcobucci\JWT\Signature
      */
     public function createHashShouldReturnAValidOpensslSignature()
     {
         $payload = 'testing';
 
-        $signer    = $this->getSigner();
+        $signer = $this->getSigner();
         $signature = $signer->sign($payload, self::$rsaKeys['private']);
 
         $publicKey = openssl_pkey_get_public(self::$rsaKeys['public']->getContent());
@@ -47,7 +48,7 @@ final class RsaTest extends TestCase
      * @covers \Lcobucci\JWT\Signer\OpenSSL
      * @covers \Lcobucci\JWT\Signer\BaseSigner
      *
-     * @uses \Lcobucci\JWT\Signer\Key
+     * @uses   \Lcobucci\JWT\Signer\Key
      */
     public function createHashShouldRaiseAnExceptionWhenKeyIsInvalid()
     {
@@ -75,7 +76,7 @@ KEY;
      * @covers \Lcobucci\JWT\Signer\OpenSSL
      * @covers \Lcobucci\JWT\Signer\BaseSigner
      *
-     * @uses \Lcobucci\JWT\Signer\Key
+     * @uses   \Lcobucci\JWT\Signer\Key
      */
     public function createHashShouldRaiseAnExceptionWhenKeyIsNotParseable()
     {
@@ -96,7 +97,7 @@ KEY;
      * @covers \Lcobucci\JWT\Signer\OpenSSL
      * @covers \Lcobucci\JWT\Signer\BaseSigner
      *
-     * @uses \Lcobucci\JWT\Signer\Key
+     * @uses   \Lcobucci\JWT\Signer\Key
      */
     public function createHashShouldRaiseAnExceptionWhenKeyTypeIsNotRsa()
     {
@@ -117,11 +118,11 @@ KEY;
      * @covers \Lcobucci\JWT\Signer\OpenSSL
      * @covers \Lcobucci\JWT\Signer\BaseSigner
      *
-     * @uses \Lcobucci\JWT\Signer\Key
+     * @uses   \Lcobucci\JWT\Signer\Key
      */
     public function doVerifyShouldReturnTrueWhenSignatureIsValid()
     {
-        $payload    = 'testing';
+        $payload = 'testing';
         $privateKey = openssl_pkey_get_private(self::$rsaKeys['private']->getContent());
         self::assertInternalType('resource', $privateKey);
 
@@ -141,7 +142,7 @@ KEY;
      * @covers \Lcobucci\JWT\Signer\OpenSSL
      * @covers \Lcobucci\JWT\Signer\BaseSigner
      *
-     * @uses \Lcobucci\JWT\Signer\Key
+     * @uses   \Lcobucci\JWT\Signer\Key
      */
     public function doVerifyShouldRaiseAnExceptionWhenKeyIsNotParseable()
     {
@@ -161,7 +162,7 @@ KEY;
      * @covers \Lcobucci\JWT\Signer\OpenSSL
      * @covers \Lcobucci\JWT\Signer\BaseSigner
      *
-     * @uses \Lcobucci\JWT\Signer\Key
+     * @uses   \Lcobucci\JWT\Signer\Key
      */
     public function doVerifyShouldRaiseAnExceptionWhenKeyTypeIsNotRsa()
     {
@@ -178,10 +179,10 @@ KEY;
         $signer = $this->getMockForAbstractClass(Rsa::class);
 
         $signer->method('getAlgorithm')
-               ->willReturn(OPENSSL_ALGO_SHA256);
+            ->willReturn(OPENSSL_ALGO_SHA256);
 
         $signer->method('getAlgorithmId')
-               ->willReturn('RS256');
+            ->willReturn('RS256');
 
         return $signer;
     }

@@ -39,7 +39,7 @@ class ProfilerListener implements EventSubscriberInterface
     protected $parents;
 
     /**
-     * @param bool $onlyException      True if the profiler only collects data when an exception occurs, false otherwise
+     * @param bool $onlyException True if the profiler only collects data when an exception occurs, false otherwise
      * @param bool $onlyMasterRequests True if the profiler only collects data when the request is a master request, false otherwise
      */
     public function __construct(Profiler $profiler, RequestStack $requestStack, RequestMatcherInterface $matcher = null, bool $onlyException = false, bool $onlyMasterRequests = false)
@@ -51,6 +51,15 @@ class ProfilerListener implements EventSubscriberInterface
         $this->profiles = new \SplObjectStorage();
         $this->parents = new \SplObjectStorage();
         $this->requestStack = $requestStack;
+    }
+
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            KernelEvents::RESPONSE => ['onKernelResponse', -100],
+            KernelEvents::EXCEPTION => ['onKernelException', 0],
+            KernelEvents::TERMINATE => ['onKernelTerminate', -1024],
+        ];
     }
 
     /**
@@ -114,14 +123,5 @@ class ProfilerListener implements EventSubscriberInterface
 
         $this->profiles = new \SplObjectStorage();
         $this->parents = new \SplObjectStorage();
-    }
-
-    public static function getSubscribedEvents(): array
-    {
-        return [
-            KernelEvents::RESPONSE => ['onKernelResponse', -100],
-            KernelEvents::EXCEPTION => ['onKernelException', 0],
-            KernelEvents::TERMINATE => ['onKernelTerminate', -1024],
-        ];
     }
 }

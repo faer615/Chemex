@@ -34,14 +34,14 @@ trait InteractsWithRedis
         $host = Env::get('REDIS_HOST', '127.0.0.1');
         $port = Env::get('REDIS_PORT', 6379);
 
-        if (! extension_loaded('redis')) {
-            $this->markTestSkipped('The redis extension is not installed. Please install the extension to enable '.__CLASS__);
+        if (!extension_loaded('redis')) {
+            $this->markTestSkipped('The redis extension is not installed. Please install the extension to enable ' . __CLASS__);
 
             return;
         }
 
         if (static::$connectionFailedOnceWithDefaultsSkip) {
-            $this->markTestSkipped('Trying default host/port failed, please set environment variable REDIS_HOST & REDIS_PORT to enable '.__CLASS__);
+            $this->markTestSkipped('Trying default host/port failed, please set environment variable REDIS_HOST & REDIS_PORT to enable ' . __CLASS__);
 
             return;
         }
@@ -66,7 +66,7 @@ trait InteractsWithRedis
         } catch (Exception $e) {
             if ($host === '127.0.0.1' && $port === 6379 && Env::get('REDIS_HOST') === null) {
                 static::$connectionFailedOnceWithDefaultsSkip = true;
-                $this->markTestSkipped('Trying default host/port failed, please set environment variable REDIS_HOST & REDIS_PORT to enable '.__CLASS__);
+                $this->markTestSkipped('Trying default host/port failed, please set environment variable REDIS_HOST & REDIS_PORT to enable ' . __CLASS__);
             }
         }
     }
@@ -101,7 +101,7 @@ trait InteractsWithRedis
     /**
      * Run test if redis is available.
      *
-     * @param  callable  $callback
+     * @param callable $callback
      * @return void
      */
     public function ifRedisAvailable($callback)

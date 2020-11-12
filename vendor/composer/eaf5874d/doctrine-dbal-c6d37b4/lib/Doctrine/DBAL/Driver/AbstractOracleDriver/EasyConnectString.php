@@ -23,11 +23,6 @@ final class EasyConnectString
         $this->string = $string;
     }
 
-    public function __toString(): string
-    {
-        return $this->string;
-    }
-
     /**
      * Creates the object from an array representation
      *
@@ -45,7 +40,7 @@ final class EasyConnectString
      */
     public static function fromConnectionParameters(array $params): self
     {
-        if (! empty($params['connectstring'])) {
+        if (!empty($params['connectstring'])) {
             return new self($params['connectstring']);
         }
 
@@ -58,7 +53,7 @@ final class EasyConnectString
         if (isset($params['servicename']) || isset($params['dbname'])) {
             $serviceKey = 'SID';
 
-            if (! empty($params['service'])) {
+            if (!empty($params['service'])) {
                 $serviceKey = 'SERVICE_NAME';
             }
 
@@ -67,11 +62,11 @@ final class EasyConnectString
             $connectData[$serviceKey] = $serviceName;
         }
 
-        if (! empty($params['instancename'])) {
+        if (!empty($params['instancename'])) {
             $connectData['INSTANCE_NAME'] = $params['instancename'];
         }
 
-        if (! empty($params['pooled'])) {
+        if (!empty($params['pooled'])) {
             $connectData['SERVER'] = 'POOLED';
         }
 
@@ -116,6 +111,11 @@ final class EasyConnectString
             return self::renderParams($value);
         }
 
-        return (string) $value;
+        return (string)$value;
+    }
+
+    public function __toString(): string
+    {
+        return $this->string;
     }
 }

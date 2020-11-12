@@ -17,7 +17,7 @@ abstract class TrustHosts
     /**
      * Create a new middleware instance.
      *
-     * @param  \Illuminate\Contracts\Foundation\Application  $app
+     * @param \Illuminate\Contracts\Foundation\Application $app
      * @return void
      */
     public function __construct(Application $app)
@@ -35,8 +35,8 @@ abstract class TrustHosts
     /**
      * Handle the incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  callable  $next
+     * @param \Illuminate\Http\Request $request
+     * @param callable $next
      * @return \Illuminate\Http\Response
      */
     public function handle(Request $request, $next)
@@ -56,7 +56,7 @@ abstract class TrustHosts
     protected function shouldSpecifyTrustedHosts()
     {
         return config('app.env') !== 'local' &&
-               ! $this->app->runningUnitTests();
+            !$this->app->runningUnitTests();
     }
 
     /**
@@ -67,7 +67,7 @@ abstract class TrustHosts
     protected function allSubdomainsOfApplicationUrl()
     {
         if ($host = parse_url($this->app['config']->get('app.url'), PHP_URL_HOST)) {
-            return '^(.+\.)?'.preg_quote($host).'$';
+            return '^(.+\.)?' . preg_quote($host) . '$';
         }
     }
 }

@@ -5,17 +5,6 @@ class Swift_Mime_ContentEncoder_QpContentEncoderAcceptanceTest extends \PHPUnit\
     private $samplesDir;
     private $factory;
 
-    protected function setUp()
-    {
-        $this->samplesDir = realpath(__DIR__.'/../../../../_samples/charsets');
-        $this->factory = new Swift_CharacterReaderFactory_SimpleCharacterReaderFactory();
-    }
-
-    protected function tearDown()
-    {
-        Swift_Preferences::getInstance()->setQPDotEscape(false);
-    }
-
     public function testEncodingAndDecodingSamples()
     {
         $sampleFp = opendir($this->samplesDir);
@@ -29,7 +18,7 @@ class Swift_Mime_ContentEncoder_QpContentEncoderAcceptanceTest extends \PHPUnit\
                 $this->factory, $encoding);
             $encoder = new Swift_Mime_ContentEncoder_QpContentEncoder($charStream);
 
-            $sampleDir = $this->samplesDir.'/'.$encodingDir;
+            $sampleDir = $this->samplesDir . '/' . $encodingDir;
 
             if (is_dir($sampleDir)) {
                 $fileFp = opendir($sampleDir);
@@ -38,7 +27,7 @@ class Swift_Mime_ContentEncoder_QpContentEncoderAcceptanceTest extends \PHPUnit\
                         continue;
                     }
 
-                    $text = file_get_contents($sampleDir.'/'.$sampleFile);
+                    $text = file_get_contents($sampleDir . '/' . $sampleFile);
 
                     $os = new Swift_ByteStream_ArrayByteStream();
                     $os->write($text);
@@ -53,9 +42,9 @@ class Swift_Mime_ContentEncoder_QpContentEncoderAcceptanceTest extends \PHPUnit\
 
                     $this->assertEquals(
                         quoted_printable_decode($encoded), $text,
-                        '%s: Encoded string should decode back to original string for sample '.
-                        $sampleDir.'/'.$sampleFile
-                        );
+                        '%s: Encoded string should decode back to original string for sample ' .
+                        $sampleDir . '/' . $sampleFile
+                    );
                 }
                 closedir($fileFp);
             }
@@ -74,7 +63,7 @@ class Swift_Mime_ContentEncoder_QpContentEncoderAcceptanceTest extends \PHPUnit\
             $encoding = $encodingDir;
             $encoder = $this->createEncoderFromContainer();
 
-            $sampleDir = $this->samplesDir.'/'.$encodingDir;
+            $sampleDir = $this->samplesDir . '/' . $encodingDir;
 
             if (is_dir($sampleDir)) {
                 $fileFp = opendir($sampleDir);
@@ -83,7 +72,7 @@ class Swift_Mime_ContentEncoder_QpContentEncoderAcceptanceTest extends \PHPUnit\
                         continue;
                     }
 
-                    $text = file_get_contents($sampleDir.'/'.$sampleFile);
+                    $text = file_get_contents($sampleDir . '/' . $sampleFile);
 
                     $os = new Swift_ByteStream_ArrayByteStream();
                     $os->write($text);
@@ -98,9 +87,9 @@ class Swift_Mime_ContentEncoder_QpContentEncoderAcceptanceTest extends \PHPUnit\
 
                     $this->assertEquals(
                         str_replace("\r\n", "\n", quoted_printable_decode($encoded)), str_replace("\r\n", "\n", $text),
-                        '%s: Encoded string should decode back to original string for sample '.
-                        $sampleDir.'/'.$sampleFile
-                        );
+                        '%s: Encoded string should decode back to original string for sample ' .
+                        $sampleDir . '/' . $sampleFile
+                    );
                 }
                 closedir($fileFp);
             }
@@ -151,10 +140,20 @@ class Swift_Mime_ContentEncoder_QpContentEncoderAcceptanceTest extends \PHPUnit\
         $this->testEncodingAndDecodingSamplesFromDiConfiguredInstance();
     }
 
+    protected function setUp()
+    {
+        $this->samplesDir = realpath(__DIR__ . '/../../../../_samples/charsets');
+        $this->factory = new Swift_CharacterReaderFactory_SimpleCharacterReaderFactory();
+    }
+
+    protected function tearDown()
+    {
+        Swift_Preferences::getInstance()->setQPDotEscape(false);
+    }
+
     private function createEncoderFromContainer()
     {
         return Swift_DependencyContainer::getInstance()
-            ->lookup('mime.qpcontentencoder')
-            ;
+            ->lookup('mime.qpcontentencoder');
     }
 }

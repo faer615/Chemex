@@ -49,7 +49,7 @@ class SymfonyStyle extends OutputStyle
         $this->bufferedOutput = new BufferedOutput($output->getVerbosity(), false, clone $output->getFormatter());
         // Windows cmd wraps lines as soon as the terminal width is reached, whether there are following chars or not.
         $width = (new Terminal())->getWidth() ?: self::MAX_LINE_LENGTH;
-        $this->lineLength = min($width - (int) (\DIRECTORY_SEPARATOR === '\\'), self::MAX_LINE_LENGTH);
+        $this->lineLength = min($width - (int)(\DIRECTORY_SEPARATOR === '\\'), self::MAX_LINE_LENGTH);
 
         parent::__construct($output);
     }
@@ -483,10 +483,10 @@ class SymfonyStyle extends OutputStyle
 
         foreach ($lines as $i => &$line) {
             if (null !== $type) {
-                $line = $firstLineIndex === $i ? $type.$line : $lineIndentation.$line;
+                $line = $firstLineIndex === $i ? $type . $line : $lineIndentation . $line;
             }
 
-            $line = $prefix.$line;
+            $line = $prefix . $line;
             $line .= str_repeat(' ', $this->lineLength - Helper::strlenWithoutDecoration($this->getFormatter(), $line));
 
             if ($style) {

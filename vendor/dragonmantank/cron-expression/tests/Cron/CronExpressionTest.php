@@ -18,6 +18,21 @@ use PHPUnit\Framework\TestCase;
 class CronExpressionTest extends TestCase
 {
     /**
+     * Data provider for testParsesCronScheduleWithAnySpaceCharsAsSeparators.
+     *
+     * @return array
+     */
+    public static function scheduleWithDifferentSeparatorsProvider(): array
+    {
+        return [
+            ["*\t*\t*\t*\t*\t", ['*', '*', '*', '*', '*', '*']],
+            ['*  *  *  *  *  ', ['*', '*', '*', '*', '*', '*']],
+            ["* \t * \t * \t * \t * \t", ['*', '*', '*', '*', '*', '*']],
+            ["*\t \t*\t \t*\t \t*\t \t*\t \t", ['*', '*', '*', '*', '*', '*']],
+        ];
+    }
+
+    /**
      * @covers \Cron\CronExpression::factory
      */
     public function testFactoryRecognizesTemplates(): void
@@ -42,7 +57,7 @@ class CronExpressionTest extends TestCase
         $this->assertSame('4,5,6', $cron->getExpression(CronExpression::MONTH));
         $this->assertSame('*/3', $cron->getExpression(CronExpression::WEEKDAY));
         $this->assertSame('1 2-4 * 4,5,6 */3', $cron->getExpression());
-        $this->assertSame('1 2-4 * 4,5,6 */3', (string) $cron);
+        $this->assertSame('1 2-4 * 4,5,6 */3', (string)$cron);
         $this->assertNull($cron->getExpression('foo'));
     }
 
@@ -59,8 +74,8 @@ class CronExpressionTest extends TestCase
     }
 
     /**
-     * @covers \Cron\CronExpression::__construct
-     * @covers \Cron\CronExpression::getExpression
+     * @covers       \Cron\CronExpression::__construct
+     * @covers       \Cron\CronExpression::getExpression
      * @dataProvider scheduleWithDifferentSeparatorsProvider
      *
      * @param mixed $schedule
@@ -73,21 +88,6 @@ class CronExpressionTest extends TestCase
         $this->assertSame($expected[2], $cron->getExpression(CronExpression::DAY));
         $this->assertSame($expected[3], $cron->getExpression(CronExpression::MONTH));
         $this->assertSame($expected[4], $cron->getExpression(CronExpression::WEEKDAY));
-    }
-
-    /**
-     * Data provider for testParsesCronScheduleWithAnySpaceCharsAsSeparators.
-     *
-     * @return array
-     */
-    public static function scheduleWithDifferentSeparatorsProvider(): array
-    {
-        return [
-            ["*\t*\t*\t*\t*\t", ['*', '*', '*', '*', '*', '*']],
-            ['*  *  *  *  *  ', ['*', '*', '*', '*', '*', '*']],
-            ["* \t * \t * \t * \t * \t", ['*', '*', '*', '*', '*', '*']],
-            ["*\t \t*\t \t*\t \t*\t \t*\t \t", ['*', '*', '*', '*', '*', '*']],
-        ];
     }
 
     /**
@@ -200,14 +200,14 @@ class CronExpressionTest extends TestCase
     }
 
     /**
-     * @covers \Cron\CronExpression::isDue
-     * @covers \Cron\CronExpression::getNextRunDate
-     * @covers \Cron\DayOfMonthField
-     * @covers \Cron\DayOfWeekField
-     * @covers \Cron\MinutesField
-     * @covers \Cron\HoursField
-     * @covers \Cron\MonthField
-     * @covers \Cron\CronExpression::getRunDate
+     * @covers       \Cron\CronExpression::isDue
+     * @covers       \Cron\CronExpression::getNextRunDate
+     * @covers       \Cron\DayOfMonthField
+     * @covers       \Cron\DayOfWeekField
+     * @covers       \Cron\MinutesField
+     * @covers       \Cron\HoursField
+     * @covers       \Cron\MonthField
+     * @covers       \Cron\CronExpression::getRunDate
      * @dataProvider scheduleProvider
      *
      * @param mixed $schedule

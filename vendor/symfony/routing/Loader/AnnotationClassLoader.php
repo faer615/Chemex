@@ -128,6 +128,28 @@ abstract class AnnotationClassLoader implements LoaderInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function supports($resource, string $type = null)
+    {
+        return \is_string($resource) && preg_match('/^(?:\\\\?[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)+$/', $resource) && (!$type || 'annotation' === $type);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setResolver(LoaderResolverInterface $resolver)
+    {
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getResolver()
+    {
+    }
+
+    /**
      * @param RouteAnnotation $annot or an object that exposes a similar interface
      */
     protected function addRoute(RouteCollection $collection, $annot, array $globals, \ReflectionClass $class, \ReflectionMethod $method)
@@ -136,7 +158,7 @@ abstract class AnnotationClassLoader implements LoaderInterface
         if (null === $name) {
             $name = $this->getDefaultRouteName($class, $method);
         }
-        $name = $globals['name'].$name;
+        $name = $globals['name'] . $name;
 
         $requirements = $annot->getRequirements();
 
@@ -167,25 +189,25 @@ abstract class AnnotationClassLoader implements LoaderInterface
         if (\is_array($path)) {
             if (!\is_array($prefix)) {
                 foreach ($path as $locale => $localePath) {
-                    $paths[$locale] = $prefix.$localePath;
+                    $paths[$locale] = $prefix . $localePath;
                 }
             } elseif ($missing = array_diff_key($prefix, $path)) {
-                throw new \LogicException(sprintf('Route to "%s" is missing paths for locale(s) "%s".', $class->name.'::'.$method->name, implode('", "', array_keys($missing))));
+                throw new \LogicException(sprintf('Route to "%s" is missing paths for locale(s) "%s".', $class->name . '::' . $method->name, implode('", "', array_keys($missing))));
             } else {
                 foreach ($path as $locale => $localePath) {
                     if (!isset($prefix[$locale])) {
                         throw new \LogicException(sprintf('Route to "%s" with locale "%s" is missing a corresponding prefix in class "%s".', $method->name, $locale, $class->name));
                     }
 
-                    $paths[$locale] = $prefix[$locale].$localePath;
+                    $paths[$locale] = $prefix[$locale] . $localePath;
                 }
             }
         } elseif (\is_array($prefix)) {
             foreach ($prefix as $locale => $localePrefix) {
-                $paths[$locale] = $localePrefix.$path;
+                $paths[$locale] = $localePrefix . $path;
             }
         } else {
-            $paths[] = $prefix.$path;
+            $paths[] = $prefix . $path;
         }
 
         foreach ($method->getParameters() as $param) {
@@ -207,33 +229,11 @@ abstract class AnnotationClassLoader implements LoaderInterface
                 $route->setDefault('_locale', $locale);
                 $route->setRequirement('_locale', preg_quote($locale));
                 $route->setDefault('_canonical_route', $name);
-                $collection->add($name.'.'.$locale, $route, $priority);
+                $collection->add($name . '.' . $locale, $route, $priority);
             } else {
                 $collection->add($name, $route, $priority);
             }
         }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function supports($resource, string $type = null)
-    {
-        return \is_string($resource) && preg_match('/^(?:\\\\?[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)+$/', $resource) && (!$type || 'annotation' === $type);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setResolver(LoaderResolverInterface $resolver)
-    {
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getResolver()
-    {
     }
 
     /**
@@ -243,10 +243,10 @@ abstract class AnnotationClassLoader implements LoaderInterface
      */
     protected function getDefaultRouteName(\ReflectionClass $class, \ReflectionMethod $method)
     {
-        $name = str_replace('\\', '_', $class->name).'_'.$method->name;
+        $name = str_replace('\\', '_', $class->name) . '_' . $method->name;
         $name = \function_exists('mb_strtolower') && preg_match('//u', $name) ? mb_strtolower($name, 'UTF-8') : strtolower($name);
         if ($this->defaultRouteIndex > 0) {
-            $name .= '_'.$this->defaultRouteIndex;
+            $name .= '_' . $this->defaultRouteIndex;
         }
         ++$this->defaultRouteIndex;
 
@@ -308,6 +308,13 @@ abstract class AnnotationClassLoader implements LoaderInterface
         return $globals;
     }
 
+    protected function createRoute(string $path, array $defaults, array $requirements, array $options, ?string $host, array $schemes, array $methods, ?string $condition)
+    {
+        return new Route($path, $defaults, $requirements, $options, $host, $schemes, $methods, $condition);
+    }
+
+    abstract protected function configureRoute(Route $route, \ReflectionClass $class, \ReflectionMethod $method, $annot);
+
     private function resetGlobals(): array
     {
         return [
@@ -324,11 +331,4 @@ abstract class AnnotationClassLoader implements LoaderInterface
             'priority' => 0,
         ];
     }
-
-    protected function createRoute(string $path, array $defaults, array $requirements, array $options, ?string $host, array $schemes, array $methods, ?string $condition)
-    {
-        return new Route($path, $defaults, $requirements, $options, $host, $schemes, $methods, $condition);
-    }
-
-    abstract protected function configureRoute(Route $route, \ReflectionClass $class, \ReflectionMethod $method, $annot);
 }

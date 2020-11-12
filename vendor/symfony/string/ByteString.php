@@ -18,10 +18,10 @@ use Symfony\Component\String\Exception\RuntimeException;
 /**
  * Represents a binary-safe string of bytes.
  *
- * @author Nicolas Grekas <p@tchwork.com>
+ * @throws ExceptionInterface
  * @author Hugo Hamon <hugohamon@neuf.fr>
  *
- * @throws ExceptionInterface
+ * @author Nicolas Grekas <p@tchwork.com>
  */
 class ByteString extends AbstractString
 {
@@ -50,14 +50,14 @@ class ByteString extends AbstractString
 
         $alphabet = $alphabet ?? self::ALPHABET_ALPHANUMERIC;
         $alphabetSize = \strlen($alphabet);
-        $bits = (int) ceil(log($alphabetSize, 2.0));
+        $bits = (int)ceil(log($alphabetSize, 2.0));
         if ($bits <= 0 || $bits > 56) {
             throw new InvalidArgumentException('The length of the alphabet must in the [2^1, 2^56] range.');
         }
 
         $ret = '';
         while ($length > 0) {
-            $urandomLength = (int) ceil(2 * $length * $bits / 8.0);
+            $urandomLength = (int)ceil(2 * $length * $bits / 8.0);
             $data = random_bytes($urandomLength);
             $unpackedData = 0;
             $unpackedBits = 0;
@@ -136,7 +136,7 @@ class ByteString extends AbstractString
         } elseif (\is_array($suffix) || $suffix instanceof \Traversable) {
             return parent::endsWith($suffix);
         } else {
-            $suffix = (string) $suffix;
+            $suffix = (string)$suffix;
         }
 
         return '' !== $suffix && \strlen($this->string) >= \strlen($suffix) && 0 === substr_compare($this->string, $suffix, -\strlen($suffix), null, $this->ignoreCase);
@@ -149,7 +149,7 @@ class ByteString extends AbstractString
         } elseif (\is_array($string) || $string instanceof \Traversable) {
             return parent::equalsTo($string);
         } else {
-            $string = (string) $string;
+            $string = (string)$string;
         }
 
         if ('' !== $string && $this->ignoreCase) {
@@ -174,7 +174,7 @@ class ByteString extends AbstractString
         } elseif (\is_array($needle) || $needle instanceof \Traversable) {
             return parent::indexOf($needle, $offset);
         } else {
-            $needle = (string) $needle;
+            $needle = (string)$needle;
         }
 
         if ('' === $needle) {
@@ -193,7 +193,7 @@ class ByteString extends AbstractString
         } elseif (\is_array($needle) || $needle instanceof \Traversable) {
             return parent::indexOfLast($needle, $offset);
         } else {
-            $needle = (string) $needle;
+            $needle = (string)$needle;
         }
 
         if ('' === $needle) {
@@ -214,8 +214,8 @@ class ByteString extends AbstractString
     {
         $str = clone $this;
 
-        $tail = null !== $lastGlue && 1 < \count($strings) ? $lastGlue.array_pop($strings) : '';
-        $str->string = implode($this->string, $strings).$tail;
+        $tail = null !== $lastGlue && 1 < \count($strings) ? $lastGlue . array_pop($strings) : '';
+        $str->string = implode($this->string, $strings) . $tail;
 
         return $str;
     }
@@ -241,7 +241,9 @@ class ByteString extends AbstractString
             $regexp .= 'i';
         }
 
-        set_error_handler(static function ($t, $m) { throw new InvalidArgumentException($m); });
+        set_error_handler(static function ($t, $m) {
+            throw new InvalidArgumentException($m);
+        });
 
         try {
             if (false === $match($regexp, $this->string, $matches, $flags | \PREG_UNMATCHED_AS_NULL, $offset)) {
@@ -249,7 +251,7 @@ class ByteString extends AbstractString
 
                 foreach (get_defined_constants(true)['pcre'] as $k => $v) {
                     if ($lastError === $v && '_ERROR' === substr($k, -6)) {
-                        throw new RuntimeException('Matching failed with '.$k.'.');
+                        throw new RuntimeException('Matching failed with ' . $k . '.');
                     }
                 }
 
@@ -289,7 +291,7 @@ class ByteString extends AbstractString
     public function prepend(string ...$prefix): parent
     {
         $str = clone $this;
-        $str->string = (1 >= \count($prefix) ? ($prefix[0] ?? '') : implode('', $prefix)).$str->string;
+        $str->string = (1 >= \count($prefix) ? ($prefix[0] ?? '') : implode('', $prefix)) . $str->string;
 
         return $str;
     }
@@ -321,7 +323,9 @@ class ByteString extends AbstractString
             $replace = $to instanceof \Closure ? 'preg_replace_callback' : 'preg_replace';
         }
 
-        set_error_handler(static function ($t, $m) { throw new InvalidArgumentException($m); });
+        set_error_handler(static function ($t, $m) {
+            throw new InvalidArgumentException($m);
+        });
 
         try {
             if (null === $string = $replace($fromRegexp, $to, $this->string)) {
@@ -329,7 +333,7 @@ class ByteString extends AbstractString
 
                 foreach (get_defined_constants(true)['pcre'] as $k => $v) {
                     if ($lastError === $v && '_ERROR' === substr($k, -6)) {
-                        throw new RuntimeException('Matching failed with '.$k.'.');
+                        throw new RuntimeException('Matching failed with ' . $k . '.');
                     }
                 }
 
@@ -356,7 +360,7 @@ class ByteString extends AbstractString
     public function slice(int $start = 0, int $length = null): parent
     {
         $str = clone $this;
-        $str->string = (string) substr($this->string, $start, $length ?? \PHP_INT_MAX);
+        $str->string = (string)substr($this->string, $start, $length ?? \PHP_INT_MAX);
 
         return $str;
     }
@@ -393,7 +397,7 @@ class ByteString extends AbstractString
 
         $str = clone $this;
         $chunks = $this->ignoreCase
-            ? preg_split('{'.preg_quote($delimiter).'}iD', $this->string, $limit)
+            ? preg_split('{' . preg_quote($delimiter) . '}iD', $this->string, $limit)
             : explode($delimiter, $this->string, $limit);
 
         foreach ($chunks as &$chunk) {
@@ -438,7 +442,9 @@ class ByteString extends AbstractString
             return $u;
         }
 
-        set_error_handler(static function ($t, $m) { throw new InvalidArgumentException($m); });
+        set_error_handler(static function ($t, $m) {
+            throw new InvalidArgumentException($m);
+        });
 
         try {
             try {

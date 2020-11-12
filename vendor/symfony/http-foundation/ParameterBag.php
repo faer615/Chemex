@@ -156,7 +156,7 @@ class ParameterBag implements \IteratorAggregate, \Countable
      */
     public function getInt(string $key, int $default = 0)
     {
-        return (int) $this->get($key, $default);
+        return (int)$this->get($key, $default);
     }
 
     /**
@@ -173,12 +173,12 @@ class ParameterBag implements \IteratorAggregate, \Countable
      * Filter key.
      *
      * @param mixed $default Default = null
-     * @param int   $filter  FILTER_* constant
+     * @param int $filter FILTER_* constant
      * @param mixed $options Filter options
      *
+     * @return mixed
      * @see https://php.net/filter-var
      *
-     * @return mixed
      */
     public function filter(string $key, $default = null, int $filter = \FILTER_DEFAULT, $options = [])
     {

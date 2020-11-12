@@ -63,7 +63,8 @@ final class UuidV2 extends Uuid implements UuidInterface
         NumberConverterInterface $numberConverter,
         CodecInterface $codec,
         TimeConverterInterface $timeConverter
-    ) {
+    )
+    {
         if ($fields->getVersion() !== Uuid::UUID_TYPE_DCE_SECURITY) {
             throw new InvalidArgumentException(
                 'Fields used to create a UuidV2 must represent a '
@@ -105,7 +106,7 @@ final class UuidV2 extends Uuid implements UuidInterface
                 . str_pad($time->getMicroseconds()->toString(), 6, '0', STR_PAD_LEFT)
             );
         } catch (Throwable $e) {
-            throw new DateTimeException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new DateTimeException($e->getMessage(), (int)$e->getCode(), $e);
         }
     }
 
@@ -117,7 +118,7 @@ final class UuidV2 extends Uuid implements UuidInterface
         /** @var Rfc4122FieldsInterface $fields */
         $fields = $this->getFields();
 
-        return (int) hexdec($fields->getClockSeqLow()->toString());
+        return (int)hexdec($fields->getClockSeqLow()->toString());
     }
 
     /**

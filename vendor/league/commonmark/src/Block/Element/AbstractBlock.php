@@ -52,15 +52,6 @@ abstract class AbstractBlock extends Node
      */
     protected $endLine = 0;
 
-    protected function setParent(Node $node = null)
-    {
-        if ($node && !$node instanceof self) {
-            throw new \InvalidArgumentException('Parent of block must also be block (can not be inline)');
-        }
-
-        parent::setParent($node);
-    }
-
     public function isContainer(): bool
     {
         return true;
@@ -101,6 +92,14 @@ abstract class AbstractBlock extends Node
     abstract public function matchesNextLine(Cursor $cursor): bool;
 
     /**
+     * @return int
+     */
+    public function getStartLine(): int
+    {
+        return $this->startLine;
+    }
+
+    /**
      * @param int $startLine
      *
      * @return $this
@@ -118,9 +117,9 @@ abstract class AbstractBlock extends Node
     /**
      * @return int
      */
-    public function getStartLine(): int
+    public function getEndLine(): int
     {
-        return $this->startLine;
+        return $this->endLine;
     }
 
     /**
@@ -133,14 +132,6 @@ abstract class AbstractBlock extends Node
         $this->endLine = $endLine;
 
         return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getEndLine(): int
-    {
-        return $this->endLine;
     }
 
     /**
@@ -167,7 +158,7 @@ abstract class AbstractBlock extends Node
      * Determines whether the last line should be marked as blank
      *
      * @param Cursor $cursor
-     * @param int    $currentLineNumber
+     * @param int $currentLineNumber
      *
      * @return bool
      */
@@ -190,7 +181,7 @@ abstract class AbstractBlock extends Node
      * Finalize the block; mark it closed for modification
      *
      * @param ContextInterface $context
-     * @param int              $endLineNumber
+     * @param int $endLineNumber
      *
      * @return void
      */
@@ -211,12 +202,21 @@ abstract class AbstractBlock extends Node
 
     /**
      * @param string $key
-     * @param mixed  $default
+     * @param mixed $default
      *
      * @return mixed
      */
     public function getData(string $key, $default = null)
     {
         return \array_key_exists($key, $this->data) ? $this->data[$key] : $default;
+    }
+
+    protected function setParent(Node $node = null)
+    {
+        if ($node && !$node instanceof self) {
+            throw new \InvalidArgumentException('Parent of block must also be block (can not be inline)');
+        }
+
+        parent::setParent($node);
     }
 }

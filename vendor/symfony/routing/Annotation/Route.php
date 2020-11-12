@@ -75,7 +75,7 @@ class Route
         }
 
         foreach ($data as $key => $value) {
-            $method = 'set'.str_replace('_', '', $key);
+            $method = 'set' . str_replace('_', '', $key);
             if (!method_exists($this, $method)) {
                 throw new \BadMethodCallException(sprintf('Unknown property "%s" on annotation "%s".', $key, static::class));
             }
@@ -83,19 +83,14 @@ class Route
         }
     }
 
-    public function setPath($path)
-    {
-        $this->path = $path;
-    }
-
     public function getPath()
     {
         return $this->path;
     }
 
-    public function setLocalizedPaths(array $localizedPaths)
+    public function setPath($path)
     {
-        $this->localizedPaths = $localizedPaths;
+        $this->path = $path;
     }
 
     public function getLocalizedPaths(): array
@@ -103,9 +98,9 @@ class Route
         return $this->localizedPaths;
     }
 
-    public function setHost($pattern)
+    public function setLocalizedPaths(array $localizedPaths)
     {
-        $this->host = $pattern;
+        $this->localizedPaths = $localizedPaths;
     }
 
     public function getHost()
@@ -113,9 +108,9 @@ class Route
         return $this->host;
     }
 
-    public function setName($name)
+    public function setHost($pattern)
     {
-        $this->name = $name;
+        $this->host = $pattern;
     }
 
     public function getName()
@@ -123,9 +118,9 @@ class Route
         return $this->name;
     }
 
-    public function setRequirements($requirements)
+    public function setName($name)
     {
-        $this->requirements = $requirements;
+        $this->name = $name;
     }
 
     public function getRequirements()
@@ -133,9 +128,9 @@ class Route
         return $this->requirements;
     }
 
-    public function setOptions($options)
+    public function setRequirements($requirements)
     {
-        $this->options = $options;
+        $this->requirements = $requirements;
     }
 
     public function getOptions()
@@ -143,9 +138,9 @@ class Route
         return $this->options;
     }
 
-    public function setDefaults($defaults)
+    public function setOptions($options)
     {
-        $this->defaults = $defaults;
+        $this->options = $options;
     }
 
     public function getDefaults()
@@ -153,9 +148,9 @@ class Route
         return $this->defaults;
     }
 
-    public function setSchemes($schemes)
+    public function setDefaults($defaults)
     {
-        $this->schemes = \is_array($schemes) ? $schemes : [$schemes];
+        $this->defaults = $defaults;
     }
 
     public function getSchemes()
@@ -163,9 +158,9 @@ class Route
         return $this->schemes;
     }
 
-    public function setMethods($methods)
+    public function setSchemes($schemes)
     {
-        $this->methods = \is_array($methods) ? $methods : [$methods];
+        $this->schemes = \is_array($schemes) ? $schemes : [$schemes];
     }
 
     public function getMethods()
@@ -173,9 +168,9 @@ class Route
         return $this->methods;
     }
 
-    public function setCondition($condition)
+    public function setMethods($methods)
     {
-        $this->condition = $condition;
+        $this->methods = \is_array($methods) ? $methods : [$methods];
     }
 
     public function getCondition()
@@ -183,13 +178,18 @@ class Route
         return $this->condition;
     }
 
-    public function setPriority(int $priority): void
+    public function setCondition($condition)
     {
-        $this->priority = $priority;
+        $this->condition = $condition;
     }
 
     public function getPriority(): ?int
     {
         return $this->priority;
+    }
+
+    public function setPriority(int $priority): void
+    {
+        $this->priority = $priority;
     }
 }

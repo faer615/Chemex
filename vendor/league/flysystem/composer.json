@@ -3,9 +3,23 @@
     "type": "library",
     "description": "Filesystem abstraction: Many filesystems, one API.",
     "keywords": [
-        "filesystem", "filesystems", "files", "storage", "dropbox", "aws",
-        "abstraction", "s3", "ftp", "sftp", "remote", "webdav",
-        "file systems", "cloud", "cloud files", "rackspace", "copy.com"
+        "filesystem",
+        "filesystems",
+        "files",
+        "storage",
+        "dropbox",
+        "aws",
+        "abstraction",
+        "s3",
+        "ftp",
+        "sftp",
+        "remote",
+        "webdav",
+        "file systems",
+        "cloud",
+        "cloud files",
+        "rackspace",
+        "copy.com"
     ],
     "funding": [
         {

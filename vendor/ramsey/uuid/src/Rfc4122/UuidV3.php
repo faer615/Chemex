@@ -45,7 +45,8 @@ final class UuidV3 extends Uuid implements UuidInterface
         NumberConverterInterface $numberConverter,
         CodecInterface $codec,
         TimeConverterInterface $timeConverter
-    ) {
+    )
+    {
         if ($fields->getVersion() !== Uuid::UUID_TYPE_HASH_MD5) {
             throw new InvalidArgumentException(
                 'Fields used to create a UuidV3 must represent a '

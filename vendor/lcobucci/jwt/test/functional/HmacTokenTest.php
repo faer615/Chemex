@@ -49,15 +49,15 @@ class HmacTokenTest extends \PHPUnit\Framework\TestCase
      */
     public function builderCanGenerateAToken()
     {
-        $user = (object) ['name' => 'testing', 'email' => 'testing@abc.com'];
+        $user = (object)['name' => 'testing', 'email' => 'testing@abc.com'];
 
         $token = (new Builder())->setId(1)
-                              ->setAudience('http://client.abc.com')
-                              ->setIssuer('http://api.abc.com')
-                              ->set('user', $user)
-                              ->setHeader('jki', '1234')
-                              ->sign($this->signer, 'testing')
-                              ->getToken();
+            ->setAudience('http://client.abc.com')
+            ->setIssuer('http://api.abc.com')
+            ->set('user', $user)
+            ->setHeader('jki', '1234')
+            ->sign($this->signer, 'testing')
+            ->getToken();
 
         $this->assertAttributeInstanceOf(Signature::class, 'signature', $token);
         $this->assertEquals('1234', $token->getHeader('jki'));
@@ -73,18 +73,18 @@ class HmacTokenTest extends \PHPUnit\Framework\TestCase
      *
      * @depends builderCanGenerateAToken
      *
-     * @covers Lcobucci\JWT\Builder
-     * @covers Lcobucci\JWT\Parser
-     * @covers Lcobucci\JWT\Token
-     * @covers Lcobucci\JWT\Signature
-     * @covers Lcobucci\JWT\Claim\Factory
-     * @covers Lcobucci\JWT\Claim\Basic
-     * @covers Lcobucci\JWT\Parsing\Encoder
-     * @covers Lcobucci\JWT\Parsing\Decoder
+     * @covers  Lcobucci\JWT\Builder
+     * @covers  Lcobucci\JWT\Parser
+     * @covers  Lcobucci\JWT\Token
+     * @covers  Lcobucci\JWT\Signature
+     * @covers  Lcobucci\JWT\Claim\Factory
+     * @covers  Lcobucci\JWT\Claim\Basic
+     * @covers  Lcobucci\JWT\Parsing\Encoder
+     * @covers  Lcobucci\JWT\Parsing\Decoder
      */
     public function parserCanReadAToken(Token $generated)
     {
-        $read = (new Parser())->parse((string) $generated);
+        $read = (new Parser())->parse((string)$generated);
 
         $this->assertEquals($generated, $read);
         $this->assertEquals('testing', $read->getClaim('user')->name);
@@ -95,17 +95,17 @@ class HmacTokenTest extends \PHPUnit\Framework\TestCase
      *
      * @depends builderCanGenerateAToken
      *
-     * @covers Lcobucci\JWT\Builder
-     * @covers Lcobucci\JWT\Parser
-     * @covers Lcobucci\JWT\Token
-     * @covers Lcobucci\JWT\Signature
-     * @covers Lcobucci\JWT\Parsing\Encoder
-     * @covers Lcobucci\JWT\Claim\Factory
-     * @covers Lcobucci\JWT\Claim\Basic
-     * @covers Lcobucci\JWT\Signer\Key
-     * @covers Lcobucci\JWT\Signer\BaseSigner
-     * @covers Lcobucci\JWT\Signer\Hmac
-     * @covers Lcobucci\JWT\Signer\Hmac\Sha256
+     * @covers  Lcobucci\JWT\Builder
+     * @covers  Lcobucci\JWT\Parser
+     * @covers  Lcobucci\JWT\Token
+     * @covers  Lcobucci\JWT\Signature
+     * @covers  Lcobucci\JWT\Parsing\Encoder
+     * @covers  Lcobucci\JWT\Claim\Factory
+     * @covers  Lcobucci\JWT\Claim\Basic
+     * @covers  Lcobucci\JWT\Signer\Key
+     * @covers  Lcobucci\JWT\Signer\BaseSigner
+     * @covers  Lcobucci\JWT\Signer\Hmac
+     * @covers  Lcobucci\JWT\Signer\Hmac\Sha256
      */
     public function verifyShouldReturnFalseWhenKeyIsNotRight(Token $token)
     {
@@ -117,18 +117,18 @@ class HmacTokenTest extends \PHPUnit\Framework\TestCase
      *
      * @depends builderCanGenerateAToken
      *
-     * @covers Lcobucci\JWT\Builder
-     * @covers Lcobucci\JWT\Parser
-     * @covers Lcobucci\JWT\Token
-     * @covers Lcobucci\JWT\Signature
-     * @covers Lcobucci\JWT\Parsing\Encoder
-     * @covers Lcobucci\JWT\Claim\Factory
-     * @covers Lcobucci\JWT\Claim\Basic
-     * @covers Lcobucci\JWT\Signer\Key
-     * @covers Lcobucci\JWT\Signer\BaseSigner
-     * @covers Lcobucci\JWT\Signer\Hmac
-     * @covers Lcobucci\JWT\Signer\Hmac\Sha256
-     * @covers Lcobucci\JWT\Signer\Hmac\Sha512
+     * @covers  Lcobucci\JWT\Builder
+     * @covers  Lcobucci\JWT\Parser
+     * @covers  Lcobucci\JWT\Token
+     * @covers  Lcobucci\JWT\Signature
+     * @covers  Lcobucci\JWT\Parsing\Encoder
+     * @covers  Lcobucci\JWT\Claim\Factory
+     * @covers  Lcobucci\JWT\Claim\Basic
+     * @covers  Lcobucci\JWT\Signer\Key
+     * @covers  Lcobucci\JWT\Signer\BaseSigner
+     * @covers  Lcobucci\JWT\Signer\Hmac
+     * @covers  Lcobucci\JWT\Signer\Hmac\Sha256
+     * @covers  Lcobucci\JWT\Signer\Hmac\Sha512
      */
     public function verifyShouldReturnFalseWhenAlgorithmIsDifferent(Token $token)
     {
@@ -140,17 +140,17 @@ class HmacTokenTest extends \PHPUnit\Framework\TestCase
      *
      * @depends builderCanGenerateAToken
      *
-     * @covers Lcobucci\JWT\Builder
-     * @covers Lcobucci\JWT\Parser
-     * @covers Lcobucci\JWT\Token
-     * @covers Lcobucci\JWT\Signature
-     * @covers Lcobucci\JWT\Parsing\Encoder
-     * @covers Lcobucci\JWT\Claim\Factory
-     * @covers Lcobucci\JWT\Claim\Basic
-     * @covers Lcobucci\JWT\Signer\Key
-     * @covers Lcobucci\JWT\Signer\BaseSigner
-     * @covers Lcobucci\JWT\Signer\Hmac
-     * @covers Lcobucci\JWT\Signer\Hmac\Sha256
+     * @covers  Lcobucci\JWT\Builder
+     * @covers  Lcobucci\JWT\Parser
+     * @covers  Lcobucci\JWT\Token
+     * @covers  Lcobucci\JWT\Signature
+     * @covers  Lcobucci\JWT\Parsing\Encoder
+     * @covers  Lcobucci\JWT\Claim\Factory
+     * @covers  Lcobucci\JWT\Claim\Basic
+     * @covers  Lcobucci\JWT\Signer\Key
+     * @covers  Lcobucci\JWT\Signer\BaseSigner
+     * @covers  Lcobucci\JWT\Signer\Hmac
+     * @covers  Lcobucci\JWT\Signer\Hmac\Sha256
      */
     public function verifyShouldReturnTrueWhenKeyIsRight(Token $token)
     {
@@ -176,9 +176,9 @@ class HmacTokenTest extends \PHPUnit\Framework\TestCase
     public function everythingShouldWorkWhenUsingATokenGeneratedByOtherLibs()
     {
         $data = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXUyJ9.eyJoZWxsbyI6IndvcmxkIn0.Rh'
-                . '7AEgqCB7zae1PkgIlvOpeyw9Ab8NGTbeOH7heHO0o';
+            . '7AEgqCB7zae1PkgIlvOpeyw9Ab8NGTbeOH7heHO0o';
 
-        $token = (new Parser())->parse((string) $data);
+        $token = (new Parser())->parse((string)$data);
 
         $this->assertEquals('world', $token->getClaim('hello'));
         $this->assertTrue($token->verify($this->signer, 'testing'));

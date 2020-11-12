@@ -33,12 +33,12 @@ class SymfonyCaster
         $clone = null;
 
         foreach (self::$requestGetters as $prop => $getter) {
-            $key = Caster::PREFIX_PROTECTED.$prop;
+            $key = Caster::PREFIX_PROTECTED . $prop;
             if (\array_key_exists($key, $a) && null === $a[$key]) {
                 if (null === $clone) {
                     $clone = clone $request;
                 }
-                $a[Caster::PREFIX_VIRTUAL.$prop] = $clone->{$getter}();
+                $a[Caster::PREFIX_VIRTUAL . $prop] = $clone->{$getter}();
             }
         }
 
@@ -61,7 +61,7 @@ class SymfonyCaster
         $a = [];
 
         foreach ($response->getInfo() as $k => $v) {
-            $a[Caster::PREFIX_VIRTUAL.$k] = $v;
+            $a[Caster::PREFIX_VIRTUAL . $k] = $v;
         }
 
         return $a;

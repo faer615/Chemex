@@ -41,9 +41,9 @@ class WithoutOverlapping
     /**
      * Create a new middleware instance.
      *
-     * @param  string  $key
-     * @param  \DateTimeInterface|int|null  $releaseAfter
-     * @param  \DateTimeInterface|int  $expiresAfter
+     * @param string $key
+     * @param \DateTimeInterface|int|null $releaseAfter
+     * @param \DateTimeInterface|int $expiresAfter
      * @return void
      */
     public function __construct($key = '', $releaseAfter = 0, $expiresAfter = 0)
@@ -56,8 +56,8 @@ class WithoutOverlapping
     /**
      * Process the job.
      *
-     * @param  mixed  $job
-     * @param  callable  $next
+     * @param mixed $job
+     * @param callable $next
      * @return mixed
      */
     public function handle($job, $next)
@@ -72,7 +72,7 @@ class WithoutOverlapping
             } finally {
                 $lock->release();
             }
-        } elseif (! is_null($this->releaseAfter)) {
+        } elseif (!is_null($this->releaseAfter)) {
             $job->release($this->releaseAfter);
         }
     }
@@ -80,7 +80,7 @@ class WithoutOverlapping
     /**
      * Set the delay (in seconds) to release the job back to the queue.
      *
-     * @param  int  $releaseAfter
+     * @param int $releaseAfter
      * @return $this
      */
     public function releaseAfter($releaseAfter)
@@ -105,7 +105,7 @@ class WithoutOverlapping
     /**
      * Set the maximum number of seconds that can elapse before the lock is released.
      *
-     * @param  \DateTimeInterface|int  $expiresAfter
+     * @param \DateTimeInterface|int $expiresAfter
      * @return $this
      */
     public function expireAfter($expiresAfter)
@@ -118,7 +118,7 @@ class WithoutOverlapping
     /**
      * Set the prefix of the lock key.
      *
-     * @param  string  $prefix
+     * @param string $prefix
      * @return $this
      */
     public function withPrefix(string $prefix)
@@ -131,11 +131,11 @@ class WithoutOverlapping
     /**
      * Get the lock key for the given job.
      *
-     * @param  mixed  $job
+     * @param mixed $job
      * @return string
      */
     public function getLockKey($job)
     {
-        return $this->prefix.get_class($job).':'.$this->key;
+        return $this->prefix . get_class($job) . ':' . $this->key;
     }
 }

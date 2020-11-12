@@ -66,6 +66,11 @@ final class AnonymousFootnoteRefParser implements InlineParserInterface, Configu
         return false;
     }
 
+    public function setConfiguration(ConfigurationInterface $config): void
+    {
+        $this->config = $config;
+    }
+
     private function createReference(string $label): Reference
     {
         $refLabel = $this->slugNormalizer->normalize($label);
@@ -76,10 +81,5 @@ final class AnonymousFootnoteRefParser implements InlineParserInterface, Configu
             '#' . $this->config->get('footnote/footnote_id_prefix', 'fn:') . $refLabel,
             $label
         );
-    }
-
-    public function setConfiguration(ConfigurationInterface $config): void
-    {
-        $this->config = $config;
     }
 }

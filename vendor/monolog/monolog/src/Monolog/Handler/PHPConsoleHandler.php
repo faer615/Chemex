@@ -67,10 +67,10 @@ class PHPConsoleHandler extends AbstractProcessingHandler
     private $connector;
 
     /**
-     * @param  array             $options   See \Monolog\Handler\PHPConsoleHandler::$options for more details
-     * @param  Connector|null    $connector Instance of \PhpConsole\Connector class (optional)
-     * @param  string|int        $level     The minimum logging level at which this handler will be triggered.
-     * @param  bool              $bubble    Whether the messages that are handled can bubble up the stack or not.
+     * @param array $options See \Monolog\Handler\PHPConsoleHandler::$options for more details
+     * @param Connector|null $connector Instance of \PhpConsole\Connector class (optional)
+     * @param string|int $level The minimum logging level at which this handler will be triggered.
+     * @param bool $bubble Whether the messages that are handled can bubble up the stack or not.
      * @throws \RuntimeException
      */
     public function __construct(array $options = [], ?Connector $connector = null, $level = Logger::DEBUG, bool $bubble = true)
@@ -216,7 +216,7 @@ class PHPConsoleHandler extends AbstractProcessingHandler
     {
         $tags = null;
         if (!empty($record['context'])) {
-            $context = & $record['context'];
+            $context = &$record['context'];
             foreach ($this->options['debugTagsKeysInContext'] as $key) {
                 if (!empty($context[$key])) {
                     $tags = $context[$key];

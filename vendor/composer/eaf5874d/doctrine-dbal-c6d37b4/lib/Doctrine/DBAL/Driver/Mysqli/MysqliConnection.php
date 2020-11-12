@@ -46,21 +46,21 @@ class MysqliConnection implements ConnectionInterface, PingableConnection, Serve
     private $conn;
 
     /**
-     * @internal The connection can be only instantiated by its driver.
-     *
      * @param mixed[] $params
-     * @param string  $username
-     * @param string  $password
+     * @param string $username
+     * @param string $password
      * @param mixed[] $driverOptions
      *
      * @throws MysqliException
+     * @internal The connection can be only instantiated by its driver.
+     *
      */
     public function __construct(array $params, $username, $password, array $driverOptions = [])
     {
         $port = $params['port'] ?? ini_get('mysqli.default_port');
 
         // Fallback to default MySQL port if not given.
-        if (! $port) {
+        if (!$port) {
             $port = 3306;
         }
 
@@ -77,14 +77,14 @@ class MysqliConnection implements ConnectionInterface, PingableConnection, Serve
         set_error_handler(static function () {
         });
         try {
-            if (! $this->conn->real_connect($params['host'], $username, $password, $dbname, $port, $socket, $flags)) {
+            if (!$this->conn->real_connect($params['host'], $username, $password, $dbname, $port, $socket, $flags)) {
                 throw ConnectionFailed::new($this->conn);
             }
         } finally {
             restore_error_handler();
         }
 
-        if (! isset($params['charset'])) {
+        if (!isset($params['charset'])) {
             return;
         }
 
@@ -147,7 +147,7 @@ class MysqliConnection implements ConnectionInterface, PingableConnection, Serve
     public function query()
     {
         $args = func_get_args();
-        $sql  = $args[0];
+        $sql = $args[0];
         $stmt = $this->prepare($sql);
         $stmt->execute();
 
@@ -211,9 +211,9 @@ class MysqliConnection implements ConnectionInterface, PingableConnection, Serve
     /**
      * {@inheritdoc}
      *
+     * @return int
      * @deprecated The error information is available via exceptions.
      *
-     * @return int
      */
     public function errorCode()
     {
@@ -223,13 +223,25 @@ class MysqliConnection implements ConnectionInterface, PingableConnection, Serve
     /**
      * {@inheritdoc}
      *
+     * @return string
      * @deprecated The error information is available via exceptions.
      *
-     * @return string
      */
     public function errorInfo()
     {
         return $this->conn->error;
+    }
+
+    /**
+     * Pings the server and re-connects when `mysqli.reconnect = 1`
+     *
+     * @return bool
+     * @deprecated
+     *
+     */
+    public function ping()
+    {
+        return $this->conn->ping();
     }
 
     /**
@@ -259,7 +271,7 @@ class MysqliConnection implements ConnectionInterface, PingableConnection, Serve
                 continue;
             }
 
-            if (! in_array($option, $supportedDriverOptions, true)) {
+            if (!in_array($option, $supportedDriverOptions, true)) {
                 throw InvalidOption::fromOption($option, $value);
             }
 
@@ -267,7 +279,7 @@ class MysqliConnection implements ConnectionInterface, PingableConnection, Serve
                 continue;
             }
 
-            $msg  = sprintf($exceptionMsg, 'Failed to set', $option, $value);
+            $msg = sprintf($exceptionMsg, 'Failed to set', $option, $value);
             $msg .= sprintf(', error: %s (%d)', mysqli_error($this->conn), mysqli_errno($this->conn));
 
             throw new MysqliException(
@@ -276,18 +288,6 @@ class MysqliConnection implements ConnectionInterface, PingableConnection, Serve
                 $this->conn->errno
             );
         }
-    }
-
-    /**
-     * Pings the server and re-connects when `mysqli.reconnect = 1`
-     *
-     * @deprecated
-     *
-     * @return bool
-     */
-    public function ping()
-    {
-        return $this->conn->ping();
     }
 
     /**
@@ -300,19 +300,19 @@ class MysqliConnection implements ConnectionInterface, PingableConnection, Serve
     private function setSecureConnection(array $params): void
     {
         if (
-            ! isset($params['ssl_key']) &&
-            ! isset($params['ssl_cert']) &&
-            ! isset($params['ssl_ca']) &&
-            ! isset($params['ssl_capath']) &&
-            ! isset($params['ssl_cipher'])
+            !isset($params['ssl_key']) &&
+            !isset($params['ssl_cert']) &&
+            !isset($params['ssl_ca']) &&
+            !isset($params['ssl_capath']) &&
+            !isset($params['ssl_cipher'])
         ) {
             return;
         }
 
         $this->conn->ssl_set(
-            $params['ssl_key']    ?? null,
-            $params['ssl_cert']   ?? null,
-            $params['ssl_ca']     ?? null,
+            $params['ssl_key'] ?? null,
+            $params['ssl_cert'] ?? null,
+            $params['ssl_ca'] ?? null,
             $params['ssl_capath'] ?? null,
             $params['ssl_cipher'] ?? null
         );

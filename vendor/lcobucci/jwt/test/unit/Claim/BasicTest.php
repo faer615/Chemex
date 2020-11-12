@@ -29,7 +29,7 @@ class BasicTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses Lcobucci\JWT\Claim\Basic::__construct
+     * @uses   Lcobucci\JWT\Claim\Basic::__construct
      *
      * @covers Lcobucci\JWT\Claim\Basic::getName
      */
@@ -43,7 +43,7 @@ class BasicTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses Lcobucci\JWT\Claim\Basic::__construct
+     * @uses   Lcobucci\JWT\Claim\Basic::__construct
      *
      * @covers Lcobucci\JWT\Claim\Basic::getValue
      */
@@ -57,7 +57,7 @@ class BasicTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses Lcobucci\JWT\Claim\Basic::__construct
+     * @uses   Lcobucci\JWT\Claim\Basic::__construct
      *
      * @covers Lcobucci\JWT\Claim\Basic::jsonSerialize
      */
@@ -71,7 +71,7 @@ class BasicTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses Lcobucci\JWT\Claim\Basic::__construct
+     * @uses   Lcobucci\JWT\Claim\Basic::__construct
      *
      * @covers Lcobucci\JWT\Claim\Basic::__toString
      */
@@ -79,6 +79,6 @@ class BasicTest extends \PHPUnit\Framework\TestCase
     {
         $claim = new Basic('test', 1);
 
-        $this->assertEquals('1', (string) $claim);
+        $this->assertEquals('1', (string)$claim);
     }
 }

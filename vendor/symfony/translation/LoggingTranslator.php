@@ -46,7 +46,7 @@ class LoggingTranslator implements TranslatorInterface, TranslatorBagInterface, 
      */
     public function trans(?string $id, array $parameters = [], string $domain = null, string $locale = null)
     {
-        $trans = $this->translator->trans($id = (string) $id, $parameters, $domain, $locale);
+        $trans = $this->translator->trans($id = (string)$id, $parameters, $domain, $locale);
         $this->log($id, $domain, $locale);
 
         return $trans;

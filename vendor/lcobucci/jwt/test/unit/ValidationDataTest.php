@@ -46,10 +46,10 @@ class ValidationDataTest extends \PHPUnit\Framework\TestCase
      *
      * @dataProvider claimValues
      *
-     * @uses Lcobucci\JWT\ValidationData::__construct
-     * @uses Lcobucci\JWT\ValidationData::setCurrentTime
+     * @uses         Lcobucci\JWT\ValidationData::__construct
+     * @uses         Lcobucci\JWT\ValidationData::setCurrentTime
      *
-     * @covers Lcobucci\JWT\ValidationData::setId
+     * @covers       Lcobucci\JWT\ValidationData::setId
      */
     public function setIdShouldChangeTheId($id)
     {
@@ -65,10 +65,10 @@ class ValidationDataTest extends \PHPUnit\Framework\TestCase
      *
      * @dataProvider claimValues
      *
-     * @uses Lcobucci\JWT\ValidationData::__construct
-     * @uses Lcobucci\JWT\ValidationData::setCurrentTime
+     * @uses         Lcobucci\JWT\ValidationData::__construct
+     * @uses         Lcobucci\JWT\ValidationData::setCurrentTime
      *
-     * @covers Lcobucci\JWT\ValidationData::setIssuer
+     * @covers       Lcobucci\JWT\ValidationData::setIssuer
      */
     public function setIssuerShouldChangeTheIssuer($iss)
     {
@@ -84,10 +84,10 @@ class ValidationDataTest extends \PHPUnit\Framework\TestCase
      *
      * @dataProvider claimValues
      *
-     * @uses Lcobucci\JWT\ValidationData::__construct
-     * @uses Lcobucci\JWT\ValidationData::setCurrentTime
+     * @uses         Lcobucci\JWT\ValidationData::__construct
+     * @uses         Lcobucci\JWT\ValidationData::setCurrentTime
      *
-     * @covers Lcobucci\JWT\ValidationData::setAudience
+     * @covers       Lcobucci\JWT\ValidationData::setAudience
      */
     public function setAudienceShouldChangeTheAudience($aud)
     {
@@ -103,10 +103,10 @@ class ValidationDataTest extends \PHPUnit\Framework\TestCase
      *
      * @dataProvider claimValues
      *
-     * @uses Lcobucci\JWT\ValidationData::__construct
-     * @uses Lcobucci\JWT\ValidationData::setCurrentTime
+     * @uses         Lcobucci\JWT\ValidationData::__construct
+     * @uses         Lcobucci\JWT\ValidationData::setCurrentTime
      *
-     * @covers Lcobucci\JWT\ValidationData::setSubject
+     * @covers       Lcobucci\JWT\ValidationData::setSubject
      */
     public function setSubjectShouldChangeTheSubject($sub)
     {
@@ -120,8 +120,8 @@ class ValidationDataTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses Lcobucci\JWT\ValidationData::__construct
-     * @uses Lcobucci\JWT\ValidationData::setCurrentTime
+     * @uses   Lcobucci\JWT\ValidationData::__construct
+     * @uses   Lcobucci\JWT\ValidationData::setCurrentTime
      *
      * @covers Lcobucci\JWT\ValidationData::setCurrentTime
      */
@@ -138,7 +138,7 @@ class ValidationDataTest extends \PHPUnit\Framework\TestCase
      * @test
      *
      * @uses   Lcobucci\JWT\ValidationData::__construct
-     * @uses Lcobucci\JWT\ValidationData::setCurrentTime
+     * @uses   Lcobucci\JWT\ValidationData::setCurrentTime
      *
      * @covers Lcobucci\JWT\ValidationData::setCurrentTime
      */
@@ -154,8 +154,8 @@ class ValidationDataTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses Lcobucci\JWT\ValidationData::__construct
-     * @uses Lcobucci\JWT\ValidationData::setCurrentTime
+     * @uses   Lcobucci\JWT\ValidationData::__construct
+     * @uses   Lcobucci\JWT\ValidationData::setCurrentTime
      *
      * @covers Lcobucci\JWT\ValidationData::has
      */
@@ -169,8 +169,8 @@ class ValidationDataTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses Lcobucci\JWT\ValidationData::__construct
-     * @uses Lcobucci\JWT\ValidationData::setCurrentTime
+     * @uses   Lcobucci\JWT\ValidationData::__construct
+     * @uses   Lcobucci\JWT\ValidationData::setCurrentTime
      *
      * @covers Lcobucci\JWT\ValidationData::has
      */
@@ -184,8 +184,8 @@ class ValidationDataTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses Lcobucci\JWT\ValidationData::__construct
-     * @uses Lcobucci\JWT\ValidationData::setCurrentTime
+     * @uses   Lcobucci\JWT\ValidationData::__construct
+     * @uses   Lcobucci\JWT\ValidationData::setCurrentTime
      *
      * @covers Lcobucci\JWT\ValidationData::has
      */
@@ -199,8 +199,8 @@ class ValidationDataTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses Lcobucci\JWT\ValidationData::__construct
-     * @uses Lcobucci\JWT\ValidationData::setCurrentTime
+     * @uses   Lcobucci\JWT\ValidationData::__construct
+     * @uses   Lcobucci\JWT\ValidationData::setCurrentTime
      *
      * @covers Lcobucci\JWT\ValidationData::get
      */
@@ -214,8 +214,8 @@ class ValidationDataTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses Lcobucci\JWT\ValidationData::__construct
-     * @uses Lcobucci\JWT\ValidationData::setCurrentTime
+     * @uses   Lcobucci\JWT\ValidationData::__construct
+     * @uses   Lcobucci\JWT\ValidationData::setCurrentTime
      *
      * @covers Lcobucci\JWT\ValidationData::get
      */
@@ -256,15 +256,16 @@ class ValidationDataTest extends \PHPUnit\Framework\TestCase
         $iat = 1,
         $nbf = null,
         $exp = null
-    ) {
+    )
+    {
         return [
-            'jti' => $id !== null ? (string) $id : null,
-            'iss' => $iss !== null ? (string) $iss : null,
-            'aud' => $aud !== null ? (string) $aud : null,
-            'sub' => $sub !== null ? (string) $sub : null,
+            'jti' => $id !== null ? (string)$id : null,
+            'iss' => $iss !== null ? (string)$iss : null,
+            'aud' => $aud !== null ? (string)$aud : null,
+            'sub' => $sub !== null ? (string)$sub : null,
             'iat' => $iat,
-            'nbf' => $nbf !== null ? $nbf: $iat,
-            'exp' => $exp !== null ? $exp: $iat
+            'nbf' => $nbf !== null ? $nbf : $iat,
+            'exp' => $exp !== null ? $exp : $iat
         ];
     }
 }

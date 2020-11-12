@@ -16,8 +16,8 @@ class Sha512Test extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses Lcobucci\JWT\Signer\Ecdsa
-     * @uses Lcobucci\JWT\Signer\OpenSSL
+     * @uses   Lcobucci\JWT\Signer\Ecdsa
+     * @uses   Lcobucci\JWT\Signer\OpenSSL
      *
      * @covers Lcobucci\JWT\Signer\Ecdsa\Sha512::getAlgorithmId
      */
@@ -31,8 +31,8 @@ class Sha512Test extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses Lcobucci\JWT\Signer\Ecdsa
-     * @uses Lcobucci\JWT\Signer\OpenSSL
+     * @uses   Lcobucci\JWT\Signer\Ecdsa
+     * @uses   Lcobucci\JWT\Signer\OpenSSL
      *
      * @covers Lcobucci\JWT\Signer\Ecdsa\Sha512::getAlgorithm
      */
@@ -46,8 +46,8 @@ class Sha512Test extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses Lcobucci\JWT\Signer\Ecdsa
-     * @uses Lcobucci\JWT\Signer\OpenSSL
+     * @uses   Lcobucci\JWT\Signer\Ecdsa
+     * @uses   Lcobucci\JWT\Signer\OpenSSL
      *
      * @covers Lcobucci\JWT\Signer\Ecdsa\Sha512::getKeyLength
      */

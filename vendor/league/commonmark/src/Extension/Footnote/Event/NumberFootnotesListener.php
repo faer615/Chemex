@@ -58,7 +58,7 @@ final class NumberFootnotesListener
             $newReference = new Reference(
                 $label,
                 $existingReference->getDestination(),
-                (string) $counter
+                (string)$counter
             );
 
             // Override reference with numeric link

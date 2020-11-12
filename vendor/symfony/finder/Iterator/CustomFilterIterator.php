@@ -24,8 +24,8 @@ class CustomFilterIterator extends \FilterIterator
     private $filters = [];
 
     /**
-     * @param \Iterator  $iterator The Iterator to filter
-     * @param callable[] $filters  An array of PHP callbacks
+     * @param \Iterator $iterator The Iterator to filter
+     * @param callable[] $filters An array of PHP callbacks
      *
      * @throws \InvalidArgumentException
      */

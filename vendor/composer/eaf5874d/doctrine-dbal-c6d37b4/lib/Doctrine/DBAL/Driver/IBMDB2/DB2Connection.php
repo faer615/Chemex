@@ -40,14 +40,14 @@ class DB2Connection implements ConnectionInterface, ServerInfoAwareConnection
     private $conn;
 
     /**
-     * @internal The connection can be only instantiated by its driver.
-     *
      * @param mixed[] $params
-     * @param string  $username
-     * @param string  $password
+     * @param string $username
+     * @param string $password
      * @param mixed[] $driverOptions
      *
      * @throws DB2Exception
+     * @internal The connection can be only instantiated by its driver.
+     *
      */
     public function __construct(array $params, $username, $password, $driverOptions = [])
     {
@@ -105,7 +105,7 @@ class DB2Connection implements ConnectionInterface, ServerInfoAwareConnection
     public function query()
     {
         $args = func_get_args();
-        $sql  = $args[0];
+        $sql = $args[0];
         $stmt = $this->prepare($sql);
         $stmt->execute();
 
@@ -164,7 +164,7 @@ class DB2Connection implements ConnectionInterface, ServerInfoAwareConnection
      */
     public function commit()
     {
-        if (! db2_commit($this->conn)) {
+        if (!db2_commit($this->conn)) {
             throw ConnectionError::new($this->conn);
         }
 
@@ -179,7 +179,7 @@ class DB2Connection implements ConnectionInterface, ServerInfoAwareConnection
      */
     public function rollBack()
     {
-        if (! db2_rollback($this->conn)) {
+        if (!db2_rollback($this->conn)) {
             throw ConnectionError::new($this->conn);
         }
 

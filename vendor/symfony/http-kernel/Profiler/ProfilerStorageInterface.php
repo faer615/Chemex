@@ -31,7 +31,7 @@ interface ProfilerStorageInterface
      *
      * @param int|null $limit The maximum number of tokens to return
      * @param int|null $start The start date to search from
-     * @param int|null $end   The end date to search to
+     * @param int|null $end The end date to search to
      *
      * @return array An array of tokens
      */

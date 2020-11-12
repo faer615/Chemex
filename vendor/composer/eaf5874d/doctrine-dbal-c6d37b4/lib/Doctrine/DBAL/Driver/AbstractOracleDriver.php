@@ -106,6 +106,6 @@ abstract class AbstractOracleDriver implements Driver, ExceptionConverterDriver
      */
     protected function getEasyConnectString(array $params)
     {
-        return (string) EasyConnectString::fromConnectionParameters($params);
+        return (string)EasyConnectString::fromConnectionParameters($params);
     }
 }

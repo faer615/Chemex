@@ -34,7 +34,7 @@ class MergeOperation extends AbstractOperation
             'new' => [],
             'obsolete' => [],
         ];
-        $intlDomain = $domain.MessageCatalogueInterface::INTL_DOMAIN_SUFFIX;
+        $intlDomain = $domain . MessageCatalogueInterface::INTL_DOMAIN_SUFFIX;
 
         foreach ($this->source->all($domain) as $id => $message) {
             $this->messages[$domain]['all'][$id] = $message;

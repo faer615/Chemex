@@ -35,10 +35,10 @@ class Swift_Mime_Headers_DateHeader extends Swift_Mime_Headers_AbstractHeader
     /**
      * Get the type of Header that this instance represents.
      *
-     * @see TYPE_TEXT, TYPE_PARAMETERIZED, TYPE_MAILBOX
+     * @return int
      * @see TYPE_DATE, TYPE_ID, TYPE_PATH
      *
-     * @return int
+     * @see TYPE_TEXT, TYPE_PARAMETERIZED, TYPE_MAILBOX
      */
     public function getFieldType()
     {
@@ -84,7 +84,7 @@ class Swift_Mime_Headers_DateHeader extends Swift_Mime_Headers_AbstractHeader
     {
         $this->clearCachedValueIf($this->getCachedValue() != $dateTime->format(DateTime::RFC2822));
         if ($dateTime instanceof DateTime) {
-            $immutable = new DateTimeImmutable('@'.$dateTime->getTimestamp());
+            $immutable = new DateTimeImmutable('@' . $dateTime->getTimestamp());
             $dateTime = $immutable->setTimezone($dateTime->getTimezone());
         }
         $this->dateTime = $dateTime;
@@ -96,9 +96,9 @@ class Swift_Mime_Headers_DateHeader extends Swift_Mime_Headers_AbstractHeader
      * This is not necessarily RFC 2822 compliant since folding white space will
      * not be added at this stage (see {@link toString()} for that).
      *
+     * @return string
      * @see toString()
      *
-     * @return string
      */
     public function getFieldBody()
     {

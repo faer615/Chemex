@@ -8,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Carbon\Traits;
 
 /**
@@ -36,6 +37,10 @@ trait Macro
     /**
      * Register a custom macro.
      *
+     * @param string $name
+     * @param object|callable $macro
+     *
+     * @return void
      * @example
      * ```
      * $userSettings = [
@@ -48,10 +53,6 @@ trait Macro
      * echo Carbon::yesterday()->hours(11)->userFormat();
      * ```
      *
-     * @param string          $name
-     * @param object|callable $macro
-     *
-     * @return void
      */
     public static function macro($name, $macro)
     {
@@ -71,7 +72,7 @@ trait Macro
      * Register a custom macro.
      *
      * @param object|callable $macro
-     * @param int             $priority marco with higher priority is tried first
+     * @param int $priority marco with higher priority is tried first
      *
      * @return void
      */

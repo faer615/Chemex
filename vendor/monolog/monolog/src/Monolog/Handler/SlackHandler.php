@@ -37,16 +37,16 @@ class SlackHandler extends SocketHandler
     private $slackRecord;
 
     /**
-     * @param  string                    $token                  Slack API token
-     * @param  string                    $channel                Slack channel (encoded ID or name)
-     * @param  string|null               $username               Name of a bot
-     * @param  bool                      $useAttachment          Whether the message should be added to Slack as attachment (plain text otherwise)
-     * @param  string|null               $iconEmoji              The emoji name to use (or null)
-     * @param  int                       $level                  The minimum logging level at which this handler will be triggered
-     * @param  bool                      $bubble                 Whether the messages that are handled can bubble up the stack or not
-     * @param  bool                      $useShortAttachment     Whether the the context/extra messages added to Slack as attachments are in a short style
-     * @param  bool                      $includeContextAndExtra Whether the attachment should include context and extra data
-     * @param  array                     $excludeFields          Dot separated list of fields to exclude from slack message. E.g. ['context.field1', 'extra.field2']
+     * @param string $token Slack API token
+     * @param string $channel Slack channel (encoded ID or name)
+     * @param string|null $username Name of a bot
+     * @param bool $useAttachment Whether the message should be added to Slack as attachment (plain text otherwise)
+     * @param string|null $iconEmoji The emoji name to use (or null)
+     * @param int $level The minimum logging level at which this handler will be triggered
+     * @param bool $bubble Whether the messages that are handled can bubble up the stack or not
+     * @param bool $useShortAttachment Whether the the context/extra messages added to Slack as attachments are in a short style
+     * @param bool $includeContextAndExtra Whether the attachment should include context and extra data
+     * @param array $excludeFields Dot separated list of fields to exclude from slack message. E.g. ['context.field1', 'extra.field2']
      * @throws MissingExtensionException If no OpenSSL PHP extension configured
      */
     public function __construct(
@@ -60,7 +60,8 @@ class SlackHandler extends SocketHandler
         bool $useShortAttachment = false,
         bool $includeContextAndExtra = false,
         array $excludeFields = array()
-    ) {
+    )
+    {
         if (!extension_loaded('openssl')) {
             throw new MissingExtensionException('The OpenSSL PHP extension is required to use the SlackHandler');
         }
@@ -88,76 +89,6 @@ class SlackHandler extends SocketHandler
     public function getToken(): string
     {
         return $this->token;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function generateDataStream(array $record): string
-    {
-        $content = $this->buildContent($record);
-
-        return $this->buildHeader($content) . $content;
-    }
-
-    /**
-     * Builds the body of API call
-     */
-    private function buildContent(array $record): string
-    {
-        $dataArray = $this->prepareContentData($record);
-
-        return http_build_query($dataArray);
-    }
-
-    protected function prepareContentData(array $record): array
-    {
-        $dataArray = $this->slackRecord->getSlackData($record);
-        $dataArray['token'] = $this->token;
-
-        if (!empty($dataArray['attachments'])) {
-            $dataArray['attachments'] = Utils::jsonEncode($dataArray['attachments']);
-        }
-
-        return $dataArray;
-    }
-
-    /**
-     * Builds the header of the API Call
-     */
-    private function buildHeader(string $content): string
-    {
-        $header = "POST /api/chat.postMessage HTTP/1.1\r\n";
-        $header .= "Host: slack.com\r\n";
-        $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
-        $header .= "Content-Length: " . strlen($content) . "\r\n";
-        $header .= "\r\n";
-
-        return $header;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function write(array $record): void
-    {
-        parent::write($record);
-        $this->finalizeWrite();
-    }
-
-    /**
-     * Finalizes the request by reading some bytes and then closing the socket
-     *
-     * If we do not read some but close the socket too early, slack sometimes
-     * drops the request entirely.
-     */
-    protected function finalizeWrite(): void
-    {
-        $res = $this->getResource();
-        if (is_resource($res)) {
-            @fread($res, 2048);
-        }
-        $this->closeSocket();
     }
 
     public function setFormatter(FormatterInterface $formatter): HandlerInterface
@@ -229,5 +160,75 @@ class SlackHandler extends SocketHandler
         $this->slackRecord->excludeFields($excludeFields);
 
         return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function generateDataStream(array $record): string
+    {
+        $content = $this->buildContent($record);
+
+        return $this->buildHeader($content) . $content;
+    }
+
+    protected function prepareContentData(array $record): array
+    {
+        $dataArray = $this->slackRecord->getSlackData($record);
+        $dataArray['token'] = $this->token;
+
+        if (!empty($dataArray['attachments'])) {
+            $dataArray['attachments'] = Utils::jsonEncode($dataArray['attachments']);
+        }
+
+        return $dataArray;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function write(array $record): void
+    {
+        parent::write($record);
+        $this->finalizeWrite();
+    }
+
+    /**
+     * Finalizes the request by reading some bytes and then closing the socket
+     *
+     * If we do not read some but close the socket too early, slack sometimes
+     * drops the request entirely.
+     */
+    protected function finalizeWrite(): void
+    {
+        $res = $this->getResource();
+        if (is_resource($res)) {
+            @fread($res, 2048);
+        }
+        $this->closeSocket();
+    }
+
+    /**
+     * Builds the body of API call
+     */
+    private function buildContent(array $record): string
+    {
+        $dataArray = $this->prepareContentData($record);
+
+        return http_build_query($dataArray);
+    }
+
+    /**
+     * Builds the header of the API Call
+     */
+    private function buildHeader(string $content): string
+    {
+        $header = "POST /api/chat.postMessage HTTP/1.1\r\n";
+        $header .= "Host: slack.com\r\n";
+        $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
+        $header .= "Content-Length: " . strlen($content) . "\r\n";
+        $header .= "\r\n";
+
+        return $header;
     }
 }

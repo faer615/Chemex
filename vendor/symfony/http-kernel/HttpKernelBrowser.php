@@ -85,9 +85,9 @@ class HttpKernelBrowser extends AbstractBrowser
         foreach (get_declared_classes() as $class) {
             if (0 === strpos($class, 'ComposerAutoloaderInit')) {
                 $r = new \ReflectionClass($class);
-                $file = \dirname($r->getFileName(), 2).'/autoload.php';
+                $file = \dirname($r->getFileName(), 2) . '/autoload.php';
                 if (file_exists($file)) {
-                    $requires .= 'require_once '.var_export($file, true).";\n";
+                    $requires .= 'require_once ' . var_export($file, true) . ";\n";
                 }
             }
         }
@@ -107,7 +107,7 @@ $requires
 \$request = unserialize($request);
 EOF;
 
-        return $code.$this->getHandleScript();
+        return $code . $this->getHandleScript();
     }
 
     protected function getHandleScript()
@@ -148,9 +148,9 @@ EOF;
      * If the size of a file is greater than the allowed size (from php.ini) then
      * an invalid UploadedFile is returned with an error set to UPLOAD_ERR_INI_SIZE.
      *
+     * @return array An array with all uploaded files marked as already moved
      * @see UploadedFile
      *
-     * @return array An array with all uploaded files marked as already moved
      */
     protected function filterFiles(array $files)
     {

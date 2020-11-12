@@ -204,15 +204,6 @@ class MockArraySessionStorage implements SessionStorageInterface
         return $this->started;
     }
 
-    public function setMetadataBag(MetadataBag $bag = null)
-    {
-        if (null === $bag) {
-            $bag = new MetadataBag();
-        }
-
-        $this->metadataBag = $bag;
-    }
-
     /**
      * Gets the MetadataBag.
      *
@@ -221,6 +212,15 @@ class MockArraySessionStorage implements SessionStorageInterface
     public function getMetadataBag()
     {
         return $this->metadataBag;
+    }
+
+    public function setMetadataBag(MetadataBag $bag = null)
+    {
+        if (null === $bag) {
+            $bag = new MetadataBag();
+        }
+
+        $this->metadataBag = $bag;
     }
 
     /**

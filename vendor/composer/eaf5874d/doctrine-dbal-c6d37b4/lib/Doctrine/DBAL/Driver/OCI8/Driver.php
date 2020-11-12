@@ -19,8 +19,8 @@ class Driver extends AbstractOracleDriver
     {
         try {
             return new Connection(
-                (string) $username,
-                (string) $password,
+                (string)$username,
+                (string)$password,
                 $this->_constructDsn($params),
                 $params['charset'] ?? '',
                 $params['sessionMode'] ?? OCI_NO_AUTO_COMMIT,
@@ -29,6 +29,16 @@ class Driver extends AbstractOracleDriver
         } catch (OCI8Exception $e) {
             throw Exception::driverException($this, $e);
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @deprecated
+     */
+    public function getName()
+    {
+        return 'oci8';
     }
 
     /**
@@ -41,15 +51,5 @@ class Driver extends AbstractOracleDriver
     protected function _constructDsn(array $params)
     {
         return $this->getEasyConnectString($params);
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @deprecated
-     */
-    public function getName()
-    {
-        return 'oci8';
     }
 }

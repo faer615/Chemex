@@ -27,8 +27,8 @@ class MessageCatalogue implements MessageCatalogueInterface, MetadataAwareInterf
     private $parent;
 
     /**
-     * @param string $locale   The locale
-     * @param array  $messages An array of messages classified by domain
+     * @param string $locale The locale
+     * @param array $messages An array of messages classified by domain
      */
     public function __construct(string $locale, array $messages = [])
     {
@@ -73,7 +73,7 @@ class MessageCatalogue implements MessageCatalogueInterface, MetadataAwareInterf
                 return $this->messages[$domain] ?? [];
             }
 
-            return ($this->messages[$domain.self::INTL_DOMAIN_SUFFIX] ?? []) + ($this->messages[$domain] ?? []);
+            return ($this->messages[$domain . self::INTL_DOMAIN_SUFFIX] ?? []) + ($this->messages[$domain] ?? []);
         }
 
         $allMessages = [];
@@ -104,7 +104,7 @@ class MessageCatalogue implements MessageCatalogueInterface, MetadataAwareInterf
      */
     public function has(string $id, string $domain = 'messages')
     {
-        if (isset($this->messages[$domain][$id]) || isset($this->messages[$domain.self::INTL_DOMAIN_SUFFIX][$id])) {
+        if (isset($this->messages[$domain][$id]) || isset($this->messages[$domain . self::INTL_DOMAIN_SUFFIX][$id])) {
             return true;
         }
 
@@ -120,7 +120,7 @@ class MessageCatalogue implements MessageCatalogueInterface, MetadataAwareInterf
      */
     public function defines(string $id, string $domain = 'messages')
     {
-        return isset($this->messages[$domain][$id]) || isset($this->messages[$domain.self::INTL_DOMAIN_SUFFIX][$id]);
+        return isset($this->messages[$domain][$id]) || isset($this->messages[$domain . self::INTL_DOMAIN_SUFFIX][$id]);
     }
 
     /**
@@ -128,8 +128,8 @@ class MessageCatalogue implements MessageCatalogueInterface, MetadataAwareInterf
      */
     public function get(string $id, string $domain = 'messages')
     {
-        if (isset($this->messages[$domain.self::INTL_DOMAIN_SUFFIX][$id])) {
-            return $this->messages[$domain.self::INTL_DOMAIN_SUFFIX][$id];
+        if (isset($this->messages[$domain . self::INTL_DOMAIN_SUFFIX][$id])) {
+            return $this->messages[$domain . self::INTL_DOMAIN_SUFFIX][$id];
         }
 
         if (isset($this->messages[$domain][$id])) {
@@ -148,7 +148,7 @@ class MessageCatalogue implements MessageCatalogueInterface, MetadataAwareInterf
      */
     public function replace(array $messages, string $domain = 'messages')
     {
-        unset($this->messages[$domain], $this->messages[$domain.self::INTL_DOMAIN_SUFFIX]);
+        unset($this->messages[$domain], $this->messages[$domain . self::INTL_DOMAIN_SUFFIX]);
 
         $this->add($messages, $domain);
     }
@@ -185,8 +185,8 @@ class MessageCatalogue implements MessageCatalogueInterface, MetadataAwareInterf
         }
 
         foreach ($catalogue->all() as $domain => $messages) {
-            if ($intlMessages = $catalogue->all($domain.self::INTL_DOMAIN_SUFFIX)) {
-                $this->add($intlMessages, $domain.self::INTL_DOMAIN_SUFFIX);
+            if ($intlMessages = $catalogue->all($domain . self::INTL_DOMAIN_SUFFIX)) {
+                $this->add($intlMessages, $domain . self::INTL_DOMAIN_SUFFIX);
                 $messages = array_diff_key($messages, $intlMessages);
             }
             $this->add($messages, $domain);

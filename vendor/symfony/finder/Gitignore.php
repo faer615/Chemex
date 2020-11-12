@@ -116,7 +116,7 @@ class Gitignore
                 case ')':
                 case '{':
                 case '}':
-                    $regex .= '\\'.$c;
+                    $regex .= '\\' . $c;
                     break;
                 default:
                     $regex .= $c;
@@ -128,6 +128,6 @@ class Gitignore
             return sprintf('%s$|%s\/$', $regex, $regex);
         }
 
-        return '(?>'.$regex.'($|\/.*))';
+        return '(?>' . $regex . '($|\/.*))';
     }
 }

@@ -63,7 +63,7 @@ final class ListParser implements BlockParserInterface, ConfigurationAwareInterf
             $data = new ListData();
             $data->markerOffset = $indent;
             $data->type = ListBlock::TYPE_ORDERED;
-            $data->start = (int) $matches[1];
+            $data->start = (int)$matches[1];
             $data->delimiter = $matches[2];
             $data->bulletChar = null;
             $markerLength = \strlen($matches[0]);
@@ -101,7 +101,7 @@ final class ListParser implements BlockParserInterface, ConfigurationAwareInterf
 
     /**
      * @param Cursor $cursor
-     * @param int    $markerLength
+     * @param int $markerLength
      *
      * @return int
      */

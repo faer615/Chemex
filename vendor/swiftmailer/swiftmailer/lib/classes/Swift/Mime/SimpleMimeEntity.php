@@ -112,9 +112,9 @@ class Swift_Mime_SimpleMimeEntity implements Swift_Mime_CharsetObserver, Swift_M
                 self::LEVEL_ALTERNATIVE => [
                     'text/plain' => self::LEVEL_ALTERNATIVE,
                     'text/html' => self::LEVEL_RELATED,
-                    ],
                 ],
-            ];
+            ],
+        ];
 
         $this->id = $this->idGenerator->generateId();
     }
@@ -144,9 +144,9 @@ class Swift_Mime_SimpleMimeEntity implements Swift_Mime_CharsetObserver, Swift_M
     /**
      * Get the nesting level of this entity.
      *
+     * @return int
      * @see LEVEL_TOP, LEVEL_MIXED, LEVEL_RELATED, LEVEL_ALTERNATIVE
      *
-     * @return int
      */
     public function getNestingLevel()
     {
@@ -199,7 +199,7 @@ class Swift_Mime_SimpleMimeEntity implements Swift_Mime_CharsetObserver, Swift_M
      */
     public function getId()
     {
-        $tmp = (array) $this->getHeaderFieldModel($this->getIdField());
+        $tmp = (array)$this->getHeaderFieldModel($this->getIdField());
 
         return $this->headers->has($this->getIdField()) ? current($tmp) : $this->id;
     }
@@ -291,7 +291,7 @@ class Swift_Mime_SimpleMimeEntity implements Swift_Mime_CharsetObserver, Swift_M
      * Set all children of this entity.
      *
      * @param Swift_Mime_SimpleMimeEntity[] $children
-     * @param int                           $compoundLevel For internal use only
+     * @param int $compoundLevel For internal use only
      *
      * @return $this
      */
@@ -368,7 +368,7 @@ class Swift_Mime_SimpleMimeEntity implements Swift_Mime_CharsetObserver, Swift_M
      * Set the body of this entity, either as a string, or as an instance of
      * {@link Swift_OutputByteStream}.
      *
-     * @param mixed  $body
+     * @param mixed $body
      * @param string $contentType optional
      *
      * @return $this
@@ -423,7 +423,7 @@ class Swift_Mime_SimpleMimeEntity implements Swift_Mime_CharsetObserver, Swift_M
     public function getBoundary()
     {
         if (!isset($this->boundary)) {
-            $this->boundary = '_=_swift_'.time().'_'.bin2hex(random_bytes(16)).'_=_';
+            $this->boundary = '_=_swift_' . time() . '_' . bin2hex(random_bytes(16)) . '_=_';
         }
 
         return $this->boundary;
@@ -434,9 +434,9 @@ class Swift_Mime_SimpleMimeEntity implements Swift_Mime_CharsetObserver, Swift_M
      *
      * @param string $boundary
      *
+     * @return $this
      * @throws Swift_RfcComplianceException
      *
-     * @return $this
      */
     public function setBoundary($boundary)
     {
@@ -492,7 +492,7 @@ class Swift_Mime_SimpleMimeEntity implements Swift_Mime_CharsetObserver, Swift_M
             if ($this->cache->hasKey($this->cacheKey, 'body')) {
                 $body = $this->cache->getString($this->cacheKey, 'body');
             } else {
-                $body = "\r\n".$this->encoder->encodeString($this->getBody(), 0, $this->getMaxLineLength());
+                $body = "\r\n" . $this->encoder->encodeString($this->getBody(), 0, $this->getMaxLineLength());
                 $this->cache->setString($this->cacheKey, 'body', $body, Swift_KeyCache::MODE_WRITE);
             }
             $string .= $body;
@@ -500,10 +500,10 @@ class Swift_Mime_SimpleMimeEntity implements Swift_Mime_CharsetObserver, Swift_M
 
         if (!empty($this->immediateChildren)) {
             foreach ($this->immediateChildren as $child) {
-                $string .= "\r\n\r\n--".$this->getBoundary()."\r\n";
+                $string .= "\r\n\r\n--" . $this->getBoundary() . "\r\n";
                 $string .= $child->toString();
             }
-            $string .= "\r\n\r\n--".$this->getBoundary()."--\r\n";
+            $string .= "\r\n\r\n--" . $this->getBoundary() . "--\r\n";
         }
 
         return $string;
@@ -512,9 +512,9 @@ class Swift_Mime_SimpleMimeEntity implements Swift_Mime_CharsetObserver, Swift_M
     /**
      * Returns a string representation of this object.
      *
+     * @return string
      * @see toString()
      *
-     * @return string
      */
     public function __toString()
     {
@@ -566,10 +566,10 @@ class Swift_Mime_SimpleMimeEntity implements Swift_Mime_CharsetObserver, Swift_M
 
         if (!empty($this->immediateChildren)) {
             foreach ($this->immediateChildren as $child) {
-                $is->write("\r\n\r\n--".$this->getBoundary()."\r\n");
+                $is->write("\r\n\r\n--" . $this->getBoundary() . "\r\n");
                 $child->toByteStream($is);
             }
-            $is->write("\r\n\r\n--".$this->getBoundary()."--\r\n");
+            $is->write("\r\n\r\n--" . $this->getBoundary() . "--\r\n");
         }
     }
 
@@ -637,7 +637,7 @@ class Swift_Mime_SimpleMimeEntity implements Swift_Mime_CharsetObserver, Swift_M
         if (count($this->immediateChildren)) {
             $this->setHeaderParameter('Content-Type', 'boundary',
                 $this->getBoundary()
-                );
+            );
             $this->headers->remove('Content-Transfer-Encoding');
         } else {
             $this->setHeaderParameter('Content-Type', 'boundary', null);

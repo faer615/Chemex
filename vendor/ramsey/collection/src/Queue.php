@@ -29,6 +29,12 @@ class Queue extends AbstractArray implements QueueInterface
     use ValueToStringTrait;
 
     /**
+     * The index of the head of the queue.
+     *
+     * @var int
+     */
+    protected $index = 0;
+    /**
      * The type of elements stored in this queue.
      *
      * A queue's type is immutable once it is set. For this reason, this
@@ -37,13 +43,6 @@ class Queue extends AbstractArray implements QueueInterface
      * @var string
      */
     private $queueType;
-
-    /**
-     * The index of the head of the queue.
-     *
-     * @var int
-     */
-    protected $index = 0;
 
     /**
      * Constructs a queue object of the specified type, optionally with the
@@ -91,14 +90,14 @@ class Queue extends AbstractArray implements QueueInterface
      * This method differs from `offer()` only in that it throws an exception if
      * it cannot add the element to the queue.
      *
-     * @see self::offer()
-     *
      * @param mixed $element The element to add to this queue.
      *
      * @return bool `true` if this queue changed as a result of the call.
      *
      * @throws InvalidArgumentException when the element does not match the
      *     specified type for this queue.
+     * @see self::offer()
+     *
      */
     public function add($element): bool
     {
@@ -113,11 +112,11 @@ class Queue extends AbstractArray implements QueueInterface
      * This method differs from `peek()` only in that it throws an exception if
      * this queue is empty.
      *
-     * @see self::peek()
-     *
      * @return mixed the head of this queue.
      *
      * @throws NoSuchElementException if this queue is empty.
+     * @see self::peek()
+     *
      */
     public function element()
     {
@@ -136,11 +135,11 @@ class Queue extends AbstractArray implements QueueInterface
      * This method differs from `add()` only in that it does not throw an
      * exception if it cannot add the element to the queue.
      *
-     * @see self::add()
-     *
      * @param mixed $element The element to add to this queue.
      *
      * @return bool `true` if the element was added to this queue, else `false`.
+     * @see self::add()
+     *
      */
     public function offer($element): bool
     {
@@ -155,9 +154,9 @@ class Queue extends AbstractArray implements QueueInterface
      * Retrieves, but does not remove, the head of this queue, or returns `null`
      * if this queue is empty.
      *
+     * @return mixed|null the head of this queue, or `null` if this queue is empty.
      * @see self::element()
      *
-     * @return mixed|null the head of this queue, or `null` if this queue is empty.
      */
     public function peek()
     {
@@ -172,9 +171,9 @@ class Queue extends AbstractArray implements QueueInterface
      * Retrieves and removes the head of this queue, or returns `null`
      * if this queue is empty.
      *
+     * @return mixed|null the head of this queue, or `null` if this queue is empty.
      * @see self::remove()
      *
-     * @return mixed|null the head of this queue, or `null` if this queue is empty.
      */
     public function poll()
     {
@@ -196,11 +195,11 @@ class Queue extends AbstractArray implements QueueInterface
      * This method differs from `poll()` only in that it throws an exception if
      * this queue is empty.
      *
-     * @see self::poll()
-     *
      * @return mixed the head of this queue.
      *
      * @throws NoSuchElementException if this queue is empty.
+     * @see self::poll()
+     *
      */
     public function remove()
     {

@@ -21,7 +21,7 @@ class Ftpd extends Ftp
 
         $object = ftp_raw($this->getConnection(), 'STAT ' . $this->escapePath($path));
 
-        if ( ! $object || count($object) < 3) {
+        if (!$object || count($object) < 3) {
             return false;
         }
 
@@ -39,7 +39,7 @@ class Ftpd extends Ftp
     {
         $listing = ftp_rawlist($this->getConnection(), $this->escapePath($directory), $recursive);
 
-        if ($listing === false || ( ! empty($listing) && substr($listing[0], 0, 5) === "ftpd:")) {
+        if ($listing === false || (!empty($listing) && substr($listing[0], 0, 5) === "ftpd:")) {
             return [];
         }
 

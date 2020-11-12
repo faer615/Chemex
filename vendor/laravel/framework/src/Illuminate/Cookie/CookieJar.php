@@ -50,15 +50,15 @@ class CookieJar implements JarContract
     /**
      * Create a new cookie instance.
      *
-     * @param  string  $name
-     * @param  string  $value
-     * @param  int  $minutes
-     * @param  string|null  $path
-     * @param  string|null  $domain
-     * @param  bool|null  $secure
-     * @param  bool  $httpOnly
-     * @param  bool  $raw
-     * @param  string|null  $sameSite
+     * @param string $name
+     * @param string $value
+     * @param int $minutes
+     * @param string|null $path
+     * @param string|null $domain
+     * @param bool|null $secure
+     * @param bool $httpOnly
+     * @param bool $raw
+     * @param string|null $sameSite
      * @return \Symfony\Component\HttpFoundation\Cookie
      */
     public function make($name, $value, $minutes = 0, $path = null, $domain = null, $secure = null, $httpOnly = true, $raw = false, $sameSite = null)
@@ -73,14 +73,14 @@ class CookieJar implements JarContract
     /**
      * Create a cookie that lasts "forever" (five years).
      *
-     * @param  string  $name
-     * @param  string  $value
-     * @param  string|null  $path
-     * @param  string|null  $domain
-     * @param  bool|null  $secure
-     * @param  bool  $httpOnly
-     * @param  bool  $raw
-     * @param  string|null  $sameSite
+     * @param string $name
+     * @param string $value
+     * @param string|null $path
+     * @param string|null $domain
+     * @param bool|null $secure
+     * @param bool $httpOnly
+     * @param bool $raw
+     * @param string|null $sameSite
      * @return \Symfony\Component\HttpFoundation\Cookie
      */
     public function forever($name, $value, $path = null, $domain = null, $secure = null, $httpOnly = true, $raw = false, $sameSite = null)
@@ -91,9 +91,9 @@ class CookieJar implements JarContract
     /**
      * Expire the given cookie.
      *
-     * @param  string  $name
-     * @param  string|null  $path
-     * @param  string|null  $domain
+     * @param string $name
+     * @param string|null $path
+     * @param string|null $domain
      * @return \Symfony\Component\HttpFoundation\Cookie
      */
     public function forget($name, $path = null, $domain = null)
@@ -104,21 +104,21 @@ class CookieJar implements JarContract
     /**
      * Determine if a cookie has been queued.
      *
-     * @param  string  $key
-     * @param  string|null  $path
+     * @param string $key
+     * @param string|null $path
      * @return bool
      */
     public function hasQueued($key, $path = null)
     {
-        return ! is_null($this->queued($key, null, $path));
+        return !is_null($this->queued($key, null, $path));
     }
 
     /**
      * Get a queued cookie instance.
      *
-     * @param  string  $key
-     * @param  mixed  $default
-     * @param  string|null  $path
+     * @param string $key
+     * @param mixed $default
+     * @param string|null $path
      * @return \Symfony\Component\HttpFoundation\Cookie|null
      */
     public function queued($key, $default = null, $path = null)
@@ -135,7 +135,7 @@ class CookieJar implements JarContract
     /**
      * Queue a cookie to send with the next response.
      *
-     * @param  array  $parameters
+     * @param array $parameters
      * @return void
      */
     public function queue(...$parameters)
@@ -146,7 +146,7 @@ class CookieJar implements JarContract
             $cookie = $this->make(...array_values($parameters));
         }
 
-        if (! isset($this->queued[$cookie->getName()])) {
+        if (!isset($this->queued[$cookie->getName()])) {
             $this->queued[$cookie->getName()] = [];
         }
 
@@ -156,8 +156,8 @@ class CookieJar implements JarContract
     /**
      * Remove a cookie from the queue.
      *
-     * @param  string  $name
-     * @param  string|null  $path
+     * @param string $name
+     * @param string|null $path
      * @return void
      */
     public function unqueue($name, $path = null)
@@ -176,26 +176,12 @@ class CookieJar implements JarContract
     }
 
     /**
-     * Get the path and domain, or the default values.
-     *
-     * @param  string  $path
-     * @param  string  $domain
-     * @param  bool|null  $secure
-     * @param  string|null  $sameSite
-     * @return array
-     */
-    protected function getPathAndDomain($path, $domain, $secure = null, $sameSite = null)
-    {
-        return [$path ?: $this->path, $domain ?: $this->domain, is_bool($secure) ? $secure : $this->secure, $sameSite ?: $this->sameSite];
-    }
-
-    /**
      * Set the default path and domain for the jar.
      *
-     * @param  string  $path
-     * @param  string  $domain
-     * @param  bool  $secure
-     * @param  string|null  $sameSite
+     * @param string $path
+     * @param string $domain
+     * @param bool $secure
+     * @param string|null $sameSite
      * @return $this
      */
     public function setDefaultPathAndDomain($path, $domain, $secure = false, $sameSite = null)
@@ -213,5 +199,19 @@ class CookieJar implements JarContract
     public function getQueuedCookies()
     {
         return Arr::flatten($this->queued);
+    }
+
+    /**
+     * Get the path and domain, or the default values.
+     *
+     * @param string $path
+     * @param string $domain
+     * @param bool|null $secure
+     * @param string|null $sameSite
+     * @return array
+     */
+    protected function getPathAndDomain($path, $domain, $secure = null, $sameSite = null)
+    {
+        return [$path ?: $this->path, $domain ?: $this->domain, is_bool($secure) ? $secure : $this->secure, $sameSite ?: $this->sameSite];
     }
 }

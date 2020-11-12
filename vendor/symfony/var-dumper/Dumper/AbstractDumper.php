@@ -38,9 +38,9 @@ abstract class AbstractDumper implements DataDumperInterface, DumperInterface
     private $charset = '';
 
     /**
-     * @param callable|resource|string|null $output  A line dumper callable, an opened stream or an output path, defaults to static::$defaultOutput
-     * @param string|null                   $charset The default character encoding to use for non-UTF8 strings
-     * @param int                           $flags   A bit field of static::DUMP_* constants to fine tune dumps representation
+     * @param callable|resource|string|null $output A line dumper callable, an opened stream or an output path, defaults to static::$defaultOutput
+     * @param string|null $charset The default character encoding to use for non-UTF8 strings
+     * @param int $flags A bit field of static::DUMP_* constants to fine tune dumps representation
      */
     public function __construct($output = null, string $charset = null, int $flags = 0)
     {
@@ -173,7 +173,7 @@ abstract class AbstractDumper implements DataDumperInterface, DumperInterface
     protected function echoLine(string $line, int $depth, string $indentPad)
     {
         if (-1 !== $depth) {
-            fwrite($this->outputStream, str_repeat($indentPad, $depth).$line."\n");
+            fwrite($this->outputStream, str_repeat($indentPad, $depth) . $line . "\n");
         }
     }
 

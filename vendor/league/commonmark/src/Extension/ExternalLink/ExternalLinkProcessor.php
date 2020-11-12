@@ -31,6 +31,29 @@ final class ExternalLinkProcessor
     }
 
     /**
+     * @param string $host
+     * @param mixed $compareTo
+     *
+     * @return bool
+     *
+     * @internal This method is only public so we can easily test it. DO NOT USE THIS OUTSIDE OF THIS EXTENSION!
+     */
+    public static function hostMatches(string $host, $compareTo)
+    {
+        foreach ((array)$compareTo as $c) {
+            if (strpos($c, '/') === 0) {
+                if (preg_match($c, $host)) {
+                    return true;
+                }
+            } elseif ($c === $host) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * @param DocumentParsedEvent $e
      *
      * @return void
@@ -85,8 +108,8 @@ final class ExternalLinkProcessor
         $rel = [];
 
         $options = [
-            'nofollow'   => $this->environment->getConfig('external_link/nofollow', self::APPLY_NONE),
-            'noopener'   => $this->environment->getConfig('external_link/noopener', self::APPLY_EXTERNAL),
+            'nofollow' => $this->environment->getConfig('external_link/nofollow', self::APPLY_NONE),
+            'noopener' => $this->environment->getConfig('external_link/noopener', self::APPLY_EXTERNAL),
             'noreferrer' => $this->environment->getConfig('external_link/noreferrer', self::APPLY_EXTERNAL),
         ];
 
@@ -104,28 +127,5 @@ final class ExternalLinkProcessor
         }
 
         $link->data['attributes']['rel'] = \implode(' ', $rel);
-    }
-
-    /**
-     * @param string $host
-     * @param mixed  $compareTo
-     *
-     * @return bool
-     *
-     * @internal This method is only public so we can easily test it. DO NOT USE THIS OUTSIDE OF THIS EXTENSION!
-     */
-    public static function hostMatches(string $host, $compareTo)
-    {
-        foreach ((array) $compareTo as $c) {
-            if (strpos($c, '/') === 0) {
-                if (preg_match($c, $host)) {
-                    return true;
-                }
-            } elseif ($c === $host) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

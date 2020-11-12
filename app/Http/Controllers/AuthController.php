@@ -28,21 +28,6 @@ class AuthController extends Controller
     }
 
     /**
-     * 返回Token
-     *
-     * @param string $token
-     *
-     * @return JsonResponse
-     */
-    protected function respondWithToken(string $token)
-    {
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-        ]);
-    }
-
-    /**
      * 获取登录的用户信息
      *
      * @return JsonResponse
@@ -72,5 +57,20 @@ class AuthController extends Controller
     public function refresh()
     {
         return $this->respondWithToken(auth('api')->refresh());
+    }
+
+    /**
+     * 返回Token
+     *
+     * @param string $token
+     *
+     * @return JsonResponse
+     */
+    protected function respondWithToken(string $token)
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+        ]);
     }
 }

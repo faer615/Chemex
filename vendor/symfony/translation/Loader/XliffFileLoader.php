@@ -58,12 +58,12 @@ class XliffFileLoader implements LoaderInterface
         try {
             $dom = XmlUtils::loadFile($resource);
         } catch (\InvalidArgumentException $e) {
-            throw new InvalidResourceException(sprintf('Unable to load "%s": ', $resource).$e->getMessage(), $e->getCode(), $e);
+            throw new InvalidResourceException(sprintf('Unable to load "%s": ', $resource) . $e->getMessage(), $e->getCode(), $e);
         }
 
         $xliffVersion = XliffUtils::getVersionNumber($dom);
         if ($errors = XliffUtils::validateSchema($dom)) {
-            throw new InvalidResourceException(sprintf('Invalid resource provided: "%s"; Errors: ', $resource).XliffUtils::getErrorsAsString($errors));
+            throw new InvalidResourceException(sprintf('Invalid resource provided: "%s"; Errors: ', $resource) . XliffUtils::getErrorsAsString($errors));
         }
 
         if ('1.2' === $xliffVersion) {
@@ -101,14 +101,14 @@ class XliffFileLoader implements LoaderInterface
                 $source = isset($attributes['resname']) && $attributes['resname'] ? $attributes['resname'] : $translation->source;
                 // If the xlf file has another encoding specified, try to convert it because
                 // simple_xml will always return utf-8 encoded values
-                $target = $this->utf8ToCharset((string) ($translation->target ?? $translation->source), $encoding);
+                $target = $this->utf8ToCharset((string)($translation->target ?? $translation->source), $encoding);
 
-                $catalogue->set((string) $source, $target, $domain);
+                $catalogue->set((string)$source, $target, $domain);
 
                 $metadata = [
-                    'source' => (string) $translation->source,
+                    'source' => (string)$translation->source,
                     'file' => [
-                        'original' => (string) $fileAttributes['original'],
+                        'original' => (string)$fileAttributes['original'],
                     ],
                 ];
                 if ($notes = $this->parseNotesMetadata($translation->note, $encoding)) {
@@ -118,15 +118,15 @@ class XliffFileLoader implements LoaderInterface
                 if (isset($translation->target) && $translation->target->attributes()) {
                     $metadata['target-attributes'] = [];
                     foreach ($translation->target->attributes() as $key => $value) {
-                        $metadata['target-attributes'][$key] = (string) $value;
+                        $metadata['target-attributes'][$key] = (string)$value;
                     }
                 }
 
                 if (isset($attributes['id'])) {
-                    $metadata['id'] = (string) $attributes['id'];
+                    $metadata['id'] = (string)$attributes['id'];
                 }
 
-                $catalogue->setMetadata((string) $source, $metadata, $domain);
+                $catalogue->setMetadata((string)$source, $metadata, $domain);
             }
         }
     }
@@ -145,15 +145,15 @@ class XliffFileLoader implements LoaderInterface
 
                 // If the xlf file has another encoding specified, try to convert it because
                 // simple_xml will always return utf-8 encoded values
-                $target = $this->utf8ToCharset((string) ($segment->target ?? $segment->source), $encoding);
+                $target = $this->utf8ToCharset((string)($segment->target ?? $segment->source), $encoding);
 
-                $catalogue->set((string) $source, $target, $domain);
+                $catalogue->set((string)$source, $target, $domain);
 
                 $metadata = [];
                 if (isset($segment->target) && $segment->target->attributes()) {
                     $metadata['target-attributes'] = [];
                     foreach ($segment->target->attributes() as $key => $value) {
-                        $metadata['target-attributes'][$key] = (string) $value;
+                        $metadata['target-attributes'][$key] = (string)$value;
                     }
                 }
 
@@ -162,14 +162,14 @@ class XliffFileLoader implements LoaderInterface
                     foreach ($unit->notes->note as $noteNode) {
                         $note = [];
                         foreach ($noteNode->attributes() as $key => $value) {
-                            $note[$key] = (string) $value;
+                            $note[$key] = (string)$value;
                         }
-                        $note['content'] = (string) $noteNode;
+                        $note['content'] = (string)$noteNode;
                         $metadata['notes'][] = $note;
                     }
                 }
 
-                $catalogue->setMetadata((string) $source, $metadata, $domain);
+                $catalogue->setMetadata((string)$source, $metadata, $domain);
             }
         }
     }
@@ -197,13 +197,13 @@ class XliffFileLoader implements LoaderInterface
         /** @var \SimpleXMLElement $xmlNote */
         foreach ($noteElement as $xmlNote) {
             $noteAttributes = $xmlNote->attributes();
-            $note = ['content' => $this->utf8ToCharset((string) $xmlNote, $encoding)];
+            $note = ['content' => $this->utf8ToCharset((string)$xmlNote, $encoding)];
             if (isset($noteAttributes['priority'])) {
-                $note['priority'] = (int) $noteAttributes['priority'];
+                $note['priority'] = (int)$noteAttributes['priority'];
             }
 
             if (isset($noteAttributes['from'])) {
-                $note['from'] = (string) $noteAttributes['from'];
+                $note['from'] = (string)$noteAttributes['from'];
             }
 
             $notes[] = $note;

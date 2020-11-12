@@ -53,12 +53,22 @@ class AcceptHeaderItem
      */
     public function __toString()
     {
-        $string = $this->value.($this->quality < 1 ? ';q='.$this->quality : '');
+        $string = $this->value . ($this->quality < 1 ? ';q=' . $this->quality : '');
         if (\count($this->attributes) > 0) {
-            $string .= '; '.HeaderUtils::toString($this->attributes, ';');
+            $string .= '; ' . HeaderUtils::toString($this->attributes, ';');
         }
 
         return $string;
+    }
+
+    /**
+     * Returns the item value.
+     *
+     * @return string
+     */
+    public function getValue()
+    {
+        return $this->value;
     }
 
     /**
@@ -74,13 +84,13 @@ class AcceptHeaderItem
     }
 
     /**
-     * Returns the item value.
+     * Returns the item quality.
      *
-     * @return string
+     * @return float
      */
-    public function getValue()
+    public function getQuality()
     {
-        return $this->value;
+        return $this->quality;
     }
 
     /**
@@ -96,13 +106,13 @@ class AcceptHeaderItem
     }
 
     /**
-     * Returns the item quality.
+     * Returns the item index.
      *
-     * @return float
+     * @return int
      */
-    public function getQuality()
+    public function getIndex()
     {
-        return $this->quality;
+        return $this->index;
     }
 
     /**
@@ -115,16 +125,6 @@ class AcceptHeaderItem
         $this->index = $index;
 
         return $this;
-    }
-
-    /**
-     * Returns the item index.
-     *
-     * @return int
-     */
-    public function getIndex()
-    {
-        return $this->index;
     }
 
     /**
@@ -167,7 +167,7 @@ class AcceptHeaderItem
     public function setAttribute(string $name, string $value)
     {
         if ('q' === $name) {
-            $this->quality = (float) $value;
+            $this->quality = (float)$value;
         } else {
             $this->attributes[$name] = $value;
         }

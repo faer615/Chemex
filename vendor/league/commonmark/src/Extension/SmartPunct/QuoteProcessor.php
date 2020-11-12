@@ -36,32 +36,6 @@ final class QuoteProcessor implements DelimiterProcessorInterface
         $this->closerCharacter = $closer;
     }
 
-    public function getOpeningCharacter(): string
-    {
-        return $this->normalizedCharacter;
-    }
-
-    public function getClosingCharacter(): string
-    {
-        return $this->normalizedCharacter;
-    }
-
-    public function getMinLength(): int
-    {
-        return 1;
-    }
-
-    public function getDelimiterUse(DelimiterInterface $opener, DelimiterInterface $closer): int
-    {
-        return 1;
-    }
-
-    public function process(AbstractStringContainer $opener, AbstractStringContainer $closer, int $delimiterUse)
-    {
-        $opener->insertAfter(new Quote($this->openerCharacter));
-        $closer->insertBefore(new Quote($this->closerCharacter));
-    }
-
     /**
      * Create a double-quote processor
      *
@@ -86,5 +60,31 @@ final class QuoteProcessor implements DelimiterProcessorInterface
     public static function createSingleQuoteProcessor(string $opener = Quote::SINGLE_QUOTE_OPENER, string $closer = Quote::SINGLE_QUOTE_CLOSER): self
     {
         return new self(Quote::SINGLE_QUOTE, $opener, $closer);
+    }
+
+    public function getOpeningCharacter(): string
+    {
+        return $this->normalizedCharacter;
+    }
+
+    public function getClosingCharacter(): string
+    {
+        return $this->normalizedCharacter;
+    }
+
+    public function getMinLength(): int
+    {
+        return 1;
+    }
+
+    public function getDelimiterUse(DelimiterInterface $opener, DelimiterInterface $closer): int
+    {
+        return 1;
+    }
+
+    public function process(AbstractStringContainer $opener, AbstractStringContainer $closer, int $delimiterUse)
+    {
+        $opener->insertAfter(new Quote($this->openerCharacter));
+        $closer->insertBefore(new Quote($this->closerCharacter));
     }
 }

@@ -26,9 +26,9 @@ abstract class Seeder
     /**
      * Run the given seeder class.
      *
-     * @param  array|string  $class
-     * @param  bool  $silent
-     * @param  array  $parameters
+     * @param array|string $class
+     * @param bool $silent
+     * @param array $parameters
      * @return $this
      */
     public function call($class, $silent = false, array $parameters = [])
@@ -61,8 +61,8 @@ abstract class Seeder
     /**
      * Run the given seeder class.
      *
-     * @param  array|string  $class
-     * @param  array  $parameters
+     * @param array|string $class
+     * @param array $parameters
      * @return void
      */
     public function callWith($class, array $parameters = [])
@@ -73,8 +73,8 @@ abstract class Seeder
     /**
      * Silently run the given seeder class.
      *
-     * @param  array|string  $class
-     * @param  array  $parameters
+     * @param array|string $class
+     * @param array $parameters
      * @return void
      */
     public function callSilent($class, array $parameters = [])
@@ -83,9 +83,54 @@ abstract class Seeder
     }
 
     /**
+     * Set the IoC container instance.
+     *
+     * @param \Illuminate\Container\Container $container
+     * @return $this
+     */
+    public function setContainer(Container $container)
+    {
+        $this->container = $container;
+
+        return $this;
+    }
+
+    /**
+     * Set the console command instance.
+     *
+     * @param \Illuminate\Console\Command $command
+     * @return $this
+     */
+    public function setCommand(Command $command)
+    {
+        $this->command = $command;
+
+        return $this;
+    }
+
+    /**
+     * Run the database seeds.
+     *
+     * @param array $parameters
+     * @return mixed
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function __invoke(array $parameters = [])
+    {
+        if (!method_exists($this, 'run')) {
+            throw new InvalidArgumentException('Method [run] missing from ' . get_class($this));
+        }
+
+        return isset($this->container)
+            ? $this->container->call([$this, 'run'], $parameters)
+            : $this->run(...$parameters);
+    }
+
+    /**
      * Resolve an instance of the given seeder class.
      *
-     * @param  string  $class
+     * @param string $class
      * @return \Illuminate\Database\Seeder
      */
     protected function resolve($class)
@@ -103,50 +148,5 @@ abstract class Seeder
         }
 
         return $instance;
-    }
-
-    /**
-     * Set the IoC container instance.
-     *
-     * @param  \Illuminate\Container\Container  $container
-     * @return $this
-     */
-    public function setContainer(Container $container)
-    {
-        $this->container = $container;
-
-        return $this;
-    }
-
-    /**
-     * Set the console command instance.
-     *
-     * @param  \Illuminate\Console\Command  $command
-     * @return $this
-     */
-    public function setCommand(Command $command)
-    {
-        $this->command = $command;
-
-        return $this;
-    }
-
-    /**
-     * Run the database seeds.
-     *
-     * @param  array  $parameters
-     * @return mixed
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function __invoke(array $parameters = [])
-    {
-        if (! method_exists($this, 'run')) {
-            throw new InvalidArgumentException('Method [run] missing from '.get_class($this));
-        }
-
-        return isset($this->container)
-                    ? $this->container->call([$this, 'run'], $parameters)
-                    : $this->run(...$parameters);
     }
 }

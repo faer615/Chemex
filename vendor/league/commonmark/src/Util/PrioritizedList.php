@@ -35,7 +35,7 @@ final class PrioritizedList implements \IteratorAggregate
 
     /**
      * @param mixed $item
-     * @param int   $priority
+     * @param int $priority
      *
      * @phpstan-param T $item
      */

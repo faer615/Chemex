@@ -17,7 +17,7 @@ trait ManagesLoops
     /**
      * Add new loop to the stack.
      *
-     * @param  \Countable|array  $data
+     * @param \Countable|array $data
      * @return void
      */
     public function addLoop($data)
@@ -36,7 +36,7 @@ trait ManagesLoops
             'odd' => false,
             'even' => true,
             'depth' => count($this->loopsStack) + 1,
-            'parent' => $parent ? (object) $parent : null,
+            'parent' => $parent ? (object)$parent : null,
         ];
     }
 
@@ -53,8 +53,8 @@ trait ManagesLoops
             'iteration' => $loop['iteration'] + 1,
             'index' => $loop['iteration'],
             'first' => $loop['iteration'] == 0,
-            'odd' => ! $loop['odd'],
-            'even' => ! $loop['even'],
+            'odd' => !$loop['odd'],
+            'even' => !$loop['even'],
             'remaining' => isset($loop['count']) ? $loop['remaining'] - 1 : null,
             'last' => isset($loop['count']) ? $loop['iteration'] == $loop['count'] - 1 : null,
         ]);
@@ -78,7 +78,7 @@ trait ManagesLoops
     public function getLastLoop()
     {
         if ($last = Arr::last($this->loopsStack)) {
-            return (object) $last;
+            return (object)$last;
         }
     }
 

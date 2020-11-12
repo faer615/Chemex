@@ -117,7 +117,7 @@ class GenericTimeConverter implements TimeConverterInterface
             new IntegerObject(self::SECOND_INTERVALS)
         );
 
-        $split = explode('.', (string) $unixTimestamp, 2);
+        $split = explode('.', (string)$unixTimestamp, 2);
 
         return new Time($split[0], $split[1] ?? 0);
     }

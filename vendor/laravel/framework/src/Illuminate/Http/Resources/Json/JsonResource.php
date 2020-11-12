@@ -17,19 +17,23 @@ class JsonResource implements ArrayAccess, JsonSerializable, Responsable, UrlRou
     use ConditionallyLoadsAttributes, DelegatesToResource;
 
     /**
+     * The "data" wrapper that should be applied.
+     *
+     * @var string
+     */
+    public static $wrap = 'data';
+    /**
      * The resource instance.
      *
      * @var mixed
      */
     public $resource;
-
     /**
      * The additional data that should be added to the top-level resource array.
      *
      * @var array
      */
     public $with = [];
-
     /**
      * The additional meta data that should be added to the resource response.
      *
@@ -40,16 +44,9 @@ class JsonResource implements ArrayAccess, JsonSerializable, Responsable, UrlRou
     public $additional = [];
 
     /**
-     * The "data" wrapper that should be applied.
-     *
-     * @var string
-     */
-    public static $wrap = 'data';
-
-    /**
      * Create a new resource instance.
      *
-     * @param  mixed  $resource
+     * @param mixed $resource
      * @return void
      */
     public function __construct($resource)
@@ -60,7 +57,7 @@ class JsonResource implements ArrayAccess, JsonSerializable, Responsable, UrlRou
     /**
      * Create a new resource instance.
      *
-     * @param  mixed  ...$parameters
+     * @param mixed ...$parameters
      * @return static
      */
     public static function make(...$parameters)
@@ -71,7 +68,7 @@ class JsonResource implements ArrayAccess, JsonSerializable, Responsable, UrlRou
     /**
      * Create new anonymous resource collection.
      *
-     * @param  mixed  $resource
+     * @param mixed $resource
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public static function collection($resource)
@@ -84,102 +81,9 @@ class JsonResource implements ArrayAccess, JsonSerializable, Responsable, UrlRou
     }
 
     /**
-     * Resolve the resource to an array.
-     *
-     * @param  \Illuminate\Http\Request|null  $request
-     * @return array
-     */
-    public function resolve($request = null)
-    {
-        $data = $this->toArray(
-            $request = $request ?: Container::getInstance()->make('request')
-        );
-
-        if ($data instanceof Arrayable) {
-            $data = $data->toArray();
-        } elseif ($data instanceof JsonSerializable) {
-            $data = $data->jsonSerialize();
-        }
-
-        return $this->filter((array) $data);
-    }
-
-    /**
-     * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
-    public function toArray($request)
-    {
-        if (is_null($this->resource)) {
-            return [];
-        }
-
-        return is_array($this->resource)
-            ? $this->resource
-            : $this->resource->toArray();
-    }
-
-    /**
-     * Convert the model instance to JSON.
-     *
-     * @param  int  $options
-     * @return string
-     *
-     * @throws \Illuminate\Database\Eloquent\JsonEncodingException
-     */
-    public function toJson($options = 0)
-    {
-        $json = json_encode($this->jsonSerialize(), $options);
-
-        if (JSON_ERROR_NONE !== json_last_error()) {
-            throw JsonEncodingException::forResource($this, json_last_error_msg());
-        }
-
-        return $json;
-    }
-
-    /**
-     * Get any additional data that should be returned with the resource array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
-    public function with($request)
-    {
-        return $this->with;
-    }
-
-    /**
-     * Add additional meta data to the resource response.
-     *
-     * @param  array  $data
-     * @return $this
-     */
-    public function additional(array $data)
-    {
-        $this->additional = $data;
-
-        return $this;
-    }
-
-    /**
-     * Customize the response for a request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Illuminate\Http\JsonResponse  $response
-     * @return void
-     */
-    public function withResponse($request, $response)
-    {
-        //
-    }
-
-    /**
      * Set the string that should wrap the outer-most resource array.
      *
-     * @param  string  $value
+     * @param string $value
      * @return void
      */
     public static function wrap($value)
@@ -198,9 +102,102 @@ class JsonResource implements ArrayAccess, JsonSerializable, Responsable, UrlRou
     }
 
     /**
+     * Resolve the resource to an array.
+     *
+     * @param \Illuminate\Http\Request|null $request
+     * @return array
+     */
+    public function resolve($request = null)
+    {
+        $data = $this->toArray(
+            $request = $request ?: Container::getInstance()->make('request')
+        );
+
+        if ($data instanceof Arrayable) {
+            $data = $data->toArray();
+        } elseif ($data instanceof JsonSerializable) {
+            $data = $data->jsonSerialize();
+        }
+
+        return $this->filter((array)$data);
+    }
+
+    /**
+     * Transform the resource into an array.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return array
+     */
+    public function toArray($request)
+    {
+        if (is_null($this->resource)) {
+            return [];
+        }
+
+        return is_array($this->resource)
+            ? $this->resource
+            : $this->resource->toArray();
+    }
+
+    /**
+     * Convert the model instance to JSON.
+     *
+     * @param int $options
+     * @return string
+     *
+     * @throws \Illuminate\Database\Eloquent\JsonEncodingException
+     */
+    public function toJson($options = 0)
+    {
+        $json = json_encode($this->jsonSerialize(), $options);
+
+        if (JSON_ERROR_NONE !== json_last_error()) {
+            throw JsonEncodingException::forResource($this, json_last_error_msg());
+        }
+
+        return $json;
+    }
+
+    /**
+     * Get any additional data that should be returned with the resource array.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return array
+     */
+    public function with($request)
+    {
+        return $this->with;
+    }
+
+    /**
+     * Add additional meta data to the resource response.
+     *
+     * @param array $data
+     * @return $this
+     */
+    public function additional(array $data)
+    {
+        $this->additional = $data;
+
+        return $this;
+    }
+
+    /**
+     * Customize the response for a request.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\JsonResponse $response
+     * @return void
+     */
+    public function withResponse($request, $response)
+    {
+        //
+    }
+
+    /**
      * Transform the resource into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request|null  $request
+     * @param \Illuminate\Http\Request|null $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function response($request = null)
@@ -213,7 +210,7 @@ class JsonResource implements ArrayAccess, JsonSerializable, Responsable, UrlRou
     /**
      * Create an HTTP response that represents the object.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function toResponse($request)

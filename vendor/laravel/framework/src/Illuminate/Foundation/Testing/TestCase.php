@@ -71,6 +71,21 @@ abstract class TestCase extends BaseTestCase
     abstract public function createApplication();
 
     /**
+     * Register a callback to be run after the application is created.
+     *
+     * @param callable $callback
+     * @return void
+     */
+    public function afterApplicationCreated(callable $callback)
+    {
+        $this->afterApplicationCreatedCallbacks[] = $callback;
+
+        if ($this->setUpHasRun) {
+            $callback();
+        }
+    }
+
+    /**
      * Setup the test environment.
      *
      * @return void
@@ -79,7 +94,7 @@ abstract class TestCase extends BaseTestCase
     {
         Facade::clearResolvedInstances();
 
-        if (! $this->app) {
+        if (!$this->app) {
             $this->refreshApplication();
         }
 
@@ -175,7 +190,7 @@ abstract class TestCase extends BaseTestCase
             try {
                 Mockery::close();
             } catch (InvalidCountException $e) {
-                if (! Str::contains($e->getMethodName(), ['doWrite', 'askQuestion'])) {
+                if (!Str::contains($e->getMethodName(), ['doWrite', 'askQuestion'])) {
                     throw $e;
                 }
             }
@@ -200,24 +215,9 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * Register a callback to be run after the application is created.
-     *
-     * @param  callable  $callback
-     * @return void
-     */
-    public function afterApplicationCreated(callable $callback)
-    {
-        $this->afterApplicationCreatedCallbacks[] = $callback;
-
-        if ($this->setUpHasRun) {
-            $callback();
-        }
-    }
-
-    /**
      * Register a callback to be run before the application is destroyed.
      *
-     * @param  callable  $callback
+     * @param callable $callback
      * @return void
      */
     protected function beforeApplicationDestroyed(callable $callback)
@@ -236,7 +236,7 @@ abstract class TestCase extends BaseTestCase
             try {
                 $callback();
             } catch (Throwable $e) {
-                if (! $this->callbackException) {
+                if (!$this->callbackException) {
                     $this->callbackException = $e;
                 }
             }

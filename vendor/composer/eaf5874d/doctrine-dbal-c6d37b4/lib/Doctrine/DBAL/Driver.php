@@ -16,10 +16,10 @@ interface Driver
      *
      * The usage of NULL to indicate empty username or password is deprecated. Use an empty string instead.
      *
-     * @param mixed[]     $params        All connection parameters passed by the user.
-     * @param string|null $username      The username to use when connecting.
-     * @param string|null $password      The password to use when connecting.
-     * @param mixed[]     $driverOptions The driver options to use when connecting.
+     * @param mixed[] $params All connection parameters passed by the user.
+     * @param string|null $username The username to use when connecting.
+     * @param string|null $password The password to use when connecting.
+     * @param mixed[] $driverOptions The driver options to use when connecting.
      *
      * @return \Doctrine\DBAL\Driver\Connection The database connection.
      */
@@ -44,18 +44,18 @@ interface Driver
     /**
      * Gets the name of the driver.
      *
+     * @return string The name of the driver.
      * @deprecated
      *
-     * @return string The name of the driver.
      */
     public function getName();
 
     /**
      * Gets the name of the database connected to for this driver.
      *
+     * @return string The name of the database.
      * @deprecated Use Connection::getDatabase() instead.
      *
-     * @return string The name of the database.
      */
     public function getDatabase(Connection $conn);
 }

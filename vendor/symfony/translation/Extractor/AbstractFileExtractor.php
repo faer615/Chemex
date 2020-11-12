@@ -43,11 +43,6 @@ abstract class AbstractFileExtractor
         return $files;
     }
 
-    private function toSplFileInfo(string $file): \SplFileInfo
-    {
-        return new \SplFileInfo($file);
-    }
-
     /**
      * @return bool
      *
@@ -73,4 +68,9 @@ abstract class AbstractFileExtractor
      * @return iterable files to be extracted
      */
     abstract protected function extractFromDirectory($resource);
+
+    private function toSplFileInfo(string $file): \SplFileInfo
+    {
+        return new \SplFileInfo($file);
+    }
 }

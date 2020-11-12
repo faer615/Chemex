@@ -89,9 +89,9 @@ class Factory
     /**
      * Create a new response instance for use during stubbing.
      *
-     * @param  array|string  $body
-     * @param  int  $status
-     * @param  array  $headers
+     * @param array|string $body
+     * @param int $status
+     * @param array $headers
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public static function response($body = null, $status = 200, $headers = [])
@@ -108,7 +108,7 @@ class Factory
     /**
      * Get an invokable object that returns a sequence of responses in order for use during stubbing.
      *
-     * @param  array  $responses
+     * @param array $responses
      * @return \Illuminate\Http\Client\ResponseSequence
      */
     public function sequence(array $responses = [])
@@ -119,7 +119,7 @@ class Factory
     /**
      * Register a stub callable that will intercept requests and be able to return stub responses.
      *
-     * @param  callable|array  $callback
+     * @param callable|array $callback
      * @return $this
      */
     public function fake($callback = null)
@@ -142,10 +142,10 @@ class Factory
 
         $this->stubCallbacks = $this->stubCallbacks->merge(collect([
             $callback instanceof Closure
-                    ? $callback
-                    : function () use ($callback) {
-                        return $callback;
-                    },
+                ? $callback
+                : function () use ($callback) {
+                return $callback;
+            },
         ]));
 
         return $this;
@@ -154,7 +154,7 @@ class Factory
     /**
      * Register a response sequence for the given URL pattern.
      *
-     * @param  string  $url
+     * @param string $url
      * @return \Illuminate\Http\Client\ResponseSequence
      */
     public function fakeSequence($url = '*')
@@ -167,40 +167,28 @@ class Factory
     /**
      * Stub the given URL using the given callback.
      *
-     * @param  string  $url
-     * @param  \Illuminate\Http\Client\Response|\GuzzleHttp\Promise\PromiseInterface|callable  $callback
+     * @param string $url
+     * @param \Illuminate\Http\Client\Response|\GuzzleHttp\Promise\PromiseInterface|callable $callback
      * @return $this
      */
     public function stubUrl($url, $callback)
     {
         return $this->fake(function ($request, $options) use ($url, $callback) {
-            if (! Str::is(Str::start($url, '*'), $request->url())) {
+            if (!Str::is(Str::start($url, '*'), $request->url())) {
                 return;
             }
 
             return $callback instanceof Closure || $callback instanceof ResponseSequence
-                        ? $callback($request, $options)
-                        : $callback;
+                ? $callback($request, $options)
+                : $callback;
         });
-    }
-
-    /**
-     * Begin recording request / response pairs.
-     *
-     * @return $this
-     */
-    protected function record()
-    {
-        $this->recording = true;
-
-        return $this;
     }
 
     /**
      * Record a request response pair.
      *
-     * @param  \Illuminate\Http\Client\Request  $request
-     * @param  \Illuminate\Http\Client\Response  $response
+     * @param \Illuminate\Http\Client\Request $request
+     * @param \Illuminate\Http\Client\Response $response
      * @return void
      */
     public function recordRequestResponsePair($request, $response)
@@ -213,7 +201,7 @@ class Factory
     /**
      * Assert that a request / response pair was recorded matching a given truth test.
      *
-     * @param  callable  $callback
+     * @param callable $callback
      * @return void
      */
     public function assertSent($callback)
@@ -227,7 +215,7 @@ class Factory
     /**
      * Assert that a request / response pair was not recorded matching a given truth test.
      *
-     * @param  callable  $callback
+     * @param callable $callback
      * @return void
      */
     public function assertNotSent($callback)
@@ -254,7 +242,7 @@ class Factory
     /**
      * Assert how many requests have been recorded.
      *
-     * @param  int  $count
+     * @param int $count
      * @return void
      */
     public function assertSentCount($count)
@@ -280,7 +268,7 @@ class Factory
     /**
      * Get a collection of the request / response pairs matching the given truth test.
      *
-     * @param  callable  $callback
+     * @param callable $callback
      * @return \Illuminate\Support\Collection
      */
     public function recorded($callback = null)
@@ -299,20 +287,10 @@ class Factory
     }
 
     /**
-     * Create a new pending request instance for this factory.
-     *
-     * @return \Illuminate\Http\Client\PendingRequest
-     */
-    protected function newPendingRequest()
-    {
-        return new PendingRequest($this);
-    }
-
-    /**
      * Execute a method against a new pending request instance.
      *
-     * @param  string  $method
-     * @param  array  $parameters
+     * @param string $method
+     * @param array $parameters
      * @return mixed
      */
     public function __call($method, $parameters)
@@ -324,5 +302,27 @@ class Factory
         return tap($this->newPendingRequest(), function ($request) {
             $request->stub($this->stubCallbacks);
         })->{$method}(...$parameters);
+    }
+
+    /**
+     * Begin recording request / response pairs.
+     *
+     * @return $this
+     */
+    protected function record()
+    {
+        $this->recording = true;
+
+        return $this;
+    }
+
+    /**
+     * Create a new pending request instance for this factory.
+     *
+     * @return \Illuminate\Http\Client\PendingRequest
+     */
+    protected function newPendingRequest()
+    {
+        return new PendingRequest($this);
     }
 }

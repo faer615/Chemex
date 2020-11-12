@@ -41,7 +41,7 @@ final class TableRow extends AbstractBlock
      */
     public function children(): iterable
     {
-        return array_filter((array) parent::children(), static function (Node $child): bool {
+        return array_filter((array)parent::children(), static function (Node $child): bool {
             return $child instanceof AbstractBlock;
         });
     }

@@ -85,7 +85,7 @@ final class Time implements TypeInterface
 
     public function serialize(): string
     {
-        return (string) json_encode($this);
+        return (string)json_encode($this);
     }
 
     /**

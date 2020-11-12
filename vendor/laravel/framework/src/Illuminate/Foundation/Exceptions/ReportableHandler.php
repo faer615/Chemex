@@ -26,7 +26,7 @@ class ReportableHandler
     /**
      * Create a new reportable handler instance.
      *
-     * @param  callable  $callback
+     * @param callable $callback
      * @return void
      */
     public function __construct(callable $callback)
@@ -37,20 +37,24 @@ class ReportableHandler
     /**
      * Invoke the handler.
      *
-     * @param  \Throwable  $e
+     * @param \Throwable $e
      * @return bool
      */
     public function __invoke(Throwable $e)
     {
-        call_user_func($this->callback, $e);
+        $result = call_user_func($this->callback, $e);
 
-        return ! $this->shouldStop;
+        if ($result === false) {
+            return false;
+        }
+
+        return !$this->shouldStop;
     }
 
     /**
      * Determine if the callback handles the given exception.
      *
-     * @param  \Throwable  $e
+     * @param \Throwable $e
      * @return bool
      */
     public function handles(Throwable $e)

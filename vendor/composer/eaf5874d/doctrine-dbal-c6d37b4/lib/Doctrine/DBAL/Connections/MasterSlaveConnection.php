@@ -20,18 +20,19 @@ class MasterSlaveConnection extends PrimaryReadReplicaConnection
     /**
      * Creates Primary Replica Connection.
      *
-     * @internal The connection can be only instantiated by the driver manager.
-     *
      * @param mixed[] $params
      *
      * @throws InvalidArgumentException
+     * @internal The connection can be only instantiated by the driver manager.
+     *
      */
     public function __construct(
         array $params,
         Driver $driver,
         ?Configuration $config = null,
         ?EventManager $eventManager = null
-    ) {
+    )
+    {
         $this->deprecated(self::class, PrimaryReadReplicaConnection::class);
 
         if (isset($params['master'])) {

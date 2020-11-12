@@ -33,8 +33,8 @@ class ConsoleOutput extends StreamOutput implements ConsoleOutputInterface
     private $consoleSectionOutputs = [];
 
     /**
-     * @param int                           $verbosity The verbosity level (one of the VERBOSITY constants in OutputInterface)
-     * @param bool|null                     $decorated Whether to decorate messages (null for auto-guessing)
+     * @param int $verbosity The verbosity level (one of the VERBOSITY constants in OutputInterface)
+     * @param bool|null $decorated Whether to decorate messages (null for auto-guessing)
      * @param OutputFormatterInterface|null $formatter Output formatter instance (null to use default OutputFormatter)
      */
     public function __construct(int $verbosity = self::VERBOSITY_NORMAL, bool $decorated = null, OutputFormatterInterface $formatter = null)

@@ -75,11 +75,11 @@ class Swift_DependencyContainer
     /**
      * Test if an item is registered in this container with the given name.
      *
-     * @see register()
-     *
      * @param string $itemName
      *
      * @return bool
+     * @see register()
+     *
      */
     public function has($itemName)
     {
@@ -90,20 +90,20 @@ class Swift_DependencyContainer
     /**
      * Lookup the item with the given $itemName.
      *
-     * @see register()
-     *
      * @param string $itemName
      *
      * @return mixed
      *
      * @throws Swift_DependencyException If the dependency is not found
+     * @see register()
+     *
      */
     public function lookup($itemName)
     {
         if (!$this->has($itemName)) {
             throw new Swift_DependencyException(
-                'Cannot lookup dependency "'.$itemName.'" since it is not registered.'
-                );
+                'Cannot lookup dependency "' . $itemName . '" since it is not registered.'
+            );
         }
 
         switch ($this->store[$itemName]['lookupType']) {
@@ -144,11 +144,11 @@ class Swift_DependencyContainer
      * requires the use of the fluid interface to set the specific details for the
      * dependency.
      *
-     * @see asNewInstanceOf(), asSharedInstanceOf(), asValue()
-     *
      * @param string $itemName
      *
      * @return $this
+     * @see asNewInstanceOf(), asSharedInstanceOf(), asValue()
+     *
      */
     public function register($itemName)
     {
@@ -199,11 +199,11 @@ class Swift_DependencyContainer
      * Any arguments can be set with {@link withDependencies()},
      * {@link addConstructorValue()} or {@link addConstructorLookup()}.
      *
-     * @see withDependencies(), addConstructorValue(), addConstructorLookup()
-     *
      * @param string $className
      *
      * @return $this
+     * @see withDependencies(), addConstructorValue(), addConstructorLookup()
+     *
      */
     public function asNewInstanceOf($className)
     {
@@ -252,9 +252,9 @@ class Swift_DependencyContainer
      *
      * This method takes an array of lookup names.
      *
+     * @return $this
      * @see addConstructorValue(), addConstructorLookup()
      *
-     * @return $this
      */
     public function withDependencies(array $lookups)
     {
@@ -271,11 +271,11 @@ class Swift_DependencyContainer
      * Specify a literal (non looked up) value for the constructor of the
      * previously registered item.
      *
-     * @see withDependencies(), addConstructorLookup()
-     *
      * @param mixed $value
      *
      * @return $this
+     * @see withDependencies(), addConstructorLookup()
+     *
      */
     public function addConstructorValue($value)
     {
@@ -292,11 +292,11 @@ class Swift_DependencyContainer
      * Specify a dependency lookup for the constructor of the previously
      * registered item.
      *
-     * @see withDependencies(), addConstructorValue()
-     *
      * @param string $lookup
      *
      * @return $this
+     * @see withDependencies(), addConstructorValue()
+     *
      */
     public function addConstructorLookup($lookup)
     {
@@ -328,7 +328,7 @@ class Swift_DependencyContainer
         if ($reflector->getConstructor()) {
             return $reflector->newInstanceArgs(
                 $this->createDependenciesFor($itemName)
-                );
+            );
         }
 
         return $reflector->newInstance();
@@ -350,7 +350,7 @@ class Swift_DependencyContainer
         if (!isset($this->endPoint)) {
             throw new BadMethodCallException(
                 'Component must first be registered by calling register()'
-                );
+            );
         }
 
         return $this->endPoint;

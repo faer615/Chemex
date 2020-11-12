@@ -50,9 +50,9 @@ class RouterListener implements EventSubscriberInterface
     private $debug;
 
     /**
-     * @param UrlMatcherInterface|RequestMatcherInterface $matcher    The Url or Request matcher
-     * @param RequestContext|null                         $context    The RequestContext (can be null when $matcher implements RequestContextAwareInterface)
-     * @param string                                      $projectDir
+     * @param UrlMatcherInterface|RequestMatcherInterface $matcher The Url or Request matcher
+     * @param RequestContext|null $context The RequestContext (can be null when $matcher implements RequestContextAwareInterface)
+     * @param string $projectDir
      *
      * @throws \InvalidArgumentException
      */
@@ -74,15 +74,13 @@ class RouterListener implements EventSubscriberInterface
         $this->debug = $debug;
     }
 
-    private function setCurrentRequest(Request $request = null)
+    public static function getSubscribedEvents(): array
     {
-        if (null !== $request) {
-            try {
-                $this->context->fromRequest($request);
-            } catch (\UnexpectedValueException $e) {
-                throw new BadRequestHttpException($e->getMessage(), $e, $e->getCode());
-            }
-        }
+        return [
+            KernelEvents::REQUEST => [['onKernelRequest', 32]],
+            KernelEvents::FINISH_REQUEST => [['onKernelFinishRequest', 0]],
+            KernelEvents::EXCEPTION => ['onKernelException', -64],
+        ];
     }
 
     /**
@@ -152,23 +150,25 @@ class RouterListener implements EventSubscriberInterface
         }
     }
 
-    public static function getSubscribedEvents(): array
+    private function setCurrentRequest(Request $request = null)
     {
-        return [
-            KernelEvents::REQUEST => [['onKernelRequest', 32]],
-            KernelEvents::FINISH_REQUEST => [['onKernelFinishRequest', 0]],
-            KernelEvents::EXCEPTION => ['onKernelException', -64],
-        ];
+        if (null !== $request) {
+            try {
+                $this->context->fromRequest($request);
+            } catch (\UnexpectedValueException $e) {
+                throw new BadRequestHttpException($e->getMessage(), $e, $e->getCode());
+            }
+        }
     }
 
     private function createWelcomeResponse(): Response
     {
         $version = Kernel::VERSION;
-        $projectDir = realpath($this->projectDir).\DIRECTORY_SEPARATOR;
+        $projectDir = realpath($this->projectDir) . \DIRECTORY_SEPARATOR;
         $docVersion = substr(Kernel::VERSION, 0, 3);
 
         ob_start();
-        include \dirname(__DIR__).'/Resources/welcome.html.php';
+        include \dirname(__DIR__) . '/Resources/welcome.html.php';
 
         return new Response(ob_get_clean(), Response::HTTP_NOT_FOUND);
     }

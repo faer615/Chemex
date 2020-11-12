@@ -63,19 +63,19 @@ trait ValueToStringTrait
 
         // scalar types (integer, float, string)
         if (is_scalar($value)) {
-            return (string) $value;
+            return (string)$value;
         }
 
         // resource
         if (is_resource($value)) {
-            return '(' . get_resource_type($value) . ' resource #' . (int) $value . ')';
+            return '(' . get_resource_type($value) . ' resource #' . (int)$value . ')';
         }
 
         // after this line $value is an object since is not null, scalar, array or resource
 
         // __toString() is implemented
         if (is_callable([$value, '__toString'])) {
-            return (string) $value->__toString();
+            return (string)$value->__toString();
         }
 
         // object of type \DateTime

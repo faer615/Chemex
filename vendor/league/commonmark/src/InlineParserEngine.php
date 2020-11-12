@@ -37,8 +37,37 @@ final class InlineParserEngine
     }
 
     /**
+     * @param string $charBefore
+     * @param string $charAfter
+     * @param string $character
+     * @param DelimiterProcessorInterface $delimiterProcessor
+     *
+     * @return bool[]
+     */
+    private static function determineCanOpenOrClose(string $charBefore, string $charAfter, string $character, DelimiterProcessorInterface $delimiterProcessor)
+    {
+        $afterIsWhitespace = \preg_match(RegexHelper::REGEX_UNICODE_WHITESPACE_CHAR, $charAfter);
+        $afterIsPunctuation = \preg_match(RegexHelper::REGEX_PUNCTUATION, $charAfter);
+        $beforeIsWhitespace = \preg_match(RegexHelper::REGEX_UNICODE_WHITESPACE_CHAR, $charBefore);
+        $beforeIsPunctuation = \preg_match(RegexHelper::REGEX_PUNCTUATION, $charBefore);
+
+        $leftFlanking = !$afterIsWhitespace && (!$afterIsPunctuation || $beforeIsWhitespace || $beforeIsPunctuation);
+        $rightFlanking = !$beforeIsWhitespace && (!$beforeIsPunctuation || $afterIsWhitespace || $afterIsPunctuation);
+
+        if ($character === '_') {
+            $canOpen = $leftFlanking && (!$rightFlanking || $beforeIsPunctuation);
+            $canClose = $rightFlanking && (!$leftFlanking || $afterIsPunctuation);
+        } else {
+            $canOpen = $leftFlanking && $character === $delimiterProcessor->getOpeningCharacter();
+            $canClose = $rightFlanking && $character === $delimiterProcessor->getClosingCharacter();
+        }
+
+        return [$canOpen, $canClose];
+    }
+
+    /**
      * @param AbstractStringContainerBlock $container
-     * @param ReferenceMapInterface        $referenceMap
+     * @param ReferenceMapInterface $referenceMap
      *
      * @return void
      */
@@ -58,7 +87,7 @@ final class InlineParserEngine
     }
 
     /**
-     * @param string              $character
+     * @param string $character
      * @param InlineParserContext $inlineParserContext
      *
      * @return bool Whether we successfully parsed a character at that position
@@ -135,8 +164,8 @@ final class InlineParserEngine
     }
 
     /**
-     * @param string              $character
-     * @param Node                $container
+     * @param string $character
+     * @param Node $container
      * @param InlineParserContext $inlineParserContext
      *
      * @return void
@@ -158,34 +187,5 @@ final class InlineParserEngine
         } else {
             $container->appendChild(new Text($text));
         }
-    }
-
-    /**
-     * @param string                      $charBefore
-     * @param string                      $charAfter
-     * @param string                      $character
-     * @param DelimiterProcessorInterface $delimiterProcessor
-     *
-     * @return bool[]
-     */
-    private static function determineCanOpenOrClose(string $charBefore, string $charAfter, string $character, DelimiterProcessorInterface $delimiterProcessor)
-    {
-        $afterIsWhitespace = \preg_match(RegexHelper::REGEX_UNICODE_WHITESPACE_CHAR, $charAfter);
-        $afterIsPunctuation = \preg_match(RegexHelper::REGEX_PUNCTUATION, $charAfter);
-        $beforeIsWhitespace = \preg_match(RegexHelper::REGEX_UNICODE_WHITESPACE_CHAR, $charBefore);
-        $beforeIsPunctuation = \preg_match(RegexHelper::REGEX_PUNCTUATION, $charBefore);
-
-        $leftFlanking = !$afterIsWhitespace && (!$afterIsPunctuation || $beforeIsWhitespace || $beforeIsPunctuation);
-        $rightFlanking = !$beforeIsWhitespace && (!$beforeIsPunctuation || $afterIsWhitespace || $afterIsPunctuation);
-
-        if ($character === '_') {
-            $canOpen = $leftFlanking && (!$rightFlanking || $beforeIsPunctuation);
-            $canClose = $rightFlanking && (!$leftFlanking || $afterIsPunctuation);
-        } else {
-            $canOpen = $leftFlanking && $character === $delimiterProcessor->getOpeningCharacter();
-            $canClose = $rightFlanking && $character === $delimiterProcessor->getClosingCharacter();
-        }
-
-        return [$canOpen, $canClose];
     }
 }

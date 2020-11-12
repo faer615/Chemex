@@ -21,11 +21,6 @@ final class DataSourceName
         $this->string = $string;
     }
 
-    public function toString(): string
-    {
-        return $this->string;
-    }
-
     /**
      * Creates the object from an array representation
      *
@@ -57,15 +52,15 @@ final class DataSourceName
 
         foreach (
             [
-                'host'     => 'HOSTNAME',
-                'port'     => 'PORT',
+                'host' => 'HOSTNAME',
+                'port' => 'PORT',
                 'protocol' => 'PROTOCOL',
-                'dbname'   => 'DATABASE',
-                'user'     => 'UID',
+                'dbname' => 'DATABASE',
+                'user' => 'UID',
                 'password' => 'PWD',
             ] as $dbalParam => $dsnParam
         ) {
-            if (! isset($params[$dbalParam])) {
+            if (!isset($params[$dbalParam])) {
                 continue;
             }
 
@@ -73,5 +68,10 @@ final class DataSourceName
         }
 
         return self::fromArray($dsnParams);
+    }
+
+    public function toString(): string
+    {
+        return $this->string;
     }
 }

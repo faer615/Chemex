@@ -43,7 +43,7 @@ trait MocksApplicationServices
      *
      * These events will be mocked, so that handlers will not actually be executed.
      *
-     * @param  array|string  $events
+     * @param array|string $events
      * @return $this
      *
      * @throws \Exception
@@ -59,7 +59,7 @@ trait MocksApplicationServices
 
             $this->assertEmpty(
                 $eventsNotFired = array_diff($events, $fired),
-                'These expected events were not fired: ['.implode(', ', $eventsNotFired).']'
+                'These expected events were not fired: [' . implode(', ', $eventsNotFired) . ']'
             );
         });
 
@@ -71,7 +71,7 @@ trait MocksApplicationServices
      *
      * These events will be mocked, so that handlers will not actually be executed.
      *
-     * @param  array|string  $events
+     * @param array|string $events
      * @return $this
      */
     public function doesntExpectEvents($events)
@@ -83,7 +83,7 @@ trait MocksApplicationServices
         $this->beforeApplicationDestroyed(function () use ($events) {
             $this->assertEmpty(
                 $fired = $this->getFiredEvents($events),
-                'These unexpected events were fired: ['.implode(', ', $fired).']'
+                'These unexpected events were fired: [' . implode(', ', $fired) . ']'
             );
         });
 
@@ -113,7 +113,7 @@ trait MocksApplicationServices
     /**
      * Filter the given events against the fired events.
      *
-     * @param  array  $events
+     * @param array $events
      * @return array
      */
     protected function getFiredEvents(array $events)
@@ -126,7 +126,7 @@ trait MocksApplicationServices
      *
      * These jobs will be mocked, so that handlers will not actually be executed.
      *
-     * @param  array|string  $jobs
+     * @param array|string $jobs
      * @return $this
      */
     protected function expectsJobs($jobs)
@@ -140,7 +140,7 @@ trait MocksApplicationServices
 
             $this->assertEmpty(
                 $jobsNotDispatched = array_diff($jobs, $dispatched),
-                'These expected jobs were not dispatched: ['.implode(', ', $jobsNotDispatched).']'
+                'These expected jobs were not dispatched: [' . implode(', ', $jobsNotDispatched) . ']'
             );
         });
 
@@ -152,7 +152,7 @@ trait MocksApplicationServices
      *
      * These jobs will be mocked, so that handlers will not actually be executed.
      *
-     * @param  array|string  $jobs
+     * @param array|string $jobs
      * @return $this
      */
     protected function doesntExpectJobs($jobs)
@@ -164,7 +164,7 @@ trait MocksApplicationServices
         $this->beforeApplicationDestroyed(function () use ($jobs) {
             $this->assertEmpty(
                 $dispatched = $this->getDispatchedJobs($jobs),
-                'These unexpected jobs were dispatched: ['.implode(', ', $dispatched).']'
+                'These unexpected jobs were dispatched: [' . implode(', ', $dispatched) . ']'
             );
         });
 
@@ -194,7 +194,7 @@ trait MocksApplicationServices
     /**
      * Filter the given jobs against the dispatched jobs.
      *
-     * @param  array  $jobs
+     * @param array $jobs
      * @return array
      */
     protected function getDispatchedJobs(array $jobs)
@@ -205,8 +205,8 @@ trait MocksApplicationServices
     /**
      * Filter the given classes against an array of dispatched classes.
      *
-     * @param  array  $classes
-     * @param  array  $dispatched
+     * @param array $classes
+     * @param array $dispatched
      * @return array
      */
     protected function getDispatched(array $classes, array $dispatched)
@@ -219,8 +219,8 @@ trait MocksApplicationServices
     /**
      * Check if the given class exists in an array of dispatched classes.
      *
-     * @param  string  $needle
-     * @param  array  $haystack
+     * @param string $needle
+     * @param array $haystack
      * @return bool
      */
     protected function wasDispatched($needle, array $haystack)
@@ -258,8 +258,8 @@ trait MocksApplicationServices
     /**
      * Specify a notification that is expected to be dispatched.
      *
-     * @param  mixed  $notifiable
-     * @param  string  $notification
+     * @param mixed $notifiable
+     * @param string $notification
      * @return $this
      */
     protected function expectsNotification($notifiable, $notification)
@@ -271,14 +271,14 @@ trait MocksApplicationServices
                 $notified = $dispatched['notifiable'];
 
                 if (($notified === $notifiable ||
-                     $notified->getKey() == $notifiable->getKey()) &&
+                        $notified->getKey() == $notifiable->getKey()) &&
                     get_class($dispatched['instance']) === $notification
                 ) {
                     return $this;
                 }
             }
 
-            $this->fail('The following expected notification were not dispatched: ['.$notification.']');
+            $this->fail('The following expected notification were not dispatched: [' . $notification . ']');
         });
 
         return $this;

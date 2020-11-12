@@ -8,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Carbon\Traits;
 
 use Carbon\CarbonInterval;
@@ -28,7 +29,7 @@ trait IntervalRounding
         }
 
         if (\in_array($action, ['round', 'floor', 'ceil'])) {
-            return $this->{$action.'Unit'}(substr($method, \strlen($action)), ...$parameters);
+            return $this->{$action . 'Unit'}(substr($method, \strlen($action)), ...$parameters);
         }
 
         return null;
@@ -39,7 +40,7 @@ trait IntervalRounding
         $unit = 'second';
 
         if ($precision instanceof DateInterval) {
-            $precision = (string) CarbonInterval::instance($precision);
+            $precision = (string)CarbonInterval::instance($precision);
         }
 
         if (\is_string($precision) && preg_match('/^\s*(?<precision>\d+)?\s*(?<unit>\w+)(?<other>\W.*)?$/', $precision, $match)) {
@@ -47,7 +48,7 @@ trait IntervalRounding
                 throw new InvalidIntervalException('Rounding is only possible with single unit intervals.');
             }
 
-            $precision = (int) ($match['precision'] ?: 1);
+            $precision = (int)($match['precision'] ?: 1);
             $unit = $match['unit'];
         }
 

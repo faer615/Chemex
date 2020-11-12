@@ -42,20 +42,20 @@ class FactoryMakeCommand extends GeneratorCommand
     /**
      * Resolve the fully-qualified path to the stub.
      *
-     * @param  string  $stub
+     * @param string $stub
      * @return string
      */
     protected function resolveStubPath($stub)
     {
         return file_exists($customPath = $this->laravel->basePath(trim($stub, '/')))
             ? $customPath
-            : __DIR__.$stub;
+            : __DIR__ . $stub;
     }
 
     /**
      * Build the class with the given name.
      *
-     * @param  string  $name
+     * @param string $name
      * @return string
      */
     protected function buildClass($name)
@@ -63,13 +63,13 @@ class FactoryMakeCommand extends GeneratorCommand
         $factory = class_basename(Str::ucfirst(str_replace('Factory', '', $name)));
 
         $namespaceModel = $this->option('model')
-                        ? $this->qualifyModel($this->option('model'))
-                        : $this->qualifyModel($this->guessModelName($name));
+            ? $this->qualifyModel($this->option('model'))
+            : $this->qualifyModel($this->guessModelName($name));
 
         $model = class_basename($namespaceModel);
 
         if (Str::startsWith($namespaceModel, 'App\\Models')) {
-            $namespace = Str::beforeLast('Database\\Factories\\'.Str::after($namespaceModel, 'App\\Models\\'), '\\');
+            $namespace = Str::beforeLast('Database\\Factories\\' . Str::after($namespaceModel, 'App\\Models\\'), '\\');
         } else {
             $namespace = 'Database\\Factories';
         }
@@ -94,20 +94,20 @@ class FactoryMakeCommand extends GeneratorCommand
     /**
      * Get the destination class path.
      *
-     * @param  string  $name
+     * @param string $name
      * @return string
      */
     protected function getPath($name)
     {
-        $name = (string) Str::of($name)->replaceFirst('App\\', '')->finish('Factory');
+        $name = (string)Str::of($name)->replaceFirst('App\\', '')->finish('Factory');
 
-        return $this->laravel->databasePath().'/factories/'.str_replace('\\', '/', $name).'.php';
+        return $this->laravel->databasePath() . '/factories/' . str_replace('\\', '/', $name) . '.php';
     }
 
     /**
      * Guess the model name from the Factory name or return a default model name.
      *
-     * @param  string  $name
+     * @param string $name
      * @return string
      */
     protected function guessModelName($name)

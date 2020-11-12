@@ -12,7 +12,7 @@ use RuntimeException;
  * @method static \Illuminate\Contracts\Auth\Authenticatable|null user()
  * @method static \Illuminate\Contracts\Auth\Guard|\Illuminate\Contracts\Auth\StatefulGuard guard(string|null $name = null)
  * @method static \Illuminate\Contracts\Auth\UserProvider|null createUserProvider(string $provider = null)
- * @method static \Symfony\Component\HttpFoundation\Response|null onceBasic(string $field = 'email',array $extraConditions = [])
+ * @method static \Symfony\Component\HttpFoundation\Response|null onceBasic(string $field = 'email', array $extraConditions = [])
  * @method static bool attempt(array $credentials = [], bool $remember = false)
  * @method static bool check()
  * @method static bool guest()
@@ -35,6 +35,21 @@ use RuntimeException;
 class Auth extends Facade
 {
     /**
+     * Register the typical authentication routes for an application.
+     *
+     * @param array $options
+     * @return void
+     */
+    public static function routes(array $options = [])
+    {
+        if (!static::$app->providerIsLoaded(UiServiceProvider::class)) {
+            throw new RuntimeException('In order to use the Auth::routes() method, please install the laravel/ui package.');
+        }
+
+        static::$app->make('router')->auth($options);
+    }
+
+    /**
      * Get the registered name of the component.
      *
      * @return string
@@ -42,20 +57,5 @@ class Auth extends Facade
     protected static function getFacadeAccessor()
     {
         return 'auth';
-    }
-
-    /**
-     * Register the typical authentication routes for an application.
-     *
-     * @param  array  $options
-     * @return void
-     */
-    public static function routes(array $options = [])
-    {
-        if (! static::$app->providerIsLoaded(UiServiceProvider::class)) {
-            throw new RuntimeException('In order to use the Auth::routes() method, please install the laravel/ui package.');
-        }
-
-        static::$app->make('router')->auth($options);
     }
 }

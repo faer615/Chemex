@@ -104,7 +104,7 @@ abstract class AbstractFtpAdapter extends AbstractAdapter
     public function setConfig(array $config)
     {
         foreach ($this->configurable as $setting) {
-            if ( ! isset($config[$setting])) {
+            if (!isset($config[$setting])) {
                 continue;
             }
 
@@ -143,34 +143,6 @@ abstract class AbstractFtpAdapter extends AbstractAdapter
     }
 
     /**
-     * Set the public permission value.
-     *
-     * @param int $permPublic
-     *
-     * @return $this
-     */
-    public function setPermPublic($permPublic)
-    {
-        $this->permPublic = $permPublic;
-
-        return $this;
-    }
-
-    /**
-     * Set the private permission value.
-     *
-     * @param int $permPrivate
-     *
-     * @return $this
-     */
-    public function setPermPrivate($permPrivate)
-    {
-        $this->permPrivate = $permPrivate;
-
-        return $this;
-    }
-
-    /**
      * Returns the ftp port.
      *
      * @return int
@@ -178,16 +150,6 @@ abstract class AbstractFtpAdapter extends AbstractAdapter
     public function getPort()
     {
         return $this->port;
-    }
-
-    /**
-     * Returns the root folder to work from.
-     *
-     * @return string
-     */
-    public function getRoot()
-    {
-        return $this->root;
     }
 
     /**
@@ -199,9 +161,19 @@ abstract class AbstractFtpAdapter extends AbstractAdapter
      */
     public function setPort($port)
     {
-        $this->port = (int) $port;
+        $this->port = (int)$port;
 
         return $this;
+    }
+
+    /**
+     * Returns the root folder to work from.
+     *
+     * @return string
+     */
+    public function getRoot()
+    {
+        return $this->root;
     }
 
     /**
@@ -287,7 +259,7 @@ abstract class AbstractFtpAdapter extends AbstractAdapter
      */
     public function setTimeout($timeout)
     {
-        $this->timeout = (int) $timeout;
+        $this->timeout = (int)$timeout;
 
         return $this;
     }
@@ -338,12 +310,152 @@ abstract class AbstractFtpAdapter extends AbstractAdapter
         return $this->listDirectoryContents($directory, $recursive);
     }
 
+    /**
+     * Filter out dot-directories.
+     *
+     * @param array $list
+     *
+     * @return array
+     */
+    public function removeDotDirectories(array $list)
+    {
+        $filter = function ($line) {
+            return $line !== '' && !preg_match('#.* \.(\.)?$|^total#', $line);
+        };
+
+        return array_filter($list, $filter);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function has($path)
+    {
+        return $this->getMetadata($path);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getSize($path)
+    {
+        return $this->getMetadata($path);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getVisibility($path)
+    {
+        return $this->getMetadata($path);
+    }
+
+    /**
+     * Ensure a directory exists.
+     *
+     * @param string $dirname
+     */
+    public function ensureDirectory($dirname)
+    {
+        $dirname = (string)$dirname;
+
+        if ($dirname !== '' && !$this->has($dirname)) {
+            $this->createDir($dirname, new Config());
+        }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getConnection()
+    {
+        if (!$this->isConnected()) {
+            $this->disconnect();
+            $this->connect();
+        }
+
+        return $this->connection;
+    }
+
+    /**
+     * Get the public permission value.
+     *
+     * @return int
+     */
+    public function getPermPublic()
+    {
+        return $this->permPublic;
+    }
+
+    /**
+     * Set the public permission value.
+     *
+     * @param int $permPublic
+     *
+     * @return $this
+     */
+    public function setPermPublic($permPublic)
+    {
+        $this->permPublic = $permPublic;
+
+        return $this;
+    }
+
+    /**
+     * Get the private permission value.
+     *
+     * @return int
+     */
+    public function getPermPrivate()
+    {
+        return $this->permPrivate;
+    }
+
+    /**
+     * Set the private permission value.
+     *
+     * @param int $permPrivate
+     *
+     * @return $this
+     */
+    public function setPermPrivate($permPrivate)
+    {
+        $this->permPrivate = $permPrivate;
+
+        return $this;
+    }
+
+    /**
+     * Disconnect on destruction.
+     */
+    public function __destruct()
+    {
+        $this->disconnect();
+    }
+
+    /**
+     * Establish a connection.
+     */
+    abstract public function connect();
+
+    /**
+     * Close the connection.
+     */
+    abstract public function disconnect();
+
+    /**
+     * Check if a connection is active.
+     *
+     * @return bool
+     */
+    abstract public function isConnected();
+
     abstract protected function listDirectoryContents($directory, $recursive = false);
 
     /**
      * Normalize a directory listing.
      *
-     * @param array  $listing
+     * @param array $listing
      * @param string $prefix
      *
      * @return array directory listing
@@ -451,7 +563,7 @@ abstract class AbstractFtpAdapter extends AbstractAdapter
 
         $permissions = $this->normalizePermissions($permissions);
         $visibility = $permissions & 0044 ? AdapterInterface::VISIBILITY_PUBLIC : AdapterInterface::VISIBILITY_PRIVATE;
-        $size = (int) $size;
+        $size = (int)$size;
 
         $result = compact('type', 'path', 'visibility', 'size');
         if ($this->enableTimestampsOnUnixListings) {
@@ -470,8 +582,8 @@ abstract class AbstractFtpAdapter extends AbstractAdapter
      * Note: The 'MLSD' command is a machine-readable replacement for 'LIST'
      * but many FTP servers do not support it :(
      *
-     * @param string $month      e.g. 'Aug'
-     * @param string $day        e.g. '19'
+     * @param string $month e.g. 'Aug'
+     * @param string $day e.g. '19'
      * @param string $timeOrYear e.g. '09:01' OR '2015'
      *
      * @return int
@@ -515,7 +627,7 @@ abstract class AbstractFtpAdapter extends AbstractAdapter
         // Check for the correct date/time format
         $format = strlen($date) === 8 ? 'm-d-yH:iA' : 'Y-m-dH:i';
         $dt = DateTime::createFromFormat($format, $date . $time);
-        $timestamp = $dt ? $dt->getTimestamp() : (int) strtotime("$date $time");
+        $timestamp = $dt ? $dt->getTimestamp() : (int)strtotime("$date $time");
 
         if ($size === '<DIR>') {
             $type = 'dir';
@@ -525,7 +637,7 @@ abstract class AbstractFtpAdapter extends AbstractAdapter
 
         $type = 'file';
         $visibility = AdapterInterface::VISIBILITY_PUBLIC;
-        $size = (int) $size;
+        $size = (int)$size;
 
         return compact('type', 'path', 'visibility', 'size', 'timestamp');
     }
@@ -564,7 +676,7 @@ abstract class AbstractFtpAdapter extends AbstractAdapter
     protected function normalizePermissions($permissions)
     {
         if (is_numeric($permissions)) {
-            return ((int) $permissions) & 0777;
+            return ((int)$permissions) & 0777;
         }
 
         // remove the type identifier
@@ -585,118 +697,6 @@ abstract class AbstractFtpAdapter extends AbstractAdapter
         // converts to decimal number
         return octdec(implode('', array_map($mapper, $parts)));
     }
-
-    /**
-     * Filter out dot-directories.
-     *
-     * @param array $list
-     *
-     * @return array
-     */
-    public function removeDotDirectories(array $list)
-    {
-        $filter = function ($line) {
-            return $line !== '' && ! preg_match('#.* \.(\.)?$|^total#', $line);
-        };
-
-        return array_filter($list, $filter);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function has($path)
-    {
-        return $this->getMetadata($path);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getSize($path)
-    {
-        return $this->getMetadata($path);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getVisibility($path)
-    {
-        return $this->getMetadata($path);
-    }
-
-    /**
-     * Ensure a directory exists.
-     *
-     * @param string $dirname
-     */
-    public function ensureDirectory($dirname)
-    {
-        $dirname = (string) $dirname;
-
-        if ($dirname !== '' && ! $this->has($dirname)) {
-            $this->createDir($dirname, new Config());
-        }
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getConnection()
-    {
-        if ( ! $this->isConnected()) {
-            $this->disconnect();
-            $this->connect();
-        }
-
-        return $this->connection;
-    }
-
-    /**
-     * Get the public permission value.
-     *
-     * @return int
-     */
-    public function getPermPublic()
-    {
-        return $this->permPublic;
-    }
-
-    /**
-     * Get the private permission value.
-     *
-     * @return int
-     */
-    public function getPermPrivate()
-    {
-        return $this->permPrivate;
-    }
-
-    /**
-     * Disconnect on destruction.
-     */
-    public function __destruct()
-    {
-        $this->disconnect();
-    }
-
-    /**
-     * Establish a connection.
-     */
-    abstract public function connect();
-
-    /**
-     * Close the connection.
-     */
-    abstract public function disconnect();
-
-    /**
-     * Check if a connection is active.
-     *
-     * @return bool
-     */
-    abstract public function isConnected();
 
     protected function escapePath($path)
     {

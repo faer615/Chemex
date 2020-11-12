@@ -50,17 +50,19 @@ class WindowsPipes extends AbstractPipes
             ];
             $tmpDir = sys_get_temp_dir();
             $lastError = 'unknown reason';
-            set_error_handler(function ($type, $msg) use (&$lastError) { $lastError = $msg; });
-            for ($i = 0;; ++$i) {
+            set_error_handler(function ($type, $msg) use (&$lastError) {
+                $lastError = $msg;
+            });
+            for ($i = 0; ; ++$i) {
                 foreach ($pipes as $pipe => $name) {
                     $file = sprintf('%s\\sf_proc_%02X.%s', $tmpDir, $i, $name);
 
-                    if (!$h = fopen($file.'.lock', 'w')) {
-                        if (file_exists($file.'.lock')) {
+                    if (!$h = fopen($file . '.lock', 'w')) {
+                        if (file_exists($file . '.lock')) {
                             continue 2;
                         }
                         restore_error_handler();
-                        throw new RuntimeException('A temporary file could not be opened to write the process output: '.$lastError);
+                        throw new RuntimeException('A temporary file could not be opened to write the process output: ' . $lastError);
                     }
                     if (!flock($h, \LOCK_EX | \LOCK_NB)) {
                         continue 2;

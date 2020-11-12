@@ -120,13 +120,13 @@ final class TypeResolver
      * This method only works as expected if the namespace and aliases are set;
      * no dynamic reflection is being performed here.
      *
-     * @uses Context::getNamespaceAliases() to check whether the first part of the relative type name should not be
-     * replaced with another namespace.
+     * @param string $type The relative or absolute type.
      * @uses Context::getNamespace()        to determine with what to prefix the type name.
      *
-     * @param string $type The relative or absolute type.
+     * @uses Context::getNamespaceAliases() to check whether the first part of the relative type name should not be
+     * replaced with another namespace.
      */
-    public function resolve(string $type, ?Context $context = null) : Type
+    public function resolve(string $type, ?Context $context = null): Type
     {
         $type = trim($type);
         if (!$type) {
@@ -156,13 +156,36 @@ final class TypeResolver
     }
 
     /**
+     * Adds a keyword to the list of Keywords and associates it with a specific Value Object.
+     *
+     * @psalm-param class-string<Type> $typeClassName
+     */
+    public function addKeyword(string $keyword, string $typeClassName): void
+    {
+        if (!class_exists($typeClassName)) {
+            throw new InvalidArgumentException(
+                'The Value Object that needs to be created with a keyword "' . $keyword . '" must be an existing class'
+                . ' but we could not find the class ' . $typeClassName
+            );
+        }
+
+        if (!in_array(Type::class, class_implements($typeClassName), true)) {
+            throw new InvalidArgumentException(
+                'The class "' . $typeClassName . '" must implement the interface "phpDocumentor\Reflection\Type"'
+            );
+        }
+
+        $this->keywords[$keyword] = $typeClassName;
+    }
+
+    /**
      * Analyse each tokens and creates types
      *
-     * @param ArrayIterator<int, string|null> $tokens        the iterator on tokens
-     * @param int                        $parserContext on of self::PARSER_* constants, indicating
+     * @param ArrayIterator<int, string|null> $tokens the iterator on tokens
+     * @param int $parserContext on of self::PARSER_* constants, indicating
      * the context where we are in the parsing
      */
-    private function parseTypes(ArrayIterator $tokens, Context $context, int $parserContext) : Type
+    private function parseTypes(ArrayIterator $tokens, Context $context, int $parserContext): Type
     {
         $types = [];
         $token = '';
@@ -208,7 +231,7 @@ final class TypeResolver
                 }
 
                 $tokens->next();
-                $type    = $this->parseTypes($tokens, $context, self::PARSER_IN_NULLABLE);
+                $type = $this->parseTypes($tokens, $context, self::PARSER_IN_NULLABLE);
                 $types[] = new Nullable($type);
             } elseif ($token === '(') {
                 $tokens->next();
@@ -235,7 +258,7 @@ final class TypeResolver
 
                 $classType = array_pop($types);
                 if ($classType !== null) {
-                    if ((string) $classType === 'class-string') {
+                    if ((string)$classType === 'class-string') {
                         $types[] = $this->resolveClassString($tokens, $context);
                     } else {
                         $types[] = $this->resolveCollection($tokens, $classType, $context);
@@ -313,7 +336,7 @@ final class TypeResolver
      *
      * @psalm-mutation-free
      */
-    private function resolveSingleType(string $type, Context $context) : object
+    private function resolveSingleType(string $type, Context $context): object
     {
         switch (true) {
             case $this->isKeyword($type):
@@ -335,36 +358,13 @@ final class TypeResolver
     }
 
     /**
-     * Adds a keyword to the list of Keywords and associates it with a specific Value Object.
-     *
-     * @psalm-param class-string<Type> $typeClassName
-     */
-    public function addKeyword(string $keyword, string $typeClassName) : void
-    {
-        if (!class_exists($typeClassName)) {
-            throw new InvalidArgumentException(
-                'The Value Object that needs to be created with a keyword "' . $keyword . '" must be an existing class'
-                . ' but we could not find the class ' . $typeClassName
-            );
-        }
-
-        if (!in_array(Type::class, class_implements($typeClassName), true)) {
-            throw new InvalidArgumentException(
-                'The class "' . $typeClassName . '" must implement the interface "phpDocumentor\Reflection\Type"'
-            );
-        }
-
-        $this->keywords[$keyword] = $typeClassName;
-    }
-
-    /**
      * Detects whether the given type represents a PHPDoc keyword.
      *
      * @param string $type A relative or absolute type as defined in the phpDocumentor documentation.
      *
      * @psalm-mutation-free
      */
-    private function isKeyword(string $type) : bool
+    private function isKeyword(string $type): bool
     {
         return array_key_exists(strtolower($type), $this->keywords);
     }
@@ -376,7 +376,7 @@ final class TypeResolver
      *
      * @psalm-mutation-free
      */
-    private function isPartialStructuralElementName(string $type) : bool
+    private function isPartialStructuralElementName(string $type): bool
     {
         return ($type[0] !== self::OPERATOR_NAMESPACE) && !$this->isKeyword($type);
     }
@@ -386,7 +386,7 @@ final class TypeResolver
      *
      * @psalm-mutation-free
      */
-    private function isFqsen(string $type) : bool
+    private function isFqsen(string $type): bool
     {
         return strpos($type, self::OPERATOR_NAMESPACE) === 0;
     }
@@ -396,7 +396,7 @@ final class TypeResolver
      *
      * @psalm-mutation-free
      */
-    private function resolveKeyword(string $type) : Type
+    private function resolveKeyword(string $type): Type
     {
         $className = $this->keywords[strtolower($type)];
 
@@ -408,7 +408,7 @@ final class TypeResolver
      *
      * @psalm-mutation-free
      */
-    private function resolveTypedObject(string $type, ?Context $context = null) : Object_
+    private function resolveTypedObject(string $type, ?Context $context = null): Object_
     {
         return new Object_($this->fqsenResolver->resolve($type, $context));
     }
@@ -418,7 +418,7 @@ final class TypeResolver
      *
      * @param ArrayIterator<int, (string|null)> $tokens
      */
-    private function resolveClassString(ArrayIterator $tokens, Context $context) : Type
+    private function resolveClassString(ArrayIterator $tokens, Context $context): Type
     {
         $tokens->next();
 
@@ -453,10 +453,10 @@ final class TypeResolver
      *
      * @return Array_|Iterable_|Collection
      */
-    private function resolveCollection(ArrayIterator $tokens, Type $classType, Context $context) : Type
+    private function resolveCollection(ArrayIterator $tokens, Type $classType, Context $context): Type
     {
-        $isArray    = ((string) $classType === 'array');
-        $isIterable = ((string) $classType === 'iterable');
+        $isArray = ((string)$classType === 'array');
+        $isIterable = ((string)$classType === 'iterable');
 
         // allow only "array", "iterable" or class name before "<"
         if (!$isArray && !$isIterable
@@ -469,7 +469,7 @@ final class TypeResolver
         $tokens->next();
 
         $valueType = $this->parseTypes($tokens, $context, self::PARSER_IN_COLLECTION_EXPRESSION);
-        $keyType   = null;
+        $keyType = null;
 
         $token = $tokens->current();
         if ($token !== null && trim($token) === ',') {
@@ -536,7 +536,7 @@ final class TypeResolver
     /**
      * @psalm-pure
      */
-    private function makeCollectionFromObject(Object_ $object, Type $valueType, ?Type $keyType = null) : Collection
+    private function makeCollectionFromObject(Object_ $object, Type $valueType, ?Type $keyType = null): Collection
     {
         return new Collection($object->getFqsen(), $valueType, $keyType);
     }

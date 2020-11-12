@@ -9,25 +9,23 @@ use Illuminate\View\Compilers\ComponentTagCompiler;
 class DynamicComponent extends Component
 {
     /**
-     * The name of the component.
-     *
-     * @var string
-     */
-    public $component;
-
-    /**
      * The component tag compiler instance.
      *
      * @var \Illuminate\View\Compilers\BladeTagCompiler
      */
     protected static $compiler;
-
     /**
      * The cached component classes.
      *
      * @var array
      */
     protected static $componentClasses = [];
+    /**
+     * The name of the component.
+     *
+     * @var string
+     */
+    public $component;
 
     /**
      * Create a new component instance.
@@ -83,7 +81,7 @@ EOF;
     /**
      * Compile the @props directive for the component.
      *
-     * @param  array  $bindings
+     * @param array $bindings
      * @return string
      */
     protected function compileProps(array $bindings)
@@ -92,34 +90,34 @@ EOF;
             return '';
         }
 
-        return '@props('.'[\''.implode('\',\'', collect($bindings)->map(function ($dataKey) {
-            return Str::camel($dataKey);
-        })->all()).'\']'.')';
+        return '@props(' . '[\'' . implode('\',\'', collect($bindings)->map(function ($dataKey) {
+                return Str::camel($dataKey);
+            })->all()) . '\']' . ')';
     }
 
     /**
      * Compile the bindings for the component.
      *
-     * @param  array  $bindings
+     * @param array $bindings
      * @return string
      */
     protected function compileBindings(array $bindings)
     {
         return collect($bindings)->map(function ($key) {
-            return ':'.$key.'="$'.Str::camel(str_replace([':', '.'], ' ', $key)).'"';
+            return ':' . $key . '="$' . Str::camel(str_replace([':', '.'], ' ', $key)) . '"';
         })->implode(' ');
     }
 
     /**
      * Compile the slots for the component.
      *
-     * @param  array  $slots
+     * @param array $slots
      * @return string
      */
     protected function compileSlots(array $slots)
     {
         return collect($slots)->map(function ($slot, $name) {
-            return $name === '__default' ? null : '<x-slot name="'.$name.'">{{ $'.$name.' }}</x-slot>';
+            return $name === '__default' ? null : '<x-slot name="' . $name . '">{{ $' . $name . ' }}</x-slot>';
         })->filter()->implode(PHP_EOL);
     }
 
@@ -135,13 +133,13 @@ EOF;
         }
 
         return static::$componentClasses[$this->component] =
-                    $this->compiler()->componentClass($this->component);
+            $this->compiler()->componentClass($this->component);
     }
 
     /**
      * Get the names of the variables that should be bound to the component.
      *
-     * @param  string  $class
+     * @param string $class
      * @return array
      */
     protected function bindings(string $class)
@@ -158,7 +156,7 @@ EOF;
      */
     protected function compiler()
     {
-        if (! static::$compiler) {
+        if (!static::$compiler) {
             static::$compiler = new ComponentTagCompiler(
                 Container::getInstance()->make('blade.compiler')->getClassComponentAliases(),
                 Container::getInstance()->make('blade.compiler')->getClassComponentNamespaces(),

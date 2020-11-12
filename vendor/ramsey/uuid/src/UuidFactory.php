@@ -177,6 +177,19 @@ class UuidFactory implements UuidFactoryInterface
     }
 
     /**
+     * Sets the random generator to use for this factory
+     *
+     * @param RandomGeneratorInterface $generator A generator to generate binary
+     *     data, based on some random input
+     */
+    public function setRandomGenerator(RandomGeneratorInterface $generator): void
+    {
+        $this->isDefaultFeatureSet = false;
+
+        $this->randomGenerator = $generator;
+    }
+
+    /**
      * Returns the time generator used by this factory
      */
     public function getTimeGenerator(): TimeGeneratorInterface
@@ -224,19 +237,6 @@ class UuidFactory implements UuidFactoryInterface
     public function getNumberConverter(): NumberConverterInterface
     {
         return $this->numberConverter;
-    }
-
-    /**
-     * Sets the random generator to use for this factory
-     *
-     * @param RandomGeneratorInterface $generator A generator to generate binary
-     *     data, based on some random input
-     */
-    public function setRandomGenerator(RandomGeneratorInterface $generator): void
-    {
-        $this->isDefaultFeatureSet = false;
-
-        $this->randomGenerator = $generator;
     }
 
     /**
@@ -327,7 +327,8 @@ class UuidFactory implements UuidFactoryInterface
         DateTimeInterface $dateTime,
         ?Hexadecimal $node = null,
         ?int $clockSeq = null
-    ): UuidInterface {
+    ): UuidInterface
+    {
         $timeProvider = new FixedTimeProvider(
             new Time($dateTime->format('U'), $dateTime->format('u'))
         );
@@ -360,7 +361,8 @@ class UuidFactory implements UuidFactoryInterface
         ?IntegerObject $localIdentifier = null,
         ?Hexadecimal $node = null,
         ?int $clockSeq = null
-    ): UuidInterface {
+    ): UuidInterface
+    {
         $bytes = $this->dceSecurityGenerator->generate(
             $localDomain,
             $localIdentifier,
@@ -471,10 +473,10 @@ class UuidFactory implements UuidFactoryInterface
      */
     private function uuidFromBytesAndVersion(string $bytes, int $version): UuidInterface
     {
-        $timeHi = (int) unpack('n*', substr($bytes, 6, 2))[1];
+        $timeHi = (int)unpack('n*', substr($bytes, 6, 2))[1];
         $timeHiAndVersion = pack('n*', BinaryUtils::applyVersion($timeHi, $version));
 
-        $clockSeqHi = (int) unpack('n*', substr($bytes, 8, 2))[1];
+        $clockSeqHi = (int)unpack('n*', substr($bytes, 8, 2))[1];
         $clockSeqHiAndReserved = pack('n*', BinaryUtils::applyVariant($clockSeqHi));
 
         $bytes = substr_replace($bytes, $timeHiAndVersion, 6, 2);

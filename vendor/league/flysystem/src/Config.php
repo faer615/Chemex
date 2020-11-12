@@ -28,13 +28,13 @@ class Config
      * Get a setting.
      *
      * @param string $key
-     * @param mixed  $default
+     * @param mixed $default
      *
      * @return mixed config setting or default when not found
      */
     public function get($key, $default = null)
     {
-        if ( ! array_key_exists($key, $this->settings)) {
+        if (!array_key_exists($key, $this->settings)) {
             return $this->getDefault($key, $default);
         }
 
@@ -60,27 +60,10 @@ class Config
     }
 
     /**
-     * Try to retrieve a default setting from a config fallback.
-     *
-     * @param string $key
-     * @param mixed  $default
-     *
-     * @return mixed config setting or default when not found
-     */
-    protected function getDefault($key, $default)
-    {
-        if ( ! $this->fallback) {
-            return $default;
-        }
-
-        return $this->fallback->get($key, $default);
-    }
-
-    /**
      * Set a setting.
      *
      * @param string $key
-     * @param mixed  $value
+     * @param mixed $value
      *
      * @return $this
      */
@@ -103,5 +86,22 @@ class Config
         $this->fallback = $fallback;
 
         return $this;
+    }
+
+    /**
+     * Try to retrieve a default setting from a config fallback.
+     *
+     * @param string $key
+     * @param mixed $default
+     *
+     * @return mixed config setting or default when not found
+     */
+    protected function getDefault($key, $default)
+    {
+        if (!$this->fallback) {
+            return $default;
+        }
+
+        return $this->fallback->get($key, $default);
     }
 }

@@ -7,7 +7,7 @@ interface ContextualBindingBuilder
     /**
      * Define the abstract target that depends on the context.
      *
-     * @param  string  $abstract
+     * @param string $abstract
      * @return $this
      */
     public function needs($abstract);
@@ -15,7 +15,7 @@ interface ContextualBindingBuilder
     /**
      * Define the implementation for the contextual binding.
      *
-     * @param  \Closure|string  $implementation
+     * @param \Closure|string $implementation
      * @return void
      */
     public function give($implementation);
@@ -23,7 +23,7 @@ interface ContextualBindingBuilder
     /**
      * Define tagged services to be used as the implementation for the contextual binding.
      *
-     * @param  string  $tag
+     * @param string $tag
      * @return void
      */
     public function giveTagged($tag);

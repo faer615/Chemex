@@ -29,13 +29,13 @@ class Analyzer extends ClosureAnalyzer
 
         $data = [
             'reflection' => $reflection,
-            'code'       => $reflection->getCode(),
-            'hasThis'    => $reflection->isBindingRequired(),
-            'context'    => $reflection->getUseVariables(),
-            'hasRefs'    => false,
-            'binding'    => $reflection->getClosureThis(),
-            'scope'      => $scope ? $scope->getName() : null,
-            'isStatic'   => $reflection->isStatic(),
+            'code' => $reflection->getCode(),
+            'hasThis' => $reflection->isBindingRequired(),
+            'context' => $reflection->getUseVariables(),
+            'hasRefs' => false,
+            'binding' => $reflection->getClosureThis(),
+            'scope' => $scope ? $scope->getName() : null,
+            'isStatic' => $reflection->isStatic(),
         ];
 
         return $data;

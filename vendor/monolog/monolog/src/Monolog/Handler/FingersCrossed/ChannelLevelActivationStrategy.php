@@ -46,8 +46,8 @@ class ChannelLevelActivationStrategy implements ActivationStrategyInterface
     private $channelToActionLevel;
 
     /**
-     * @param int|string $defaultActionLevel   The default action level to be used if the record's category doesn't match any
-     * @param array      $channelToActionLevel An array that maps channel names to action levels.
+     * @param int|string $defaultActionLevel The default action level to be used if the record's category doesn't match any
+     * @param array $channelToActionLevel An array that maps channel names to action levels.
      */
     public function __construct($defaultActionLevel, array $channelToActionLevel = [])
     {

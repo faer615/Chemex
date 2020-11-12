@@ -56,7 +56,7 @@ class RegisterControllerArgumentLocatorsPass implements CompilerPassInterface
         $publicAliases = [];
         foreach ($container->getAliases() as $id => $alias) {
             if ($alias->isPublic() && !$alias->isPrivate()) {
-                $publicAliases[(string) $alias][] = $id;
+                $publicAliases[(string)$alias][] = $id;
             }
         }
 
@@ -138,20 +138,20 @@ class RegisterControllerArgumentLocatorsPass implements CompilerPassInterface
                         $target = $arguments[$r->name][$p->name];
                         if ('?' !== $target[0]) {
                             $invalidBehavior = ContainerInterface::RUNTIME_EXCEPTION_ON_INVALID_REFERENCE;
-                        } elseif ('' === $target = (string) substr($target, 1)) {
+                        } elseif ('' === $target = (string)substr($target, 1)) {
                             throw new InvalidArgumentException(sprintf('A "%s" tag must have non-empty "id" attributes for service "%s".', $this->controllerTag, $id));
                         } elseif ($p->allowsNull() && !$p->isOptional()) {
                             $invalidBehavior = ContainerInterface::NULL_ON_INVALID_REFERENCE;
                         }
-                    } elseif (isset($bindings[$bindingName = $type.' $'.$p->name]) || isset($bindings[$bindingName = '$'.$p->name]) || isset($bindings[$bindingName = $type])) {
+                    } elseif (isset($bindings[$bindingName = $type . ' $' . $p->name]) || isset($bindings[$bindingName = '$' . $p->name]) || isset($bindings[$bindingName = $type])) {
                         $binding = $bindings[$bindingName];
 
                         list($bindingValue, $bindingId, , $bindingType, $bindingFile) = $binding->getValues();
                         $binding->setValues([$bindingValue, $bindingId, true, $bindingType, $bindingFile]);
 
                         if (!$bindingValue instanceof Reference) {
-                            $args[$p->name] = new Reference('.value.'.$container->hash($bindingValue));
-                            $container->register((string) $args[$p->name], 'mixed')
+                            $args[$p->name] = new Reference('.value.' . $container->hash($bindingValue));
+                            $container->register((string)$args[$p->name], 'mixed')
                                 ->setFactory('current')
                                 ->addArgument([$bindingValue]);
                         } else {
@@ -177,7 +177,7 @@ class RegisterControllerArgumentLocatorsPass implements CompilerPassInterface
                             $message .= ' Did you forget to add a use statement?';
                         }
 
-                        $container->register($erroredId = '.errored.'.$container->hash($message), $type)
+                        $container->register($erroredId = '.errored.' . $container->hash($message), $type)
                             ->addError($message);
 
                         $args[$p->name] = new Reference($erroredId, ContainerInterface::RUNTIME_EXCEPTION_ON_INVALID_REFERENCE);
@@ -188,10 +188,10 @@ class RegisterControllerArgumentLocatorsPass implements CompilerPassInterface
                 }
                 // register the maps as a per-method service-locators
                 if ($args) {
-                    $controllers[$id.'::'.$r->name] = ServiceLocatorTagPass::register($container, $args);
+                    $controllers[$id . '::' . $r->name] = ServiceLocatorTagPass::register($container, $args);
 
                     foreach ($publicAliases[$id] ?? [] as $alias) {
-                        $controllers[$alias.'::'.$r->name] = clone $controllers[$id.'::'.$r->name];
+                        $controllers[$alias . '::' . $r->name] = clone $controllers[$id . '::' . $r->name];
                     }
                 }
             }
@@ -209,6 +209,6 @@ class RegisterControllerArgumentLocatorsPass implements CompilerPassInterface
                 ->replaceArgument(0, $controllerLocatorRef);
         }
 
-        $container->setAlias($this->controllerLocator, (string) $controllerLocatorRef);
+        $container->setAlias($this->controllerLocator, (string)$controllerLocatorRef);
     }
 }

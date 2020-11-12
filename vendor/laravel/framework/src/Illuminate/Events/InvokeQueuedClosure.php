@@ -7,8 +7,8 @@ class InvokeQueuedClosure
     /**
      * Handle the event.
      *
-     * @param  \Illuminate\Queue\SerializableClosure  $closure
-     * @param  array  $arguments
+     * @param \Illuminate\Queue\SerializableClosure $closure
+     * @param array $arguments
      * @return void
      */
     public function handle($closure, array $arguments)
@@ -19,10 +19,10 @@ class InvokeQueuedClosure
     /**
      * Handle a job failure.
      *
-     * @param  \Illuminate\Queue\SerializableClosure  $closure
-     * @param  array  $arguments
-     * @param  array  $catchCallbacks
-     * @param  \Throwable  $exception
+     * @param \Illuminate\Queue\SerializableClosure $closure
+     * @param array $arguments
+     * @param array $catchCallbacks
+     * @param \Throwable $exception
      * @return void
      */
     public function failed($closure, array $arguments, array $catchCallbacks, $exception)

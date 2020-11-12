@@ -24,7 +24,7 @@ interface ElementRendererInterface
 {
     /**
      * @param string $option
-     * @param mixed  $default
+     * @param mixed $default
      *
      * @return mixed|null
      */
@@ -46,17 +46,17 @@ interface ElementRendererInterface
 
     /**
      * @param AbstractBlock $block
-     * @param bool          $inTightList
-     *
-     * @throws \RuntimeException
+     * @param bool $inTightList
      *
      * @return string
+     * @throws \RuntimeException
+     *
      */
     public function renderBlock(AbstractBlock $block, bool $inTightList = false): string;
 
     /**
      * @param AbstractBlock[] $blocks
-     * @param bool            $inTightList
+     * @param bool $inTightList
      *
      * @return string
      */

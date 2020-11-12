@@ -61,15 +61,15 @@ class ResultCacheStatement implements IteratorAggregate, ResultStatement, Result
     /**
      * @param string $cacheKey
      * @param string $realKey
-     * @param int    $lifetime
+     * @param int $lifetime
      */
     public function __construct(ResultStatement $stmt, Cache $resultCache, $cacheKey, $realKey, $lifetime)
     {
-        $this->statement   = $stmt;
+        $this->statement = $stmt;
         $this->resultCache = $resultCache;
-        $this->cacheKey    = $cacheKey;
-        $this->realKey     = $realKey;
-        $this->lifetime    = $lifetime;
+        $this->cacheKey = $cacheKey;
+        $this->realKey = $realKey;
+        $this->lifetime = $lifetime;
     }
 
     /**
@@ -337,7 +337,7 @@ class ResultCacheStatement implements IteratorAggregate, ResultStatement, Result
         }
 
         $data = $this->resultCache->fetch($this->cacheKey);
-        if (! $data) {
+        if (!$data) {
             $data = [];
         }
 

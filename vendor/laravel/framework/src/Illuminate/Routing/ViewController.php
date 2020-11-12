@@ -16,7 +16,7 @@ class ViewController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @param  \Illuminate\Contracts\Routing\ResponseFactory  $response
+     * @param \Illuminate\Contracts\Routing\ResponseFactory $response
      * @return void
      */
     public function __construct(ResponseFactory $response)
@@ -27,7 +27,7 @@ class ViewController extends Controller
     /**
      * Invoke the controller method.
      *
-     * @param  array  $args
+     * @param array $args
      * @return \Illuminate\Http\Response
      */
     public function __invoke(...$args)

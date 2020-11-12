@@ -37,7 +37,7 @@ final class ClassString implements Type
     /**
      * Returns the FQSEN associated with this object.
      */
-    public function getFqsen() : ?Fqsen
+    public function getFqsen(): ?Fqsen
     {
         return $this->fqsen;
     }
@@ -45,12 +45,12 @@ final class ClassString implements Type
     /**
      * Returns a rendered output of the Type as it would be used in a DocBlock.
      */
-    public function __toString() : string
+    public function __toString(): string
     {
         if ($this->fqsen === null) {
             return 'class-string';
         }
 
-        return 'class-string<' . (string) $this->fqsen . '>';
+        return 'class-string<' . (string)$this->fqsen . '>';
     }
 }

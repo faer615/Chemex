@@ -1,4 +1,5 @@
 <?php
+
 namespace Lcobucci\JWT\FunctionalTests;
 
 use Lcobucci\JWT\Signer\Ecdsa;
@@ -22,14 +23,14 @@ final class RFC6978VectorTest extends TestCase
      * @test
      * @dataProvider dataRFC6979
      *
-     * @covers \Lcobucci\JWT\Signer\Key
-     * @covers \Lcobucci\JWT\Signer\Ecdsa
-     * @covers \Lcobucci\JWT\Signer\Ecdsa\MultibyteStringConverter
-     * @covers \Lcobucci\JWT\Signer\Ecdsa\Sha256
-     * @covers \Lcobucci\JWT\Signer\Ecdsa\Sha384
-     * @covers \Lcobucci\JWT\Signer\Ecdsa\Sha512
-     * @covers \Lcobucci\JWT\Signer\OpenSSL
-     * @covers \Lcobucci\JWT\Signer\BaseSigner
+     * @covers       \Lcobucci\JWT\Signer\Key
+     * @covers       \Lcobucci\JWT\Signer\Ecdsa
+     * @covers       \Lcobucci\JWT\Signer\Ecdsa\MultibyteStringConverter
+     * @covers       \Lcobucci\JWT\Signer\Ecdsa\Sha256
+     * @covers       \Lcobucci\JWT\Signer\Ecdsa\Sha384
+     * @covers       \Lcobucci\JWT\Signer\Ecdsa\Sha512
+     * @covers       \Lcobucci\JWT\Signer\OpenSSL
+     * @covers       \Lcobucci\JWT\Signer\BaseSigner
      */
     public function theVectorsFromRFC6978CanBeVerified(
         Ecdsa $signer,
@@ -37,7 +38,8 @@ final class RFC6978VectorTest extends TestCase
         $payload,
         $expectedR,
         $expectedS
-    ) {
+    )
+    {
         $signature = hex2bin($expectedR . $expectedS);
         assert(is_string($signature));
 
@@ -58,7 +60,7 @@ final class RFC6978VectorTest extends TestCase
     public function sha256Data()
     {
         $signer = new Sha256();
-        $key    = new Key(
+        $key = new Key(
             '-----BEGIN PUBLIC KEY-----' . PHP_EOL
             . 'MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEYP7UuiVanTHJYet0xjVtaMBJuJI7' . PHP_EOL
             . 'Yfps5mliLmDyn7Z5A/4QCLi8maQa6elWKLxk8vGyDC1+n1F3o8KU1EYimQ==' . PHP_EOL
@@ -89,7 +91,7 @@ final class RFC6978VectorTest extends TestCase
     public function sha384Data()
     {
         $signer = new Sha384();
-        $key    = new Key(
+        $key = new Key(
             '-----BEGIN PUBLIC KEY-----' . PHP_EOL
             . 'MHYwEAYHKoZIzj0CAQYFK4EEACIDYgAE7DpOQVtOGaRWhhgCn0J/pdqai8SukuAu' . PHP_EOL
             . 'BqrlKGswDGTe+PDqkFWGYGSiVFFUgLwTgBXZty19VyROqO+awMYhiWcIpZNn+d+5' . PHP_EOL
@@ -121,7 +123,7 @@ final class RFC6978VectorTest extends TestCase
     public function sha512Data()
     {
         $signer = new Sha512();
-        $key    = new Key(
+        $key = new Key(
             '-----BEGIN PUBLIC KEY-----' . PHP_EOL
             . 'MIGbMBAGByqGSM49AgEGBSuBBAAjA4GGAAQBiUVQ0HhZMuAOqiO2lPIT+MMSH4bc' . PHP_EOL
             . 'l6BOWnFn205bzTcRI9RuRdtrXVNwp/IPtjMVXTj/oW0r12HcrEdLmi9QI6QASTEB' . PHP_EOL

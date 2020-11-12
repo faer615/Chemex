@@ -25,7 +25,7 @@ class ComponentAttributeBag implements ArrayAccess, Htmlable, IteratorAggregate
     /**
      * Create a new component attribute bag instance.
      *
-     * @param  array  $attributes
+     * @param array $attributes
      * @return void
      */
     public function __construct(array $attributes = [])
@@ -36,7 +36,7 @@ class ComponentAttributeBag implements ArrayAccess, Htmlable, IteratorAggregate
     /**
      * Get the first attribute's value.
      *
-     * @param  mixed  $default
+     * @param mixed $default
      * @return mixed
      */
     public function first($default = null)
@@ -47,8 +47,8 @@ class ComponentAttributeBag implements ArrayAccess, Htmlable, IteratorAggregate
     /**
      * Get a given attribute from the attribute array.
      *
-     * @param  string  $key
-     * @param  mixed  $default
+     * @param string $key
+     * @param mixed $default
      * @return mixed
      */
     public function get($key, $default = null)
@@ -59,7 +59,7 @@ class ComponentAttributeBag implements ArrayAccess, Htmlable, IteratorAggregate
     /**
      * Only include the given attribute from the attribute array.
      *
-     * @param  mixed|array  $keys
+     * @param mixed|array $keys
      * @return static
      */
     public function only($keys)
@@ -78,7 +78,7 @@ class ComponentAttributeBag implements ArrayAccess, Htmlable, IteratorAggregate
     /**
      * Exclude the given attribute from the attribute array.
      *
-     * @param  mixed|array  $keys
+     * @param mixed|array $keys
      * @return static
      */
     public function except($keys)
@@ -97,7 +97,7 @@ class ComponentAttributeBag implements ArrayAccess, Htmlable, IteratorAggregate
     /**
      * Filter the attributes, returning a bag of attributes that pass the filter.
      *
-     * @param  callable  $callback
+     * @param callable $callback
      * @return static
      */
     public function filter($callback)
@@ -108,7 +108,7 @@ class ComponentAttributeBag implements ArrayAccess, Htmlable, IteratorAggregate
     /**
      * Return a bag of attributes that have keys starting with the given value / pattern.
      *
-     * @param  string  $string
+     * @param string $string
      * @return static
      */
     public function whereStartsWith($string)
@@ -121,20 +121,20 @@ class ComponentAttributeBag implements ArrayAccess, Htmlable, IteratorAggregate
     /**
      * Return a bag of attributes with keys that do not start with the given value / pattern.
      *
-     * @param  string  $string
+     * @param string $string
      * @return static
      */
     public function whereDoesntStartWith($string)
     {
         return $this->filter(function ($value, $key) use ($string) {
-            return ! Str::startsWith($key, $string);
+            return !Str::startsWith($key, $string);
         });
     }
 
     /**
      * Return a bag of attributes that have keys starting with the given value / pattern.
      *
-     * @param  string  $string
+     * @param string $string
      * @return static
      */
     public function thatStartWith($string)
@@ -145,7 +145,7 @@ class ComponentAttributeBag implements ArrayAccess, Htmlable, IteratorAggregate
     /**
      * Exclude the given attribute from the attribute array.
      *
-     * @param  mixed|array  $keys
+     * @param mixed|array $keys
      * @return static
      */
     public function exceptProps($keys)
@@ -165,29 +165,29 @@ class ComponentAttributeBag implements ArrayAccess, Htmlable, IteratorAggregate
     /**
      * Merge additional attributes / values into the attribute bag.
      *
-     * @param  array  $attributeDefaults
-     * @param  bool  $escape
+     * @param array $attributeDefaults
+     * @param bool $escape
      * @return static
      */
     public function merge(array $attributeDefaults = [], $escape = true)
     {
         $attributeDefaults = array_map(function ($value) use ($escape) {
             return $this->shouldEscapeAttributeValue($escape, $value)
-                        ? e($value)
-                        : $value;
+                ? e($value)
+                : $value;
         }, $attributeDefaults);
 
         [$appendableAttributes, $nonAppendableAttributes] = collect($this->attributes)
-                    ->partition(function ($value, $key) use ($attributeDefaults) {
-                        return $key === 'class' ||
-                               (isset($attributeDefaults[$key]) &&
-                                $attributeDefaults[$key] instanceof AppendableAttributeValue);
-                    });
+            ->partition(function ($value, $key) use ($attributeDefaults) {
+                return $key === 'class' ||
+                    (isset($attributeDefaults[$key]) &&
+                        $attributeDefaults[$key] instanceof AppendableAttributeValue);
+            });
 
         $attributes = $appendableAttributes->mapWithKeys(function ($value, $key) use ($attributeDefaults, $escape) {
             $defaultsValue = isset($attributeDefaults[$key]) && $attributeDefaults[$key] instanceof AppendableAttributeValue
-                        ? $this->resolveAppendableAttributeDefault($attributeDefaults, $key, $escape)
-                        : ($attributeDefaults[$key] ?? '');
+                ? $this->resolveAppendableAttributeDefault($attributeDefaults, $key, $escape)
+                : ($attributeDefaults[$key] ?? '');
 
             return [$key => implode(' ', array_unique(array_filter([$defaultsValue, $value])))];
         })->merge($nonAppendableAttributes)->all();
@@ -196,49 +196,14 @@ class ComponentAttributeBag implements ArrayAccess, Htmlable, IteratorAggregate
     }
 
     /**
-     * Determine if the specific attribute value should be escaped.
-     *
-     * @param  bool  $escape
-     * @param  mixed  $value
-     * @return bool
-     */
-    protected function shouldEscapeAttributeValue($escape, $value)
-    {
-        if (! $escape) {
-            return false;
-        }
-
-        return ! is_object($value) &&
-               ! is_null($value) &&
-               ! is_bool($value);
-    }
-
-    /**
      * Create a new appendable attribute value.
      *
-     * @param  mixed  $value
+     * @param mixed $value
      * @return \Illuminate\View\AppendableAttributeValue
      */
     public function prepends($value)
     {
         return new AppendableAttributeValue($value);
-    }
-
-    /**
-     * Resolve an appendable attribute value default value.
-     *
-     * @param  array  $attributeDefaults
-     * @param  string  $key
-     * @param  bool  $escape
-     * @return mixed
-     */
-    protected function resolveAppendableAttributeDefault($attributeDefaults, $key, $escape)
-    {
-        if ($this->shouldEscapeAttributeValue($escape, $value = $attributeDefaults[$key]->value)) {
-            $value = e($value);
-        }
-
-        return $value;
     }
 
     /**
@@ -254,7 +219,7 @@ class ComponentAttributeBag implements ArrayAccess, Htmlable, IteratorAggregate
     /**
      * Set the underlying attributes.
      *
-     * @param  array  $attributes
+     * @param array $attributes
      * @return void
      */
     public function setAttributes(array $attributes)
@@ -278,24 +243,24 @@ class ComponentAttributeBag implements ArrayAccess, Htmlable, IteratorAggregate
      */
     public function toHtml()
     {
-        return (string) $this;
+        return (string)$this;
     }
 
     /**
      * Merge additional attributes / values into the attribute bag.
      *
-     * @param  array  $attributeDefaults
+     * @param array $attributeDefaults
      * @return \Illuminate\Support\HtmlString
      */
     public function __invoke(array $attributeDefaults = [])
     {
-        return new HtmlString((string) $this->merge($attributeDefaults));
+        return new HtmlString((string)$this->merge($attributeDefaults));
     }
 
     /**
      * Determine if the given offset exists.
      *
-     * @param  string  $offset
+     * @param string $offset
      * @return bool
      */
     public function offsetExists($offset)
@@ -306,7 +271,7 @@ class ComponentAttributeBag implements ArrayAccess, Htmlable, IteratorAggregate
     /**
      * Get the value at the given offset.
      *
-     * @param  string  $offset
+     * @param string $offset
      * @return mixed
      */
     public function offsetGet($offset)
@@ -317,8 +282,8 @@ class ComponentAttributeBag implements ArrayAccess, Htmlable, IteratorAggregate
     /**
      * Set the value at a given offset.
      *
-     * @param  string  $offset
-     * @param  mixed  $value
+     * @param string $offset
+     * @param mixed $value
      * @return void
      */
     public function offsetSet($offset, $value)
@@ -329,7 +294,7 @@ class ComponentAttributeBag implements ArrayAccess, Htmlable, IteratorAggregate
     /**
      * Remove the value at the given offset.
      *
-     * @param  string  $offset
+     * @param string $offset
      * @return void
      */
     public function offsetUnset($offset)
@@ -365,9 +330,44 @@ class ComponentAttributeBag implements ArrayAccess, Htmlable, IteratorAggregate
                 $value = $key;
             }
 
-            $string .= ' '.$key.'="'.str_replace('"', '\\"', trim($value)).'"';
+            $string .= ' ' . $key . '="' . str_replace('"', '\\"', trim($value)) . '"';
         }
 
         return trim($string);
+    }
+
+    /**
+     * Determine if the specific attribute value should be escaped.
+     *
+     * @param bool $escape
+     * @param mixed $value
+     * @return bool
+     */
+    protected function shouldEscapeAttributeValue($escape, $value)
+    {
+        if (!$escape) {
+            return false;
+        }
+
+        return !is_object($value) &&
+            !is_null($value) &&
+            !is_bool($value);
+    }
+
+    /**
+     * Resolve an appendable attribute value default value.
+     *
+     * @param array $attributeDefaults
+     * @param string $key
+     * @param bool $escape
+     * @return mixed
+     */
+    protected function resolveAppendableAttributeDefault($attributeDefaults, $key, $escape)
+    {
+        if ($this->shouldEscapeAttributeValue($escape, $value = $attributeDefaults[$key]->value)) {
+            $value = e($value);
+        }
+
+        return $value;
     }
 }

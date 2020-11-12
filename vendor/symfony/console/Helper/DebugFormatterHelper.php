@@ -92,16 +92,16 @@ class DebugFormatterHelper extends Helper
         return $message;
     }
 
-    private function getBorder(string $id): string
-    {
-        return sprintf('<bg=%s> </>', $this->colors[$this->started[$id]['border']]);
-    }
-
     /**
      * {@inheritdoc}
      */
     public function getName()
     {
         return 'debug_formatter';
+    }
+
+    private function getBorder(string $id): string
+    {
+        return sprintf('<bg=%s> </>', $this->colors[$this->started[$id]['border']]);
     }
 }

@@ -8,19 +8,17 @@ use Egulias\EmailValidator\Validation\EmailValidation;
 class EmailValidator
 {
     /**
-     * @var EmailLexer
-     */
-    private $lexer;
-
-    /**
      * @var Warning\Warning[]
      */
     protected $warnings = [];
-
     /**
      * @var InvalidEmail|null
      */
     protected $error;
+    /**
+     * @var EmailLexer
+     */
+    private $lexer;
 
     public function __construct()
     {
@@ -28,7 +26,7 @@ class EmailValidator
     }
 
     /**
-     * @param string          $email
+     * @param string $email
      * @param EmailValidation $emailValidation
      * @return bool
      */

@@ -46,25 +46,15 @@ class Swift_Plugins_AntiFloodPlugin implements Swift_Events_SendListener, Swift_
     /**
      * Create a new AntiFloodPlugin with $threshold and $sleep time.
      *
-     * @param int                   $threshold
-     * @param int                   $sleep     time
-     * @param Swift_Plugins_Sleeper $sleeper   (not needed really)
+     * @param int $threshold
+     * @param int $sleep time
+     * @param Swift_Plugins_Sleeper $sleeper (not needed really)
      */
     public function __construct($threshold = 99, $sleep = 0, Swift_Plugins_Sleeper $sleeper = null)
     {
         $this->setThreshold($threshold);
         $this->setSleepTime($sleep);
         $this->sleeper = $sleeper;
-    }
-
-    /**
-     * Set the number of emails to send before restarting.
-     *
-     * @param int $threshold
-     */
-    public function setThreshold($threshold)
-    {
-        $this->threshold = $threshold;
     }
 
     /**
@@ -75,6 +65,16 @@ class Swift_Plugins_AntiFloodPlugin implements Swift_Events_SendListener, Swift_
     public function getThreshold()
     {
         return $this->threshold;
+    }
+
+    /**
+     * Set the number of emails to send before restarting.
+     *
+     * @param int $threshold
+     */
+    public function setThreshold($threshold)
+    {
+        $this->threshold = $threshold;
     }
 
     /**

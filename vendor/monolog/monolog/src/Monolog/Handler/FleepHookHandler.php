@@ -40,9 +40,9 @@ class FleepHookHandler extends SocketHandler
      * For instructions on how to create a new web hook in your conversations
      * see https://fleep.io/integrations/webhooks/
      *
-     * @param  string                    $token  Webhook token
-     * @param  string|int                $level  The minimum logging level at which this handler will be triggered
-     * @param  bool                      $bubble Whether the messages that are handled can bubble up the stack or not
+     * @param string $token Webhook token
+     * @param string|int $level The minimum logging level at which this handler will be triggered
+     * @param bool $bubble Whether the messages that are handled can bubble up the stack or not
      * @throws MissingExtensionException
      */
     public function __construct(string $token, $level = Logger::DEBUG, bool $bubble = true)
@@ -58,6 +58,15 @@ class FleepHookHandler extends SocketHandler
     }
 
     /**
+     * Handles a log record
+     */
+    public function write(array $record): void
+    {
+        parent::write($record);
+        $this->closeSocket();
+    }
+
+    /**
      * Returns the default formatter to use with this handler
      *
      * Overloaded to remove empty context and extra arrays from the end of the log message.
@@ -67,15 +76,6 @@ class FleepHookHandler extends SocketHandler
     protected function getDefaultFormatter(): FormatterInterface
     {
         return new LineFormatter(null, null, true, true);
-    }
-
-    /**
-     * Handles a log record
-     */
-    public function write(array $record): void
-    {
-        parent::write($record);
-        $this->closeSocket();
     }
 
     /**

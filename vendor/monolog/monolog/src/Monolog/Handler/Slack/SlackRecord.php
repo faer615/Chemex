@@ -95,7 +95,8 @@ class SlackRecord
         bool $includeContextAndExtra = false,
         array $excludeFields = array(),
         FormatterInterface $formatter = null
-    ) {
+    )
+    {
         $this
             ->setChannel($channel)
             ->setUsername($username)
@@ -136,12 +137,12 @@ class SlackRecord
 
         if ($this->useAttachment) {
             $attachment = array(
-                'fallback'  => $message,
-                'text'      => $message,
-                'color'     => $this->getAttachmentColor($record['level']),
-                'fields'    => array(),
+                'fallback' => $message,
+                'text' => $message,
+                'color' => $this->getAttachmentColor($record['level']),
+                'fields' => array(),
                 'mrkdwn_in' => array('fields'),
-                'ts'        => $record['datetime']->getTimestamp(),
+                'ts' => $record['datetime']->getTimestamp(),
             );
 
             if ($this->useShortAttachment) {
@@ -159,7 +160,7 @@ class SlackRecord
 
                     if ($this->useShortAttachment) {
                         $attachment['fields'][] = $this->generateAttachmentField(
-                            (string) $key,
+                            (string)$key,
                             $record[$key]
                         );
                     } else {
@@ -217,7 +218,7 @@ class SlackRecord
         $hasNonNumericKeys = !count(array_filter(array_keys($normalized), 'is_numeric'));
 
         return $hasSecondDimension || $hasNonNumericKeys
-            ? Utils::jsonEncode($normalized, JSON_PRETTY_PRINT|Utils::DEFAULT_JSON_FLAGS)
+            ? Utils::jsonEncode($normalized, JSON_PRETTY_PRINT | Utils::DEFAULT_JSON_FLAGS)
             : Utils::jsonEncode($normalized, Utils::DEFAULT_JSON_FLAGS);
     }
 
@@ -324,7 +325,7 @@ class SlackRecord
     {
         $fields = array();
         foreach ($this->normalizerFormatter->format($data) as $key => $value) {
-            $fields[] = $this->generateAttachmentField((string) $key, $value);
+            $fields[] = $this->generateAttachmentField((string)$key, $value);
         }
 
         return $fields;

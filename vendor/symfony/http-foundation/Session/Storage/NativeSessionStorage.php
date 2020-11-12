@@ -136,6 +136,51 @@ class NativeSessionStorage implements SessionStorageInterface
     }
 
     /**
+     * Registers session save handler as a PHP session handler.
+     *
+     * To use internal PHP session save handlers, override this method using ini_set with
+     * session.save_handler and session.save_path e.g.
+     *
+     *     ini_set('session.save_handler', 'files');
+     *     ini_set('session.save_path', '/tmp');
+     *
+     * or pass in a \SessionHandler instance which configures session.save_handler in the
+     * constructor, for a template see NativeFileSessionHandler.
+     *
+     * @see https://php.net/session-set-save-handler
+     * @see https://php.net/sessionhandlerinterface
+     * @see https://php.net/sessionhandler
+     *
+     * @param AbstractProxy|\SessionHandlerInterface|null $saveHandler
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function setSaveHandler($saveHandler = null)
+    {
+        if (!$saveHandler instanceof AbstractProxy &&
+            !$saveHandler instanceof \SessionHandlerInterface &&
+            null !== $saveHandler) {
+            throw new \InvalidArgumentException('Must be instance of AbstractProxy; implement \SessionHandlerInterface; or be null.');
+        }
+
+        // Wrap $saveHandler in proxy and prevent double wrapping of proxy
+        if (!$saveHandler instanceof AbstractProxy && $saveHandler instanceof \SessionHandlerInterface) {
+            $saveHandler = new SessionHandlerProxy($saveHandler);
+        } elseif (!$saveHandler instanceof AbstractProxy) {
+            $saveHandler = new SessionHandlerProxy(new StrictSessionHandler(new \SessionHandler()));
+        }
+        $this->saveHandler = $saveHandler;
+
+        if (headers_sent() || \PHP_SESSION_ACTIVE === session_status()) {
+            return;
+        }
+
+        if ($this->saveHandler instanceof SessionHandlerProxy) {
+            session_set_save_handler($this->saveHandler, false);
+        }
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function start()
@@ -326,15 +371,6 @@ class NativeSessionStorage implements SessionStorageInterface
         return $this->bags[$name];
     }
 
-    public function setMetadataBag(MetadataBag $metaBag = null)
-    {
-        if (null === $metaBag) {
-            $metaBag = new MetadataBag();
-        }
-
-        $this->metadataBag = $metaBag;
-    }
-
     /**
      * Gets the MetadataBag.
      *
@@ -343,6 +379,15 @@ class NativeSessionStorage implements SessionStorageInterface
     public function getMetadataBag()
     {
         return $this->metadataBag;
+    }
+
+    public function setMetadataBag(MetadataBag $metaBag = null)
+    {
+        if (null === $metaBag) {
+            $metaBag = new MetadataBag();
+        }
+
+        $this->metadataBag = $metaBag;
     }
 
     /**
@@ -389,53 +434,8 @@ class NativeSessionStorage implements SessionStorageInterface
                     $this->emulateSameSite = $value;
                     continue;
                 }
-                ini_set('url_rewriter.tags' !== $key ? 'session.'.$key : $key, $value);
+                ini_set('url_rewriter.tags' !== $key ? 'session.' . $key : $key, $value);
             }
-        }
-    }
-
-    /**
-     * Registers session save handler as a PHP session handler.
-     *
-     * To use internal PHP session save handlers, override this method using ini_set with
-     * session.save_handler and session.save_path e.g.
-     *
-     *     ini_set('session.save_handler', 'files');
-     *     ini_set('session.save_path', '/tmp');
-     *
-     * or pass in a \SessionHandler instance which configures session.save_handler in the
-     * constructor, for a template see NativeFileSessionHandler.
-     *
-     * @see https://php.net/session-set-save-handler
-     * @see https://php.net/sessionhandlerinterface
-     * @see https://php.net/sessionhandler
-     *
-     * @param AbstractProxy|\SessionHandlerInterface|null $saveHandler
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function setSaveHandler($saveHandler = null)
-    {
-        if (!$saveHandler instanceof AbstractProxy &&
-            !$saveHandler instanceof \SessionHandlerInterface &&
-            null !== $saveHandler) {
-            throw new \InvalidArgumentException('Must be instance of AbstractProxy; implement \SessionHandlerInterface; or be null.');
-        }
-
-        // Wrap $saveHandler in proxy and prevent double wrapping of proxy
-        if (!$saveHandler instanceof AbstractProxy && $saveHandler instanceof \SessionHandlerInterface) {
-            $saveHandler = new SessionHandlerProxy($saveHandler);
-        } elseif (!$saveHandler instanceof AbstractProxy) {
-            $saveHandler = new SessionHandlerProxy(new StrictSessionHandler(new \SessionHandler()));
-        }
-        $this->saveHandler = $saveHandler;
-
-        if (headers_sent() || \PHP_SESSION_ACTIVE === session_status()) {
-            return;
-        }
-
-        if ($this->saveHandler instanceof SessionHandlerProxy) {
-            session_set_save_handler($this->saveHandler, false);
         }
     }
 

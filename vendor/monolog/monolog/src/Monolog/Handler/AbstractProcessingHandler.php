@@ -44,15 +44,15 @@ abstract class AbstractProcessingHandler extends AbstractHandler implements Proc
         return false === $this->bubble;
     }
 
-    /**
-     * Writes the record down to the log of the implementing handler
-     */
-    abstract protected function write(array $record): void;
-
     public function reset()
     {
         parent::reset();
 
         $this->resetProcessors();
     }
+
+    /**
+     * Writes the record down to the log of the implementing handler
+     */
+    abstract protected function write(array $record): void;
 }

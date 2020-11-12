@@ -34,13 +34,13 @@ trait Batchable
     {
         $batch = $this->batch();
 
-        return $batch && ! $batch->cancelled();
+        return $batch && !$batch->cancelled();
     }
 
     /**
      * Set the batch ID on the job.
      *
-     * @param  string  $batchId
+     * @param string $batchId
      * @return $this
      */
     public function withBatchId(string $batchId)

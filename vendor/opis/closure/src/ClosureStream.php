@@ -22,6 +22,13 @@ class ClosureStream
 
     protected $pointer = 0;
 
+    public static function register()
+    {
+        if (!static::$isRegistered) {
+            static::$isRegistered = stream_wrapper_register(static::STREAM_PROTO, __CLASS__);
+        }
+    }
+
     function stream_open($path, $mode, $options, &$opened_path)
     {
         $this->content = "<?php\nreturn " . substr($path, strlen(static::STREAM_PROTO . '://')) . ";";
@@ -87,13 +94,6 @@ class ClosureStream
     public function stream_tell()
     {
         return $this->pointer;
-    }
-
-    public static function register()
-    {
-        if (!static::$isRegistered) {
-            static::$isRegistered = stream_wrapper_register(static::STREAM_PROTO, __CLASS__);
-        }
     }
 
 }

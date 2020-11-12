@@ -6,13 +6,6 @@ class Invoker
 {
     const CLI_CLASS_NAME = 'Carbon\\Cli';
 
-    protected function runWithCli(string $className, array $parameters): bool
-    {
-        $cli = new $className();
-
-        return $cli(...$parameters);
-    }
-
     public function __invoke(...$parameters): bool
     {
         if (class_exists(self::CLI_CLASS_NAME)) {
@@ -25,5 +18,12 @@ class Invoker
         echo 'Installation succeeded.';
 
         return true;
+    }
+
+    protected function runWithCli(string $className, array $parameters): bool
+    {
+        $cli = new $className();
+
+        return $cli(...$parameters);
     }
 }

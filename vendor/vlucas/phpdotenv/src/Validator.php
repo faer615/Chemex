@@ -29,11 +29,11 @@ class Validator
      * Create a new validator instance.
      *
      * @param \Dotenv\Repository\RepositoryInterface $repository
-     * @param string[]                               $variables
-     *
-     * @throws \Dotenv\Exception\ValidationException
+     * @param string[] $variables
      *
      * @return void
+     * @throws \Dotenv\Exception\ValidationException
+     *
      */
     public function __construct(RepositoryInterface $repository, array $variables)
     {
@@ -44,9 +44,9 @@ class Validator
     /**
      * Assert that each variable is present.
      *
+     * @return \Dotenv\Validator
      * @throws \Dotenv\Exception\ValidationException
      *
-     * @return \Dotenv\Validator
      */
     public function required()
     {
@@ -61,9 +61,9 @@ class Validator
     /**
      * Assert that each variable is not empty.
      *
+     * @return \Dotenv\Validator
      * @throws \Dotenv\Exception\ValidationException
      *
-     * @return \Dotenv\Validator
      */
     public function notEmpty()
     {
@@ -78,9 +78,9 @@ class Validator
     /**
      * Assert that each specified variable is an integer.
      *
+     * @return \Dotenv\Validator
      * @throws \Dotenv\Exception\ValidationException
      *
-     * @return \Dotenv\Validator
      */
     public function isInteger()
     {
@@ -95,9 +95,9 @@ class Validator
     /**
      * Assert that each specified variable is a boolean.
      *
+     * @return \Dotenv\Validator
      * @throws \Dotenv\Exception\ValidationException
      *
-     * @return \Dotenv\Validator
      */
     public function isBoolean()
     {
@@ -118,9 +118,9 @@ class Validator
      *
      * @param string[] $choices
      *
+     * @return \Dotenv\Validator
      * @throws \Dotenv\Exception\ValidationException
      *
-     * @return \Dotenv\Validator
      */
     public function allowedValues(array $choices)
     {
@@ -137,9 +137,9 @@ class Validator
      *
      * @param string $regex
      *
+     * @return \Dotenv\Validator
      * @throws \Dotenv\Exception\ValidationException
      *
-     * @return \Dotenv\Validator
      */
     public function allowedRegexValues(string $regex)
     {
@@ -155,11 +155,11 @@ class Validator
      * Assert that the callback returns true for each variable.
      *
      * @param callable(?string):bool $callback
-     * @param string                 $message
-     *
-     * @throws \Dotenv\Exception\ValidationException
+     * @param string $message
      *
      * @return \Dotenv\Validator
+     * @throws \Dotenv\Exception\ValidationException
+     *
      */
     private function assert(callable $callback, string $message)
     {
@@ -187,11 +187,11 @@ class Validator
      * Skip checking null variable values.
      *
      * @param callable(string):bool $callback
-     * @param string                $message
-     *
-     * @throws \Dotenv\Exception\ValidationException
+     * @param string $message
      *
      * @return \Dotenv\Validator
+     * @throws \Dotenv\Exception\ValidationException
+     *
      */
     private function assertNullable(callable $callback, string $message)
     {

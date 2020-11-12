@@ -33,10 +33,18 @@ use function Symfony\Component\String\s;
  */
 class QuestionHelper extends Helper
 {
-    private $inputStream;
     private static $shell;
     private static $stty = true;
     private static $stdinIsInteractive;
+    private $inputStream;
+
+    /**
+     * Prevents usage of stty.
+     */
+    public static function disableStty()
+    {
+        self::$stty = false;
+    }
 
     /**
      * Asks a question to the user.
@@ -89,11 +97,53 @@ class QuestionHelper extends Helper
     }
 
     /**
-     * Prevents usage of stty.
+     * Outputs the question prompt.
      */
-    public static function disableStty()
+    protected function writePrompt(OutputInterface $output, Question $question)
     {
-        self::$stty = false;
+        $message = $question->getQuestion();
+
+        if ($question instanceof ChoiceQuestion) {
+            $output->writeln(array_merge([
+                $question->getQuestion(),
+            ], $this->formatChoiceQuestionChoices($question, 'info')));
+
+            $message = $question->getPrompt();
+        }
+
+        $output->write($message);
+    }
+
+    /**
+     * @return string[]
+     */
+    protected function formatChoiceQuestionChoices(ChoiceQuestion $question, string $tag)
+    {
+        $messages = [];
+
+        $maxWidth = max(array_map('self::strlen', array_keys($choices = $question->getChoices())));
+
+        foreach ($choices as $key => $value) {
+            $padding = str_repeat(' ', $maxWidth - self::strlen($key));
+
+            $messages[] = sprintf("  [<$tag>%s$padding</$tag>] %s", $key, $value);
+        }
+
+        return $messages;
+    }
+
+    /**
+     * Outputs an error message.
+     */
+    protected function writeError(OutputInterface $output, \Exception $error)
+    {
+        if (null !== $this->getHelperSet() && $this->getHelperSet()->has('formatter')) {
+            $message = $this->getHelperSet()->get('formatter')->formatBlock($error->getMessage(), 'error');
+        } else {
+            $message = '<error>' . $error->getMessage() . '</error>';
+        }
+
+        $output->writeln($message);
     }
 
     /**
@@ -186,56 +236,6 @@ class QuestionHelper extends Helper
     }
 
     /**
-     * Outputs the question prompt.
-     */
-    protected function writePrompt(OutputInterface $output, Question $question)
-    {
-        $message = $question->getQuestion();
-
-        if ($question instanceof ChoiceQuestion) {
-            $output->writeln(array_merge([
-                $question->getQuestion(),
-            ], $this->formatChoiceQuestionChoices($question, 'info')));
-
-            $message = $question->getPrompt();
-        }
-
-        $output->write($message);
-    }
-
-    /**
-     * @return string[]
-     */
-    protected function formatChoiceQuestionChoices(ChoiceQuestion $question, string $tag)
-    {
-        $messages = [];
-
-        $maxWidth = max(array_map('self::strlen', array_keys($choices = $question->getChoices())));
-
-        foreach ($choices as $key => $value) {
-            $padding = str_repeat(' ', $maxWidth - self::strlen($key));
-
-            $messages[] = sprintf("  [<$tag>%s$padding</$tag>] %s", $key, $value);
-        }
-
-        return $messages;
-    }
-
-    /**
-     * Outputs an error message.
-     */
-    protected function writeError(OutputInterface $output, \Exception $error)
-    {
-        if (null !== $this->getHelperSet() && $this->getHelperSet()->has('formatter')) {
-            $message = $this->getHelperSet()->get('formatter')->formatBlock($error->getMessage(), 'error');
-        } else {
-            $message = '<error>'.$error->getMessage().'</error>';
-        }
-
-        $output->writeln($message);
-    }
-
-    /**
      * Autocompletes a question.
      *
      * @param resource $inputStream
@@ -306,7 +306,7 @@ class QuestionHelper extends Helper
             } elseif (\ord($c) < 32) {
                 if ("\t" === $c || "\n" === $c) {
                     if ($numMatches > 0 && -1 !== $ofs) {
-                        $ret = (string) $matches[$ofs];
+                        $ret = (string)$matches[$ofs];
                         // Echo out remaining chars for current match
                         $remainingCharacters = substr($ret, \strlen(trim($this->mostRecentlyEnteredValue($fullChoice))));
                         $output->write($remainingCharacters);
@@ -365,7 +365,7 @@ class QuestionHelper extends Helper
                 $cursor->savePosition();
                 // Write highlighted text, complete the partially entered response
                 $charactersEntered = \strlen(trim($this->mostRecentlyEnteredValue($fullChoice)));
-                $output->write('<hl>'.OutputFormatter::escapeTrailingBackslash(substr($matches[$ofs], $charactersEntered)).'</hl>');
+                $output->write('<hl>' . OutputFormatter::escapeTrailingBackslash(substr($matches[$ofs], $charactersEntered)) . '</hl>');
                 $cursor->restorePosition();
             }
         }
@@ -395,18 +395,18 @@ class QuestionHelper extends Helper
      * Gets a hidden response from user.
      *
      * @param resource $inputStream The handler resource
-     * @param bool     $trimmable   Is the answer trimmable
+     * @param bool $trimmable Is the answer trimmable
      *
      * @throws RuntimeException In case the fallback is deactivated and the response cannot be hidden
      */
     private function getHiddenResponse(OutputInterface $output, $inputStream, bool $trimmable = true): string
     {
         if ('\\' === \DIRECTORY_SEPARATOR) {
-            $exe = __DIR__.'/../Resources/bin/hiddeninput.exe';
+            $exe = __DIR__ . '/../Resources/bin/hiddeninput.exe';
 
             // handle code running from a phar
             if ('phar:' === substr(__FILE__, 0, 5)) {
-                $tmpExe = sys_get_temp_dir().'/hiddeninput.exe';
+                $tmpExe = sys_get_temp_dir() . '/hiddeninput.exe';
                 copy($exe, $tmpExe);
                 $exe = $tmpExe;
             }

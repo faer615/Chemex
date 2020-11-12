@@ -14,6 +14,24 @@ use Throwable;
 class PendingBatch
 {
     /**
+     * The batch name.
+     *
+     * @var string
+     */
+    public $name = '';
+    /**
+     * The jobs that belong to the batch.
+     *
+     * @var \Illuminate\Support\Collection
+     */
+    public $jobs;
+    /**
+     * The batch options.
+     *
+     * @var array
+     */
+    public $options = [];
+    /**
      * The IoC container instance.
      *
      * @var \Illuminate\Contracts\Container\Container
@@ -21,31 +39,10 @@ class PendingBatch
     protected $container;
 
     /**
-     * The batch name.
-     *
-     * @var string
-     */
-    public $name = '';
-
-    /**
-     * The jobs that belong to the batch.
-     *
-     * @var \Illuminate\Support\Collection
-     */
-    public $jobs;
-
-    /**
-     * The batch options.
-     *
-     * @var array
-     */
-    public $options = [];
-
-    /**
      * Create a new pending batch instance.
      *
-     * @param  \Illuminate\Contracts\Container\Container  $container
-     * @param  \Illuminate\Support\Collection  $jobs
+     * @param \Illuminate\Contracts\Container\Container $container
+     * @param \Illuminate\Support\Collection $jobs
      * @return void
      */
     public function __construct(Container $container, Collection $jobs)
@@ -57,14 +54,14 @@ class PendingBatch
     /**
      * Add a callback to be executed after all jobs in the batch have executed successfully.
      *
-     * @param  callable  $callback
+     * @param callable $callback
      * @return $this
      */
     public function then($callback)
     {
         $this->options['then'][] = $callback instanceof Closure
-                        ? new SerializableClosure($callback)
-                        : $callback;
+            ? new SerializableClosure($callback)
+            : $callback;
 
         return $this;
     }
@@ -82,14 +79,14 @@ class PendingBatch
     /**
      * Add a callback to be executed after the first failing job in the batch.
      *
-     * @param  callable  $callback
+     * @param callable $callback
      * @return $this
      */
     public function catch($callback)
     {
         $this->options['catch'][] = $callback instanceof Closure
-                    ? new SerializableClosure($callback)
-                    : $callback;
+            ? new SerializableClosure($callback)
+            : $callback;
 
         return $this;
     }
@@ -107,14 +104,14 @@ class PendingBatch
     /**
      * Add a callback to be executed after the batch has finished executing.
      *
-     * @param  callable  $callback
+     * @param callable $callback
      * @return $this
      */
     public function finally($callback)
     {
         $this->options['finally'][] = $callback instanceof Closure
-                    ? new SerializableClosure($callback)
-                    : $callback;
+            ? new SerializableClosure($callback)
+            : $callback;
 
         return $this;
     }
@@ -132,7 +129,7 @@ class PendingBatch
     /**
      * Indicate that the batch should not be cancelled when a job within the batch fails.
      *
-     * @param  bool  $allowFailures
+     * @param bool $allowFailures
      * @return $this
      */
     public function allowFailures($allowFailures = true)
@@ -155,7 +152,7 @@ class PendingBatch
     /**
      * Set the name for the batch.
      *
-     * @param  string  $name
+     * @param string $name
      * @return $this
      */
     public function name(string $name)
@@ -168,7 +165,7 @@ class PendingBatch
     /**
      * Specify the queue connection that the batched jobs should run on.
      *
-     * @param  string  $connection
+     * @param string $connection
      * @return $this
      */
     public function onConnection(string $connection)
@@ -191,7 +188,7 @@ class PendingBatch
     /**
      * Specify the queue that the batched jobs should run on.
      *
-     * @param  string  $queue
+     * @param string $queue
      * @return $this
      */
     public function onQueue(string $queue)
@@ -215,6 +212,7 @@ class PendingBatch
      * Dispatch the batch.
      *
      * @return \Illuminate\Bus\Batch
+     *
      * @throws \Throwable
      */
     public function dispatch()

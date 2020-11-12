@@ -39,6 +39,7 @@ interface Swift_Transport
      * returns FALSE. It is the responsibility of the developer to handle this
      * case and restart the Transport mechanism manually.
      *
+     * @return bool TRUE if the transport is alive
      * @example
      *
      *   if (!$transport->ping()) {
@@ -51,7 +52,6 @@ interface Swift_Transport
      * It is undefined if the Transport mechanism attempts to restart as long as
      * the return value reflects whether the mechanism is now functional.
      *
-     * @return bool TRUE if the transport is alive
      */
     public function ping();
 
@@ -64,7 +64,7 @@ interface Swift_Transport
      * This is the responsibility of the send method to start the transport if needed.
      *
      * @param Swift_Mime_SimpleMessage $message
-     * @param string[]                 $failedRecipients An array of failures by-reference
+     * @param string[] $failedRecipients An array of failures by-reference
      *
      * @return int
      */

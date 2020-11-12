@@ -37,8 +37,8 @@ class File extends UploadedFile
     /**
      * Create a new file instance.
      *
-     * @param  string  $name
-     * @param  resource  $tempFile
+     * @param string $name
+     * @param resource $tempFile
      * @return void
      */
     public function __construct($name, $tempFile)
@@ -55,8 +55,8 @@ class File extends UploadedFile
     /**
      * Create a new fake file.
      *
-     * @param  string  $name
-     * @param  string|int  $kilobytes
+     * @param string $name
+     * @param string|int $kilobytes
      * @return \Illuminate\Http\Testing\File
      */
     public static function create($name, $kilobytes = 0)
@@ -67,8 +67,8 @@ class File extends UploadedFile
     /**
      * Create a new fake file with content.
      *
-     * @param  string  $name
-     * @param  string  $content
+     * @param string $name
+     * @param string $content
      * @return \Illuminate\Http\Testing\File
      */
     public static function createWithContent($name, $content)
@@ -79,9 +79,9 @@ class File extends UploadedFile
     /**
      * Create a new fake image.
      *
-     * @param  string  $name
-     * @param  int  $width
-     * @param  int  $height
+     * @param string $name
+     * @param int $width
+     * @param int $height
      * @return \Illuminate\Http\Testing\File
      */
     public static function image($name, $width = 10, $height = 10)
@@ -92,7 +92,7 @@ class File extends UploadedFile
     /**
      * Set the "size" of the file in kilobytes.
      *
-     * @param  int  $kilobytes
+     * @param int $kilobytes
      * @return $this
      */
     public function size($kilobytes)
@@ -115,7 +115,7 @@ class File extends UploadedFile
     /**
      * Set the "MIME type" for the file.
      *
-     * @param  string  $mimeType
+     * @param string $mimeType
      * @return $this
      */
     public function mimeType($mimeType)
