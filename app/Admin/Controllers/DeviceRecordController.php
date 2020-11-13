@@ -151,7 +151,7 @@ class DeviceRecordController extends AdminController
                 ->required();
             $form->text('sn');
             $form->text('mac');
-            $form->ip('ip');
+            $form->text('ip');
             $form->image('photo')
                 ->autoUpload()
                 ->uniqueName();
