@@ -14,6 +14,8 @@ Route::group([
     $router->get('/', 'HomeController@index');
     $router->get('/version', 'VersionController@index');
     $router->get('/version/unzip', 'VersionController@unzip')->name('unzip');
+    $router->get('/version/migrate', 'VersionController@migrate')->name('migrate');
+    $router->get('/version/clear', 'VersionController@clear')->name('clear');
     $router->get('/test', 'HomeController@test');
     $router->resource('/device/tracks', 'DeviceTrackController');
     $router->resource('/device/records', 'DeviceRecordController', ['names' => [
