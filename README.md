@@ -35,7 +35,7 @@
 
 [Dcat Admin](https://dcatadmin.com) ，高颜值、高效率的后台开发框架。
 
-`Dr. Peter Schlumbohm`，感谢发明了 Chemex 冲煮咖啡。pip install --upgrade tensorflow
+`Dr. Peter Schlumbohm`，感谢发明了 Chemex 冲煮咖啡。
 
 ## 简介
 

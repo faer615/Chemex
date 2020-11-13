@@ -47,6 +47,7 @@ class VersionController extends Controller
             ->body(function (Row $row) use ($res, $data, $description, $version) {
                 $row->column(3, function (Column $column) use ($res, $data, $description) {
                     $column->row(new Card(view('update')->with('data', $data)));
+                    $column->row(new Card(view('migrate')));
                     $column->row(new Card(view('app_downloads')));
                 });
                 $row->column(9, function (Column $column) use ($res, $data, $description, $version) {
