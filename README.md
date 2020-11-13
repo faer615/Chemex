@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-    <img src="https://img.shields.io/badge/Latest Release-1.6.4-orange" />
+    <img src="https://img.shields.io/badge/Latest Release-1.7.0-orange" />
     <img src="https://img.shields.io/badge/PHP-7.3+-green" />
     <img src="https://img.shields.io/badge/MariaDB-10.2+-blueviolet" />
     <img src="https://img.shields.io/badge/License-GPL3.0-blue" />
@@ -102,7 +102,7 @@ Chemex 咖啡壶将会以咖啡豆品种作为 `major` 版本的命名，例如 
 
 ### 生产环境
 
-#### 纯净部署
+#### 源码部署
 
 生产环境下为遵守安全策略，非常建议在服务器本地进行部署，暂时不提供相关线上初始化安装的功能。因此，虽然前期部署的步骤较多，但已经为大家自动化处理了很大部分的流程，只需要跟着下面的命令一步步执行，一般是不会有部署问题的。
 
@@ -118,15 +118,15 @@ Chemex 咖啡壶将会以咖啡豆品种作为 `major` 版本的命名，例如 
 
 6：在 `.env` 中配置数据库信息以及 `APP_URL` 信息。
 
-7：执行 `php artisan chemex:install` 进行安装。
+7：进入项目根目录，执行 `php artisan migrate` 进行数据库迁移。
 
-8: 执行 `php artisan jwt:secret` 对 JWT 密钥进行重新生成。
+8：进入项目根目录，执行 `php artisan chemex:install` 进行安装。
 
 9：你可能使用的web服务器为 `nginx` 以及 `apache`，无论怎样，应用的起始路径在 `/public` 目录，请确保指向正确。
 
 10：修改web服务器的伪静态规则为：`try_files $uri $uri/ /index.php?$args;`。
 
-11：为了确保在线自动更新可用，请确认网站根目录及其所有子目录的权限为 `755`，拥有者为 `www`。
+11：为了确保在线自动更新可用，请确认网站根目录及其所有子目录的权限为可读写，即 `755`，拥有者为 `www`。
 
 #### OVF部署
 
@@ -148,9 +148,7 @@ Chemex 访问地址 `http://127.0.0.1`，剩下的本地化配置还请自行修
 
 ### 开发环境
 
-#### 纯净部署
-
-欢迎对此感兴趣的开发者进行协同开发，使 Chemex 更趋于完美。开发过程相对于简单，没有过多的环境配置和改动。
+欢迎对此感兴趣的开发者进行协同开发，使 Chemex 更趋于完美。开发过程相对于简单，没有过多得环境配置和改动。
 
 1：为你的计算机安装 `PHP` 环境，参考：[PHP官方](https://www.php.net/downloads) 。
 
@@ -160,9 +158,9 @@ Chemex 访问地址 `http://127.0.0.1`，剩下的本地化配置还请自行修
 
 4：在 `.env` 中配置数据库信息以及 `APP_URL` 信息。
 
-5: 进入项目根目录，执行 `php artisan migrate` 进行数据库迁移。
+5：进入项目根目录，执行 `php artisan migrate` 进行数据库迁移。
 
-6：仍然在项目根目录中，执行 `composer install`以安装相关依赖。
+6：仍然在项目根目录中，执行 `php artisan chemex:install` 进行安装。
 
 7：参考 [Laravel](https://laravel.com/) 以及 [Dcat Admin](https://dcatadmin.com) 相关文档进行开发。
 
