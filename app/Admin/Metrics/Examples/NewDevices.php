@@ -35,20 +35,6 @@ class NewDevices extends Donut
     }
 
     /**
-     * 设置图表数据.
-     *
-     * @param array $data
-     *
-     * @return $this
-     */
-    public function withChart(array $data)
-    {
-        return $this->chart([
-            'series' => $data
-        ]);
-    }
-
-    /**
      * 设置卡片头部内容.
      *
      * @param mixed $desktop
@@ -79,6 +65,20 @@ class NewDevices extends Donut
 </div>
 HTML
         );
+    }
+
+    /**
+     * 设置图表数据.
+     *
+     * @param array $data
+     *
+     * @return $this
+     */
+    public function withChart(array $data)
+    {
+        return $this->chart([
+            'series' => $data
+        ]);
     }
 
     /**

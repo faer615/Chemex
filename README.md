@@ -104,6 +104,8 @@ Chemex 咖啡壶将会以咖啡豆品种作为 `major` 版本的命名，例如 
 
 #### 源码部署
 
+> 视频部署演示教程：https://www.bilibili.com/video/BV1uK4y1j7pw/
+
 生产环境下为遵守安全策略，非常建议在服务器本地进行部署，暂时不提供相关线上初始化安装的功能。因此，虽然前期部署的步骤较多，但已经为大家自动化处理了很大部分的流程，只需要跟着下面的命令一步步执行，一般是不会有部署问题的。
 
 1：为你的计算机安装 `PHP` 环境，参考：[PHP官方](https://www.php.net/downloads) 。
@@ -127,6 +129,8 @@ Chemex 咖啡壶将会以咖啡豆品种作为 `major` 版本的命名，例如 
 10：修改web服务器的伪静态规则为：`try_files $uri $uri/ /index.php?$args;`。
 
 11：为了确保在线自动更新可用，请确认网站根目录及其所有子目录的权限为可读写，即 `755`，拥有者为 `www`。
+
+12：此时可以通过访问 `http://your_domain` 来使用 Chemex，如果 `admin` 的账号密码不正确，请执行 `php artisan chemex:reset` 来重置管理员账号密码为：`admin / admin`。
 
 #### OVF部署
 

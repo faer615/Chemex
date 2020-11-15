@@ -41,7 +41,7 @@ class MultipleValidationWithAnd implements EmailValidation
 
     /**
      * @param EmailValidation[] $validations The validations.
-     * @param int $mode The validation mode (one of the constants).
+     * @param int               $mode        The validation mode (one of the constants).
      */
     public function __construct(array $validations, $mode = self::ALLOW_ALL_ERRORS)
     {
@@ -80,24 +80,6 @@ class MultipleValidationWithAnd implements EmailValidation
     }
 
     /**
-     * Returns the validation errors.
-     *
-     * @return MultipleErrors|null
-     */
-    public function getError()
-    {
-        return $this->error;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getWarnings()
-    {
-        return $this->warnings;
-    }
-
-    /**
      * @param \Egulias\EmailValidator\Exception\InvalidEmail|null $possibleError
      * @param \Egulias\EmailValidator\Exception\InvalidEmail[] $errors
      *
@@ -120,5 +102,23 @@ class MultipleValidationWithAnd implements EmailValidation
     private function shouldStop($result)
     {
         return !$result && $this->mode === self::STOP_ON_ERROR;
+    }
+
+    /**
+     * Returns the validation errors.
+     *
+     * @return MultipleErrors|null
+     */
+    public function getError()
+    {
+        return $this->error;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getWarnings()
+    {
+        return $this->warnings;
     }
 }
