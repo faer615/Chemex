@@ -50,35 +50,35 @@ class SeederMakeCommand extends GeneratorCommand
     /**
      * Resolve the fully-qualified path to the stub.
      *
-     * @param string $stub
+     * @param  string  $stub
      * @return string
      */
     protected function resolveStubPath($stub)
     {
         return is_file($customPath = $this->laravel->basePath(trim($stub, '/')))
             ? $customPath
-            : __DIR__ . $stub;
+            : __DIR__.$stub;
     }
 
     /**
      * Get the destination class path.
      *
-     * @param string $name
+     * @param  string  $name
      * @return string
      */
     protected function getPath($name)
     {
-        if (is_dir($this->laravel->databasePath() . '/seeds')) {
-            return $this->laravel->databasePath() . '/seeds/' . $name . '.php';
+        if (is_dir($this->laravel->databasePath().'/seeds')) {
+            return $this->laravel->databasePath().'/seeds/'.$name.'.php';
         } else {
-            return $this->laravel->databasePath() . '/seeders/' . $name . '.php';
+            return $this->laravel->databasePath().'/seeders/'.$name.'.php';
         }
     }
 
     /**
      * Parse the class name and format according to the root namespace.
      *
-     * @param string $name
+     * @param  string  $name
      * @return string
      */
     protected function qualifyClass($name)

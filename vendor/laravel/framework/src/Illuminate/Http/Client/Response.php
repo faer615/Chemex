@@ -29,7 +29,7 @@ class Response implements ArrayAccess
     /**
      * Create a new response instance.
      *
-     * @param \Psr\Http\Message\MessageInterface $response
+     * @param  \Psr\Http\Message\MessageInterface  $response
      * @return void
      */
     public function __construct($response)
@@ -44,19 +44,19 @@ class Response implements ArrayAccess
      */
     public function body()
     {
-        return (string)$this->response->getBody();
+        return (string) $this->response->getBody();
     }
 
     /**
      * Get the JSON decoded body of the response as an array or scalar value.
      *
-     * @param string|null $key
-     * @param mixed $default
+     * @param  string|null  $key
+     * @param  mixed  $default
      * @return mixed
      */
     public function json($key = null, $default = null)
     {
-        if (!$this->decoded) {
+        if (! $this->decoded) {
             $this->decoded = json_decode($this->body(), true);
         }
 
@@ -80,7 +80,7 @@ class Response implements ArrayAccess
     /**
      * Get a header from the response.
      *
-     * @param string $header
+     * @param  string  $header
      * @return string
      */
     public function header(string $header)
@@ -107,7 +107,7 @@ class Response implements ArrayAccess
      */
     public function status()
     {
-        return (int)$this->response->getStatusCode();
+        return (int) $this->response->getStatusCode();
     }
 
     /**
@@ -183,7 +183,7 @@ class Response implements ArrayAccess
     /**
      * Execute the given callback if there was a server or client error.
      *
-     * @param \Closure|callable $callback
+     * @param  \Closure|callable $callback
      * @return $this
      */
     public function onError(callable $callback)
@@ -218,7 +218,7 @@ class Response implements ArrayAccess
     /**
      * Throw an exception if a server or client error occurred.
      *
-     * @param \Closure|null $callback
+     * @param  \Closure|null  $callback
      * @return $this
      *
      * @throws \Illuminate\Http\Client\RequestException
@@ -241,7 +241,7 @@ class Response implements ArrayAccess
     /**
      * Determine if the given offset exists.
      *
-     * @param string $offset
+     * @param  string  $offset
      * @return bool
      */
     public function offsetExists($offset)
@@ -252,7 +252,7 @@ class Response implements ArrayAccess
     /**
      * Get the value for a given offset.
      *
-     * @param string $offset
+     * @param  string  $offset
      * @return mixed
      */
     public function offsetGet($offset)
@@ -263,8 +263,8 @@ class Response implements ArrayAccess
     /**
      * Set the value at the given offset.
      *
-     * @param string $offset
-     * @param mixed $value
+     * @param  string  $offset
+     * @param  mixed  $value
      * @return void
      *
      * @throws \LogicException
@@ -277,7 +277,7 @@ class Response implements ArrayAccess
     /**
      * Unset the value at the given offset.
      *
-     * @param string $offset
+     * @param  string  $offset
      * @return void
      *
      * @throws \LogicException
@@ -300,14 +300,14 @@ class Response implements ArrayAccess
     /**
      * Dynamically proxy other methods to the underlying response.
      *
-     * @param string $method
-     * @param array $parameters
+     * @param  string  $method
+     * @param  array  $parameters
      * @return mixed
      */
     public function __call($method, $parameters)
     {
         return static::hasMacro($method)
-            ? $this->macroCall($method, $parameters)
-            : $this->response->{$method}(...$parameters);
+                    ? $this->macroCall($method, $parameters)
+                    : $this->response->{$method}(...$parameters);
     }
 }

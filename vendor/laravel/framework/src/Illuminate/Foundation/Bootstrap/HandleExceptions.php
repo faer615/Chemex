@@ -29,7 +29,7 @@ class HandleExceptions
     /**
      * Bootstrap the given application.
      *
-     * @param \Illuminate\Contracts\Foundation\Application $app
+     * @param  \Illuminate\Contracts\Foundation\Application  $app
      * @return void
      */
     public function bootstrap(Application $app)
@@ -46,7 +46,7 @@ class HandleExceptions
 
         register_shutdown_function([$this, 'handleShutdown']);
 
-        if (!$app->environment('testing')) {
+        if (! $app->environment('testing')) {
             ini_set('display_errors', 'Off');
         }
     }
@@ -54,11 +54,11 @@ class HandleExceptions
     /**
      * Convert PHP errors to ErrorException instances.
      *
-     * @param int $level
-     * @param string $message
-     * @param string $file
-     * @param int $line
-     * @param array $context
+     * @param  int  $level
+     * @param  string  $message
+     * @param  string  $file
+     * @param  int  $line
+     * @param  array  $context
      * @return void
      *
      * @throws \ErrorException
@@ -77,7 +77,7 @@ class HandleExceptions
      * the HTTP and Console kernels. But, fatal error exceptions must
      * be handled differently since they are not normal exceptions.
      *
-     * @param \Throwable $e
+     * @param  \Throwable  $e
      * @return void
      */
     public function handleException(Throwable $e)
@@ -98,21 +98,9 @@ class HandleExceptions
     }
 
     /**
-     * Handle the PHP shutdown event.
-     *
-     * @return void
-     */
-    public function handleShutdown()
-    {
-        if (!is_null($error = error_get_last()) && $this->isFatal($error['type'])) {
-            $this->handleException($this->fatalErrorFromPhpError($error, 0));
-        }
-    }
-
-    /**
      * Render an exception to the console.
      *
-     * @param \Throwable $e
+     * @param  \Throwable  $e
      * @return void
      */
     protected function renderForConsole(Throwable $e)
@@ -123,7 +111,7 @@ class HandleExceptions
     /**
      * Render an exception as an HTTP response and send it.
      *
-     * @param \Throwable $e
+     * @param  \Throwable  $e
      * @return void
      */
     protected function renderHttpResponse(Throwable $e)
@@ -132,10 +120,22 @@ class HandleExceptions
     }
 
     /**
+     * Handle the PHP shutdown event.
+     *
+     * @return void
+     */
+    public function handleShutdown()
+    {
+        if (! is_null($error = error_get_last()) && $this->isFatal($error['type'])) {
+            $this->handleException($this->fatalErrorFromPhpError($error, 0));
+        }
+    }
+
+    /**
      * Create a new fatal error instance from an error array.
      *
-     * @param array $error
-     * @param int|null $traceOffset
+     * @param  array  $error
+     * @param  int|null  $traceOffset
      * @return \Symfony\Component\ErrorHandler\Error\FatalError
      */
     protected function fatalErrorFromPhpError(array $error, $traceOffset = null)
@@ -146,7 +146,7 @@ class HandleExceptions
     /**
      * Determine if the error type is fatal.
      *
-     * @param int $type
+     * @param  int  $type
      * @return bool
      */
     protected function isFatal($type)

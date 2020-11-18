@@ -25,6 +25,32 @@ class MorphPivot extends Pivot
     protected $morphClass;
 
     /**
+     * Set the keys for a save update query.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    protected function setKeysForSaveQuery($query)
+    {
+        $query->where($this->morphType, $this->morphClass);
+
+        return parent::setKeysForSaveQuery($query);
+    }
+
+    /**
+     * Set the keys for a select query.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    protected function setKeysForSelectQuery($query)
+    {
+        $query->where($this->morphType, $this->morphClass);
+
+        return parent::setKeysForSelectQuery($query);
+    }
+
+    /**
      * Delete the pivot model record from the database.
      *
      * @return int
@@ -32,7 +58,7 @@ class MorphPivot extends Pivot
     public function delete()
     {
         if (isset($this->attributes[$this->getKeyName()])) {
-            return (int)parent::delete();
+            return (int) parent::delete();
         }
 
         if ($this->fireModelEvent('deleting') === false) {
@@ -51,7 +77,7 @@ class MorphPivot extends Pivot
     /**
      * Set the morph type for the pivot.
      *
-     * @param string $morphType
+     * @param  string  $morphType
      * @return $this
      */
     public function setMorphType($morphType)
@@ -64,7 +90,7 @@ class MorphPivot extends Pivot
     /**
      * Set the morph class for the pivot.
      *
-     * @param string $morphClass
+     * @param  string  $morphClass
      * @return \Illuminate\Database\Eloquent\Relations\MorphPivot
      */
     public function setMorphClass($morphClass)
@@ -96,7 +122,7 @@ class MorphPivot extends Pivot
     /**
      * Get a new query to restore one or more models by their queueable IDs.
      *
-     * @param array|int $ids
+     * @param  array|int  $ids
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function newQueryForRestoration($ids)
@@ -105,40 +131,29 @@ class MorphPivot extends Pivot
             return $this->newQueryForCollectionRestoration($ids);
         }
 
-        if (!Str::contains($ids, ':')) {
+        if (! Str::contains($ids, ':')) {
             return parent::newQueryForRestoration($ids);
         }
 
         $segments = explode(':', $ids);
 
         return $this->newQueryWithoutScopes()
-            ->where($segments[0], $segments[1])
-            ->where($segments[2], $segments[3])
-            ->where($segments[4], $segments[5]);
-    }
-
-    /**
-     * Set the keys for a save update query.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    protected function setKeysForSaveQuery($query)
-    {
-        $query->where($this->morphType, $this->morphClass);
-
-        return parent::setKeysForSaveQuery($query);
+                        ->where($segments[0], $segments[1])
+                        ->where($segments[2], $segments[3])
+                        ->where($segments[4], $segments[5]);
     }
 
     /**
      * Get a new query to restore multiple models by their queueable IDs.
      *
-     * @param array $ids
+     * @param  array  $ids
      * @return \Illuminate\Database\Eloquent\Builder
      */
     protected function newQueryForCollectionRestoration(array $ids)
     {
-        if (!Str::contains($ids[0], ':')) {
+        $ids = array_values($ids);
+
+        if (! Str::contains($ids[0], ':')) {
             return parent::newQueryForRestoration($ids);
         }
 
@@ -149,8 +164,8 @@ class MorphPivot extends Pivot
 
             $query->orWhere(function ($query) use ($segments) {
                 return $query->where($segments[0], $segments[1])
-                    ->where($segments[2], $segments[3])
-                    ->where($segments[4], $segments[5]);
+                             ->where($segments[2], $segments[3])
+                             ->where($segments[4], $segments[5]);
             });
         }
 

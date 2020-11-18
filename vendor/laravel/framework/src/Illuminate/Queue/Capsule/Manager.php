@@ -25,7 +25,7 @@ class Manager
     /**
      * Create a new queue capsule manager.
      *
-     * @param \Illuminate\Container\Container|null $container
+     * @param  \Illuminate\Container\Container|null  $container
      * @return void
      */
     public function __construct(Container $container = null)
@@ -40,117 +40,6 @@ class Manager
         $this->setupManager();
 
         $this->registerConnectors();
-    }
-
-    /**
-     * Get a connection instance from the global manager.
-     *
-     * @param string|null $connection
-     * @return \Illuminate\Contracts\Queue\Queue
-     */
-    public static function connection($connection = null)
-    {
-        return static::$instance->getConnection($connection);
-    }
-
-    /**
-     * Push a new job onto the queue.
-     *
-     * @param string $job
-     * @param mixed $data
-     * @param string|null $queue
-     * @param string|null $connection
-     * @return mixed
-     */
-    public static function push($job, $data = '', $queue = null, $connection = null)
-    {
-        return static::$instance->connection($connection)->push($job, $data, $queue);
-    }
-
-    /**
-     * Push a new an array of jobs onto the queue.
-     *
-     * @param array $jobs
-     * @param mixed $data
-     * @param string|null $queue
-     * @param string|null $connection
-     * @return mixed
-     */
-    public static function bulk($jobs, $data = '', $queue = null, $connection = null)
-    {
-        return static::$instance->connection($connection)->bulk($jobs, $data, $queue);
-    }
-
-    /**
-     * Push a new job onto the queue after a delay.
-     *
-     * @param \DateTimeInterface|\DateInterval|int $delay
-     * @param string $job
-     * @param mixed $data
-     * @param string|null $queue
-     * @param string|null $connection
-     * @return mixed
-     */
-    public static function later($delay, $job, $data = '', $queue = null, $connection = null)
-    {
-        return static::$instance->connection($connection)->later($delay, $job, $data, $queue);
-    }
-
-    /**
-     * Dynamically pass methods to the default connection.
-     *
-     * @param string $method
-     * @param array $parameters
-     * @return mixed
-     */
-    public static function __callStatic($method, $parameters)
-    {
-        return static::connection()->$method(...$parameters);
-    }
-
-    /**
-     * Get a registered connection instance.
-     *
-     * @param string|null $name
-     * @return \Illuminate\Contracts\Queue\Queue
-     */
-    public function getConnection($name = null)
-    {
-        return $this->manager->connection($name);
-    }
-
-    /**
-     * Register a connection with the manager.
-     *
-     * @param array $config
-     * @param string $name
-     * @return void
-     */
-    public function addConnection(array $config, $name = 'default')
-    {
-        $this->container['config']["queue.connections.{$name}"] = $config;
-    }
-
-    /**
-     * Get the queue manager instance.
-     *
-     * @return \Illuminate\Queue\QueueManager
-     */
-    public function getQueueManager()
-    {
-        return $this->manager;
-    }
-
-    /**
-     * Pass dynamic instance methods to the manager.
-     *
-     * @param string $method
-     * @param array $parameters
-     * @return mixed
-     */
-    public function __call($method, $parameters)
-    {
-        return $this->manager->$method(...$parameters);
     }
 
     /**
@@ -183,5 +72,116 @@ class Manager
         $provider = new QueueServiceProvider($this->container);
 
         $provider->registerConnectors($this->manager);
+    }
+
+    /**
+     * Get a connection instance from the global manager.
+     *
+     * @param  string|null  $connection
+     * @return \Illuminate\Contracts\Queue\Queue
+     */
+    public static function connection($connection = null)
+    {
+        return static::$instance->getConnection($connection);
+    }
+
+    /**
+     * Push a new job onto the queue.
+     *
+     * @param  string  $job
+     * @param  mixed  $data
+     * @param  string|null  $queue
+     * @param  string|null  $connection
+     * @return mixed
+     */
+    public static function push($job, $data = '', $queue = null, $connection = null)
+    {
+        return static::$instance->connection($connection)->push($job, $data, $queue);
+    }
+
+    /**
+     * Push a new an array of jobs onto the queue.
+     *
+     * @param  array  $jobs
+     * @param  mixed  $data
+     * @param  string|null  $queue
+     * @param  string|null  $connection
+     * @return mixed
+     */
+    public static function bulk($jobs, $data = '', $queue = null, $connection = null)
+    {
+        return static::$instance->connection($connection)->bulk($jobs, $data, $queue);
+    }
+
+    /**
+     * Push a new job onto the queue after a delay.
+     *
+     * @param  \DateTimeInterface|\DateInterval|int  $delay
+     * @param  string  $job
+     * @param  mixed  $data
+     * @param  string|null  $queue
+     * @param  string|null  $connection
+     * @return mixed
+     */
+    public static function later($delay, $job, $data = '', $queue = null, $connection = null)
+    {
+        return static::$instance->connection($connection)->later($delay, $job, $data, $queue);
+    }
+
+    /**
+     * Get a registered connection instance.
+     *
+     * @param  string|null  $name
+     * @return \Illuminate\Contracts\Queue\Queue
+     */
+    public function getConnection($name = null)
+    {
+        return $this->manager->connection($name);
+    }
+
+    /**
+     * Register a connection with the manager.
+     *
+     * @param  array  $config
+     * @param  string  $name
+     * @return void
+     */
+    public function addConnection(array $config, $name = 'default')
+    {
+        $this->container['config']["queue.connections.{$name}"] = $config;
+    }
+
+    /**
+     * Get the queue manager instance.
+     *
+     * @return \Illuminate\Queue\QueueManager
+     */
+    public function getQueueManager()
+    {
+        return $this->manager;
+    }
+
+    /**
+     * Pass dynamic instance methods to the manager.
+     *
+     * @param  string  $method
+     * @param  array  $parameters
+     * @return mixed
+     */
+    public function __call($method, $parameters)
+    {
+        return $this->manager->$method(...$parameters);
+    }
+
+    /**
+     * Dynamically pass methods to the default connection.
+     *
+     * @param  string  $method
+     * @param  array  $parameters
+     * @return mixed
+     */
+    public static function __callStatic($method, $parameters)
+    {
+        return static::connection()->$method(...$parameters);
     }
 }

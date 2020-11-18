@@ -12,8 +12,8 @@ class ImplicitRouteBinding
     /**
      * Resolve the implicit route bindings for the given route.
      *
-     * @param \Illuminate\Container\Container $container
-     * @param \Illuminate\Routing\Route $route
+     * @param  \Illuminate\Container\Container  $container
+     * @param  \Illuminate\Routing\Route  $route
      * @return void
      *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
@@ -23,7 +23,7 @@ class ImplicitRouteBinding
         $parameters = $route->parameters();
 
         foreach ($route->signatureParameters(UrlRoutable::class) as $parameter) {
-            if (!$parameterName = static::getParameterName($parameter->getName(), $parameters)) {
+            if (! $parameterName = static::getParameterName($parameter->getName(), $parameters)) {
                 continue;
             }
 
@@ -38,12 +38,12 @@ class ImplicitRouteBinding
             $parent = $route->parentOfParameter($parameterName);
 
             if ($parent instanceof UrlRoutable && in_array($parameterName, array_keys($route->bindingFields()))) {
-                if (!$model = $parent->resolveChildRouteBinding(
+                if (! $model = $parent->resolveChildRouteBinding(
                     $parameterName, $parameterValue, $route->bindingFieldFor($parameterName)
                 )) {
                     throw (new ModelNotFoundException)->setModel(get_class($instance), [$parameterValue]);
                 }
-            } elseif (!$model = $instance->resolveRouteBinding($parameterValue, $route->bindingFieldFor($parameterName))) {
+            } elseif (! $model = $instance->resolveRouteBinding($parameterValue, $route->bindingFieldFor($parameterName))) {
                 throw (new ModelNotFoundException)->setModel(get_class($instance), [$parameterValue]);
             }
 
@@ -54,8 +54,8 @@ class ImplicitRouteBinding
     /**
      * Return the parameter name if it exists in the given parameters.
      *
-     * @param string $name
-     * @param array $parameters
+     * @param  string  $name
+     * @param  array  $parameters
      * @return string|null
      */
     protected static function getParameterName($name, $parameters)

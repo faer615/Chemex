@@ -35,8 +35,8 @@ class Grid
     use Concerns\CanFixColumns;
     use Concerns\CanHidesColumns;
     use Macroable {
-            __call as macroCall;
-        }
+        __call as macroCall;
+    }
 
     const CREATE_MODE_DEFAULT = 'default';
     const CREATE_MODE_DIALOG = 'dialog';
@@ -70,6 +70,11 @@ class Grid
      * @var \Illuminate\Support\Collection
      */
     protected $rows;
+
+    /**
+     * @var array
+     */
+    protected $rowsCallbacks = [];
 
     /**
      * All column names of the grid.
@@ -448,15 +453,25 @@ class Grid
         $this->rows = collect($data)->map(function ($model) {
             return new Row($this, $model);
         });
+
+        foreach ($this->rowsCallbacks as $callback) {
+            $callback($this->rows);
+        }
     }
 
     /**
      * Set grid row callback function.
      *
-     * @return Collection
+     * @return Collection|$this
      */
-    public function rows()
+    public function rows(\Closure $callback = null)
     {
+        if ($callback) {
+            $this->rowsCallbacks[] = $callback;
+
+            return $this;
+        }
+
         return $this->rows;
     }
 
@@ -505,9 +520,8 @@ class Grid
         $keyName = $this->getKeyName();
 
         $this->prependColumn(
-            Grid\Column::SELECT_COLUMN_NAME,
-            $rowSelector->renderHeader()
-        )->display(function () use ($rowSelector, $keyName) {
+            Grid\Column::SELECT_COLUMN_NAME
+        )->setLabel($rowSelector->renderHeader())->display(function () use ($rowSelector, $keyName) {
             return $rowSelector->renderColumn($this, $this->{$keyName});
         });
     }

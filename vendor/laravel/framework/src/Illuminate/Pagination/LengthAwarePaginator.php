@@ -30,11 +30,11 @@ class LengthAwarePaginator extends AbstractPaginator implements Arrayable, Array
     /**
      * Create a new paginator instance.
      *
-     * @param mixed $items
-     * @param int $total
-     * @param int $perPage
-     * @param int|null $currentPage
-     * @param array $options (path, query, fragment, pageName)
+     * @param  mixed  $items
+     * @param  int  $total
+     * @param  int  $perPage
+     * @param  int|null  $currentPage
+     * @param  array  $options (path, query, fragment, pageName)
      * @return void
      */
     public function __construct($items, $total, $perPage, $currentPage = null, array $options = [])
@@ -47,17 +47,31 @@ class LengthAwarePaginator extends AbstractPaginator implements Arrayable, Array
 
         $this->total = $total;
         $this->perPage = $perPage;
-        $this->lastPage = max((int)ceil($total / $perPage), 1);
+        $this->lastPage = max((int) ceil($total / $perPage), 1);
         $this->path = $this->path !== '/' ? rtrim($this->path, '/') : $this->path;
         $this->currentPage = $this->setCurrentPage($currentPage, $this->pageName);
         $this->items = $items instanceof Collection ? $items : Collection::make($items);
     }
 
     /**
+     * Get the current page for the request.
+     *
+     * @param  int  $currentPage
+     * @param  string  $pageName
+     * @return int
+     */
+    protected function setCurrentPage($currentPage, $pageName)
+    {
+        $currentPage = $currentPage ?: static::resolveCurrentPage($pageName);
+
+        return $this->isValidPageNumber($currentPage) ? (int) $currentPage : 1;
+    }
+
+    /**
      * Render the paginator using the given view.
      *
-     * @param string|null $view
-     * @param array $data
+     * @param  string|null  $view
+     * @param  array  $data
      * @return \Illuminate\Contracts\Support\Htmlable
      */
     public function links($view = null, $data = [])
@@ -68,8 +82,8 @@ class LengthAwarePaginator extends AbstractPaginator implements Arrayable, Array
     /**
      * Render the paginator using the given view.
      *
-     * @param string|null $view
-     * @param array $data
+     * @param  string|null  $view
+     * @param  array  $data
      * @return \Illuminate\Contracts\Support\Htmlable
      */
     public function render($view = null, $data = [])
@@ -78,6 +92,54 @@ class LengthAwarePaginator extends AbstractPaginator implements Arrayable, Array
             'paginator' => $this,
             'elements' => $this->elements(),
         ]));
+    }
+
+    /**
+     * Get the paginator links as a collection (for JSON responses).
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    protected function linkCollection()
+    {
+        return collect($this->elements())->flatMap(function ($item) {
+            if (! is_array($item)) {
+                return [['url' => null, 'label' => '...', 'active' => false]];
+            }
+
+            return collect($item)->map(function ($url, $page) {
+                return [
+                    'url' => $url,
+                    'label' => $page,
+                    'active' => $this->currentPage() === $page,
+                ];
+            });
+        })->prepend([
+            'url' => $this->previousPageUrl(),
+            'label' => function_exists('__') ? __('pagination.previous') : 'Previous',
+            'active' => false,
+        ])->push([
+            'url' => $this->nextPageUrl(),
+            'label' => function_exists('__') ? __('pagination.next') : 'Next',
+            'active' => false,
+        ]);
+    }
+
+    /**
+     * Get the array of elements to pass to the view.
+     *
+     * @return array
+     */
+    protected function elements()
+    {
+        $window = UrlWindow::make($this);
+
+        return array_filter([
+            $window['first'],
+            is_array($window['slider']) ? '...' : null,
+            $window['slider'],
+            is_array($window['last']) ? '...' : null,
+            $window['last'],
+        ]);
     }
 
     /**
@@ -159,73 +221,11 @@ class LengthAwarePaginator extends AbstractPaginator implements Arrayable, Array
     /**
      * Convert the object to its JSON representation.
      *
-     * @param int $options
+     * @param  int  $options
      * @return string
      */
     public function toJson($options = 0)
     {
         return json_encode($this->jsonSerialize(), $options);
-    }
-
-    /**
-     * Get the current page for the request.
-     *
-     * @param int $currentPage
-     * @param string $pageName
-     * @return int
-     */
-    protected function setCurrentPage($currentPage, $pageName)
-    {
-        $currentPage = $currentPage ?: static::resolveCurrentPage($pageName);
-
-        return $this->isValidPageNumber($currentPage) ? (int)$currentPage : 1;
-    }
-
-    /**
-     * Get the paginator links as a collection (for JSON responses).
-     *
-     * @return \Illuminate\Support\Collection
-     */
-    protected function linkCollection()
-    {
-        return collect($this->elements())->flatMap(function ($item) {
-            if (!is_array($item)) {
-                return [['url' => null, 'label' => '...', 'active' => false]];
-            }
-
-            return collect($item)->map(function ($url, $page) {
-                return [
-                    'url' => $url,
-                    'label' => $page,
-                    'active' => $this->currentPage() === $page,
-                ];
-            });
-        })->prepend([
-            'url' => $this->previousPageUrl(),
-            'label' => function_exists('__') ? __('pagination.previous') : 'Previous',
-            'active' => false,
-        ])->push([
-            'url' => $this->nextPageUrl(),
-            'label' => function_exists('__') ? __('pagination.next') : 'Next',
-            'active' => false,
-        ]);
-    }
-
-    /**
-     * Get the array of elements to pass to the view.
-     *
-     * @return array
-     */
-    protected function elements()
-    {
-        $window = UrlWindow::make($this);
-
-        return array_filter([
-            $window['first'],
-            is_array($window['slider']) ? '...' : null,
-            $window['slider'],
-            is_array($window['last']) ? '...' : null,
-            $window['last'],
-        ]);
     }
 }

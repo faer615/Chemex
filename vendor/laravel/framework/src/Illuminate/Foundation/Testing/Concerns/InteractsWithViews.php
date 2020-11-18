@@ -14,8 +14,8 @@ trait InteractsWithViews
     /**
      * Create a new TestView from the given view.
      *
-     * @param string $view
-     * @param \Illuminate\Contracts\Support\Arrayable|array $data
+     * @param  string  $view
+     * @param  \Illuminate\Contracts\Support\Arrayable|array  $data
      * @return \Illuminate\Testing\TestView
      */
     protected function view(string $view, array $data = [])
@@ -26,19 +26,19 @@ trait InteractsWithViews
     /**
      * Render the contents of the given Blade template string.
      *
-     * @param string $template
-     * @param \Illuminate\Contracts\Support\Arrayable|array $data
+     * @param  string  $template
+     * @param  \Illuminate\Contracts\Support\Arrayable|array  $data
      * @return \Illuminate\Testing\TestView
      */
     protected function blade(string $template, array $data = [])
     {
         $tempDirectory = sys_get_temp_dir();
 
-        if (!in_array($tempDirectory, ViewFacade::getFinder()->getPaths())) {
+        if (! in_array($tempDirectory, ViewFacade::getFinder()->getPaths())) {
             ViewFacade::addLocation(sys_get_temp_dir());
         }
 
-        $tempFile = tempnam($tempDirectory, 'laravel-blade') . '.blade.php';
+        $tempFile = tempnam($tempDirectory, 'laravel-blade').'.blade.php';
 
         file_put_contents($tempFile, $template);
 
@@ -48,8 +48,8 @@ trait InteractsWithViews
     /**
      * Render the given view component.
      *
-     * @param string $componentClass
-     * @param \Illuminate\Contracts\Support\Arrayable|array $data
+     * @param  string  $componentClass
+     * @param  \Illuminate\Contracts\Support\Arrayable|array  $data
      * @return \Illuminate\Testing\TestView
      */
     protected function component(string $componentClass, array $data = [])
@@ -59,15 +59,15 @@ trait InteractsWithViews
         $view = $component->resolveView();
 
         return $view instanceof View
-            ? new TestView($view->with($component->data()))
-            : new TestView(view($view, $component->data()));
+                ? new TestView($view->with($component->data()))
+                : new TestView(view($view, $component->data()));
     }
 
     /**
      * Populate the shared view error bag with the given errors.
      *
-     * @param array $errors
-     * @param string $key
+     * @param  array  $errors
+     * @param  string  $key
      * @return $this
      */
     protected function withViewErrors(array $errors, $key = 'default')

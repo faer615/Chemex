@@ -3,6 +3,8 @@
 namespace Illuminate\Database;
 
 use Doctrine\DBAL\Driver\PDOPgSql\Driver as DoctrineDriver;
+use Doctrine\DBAL\Version;
+use Illuminate\Database\PDO\PostgresDriver;
 use Illuminate\Database\Query\Grammars\PostgresGrammar as QueryGrammar;
 use Illuminate\Database\Query\Processors\PostgresProcessor;
 use Illuminate\Database\Schema\Grammars\PostgresGrammar as SchemaGrammar;
@@ -15,8 +17,8 @@ class PostgresConnection extends Connection
     /**
      * Bind values to their parameters in the given statement.
      *
-     * @param \PDOStatement $statement
-     * @param array $bindings
+     * @param  \PDOStatement  $statement
+     * @param  array  $bindings
      * @return void
      */
     public function bindValues($statement, $bindings)
@@ -39,6 +41,16 @@ class PostgresConnection extends Connection
     }
 
     /**
+     * Get the default query grammar instance.
+     *
+     * @return \Illuminate\Database\Query\Grammars\PostgresGrammar
+     */
+    protected function getDefaultQueryGrammar()
+    {
+        return $this->withTablePrefix(new QueryGrammar);
+    }
+
+    /**
      * Get a schema builder instance for the connection.
      *
      * @return \Illuminate\Database\Schema\PostgresBuilder
@@ -53,28 +65,6 @@ class PostgresConnection extends Connection
     }
 
     /**
-     * Get the schema state for the connection.
-     *
-     * @param \Illuminate\Filesystem\Filesystem|null $files
-     * @param callable|null $processFactory
-     * @return \Illuminate\Database\Schema\PostgresSchemaState
-     */
-    public function getSchemaState(Filesystem $files = null, callable $processFactory = null)
-    {
-        return new PostgresSchemaState($this, $files, $processFactory);
-    }
-
-    /**
-     * Get the default query grammar instance.
-     *
-     * @return \Illuminate\Database\Query\Grammars\PostgresGrammar
-     */
-    protected function getDefaultQueryGrammar()
-    {
-        return $this->withTablePrefix(new QueryGrammar);
-    }
-
-    /**
      * Get the default schema grammar instance.
      *
      * @return \Illuminate\Database\Schema\Grammars\PostgresGrammar
@@ -82,6 +72,18 @@ class PostgresConnection extends Connection
     protected function getDefaultSchemaGrammar()
     {
         return $this->withTablePrefix(new SchemaGrammar);
+    }
+
+    /**
+     * Get the schema state for the connection.
+     *
+     * @param  \Illuminate\Filesystem\Filesystem|null  $files
+     * @param  callable|null  $processFactory
+     * @return \Illuminate\Database\Schema\PostgresSchemaState
+     */
+    public function getSchemaState(Filesystem $files = null, callable $processFactory = null)
+    {
+        return new PostgresSchemaState($this, $files, $processFactory);
     }
 
     /**
@@ -97,10 +99,10 @@ class PostgresConnection extends Connection
     /**
      * Get the Doctrine DBAL driver.
      *
-     * @return \Doctrine\DBAL\Driver\PDOPgSql\Driver
+     * @return \Doctrine\DBAL\Driver\PDOPgSql\Driver|\Illuminate\Database\PDO\PostgresDriver
      */
     protected function getDoctrineDriver()
     {
-        return new DoctrineDriver;
+        return class_exists(Version::class) ? new DoctrineDriver : new PostgresDriver;
     }
 }

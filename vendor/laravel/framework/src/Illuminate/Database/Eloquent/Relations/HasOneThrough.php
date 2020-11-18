@@ -23,8 +23,8 @@ class HasOneThrough extends HasManyThrough
     /**
      * Initialize the relation on a set of models.
      *
-     * @param array $models
-     * @param string $relation
+     * @param  array  $models
+     * @param  string  $relation
      * @return array
      */
     public function initRelation(array $models, $relation)
@@ -39,9 +39,9 @@ class HasOneThrough extends HasManyThrough
     /**
      * Match the eagerly loaded results to their parents.
      *
-     * @param array $models
-     * @param \Illuminate\Database\Eloquent\Collection $results
-     * @param string $relation
+     * @param  array  $models
+     * @param  \Illuminate\Database\Eloquent\Collection  $results
+     * @param  string  $relation
      * @return array
      */
     public function match(array $models, Collection $results, $relation)
@@ -66,7 +66,7 @@ class HasOneThrough extends HasManyThrough
     /**
      * Make a new related instance for the given model.
      *
-     * @param \Illuminate\Database\Eloquent\Model $parent
+     * @param  \Illuminate\Database\Eloquent\Model  $parent
      * @return \Illuminate\Database\Eloquent\Model
      */
     public function newRelatedInstanceFor(Model $parent)

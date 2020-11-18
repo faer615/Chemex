@@ -23,8 +23,8 @@ class MessageSent
     /**
      * Create a new event instance.
      *
-     * @param \Swift_Message $message
-     * @param array $data
+     * @param  \Swift_Message  $message
+     * @param  array  $data
      * @return void
      */
     public function __construct($message, $data = [])
@@ -41,8 +41,8 @@ class MessageSent
     public function __serialize()
     {
         $hasAttachments = collect($this->message->getChildren())
-            ->whereInstanceOf(Swift_Attachment::class)
-            ->isNotEmpty();
+                                ->whereInstanceOf(Swift_Attachment::class)
+                                ->isNotEmpty();
 
         return $hasAttachments ? [
             'message' => base64_encode(serialize($this->message)),
@@ -58,7 +58,7 @@ class MessageSent
     /**
      * Marshal the object from its serialized data.
      *
-     * @param array $data
+     * @param  array  $data
      * @return void
      */
     public function __unserialize(array $data)

@@ -14,19 +14,9 @@ trait CompilesConditionals
     protected $firstCaseInSwitch = true;
 
     /**
-     * Compile an end-once block into valid PHP.
-     *
-     * @return string
-     */
-    public function compileEndOnce()
-    {
-        return '<?php endif; ?>';
-    }
-
-    /**
      * Compile the if-auth statements into valid PHP.
      *
-     * @param string|null $guard
+     * @param  string|null  $guard
      * @return string
      */
     protected function compileAuth($guard = null)
@@ -39,7 +29,7 @@ trait CompilesConditionals
     /**
      * Compile the else-auth statements into valid PHP.
      *
-     * @param string|null $guard
+     * @param  string|null  $guard
      * @return string
      */
     protected function compileElseAuth($guard = null)
@@ -62,7 +52,7 @@ trait CompilesConditionals
     /**
      * Compile the env statements into valid PHP.
      *
-     * @param string $environments
+     * @param  string  $environments
      * @return string
      */
     protected function compileEnv($environments)
@@ -103,7 +93,7 @@ trait CompilesConditionals
     /**
      * Compile the if-guest statements into valid PHP.
      *
-     * @param string|null $guard
+     * @param  string|null  $guard
      * @return string
      */
     protected function compileGuest($guard = null)
@@ -116,7 +106,7 @@ trait CompilesConditionals
     /**
      * Compile the else-guest statements into valid PHP.
      *
-     * @param string|null $guard
+     * @param  string|null  $guard
      * @return string
      */
     protected function compileElseGuest($guard = null)
@@ -139,7 +129,7 @@ trait CompilesConditionals
     /**
      * Compile the has-section statements into valid PHP.
      *
-     * @param string $expression
+     * @param  string  $expression
      * @return string
      */
     protected function compileHasSection($expression)
@@ -150,7 +140,7 @@ trait CompilesConditionals
     /**
      * Compile the section-missing statements into valid PHP.
      *
-     * @param string $expression
+     * @param  string  $expression
      * @return string
      */
     protected function compileSectionMissing($expression)
@@ -161,7 +151,7 @@ trait CompilesConditionals
     /**
      * Compile the if statements into valid PHP.
      *
-     * @param string $expression
+     * @param  string  $expression
      * @return string
      */
     protected function compileIf($expression)
@@ -172,7 +162,7 @@ trait CompilesConditionals
     /**
      * Compile the unless statements into valid PHP.
      *
-     * @param string $expression
+     * @param  string  $expression
      * @return string
      */
     protected function compileUnless($expression)
@@ -183,7 +173,7 @@ trait CompilesConditionals
     /**
      * Compile the else-if statements into valid PHP.
      *
-     * @param string $expression
+     * @param  string  $expression
      * @return string
      */
     protected function compileElseif($expression)
@@ -224,7 +214,7 @@ trait CompilesConditionals
     /**
      * Compile the if-isset statements into valid PHP.
      *
-     * @param string $expression
+     * @param  string  $expression
      * @return string
      */
     protected function compileIsset($expression)
@@ -245,7 +235,7 @@ trait CompilesConditionals
     /**
      * Compile the switch statements into valid PHP.
      *
-     * @param string $expression
+     * @param  string  $expression
      * @return string
      */
     protected function compileSwitch($expression)
@@ -258,7 +248,7 @@ trait CompilesConditionals
     /**
      * Compile the case statements into valid PHP.
      *
-     * @param string $expression
+     * @param  string  $expression
      * @return string
      */
     protected function compileCase($expression)
@@ -299,8 +289,18 @@ trait CompilesConditionals
      */
     protected function compileOnce($id = null)
     {
-        $id = $id ? $this->stripParentheses($id) : "'" . (string)Str::uuid() . "'";
+        $id = $id ? $this->stripParentheses($id) : "'".(string) Str::uuid()."'";
 
-        return '<?php if (! $__env->hasRenderedOnce(' . $id . ')): $__env->markAsRenderedOnce(' . $id . '); ?>';
+        return '<?php if (! $__env->hasRenderedOnce('.$id.')): $__env->markAsRenderedOnce('.$id.'); ?>';
+    }
+
+    /**
+     * Compile an end-once block into valid PHP.
+     *
+     * @return string
+     */
+    public function compileEndOnce()
+    {
+        return '<?php endif; ?>';
     }
 }

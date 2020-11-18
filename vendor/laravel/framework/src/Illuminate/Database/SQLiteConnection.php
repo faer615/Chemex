@@ -3,6 +3,8 @@
 namespace Illuminate\Database;
 
 use Doctrine\DBAL\Driver\PDOSqlite\Driver as DoctrineDriver;
+use Doctrine\DBAL\Version;
+use Illuminate\Database\PDO\SQLiteDriver;
 use Illuminate\Database\Query\Grammars\SQLiteGrammar as QueryGrammar;
 use Illuminate\Database\Query\Processors\SQLiteProcessor;
 use Illuminate\Database\Schema\Grammars\SQLiteGrammar as SchemaGrammar;
@@ -15,10 +17,10 @@ class SQLiteConnection extends Connection
     /**
      * Create a new database connection instance.
      *
-     * @param \PDO|\Closure $pdo
-     * @param string $database
-     * @param string $tablePrefix
-     * @param array $config
+     * @param  \PDO|\Closure  $pdo
+     * @param  string  $database
+     * @param  string  $tablePrefix
+     * @param  array  $config
      * @return void
      */
     public function __construct($pdo, $database = '', $tablePrefix = '', array $config = [])
@@ -37,6 +39,16 @@ class SQLiteConnection extends Connection
     }
 
     /**
+     * Get the default query grammar instance.
+     *
+     * @return \Illuminate\Database\Query\Grammars\SQLiteGrammar
+     */
+    protected function getDefaultQueryGrammar()
+    {
+        return $this->withTablePrefix(new QueryGrammar);
+    }
+
+    /**
      * Get a schema builder instance for the connection.
      *
      * @return \Illuminate\Database\Schema\SQLiteBuilder
@@ -51,29 +63,6 @@ class SQLiteConnection extends Connection
     }
 
     /**
-     * Get the schema state for the connection.
-     *
-     * @param \Illuminate\Filesystem\Filesystem|null $files
-     * @param callable|null $processFactory
-     *
-     * @throws \RuntimeException
-     */
-    public function getSchemaState(Filesystem $files = null, callable $processFactory = null)
-    {
-        return new SqliteSchemaState($this, $files, $processFactory);
-    }
-
-    /**
-     * Get the default query grammar instance.
-     *
-     * @return \Illuminate\Database\Query\Grammars\SQLiteGrammar
-     */
-    protected function getDefaultQueryGrammar()
-    {
-        return $this->withTablePrefix(new QueryGrammar);
-    }
-
-    /**
      * Get the default schema grammar instance.
      *
      * @return \Illuminate\Database\Schema\Grammars\SQLiteGrammar
@@ -81,6 +70,19 @@ class SQLiteConnection extends Connection
     protected function getDefaultSchemaGrammar()
     {
         return $this->withTablePrefix(new SchemaGrammar);
+    }
+
+    /**
+     * Get the schema state for the connection.
+     *
+     * @param  \Illuminate\Filesystem\Filesystem|null  $files
+     * @param  callable|null  $processFactory
+     *
+     * @throws \RuntimeException
+     */
+    public function getSchemaState(Filesystem $files = null, callable $processFactory = null)
+    {
+        return new SqliteSchemaState($this, $files, $processFactory);
     }
 
     /**
@@ -96,11 +98,11 @@ class SQLiteConnection extends Connection
     /**
      * Get the Doctrine DBAL driver.
      *
-     * @return \Doctrine\DBAL\Driver\PDOSqlite\Driver
+     * @return \Doctrine\DBAL\Driver\PDOSqlite\Driver|\Illuminate\Database\PDO\SQLiteDriver
      */
     protected function getDoctrineDriver()
     {
-        return new DoctrineDriver;
+        return class_exists(Version::class) ? new DoctrineDriver : new SQLiteDriver;
     }
 
     /**

@@ -27,7 +27,7 @@ class FoundationServiceProvider extends AggregateServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../Exceptions/views' => $this->app->resourcePath('views/errors/'),
+                __DIR__.'/../Exceptions/views' => $this->app->resourcePath('views/errors/'),
             ], 'laravel-errors');
         }
     }

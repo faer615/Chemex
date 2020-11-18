@@ -28,8 +28,8 @@ class HasOne extends HasOneOrMany
     /**
      * Initialize the relation on a set of models.
      *
-     * @param array $models
-     * @param string $relation
+     * @param  array  $models
+     * @param  string  $relation
      * @return array
      */
     public function initRelation(array $models, $relation)
@@ -44,9 +44,9 @@ class HasOne extends HasOneOrMany
     /**
      * Match the eagerly loaded results to their parents.
      *
-     * @param array $models
-     * @param \Illuminate\Database\Eloquent\Collection $results
-     * @param string $relation
+     * @param  array  $models
+     * @param  \Illuminate\Database\Eloquent\Collection  $results
+     * @param  string  $relation
      * @return array
      */
     public function match(array $models, Collection $results, $relation)
@@ -57,7 +57,7 @@ class HasOne extends HasOneOrMany
     /**
      * Make a new related instance for the given model.
      *
-     * @param \Illuminate\Database\Eloquent\Model $parent
+     * @param  \Illuminate\Database\Eloquent\Model  $parent
      * @return \Illuminate\Database\Eloquent\Model
      */
     public function newRelatedInstanceFor(Model $parent)
@@ -70,7 +70,7 @@ class HasOne extends HasOneOrMany
     /**
      * Get the value of the model's foreign key.
      *
-     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param  \Illuminate\Database\Eloquent\Model  $model
      * @return mixed
      */
     protected function getRelatedKeyFrom(Model $model)

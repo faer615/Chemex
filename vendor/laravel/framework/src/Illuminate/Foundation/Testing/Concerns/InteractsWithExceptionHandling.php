@@ -34,7 +34,7 @@ trait InteractsWithExceptionHandling
     /**
      * Only handle the given exceptions via the exception handler.
      *
-     * @param array $exceptions
+     * @param  array  $exceptions
      * @return $this
      */
     protected function handleExceptions(array $exceptions)
@@ -55,7 +55,7 @@ trait InteractsWithExceptionHandling
     /**
      * Disable exception handling for the test.
      *
-     * @param array $except
+     * @param  array  $except
      * @return $this
      */
     protected function withoutExceptionHandling(array $except = [])
@@ -71,8 +71,8 @@ trait InteractsWithExceptionHandling
             /**
              * Create a new class instance.
              *
-             * @param \Illuminate\Contracts\Debug\ExceptionHandler $originalHandler
-             * @param array $except
+             * @param  \Illuminate\Contracts\Debug\ExceptionHandler  $originalHandler
+             * @param  array  $except
              * @return void
              */
             public function __construct($originalHandler, $except = [])
@@ -84,7 +84,7 @@ trait InteractsWithExceptionHandling
             /**
              * Report or log an exception.
              *
-             * @param \Throwable $e
+             * @param  \Throwable  $e
              * @return void
              *
              * @throws \Exception
@@ -97,7 +97,7 @@ trait InteractsWithExceptionHandling
             /**
              * Determine if the exception should be reported.
              *
-             * @param \Throwable $e
+             * @param  \Throwable  $e
              * @return bool
              */
             public function shouldReport(Throwable $e)
@@ -108,8 +108,8 @@ trait InteractsWithExceptionHandling
             /**
              * Render an exception into an HTTP response.
              *
-             * @param \Illuminate\Http\Request $request
-             * @param \Throwable $e
+             * @param  \Illuminate\Http\Request  $request
+             * @param  \Throwable  $e
              * @return \Symfony\Component\HttpFoundation\Response
              *
              * @throws \Throwable
@@ -134,8 +134,8 @@ trait InteractsWithExceptionHandling
             /**
              * Render an exception to the console.
              *
-             * @param \Symfony\Component\Console\Output\OutputInterface $output
-             * @param \Throwable $e
+             * @param  \Symfony\Component\Console\Output\OutputInterface  $output
+             * @param  \Throwable  $e
              * @return void
              */
             public function renderForConsole($output, Throwable $e)

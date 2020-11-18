@@ -34,9 +34,9 @@ class DatabaseBatchRepository implements BatchRepository
     /**
      * Create a new batch repository instance.
      *
-     * @param \Illuminate\Bus\BatchFactory $factory
-     * @param \Illuminate\Database\Connection $connection
-     * @param string $table
+     * @param  \Illuminate\Bus\BatchFactory  $factory
+     * @param  \Illuminate\Database\Connection  $connection
+     * @param  string  $table
      */
     public function __construct(BatchFactory $factory, Connection $connection, string $table)
     {
@@ -48,36 +48,36 @@ class DatabaseBatchRepository implements BatchRepository
     /**
      * Retrieve a list of batches.
      *
-     * @param int $limit
-     * @param mixed $before
+     * @param  int  $limit
+     * @param  mixed  $before
      * @return \Illuminate\Bus\Batch[]
      */
     public function get($limit = 50, $before = null)
     {
         return $this->connection->table($this->table)
-            ->orderByDesc('id')
-            ->take($limit)
-            ->when($before, function ($q) use ($before) {
-                return $q->where('id', '<', $before);
-            })
-            ->get()
-            ->map(function ($batch) {
-                return $this->toBatch($batch);
-            })
-            ->all();
+                            ->orderByDesc('id')
+                            ->take($limit)
+                            ->when($before, function ($q) use ($before) {
+                                return $q->where('id', '<', $before);
+                            })
+                            ->get()
+                            ->map(function ($batch) {
+                                return $this->toBatch($batch);
+                            })
+                            ->all();
     }
 
     /**
      * Retrieve information about an existing batch.
      *
-     * @param string $batchId
+     * @param  string  $batchId
      * @return \Illuminate\Bus\Batch|null
      */
     public function find(string $batchId)
     {
         $batch = $this->connection->table($this->table)
-            ->where('id', $batchId)
-            ->first();
+                            ->where('id', $batchId)
+                            ->first();
 
         if ($batch) {
             return $this->toBatch($batch);
@@ -87,12 +87,12 @@ class DatabaseBatchRepository implements BatchRepository
     /**
      * Store a new pending batch.
      *
-     * @param \Illuminate\Bus\PendingBatch $batch
+     * @param  \Illuminate\Bus\PendingBatch  $batch
      * @return \Illuminate\Bus\Batch
      */
     public function store(PendingBatch $batch)
     {
-        $id = (string)Str::orderedUuid();
+        $id = (string) Str::orderedUuid();
 
         $this->connection->table($this->table)->insert([
             'id' => $id,
@@ -113,15 +113,15 @@ class DatabaseBatchRepository implements BatchRepository
     /**
      * Increment the total number of jobs within the batch.
      *
-     * @param string $batchId
-     * @param int $amount
+     * @param  string  $batchId
+     * @param  int  $amount
      * @return void
      */
     public function incrementTotalJobs(string $batchId, int $amount)
     {
         $this->connection->table($this->table)->where('id', $batchId)->update([
-            'total_jobs' => new Expression('total_jobs + ' . $amount),
-            'pending_jobs' => new Expression('pending_jobs + ' . $amount),
+            'total_jobs' => new Expression('total_jobs + '.$amount),
+            'pending_jobs' => new Expression('pending_jobs + '.$amount),
             'finished_at' => null,
         ]);
     }
@@ -129,8 +129,8 @@ class DatabaseBatchRepository implements BatchRepository
     /**
      * Decrement the total number of pending jobs for the batch.
      *
-     * @param string $batchId
-     * @param string $jobId
+     * @param  string  $batchId
+     * @param  string  $jobId
      * @return \Illuminate\Bus\UpdatedBatchJobCounts
      */
     public function decrementPendingJobs(string $batchId, string $jobId)
@@ -152,8 +152,8 @@ class DatabaseBatchRepository implements BatchRepository
     /**
      * Increment the total number of failed jobs for the batch.
      *
-     * @param string $batchId
-     * @param string $jobId
+     * @param  string  $batchId
+     * @param  string  $jobId
      * @return \Illuminate\Bus\UpdatedBatchJobCounts
      */
     public function incrementFailedJobs(string $batchId, string $jobId)
@@ -173,9 +173,29 @@ class DatabaseBatchRepository implements BatchRepository
     }
 
     /**
+     * Update an atomic value within the batch.
+     *
+     * @param  string  $batchId
+     * @param  \Closure  $callback
+     * @return int|null
+     */
+    protected function updateAtomicValues(string $batchId, Closure $callback)
+    {
+        return $this->connection->transaction(function () use ($batchId, $callback) {
+            $batch = $this->connection->table($this->table)->where('id', $batchId)
+                        ->lockForUpdate()
+                        ->first();
+
+            return is_null($batch) ? [] : tap($callback($batch), function ($values) use ($batchId) {
+                $this->connection->table($this->table)->where('id', $batchId)->update($values);
+            });
+        });
+    }
+
+    /**
      * Mark the batch that has the given ID as finished.
      *
-     * @param string $batchId
+     * @param  string  $batchId
      * @return void
      */
     public function markAsFinished(string $batchId)
@@ -188,7 +208,7 @@ class DatabaseBatchRepository implements BatchRepository
     /**
      * Cancel the batch that has the given ID.
      *
-     * @param string $batchId
+     * @param  string  $batchId
      * @return void
      */
     public function cancel(string $batchId)
@@ -202,7 +222,7 @@ class DatabaseBatchRepository implements BatchRepository
     /**
      * Delete the batch that has the given ID.
      *
-     * @param string $batchId
+     * @param  string  $batchId
      * @return void
      */
     public function delete(string $batchId)
@@ -213,7 +233,7 @@ class DatabaseBatchRepository implements BatchRepository
     /**
      * Execute the given Closure within a storage specific transaction.
      *
-     * @param \Closure $callback
+     * @param  \Closure  $callback
      * @return mixed
      */
     public function transaction(Closure $callback)
@@ -224,29 +244,9 @@ class DatabaseBatchRepository implements BatchRepository
     }
 
     /**
-     * Update an atomic value within the batch.
-     *
-     * @param string $batchId
-     * @param \Closure $callback
-     * @return int|null
-     */
-    protected function updateAtomicValues(string $batchId, Closure $callback)
-    {
-        return $this->connection->transaction(function () use ($batchId, $callback) {
-            $batch = $this->connection->table($this->table)->where('id', $batchId)
-                ->lockForUpdate()
-                ->first();
-
-            return is_null($batch) ? [] : tap($callback($batch), function ($values) use ($batchId) {
-                $this->connection->table($this->table)->where('id', $batchId)->update($values);
-            });
-        });
-    }
-
-    /**
      * Convert the given raw batch to a Batch object.
      *
-     * @param object $batch
+     * @param  object  $batch
      * @return \Illuminate\Bus\Batch
      */
     protected function toBatch($batch)
@@ -255,9 +255,9 @@ class DatabaseBatchRepository implements BatchRepository
             $this,
             $batch->id,
             $batch->name,
-            (int)$batch->total_jobs,
-            (int)$batch->pending_jobs,
-            (int)$batch->failed_jobs,
+            (int) $batch->total_jobs,
+            (int) $batch->pending_jobs,
+            (int) $batch->failed_jobs,
             json_decode($batch->failed_job_ids, true),
             unserialize($batch->options),
             CarbonImmutable::createFromTimestamp($batch->created_at),

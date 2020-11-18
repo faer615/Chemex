@@ -32,7 +32,7 @@ class ObserverMakeCommand extends GeneratorCommand
     /**
      * Build the class with the given name.
      *
-     * @param string $name
+     * @param  string  $name
      * @return string
      */
     protected function buildClass($name)
@@ -47,8 +47,8 @@ class ObserverMakeCommand extends GeneratorCommand
     /**
      * Replace the model for the given stub.
      *
-     * @param string $stub
-     * @param string $model
+     * @param  string  $stub
+     * @param  string  $model
      * @return string
      */
     protected function replaceModel($stub, $model)
@@ -75,7 +75,7 @@ class ObserverMakeCommand extends GeneratorCommand
     /**
      * Get the fully-qualified model class name.
      *
-     * @param string $model
+     * @param  string  $model
      * @return string
      *
      * @throws \InvalidArgumentException
@@ -104,25 +104,25 @@ class ObserverMakeCommand extends GeneratorCommand
     /**
      * Resolve the fully-qualified path to the stub.
      *
-     * @param string $stub
+     * @param  string  $stub
      * @return string
      */
     protected function resolveStubPath($stub)
     {
         return file_exists($customPath = $this->laravel->basePath(trim($stub, '/')))
             ? $customPath
-            : __DIR__ . $stub;
+            : __DIR__.$stub;
     }
 
     /**
      * Get the default namespace for the class.
      *
-     * @param string $rootNamespace
+     * @param  string  $rootNamespace
      * @return string
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . '\Observers';
+        return $rootNamespace.'\Observers';
     }
 
     /**

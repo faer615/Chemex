@@ -19,15 +19,15 @@ class WhoopsHandler
             $handler->handleUnconditionally(true);
 
             $this->registerApplicationPaths($handler)
-                ->registerBlacklist($handler)
-                ->registerEditor($handler);
+                 ->registerBlacklist($handler)
+                 ->registerEditor($handler);
         });
     }
 
     /**
      * Register the application paths with the handler.
      *
-     * @param \Whoops\Handler\PrettyPageHandler $handler
+     * @param  \Whoops\Handler\PrettyPageHandler  $handler
      * @return $this
      */
     protected function registerApplicationPaths($handler)
@@ -55,7 +55,7 @@ class WhoopsHandler
     /**
      * Register the blacklist with the handler.
      *
-     * @param \Whoops\Handler\PrettyPageHandler $handler
+     * @param  \Whoops\Handler\PrettyPageHandler  $handler
      * @return $this
      */
     protected function registerBlacklist($handler)
@@ -72,7 +72,7 @@ class WhoopsHandler
     /**
      * Register the editor with the handler.
      *
-     * @param \Whoops\Handler\PrettyPageHandler $handler
+     * @param  \Whoops\Handler\PrettyPageHandler  $handler
      * @return $this
      */
     protected function registerEditor($handler)

@@ -43,7 +43,7 @@ class TestResponse implements ArrayAccess
     /**
      * Create a new test response instance.
      *
-     * @param \Illuminate\Http\Response $response
+     * @param  \Illuminate\Http\Response  $response
      * @return void
      */
     public function __construct($response)
@@ -54,7 +54,7 @@ class TestResponse implements ArrayAccess
     /**
      * Create a new TestResponse from another response.
      *
-     * @param \Illuminate\Http\Response $response
+     * @param  \Illuminate\Http\Response  $response
      * @return static
      */
     public static function fromBaseResponse($response)
@@ -71,7 +71,7 @@ class TestResponse implements ArrayAccess
     {
         PHPUnit::assertTrue(
             $this->isSuccessful(),
-            'Response status code [' . $this->getStatusCode() . '] is not a successful status code.'
+            'Response status code ['.$this->getStatusCode().'] is not a successful status code.'
         );
 
         return $this;
@@ -86,7 +86,7 @@ class TestResponse implements ArrayAccess
     {
         PHPUnit::assertTrue(
             $this->isOk(),
-            'Response status code [' . $this->getStatusCode() . '] does not match expected 200 status code.'
+            'Response status code ['.$this->getStatusCode().'] does not match expected 200 status code.'
         );
 
         return $this;
@@ -112,7 +112,7 @@ class TestResponse implements ArrayAccess
     /**
      * Assert that the response has the given status code and no content.
      *
-     * @param int $status
+     * @param  int  $status
      * @return $this
      */
     public function assertNoContent($status = 204)
@@ -133,7 +133,7 @@ class TestResponse implements ArrayAccess
     {
         PHPUnit::assertTrue(
             $this->isNotFound(),
-            'Response status code [' . $this->getStatusCode() . '] is not a not found status code.'
+            'Response status code ['.$this->getStatusCode().'] is not a not found status code.'
         );
 
         return $this;
@@ -148,7 +148,7 @@ class TestResponse implements ArrayAccess
     {
         PHPUnit::assertTrue(
             $this->isForbidden(),
-            'Response status code [' . $this->getStatusCode() . '] is not a forbidden status code.'
+            'Response status code ['.$this->getStatusCode().'] is not a forbidden status code.'
         );
 
         return $this;
@@ -174,7 +174,7 @@ class TestResponse implements ArrayAccess
     /**
      * Assert that the response has the given status code.
      *
-     * @param int $status
+     * @param  int  $status
      * @return $this
      */
     public function assertStatus($status)
@@ -192,16 +192,16 @@ class TestResponse implements ArrayAccess
     /**
      * Assert whether the response is redirecting to a given URI.
      *
-     * @param string|null $uri
+     * @param  string|null  $uri
      * @return $this
      */
     public function assertRedirect($uri = null)
     {
         PHPUnit::assertTrue(
-            $this->isRedirect(), 'Response status code [' . $this->getStatusCode() . '] is not a redirect status code.'
+            $this->isRedirect(), 'Response status code ['.$this->getStatusCode().'] is not a redirect status code.'
         );
 
-        if (!is_null($uri)) {
+        if (! is_null($uri)) {
             $this->assertLocation($uri);
         }
 
@@ -211,8 +211,8 @@ class TestResponse implements ArrayAccess
     /**
      * Asserts that the response contains the given header and equals the optional value.
      *
-     * @param string $headerName
-     * @param mixed $value
+     * @param  string  $headerName
+     * @param  mixed  $value
      * @return $this
      */
     public function assertHeader($headerName, $value = null)
@@ -223,7 +223,7 @@ class TestResponse implements ArrayAccess
 
         $actual = $this->headers->get($headerName);
 
-        if (!is_null($value)) {
+        if (! is_null($value)) {
             PHPUnit::assertEquals(
                 $value, $this->headers->get($headerName),
                 "Header [{$headerName}] was found, but value [{$actual}] does not match [{$value}]."
@@ -236,7 +236,7 @@ class TestResponse implements ArrayAccess
     /**
      * Asserts that the response does not contains the given header.
      *
-     * @param string $headerName
+     * @param  string  $headerName
      * @return $this
      */
     public function assertHeaderMissing($headerName)
@@ -251,7 +251,7 @@ class TestResponse implements ArrayAccess
     /**
      * Assert that the current location header matches the given URI.
      *
-     * @param string $uri
+     * @param  string  $uri
      * @return $this
      */
     public function assertLocation($uri)
@@ -266,8 +266,8 @@ class TestResponse implements ArrayAccess
     /**
      * Asserts that the response contains the given cookie and equals the optional value.
      *
-     * @param string $cookieName
-     * @param mixed $value
+     * @param  string  $cookieName
+     * @param  mixed  $value
      * @return $this
      */
     public function assertPlainCookie($cookieName, $value = null)
@@ -280,10 +280,10 @@ class TestResponse implements ArrayAccess
     /**
      * Asserts that the response contains the given cookie and equals the optional value.
      *
-     * @param string $cookieName
-     * @param mixed $value
-     * @param bool $encrypted
-     * @param bool $unserialize
+     * @param  string  $cookieName
+     * @param  mixed  $value
+     * @param  bool  $encrypted
+     * @param  bool  $unserialize
      * @return $this
      */
     public function assertCookie($cookieName, $value = null, $encrypted = true, $unserialize = false)
@@ -293,7 +293,7 @@ class TestResponse implements ArrayAccess
             "Cookie [{$cookieName}] not present on response."
         );
 
-        if (!$cookie || is_null($value)) {
+        if (! $cookie || is_null($value)) {
             return $this;
         }
 
@@ -314,7 +314,7 @@ class TestResponse implements ArrayAccess
     /**
      * Asserts that the response contains the given cookie and is expired.
      *
-     * @param string $cookieName
+     * @param  string  $cookieName
      * @return $this
      */
     public function assertCookieExpired($cookieName)
@@ -337,7 +337,7 @@ class TestResponse implements ArrayAccess
     /**
      * Asserts that the response contains the given cookie and is not expired.
      *
-     * @param string $cookieName
+     * @param  string  $cookieName
      * @return $this
      */
     public function assertCookieNotExpired($cookieName)
@@ -360,7 +360,7 @@ class TestResponse implements ArrayAccess
     /**
      * Asserts that the response does not contains the given cookie.
      *
-     * @param string $cookieName
+     * @param  string  $cookieName
      * @return $this
      */
     public function assertCookieMissing($cookieName)
@@ -374,10 +374,25 @@ class TestResponse implements ArrayAccess
     }
 
     /**
+     * Get the given cookie from the response.
+     *
+     * @param  string  $cookieName
+     * @return \Symfony\Component\HttpFoundation\Cookie|null
+     */
+    protected function getCookie($cookieName)
+    {
+        foreach ($this->headers->getCookies() as $cookie) {
+            if ($cookie->getName() === $cookieName) {
+                return $cookie;
+            }
+        }
+    }
+
+    /**
      * Assert that the given string or array of strings are contained within the response.
      *
-     * @param string|array $value
-     * @param bool $escape
+     * @param  string|array  $value
+     * @param  bool  $escape
      * @return $this
      */
     public function assertSee($value, $escape = true)
@@ -387,7 +402,7 @@ class TestResponse implements ArrayAccess
         $values = $escape ? array_map('e', ($value)) : $value;
 
         foreach ($values as $value) {
-            PHPUnit::assertStringContainsString((string)$value, $this->getContent());
+            PHPUnit::assertStringContainsString((string) $value, $this->getContent());
         }
 
         return $this;
@@ -396,8 +411,8 @@ class TestResponse implements ArrayAccess
     /**
      * Assert that the given strings are contained in order within the response.
      *
-     * @param array $values
-     * @param bool $escape
+     * @param  array  $values
+     * @param  bool  $escape
      * @return $this
      */
     public function assertSeeInOrder(array $values, $escape = true)
@@ -412,8 +427,8 @@ class TestResponse implements ArrayAccess
     /**
      * Assert that the given string or array of strings are contained within the response text.
      *
-     * @param string|array $value
-     * @param bool $escape
+     * @param  string|array  $value
+     * @param  bool  $escape
      * @return $this
      */
     public function assertSeeText($value, $escape = true)
@@ -424,7 +439,7 @@ class TestResponse implements ArrayAccess
 
         tap(strip_tags($this->getContent()), function ($content) use ($values) {
             foreach ($values as $value) {
-                PHPUnit::assertStringContainsString((string)$value, $content);
+                PHPUnit::assertStringContainsString((string) $value, $content);
             }
         });
 
@@ -434,8 +449,8 @@ class TestResponse implements ArrayAccess
     /**
      * Assert that the given strings are contained in order within the response text.
      *
-     * @param array $values
-     * @param bool $escape
+     * @param  array  $values
+     * @param  bool  $escape
      * @return $this
      */
     public function assertSeeTextInOrder(array $values, $escape = true)
@@ -450,8 +465,8 @@ class TestResponse implements ArrayAccess
     /**
      * Assert that the given string or array of strings are not contained within the response.
      *
-     * @param string|array $value
-     * @param bool $escape
+     * @param  string|array  $value
+     * @param  bool  $escape
      * @return $this
      */
     public function assertDontSee($value, $escape = true)
@@ -461,7 +476,7 @@ class TestResponse implements ArrayAccess
         $values = $escape ? array_map('e', ($value)) : $value;
 
         foreach ($values as $value) {
-            PHPUnit::assertStringNotContainsString((string)$value, $this->getContent());
+            PHPUnit::assertStringNotContainsString((string) $value, $this->getContent());
         }
 
         return $this;
@@ -470,8 +485,8 @@ class TestResponse implements ArrayAccess
     /**
      * Assert that the given string or array of strings are not contained within the response text.
      *
-     * @param string|array $value
-     * @param bool $escape
+     * @param  string|array  $value
+     * @param  bool  $escape
      * @return $this
      */
     public function assertDontSeeText($value, $escape = true)
@@ -482,7 +497,7 @@ class TestResponse implements ArrayAccess
 
         tap(strip_tags($this->getContent()), function ($content) use ($values) {
             foreach ($values as $value) {
-                PHPUnit::assertStringNotContainsString((string)$value, $content);
+                PHPUnit::assertStringNotContainsString((string) $value, $content);
             }
         });
 
@@ -492,8 +507,8 @@ class TestResponse implements ArrayAccess
     /**
      * Assert that the response is a superset of the given JSON.
      *
-     * @param array $data
-     * @param bool $strict
+     * @param  array  $data
+     * @param  bool  $strict
      * @return $this
      */
     public function assertJson(array $data, $strict = false)
@@ -506,8 +521,8 @@ class TestResponse implements ArrayAccess
     /**
      * Assert that the expected value and type exists at the given path in the response.
      *
-     * @param string $path
-     * @param mixed $expect
+     * @param  string  $path
+     * @param  mixed  $expect
      * @return $this
      */
     public function assertJsonPath($path, $expect)
@@ -520,7 +535,7 @@ class TestResponse implements ArrayAccess
     /**
      * Assert that the response has the exact given JSON.
      *
-     * @param array $data
+     * @param  array  $data
      * @return $this
      */
     public function assertExactJson(array $data)
@@ -533,7 +548,7 @@ class TestResponse implements ArrayAccess
     /**
      * Assert that the response has the similar JSON as given.
      *
-     * @param array $data
+     * @param  array  $data
      * @return $this
      */
     public function assertSimilarJson(array $data)
@@ -546,7 +561,7 @@ class TestResponse implements ArrayAccess
     /**
      * Assert that the response contains the given JSON fragment.
      *
-     * @param array $data
+     * @param  array  $data
      * @return $this
      */
     public function assertJsonFragment(array $data)
@@ -559,8 +574,8 @@ class TestResponse implements ArrayAccess
     /**
      * Assert that the response does not contain the given JSON fragment.
      *
-     * @param array $data
-     * @param bool $exact
+     * @param  array  $data
+     * @param  bool  $exact
      * @return $this
      */
     public function assertJsonMissing(array $data, $exact = false)
@@ -573,7 +588,7 @@ class TestResponse implements ArrayAccess
     /**
      * Assert that the response does not contain the exact JSON fragment.
      *
-     * @param array $data
+     * @param  array  $data
      * @return $this
      */
     public function assertJsonMissingExact(array $data)
@@ -586,8 +601,8 @@ class TestResponse implements ArrayAccess
     /**
      * Assert that the response has a given JSON structure.
      *
-     * @param array|null $structure
-     * @param array|null $responseData
+     * @param  array|null  $structure
+     * @param  array|null  $responseData
      * @return $this
      */
     public function assertJsonStructure(array $structure = null, $responseData = null)
@@ -600,8 +615,8 @@ class TestResponse implements ArrayAccess
     /**
      * Assert that the response JSON has the expected count of items at the given key.
      *
-     * @param int $count
-     * @param string|null $key
+     * @param  int  $count
+     * @param  string|null  $key
      * @return $this
      */
     public function assertJsonCount(int $count, $key = null)
@@ -614,8 +629,8 @@ class TestResponse implements ArrayAccess
     /**
      * Assert that the response has the given JSON validation errors.
      *
-     * @param string|array $errors
-     * @param string $responseKey
+     * @param  string|array  $errors
+     * @param  string  $responseKey
      * @return $this
      */
     public function assertJsonValidationErrors($errors, $responseKey = 'errors')
@@ -627,18 +642,18 @@ class TestResponse implements ArrayAccess
         $jsonErrors = Arr::get($this->json(), $responseKey) ?? [];
 
         $errorMessage = $jsonErrors
-            ? 'Response has the following JSON validation errors:' .
-            PHP_EOL . PHP_EOL . json_encode($jsonErrors, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . PHP_EOL
-            : 'Response does not have JSON validation errors.';
+                ? 'Response has the following JSON validation errors:'.
+                        PHP_EOL.PHP_EOL.json_encode($jsonErrors, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE).PHP_EOL
+                : 'Response does not have JSON validation errors.';
 
         foreach ($errors as $key => $value) {
             PHPUnit::assertArrayHasKey(
                 (is_int($key)) ? $value : $key,
                 $jsonErrors,
-                "Failed to find a validation error in the response for key: '{$value}'" . PHP_EOL . PHP_EOL . $errorMessage
+                "Failed to find a validation error in the response for key: '{$value}'".PHP_EOL.PHP_EOL.$errorMessage
             );
 
-            if (!is_int($key)) {
+            if (! is_int($key)) {
                 $hasError = false;
 
                 foreach (Arr::wrap($jsonErrors[$key]) as $jsonErrorMessage) {
@@ -649,9 +664,9 @@ class TestResponse implements ArrayAccess
                     }
                 }
 
-                if (!$hasError) {
+                if (! $hasError) {
                     PHPUnit::fail(
-                        "Failed to find a validation error in the response for key and message: '$key' => '$value'" . PHP_EOL . PHP_EOL . $errorMessage
+                        "Failed to find a validation error in the response for key and message: '$key' => '$value'".PHP_EOL.PHP_EOL.$errorMessage
                     );
                 }
             }
@@ -663,8 +678,8 @@ class TestResponse implements ArrayAccess
     /**
      * Assert that the response has no JSON validation errors for the given keys.
      *
-     * @param string|array|null $keys
-     * @param string $responseKey
+     * @param  string|array|null  $keys
+     * @param  string  $responseKey
      * @return $this
      */
     public function assertJsonMissingValidationErrors($keys = null, $responseKey = 'errors')
@@ -677,7 +692,7 @@ class TestResponse implements ArrayAccess
 
         $json = $this->json();
 
-        if (!array_key_exists($responseKey, $json)) {
+        if (! array_key_exists($responseKey, $json)) {
             PHPUnit::assertArrayNotHasKey($responseKey, $json);
 
             return $this;
@@ -687,7 +702,7 @@ class TestResponse implements ArrayAccess
 
         if (is_null($keys) && count($errors) > 0) {
             PHPUnit::fail(
-                'Response has unexpected validation errors: ' . PHP_EOL . PHP_EOL .
+                'Response has unexpected validation errors: '.PHP_EOL.PHP_EOL.
                 json_encode($errors, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
             );
         }
@@ -729,7 +744,7 @@ class TestResponse implements ArrayAccess
     /**
      * Validate and return the decoded response JSON.
      *
-     * @param string|null $key
+     * @param  string|null  $key
      * @return mixed
      */
     public function json($key = null)
@@ -740,7 +755,7 @@ class TestResponse implements ArrayAccess
     /**
      * Assert that the response view equals the given value.
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function assertViewIs($value)
@@ -755,8 +770,8 @@ class TestResponse implements ArrayAccess
     /**
      * Assert that the response view has a given piece of bound data.
      *
-     * @param string|array $key
-     * @param mixed $value
+     * @param  string|array  $key
+     * @param  mixed  $value
      * @return $this
      */
     public function assertViewHas($key, $value = null)
@@ -783,7 +798,7 @@ class TestResponse implements ArrayAccess
     /**
      * Assert that the response view has a given list of bound data.
      *
-     * @param array $bindings
+     * @param  array  $bindings
      * @return $this
      */
     public function assertViewHasAll(array $bindings)
@@ -802,7 +817,7 @@ class TestResponse implements ArrayAccess
     /**
      * Get a piece of data from the original view.
      *
-     * @param string $key
+     * @param  string  $key
      * @return mixed
      */
     public function viewData($key)
@@ -815,7 +830,7 @@ class TestResponse implements ArrayAccess
     /**
      * Assert that the response view is missing a piece of bound data.
      *
-     * @param string $key
+     * @param  string  $key
      * @return $this
      */
     public function assertViewMissing($key)
@@ -828,10 +843,34 @@ class TestResponse implements ArrayAccess
     }
 
     /**
+     * Ensure that the response has a view as its original content.
+     *
+     * @return $this
+     */
+    protected function ensureResponseHasView()
+    {
+        if (! $this->responseHasView()) {
+            return PHPUnit::fail('The response is not a view.');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Determine if the original response is a view.
+     *
+     * @return bool
+     */
+    protected function responseHasView()
+    {
+        return isset($this->original) && $this->original instanceof View;
+    }
+
+    /**
      * Assert that the session has a given value.
      *
-     * @param string|array $key
-     * @param mixed $value
+     * @param  string|array  $key
+     * @param  mixed  $value
      * @return $this
      */
     public function assertSessionHas($key, $value = null)
@@ -857,7 +896,7 @@ class TestResponse implements ArrayAccess
     /**
      * Assert that the session has a given list of values.
      *
-     * @param array $bindings
+     * @param  array  $bindings
      * @return $this
      */
     public function assertSessionHasAll(array $bindings)
@@ -876,8 +915,8 @@ class TestResponse implements ArrayAccess
     /**
      * Assert that the session has a given value in the flashed input array.
      *
-     * @param string|array $key
-     * @param mixed $value
+     * @param  string|array  $key
+     * @param  mixed  $value
      * @return $this
      */
     public function assertSessionHasInput($key, $value = null)
@@ -911,16 +950,16 @@ class TestResponse implements ArrayAccess
     /**
      * Assert that the session has the given errors.
      *
-     * @param string|array $keys
-     * @param mixed $format
-     * @param string $errorBag
+     * @param  string|array  $keys
+     * @param  mixed  $format
+     * @param  string  $errorBag
      * @return $this
      */
     public function assertSessionHasErrors($keys = [], $format = null, $errorBag = 'default')
     {
         $this->assertSessionHas('errors');
 
-        $keys = (array)$keys;
+        $keys = (array) $keys;
 
         $errors = $this->session()->get('errors')->getBag($errorBag);
 
@@ -928,7 +967,7 @@ class TestResponse implements ArrayAccess
             if (is_int($key)) {
                 PHPUnit::assertTrue($errors->has($value), "Session missing error: $value");
             } else {
-                PHPUnit::assertContains(is_bool($value) ? (string)$value : $value, $errors->get($key, $format));
+                PHPUnit::assertContains(is_bool($value) ? (string) $value : $value, $errors->get($key, $format));
             }
         }
 
@@ -938,14 +977,14 @@ class TestResponse implements ArrayAccess
     /**
      * Assert that the session is missing the given errors.
      *
-     * @param string|array $keys
-     * @param string|null $format
-     * @param string $errorBag
+     * @param  string|array  $keys
+     * @param  string|null  $format
+     * @param  string  $errorBag
      * @return $this
      */
     public function assertSessionDoesntHaveErrors($keys = [], $format = null, $errorBag = 'default')
     {
-        $keys = (array)$keys;
+        $keys = (array) $keys;
 
         if (empty($keys)) {
             return $this->assertSessionHasNoErrors();
@@ -983,7 +1022,7 @@ class TestResponse implements ArrayAccess
 
         PHPUnit::assertFalse(
             $hasErrors,
-            'Session has unexpected errors: ' . PHP_EOL . PHP_EOL .
+            'Session has unexpected errors: '.PHP_EOL.PHP_EOL.
             json_encode($errors, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
         );
 
@@ -993,9 +1032,9 @@ class TestResponse implements ArrayAccess
     /**
      * Assert that the session has the given errors.
      *
-     * @param string $errorBag
-     * @param string|array $keys
-     * @param mixed $format
+     * @param  string  $errorBag
+     * @param  string|array  $keys
+     * @param  mixed  $format
      * @return $this
      */
     public function assertSessionHasErrorsIn($errorBag, $keys = [], $format = null)
@@ -1006,7 +1045,7 @@ class TestResponse implements ArrayAccess
     /**
      * Assert that the session does not have a given key.
      *
-     * @param string|array $key
+     * @param  string|array  $key
      * @return $this
      */
     public function assertSessionMissing($key)
@@ -1023,6 +1062,16 @@ class TestResponse implements ArrayAccess
         }
 
         return $this;
+    }
+
+    /**
+     * Get the current session store.
+     *
+     * @return \Illuminate\Session\Store
+     */
+    protected function session()
+    {
+        return app('session.store');
     }
 
     /**
@@ -1060,12 +1109,12 @@ class TestResponse implements ArrayAccess
     /**
      * Dump the session from the response.
      *
-     * @param string|array $keys
+     * @param  string|array  $keys
      * @return $this
      */
     public function dumpSession($keys = [])
     {
-        $keys = (array)$keys;
+        $keys = (array) $keys;
 
         if (empty($keys)) {
             dump($this->session()->all());
@@ -1083,11 +1132,11 @@ class TestResponse implements ArrayAccess
      */
     public function streamedContent()
     {
-        if (!is_null($this->streamedContent)) {
+        if (! is_null($this->streamedContent)) {
             return $this->streamedContent;
         }
 
-        if (!$this->baseResponse instanceof StreamedResponse) {
+        if (! $this->baseResponse instanceof StreamedResponse) {
             PHPUnit::fail('The response is not a streamed response.');
         }
 
@@ -1101,7 +1150,7 @@ class TestResponse implements ArrayAccess
     /**
      * Dynamically access base response parameters.
      *
-     * @param string $key
+     * @param  string  $key
      * @return mixed
      */
     public function __get($key)
@@ -1112,7 +1161,7 @@ class TestResponse implements ArrayAccess
     /**
      * Proxy isset() checks to the underlying base response.
      *
-     * @param string $key
+     * @param  string  $key
      * @return mixed
      */
     public function __isset($key)
@@ -1123,34 +1172,34 @@ class TestResponse implements ArrayAccess
     /**
      * Determine if the given offset exists.
      *
-     * @param string $offset
+     * @param  string  $offset
      * @return bool
      */
     public function offsetExists($offset)
     {
         return $this->responseHasView()
-            ? isset($this->original->gatherData()[$offset])
-            : isset($this->json()[$offset]);
+                    ? isset($this->original->gatherData()[$offset])
+                    : isset($this->json()[$offset]);
     }
 
     /**
      * Get the value for a given offset.
      *
-     * @param string $offset
+     * @param  string  $offset
      * @return mixed
      */
     public function offsetGet($offset)
     {
         return $this->responseHasView()
-            ? $this->viewData($offset)
-            : $this->json()[$offset];
+                    ? $this->viewData($offset)
+                    : $this->json()[$offset];
     }
 
     /**
      * Set the value at the given offset.
      *
-     * @param string $offset
-     * @param mixed $value
+     * @param  string  $offset
+     * @param  mixed  $value
      * @return void
      *
      * @throws \LogicException
@@ -1163,7 +1212,7 @@ class TestResponse implements ArrayAccess
     /**
      * Unset the value at the given offset.
      *
-     * @param string $offset
+     * @param  string  $offset
      * @return void
      *
      * @throws \LogicException
@@ -1176,8 +1225,8 @@ class TestResponse implements ArrayAccess
     /**
      * Handle dynamic calls into macros or pass missing methods to the base response.
      *
-     * @param string $method
-     * @param array $args
+     * @param  string  $method
+     * @param  array  $args
      * @return mixed
      */
     public function __call($method, $args)
@@ -1187,54 +1236,5 @@ class TestResponse implements ArrayAccess
         }
 
         return $this->baseResponse->{$method}(...$args);
-    }
-
-    /**
-     * Get the given cookie from the response.
-     *
-     * @param string $cookieName
-     * @return \Symfony\Component\HttpFoundation\Cookie|null
-     */
-    protected function getCookie($cookieName)
-    {
-        foreach ($this->headers->getCookies() as $cookie) {
-            if ($cookie->getName() === $cookieName) {
-                return $cookie;
-            }
-        }
-    }
-
-    /**
-     * Ensure that the response has a view as its original content.
-     *
-     * @return $this
-     */
-    protected function ensureResponseHasView()
-    {
-        if (!$this->responseHasView()) {
-            return PHPUnit::fail('The response is not a view.');
-        }
-
-        return $this;
-    }
-
-    /**
-     * Determine if the original response is a view.
-     *
-     * @return bool
-     */
-    protected function responseHasView()
-    {
-        return isset($this->original) && $this->original instanceof View;
-    }
-
-    /**
-     * Get the current session store.
-     *
-     * @return \Illuminate\Session\Store
-     */
-    protected function session()
-    {
-        return app('session.store');
     }
 }

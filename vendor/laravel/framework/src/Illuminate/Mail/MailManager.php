@@ -51,7 +51,7 @@ class MailManager implements FactoryContract
     /**
      * Create a new Mail manager instance.
      *
-     * @param \Illuminate\Contracts\Foundation\Application $app
+     * @param  \Illuminate\Contracts\Foundation\Application  $app
      * @return void
      */
     public function __construct($app)
@@ -62,7 +62,7 @@ class MailManager implements FactoryContract
     /**
      * Get a mailer instance by name.
      *
-     * @param string|null $name
+     * @param  string|null  $name
      * @return \Illuminate\Mail\Mailer
      */
     public function mailer($name = null)
@@ -75,7 +75,7 @@ class MailManager implements FactoryContract
     /**
      * Get a mailer driver instance.
      *
-     * @param string|null $driver
+     * @param  string|null  $driver
      * @return \Illuminate\Mail\Mailer
      */
     public function driver($driver = null)
@@ -84,101 +84,9 @@ class MailManager implements FactoryContract
     }
 
     /**
-     * Create a new transport instance.
-     *
-     * @param array $config
-     * @return \Swift_Transport
-     */
-    public function createTransport(array $config)
-    {
-        // Here we will check if the "transport" key exists and if it doesn't we will
-        // assume an application is still using the legacy mail configuration file
-        // format and use the "mail.driver" configuration option instead for BC.
-        $transport = $config['transport'] ?? $this->app['config']['mail.driver'];
-
-        if (isset($this->customCreators[$transport])) {
-            return call_user_func($this->customCreators[$transport], $config);
-        }
-
-        if (trim($transport) === '' || !method_exists($this, $method = 'create' . ucfirst($transport) . 'Transport')) {
-            throw new InvalidArgumentException("Unsupported mail transport [{$transport}].");
-        }
-
-        return $this->{$method}($config);
-    }
-
-    /**
-     * Get the default mail driver name.
-     *
-     * @return string
-     */
-    public function getDefaultDriver()
-    {
-        // Here we will check if the "driver" key exists and if it does we will use
-        // that as the default driver in order to provide support for old styles
-        // of the Laravel mail configuration file for backwards compatibility.
-        return $this->app['config']['mail.driver'] ??
-            $this->app['config']['mail.default'];
-    }
-
-    /**
-     * Set the default mail driver name.
-     *
-     * @param string $name
-     * @return void
-     */
-    public function setDefaultDriver(string $name)
-    {
-        if ($this->app['config']['mail.driver']) {
-            $this->app['config']['mail.driver'] = $name;
-        }
-
-        $this->app['config']['mail.default'] = $name;
-    }
-
-    /**
-     * Disconnect the given mailer and remove from local cache.
-     *
-     * @param string|null $name
-     * @return void
-     */
-    public function purge($name = null)
-    {
-        $name = $name ?: $this->getDefaultDriver();
-
-        unset($this->mailers[$name]);
-    }
-
-    /**
-     * Register a custom transport creator Closure.
-     *
-     * @param string $driver
-     * @param \Closure $callback
-     * @return $this
-     */
-    public function extend($driver, Closure $callback)
-    {
-        $this->customCreators[$driver] = $callback;
-
-        return $this;
-    }
-
-    /**
-     * Dynamically call the default driver instance.
-     *
-     * @param string $method
-     * @param array $parameters
-     * @return mixed
-     */
-    public function __call($method, $parameters)
-    {
-        return $this->mailer()->$method(...$parameters);
-    }
-
-    /**
      * Attempt to get the mailer from the local cache.
      *
-     * @param string $name
+     * @param  string  $name
      * @return \Illuminate\Mail\Mailer
      */
     protected function get($name)
@@ -189,7 +97,7 @@ class MailManager implements FactoryContract
     /**
      * Resolve the given mailer.
      *
-     * @param string $name
+     * @param  string  $name
      * @return \Illuminate\Mail\Mailer
      *
      * @throws \InvalidArgumentException
@@ -229,7 +137,7 @@ class MailManager implements FactoryContract
     /**
      * Create the SwiftMailer instance for the given configuration.
      *
-     * @param array $config
+     * @param  array  $config
      * @return \Swift_Mailer
      */
     protected function createSwiftMailer(array $config)
@@ -244,9 +152,33 @@ class MailManager implements FactoryContract
     }
 
     /**
+     * Create a new transport instance.
+     *
+     * @param  array  $config
+     * @return \Swift_Transport
+     */
+    public function createTransport(array $config)
+    {
+        // Here we will check if the "transport" key exists and if it doesn't we will
+        // assume an application is still using the legacy mail configuration file
+        // format and use the "mail.driver" configuration option instead for BC.
+        $transport = $config['transport'] ?? $this->app['config']['mail.driver'];
+
+        if (isset($this->customCreators[$transport])) {
+            return call_user_func($this->customCreators[$transport], $config);
+        }
+
+        if (trim($transport) === '' || ! method_exists($this, $method = 'create'.ucfirst($transport).'Transport')) {
+            throw new InvalidArgumentException("Unsupported mail transport [{$transport}].");
+        }
+
+        return $this->{$method}($config);
+    }
+
+    /**
      * Create an instance of the SMTP Swift Transport driver.
      *
-     * @param array $config
+     * @param  array  $config
      * @return \Swift_SmtpTransport
      */
     protected function createSmtpTransport(array $config)
@@ -259,7 +191,7 @@ class MailManager implements FactoryContract
             $config['port']
         );
 
-        if (!empty($config['encryption'])) {
+        if (! empty($config['encryption'])) {
             $transport->setEncryption($config['encryption']);
         }
 
@@ -278,8 +210,8 @@ class MailManager implements FactoryContract
     /**
      * Configure the additional SMTP driver options.
      *
-     * @param \Swift_SmtpTransport $transport
-     * @param array $config
+     * @param  \Swift_SmtpTransport  $transport
+     * @param  array  $config
      * @return \Swift_SmtpTransport
      */
     protected function configureSmtpTransport($transport, array $config)
@@ -310,7 +242,7 @@ class MailManager implements FactoryContract
     /**
      * Create an instance of the Sendmail Swift Transport driver.
      *
-     * @param array $config
+     * @param  array  $config
      * @return \Swift_SendmailTransport
      */
     protected function createSendmailTransport(array $config)
@@ -323,12 +255,12 @@ class MailManager implements FactoryContract
     /**
      * Create an instance of the Amazon SES Swift Transport driver.
      *
-     * @param array $config
+     * @param  array  $config
      * @return \Illuminate\Mail\Transport\SesTransport
      */
     protected function createSesTransport(array $config)
     {
-        if (!isset($config['secret'])) {
+        if (! isset($config['secret'])) {
             $config = array_merge($this->app['config']->get('services.ses', []), [
                 'version' => 'latest', 'service' => 'email',
             ]);
@@ -345,12 +277,12 @@ class MailManager implements FactoryContract
     /**
      * Add the SES credentials to the configuration array.
      *
-     * @param array $config
+     * @param  array  $config
      * @return array
      */
     protected function addSesCredentials(array $config)
     {
-        if (!empty($config['key']) && !empty($config['secret'])) {
+        if (! empty($config['key']) && ! empty($config['secret'])) {
             $config['credentials'] = Arr::only($config, ['key', 'secret', 'token']);
         }
 
@@ -370,12 +302,12 @@ class MailManager implements FactoryContract
     /**
      * Create an instance of the Mailgun Swift Transport driver.
      *
-     * @param array $config
+     * @param  array  $config
      * @return \Illuminate\Mail\Transport\MailgunTransport
      */
     protected function createMailgunTransport(array $config)
     {
-        if (!isset($config['secret'])) {
+        if (! isset($config['secret'])) {
             $config = $this->app['config']->get('services.mailgun', []);
         }
 
@@ -390,7 +322,7 @@ class MailManager implements FactoryContract
     /**
      * Create an instance of the Postmark Swift Transport driver.
      *
-     * @param array $config
+     * @param  array  $config
      * @return \Swift_Transport
      */
     protected function createPostmarkTransport(array $config)
@@ -405,7 +337,7 @@ class MailManager implements FactoryContract
     /**
      * Create an instance of the Log Swift Transport driver.
      *
-     * @param array $config
+     * @param  array  $config
      * @return \Illuminate\Mail\Transport\LogTransport
      */
     protected function createLogTransport(array $config)
@@ -434,7 +366,7 @@ class MailManager implements FactoryContract
     /**
      * Get a fresh Guzzle HTTP client instance.
      *
-     * @param array $config
+     * @param  array  $config
      * @return \GuzzleHttp\Client
      */
     protected function guzzle(array $config)
@@ -449,24 +381,24 @@ class MailManager implements FactoryContract
     /**
      * Set a global address on the mailer by type.
      *
-     * @param \Illuminate\Mail\Mailer $mailer
-     * @param array $config
-     * @param string $type
+     * @param  \Illuminate\Mail\Mailer  $mailer
+     * @param  array  $config
+     * @param  string  $type
      * @return void
      */
     protected function setGlobalAddress($mailer, array $config, string $type)
     {
-        $address = Arr::get($config, $type, $this->app['config']['mail.' . $type]);
+        $address = Arr::get($config, $type, $this->app['config']['mail.'.$type]);
 
         if (is_array($address) && isset($address['address'])) {
-            $mailer->{'always' . Str::studly($type)}($address['address'], $address['name']);
+            $mailer->{'always'.Str::studly($type)}($address['address'], $address['name']);
         }
     }
 
     /**
      * Get the mail connection configuration.
      *
-     * @param string $name
+     * @param  string  $name
      * @return array
      */
     protected function getConfig(string $name)
@@ -477,5 +409,73 @@ class MailManager implements FactoryContract
         return $this->app['config']['mail.driver']
             ? $this->app['config']['mail']
             : $this->app['config']["mail.mailers.{$name}"];
+    }
+
+    /**
+     * Get the default mail driver name.
+     *
+     * @return string
+     */
+    public function getDefaultDriver()
+    {
+        // Here we will check if the "driver" key exists and if it does we will use
+        // that as the default driver in order to provide support for old styles
+        // of the Laravel mail configuration file for backwards compatibility.
+        return $this->app['config']['mail.driver'] ??
+            $this->app['config']['mail.default'];
+    }
+
+    /**
+     * Set the default mail driver name.
+     *
+     * @param  string  $name
+     * @return void
+     */
+    public function setDefaultDriver(string $name)
+    {
+        if ($this->app['config']['mail.driver']) {
+            $this->app['config']['mail.driver'] = $name;
+        }
+
+        $this->app['config']['mail.default'] = $name;
+    }
+
+    /**
+     * Disconnect the given mailer and remove from local cache.
+     *
+     * @param  string|null  $name
+     * @return void
+     */
+    public function purge($name = null)
+    {
+        $name = $name ?: $this->getDefaultDriver();
+
+        unset($this->mailers[$name]);
+    }
+
+    /**
+     * Register a custom transport creator Closure.
+     *
+     * @param  string  $driver
+     * @param  \Closure  $callback
+     * @return $this
+     */
+    public function extend($driver, Closure $callback)
+    {
+        $this->customCreators[$driver] = $callback;
+
+        return $this;
+    }
+
+    /**
+     * Dynamically call the default driver instance.
+     *
+     * @param  string  $method
+     * @param  array  $parameters
+     * @return mixed
+     */
+    public function __call($method, $parameters)
+    {
+        return $this->mailer()->$method(...$parameters);
     }
 }

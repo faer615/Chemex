@@ -38,7 +38,7 @@ class BroadcastEvent implements ShouldQueue
     /**
      * Create a new job handler instance.
      *
-     * @param mixed $event
+     * @param  mixed  $event
      * @return void
      */
     public function __construct($event)
@@ -51,13 +51,13 @@ class BroadcastEvent implements ShouldQueue
     /**
      * Handle the queued job.
      *
-     * @param \Illuminate\Contracts\Broadcasting\Broadcaster $broadcaster
+     * @param  \Illuminate\Contracts\Broadcasting\Broadcaster  $broadcaster
      * @return void
      */
     public function handle(Broadcaster $broadcaster)
     {
         $name = method_exists($this->event, 'broadcastAs')
-            ? $this->event->broadcastAs() : get_class($this->event);
+                ? $this->event->broadcastAs() : get_class($this->event);
 
         $broadcaster->broadcast(
             Arr::wrap($this->event->broadcastOn()), $name,
@@ -66,29 +66,9 @@ class BroadcastEvent implements ShouldQueue
     }
 
     /**
-     * Get the display name for the queued job.
-     *
-     * @return string
-     */
-    public function displayName()
-    {
-        return get_class($this->event);
-    }
-
-    /**
-     * Prepare the instance for cloning.
-     *
-     * @return void
-     */
-    public function __clone()
-    {
-        $this->event = clone $this->event;
-    }
-
-    /**
      * Get the payload for the given event.
      *
-     * @param mixed $event
+     * @param  mixed  $event
      * @return array
      */
     protected function getPayloadFromEvent($event)
@@ -113,7 +93,7 @@ class BroadcastEvent implements ShouldQueue
     /**
      * Format the given value for a property.
      *
-     * @param mixed $value
+     * @param  mixed  $value
      * @return mixed
      */
     protected function formatProperty($value)
@@ -123,5 +103,25 @@ class BroadcastEvent implements ShouldQueue
         }
 
         return $value;
+    }
+
+    /**
+     * Get the display name for the queued job.
+     *
+     * @return string
+     */
+    public function displayName()
+    {
+        return get_class($this->event);
+    }
+
+    /**
+     * Prepare the instance for cloning.
+     *
+     * @return void
+     */
+    public function __clone()
+    {
+        $this->event = clone $this->event;
     }
 }

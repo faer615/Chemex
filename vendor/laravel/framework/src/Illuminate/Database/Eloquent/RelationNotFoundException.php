@@ -23,8 +23,8 @@ class RelationNotFoundException extends RuntimeException
     /**
      * Create a new exception instance.
      *
-     * @param object $model
-     * @param string $relation
+     * @param  object  $model
+     * @param  string  $relation
      * @return static
      */
     public static function make($model, $relation)

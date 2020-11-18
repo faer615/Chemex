@@ -41,10 +41,10 @@ class SqsQueue extends Queue implements QueueContract, ClearableQueue
     /**
      * Create a new Amazon SQS queue instance.
      *
-     * @param \Aws\Sqs\SqsClient $sqs
-     * @param string $default
-     * @param string $prefix
-     * @param string $suffix
+     * @param  \Aws\Sqs\SqsClient  $sqs
+     * @param  string  $default
+     * @param  string  $prefix
+     * @param  string  $suffix
      * @return void
      */
     public function __construct(SqsClient $sqs, $default, $prefix = '', $suffix = '')
@@ -58,7 +58,7 @@ class SqsQueue extends Queue implements QueueContract, ClearableQueue
     /**
      * Get the size of the queue.
      *
-     * @param string|null $queue
+     * @param  string|null  $queue
      * @return int
      */
     public function size($queue = null)
@@ -70,15 +70,15 @@ class SqsQueue extends Queue implements QueueContract, ClearableQueue
 
         $attributes = $response->get('Attributes');
 
-        return (int)$attributes['ApproximateNumberOfMessages'];
+        return (int) $attributes['ApproximateNumberOfMessages'];
     }
 
     /**
      * Push a new job onto the queue.
      *
-     * @param string $job
-     * @param mixed $data
-     * @param string|null $queue
+     * @param  string  $job
+     * @param  mixed  $data
+     * @param  string|null  $queue
      * @return mixed
      */
     public function push($job, $data = '', $queue = null)
@@ -89,9 +89,9 @@ class SqsQueue extends Queue implements QueueContract, ClearableQueue
     /**
      * Push a raw payload onto the queue.
      *
-     * @param string $payload
-     * @param string|null $queue
-     * @param array $options
+     * @param  string  $payload
+     * @param  string|null  $queue
+     * @param  array  $options
      * @return mixed
      */
     public function pushRaw($payload, $queue = null, array $options = [])
@@ -104,10 +104,10 @@ class SqsQueue extends Queue implements QueueContract, ClearableQueue
     /**
      * Push a new job onto the queue after a delay.
      *
-     * @param \DateTimeInterface|\DateInterval|int $delay
-     * @param string $job
-     * @param mixed $data
-     * @param string|null $queue
+     * @param  \DateTimeInterface|\DateInterval|int  $delay
+     * @param  string  $job
+     * @param  mixed  $data
+     * @param  string|null  $queue
      * @return mixed
      */
     public function later($delay, $job, $data = '', $queue = null)
@@ -122,7 +122,7 @@ class SqsQueue extends Queue implements QueueContract, ClearableQueue
     /**
      * Pop the next job off of the queue.
      *
-     * @param string|null $queue
+     * @param  string|null  $queue
      * @return \Illuminate\Contracts\Queue\Job|null
      */
     public function pop($queue = null)
@@ -132,7 +132,7 @@ class SqsQueue extends Queue implements QueueContract, ClearableQueue
             'AttributeNames' => ['ApproximateReceiveCount'],
         ]);
 
-        if (!is_null($response['Messages']) && count($response['Messages']) > 0) {
+        if (! is_null($response['Messages']) && count($response['Messages']) > 0) {
             return new SqsJob(
                 $this->container, $this->sqs, $response['Messages'][0],
                 $this->connectionName, $queue
@@ -143,7 +143,7 @@ class SqsQueue extends Queue implements QueueContract, ClearableQueue
     /**
      * Delete all of the jobs from the queue.
      *
-     * @param string $queue
+     * @param  string  $queue
      * @return int
      */
     public function clear($queue)
@@ -158,7 +158,7 @@ class SqsQueue extends Queue implements QueueContract, ClearableQueue
     /**
      * Get the queue or return the default.
      *
-     * @param string|null $queue
+     * @param  string|null  $queue
      * @return string
      */
     public function getQueue($queue)
@@ -166,7 +166,7 @@ class SqsQueue extends Queue implements QueueContract, ClearableQueue
         $queue = $queue ?: $this->default;
 
         return filter_var($queue, FILTER_VALIDATE_URL) === false
-            ? rtrim($this->prefix, '/') . '/' . Str::finish($queue, $this->suffix)
+            ? rtrim($this->prefix, '/').'/'.Str::finish($queue, $this->suffix)
             : $queue;
     }
 

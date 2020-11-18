@@ -8,7 +8,7 @@ use DOMElement;
 
 trait HasHtml
 {
-    protected static $shouldResolveTags = ['style', 'script', 'template'];
+    protected static $shouldResolveTags = ['style', 'script'];
 
     /**
      * @param string|array $content
@@ -32,14 +32,15 @@ trait HasHtml
     /**
      * @param string $view
      * @param array  $data
+     * @param array  $data
      *
      * @return string
      *
      * @throws \Throwable
      */
-    public static function view(string $view, array $data = [])
+    public static function view(string $view, array $data = [], array $options = [])
     {
-        return static::resolveHtml(view($view, $data))['html'];
+        return static::resolveHtml(view($view, $data), $options)['html'];
     }
 
     /**
@@ -120,7 +121,13 @@ trait HasHtml
                 static::asset()->require(explode(',', $require));
             }
 
-            $script = "(function () {{$script}\n})();";
+            if ($init = $element->getAttribute('init')) {
+                $init = str_replace("'", "\\'", $init);
+
+                $script = "Dcat.init('{$init}', function (\$this, id) { {$script}\n });";
+            } else {
+                $script = "(function () {{$script}\n})();";
+            }
 
             if ($element->hasAttribute('once')) {
                 return static::script($script);
@@ -140,21 +147,6 @@ trait HasHtml
         if (! empty(trim($element->nodeValue))) {
             static::style($element->nodeValue);
         }
-    }
-
-    /**
-     * @param DOMElement $element
-     *
-     * @return void
-     */
-    protected static function resolveTemplate(DOMElement $element)
-    {
-        $html = '';
-        foreach ($element->childNodes as $childNode) {
-            $html .= $element->ownerDocument->saveHTML($childNode);
-        }
-
-        $html && static::html($html);
     }
 
     protected static function resolveElement(?DOMElement $element)

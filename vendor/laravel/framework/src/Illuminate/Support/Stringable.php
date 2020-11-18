@@ -20,18 +20,18 @@ class Stringable
     /**
      * Create a new instance of the class.
      *
-     * @param string $value
+     * @param  string  $value
      * @return void
      */
     public function __construct($value = '')
     {
-        $this->value = (string)$value;
+        $this->value = (string) $value;
     }
 
     /**
      * Return the remainder of a string after the first occurrence of a given value.
      *
-     * @param string $search
+     * @param  string  $search
      * @return static
      */
     public function after($search)
@@ -42,7 +42,7 @@ class Stringable
     /**
      * Return the remainder of a string after the last occurrence of a given value.
      *
-     * @param string $search
+     * @param  string  $search
      * @return static
      */
     public function afterLast($search)
@@ -53,18 +53,18 @@ class Stringable
     /**
      * Append the given values to the string.
      *
-     * @param array $values
+     * @param  array  $values
      * @return static
      */
     public function append(...$values)
     {
-        return new static($this->value . implode('', $values));
+        return new static($this->value.implode('', $values));
     }
 
     /**
      * Transliterate a UTF-8 value to ASCII.
      *
-     * @param string $language
+     * @param  string  $language
      * @return static
      */
     public function ascii($language = 'en')
@@ -75,7 +75,7 @@ class Stringable
     /**
      * Get the trailing name component of the path.
      *
-     * @param string $suffix
+     * @param  string  $suffix
      * @return static
      */
     public function basename($suffix = '')
@@ -84,9 +84,19 @@ class Stringable
     }
 
     /**
+     * Get the basename of the class path.
+     *
+     * @return static
+     */
+    public function classBasename()
+    {
+        return new static(class_basename($this->value));
+    }
+
+    /**
      * Get the portion of a string before the first occurrence of a given value.
      *
-     * @param string $search
+     * @param  string  $search
      * @return static
      */
     public function before($search)
@@ -97,7 +107,7 @@ class Stringable
     /**
      * Get the portion of a string before the last occurrence of a given value.
      *
-     * @param string $search
+     * @param  string  $search
      * @return static
      */
     public function beforeLast($search)
@@ -108,8 +118,8 @@ class Stringable
     /**
      * Get the portion of a string between two given values.
      *
-     * @param string $from
-     * @param string $to
+     * @param  string  $from
+     * @param  string  $to
      * @return static
      */
     public function between($from, $to)
@@ -130,7 +140,7 @@ class Stringable
     /**
      * Determine if a given string contains a given substring.
      *
-     * @param string|array $needles
+     * @param  string|array  $needles
      * @return bool
      */
     public function contains($needles)
@@ -141,7 +151,7 @@ class Stringable
     /**
      * Determine if a given string contains all array values.
      *
-     * @param array $needles
+     * @param  array  $needles
      * @return bool
      */
     public function containsAll(array $needles)
@@ -152,7 +162,7 @@ class Stringable
     /**
      * Get the parent directory's path.
      *
-     * @param int $levels
+     * @param  int  $levels
      * @return static
      */
     public function dirname($levels = 1)
@@ -163,7 +173,7 @@ class Stringable
     /**
      * Determine if a given string ends with a given substring.
      *
-     * @param string|array $needles
+     * @param  string|array  $needles
      * @return bool
      */
     public function endsWith($needles)
@@ -174,7 +184,7 @@ class Stringable
     /**
      * Determine if the string is an exact match with the given value.
      *
-     * @param string $value
+     * @param  string  $value
      * @return bool
      */
     public function exactly($value)
@@ -185,8 +195,8 @@ class Stringable
     /**
      * Explode the string into an array.
      *
-     * @param string $delimiter
-     * @param int $limit
+     * @param  string  $delimiter
+     * @param  int  $limit
      * @return \Illuminate\Support\Collection
      */
     public function explode($delimiter, $limit = PHP_INT_MAX)
@@ -197,9 +207,9 @@ class Stringable
     /**
      * Split a string using a regular expression or by length.
      *
-     * @param string|int $pattern
-     * @param int $limit
-     * @param int $flags
+     * @param  string|int  $pattern
+     * @param  int  $limit
+     * @param  int  $flags
      * @return \Illuminate\Support\Collection
      */
     public function split($pattern, $limit = -1, $flags = 0)
@@ -210,13 +220,13 @@ class Stringable
 
         $segments = preg_split($pattern, $this->value, $limit, $flags);
 
-        return !empty($segments) ? collect($segments) : collect();
+        return ! empty($segments) ? collect($segments) : collect();
     }
 
     /**
      * Cap a string with a single instance of a given value.
      *
-     * @param string $cap
+     * @param  string  $cap
      * @return static
      */
     public function finish($cap)
@@ -227,7 +237,7 @@ class Stringable
     /**
      * Determine if a given string matches a given pattern.
      *
-     * @param string|array $pattern
+     * @param  string|array  $pattern
      * @return bool
      */
     public function is($pattern)
@@ -262,7 +272,7 @@ class Stringable
      */
     public function isNotEmpty()
     {
-        return !$this->isEmpty();
+        return ! $this->isEmpty();
     }
 
     /**
@@ -278,7 +288,7 @@ class Stringable
     /**
      * Return the length of the given string.
      *
-     * @param string $encoding
+     * @param  string  $encoding
      * @return int
      */
     public function length($encoding = null)
@@ -289,8 +299,8 @@ class Stringable
     /**
      * Limit the number of characters in a string.
      *
-     * @param int $limit
-     * @param string $end
+     * @param  int  $limit
+     * @param  string  $end
      * @return static
      */
     public function limit($limit = 100, $end = '...')
@@ -311,14 +321,14 @@ class Stringable
     /**
      * Get the string matching the given pattern.
      *
-     * @param string $pattern
+     * @param  string  $pattern
      * @return static|null
      */
     public function match($pattern)
     {
         preg_match($pattern, $this->value, $matches);
 
-        if (!$matches) {
+        if (! $matches) {
             return new static;
         }
 
@@ -328,7 +338,7 @@ class Stringable
     /**
      * Get the string matching the given pattern.
      *
-     * @param string $pattern
+     * @param  string  $pattern
      * @return \Illuminate\Support\Collection
      */
     public function matchAll($pattern)
@@ -345,8 +355,8 @@ class Stringable
     /**
      * Pad both sides of the string with another.
      *
-     * @param int $length
-     * @param string $pad
+     * @param  int  $length
+     * @param  string  $pad
      * @return static
      */
     public function padBoth($length, $pad = ' ')
@@ -357,8 +367,8 @@ class Stringable
     /**
      * Pad the left side of the string with another.
      *
-     * @param int $length
-     * @param string $pad
+     * @param  int  $length
+     * @param  string  $pad
      * @return static
      */
     public function padLeft($length, $pad = ' ')
@@ -369,8 +379,8 @@ class Stringable
     /**
      * Pad the right side of the string with another.
      *
-     * @param int $length
-     * @param string $pad
+     * @param  int  $length
+     * @param  string  $pad
      * @return static
      */
     public function padRight($length, $pad = ' ')
@@ -381,7 +391,7 @@ class Stringable
     /**
      * Parse a Class@method style callback into class and method.
      *
-     * @param string|null $default
+     * @param  string|null  $default
      * @return array
      */
     public function parseCallback($default = null)
@@ -392,7 +402,7 @@ class Stringable
     /**
      * Get the plural form of an English word.
      *
-     * @param int $count
+     * @param  int  $count
      * @return static
      */
     public function plural($count = 2)
@@ -403,7 +413,7 @@ class Stringable
     /**
      * Pluralize the last word of an English, studly caps case string.
      *
-     * @param int $count
+     * @param  int  $count
      * @return static
      */
     public function pluralStudly($count = 2)
@@ -414,19 +424,19 @@ class Stringable
     /**
      * Prepend the given values to the string.
      *
-     * @param array $values
+     * @param  array  $values
      * @return static
      */
     public function prepend(...$values)
     {
-        return new static(implode('', $values) . $this->value);
+        return new static(implode('', $values).$this->value);
     }
 
     /**
      * Replace the given value in the given string.
      *
-     * @param string|string[] $search
-     * @param string|string[] $replace
+     * @param  string|string[]  $search
+     * @param  string|string[]  $replace
      * @return static
      */
     public function replace($search, $replace)
@@ -437,8 +447,8 @@ class Stringable
     /**
      * Replace a given value in the string sequentially with an array.
      *
-     * @param string $search
-     * @param array $replace
+     * @param  string  $search
+     * @param  array  $replace
      * @return static
      */
     public function replaceArray($search, array $replace)
@@ -449,8 +459,8 @@ class Stringable
     /**
      * Replace the first occurrence of a given value in the string.
      *
-     * @param string $search
-     * @param string $replace
+     * @param  string  $search
+     * @param  string  $replace
      * @return static
      */
     public function replaceFirst($search, $replace)
@@ -461,8 +471,8 @@ class Stringable
     /**
      * Replace the last occurrence of a given value in the string.
      *
-     * @param string $search
-     * @param string $replace
+     * @param  string  $search
+     * @param  string  $replace
      * @return static
      */
     public function replaceLast($search, $replace)
@@ -473,9 +483,9 @@ class Stringable
     /**
      * Replace the patterns matching the given regular expression.
      *
-     * @param string $pattern
-     * @param \Closure|string $replace
-     * @param int $limit
+     * @param  string  $pattern
+     * @param  \Closure|string  $replace
+     * @param  int  $limit
      * @return static
      */
     public function replaceMatches($pattern, $replace, $limit = -1)
@@ -490,7 +500,7 @@ class Stringable
     /**
      * Begin a string with a single instance of a given value.
      *
-     * @param string $prefix
+     * @param  string  $prefix
      * @return static
      */
     public function start($prefix)
@@ -531,8 +541,8 @@ class Stringable
     /**
      * Generate a URL friendly "slug" from a given string.
      *
-     * @param string $separator
-     * @param string|null $language
+     * @param  string  $separator
+     * @param  string|null  $language
      * @return static
      */
     public function slug($separator = '-', $language = 'en')
@@ -543,7 +553,7 @@ class Stringable
     /**
      * Convert a string to snake case.
      *
-     * @param string $delimiter
+     * @param  string  $delimiter
      * @return static
      */
     public function snake($delimiter = '_')
@@ -554,7 +564,7 @@ class Stringable
     /**
      * Determine if a given string starts with a given substring.
      *
-     * @param string|array $needles
+     * @param  string|array  $needles
      * @return bool
      */
     public function startsWith($needles)
@@ -575,8 +585,8 @@ class Stringable
     /**
      * Returns the portion of string specified by the start and length parameters.
      *
-     * @param int $start
-     * @param int|null $length
+     * @param  int  $start
+     * @param  int|null  $length
      * @return static
      */
     public function substr($start, $length = null)
@@ -587,9 +597,9 @@ class Stringable
     /**
      * Returns the number of substring occurrences.
      *
-     * @param string $needle
-     * @param int|null $offset
-     * @param int|null $length
+     * @param  string  $needle
+     * @param  int|null  $offset
+     * @param  int|null  $length
      * @return int
      */
     public function substrCount($needle, $offset = null, $length = null)
@@ -600,7 +610,7 @@ class Stringable
     /**
      * Trim the string of the given characters.
      *
-     * @param string $characters
+     * @param  string  $characters
      * @return static
      */
     public function trim($characters = null)
@@ -611,7 +621,7 @@ class Stringable
     /**
      * Left trim the string of the given characters.
      *
-     * @param string $characters
+     * @param  string  $characters
      * @return static
      */
     public function ltrim($characters = null)
@@ -622,7 +632,7 @@ class Stringable
     /**
      * Right trim the string of the given characters.
      *
-     * @param string $characters
+     * @param  string  $characters
      * @return static
      */
     public function rtrim($characters = null)
@@ -643,9 +653,9 @@ class Stringable
     /**
      * Apply the callback's string changes if the given "value" is true.
      *
-     * @param mixed $value
-     * @param callable $callback
-     * @param callable|null $default
+     * @param  mixed  $value
+     * @param  callable  $callback
+     * @param  callable|null  $default
      * @return mixed|$this
      */
     public function when($value, $callback, $default = null)
@@ -662,7 +672,7 @@ class Stringable
     /**
      * Execute the given callback if the string is empty.
      *
-     * @param callable $callback
+     * @param  callable  $callback
      * @return static
      */
     public function whenEmpty($callback)
@@ -679,8 +689,8 @@ class Stringable
     /**
      * Limit the number of words in a string.
      *
-     * @param int $words
-     * @param string $end
+     * @param  int  $words
+     * @param  string  $end
      * @return static
      */
     public function words($words = 100, $end = '...')
@@ -715,7 +725,7 @@ class Stringable
     /**
      * Proxy dynamic properties onto methods.
      *
-     * @param string $key
+     * @param  string  $key
      * @return mixed
      */
     public function __get($key)
@@ -730,6 +740,6 @@ class Stringable
      */
     public function __toString()
     {
-        return (string)$this->value;
+        return (string) $this->value;
     }
 }

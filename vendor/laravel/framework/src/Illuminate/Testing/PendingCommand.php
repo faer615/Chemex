@@ -61,10 +61,10 @@ class PendingCommand
     /**
      * Create a new pending console command run.
      *
-     * @param \PHPUnit\Framework\TestCase $test
-     * @param \Illuminate\Contracts\Container\Container $app
-     * @param string $command
-     * @param array $parameters
+     * @param  \PHPUnit\Framework\TestCase  $test
+     * @param  \Illuminate\Contracts\Container\Container  $app
+     * @param  string  $command
+     * @param  array  $parameters
      * @return void
      */
     public function __construct(PHPUnitTestCase $test, Container $app, $command, $parameters)
@@ -78,8 +78,8 @@ class PendingCommand
     /**
      * Specify an expected question that will be asked when the command runs.
      *
-     * @param string $question
-     * @param string|bool $answer
+     * @param  string  $question
+     * @param  string|bool  $answer
      * @return $this
      */
     public function expectsQuestion($question, $answer)
@@ -92,8 +92,8 @@ class PendingCommand
     /**
      * Specify an expected confirmation question that will be asked when the command runs.
      *
-     * @param string $question
-     * @param string $answer
+     * @param  string  $question
+     * @param  string  $answer
      * @return $this
      */
     public function expectsConfirmation($question, $answer = 'no')
@@ -104,10 +104,10 @@ class PendingCommand
     /**
      * Specify an expected choice question with expected answers that will be asked/shown when the command runs.
      *
-     * @param string $question
-     * @param string|array $answer
-     * @param array $answers
-     * @param bool $strict
+     * @param  string  $question
+     * @param  string|array  $answer
+     * @param  array  $answers
+     * @param  bool  $strict
      * @return $this
      */
     public function expectsChoice($question, $answer, $answers, $strict = false)
@@ -123,7 +123,7 @@ class PendingCommand
     /**
      * Specify output that should be printed when the command runs.
      *
-     * @param string $output
+     * @param  string  $output
      * @return $this
      */
     public function expectsOutput($output)
@@ -134,18 +134,31 @@ class PendingCommand
     }
 
     /**
+     * Specify output that should never be printed when the command runs.
+     *
+     * @param  string  $output
+     * @return $this
+     */
+    public function doesntExpectOutput($output)
+    {
+        $this->test->unexpectedOutput[$output] = false;
+
+        return $this;
+    }
+
+    /**
      * Specify a table that should be printed when the command runs.
      *
-     * @param array $headers
-     * @param \Illuminate\Contracts\Support\Arrayable|array $rows
-     * @param string $tableStyle
-     * @param array $columnStyles
+     * @param  array  $headers
+     * @param  \Illuminate\Contracts\Support\Arrayable|array  $rows
+     * @param  string  $tableStyle
+     * @param  array  $columnStyles
      * @return $this
      */
     public function expectsTable($headers, $rows, $tableStyle = 'default', array $columnStyles = [])
     {
         $this->test->expectedTables[] = [
-            'headers' => (array)$headers,
+            'headers' => (array) $headers,
             'rows' => $rows instanceof Arrayable ? $rows->toArray() : $rows,
             'tableStyle' => $tableStyle,
             'columnStyles' => $columnStyles,
@@ -157,7 +170,7 @@ class PendingCommand
     /**
      * Assert that the command has the given exit code.
      *
-     * @param int $exitCode
+     * @param  int  $exitCode
      * @return $this
      */
     public function assertExitCode($exitCode)
@@ -194,7 +207,7 @@ class PendingCommand
             $exitCode = $this->app->make(Kernel::class)->call($this->command, $this->parameters, $mock);
         } catch (NoMatchingExpectationException $e) {
             if ($e->getMethodName() === 'askQuestion') {
-                $this->test->fail('Unexpected question "' . $e->getActualArguments()[0]->getQuestion() . '" was asked.');
+                $this->test->fail('Unexpected question "'.$e->getActualArguments()[0]->getQuestion().'" was asked.');
             }
 
             throw $e;
@@ -208,22 +221,9 @@ class PendingCommand
         }
 
         $this->verifyExpectations();
+        $this->flushExpectations();
 
         return $exitCode;
-    }
-
-    /**
-     * Handle the object's destruction.
-     *
-     * @return void
-     */
-    public function __destruct()
-    {
-        if ($this->hasExecuted) {
-            return;
-        }
-
-        $this->run();
     }
 
     /**
@@ -234,7 +234,7 @@ class PendingCommand
     protected function verifyExpectations()
     {
         if (count($this->test->expectedQuestions)) {
-            $this->test->fail('Question "' . Arr::first($this->test->expectedQuestions)[0] . '" was not asked.');
+            $this->test->fail('Question "'.Arr::first($this->test->expectedQuestions)[0].'" was not asked.');
         }
 
         if (count($this->test->expectedChoices) > 0) {
@@ -244,13 +244,17 @@ class PendingCommand
                 $this->test->{$assertion}(
                     $answers['expected'],
                     $answers['actual'],
-                    'Question "' . $question . '" has different options.'
+                    'Question "'.$question.'" has different options.'
                 );
             }
         }
 
         if (count($this->test->expectedOutput)) {
-            $this->test->fail('Output "' . Arr::first($this->test->expectedOutput) . '" was not printed.');
+            $this->test->fail('Output "'.Arr::first($this->test->expectedOutput).'" was not printed.');
+        }
+
+        if ($output = array_search(true, $this->test->unexpectedOutput)) {
+            $this->test->fail('Output "'.$output.'" was printed.');
         }
     }
 
@@ -261,7 +265,7 @@ class PendingCommand
      */
     protected function mockConsoleOutput()
     {
-        $mock = Mockery::mock(OutputStyle::class . '[askQuestion]', [
+        $mock = Mockery::mock(OutputStyle::class.'[askQuestion]', [
             (new ArrayInput($this->parameters)), $this->createABufferedOutputMock(),
         ]);
 
@@ -297,9 +301,9 @@ class PendingCommand
      */
     private function createABufferedOutputMock()
     {
-        $mock = Mockery::mock(BufferedOutput::class . '[doWrite]')
-            ->shouldAllowMockingProtectedMethods()
-            ->shouldIgnoreMissing();
+        $mock = Mockery::mock(BufferedOutput::class.'[doWrite]')
+                ->shouldAllowMockingProtectedMethods()
+                ->shouldIgnoreMissing();
 
         $this->applyTableOutputExpectations($mock);
 
@@ -313,13 +317,23 @@ class PendingCommand
                 });
         }
 
+        foreach ($this->test->unexpectedOutput as $output => $displayed) {
+            $mock->shouldReceive('doWrite')
+                ->once()
+                ->ordered()
+                ->with($output, Mockery::any())
+                ->andReturnUsing(function () use ($output) {
+                    $this->test->unexpectedOutput[$output] = true;
+                });
+        }
+
         return $mock;
     }
 
     /**
      * Apply the output table expectations to the mock.
      *
-     * @param \Mockery\MockInterface $mock
+     * @param  \Mockery\MockInterface  $mock
      * @return void
      */
     private function applyTableOutputExpectations($mock)
@@ -346,5 +360,33 @@ class PendingCommand
 
             unset($this->test->expectedTables[$i]);
         }
+    }
+
+    /**
+     * Flush the expectations from the test case.
+     *
+     * @return void
+     */
+    protected function flushExpectations()
+    {
+        $this->test->expectedOutput = [];
+        $this->test->unexpectedOutput = [];
+        $this->test->expectedTables = [];
+        $this->test->expectedQuestions = [];
+        $this->test->expectedChoices = [];
+    }
+
+    /**
+     * Handle the object's destruction.
+     *
+     * @return void
+     */
+    public function __destruct()
+    {
+        if ($this->hasExecuted) {
+            return;
+        }
+
+        $this->run();
     }
 }

@@ -52,8 +52,8 @@ class CompiledRouteCollection extends AbstractRouteCollection
     /**
      * Create a new CompiledRouteCollection instance.
      *
-     * @param array $compiled
-     * @param array $attributes
+     * @param  array  $compiled
+     * @param  array  $attributes
      * @return void
      */
     public function __construct(array $compiled, array $attributes)
@@ -66,7 +66,7 @@ class CompiledRouteCollection extends AbstractRouteCollection
     /**
      * Add a Route instance to the collection.
      *
-     * @param \Illuminate\Routing\Route $route
+     * @param  \Illuminate\Routing\Route  $route
      * @return \Illuminate\Routing\Route
      */
     public function add(Route $route)
@@ -101,7 +101,7 @@ class CompiledRouteCollection extends AbstractRouteCollection
     /**
      * Find the first route matching a given request.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Routing\Route
      *
      * @throws \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException
@@ -111,8 +111,8 @@ class CompiledRouteCollection extends AbstractRouteCollection
     {
         $matcher = new CompiledUrlMatcher(
             $this->compiled, (new RequestContext)->fromRequest(
-            $trimmedRequest = $this->requestWithoutTrailingSlash($request)
-        )
+                $trimmedRequest = $this->requestWithoutTrailingSlash($request)
+            )
         );
 
         $route = null;
@@ -133,7 +133,7 @@ class CompiledRouteCollection extends AbstractRouteCollection
             try {
                 $dynamicRoute = $this->routes->match($request);
 
-                if (!$dynamicRoute->isFallback) {
+                if (! $dynamicRoute->isFallback) {
                     $route = $dynamicRoute;
                 }
             } catch (NotFoundHttpException | MethodNotAllowedHttpException $e) {
@@ -145,9 +145,28 @@ class CompiledRouteCollection extends AbstractRouteCollection
     }
 
     /**
+     * Get a cloned instance of the given request without any trailing slash on the URI.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Request
+     */
+    protected function requestWithoutTrailingSlash(Request $request)
+    {
+        $trimmedRequest = Request::createFromBase($request);
+
+        $parts = explode('?', $request->server->get('REQUEST_URI'), 2);
+
+        $trimmedRequest->server->set(
+            'REQUEST_URI', rtrim($parts[0], '/').(isset($parts[1]) ? '?'.$parts[1] : '')
+        );
+
+        return $trimmedRequest;
+    }
+
+    /**
      * Get routes from the collection by method.
      *
-     * @param string|null $method
+     * @param  string|null  $method
      * @return \Illuminate\Routing\Route[]
      */
     public function get($method = null)
@@ -158,7 +177,7 @@ class CompiledRouteCollection extends AbstractRouteCollection
     /**
      * Determine if the route collection contains a given named route.
      *
-     * @param string $name
+     * @param  string  $name
      * @return bool
      */
     public function hasNamedRoute($name)
@@ -169,7 +188,7 @@ class CompiledRouteCollection extends AbstractRouteCollection
     /**
      * Get a route instance by its name.
      *
-     * @param string $name
+     * @param  string  $name
      * @return \Illuminate\Routing\Route|null
      */
     public function getByName($name)
@@ -184,7 +203,7 @@ class CompiledRouteCollection extends AbstractRouteCollection
     /**
      * Get a route instance by its controller action.
      *
-     * @param string $action
+     * @param  string  $action
      * @return \Illuminate\Routing\Route|null
      */
     public function getByAction($action)
@@ -254,54 +273,9 @@ class CompiledRouteCollection extends AbstractRouteCollection
     }
 
     /**
-     * Set the router instance on the route.
-     *
-     * @param \Illuminate\Routing\Router $router
-     * @return $this
-     */
-    public function setRouter(Router $router)
-    {
-        $this->router = $router;
-
-        return $this;
-    }
-
-    /**
-     * Set the container instance on the route.
-     *
-     * @param \Illuminate\Container\Container $container
-     * @return $this
-     */
-    public function setContainer(Container $container)
-    {
-        $this->container = $container;
-
-        return $this;
-    }
-
-    /**
-     * Get a cloned instance of the given request without any trailing slash on the URI.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Request
-     */
-    protected function requestWithoutTrailingSlash(Request $request)
-    {
-        $trimmedRequest = Request::createFromBase($request);
-
-        $parts = explode('?', $request->server->get('REQUEST_URI'), 2);
-
-        $trimmedRequest->server->set(
-            'REQUEST_URI', rtrim($parts[0], '/') . (isset($parts[1]) ? '?' . $parts[1] : '')
-        );
-
-        return $trimmedRequest;
-    }
-
-    /**
      * Resolve an array of attributes to a Route instance.
      *
-     * @param array $attributes
+     * @param  array  $attributes
      * @return \Illuminate\Routing\Route
      */
     protected function newRoute(array $attributes)
@@ -325,5 +299,31 @@ class CompiledRouteCollection extends AbstractRouteCollection
             ->setWheres($attributes['wheres'])
             ->setBindingFields($attributes['bindingFields'])
             ->block($attributes['lockSeconds'] ?? null, $attributes['waitSeconds'] ?? null);
+    }
+
+    /**
+     * Set the router instance on the route.
+     *
+     * @param  \Illuminate\Routing\Router  $router
+     * @return $this
+     */
+    public function setRouter(Router $router)
+    {
+        $this->router = $router;
+
+        return $this;
+    }
+
+    /**
+     * Set the container instance on the route.
+     *
+     * @param  \Illuminate\Container\Container  $container
+     * @return $this
+     */
+    public function setContainer(Container $container)
+    {
+        $this->container = $container;
+
+        return $this;
     }
 }

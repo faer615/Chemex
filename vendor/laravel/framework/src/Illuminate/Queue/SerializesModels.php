@@ -67,7 +67,7 @@ trait SerializesModels
 
             $property->setAccessible(true);
 
-            if (!$property->isInitialized($this)) {
+            if (! $property->isInitialized($this)) {
                 continue;
             }
 
@@ -90,7 +90,7 @@ trait SerializesModels
     /**
      * Restore the model after serialization.
      *
-     * @param array $values
+     * @param  array  $values
      * @return array
      */
     public function __unserialize(array $values)
@@ -112,7 +112,7 @@ trait SerializesModels
                 $name = "\0*\0{$name}";
             }
 
-            if (!array_key_exists($name, $values)) {
+            if (! array_key_exists($name, $values)) {
                 continue;
             }
 
@@ -129,7 +129,7 @@ trait SerializesModels
     /**
      * Get the property value for the given property.
      *
-     * @param \ReflectionProperty $property
+     * @param  \ReflectionProperty  $property
      * @return mixed
      */
     protected function getPropertyValue(ReflectionProperty $property)

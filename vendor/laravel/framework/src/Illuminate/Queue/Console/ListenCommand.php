@@ -42,7 +42,7 @@ class ListenCommand extends Command
     /**
      * Create a new queue listen command.
      *
-     * @param \Illuminate\Queue\Listener $listener
+     * @param  \Illuminate\Queue\Listener  $listener
      * @return void
      */
     public function __construct(Listener $listener)
@@ -74,7 +74,7 @@ class ListenCommand extends Command
     /**
      * Get the name of the queue connection to listen on.
      *
-     * @param string $connection
+     * @param  string  $connection
      * @return string
      */
     protected function getQueue($connection)
@@ -94,8 +94,8 @@ class ListenCommand extends Command
     protected function gatherOptions()
     {
         $backoff = $this->hasOption('backoff')
-            ? $this->option('backoff')
-            : $this->option('delay');
+                ? $this->option('backoff')
+                : $this->option('delay');
 
         return new ListenerOptions(
             $this->option('name'),
@@ -112,7 +112,7 @@ class ListenCommand extends Command
     /**
      * Set the options on the queue listener.
      *
-     * @param \Illuminate\Queue\Listener $listener
+     * @param  \Illuminate\Queue\Listener  $listener
      * @return void
      */
     protected function setOutputHandler(Listener $listener)

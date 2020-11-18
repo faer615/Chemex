@@ -174,19 +174,9 @@ class ArtisanServiceProvider extends ServiceProvider implements DeferrableProvid
     }
 
     /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
-    public function provides()
-    {
-        return array_merge(array_values($this->commands), array_values($this->devCommands));
-    }
-
-    /**
      * Register the given commands.
      *
-     * @param array $commands
+     * @param  array  $commands
      * @return void
      */
     protected function registerCommands(array $commands)
@@ -1018,5 +1008,15 @@ class ArtisanServiceProvider extends ServiceProvider implements DeferrableProvid
         $this->app->singleton('command.view.clear', function ($app) {
             return new ViewClearCommand($app['files']);
         });
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return array_merge(array_values($this->commands), array_values($this->devCommands));
     }
 }

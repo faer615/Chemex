@@ -39,6 +39,9 @@ class Asset
             'js'  => '@admin/dcat/plugins/vendors.min.js',
             'css' => '@admin/dcat/plugins/vendors.min.css',
         ],
+        '@jquery.initialize' => [
+            'js' => '@admin/dcat/plugins/jquery.initialize/jquery.initialize.min.js',
+        ],
         '@datatables' => [
             'css' => '@admin/dcat/plugins/tables/datatable/datatables.min.css',
         ],
@@ -240,6 +243,7 @@ class Asset
         'pjax'      => '@pjax',
         'validator' => '@validator',
         'layer'     => '@layer',
+        'init'      => '@jquery.initialize',
     ];
 
     /**
@@ -314,7 +318,7 @@ class Asset
         }
 
         if (mb_strpos($name, '@') !== 0) {
-            $name = '@' . $name;
+            $name = '@'.$name;
         }
 
         $this->alias[$name] = $value;
@@ -336,7 +340,7 @@ class Asset
         }
 
         if (mb_strpos($alias, '@') !== 0) {
-            $alias = '@' . $alias;
+            $alias = '@'.$alias;
         }
 
         $this->js($this->alias[$alias]['js'] ?? null);
@@ -350,7 +354,7 @@ class Asset
      */
     public function css($css)
     {
-        if (!$css) {
+        if (! $css) {
             return;
         }
         $this->css = array_merge(
@@ -380,7 +384,7 @@ class Asset
      */
     public function js($js)
     {
-        if (!$js) {
+        if (! $js) {
             return;
         }
         $this->js = array_merge(
@@ -405,7 +409,7 @@ class Asset
 
         $paths = isset($this->alias[$path][$type]) ? (array) $this->alias[$path][$type] : null;
 
-        if (!$paths) {
+        if (! $paths) {
             return $paths;
         }
 
@@ -425,14 +429,14 @@ class Asset
      */
     public function url($path)
     {
-        if (!$path) {
+        if (! $path) {
             return $path;
         }
 
         $path = $this->getRealPath($path);
 
         if (mb_strpos($path, '//') === false) {
-            $path = config('admin.assets_server') . '/' . trim($path, '/');
+            $path = config('admin.assets_server').'/'.trim($path, '/');
         }
 
         return (config('admin.https') || config('admin.secure')) ? secure_asset($path) : asset($path);
@@ -447,7 +451,7 @@ class Asset
      */
     public function getRealPath(?string $path)
     {
-        if (!$this->containsAlias($path)) {
+        if (! $this->containsAlias($path)) {
             return $path;
         }
 
@@ -455,7 +459,7 @@ class Asset
             '/',
             array_map(
                 function ($v) {
-                    if (!$this->isPathAlias($v)) {
+                    if (! $this->isPathAlias($v)) {
                         return $v;
                     }
 
@@ -509,7 +513,7 @@ class Asset
      */
     public function headerJs($js)
     {
-        if (!$js) {
+        if (! $js) {
             return;
         }
 
@@ -539,7 +543,7 @@ class Asset
      */
     public function script($script, bool $direct = false)
     {
-        if (!$script) {
+        if (! $script) {
             return;
         }
         if ($direct) {
@@ -556,7 +560,7 @@ class Asset
      */
     public function style($style)
     {
-        if (!$style) {
+        if (! $style) {
             return;
         }
         $this->style = array_merge($this->style, (array) $style);
@@ -568,8 +572,8 @@ class Asset
     protected function addFontCss()
     {
         $this->fonts && ($this->baseCss = array_merge(
-                $this->baseCss,
-                (array) $this->fonts
+            $this->baseCss,
+            (array) $this->fonts
         ));
     }
 
@@ -597,7 +601,7 @@ class Asset
         $html = '';
 
         foreach (array_unique($this->css) as &$v) {
-            if (!$paths = $this->get($v, 'css')) {
+            if (! $paths = $this->get($v, 'css')) {
                 continue;
             }
 
@@ -616,13 +620,13 @@ class Asset
      */
     public function withVersionQuery($url)
     {
-        if (!Str::contains($url, '?')) {
+        if (! Str::contains($url, '?')) {
             $url .= '?';
         }
 
-        $ver = 'v' . Admin::VERSION;
+        $ver = 'v'.Admin::VERSION;
 
-        return Str::endsWith($url, '?') ? $url . $ver : $url . '&' . $ver;
+        return Str::endsWith($url, '?') ? $url.$ver : $url.'&'.$ver;
     }
 
     /**
@@ -647,7 +651,7 @@ class Asset
         $html = '';
 
         foreach (array_unique($this->js) as &$v) {
-            if (!$paths = $this->get($v, 'js')) {
+            if (! $paths = $this->get($v, 'js')) {
                 continue;
             }
 
@@ -667,7 +671,7 @@ class Asset
         $html = '';
 
         foreach (array_unique($this->headerJs) as &$v) {
-            if (!$paths = $this->get($v, 'js')) {
+            if (! $paths = $this->get($v, 'js')) {
                 continue;
             }
 

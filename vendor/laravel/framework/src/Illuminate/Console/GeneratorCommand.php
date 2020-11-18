@@ -101,7 +101,7 @@ abstract class GeneratorCommand extends Command
     /**
      * Create a new controller creator command instance.
      *
-     * @param \Illuminate\Filesystem\Filesystem $files
+     * @param  \Illuminate\Filesystem\Filesystem  $files
      * @return void
      */
     public function __construct(Filesystem $files)
@@ -110,6 +110,13 @@ abstract class GeneratorCommand extends Command
 
         $this->files = $files;
     }
+
+    /**
+     * Get the stub file for the generator.
+     *
+     * @return string
+     */
+    abstract protected function getStub();
 
     /**
      * Execute the console command.
@@ -124,7 +131,7 @@ abstract class GeneratorCommand extends Command
         // language and that the class name will actually be valid. If it is not valid we
         // can error now and prevent from polluting the filesystem using invalid files.
         if ($this->isReservedName($this->getNameInput())) {
-            $this->error('The name "' . $this->getNameInput() . '" is reserved by PHP.');
+            $this->error('The name "'.$this->getNameInput().'" is reserved by PHP.');
 
             return false;
         }
@@ -136,10 +143,10 @@ abstract class GeneratorCommand extends Command
         // Next, We will check to see if the class already exists. If it does, we don't want
         // to create the class and overwrite the user's code. So, we will bail out so the
         // code is untouched. Otherwise, we will continue generating this class' files.
-        if ((!$this->hasOption('force') ||
-                !$this->option('force')) &&
-            $this->alreadyExists($this->getNameInput())) {
-            $this->error($this->type . ' already exists!');
+        if ((! $this->hasOption('force') ||
+             ! $this->option('force')) &&
+             $this->alreadyExists($this->getNameInput())) {
+            $this->error($this->type.' already exists!');
 
             return false;
         }
@@ -151,20 +158,13 @@ abstract class GeneratorCommand extends Command
 
         $this->files->put($path, $this->sortImports($this->buildClass($name)));
 
-        $this->info($this->type . ' created successfully.');
+        $this->info($this->type.' created successfully.');
     }
-
-    /**
-     * Get the stub file for the generator.
-     *
-     * @return string
-     */
-    abstract protected function getStub();
 
     /**
      * Parse the class name and format according to the root namespace.
      *
-     * @param string $name
+     * @param  string  $name
      * @return string
      */
     protected function qualifyClass($name)
@@ -180,14 +180,14 @@ abstract class GeneratorCommand extends Command
         }
 
         return $this->qualifyClass(
-            $this->getDefaultNamespace(trim($rootNamespace, '\\')) . '\\' . $name
+            $this->getDefaultNamespace(trim($rootNamespace, '\\')).'\\'.$name
         );
     }
 
     /**
      * Qualify the given model class base name.
      *
-     * @param string $model
+     * @param  string  $model
      * @return string
      */
     protected function qualifyModel(string $model)
@@ -203,14 +203,14 @@ abstract class GeneratorCommand extends Command
         }
 
         return is_dir(app_path('Models'))
-            ? $rootNamespace . 'Models\\' . $model
-            : $rootNamespace . $model;
+                    ? $rootNamespace.'Models\\'.$model
+                    : $rootNamespace.$model;
     }
 
     /**
      * Get the default namespace for the class.
      *
-     * @param string $rootNamespace
+     * @param  string  $rootNamespace
      * @return string
      */
     protected function getDefaultNamespace($rootNamespace)
@@ -221,7 +221,7 @@ abstract class GeneratorCommand extends Command
     /**
      * Determine if the class already exists.
      *
-     * @param string $rawName
+     * @param  string  $rawName
      * @return bool
      */
     protected function alreadyExists($rawName)
@@ -232,25 +232,25 @@ abstract class GeneratorCommand extends Command
     /**
      * Get the destination class path.
      *
-     * @param string $name
+     * @param  string  $name
      * @return string
      */
     protected function getPath($name)
     {
         $name = Str::replaceFirst($this->rootNamespace(), '', $name);
 
-        return $this->laravel['path'] . '/' . str_replace('\\', '/', $name) . '.php';
+        return $this->laravel['path'].'/'.str_replace('\\', '/', $name).'.php';
     }
 
     /**
      * Build the directory for the class if necessary.
      *
-     * @param string $path
+     * @param  string  $path
      * @return string
      */
     protected function makeDirectory($path)
     {
-        if (!$this->files->isDirectory(dirname($path))) {
+        if (! $this->files->isDirectory(dirname($path))) {
             $this->files->makeDirectory(dirname($path), 0777, true, true);
         }
 
@@ -260,7 +260,7 @@ abstract class GeneratorCommand extends Command
     /**
      * Build the class with the given name.
      *
-     * @param string $name
+     * @param  string  $name
      * @return string
      *
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
@@ -275,8 +275,8 @@ abstract class GeneratorCommand extends Command
     /**
      * Replace the namespace for the given stub.
      *
-     * @param string $stub
-     * @param string $name
+     * @param  string  $stub
+     * @param  string  $name
      * @return $this
      */
     protected function replaceNamespace(&$stub, $name)
@@ -301,7 +301,7 @@ abstract class GeneratorCommand extends Command
     /**
      * Get the full namespace for a given class, without the class name.
      *
-     * @param string $name
+     * @param  string  $name
      * @return string
      */
     protected function getNamespace($name)
@@ -312,13 +312,13 @@ abstract class GeneratorCommand extends Command
     /**
      * Replace the class name for the given stub.
      *
-     * @param string $stub
-     * @param string $name
+     * @param  string  $stub
+     * @param  string  $name
      * @return string
      */
     protected function replaceClass($stub, $name)
     {
-        $class = str_replace($this->getNamespace($name) . '\\', '', $name);
+        $class = str_replace($this->getNamespace($name).'\\', '', $name);
 
         return str_replace(['DummyClass', '{{ class }}', '{{class}}'], $class, $stub);
     }
@@ -326,7 +326,7 @@ abstract class GeneratorCommand extends Command
     /**
      * Alphabetically sorts the imports for the given stub.
      *
-     * @param string $stub
+     * @param  string  $stub
      * @return string
      */
     protected function sortImports($stub)
@@ -371,7 +371,7 @@ abstract class GeneratorCommand extends Command
     {
         $config = $this->laravel['config'];
 
-        $provider = $config->get('auth.guards.' . $config->get('auth.defaults.guard') . '.provider');
+        $provider = $config->get('auth.guards.'.$config->get('auth.defaults.guard').'.provider');
 
         return $config->get("auth.providers.{$provider}.model");
     }
@@ -379,7 +379,7 @@ abstract class GeneratorCommand extends Command
     /**
      * Checks whether the given name is reserved.
      *
-     * @param string $name
+     * @param  string  $name
      * @return bool
      */
     protected function isReservedName($name)
@@ -392,14 +392,14 @@ abstract class GeneratorCommand extends Command
     /**
      * Get the first view directory path from the application configuration.
      *
-     * @param string $path
+     * @param  string  $path
      * @return string
      */
     protected function viewPath($path = '')
     {
         $views = $this->laravel['config']['view.paths'][0] ?? resource_path('views');
 
-        return $views . ($path ? DIRECTORY_SEPARATOR . $path : $path);
+        return $views.($path ? DIRECTORY_SEPARATOR.$path : $path);
     }
 
     /**

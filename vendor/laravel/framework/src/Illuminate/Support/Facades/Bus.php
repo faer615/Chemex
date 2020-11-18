@@ -18,7 +18,11 @@ use Illuminate\Support\Testing\Fakes\BusFake;
  * @method static mixed dispatchNow($command, $handler = null)
  * @method static void assertDispatched(string $command, callable|int $callback = null)
  * @method static void assertDispatchedTimes(string $command, int $times = 1)
- * @method static void assertNotDispatched(string $command, callable|int $callback = null)
+ * @method static void assertNotDispatched(string $command, callable $callback = null)
+ * @method static void assertDispatchedAfterResponse(string $command, callable|int $callback = null)
+ * @method static void assertDispatchedAfterResponseTimes(string $command, int $times = 1)
+ * @method static void assertNotDispatchedAfterResponse(string $command, callable $callback = null)
+ * @method static void assertBatched(callable $callback)
  *
  * @see \Illuminate\Contracts\Bus\Dispatcher
  */
@@ -27,7 +31,7 @@ class Bus extends Facade
     /**
      * Replace the bound instance with a fake.
      *
-     * @param array|string $jobsToFake
+     * @param  array|string  $jobsToFake
      * @return \Illuminate\Support\Testing\Fakes\BusFake
      */
     public static function fake($jobsToFake = [])
@@ -40,7 +44,7 @@ class Bus extends Facade
     /**
      * Dispatch the given chain of jobs.
      *
-     * @param array|mixed $jobs
+     * @param  array|mixed  $jobs
      * @return \Illuminate\Foundation\Bus\PendingDispatch
      */
     public static function dispatchChain($jobs)
@@ -48,7 +52,7 @@ class Bus extends Facade
         $jobs = is_array($jobs) ? $jobs : func_get_args();
 
         return (new PendingChain(array_shift($jobs), $jobs))
-            ->dispatch();
+                    ->dispatch();
     }
 
     /**

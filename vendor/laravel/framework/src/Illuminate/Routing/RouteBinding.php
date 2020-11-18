@@ -11,8 +11,8 @@ class RouteBinding
     /**
      * Create a Route model binding for a given callback.
      *
-     * @param \Illuminate\Container\Container $container
-     * @param \Closure|string $binder
+     * @param  \Illuminate\Container\Container  $container
+     * @param  \Closure|string  $binder
      * @return \Closure
      */
     public static function forCallback($container, $binder)
@@ -25,11 +25,32 @@ class RouteBinding
     }
 
     /**
+     * Create a class based binding using the IoC container.
+     *
+     * @param  \Illuminate\Container\Container  $container
+     * @param  string  $binding
+     * @return \Closure
+     */
+    protected static function createClassBinding($container, $binding)
+    {
+        return function ($value, $route) use ($container, $binding) {
+            // If the binding has an @ sign, we will assume it's being used to delimit
+            // the class name from the bind method name. This allows for bindings
+            // to run multiple bind methods in a single class for convenience.
+            [$class, $method] = Str::parseCallback($binding, 'bind');
+
+            $callable = [$container->make($class), $method];
+
+            return $callable($value, $route);
+        };
+    }
+
+    /**
      * Create a Route model binding for a model.
      *
-     * @param \Illuminate\Container\Container $container
-     * @param string $class
-     * @param \Closure|null $callback
+     * @param  \Illuminate\Container\Container  $container
+     * @param  string  $class
+     * @param  \Closure|null  $callback
      * @return \Closure
      *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
@@ -58,27 +79,6 @@ class RouteBinding
             }
 
             throw (new ModelNotFoundException)->setModel($class);
-        };
-    }
-
-    /**
-     * Create a class based binding using the IoC container.
-     *
-     * @param \Illuminate\Container\Container $container
-     * @param string $binding
-     * @return \Closure
-     */
-    protected static function createClassBinding($container, $binding)
-    {
-        return function ($value, $route) use ($container, $binding) {
-            // If the binding has an @ sign, we will assume it's being used to delimit
-            // the class name from the bind method name. This allows for bindings
-            // to run multiple bind methods in a single class for convenience.
-            [$class, $method] = Str::parseCallback($binding, 'bind');
-
-            $callable = [$container->make($class), $method];
-
-            return $callable($value, $route);
         };
     }
 }

@@ -12,7 +12,6 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Fluent;
-use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
 
 /**
@@ -28,13 +27,6 @@ class Field implements Renderable
     const FILE_DELETE_FLAG = '_file_del_';
 
     const FIELD_CLASS_PREFIX = 'field_';
-
-    /**
-     * Element id.
-     *
-     * @var array|string
-     */
-    protected $id;
 
     /**
      * Element value.
@@ -224,11 +216,6 @@ class Field implements Renderable
     protected $savingCallbacks = [];
 
     /**
-     * @var bool
-     */
-    protected $runScript = true;
-
-    /**
      * Field constructor.
      *
      * @param string|array $column
@@ -238,43 +225,8 @@ class Field implements Renderable
     {
         $this->column = $column;
         $this->label = $this->formatLabel($arguments);
-        $this->id = $this->formatId($column);
 
         $this->callResolving();
-    }
-
-    /**
-     * Get the field element id.
-     *
-     * @return string|array
-     */
-    public function getElementId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Format the field element id.
-     *
-     * @param string|array $column
-     *
-     * @return string|array
-     */
-    protected function formatId($column)
-    {
-        $random = Str::random(5);
-
-        if (is_array($column)) {
-            $id = [];
-
-            foreach (str_replace('.', '-', $column) as $k => $v) {
-                $id[$k] = "{$v}-{$random}";
-            }
-
-            return $id;
-        }
-
-        return 'form-field-'.str_replace('.', '-', $column).'-'.$random;
     }
 
     /**
@@ -284,14 +236,6 @@ class Field implements Renderable
      */
     public function setNestedFormRelation(array $options = [])
     {
-        if (is_array($this->id)) {
-            $this->id = array_map(function ($v) {
-                return $v.NestedForm::DEFAULT_KEY_NAME;
-            }, $this->id);
-        } else {
-            $this->id .= NestedForm::DEFAULT_KEY_NAME;
-        }
-
         return $this;
     }
 
@@ -304,11 +248,13 @@ class Field implements Renderable
      */
     protected function formatLabel($arguments = [])
     {
+        if (isset($arguments[0])) {
+            return $arguments[0];
+        }
+
         $column = is_array($this->column) ? current($this->column) : $this->column;
 
-        $label = isset($arguments[0]) ? $arguments[0] : admin_trans_field($column);
-
-        return str_replace(['.', '_'], ' ', $label);
+        return str_replace('_', ' ', admin_trans_field($column));
     }
 
     /**
@@ -1107,6 +1053,21 @@ class Field implements Renderable
         return implode(' ', $this->labelClass);
     }
 
+    /**
+     * @param  mixed  $value
+     * @param  callable  $callback
+     *
+     * @return $this|mixed
+     */
+    public function when($value, $callback)
+    {
+        if ($value) {
+            return $callback($this, $value) ?: $this;
+        }
+
+        return $this;
+    }
+
     public function setFormGroupClass($labelClass, bool $append = true)
     {
         $this->formGroupClass = $append
@@ -1143,7 +1104,6 @@ class Field implements Renderable
     public function defaultVariables()
     {
         return [
-            'id'          => $this->id,
             'name'        => $this->getElementName(),
             'help'        => $this->help,
             'class'       => $this->getElementClassString(),
@@ -1227,6 +1187,15 @@ class Field implements Renderable
         return $this;
     }
 
+    protected function defaultAttribute($attribute, $value)
+    {
+        if (! array_key_exists($attribute, $this->attributes)) {
+            $this->attribute($attribute, $value);
+        }
+
+        return $this;
+    }
+
     /**
      * If this field should render.
      *
@@ -1275,30 +1244,20 @@ class Field implements Renderable
             return '';
         }
 
+        if (is_string($class = $this->getElementClassString())) {
+            $this->defaultAttribute('class', $class);
+        }
+
         $this->callComposing();
-
-        $result = Admin::resolveHtml(
-            view($this->view(), $this->variables()),
-            ['runScript' => $this->runScript]
-        );
-
-        $this->script .= $result['script'];
 
         $this->withScript();
 
-        return $result['html'];
-    }
-
-    public function runScript(bool $value = true)
-    {
-        $this->runScript = $value;
-
-        return $this;
+        return Admin::view($this->view(), $this->variables());
     }
 
     protected function withScript()
     {
-        if ($this->script && $this->runScript) {
+        if ($this->script) {
             Admin::script($this->script);
         }
     }

@@ -52,18 +52,6 @@ class MigrationServiceProvider extends ServiceProvider implements DeferrableProv
     }
 
     /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
-    public function provides()
-    {
-        return array_merge([
-            'migrator', 'migration.repository', 'migration.creator',
-        ], array_values($this->commands));
-    }
-
-    /**
      * Register the migration repository service.
      *
      * @return void
@@ -109,7 +97,7 @@ class MigrationServiceProvider extends ServiceProvider implements DeferrableProv
     /**
      * Register the given commands.
      *
-     * @param array $commands
+     * @param  array  $commands
      * @return void
      */
     protected function registerCommands(array $commands)
@@ -222,5 +210,17 @@ class MigrationServiceProvider extends ServiceProvider implements DeferrableProv
         $this->app->singleton('command.migrate.status', function ($app) {
             return new StatusCommand($app['migrator']);
         });
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return array_merge([
+            'migrator', 'migration.repository', 'migration.creator',
+        ], array_values($this->commands));
     }
 }

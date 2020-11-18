@@ -158,9 +158,13 @@ class Field implements Renderable
      */
     protected function formatLabel($label)
     {
-        $label = $label ?: admin_trans_field($this->name);
+        if ($label) {
+            return $label;
+        }
 
-        return str_replace(['.', '_'], ' ', $label);
+        $label = admin_trans_field($this->name);
+
+        return str_replace('_', ' ', $label);
     }
 
     /**
@@ -254,7 +258,7 @@ class Field implements Renderable
     {
         $field = $this;
 
-        return $this->unescape()->as(function ($path) use ($server , $field) {
+        return $this->unescape()->as(function ($path) use ($server, $field) {
             $name = basename($path);
 
             $field->wrap(false);
@@ -560,6 +564,21 @@ HTML;
     public function wrap(bool $wrap = true)
     {
         $this->border = $wrap;
+
+        return $this;
+    }
+
+    /**
+     * @param  mixed  $value
+     * @param  callable  $callback
+     *
+     * @return $this|mixed
+     */
+    public function when($value, $callback)
+    {
+        if ($value) {
+            return $callback($this, $value) ?: $this;
+        }
 
         return $this;
     }

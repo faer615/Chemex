@@ -37,7 +37,7 @@ class ScheduleWorkCommand extends Command
             usleep(100 * 1000);
 
             if (Carbon::now()->second === 0 &&
-                !Carbon::now()->startOfMinute()->equalTo($lastExecutionStartedAt)) {
+                ! Carbon::now()->startOfMinute()->equalTo($lastExecutionStartedAt)) {
                 $executions[] = $execution = new Process([PHP_BINARY, 'artisan', 'schedule:run']);
 
                 $execution->start();
@@ -46,12 +46,12 @@ class ScheduleWorkCommand extends Command
             }
 
             foreach ($executions as $key => $execution) {
-                $output = trim($execution->getIncrementalOutput()) .
-                    trim($execution->getIncrementalErrorOutput());
+                $output = trim($execution->getIncrementalOutput()).
+                          trim($execution->getIncrementalErrorOutput());
 
-                if (!empty($output)) {
+                if (! empty($output)) {
                     if ($key !== $keyOfLastExecutionWithOutput) {
-                        $this->info(PHP_EOL . 'Execution #' . ($key + 1) . ' output:');
+                        $this->info(PHP_EOL.'Execution #'.($key + 1).' output:');
 
                         $keyOfLastExecutionWithOutput = $key;
                     }
@@ -59,7 +59,7 @@ class ScheduleWorkCommand extends Command
                     $this->output->writeln($output);
                 }
 
-                if (!$execution->isRunning()) {
+                if (! $execution->isRunning()) {
                     unset($executions[$key]);
                 }
             }

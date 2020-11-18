@@ -20,7 +20,7 @@ trait Dispatchable
     /**
      * Dispatch the job with the given arguments if the given truth test passes.
      *
-     * @param bool $boolean
+     * @param  bool  $boolean
      * @return \Illuminate\Foundation\Bus\PendingDispatch|\Illuminate\Support\Fluent
      */
     public static function dispatchIf($boolean, ...$arguments)
@@ -33,12 +33,12 @@ trait Dispatchable
     /**
      * Dispatch the job with the given arguments unless the given truth test passes.
      *
-     * @param bool $boolean
+     * @param  bool  $boolean
      * @return \Illuminate\Foundation\Bus\PendingDispatch|\Illuminate\Support\Fluent
      */
     public static function dispatchUnless($boolean, ...$arguments)
     {
-        return !$boolean
+        return ! $boolean
             ? new PendingDispatch(new static(...$arguments))
             : new Fluent;
     }
@@ -78,7 +78,7 @@ trait Dispatchable
     /**
      * Set the jobs that should run if this job is successful.
      *
-     * @param array $chain
+     * @param  array  $chain
      * @return \Illuminate\Foundation\Bus\PendingChain
      */
     public static function withChain($chain)

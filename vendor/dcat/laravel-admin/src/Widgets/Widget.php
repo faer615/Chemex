@@ -49,6 +49,11 @@ abstract class Widget implements Renderable
     protected $options = [];
 
     /**
+     * @var string
+     */
+    protected $elementClass;
+
+    /**
      * @var bool
      */
     protected $runScript = true;
@@ -120,6 +125,8 @@ abstract class Widget implements Renderable
         return [
             'attributes' => $this->formatHtmlAttributes(),
             'options'    => $this->options,
+            'class'      => $this->getElementClass(),
+            'selector'   => $this->getElementSelector(),
         ];
     }
 
@@ -173,7 +180,15 @@ abstract class Widget implements Renderable
      */
     public function getElementSelector()
     {
-        return '#'.$this->id();
+        return '.'.$this->getElementClass();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getElementClass()
+    {
+        return $this->elementClass ?: str_replace('\\', '_', static::class);
     }
 
     /**
@@ -189,7 +204,7 @@ abstract class Widget implements Renderable
 
         $result = Admin::resolveHtml(view($this->view, $this->variables()), ['runScript' => $this->runScript]);
 
-        $this->script = $result['script'];
+        $this->script .= $result['script'];
 
         return $result['html'];
     }

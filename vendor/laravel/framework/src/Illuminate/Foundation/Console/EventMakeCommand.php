@@ -30,13 +30,13 @@ class EventMakeCommand extends GeneratorCommand
     /**
      * Determine if the class already exists.
      *
-     * @param string $rawName
+     * @param  string  $rawName
      * @return bool
      */
     protected function alreadyExists($rawName)
     {
         return class_exists($rawName) ||
-            $this->files->exists($this->getPath($this->qualifyClass($rawName)));
+               $this->files->exists($this->getPath($this->qualifyClass($rawName)));
     }
 
     /**
@@ -46,17 +46,17 @@ class EventMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__ . '/stubs/event.stub';
+        return __DIR__.'/stubs/event.stub';
     }
 
     /**
      * Get the default namespace for the class.
      *
-     * @param string $rootNamespace
+     * @param  string  $rootNamespace
      * @return string
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . '\Events';
+        return $rootNamespace.'\Events';
     }
 }

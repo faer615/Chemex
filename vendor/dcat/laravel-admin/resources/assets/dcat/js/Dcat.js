@@ -7,6 +7,7 @@ let $ = jQuery,
     pjaxResponded = false,
     bootingCallbacks = [],
     actions = {},
+    initialized = {},
     defaultOptions = {
         pjax_container_selector: '#pjax-container',
     };
@@ -97,6 +98,45 @@ export default class Dcat {
     }
 
     /**
+     * 监听动态生成元素.
+     *
+     * @param selector
+     * @param callback
+     * @param options
+     */
+    init(selector, callback, options) {
+        let self = this,
+            clear = function () {
+                if (initialized[selector]) {
+                    initialized[selector].takeRecords();
+                    initialized[selector].disconnect();
+                }
+            };
+
+        self.onPjaxComplete(clear, true);
+        $document.one('pjax:responded', clear);
+
+        clear();
+
+        initialized[selector] = $.initialize(selector, function () {
+            var $this = $(this);
+            if ($this.attr('initialized')) {
+                return;
+            }
+            $this.attr('initialized', '1');
+
+            // 如果没有ID，则自动生成
+            var id = $this.attr('id');
+            if (! id) {
+                id = "_"+self.helpers.random();
+                $this.attr('id', id);
+            }
+
+            callback.call(this, $(this), id)
+        }, options);
+    }
+
+    /**
      * 主动触发 ready 事件
      */
     triggerReady() {
@@ -116,6 +156,8 @@ export default class Dcat {
      */
     pjaxResponded(value) {
         pjaxResponded = value !== false;
+
+        $document.trigger('pjax:responded');
 
         return this
     }

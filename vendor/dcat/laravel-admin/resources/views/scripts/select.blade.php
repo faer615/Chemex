@@ -33,7 +33,7 @@
         }
     });
     @endif
-@endsection
+@overwrite
 </script>
 
 @section('admin.select-load')
@@ -62,7 +62,7 @@
         $(selector).trigger('change');
     </script>
     @endif
-@endsection
+@overwrite
 
 @section('admin.select-lang')
 @if (config('app.locale') !== 'en')

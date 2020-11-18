@@ -31,8 +31,8 @@ class BelongsToRelationship
     /**
      * Create a new "belongs to" relationship definition.
      *
-     * @param \Illuminate\Database\Eloquent\Factories\Factory $factory
-     * @param string $relationship
+     * @param  \Illuminate\Database\Eloquent\Factories\Factory  $factory
+     * @param  string  $relationship
      * @return void
      */
     public function __construct(Factory $factory, $relationship)
@@ -44,7 +44,7 @@ class BelongsToRelationship
     /**
      * Get the parent model attributes and resolvers for the given child model.
      *
-     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param  \Illuminate\Database\Eloquent\Model  $model
      * @return array
      */
     public function attributesFor(Model $model)
@@ -53,22 +53,25 @@ class BelongsToRelationship
 
         return $relationship instanceof MorphTo ? [
             $relationship->getMorphType() => $this->factory->newModel()->getMorphClass(),
-            $relationship->getForeignKeyName() => $this->resolver(),
+            $relationship->getForeignKeyName() => $this->resolver($relationship->getOwnerKeyName()),
         ] : [
-            $relationship->getForeignKeyName() => $this->resolver(),
+            $relationship->getForeignKeyName() => $this->resolver($relationship->getOwnerKeyName()),
         ];
     }
 
     /**
      * Get the deferred resolver for this relationship's parent ID.
      *
+     * @param  string|null  $key
      * @return \Closure
      */
-    protected function resolver()
+    protected function resolver($key)
     {
-        return function () {
-            if (!$this->resolved) {
-                return $this->resolved = $this->factory->create()->getKey();
+        return function () use ($key) {
+            if (! $this->resolved) {
+                $instance = $this->factory->create();
+
+                return $this->resolved = $key ? $instance->{$key} : $instance->getKey();
             }
 
             return $this->resolved;

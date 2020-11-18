@@ -26,7 +26,7 @@ class Request implements ArrayAccess
     /**
      * Create a new request instance.
      *
-     * @param \Psr\Http\Message\RequestInterface $request
+     * @param  \Psr\Http\Message\RequestInterface  $request
      * @return void
      */
     public function __construct($request)
@@ -51,25 +51,25 @@ class Request implements ArrayAccess
      */
     public function url()
     {
-        return (string)$this->request->getUri();
+        return (string) $this->request->getUri();
     }
 
     /**
      * Determine if the request has a given header.
      *
-     * @param string $key
-     * @param mixed $value
+     * @param  string  $key
+     * @param  mixed  $value
      * @return bool
      */
     public function hasHeader($key, $value = null)
     {
         if (is_null($value)) {
-            return !empty($this->request->getHeaders()[$key]);
+            return ! empty($this->request->getHeaders()[$key]);
         }
 
         $headers = $this->headers();
 
-        if (!Arr::has($headers, $key)) {
+        if (! Arr::has($headers, $key)) {
             return false;
         }
 
@@ -81,7 +81,7 @@ class Request implements ArrayAccess
     /**
      * Determine if the request has the given headers.
      *
-     * @param array|string $headers
+     * @param  array|string  $headers
      * @return bool
      */
     public function hasHeaders($headers)
@@ -91,7 +91,7 @@ class Request implements ArrayAccess
         }
 
         foreach ($headers as $key => $value) {
-            if (!$this->hasHeader($key, $value)) {
+            if (! $this->hasHeader($key, $value)) {
                 return false;
             }
         }
@@ -102,7 +102,7 @@ class Request implements ArrayAccess
     /**
      * Get the values for the header with the given name.
      *
-     * @param string $key
+     * @param  string  $key
      * @return array
      */
     public function header($key)
@@ -129,28 +129,28 @@ class Request implements ArrayAccess
      */
     public function body()
     {
-        return (string)$this->request->getBody();
+        return (string) $this->request->getBody();
     }
 
     /**
      * Determine if the request contains the given file.
      *
-     * @param string $name
-     * @param string|null $value
-     * @param string|null $filename
+     * @param  string  $name
+     * @param  string|null  $value
+     * @param  string|null  $filename
      * @return bool
      */
     public function hasFile($name, $value = null, $filename = null)
     {
-        if (!$this->isMultipart()) {
+        if (! $this->isMultipart()) {
             return false;
         }
 
         return collect($this->data)->reject(function ($file) use ($name, $value, $filename) {
-                return $file['name'] != $name ||
-                    ($value && $file['contents'] != $value) ||
-                    ($filename && $file['filename'] != $filename);
-            })->count() > 0;
+            return $file['name'] != $name ||
+                ($value && $file['contents'] != $value) ||
+                ($filename && $file['filename'] != $filename);
+        })->count() > 0;
     }
 
     /**
@@ -167,6 +167,36 @@ class Request implements ArrayAccess
         }
 
         return $this->data ?? [];
+    }
+
+    /**
+     * Get the request's form parameters.
+     *
+     * @return array
+     */
+    protected function parameters()
+    {
+        if (! $this->data) {
+            parse_str($this->body(), $parameters);
+
+            $this->data = $parameters;
+        }
+
+        return $this->data;
+    }
+
+    /**
+     * Get the JSON decoded body of the request.
+     *
+     * @return array
+     */
+    protected function json()
+    {
+        if (! $this->data) {
+            $this->data = json_decode($this->body(), true);
+        }
+
+        return $this->data;
     }
 
     /**
@@ -187,7 +217,7 @@ class Request implements ArrayAccess
     public function isJson()
     {
         return $this->hasHeader('Content-Type') &&
-            Str::contains($this->header('Content-Type')[0], 'json');
+               Str::contains($this->header('Content-Type')[0], 'json');
     }
 
     /**
@@ -198,13 +228,13 @@ class Request implements ArrayAccess
     public function isMultipart()
     {
         return $this->hasHeader('Content-Type') &&
-            Str::contains($this->header('Content-Type')[0], 'multipart');
+               Str::contains($this->header('Content-Type')[0], 'multipart');
     }
 
     /**
      * Set the decoded data on the request.
      *
-     * @param array $data
+     * @param  array  $data
      * @return $this
      */
     public function withData(array $data)
@@ -227,7 +257,7 @@ class Request implements ArrayAccess
     /**
      * Determine if the given offset exists.
      *
-     * @param string $offset
+     * @param  string  $offset
      * @return bool
      */
     public function offsetExists($offset)
@@ -238,7 +268,7 @@ class Request implements ArrayAccess
     /**
      * Get the value for a given offset.
      *
-     * @param string $offset
+     * @param  string  $offset
      * @return mixed
      */
     public function offsetGet($offset)
@@ -249,8 +279,8 @@ class Request implements ArrayAccess
     /**
      * Set the value at the given offset.
      *
-     * @param string $offset
-     * @param mixed $value
+     * @param  string  $offset
+     * @param  mixed  $value
      * @return void
      *
      * @throws \LogicException
@@ -263,7 +293,7 @@ class Request implements ArrayAccess
     /**
      * Unset the value at the given offset.
      *
-     * @param string $offset
+     * @param  string  $offset
      * @return void
      *
      * @throws \LogicException
@@ -271,35 +301,5 @@ class Request implements ArrayAccess
     public function offsetUnset($offset)
     {
         throw new LogicException('Request data may not be mutated using array access.');
-    }
-
-    /**
-     * Get the request's form parameters.
-     *
-     * @return array
-     */
-    protected function parameters()
-    {
-        if (!$this->data) {
-            parse_str($this->body(), $parameters);
-
-            $this->data = $parameters;
-        }
-
-        return $this->data;
-    }
-
-    /**
-     * Get the JSON decoded body of the request.
-     *
-     * @return array
-     */
-    protected function json()
-    {
-        if (!$this->data) {
-            $this->data = json_decode($this->body(), true);
-        }
-
-        return $this->data;
     }
 }

@@ -18,7 +18,7 @@ class Rule
     /**
      * Get a dimensions constraint builder instance.
      *
-     * @param array $constraints
+     * @param  array  $constraints
      * @return \Illuminate\Validation\Rules\Dimensions
      */
     public static function dimensions(array $constraints = [])
@@ -29,8 +29,8 @@ class Rule
     /**
      * Get an exists constraint builder instance.
      *
-     * @param string $table
-     * @param string $column
+     * @param  string  $table
+     * @param  string  $column
      * @return \Illuminate\Validation\Rules\Exists
      */
     public static function exists($table, $column = 'NULL')
@@ -41,7 +41,7 @@ class Rule
     /**
      * Get an in constraint builder instance.
      *
-     * @param \Illuminate\Contracts\Support\Arrayable|array|string $values
+     * @param  \Illuminate\Contracts\Support\Arrayable|array|string  $values
      * @return \Illuminate\Validation\Rules\In
      */
     public static function in($values)
@@ -56,7 +56,7 @@ class Rule
     /**
      * Get a not_in constraint builder instance.
      *
-     * @param \Illuminate\Contracts\Support\Arrayable|array|string $values
+     * @param  \Illuminate\Contracts\Support\Arrayable|array|string  $values
      * @return \Illuminate\Validation\Rules\NotIn
      */
     public static function notIn($values)
@@ -71,7 +71,7 @@ class Rule
     /**
      * Get a required_if constraint builder instance.
      *
-     * @param callable|bool $callback
+     * @param  callable|bool  $callback
      * @return \Illuminate\Validation\Rules\RequiredIf
      */
     public static function requiredIf($callback)
@@ -82,8 +82,8 @@ class Rule
     /**
      * Get a unique constraint builder instance.
      *
-     * @param string $table
-     * @param string $column
+     * @param  string  $table
+     * @param  string  $column
      * @return \Illuminate\Validation\Rules\Unique
      */
     public static function unique($table, $column = 'NULL')

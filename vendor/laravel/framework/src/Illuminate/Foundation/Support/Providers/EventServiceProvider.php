@@ -84,6 +84,18 @@ class EventServiceProvider extends ServiceProvider
     }
 
     /**
+     * Get the discovered events for the application.
+     *
+     * @return array
+     */
+    protected function discoveredEvents()
+    {
+        return $this->shouldDiscoverEvents()
+                    ? $this->discoverEvents()
+                    : [];
+    }
+
+    /**
      * Determine if events and listeners should be automatically discovered.
      *
      * @return bool
@@ -101,27 +113,15 @@ class EventServiceProvider extends ServiceProvider
     public function discoverEvents()
     {
         return collect($this->discoverEventsWithin())
-            ->reject(function ($directory) {
-                return !is_dir($directory);
-            })
-            ->reduce(function ($discovered, $directory) {
-                return array_merge_recursive(
-                    $discovered,
-                    DiscoverEvents::within($directory, base_path())
-                );
-            }, []);
-    }
-
-    /**
-     * Get the discovered events for the application.
-     *
-     * @return array
-     */
-    protected function discoveredEvents()
-    {
-        return $this->shouldDiscoverEvents()
-            ? $this->discoverEvents()
-            : [];
+                    ->reject(function ($directory) {
+                        return ! is_dir($directory);
+                    })
+                    ->reduce(function ($discovered, $directory) {
+                        return array_merge_recursive(
+                            $discovered,
+                            DiscoverEvents::within($directory, base_path())
+                        );
+                    }, []);
     }
 
     /**

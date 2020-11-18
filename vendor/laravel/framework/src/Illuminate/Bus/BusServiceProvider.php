@@ -35,21 +35,6 @@ class BusServiceProvider extends ServiceProvider implements DeferrableProvider
     }
 
     /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
-    public function provides()
-    {
-        return [
-            Dispatcher::class,
-            DispatcherContract::class,
-            QueueingDispatcherContract::class,
-            BatchRepository::class,
-        ];
-    }
-
-    /**
      * Register the batch handling services.
      *
      * @return void
@@ -65,5 +50,20 @@ class BusServiceProvider extends ServiceProvider implements DeferrableProvider
                 config('queue.batching.table', 'job_batches')
             );
         });
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return [
+            Dispatcher::class,
+            DispatcherContract::class,
+            QueueingDispatcherContract::class,
+            BatchRepository::class,
+        ];
     }
 }

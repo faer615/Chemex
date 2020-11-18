@@ -35,35 +35,6 @@ class QueueServiceProvider extends ServiceProvider implements DeferrableProvider
     }
 
     /**
-     * Register the connectors on the queue manager.
-     *
-     * @param \Illuminate\Queue\QueueManager $manager
-     * @return void
-     */
-    public function registerConnectors($manager)
-    {
-        foreach (['Null', 'Sync', 'Database', 'Redis', 'Beanstalkd', 'Sqs'] as $connector) {
-            $this->{"register{$connector}Connector"}($manager);
-        }
-    }
-
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
-    public function provides()
-    {
-        return [
-            'queue',
-            'queue.connection',
-            'queue.failer',
-            'queue.listener',
-            'queue.worker',
-        ];
-    }
-
-    /**
      * Register the queue manager.
      *
      * @return void
@@ -93,9 +64,22 @@ class QueueServiceProvider extends ServiceProvider implements DeferrableProvider
     }
 
     /**
+     * Register the connectors on the queue manager.
+     *
+     * @param  \Illuminate\Queue\QueueManager  $manager
+     * @return void
+     */
+    public function registerConnectors($manager)
+    {
+        foreach (['Null', 'Sync', 'Database', 'Redis', 'Beanstalkd', 'Sqs'] as $connector) {
+            $this->{"register{$connector}Connector"}($manager);
+        }
+    }
+
+    /**
      * Register the Null queue connector.
      *
-     * @param \Illuminate\Queue\QueueManager $manager
+     * @param  \Illuminate\Queue\QueueManager  $manager
      * @return void
      */
     protected function registerNullConnector($manager)
@@ -108,7 +92,7 @@ class QueueServiceProvider extends ServiceProvider implements DeferrableProvider
     /**
      * Register the Sync queue connector.
      *
-     * @param \Illuminate\Queue\QueueManager $manager
+     * @param  \Illuminate\Queue\QueueManager  $manager
      * @return void
      */
     protected function registerSyncConnector($manager)
@@ -121,7 +105,7 @@ class QueueServiceProvider extends ServiceProvider implements DeferrableProvider
     /**
      * Register the database queue connector.
      *
-     * @param \Illuminate\Queue\QueueManager $manager
+     * @param  \Illuminate\Queue\QueueManager  $manager
      * @return void
      */
     protected function registerDatabaseConnector($manager)
@@ -134,7 +118,7 @@ class QueueServiceProvider extends ServiceProvider implements DeferrableProvider
     /**
      * Register the Redis queue connector.
      *
-     * @param \Illuminate\Queue\QueueManager $manager
+     * @param  \Illuminate\Queue\QueueManager  $manager
      * @return void
      */
     protected function registerRedisConnector($manager)
@@ -147,7 +131,7 @@ class QueueServiceProvider extends ServiceProvider implements DeferrableProvider
     /**
      * Register the Beanstalkd queue connector.
      *
-     * @param \Illuminate\Queue\QueueManager $manager
+     * @param  \Illuminate\Queue\QueueManager  $manager
      * @return void
      */
     protected function registerBeanstalkdConnector($manager)
@@ -160,7 +144,7 @@ class QueueServiceProvider extends ServiceProvider implements DeferrableProvider
     /**
      * Register the Amazon SQS queue connector.
      *
-     * @param \Illuminate\Queue\QueueManager $manager
+     * @param  \Illuminate\Queue\QueueManager  $manager
      * @return void
      */
     protected function registerSqsConnector($manager)
@@ -228,7 +212,7 @@ class QueueServiceProvider extends ServiceProvider implements DeferrableProvider
     /**
      * Create a new database failed job provider.
      *
-     * @param array $config
+     * @param  array  $config
      * @return \Illuminate\Queue\Failed\DatabaseFailedJobProvider
      */
     protected function databaseFailedJobProvider($config)
@@ -241,7 +225,7 @@ class QueueServiceProvider extends ServiceProvider implements DeferrableProvider
     /**
      * Create a new database failed job provider that uses UUIDs as IDs.
      *
-     * @param array $config
+     * @param  array  $config
      * @return \Illuminate\Queue\Failed\DatabaseUuidFailedJobProvider
      */
     protected function databaseUuidFailedJobProvider($config)
@@ -254,7 +238,7 @@ class QueueServiceProvider extends ServiceProvider implements DeferrableProvider
     /**
      * Create a new DynamoDb failed job provider.
      *
-     * @param array $config
+     * @param  array  $config
      * @return \Illuminate\Queue\Failed\DynamoDbFailedJobProvider
      */
     protected function dynamoFailedJobProvider($config)
@@ -265,7 +249,7 @@ class QueueServiceProvider extends ServiceProvider implements DeferrableProvider
             'endpoint' => $config['endpoint'] ?? null,
         ];
 
-        if (!empty($config['key']) && !empty($config['secret'])) {
+        if (! empty($config['key']) && ! empty($config['secret'])) {
             $dynamoConfig['credentials'] = Arr::only(
                 $config, ['key', 'secret', 'token']
             );
@@ -276,5 +260,21 @@ class QueueServiceProvider extends ServiceProvider implements DeferrableProvider
             $this->app['config']['app.name'],
             $config['table']
         );
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return [
+            'queue',
+            'queue.connection',
+            'queue.failer',
+            'queue.listener',
+            'queue.worker',
+        ];
     }
 }

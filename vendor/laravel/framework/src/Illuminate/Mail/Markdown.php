@@ -36,8 +36,8 @@ class Markdown
     /**
      * Create a new Markdown renderer instance.
      *
-     * @param \Illuminate\Contracts\View\Factory $view
-     * @param array $options
+     * @param  \Illuminate\Contracts\View\Factory  $view
+     * @param  array  $options
      * @return void
      */
     public function __construct(ViewFactory $view, array $options = [])
@@ -48,30 +48,11 @@ class Markdown
     }
 
     /**
-     * Parse the given Markdown text into HTML.
-     *
-     * @param string $text
-     * @return \Illuminate\Support\HtmlString
-     */
-    public static function parse($text)
-    {
-        $environment = Environment::createCommonMarkEnvironment();
-
-        $environment->addExtension(new TableExtension);
-
-        $converter = new CommonMarkConverter([
-            'allow_unsafe_links' => false,
-        ], $environment);
-
-        return new HtmlString($converter->convertToHtml($text));
-    }
-
-    /**
      * Render the Markdown template into HTML.
      *
-     * @param string $view
-     * @param array $data
-     * @param \TijsVerkoyen\CssToInlineStyles\CssToInlineStyles|null $inliner
+     * @param  string  $view
+     * @param  array  $data
+     * @param  \TijsVerkoyen\CssToInlineStyles\CssToInlineStyles|null  $inliner
      * @return \Illuminate\Support\HtmlString
      */
     public function render($view, array $data = [], $inliner = null)
@@ -87,7 +68,7 @@ class Markdown
         } else {
             $theme = Str::contains($this->theme, '::')
                 ? $this->theme
-                : 'mail::themes.' . $this->theme;
+                : 'mail::themes.'.$this->theme;
         }
 
         return new HtmlString(($inliner ?: new CssToInlineStyles)->convert(
@@ -98,8 +79,8 @@ class Markdown
     /**
      * Render the Markdown template into text.
      *
-     * @param string $view
-     * @param array $data
+     * @param  string  $view
+     * @param  array  $data
      * @return \Illuminate\Support\HtmlString
      */
     public function renderText($view, array $data = [])
@@ -116,6 +97,25 @@ class Markdown
     }
 
     /**
+     * Parse the given Markdown text into HTML.
+     *
+     * @param  string  $text
+     * @return \Illuminate\Support\HtmlString
+     */
+    public static function parse($text)
+    {
+        $environment = Environment::createCommonMarkEnvironment();
+
+        $environment->addExtension(new TableExtension);
+
+        $converter = new CommonMarkConverter([
+            'allow_unsafe_links' => false,
+        ], $environment);
+
+        return new HtmlString($converter->convertToHtml($text));
+    }
+
+    /**
      * Get the HTML component paths.
      *
      * @return array
@@ -123,7 +123,7 @@ class Markdown
     public function htmlComponentPaths()
     {
         return array_map(function ($path) {
-            return $path . '/html';
+            return $path.'/html';
         }, $this->componentPaths());
     }
 
@@ -135,32 +135,8 @@ class Markdown
     public function textComponentPaths()
     {
         return array_map(function ($path) {
-            return $path . '/text';
+            return $path.'/text';
         }, $this->componentPaths());
-    }
-
-    /**
-     * Register new mail component paths.
-     *
-     * @param array $paths
-     * @return void
-     */
-    public function loadComponentsFrom(array $paths = [])
-    {
-        $this->componentPaths = $paths;
-    }
-
-    /**
-     * Set the default theme to be used.
-     *
-     * @param string $theme
-     * @return $this
-     */
-    public function theme($theme)
-    {
-        $this->theme = $theme;
-
-        return $this;
     }
 
     /**
@@ -171,7 +147,31 @@ class Markdown
     protected function componentPaths()
     {
         return array_unique(array_merge($this->componentPaths, [
-            __DIR__ . '/resources/views',
+            __DIR__.'/resources/views',
         ]));
+    }
+
+    /**
+     * Register new mail component paths.
+     *
+     * @param  array  $paths
+     * @return void
+     */
+    public function loadComponentsFrom(array $paths = [])
+    {
+        $this->componentPaths = $paths;
+    }
+
+    /**
+     * Set the default theme to be used.
+     *
+     * @param  string  $theme
+     * @return $this
+     */
+    public function theme($theme)
+    {
+        $this->theme = $theme;
+
+        return $this;
     }
 }

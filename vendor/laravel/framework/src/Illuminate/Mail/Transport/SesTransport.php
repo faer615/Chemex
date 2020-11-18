@@ -24,8 +24,8 @@ class SesTransport extends Transport
     /**
      * Create a new SES transport instance.
      *
-     * @param \Aws\Ses\SesClient $ses
-     * @param array $options
+     * @param  \Aws\Ses\SesClient  $ses
+     * @param  array  $options
      * @return void
      */
     public function __construct(SesClient $ses, $options = [])
@@ -85,7 +85,7 @@ class SesTransport extends Transport
     /**
      * Set the transmission options being used by the transport.
      *
-     * @param array $options
+     * @param  array  $options
      * @return array
      */
     public function setOptions(array $options)

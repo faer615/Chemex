@@ -8,26 +8,11 @@ use Error;
 trait ForwardsCalls
 {
     /**
-     * Throw a bad method call exception for the given method.
-     *
-     * @param string $method
-     * @return void
-     *
-     * @throws \BadMethodCallException
-     */
-    protected static function throwBadMethodCallException($method)
-    {
-        throw new BadMethodCallException(sprintf(
-            'Call to undefined method %s::%s()', static::class, $method
-        ));
-    }
-
-    /**
      * Forward a method call to the given object.
      *
-     * @param mixed $object
-     * @param string $method
-     * @param array $parameters
+     * @param  mixed  $object
+     * @param  string  $method
+     * @param  array  $parameters
      * @return mixed
      *
      * @throws \BadMethodCallException
@@ -39,7 +24,7 @@ trait ForwardsCalls
         } catch (Error | BadMethodCallException $e) {
             $pattern = '~^Call to undefined method (?P<class>[^:]+)::(?P<method>[^\(]+)\(\)$~';
 
-            if (!preg_match($pattern, $e->getMessage(), $matches)) {
+            if (! preg_match($pattern, $e->getMessage(), $matches)) {
                 throw $e;
             }
 
@@ -50,5 +35,20 @@ trait ForwardsCalls
 
             static::throwBadMethodCallException($method);
         }
+    }
+
+    /**
+     * Throw a bad method call exception for the given method.
+     *
+     * @param  string  $method
+     * @return void
+     *
+     * @throws \BadMethodCallException
+     */
+    protected static function throwBadMethodCallException($method)
+    {
+        throw new BadMethodCallException(sprintf(
+            'Call to undefined method %s::%s()', static::class, $method
+        ));
     }
 }

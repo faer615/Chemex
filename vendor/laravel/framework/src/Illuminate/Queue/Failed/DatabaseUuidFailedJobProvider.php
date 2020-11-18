@@ -31,9 +31,9 @@ class DatabaseUuidFailedJobProvider implements FailedJobProviderInterface
     /**
      * Create a new database failed job provider.
      *
-     * @param \Illuminate\Database\ConnectionResolverInterface $resolver
-     * @param string $database
-     * @param string $table
+     * @param  \Illuminate\Database\ConnectionResolverInterface  $resolver
+     * @param  string  $database
+     * @param  string  $table
      * @return void
      */
     public function __construct(ConnectionResolverInterface $resolver, $database, $table)
@@ -46,10 +46,10 @@ class DatabaseUuidFailedJobProvider implements FailedJobProviderInterface
     /**
      * Log a failed job into storage.
      *
-     * @param string $connection
-     * @param string $queue
-     * @param string $payload
-     * @param \Throwable $exception
+     * @param  string  $connection
+     * @param  string  $queue
+     * @param  string  $payload
+     * @param  \Throwable  $exception
      * @return int|null
      */
     public function log($connection, $queue, $payload, $exception)
@@ -59,7 +59,7 @@ class DatabaseUuidFailedJobProvider implements FailedJobProviderInterface
             'connection' => $connection,
             'queue' => $queue,
             'payload' => $payload,
-            'exception' => (string)$exception,
+            'exception' => (string) $exception,
             'failed_at' => Date::now(),
         ]);
 
@@ -84,7 +84,7 @@ class DatabaseUuidFailedJobProvider implements FailedJobProviderInterface
     /**
      * Get a single failed job.
      *
-     * @param mixed $id
+     * @param  mixed  $id
      * @return object|null
      */
     public function find($id)
@@ -100,7 +100,7 @@ class DatabaseUuidFailedJobProvider implements FailedJobProviderInterface
     /**
      * Delete a single failed job from storage.
      *
-     * @param mixed $id
+     * @param  mixed  $id
      * @return bool
      */
     public function forget($id)

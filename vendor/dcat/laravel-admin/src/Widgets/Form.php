@@ -7,10 +7,10 @@ use Dcat\Admin\Admin;
 use Dcat\Admin\Contracts\LazyRenderable;
 use Dcat\Admin\Exception\RuntimeException;
 use Dcat\Admin\Form\Concerns\HandleCascadeFields;
+use Dcat\Admin\Form\Concerns\HasLayout;
 use Dcat\Admin\Form\Concerns\HasRows;
 use Dcat\Admin\Form\Concerns\HasTabs;
 use Dcat\Admin\Form\Field;
-use Dcat\Admin\Form\Layout;
 use Dcat\Admin\Support\Helper;
 use Dcat\Admin\Traits\HasAuthorization;
 use Dcat\Admin\Traits\HasFormResponse;
@@ -70,7 +70,6 @@ use Illuminate\Validation\Validator;
  * @method Field\Image               image($column, $label = '')
  * @method Field\MultipleFile        multipleFile($column, $label = '')
  * @method Field\MultipleImage       multipleImage($column, $label = '')
- * @method Field\HasMany             hasMany($column, \Closure $callback)
  * @method Field\Tree                tree($column, $label = '')
  * @method Field\Table               table($column, $callback)
  * @method Field\ListField           list($column, $label = '')
@@ -92,6 +91,7 @@ class Form implements Renderable
     use HandleCascadeFields;
     use HasRows;
     use HasTabs;
+    use HasLayout;
     use HasFormResponse {
         setCurrentUrl as defaultSetCurrentUrl;
     }
@@ -112,11 +112,6 @@ class Form implements Renderable
      * @var Field[]|Collection
      */
     protected $fields;
-
-    /**
-     * @var Layout
-     */
-    protected $layout;
 
     /**
      * @var array
@@ -381,29 +376,6 @@ class Form implements Renderable
     }
 
     /**
-     * @param int|float $width
-     * @param Closure   $callback
-     *
-     * @return $this
-     */
-    public function column($width, \Closure $callback)
-    {
-        $this->layout()->onlyColumn($width, function () use ($callback) {
-            $callback($this);
-        });
-
-        return $this;
-    }
-
-    /**
-     * @return Layout
-     */
-    public function layout()
-    {
-        return $this->layout ?: ($this->layout = new Layout($this));
-    }
-
-    /**
      * Validate this form fields.
      *
      * @param Request $request
@@ -460,14 +432,9 @@ class Form implements Renderable
         return $this;
     }
 
-    /**
-     * Disable form tag.
-     *
-     * @return $this;
-     */
-    public function disableFormTag()
+    public function useFormTag(bool $tag = true)
     {
-        $this->useFormTag = false;
+        $this->useFormTag = $tag;
 
         return $this;
     }

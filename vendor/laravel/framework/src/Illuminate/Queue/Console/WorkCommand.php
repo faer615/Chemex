@@ -60,8 +60,8 @@ class WorkCommand extends Command
     /**
      * Create a new queue work command.
      *
-     * @param \Illuminate\Queue\Worker $worker
-     * @param \Illuminate\Contracts\Cache\Repository $cache
+     * @param  \Illuminate\Queue\Worker  $worker
+     * @param  \Illuminate\Contracts\Cache\Repository  $cache
      * @return void
      */
     public function __construct(Worker $worker, Cache $cache)
@@ -89,7 +89,7 @@ class WorkCommand extends Command
         $this->listenForEvents();
 
         $connection = $this->argument('connection')
-            ?: $this->laravel['config']['queue.default'];
+                        ?: $this->laravel['config']['queue.default'];
 
         // We need to get the right queue for the connection which is set in the queue
         // configuration file for the application. We will pull it based on the set
@@ -104,17 +104,17 @@ class WorkCommand extends Command
     /**
      * Run the worker instance.
      *
-     * @param string $connection
-     * @param string $queue
+     * @param  string  $connection
+     * @param  string  $queue
      * @return int|null
      */
     protected function runWorker($connection, $queue)
     {
         return $this->worker->setName($this->option('name'))
-            ->setCache($this->cache)
-            ->{$this->option('once') ? 'runNextJob' : 'daemon'}(
-                $connection, $queue, $this->gatherWorkerOptions()
-            );
+                     ->setCache($this->cache)
+                     ->{$this->option('once') ? 'runNextJob' : 'daemon'}(
+            $connection, $queue, $this->gatherWorkerOptions()
+        );
     }
 
     /**
@@ -125,8 +125,8 @@ class WorkCommand extends Command
     protected function gatherWorkerOptions()
     {
         $backoff = $this->hasOption('backoff')
-            ? $this->option('backoff')
-            : $this->option('delay');
+                    ? $this->option('backoff')
+                    : $this->option('delay');
 
         return new WorkerOptions(
             $this->option('name'),
@@ -167,8 +167,8 @@ class WorkCommand extends Command
     /**
      * Write the status output for the queue worker.
      *
-     * @param \Illuminate\Contracts\Queue\Job $job
-     * @param string $status
+     * @param  \Illuminate\Contracts\Queue\Job  $job
+     * @param  string  $status
      * @return void
      */
     protected function writeOutput(Job $job, $status)
@@ -186,9 +186,9 @@ class WorkCommand extends Command
     /**
      * Format the status output for the queue worker.
      *
-     * @param \Illuminate\Contracts\Queue\Job $job
-     * @param string $status
-     * @param string $type
+     * @param  \Illuminate\Contracts\Queue\Job  $job
+     * @param  string  $status
+     * @param  string  $type
      * @return void
      */
     protected function writeStatus(Job $job, $status, $type)
@@ -204,7 +204,7 @@ class WorkCommand extends Command
     /**
      * Store a failed job event.
      *
-     * @param \Illuminate\Queue\Events\JobFailed $event
+     * @param  \Illuminate\Queue\Events\JobFailed  $event
      * @return void
      */
     protected function logFailedJob(JobFailed $event)
@@ -220,7 +220,7 @@ class WorkCommand extends Command
     /**
      * Get the queue name for the worker.
      *
-     * @param string $connection
+     * @param  string  $connection
      * @return string
      */
     protected function getQueue($connection)

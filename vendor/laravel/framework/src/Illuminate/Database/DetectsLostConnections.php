@@ -10,7 +10,7 @@ trait DetectsLostConnections
     /**
      * Determine if the given exception was caused by a lost connection.
      *
-     * @param \Throwable $e
+     * @param  \Throwable  $e
      * @return bool
      */
     protected function causedByLostConnection(Throwable $e)
@@ -45,6 +45,8 @@ trait DetectsLostConnections
             'The connection is broken and recovery is not possible. The connection is marked by the client driver as unrecoverable. No attempt was made to restore the connection.',
             'SQLSTATE[HY000] [2002] php_network_getaddresses: getaddrinfo failed: Try again',
             'SQLSTATE[HY000]: General error: 7 SSL SYSCALL error: EOF detected',
+            'SQLSTATE[HY000] [2002] Connection timed out',
+            'SSL: Connection timed out',
         ]);
     }
 }

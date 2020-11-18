@@ -57,9 +57,9 @@ trait ResponseTrait
     /**
      * Set a header on the Response.
      *
-     * @param string $key
-     * @param array|string $values
-     * @param bool $replace
+     * @param  string  $key
+     * @param  array|string  $values
+     * @param  bool  $replace
      * @return $this
      */
     public function header($key, $values, $replace = true)
@@ -72,7 +72,7 @@ trait ResponseTrait
     /**
      * Add an array of headers to the response.
      *
-     * @param \Symfony\Component\HttpFoundation\HeaderBag|array $headers
+     * @param  \Symfony\Component\HttpFoundation\HeaderBag|array  $headers
      * @return $this
      */
     public function withHeaders($headers)
@@ -91,7 +91,7 @@ trait ResponseTrait
     /**
      * Add a cookie to the response.
      *
-     * @param \Symfony\Component\HttpFoundation\Cookie|mixed $cookie
+     * @param  \Symfony\Component\HttpFoundation\Cookie|mixed  $cookie
      * @return $this
      */
     public function cookie($cookie)
@@ -102,13 +102,32 @@ trait ResponseTrait
     /**
      * Add a cookie to the response.
      *
-     * @param \Symfony\Component\HttpFoundation\Cookie|mixed $cookie
+     * @param  \Symfony\Component\HttpFoundation\Cookie|mixed  $cookie
      * @return $this
      */
     public function withCookie($cookie)
     {
         if (is_string($cookie) && function_exists('cookie')) {
             $cookie = cookie(...func_get_args());
+        }
+
+        $this->headers->setCookie($cookie);
+
+        return $this;
+    }
+
+    /**
+     * Expire a cookie when sending the response.
+     *
+     * @param  \Symfony\Component\HttpFoundation\Cookie|mixed  $cookie
+     * @param  string|null $path
+     * @param  string|null $domain
+     * @return $this
+     */
+    public function withoutCookie($cookie, $path = null, $domain = null)
+    {
+        if (is_string($cookie) && function_exists('cookie')) {
+            $cookie = cookie($cookie, null, -2628000, $path, $domain);
         }
 
         $this->headers->setCookie($cookie);
@@ -129,7 +148,7 @@ trait ResponseTrait
     /**
      * Set the exception to attach to the response.
      *
-     * @param \Throwable $e
+     * @param  \Throwable  $e
      * @return $this
      */
     public function withException(Throwable $e)

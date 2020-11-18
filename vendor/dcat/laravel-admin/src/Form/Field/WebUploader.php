@@ -180,7 +180,7 @@ trait WebUploader
      *
      * @return $this
      */
-    public function compress($compress)
+    public function compress($compress = true)
     {
         $this->options['compress'] = $compress;
 
@@ -211,7 +211,6 @@ trait WebUploader
 
             'deleteData' => [
                 static::FILE_DELETE_FLAG => '',
-                '_token'                 => csrf_token(),
             ],
             'formData' => [
                 '_id'           => Str::random(),

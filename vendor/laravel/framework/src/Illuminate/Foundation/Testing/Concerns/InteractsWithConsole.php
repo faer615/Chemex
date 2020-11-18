@@ -23,6 +23,13 @@ trait InteractsWithConsole
     public $expectedOutput = [];
 
     /**
+     * All of the output lines that aren't expected to be displayed.
+     *
+     * @var array
+     */
+    public $unexpectedOutput = [];
+
+    /**
      * All of the expected ouput tables.
      *
      * @var array
@@ -46,13 +53,13 @@ trait InteractsWithConsole
     /**
      * Call artisan command and return code.
      *
-     * @param string $command
-     * @param array $parameters
+     * @param  string  $command
+     * @param  array  $parameters
      * @return \Illuminate\Testing\PendingCommand|int
      */
     public function artisan($command, $parameters = [])
     {
-        if (!$this->mockConsoleOutput) {
+        if (! $this->mockConsoleOutput) {
             return $this->app[Kernel::class]->call($command, $parameters);
         }
 

@@ -24,107 +24,117 @@ class Route
     use CreatesRegularExpressionRouteConstraints, Macroable, RouteDependencyResolverTrait;
 
     /**
-     * The validators used by the routes.
-     *
-     * @var array
-     */
-    public static $validators;
-    /**
      * The URI pattern the route responds to.
      *
      * @var string
      */
     public $uri;
+
     /**
      * The HTTP methods the route responds to.
      *
      * @var array
      */
     public $methods;
+
     /**
      * The route action array.
      *
      * @var array
      */
     public $action;
+
     /**
      * Indicates whether the route is a fallback route.
      *
      * @var bool
      */
     public $isFallback = false;
+
     /**
      * The controller instance.
      *
      * @var mixed
      */
     public $controller;
+
     /**
      * The default values for the route.
      *
      * @var array
      */
     public $defaults = [];
+
     /**
      * The regular expression requirements.
      *
      * @var array
      */
     public $wheres = [];
+
     /**
      * The array of matched parameters.
      *
      * @var array|null
      */
     public $parameters;
+
     /**
      * The parameter names for the route.
      *
      * @var array|null
      */
     public $parameterNames;
-    /**
-     * The computed gathered middleware.
-     *
-     * @var array|null
-     */
-    public $computedMiddleware;
-    /**
-     * The compiled version of the route.
-     *
-     * @var \Symfony\Component\Routing\CompiledRoute
-     */
-    public $compiled;
+
     /**
      * The array of the matched parameters' original values.
      *
      * @var array
      */
     protected $originalParameters;
+
     /**
      * Indicates the maximum number of seconds the route should acquire a session lock for.
      *
      * @var int|null
      */
     protected $lockSeconds;
+
     /**
      * Indicates the maximum number of seconds the route should wait while attempting to acquire a session lock.
      *
      * @var int|null
      */
     protected $waitSeconds;
+
+    /**
+     * The computed gathered middleware.
+     *
+     * @var array|null
+     */
+    public $computedMiddleware;
+
+    /**
+     * The compiled version of the route.
+     *
+     * @var \Symfony\Component\Routing\CompiledRoute
+     */
+    public $compiled;
+
     /**
      * The router instance used by the route.
      *
      * @var \Illuminate\Routing\Router
      */
     protected $router;
+
     /**
      * The container instance used by the route.
      *
      * @var \Illuminate\Container\Container
      */
     protected $container;
+
     /**
      * The fields that implicit binding should use for a given parameter.
      *
@@ -133,20 +143,27 @@ class Route
     protected $bindingFields = [];
 
     /**
+     * The validators used by the routes.
+     *
+     * @var array
+     */
+    public static $validators;
+
+    /**
      * Create a new Route instance.
      *
-     * @param array|string $methods
-     * @param string $uri
-     * @param \Closure|array $action
+     * @param  array|string  $methods
+     * @param  string  $uri
+     * @param  \Closure|array  $action
      * @return void
      */
     public function __construct($methods, $uri, $action)
     {
         $this->uri = $uri;
-        $this->methods = (array)$methods;
+        $this->methods = (array) $methods;
         $this->action = Arr::except($this->parseAction($action), ['prefix']);
 
-        if (in_array('GET', $this->methods) && !in_array('HEAD', $this->methods)) {
+        if (in_array('GET', $this->methods) && ! in_array('HEAD', $this->methods)) {
             $this->methods[] = 'HEAD';
         }
 
@@ -154,23 +171,16 @@ class Route
     }
 
     /**
-     * Get the route validators for the instance.
+     * Parse the route action into a standard array.
      *
+     * @param  callable|array|null  $action
      * @return array
+     *
+     * @throws \UnexpectedValueException
      */
-    public static function getValidators()
+    protected function parseAction($action)
     {
-        if (isset(static::$validators)) {
-            return static::$validators;
-        }
-
-        // To match the route, we will use a chain of responsibility pattern with the
-        // validator implementations. We will spin through each one making sure it
-        // passes and then we will know if the route as a whole matches request.
-        return static::$validators = [
-            new UriValidator, new MethodValidator,
-            new SchemeValidator, new HostValidator,
-        ];
+        return RouteAction::parse($this->uri, $action);
     }
 
     /**
@@ -194,13 +204,66 @@ class Route
     }
 
     /**
+     * Checks whether the route's action is a controller.
+     *
+     * @return bool
+     */
+    protected function isControllerAction()
+    {
+        return is_string($this->action['uses']) && ! $this->isSerializedClosure();
+    }
+
+    /**
+     * Run the route action and return the response.
+     *
+     * @return mixed
+     */
+    protected function runCallable()
+    {
+        $callable = $this->action['uses'];
+
+        if ($this->isSerializedClosure()) {
+            $callable = unserialize($this->action['uses'])->getClosure();
+        }
+
+        return $callable(...array_values($this->resolveMethodDependencies(
+            $this->parametersWithoutNulls(), new ReflectionFunction($callable)
+        )));
+    }
+
+    /**
+     * Determine if the route action is a serialized Closure.
+     *
+     * @return bool
+     */
+    protected function isSerializedClosure()
+    {
+        return is_string($this->action['uses']) &&
+               Str::startsWith($this->action['uses'], 'C:32:"Opis\\Closure\\SerializableClosure') !== false;
+    }
+
+    /**
+     * Run the route action and return the response.
+     *
+     * @return mixed
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    protected function runController()
+    {
+        return $this->controllerDispatcher()->dispatch(
+            $this, $this->getController(), $this->getControllerMethod()
+        );
+    }
+
+    /**
      * Get the controller instance for the route.
      *
      * @return mixed
      */
     public function getController()
     {
-        if (!$this->controller) {
+        if (! $this->controller) {
             $class = $this->parseControllerCallback()[0];
 
             $this->controller = $this->container->make(ltrim($class, '\\'));
@@ -210,10 +273,30 @@ class Route
     }
 
     /**
+     * Get the controller method used for the route.
+     *
+     * @return string
+     */
+    protected function getControllerMethod()
+    {
+        return $this->parseControllerCallback()[1];
+    }
+
+    /**
+     * Parse the controller.
+     *
+     * @return array
+     */
+    protected function parseControllerCallback()
+    {
+        return Str::parseCallback($this->action['uses']);
+    }
+
+    /**
      * Determine if the route matches a given request.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param bool $includingMethod
+     * @param  \Illuminate\Http\Request  $request
+     * @param  bool  $includingMethod
      * @return bool
      */
     public function matches(Request $request, $includingMethod = true)
@@ -221,11 +304,11 @@ class Route
         $this->compileRoute();
 
         foreach (self::getValidators() as $validator) {
-            if (!$includingMethod && $validator instanceof MethodValidator) {
+            if (! $includingMethod && $validator instanceof MethodValidator) {
                 continue;
             }
 
-            if (!$validator->matches($this, $request)) {
+            if (! $validator->matches($this, $request)) {
                 return false;
             }
         }
@@ -234,9 +317,23 @@ class Route
     }
 
     /**
+     * Compile the route into a Symfony CompiledRoute instance.
+     *
+     * @return \Symfony\Component\Routing\CompiledRoute
+     */
+    protected function compileRoute()
+    {
+        if (! $this->compiled) {
+            $this->compiled = $this->toSymfonyRoute()->compile();
+        }
+
+        return $this->compiled;
+    }
+
+    /**
      * Bind the route to a given request for execution.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return $this
      */
     public function bind(Request $request)
@@ -244,7 +341,7 @@ class Route
         $this->compileRoute();
 
         $this->parameters = (new RouteParameterBinder($this))
-            ->parameters($request);
+                        ->parameters($request);
 
         $this->originalParameters = $this->parameters;
 
@@ -264,7 +361,7 @@ class Route
     /**
      * Determine a given parameter exists from the route.
      *
-     * @param string $name
+     * @param  string  $name
      * @return bool
      */
     public function hasParameter($name)
@@ -279,8 +376,8 @@ class Route
     /**
      * Get a given parameter from the route.
      *
-     * @param string $name
-     * @param string|object|null $default
+     * @param  string  $name
+     * @param  string|object|null  $default
      * @return string|object|null
      */
     public function parameter($name, $default = null)
@@ -291,8 +388,8 @@ class Route
     /**
      * Get original value of a given parameter from the route.
      *
-     * @param string $name
-     * @param string|null $default
+     * @param  string  $name
+     * @param  string|null  $default
      * @return string|null
      */
     public function originalParameter($name, $default = null)
@@ -303,8 +400,8 @@ class Route
     /**
      * Set a parameter to the given value.
      *
-     * @param string $name
-     * @param string|object|null $value
+     * @param  string  $name
+     * @param  string|object|null  $value
      * @return void
      */
     public function setParameter($name, $value)
@@ -317,7 +414,7 @@ class Route
     /**
      * Unset a parameter on the route if it is set.
      *
-     * @param string $name
+     * @param  string  $name
      * @return void
      */
     public function forgetParameter($name)
@@ -367,7 +464,7 @@ class Route
     public function parametersWithoutNulls()
     {
         return array_filter($this->parameters(), function ($p) {
-            return !is_null($p);
+            return ! is_null($p);
         });
     }
 
@@ -386,9 +483,23 @@ class Route
     }
 
     /**
+     * Get the parameter names for the route.
+     *
+     * @return array
+     */
+    protected function compileParameterNames()
+    {
+        preg_match_all('/\{(.*?)\}/', $this->getDomain().$this->uri, $matches);
+
+        return array_map(function ($m) {
+            return trim($m, '?');
+        }, $matches[1]);
+    }
+
+    /**
      * Get the parameters that are listed in the route / controller signature.
      *
-     * @param string|null $subClass
+     * @param  string|null  $subClass
      * @return array
      */
     public function signatureParameters($subClass = null)
@@ -399,7 +510,7 @@ class Route
     /**
      * Get the binding field for the given parameter.
      *
-     * @param string|int $parameter
+     * @param  string|int  $parameter
      * @return string|null
      */
     public function bindingFieldFor($parameter)
@@ -422,7 +533,7 @@ class Route
     /**
      * Set the binding fields for the route.
      *
-     * @param array $bindingFields
+     * @param  array  $bindingFields
      * @return $this
      */
     public function setBindingFields(array $bindingFields)
@@ -435,7 +546,7 @@ class Route
     /**
      * Get the parent parameter of the given parameter.
      *
-     * @param string $parameter
+     * @param  string  $parameter
      * @return string
      */
     public function parentOfParameter($parameter)
@@ -452,8 +563,8 @@ class Route
     /**
      * Set a default value for the route.
      *
-     * @param string $key
-     * @param mixed $value
+     * @param  string  $key
+     * @param  mixed  $value
      * @return $this
      */
     public function defaults($key, $value)
@@ -466,7 +577,7 @@ class Route
     /**
      * Set the default values for the route.
      *
-     * @param array $defaults
+     * @param  array  $defaults
      * @return $this
      */
     public function setDefaults(array $defaults)
@@ -479,8 +590,8 @@ class Route
     /**
      * Set a regular expression requirement on the route.
      *
-     * @param array|string $name
-     * @param string|null $expression
+     * @param  array|string  $name
+     * @param  string|null  $expression
      * @return $this
      */
     public function where($name, $expression = null)
@@ -493,9 +604,21 @@ class Route
     }
 
     /**
+     * Parse arguments to the where method into an array.
+     *
+     * @param  array|string  $name
+     * @param  string  $expression
+     * @return array
+     */
+    protected function parseWhere($name, $expression)
+    {
+        return is_array($name) ? $name : [$name => $expression];
+    }
+
+    /**
      * Set a list of regular expression requirements on the route.
      *
-     * @param array $wheres
+     * @param  array  $wheres
      * @return $this
      */
     public function setWheres(array $wheres)
@@ -522,7 +645,7 @@ class Route
     /**
      * Set the fallback value.
      *
-     * @param bool $isFallback
+     * @param  bool  $isFallback
      * @return $this
      */
     public function setFallback($isFallback)
@@ -575,7 +698,7 @@ class Route
     /**
      * Get or set the domain for the route.
      *
-     * @param string|null $domain
+     * @param  string|null  $domain
      * @return $this|string|null
      */
     public function domain($domain = null)
@@ -603,7 +726,7 @@ class Route
     public function getDomain()
     {
         return isset($this->action['domain'])
-            ? str_replace(['http://', 'https://'], '', $this->action['domain']) : null;
+                ? str_replace(['http://', 'https://'], '', $this->action['domain']) : null;
     }
 
     /**
@@ -619,16 +742,29 @@ class Route
     /**
      * Add a prefix to the route URI.
      *
-     * @param string $prefix
+     * @param  string  $prefix
      * @return $this
      */
     public function prefix($prefix)
     {
         $this->updatePrefixOnAction($prefix);
 
-        $uri = rtrim($prefix, '/') . '/' . ltrim($this->uri, '/');
+        $uri = rtrim($prefix, '/').'/'.ltrim($this->uri, '/');
 
         return $this->setUri($uri !== '/' ? trim($uri, '/') : $uri);
+    }
+
+    /**
+     * Update the "prefix" attribute on the action array.
+     *
+     * @param  string  $prefix
+     * @return void
+     */
+    protected function updatePrefixOnAction($prefix)
+    {
+        if (! empty($newPrefix = trim(rtrim($prefix, '/').'/'.ltrim($this->action['prefix'] ?? '', '/'), '/'))) {
+            $this->action['prefix'] = $newPrefix;
+        }
     }
 
     /**
@@ -644,7 +780,7 @@ class Route
     /**
      * Set the URI that the route responds to.
      *
-     * @param string $uri
+     * @param  string  $uri
      * @return $this
      */
     public function setUri($uri)
@@ -652,6 +788,21 @@ class Route
         $this->uri = $this->parseUri($uri);
 
         return $this;
+    }
+
+    /**
+     * Parse the route URI and normalize / store any implicit binding fields.
+     *
+     * @param  string  $uri
+     * @return string
+     */
+    protected function parseUri($uri)
+    {
+        $this->bindingFields = [];
+
+        return tap(RouteUri::parse($uri), function ($uri) {
+            $this->bindingFields = $uri->bindingFields;
+        })->uri;
     }
 
     /**
@@ -667,12 +818,12 @@ class Route
     /**
      * Add or change the route name.
      *
-     * @param string $name
+     * @param  string  $name
      * @return $this
      */
     public function name($name)
     {
-        $this->action['as'] = isset($this->action['as']) ? $this->action['as'] . $name : $name;
+        $this->action['as'] = isset($this->action['as']) ? $this->action['as'].$name : $name;
 
         return $this;
     }
@@ -680,7 +831,7 @@ class Route
     /**
      * Determine whether the route's name matches the given patterns.
      *
-     * @param mixed ...$patterns
+     * @param  mixed  ...$patterns
      * @return bool
      */
     public function named(...$patterns)
@@ -701,13 +852,13 @@ class Route
     /**
      * Set the handler for the route.
      *
-     * @param \Closure|array|string $action
+     * @param  \Closure|array|string  $action
      * @return $this
      */
     public function uses($action)
     {
         if (is_array($action)) {
-            $action = $action[0] . '@' . $action[1];
+            $action = $action[0].'@'.$action[1];
         }
 
         $action = is_string($action) ? $this->addGroupNamespaceToStringUses($action) : $action;
@@ -716,6 +867,23 @@ class Route
             'uses' => $action,
             'controller' => $action,
         ])));
+    }
+
+    /**
+     * Parse a string based action for the "uses" fluent method.
+     *
+     * @param  string  $action
+     * @return string
+     */
+    protected function addGroupNamespaceToStringUses($action)
+    {
+        $groupStack = last($this->router->getGroupStack());
+
+        if (isset($groupStack['namespace']) && strpos($action, '\\') !== 0) {
+            return $groupStack['namespace'].'\\'.$action;
+        }
+
+        return $action;
     }
 
     /**
@@ -741,7 +909,7 @@ class Route
     /**
      * Get the action array or one of its properties for the route.
      *
-     * @param string|null $key
+     * @param  string|null  $key
      * @return mixed
      */
     public function getAction($key = null)
@@ -752,7 +920,7 @@ class Route
     /**
      * Set the action array for the route.
      *
-     * @param array $action
+     * @param  array  $action
      * @return $this
      */
     public function setAction(array $action)
@@ -773,7 +941,7 @@ class Route
      */
     public function gatherMiddleware()
     {
-        if (!is_null($this->computedMiddleware)) {
+        if (! is_null($this->computedMiddleware)) {
             return $this->computedMiddleware;
         }
 
@@ -787,13 +955,13 @@ class Route
     /**
      * Get or set the middlewares attached to the route.
      *
-     * @param array|string|null $middleware
+     * @param  array|string|null  $middleware
      * @return $this|array
      */
     public function middleware($middleware = null)
     {
         if (is_null($middleware)) {
-            return (array)($this->action['middleware'] ?? []);
+            return (array) ($this->action['middleware'] ?? []);
         }
 
         if (is_string($middleware)) {
@@ -801,7 +969,7 @@ class Route
         }
 
         $this->action['middleware'] = array_merge(
-            (array)($this->action['middleware'] ?? []), $middleware
+            (array) ($this->action['middleware'] ?? []), $middleware
         );
 
         return $this;
@@ -814,7 +982,7 @@ class Route
      */
     public function controllerMiddleware()
     {
-        if (!$this->isControllerAction()) {
+        if (! $this->isControllerAction()) {
             return [];
         }
 
@@ -826,13 +994,13 @@ class Route
     /**
      * Specify middleware that should be removed from the given route.
      *
-     * @param array|string $middleware
+     * @param  array|string  $middleware
      * @return $this|array
      */
     public function withoutMiddleware($middleware)
     {
         $this->action['excluded_middleware'] = array_merge(
-            (array)($this->action['excluded_middleware'] ?? []), Arr::wrap($middleware)
+            (array) ($this->action['excluded_middleware'] ?? []), Arr::wrap($middleware)
         );
 
         return $this;
@@ -845,14 +1013,14 @@ class Route
      */
     public function excludedMiddleware()
     {
-        return (array)($this->action['excluded_middleware'] ?? []);
+        return (array) ($this->action['excluded_middleware'] ?? []);
     }
 
     /**
      * Specify that the route should not allow concurrent requests from the same session.
      *
-     * @param int|null $lockSeconds
-     * @param int|null $waitSeconds
+     * @param  int|null  $lockSeconds
+     * @param  int|null  $waitSeconds
      * @return $this
      */
     public function block($lockSeconds = 10, $waitSeconds = 10)
@@ -908,6 +1076,26 @@ class Route
     }
 
     /**
+     * Get the route validators for the instance.
+     *
+     * @return array
+     */
+    public static function getValidators()
+    {
+        if (isset(static::$validators)) {
+            return static::$validators;
+        }
+
+        // To match the route, we will use a chain of responsibility pattern with the
+        // validator implementations. We will spin through each one making sure it
+        // passes and then we will know if the route as a whole matches request.
+        return static::$validators = [
+            new UriValidator, new MethodValidator,
+            new SchemeValidator, new HostValidator,
+        ];
+    }
+
+    /**
      * Convert the route to a Symfony route.
      *
      * @return \Symfony\Component\Routing\Route
@@ -919,6 +1107,18 @@ class Route
             $this->wheres, ['utf8' => true, 'action' => $this->action],
             $this->getDomain() ?: '', [], $this->methods
         );
+    }
+
+    /**
+     * Get the optional parameter names for the route.
+     *
+     * @return array
+     */
+    protected function getOptionalParameterNames()
+    {
+        preg_match_all('/\{(\w+?)\?\}/', $this->uri(), $matches);
+
+        return isset($matches[1]) ? array_fill_keys($matches[1], null) : [];
     }
 
     /**
@@ -934,7 +1134,7 @@ class Route
     /**
      * Set the router instance on the route.
      *
-     * @param \Illuminate\Routing\Router $router
+     * @param  \Illuminate\Routing\Router  $router
      * @return $this
      */
     public function setRouter(Router $router)
@@ -947,7 +1147,7 @@ class Route
     /**
      * Set the container instance on the route.
      *
-     * @param \Illuminate\Container\Container $container
+     * @param  \Illuminate\Container\Container  $container
      * @return $this
      */
     public function setContainer(Container $container)
@@ -980,194 +1180,11 @@ class Route
     /**
      * Dynamically access route parameters.
      *
-     * @param string $key
+     * @param  string  $key
      * @return mixed
      */
     public function __get($key)
     {
         return $this->parameter($key);
-    }
-
-    /**
-     * Parse the route action into a standard array.
-     *
-     * @param callable|array|null $action
-     * @return array
-     *
-     * @throws \UnexpectedValueException
-     */
-    protected function parseAction($action)
-    {
-        return RouteAction::parse($this->uri, $action);
-    }
-
-    /**
-     * Checks whether the route's action is a controller.
-     *
-     * @return bool
-     */
-    protected function isControllerAction()
-    {
-        return is_string($this->action['uses']) && !$this->isSerializedClosure();
-    }
-
-    /**
-     * Run the route action and return the response.
-     *
-     * @return mixed
-     */
-    protected function runCallable()
-    {
-        $callable = $this->action['uses'];
-
-        if ($this->isSerializedClosure()) {
-            $callable = unserialize($this->action['uses'])->getClosure();
-        }
-
-        return $callable(...array_values($this->resolveMethodDependencies(
-            $this->parametersWithoutNulls(), new ReflectionFunction($callable)
-        )));
-    }
-
-    /**
-     * Determine if the route action is a serialized Closure.
-     *
-     * @return bool
-     */
-    protected function isSerializedClosure()
-    {
-        return is_string($this->action['uses']) &&
-            Str::startsWith($this->action['uses'], 'C:32:"Opis\\Closure\\SerializableClosure') !== false;
-    }
-
-    /**
-     * Run the route action and return the response.
-     *
-     * @return mixed
-     *
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     */
-    protected function runController()
-    {
-        return $this->controllerDispatcher()->dispatch(
-            $this, $this->getController(), $this->getControllerMethod()
-        );
-    }
-
-    /**
-     * Get the controller method used for the route.
-     *
-     * @return string
-     */
-    protected function getControllerMethod()
-    {
-        return $this->parseControllerCallback()[1];
-    }
-
-    /**
-     * Parse the controller.
-     *
-     * @return array
-     */
-    protected function parseControllerCallback()
-    {
-        return Str::parseCallback($this->action['uses']);
-    }
-
-    /**
-     * Compile the route into a Symfony CompiledRoute instance.
-     *
-     * @return \Symfony\Component\Routing\CompiledRoute
-     */
-    protected function compileRoute()
-    {
-        if (!$this->compiled) {
-            $this->compiled = $this->toSymfonyRoute()->compile();
-        }
-
-        return $this->compiled;
-    }
-
-    /**
-     * Get the parameter names for the route.
-     *
-     * @return array
-     */
-    protected function compileParameterNames()
-    {
-        preg_match_all('/\{(.*?)\}/', $this->getDomain() . $this->uri, $matches);
-
-        return array_map(function ($m) {
-            return trim($m, '?');
-        }, $matches[1]);
-    }
-
-    /**
-     * Parse arguments to the where method into an array.
-     *
-     * @param array|string $name
-     * @param string $expression
-     * @return array
-     */
-    protected function parseWhere($name, $expression)
-    {
-        return is_array($name) ? $name : [$name => $expression];
-    }
-
-    /**
-     * Update the "prefix" attribute on the action array.
-     *
-     * @param string $prefix
-     * @return void
-     */
-    protected function updatePrefixOnAction($prefix)
-    {
-        if (!empty($newPrefix = trim(rtrim($prefix, '/') . '/' . ltrim($this->action['prefix'] ?? '', '/'), '/'))) {
-            $this->action['prefix'] = $newPrefix;
-        }
-    }
-
-    /**
-     * Parse the route URI and normalize / store any implicit binding fields.
-     *
-     * @param string $uri
-     * @return string
-     */
-    protected function parseUri($uri)
-    {
-        $this->bindingFields = [];
-
-        return tap(RouteUri::parse($uri), function ($uri) {
-            $this->bindingFields = $uri->bindingFields;
-        })->uri;
-    }
-
-    /**
-     * Parse a string based action for the "uses" fluent method.
-     *
-     * @param string $action
-     * @return string
-     */
-    protected function addGroupNamespaceToStringUses($action)
-    {
-        $groupStack = last($this->router->getGroupStack());
-
-        if (isset($groupStack['namespace']) && strpos($action, '\\') !== 0) {
-            return $groupStack['namespace'] . '\\' . $action;
-        }
-
-        return $action;
-    }
-
-    /**
-     * Get the optional parameter names for the route.
-     *
-     * @return array
-     */
-    protected function getOptionalParameterNames()
-    {
-        preg_match_all('/\{(\w+?)\?\}/', $this->uri(), $matches);
-
-        return isset($matches[1]) ? array_fill_keys($matches[1], null) : [];
     }
 }
