@@ -52,6 +52,7 @@ class HardwareRecordController extends AdminController
 
             $grid->enableDialogCreate();
             $grid->disableRowSelector();
+            $grid->disableDeleteButton();
             $grid->disableBatchActions();
 
             $grid->toolsWithOutline(false);
@@ -77,6 +78,9 @@ class HardwareRecordController extends AdminController
             $show->field('vendor.name');
             $show->field('specification');
             $show->field('sn');
+            $show->field('price');
+            $show->field('purchased');
+            $show->field('expired');
             $show->field('created_at');
             $show->field('updated_at');
 
@@ -105,6 +109,9 @@ class HardwareRecordController extends AdminController
                 ->required();
             $form->text('specification')->required();
             $form->text('sn');
+            $form->currency('price');
+            $form->date('purchased');
+            $form->date('expired');
 
             $form->display('created_at');
             $form->display('updated_at');

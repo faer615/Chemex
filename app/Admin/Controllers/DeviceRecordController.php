@@ -102,8 +102,8 @@ class DeviceRecordController extends AdminController
                 $actions->append(new MaintenanceAction('device'));
             });
 
-            $grid->quickSearch('id', 'name')
-                ->placeholder('输入ID或者名称以搜索')
+            $grid->quickSearch('id', 'name', 'ip', 'mac')
+                ->placeholder('试着搜索一下')
                 ->auto(false);
 
             $grid->selector(function (Selector $selector) {

@@ -138,6 +138,7 @@ return array(
     'App\\Providers\\EventServiceProvider' => $baseDir . '/app/Providers/EventServiceProvider.php',
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
     'App\\Services\\ConfigService' => $baseDir . '/app/Services/ConfigService.php',
+    'App\\Services\\ExpirationService' => $baseDir . '/app/Services/ExpirationService.php',
     'App\\Support\\Data' => $baseDir . '/app/Support/Data.php',
     'App\\Support\\Info' => $baseDir . '/app/Support/Info.php',
     'App\\Support\\Network' => $baseDir . '/app/Support/Network.php',

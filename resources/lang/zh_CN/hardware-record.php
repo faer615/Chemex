@@ -19,6 +19,9 @@ return [
         ],
         'specification' => '规格',
         'sn' => '序列号',
+        'price' => '价格',
+        'purchased' => '购入日期',
+        'expired' => '过保日期'
     ],
     'options' => [
     ],

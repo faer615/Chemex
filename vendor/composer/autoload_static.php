@@ -695,6 +695,7 @@ class ComposerStaticInitc9b71b6783eea048407b6049c4ab775d
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'App\\Services\\ConfigService' => __DIR__ . '/../..' . '/app/Services/ConfigService.php',
+        'App\\Services\\ExpirationService' => __DIR__ . '/../..' . '/app/Services/ExpirationService.php',
         'App\\Support\\Data' => __DIR__ . '/../..' . '/app/Support/Data.php',
         'App\\Support\\Info' => __DIR__ . '/../..' . '/app/Support/Info.php',
         'App\\Support\\Network' => __DIR__ . '/../..' . '/app/Support/Network.php',

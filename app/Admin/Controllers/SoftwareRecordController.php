@@ -56,6 +56,7 @@ class SoftwareRecordController extends AdminController
 
             $grid->enableDialogCreate();
             $grid->disableRowSelector();
+            $grid->disableDeleteButton();
             $grid->disableBatchActions();
 
             $grid->toolsWithOutline(false);
