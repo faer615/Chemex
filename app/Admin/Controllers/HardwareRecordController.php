@@ -8,6 +8,7 @@ use App\Admin\Actions\Grid\RowAction\HardwareTrackAction;
 use App\Admin\Actions\Grid\RowAction\MaintenanceAction;
 use App\Admin\Repositories\HardwareRecord;
 use App\Models\HardwareCategory;
+use App\Models\PurchasedChannel;
 use App\Models\VendorRecord;
 use App\Support\Track;
 use Dcat\Admin\Form;
@@ -70,12 +71,13 @@ class HardwareRecordController extends AdminController
      */
     protected function detail($id)
     {
-        return Show::make($id, new HardwareRecord(['category', 'vendor']), function (Show $show) {
+        return Show::make($id, new HardwareRecord(['category', 'vendor', 'channel']), function (Show $show) {
             $show->field('id');
             $show->field('name');
             $show->field('description');
             $show->field('category.name');
             $show->field('vendor.name');
+            $show->field('channel.name');
             $show->field('specification');
             $show->field('sn');
             $show->field('price');
@@ -107,6 +109,9 @@ class HardwareRecordController extends AdminController
                 ->options(VendorRecord::all()
                     ->pluck('name', 'id'))
                 ->required();
+            $form->select('purchased_channel_id', admin_trans_label('Purchased Channel Id'))
+                ->options(PurchasedChannel::all()
+                    ->pluck('name', 'id'));
             $form->text('specification')->required();
             $form->text('sn');
             $form->currency('price');

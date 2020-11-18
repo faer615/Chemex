@@ -59,6 +59,15 @@ class DeviceRecord extends Model
     }
 
     /**
+     * 购入途径
+     * @return HasOne
+     */
+    public function channel()
+    {
+        return $this->hasOne(PurchasedChannel::class, 'id', 'purchased_channel_id');
+    }
+
+    /**
      * 设备下所有硬件
      * @return HasManyThrough
      */

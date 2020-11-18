@@ -5,6 +5,7 @@ namespace App\Models;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -38,13 +39,30 @@ class HardwareRecord extends Model
         });
     }
 
+    /**
+     * 硬件分类
+     * @return HasOne
+     */
     public function category()
     {
         return $this->hasOne(HardwareCategory::class, 'id', 'category_id');
     }
 
+    /**
+     * 制造商
+     * @return HasOne
+     */
     public function vendor()
     {
         return $this->hasOne(VendorRecord::class, 'id', 'vendor_id');
+    }
+
+    /**
+     * 购入途径
+     * @return HasOne
+     */
+    public function channel()
+    {
+        return $this->hasOne(PurchasedChannel::class, 'id', 'purchased_channel_id');
     }
 }

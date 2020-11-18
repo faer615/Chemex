@@ -5,7 +5,8 @@ return [
         'Category' => '分类',
         'Vendor' => '制造商',
         'Left Counts' => '剩余授权数量',
-        'records' => '软件'
+        'Purchased Channel Id' => '购入途径',
+        'records' => '软件',
     ],
     'fields' => [
         'qrcode' => '二维码',
@@ -17,6 +18,9 @@ return [
         'version' => '版本',
         'vendor' => [
             'name' => '制造商'
+        ],
+        'channel' => [
+            'name' => '购入途径'
         ],
         'price' => '价格',
         'purchased' => '购入时间',

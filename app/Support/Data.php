@@ -172,4 +172,5 @@ class Data
         $alert->icon('feather icon-alert-triangle');
         return $alert;
     }
+
 }

@@ -35,6 +35,7 @@ Route::group([
     ]]);
     $router->resource('/hardware/categories', 'HardwareCategoryController');
     $router->resource('/vendor/records', 'VendorRecordController');
+    $router->resource('/purchased/channels', 'PurchasedChannelController');
     $router->resource('/staff/records', 'StaffRecordController', ['names' => [
         'index' => 'staff.records.index'
     ]]);

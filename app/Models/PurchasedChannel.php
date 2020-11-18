@@ -5,18 +5,14 @@ namespace App\Models;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-/**
- * @method static where(string $key, string $value)
- */
-class SoftwareRecord extends Model
+class PurchasedChannel extends Model
 {
     use HasDateTimeFormatter;
     use SoftDeletes;
 
-    protected $table = 'software_records';
+    protected $table = 'purchased_channels';
 
     /**
      * 模型的 "booted" 方法
@@ -39,30 +35,4 @@ class SoftwareRecord extends Model
         });
     }
 
-    /**
-     * 软件分类
-     * @return HasOne
-     */
-    public function category()
-    {
-        return $this->hasOne(SoftwareCategory::class, 'id', 'category_id');
-    }
-
-    /**
-     * 制造商
-     * @return HasOne
-     */
-    public function vendor()
-    {
-        return $this->hasOne(VendorRecord::class, 'id', 'vendor_id');
-    }
-
-    /**
-     * 购入途径
-     * @return HasOne
-     */
-    public function channel()
-    {
-        return $this->hasOne(PurchasedChannel::class, 'id', 'purchased_channel_id');
-    }
 }

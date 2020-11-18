@@ -6,6 +6,7 @@ use App\Admin\Actions\Grid\RowAction\SoftwareDeleteAction;
 use App\Admin\Actions\Grid\RowAction\SoftwareHistoryAction;
 use App\Admin\Actions\Grid\RowAction\SoftwareTrackAction;
 use App\Admin\Repositories\SoftwareRecord;
+use App\Models\PurchasedChannel;
 use App\Models\SoftwareCategory;
 use App\Models\VendorRecord;
 use App\Support\Data;
@@ -74,13 +75,14 @@ class SoftwareRecordController extends AdminController
      */
     protected function detail($id)
     {
-        return Show::make($id, new SoftwareRecord(['category', 'vendor']), function (Show $show) {
+        return Show::make($id, new SoftwareRecord(['category', 'vendor', 'channel']), function (Show $show) {
             $show->field('id');
             $show->field('name');
             $show->field('description');
             $show->field('category.name');
             $show->field('version');
             $show->field('vendor.name');
+            $show->field('channel.name');
             $show->field('price');
             $show->field('purchased');
             $show->field('expired');
@@ -111,6 +113,8 @@ class SoftwareRecordController extends AdminController
             $form->select('vendor_id', admin_trans_label('Vendor'))
                 ->options(VendorRecord::all()->pluck('name', 'id'))
                 ->required();
+            $form->select('purchased_channel_id', admin_trans_label('Purchased Channel Id'))
+                ->options(PurchasedChannel::all()->pluck('name', 'id'));
             $form->currency('price')->default(0);
             $form->date('purchased');
             $form->date('expired');

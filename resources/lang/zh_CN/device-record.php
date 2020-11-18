@@ -4,6 +4,7 @@ return [
         'DeviceRecord' => '设备',
         'Category' => '分类',
         'Vendor' => '制造商',
+        'Purchased Channel Id' => '购入途径',
         'records' => '设备'
     ],
     'fields' => [
@@ -15,6 +16,9 @@ return [
         ],
         'vendor' => [
             'name' => '制造商'
+        ],
+        'channel' => [
+            'name' => '购入途径'
         ],
         'sn' => '序列号',
         'mac' => 'MAC',

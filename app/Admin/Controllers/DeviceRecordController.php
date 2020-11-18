@@ -9,6 +9,7 @@ use App\Admin\Actions\Grid\RowAction\DeviceTrackAction;
 use App\Admin\Actions\Grid\RowAction\MaintenanceAction;
 use App\Admin\Repositories\DeviceRecord;
 use App\Models\DeviceCategory;
+use App\Models\PurchasedChannel;
 use App\Models\VendorRecord;
 use App\Services\ExpirationService;
 use App\Support\Info;
@@ -129,12 +130,13 @@ class DeviceRecordController extends AdminController
      */
     protected function detail($id)
     {
-        return Show::make($id, new DeviceRecord(['category', 'vendor']), function (Show $show) {
+        return Show::make($id, new DeviceRecord(['category', 'vendor', 'channel']), function (Show $show) {
             $show->field('id');
             $show->field('name');
             $show->field('description');
             $show->field('category.name');
             $show->field('vendor.name');
+            $show->field('channel.name');
             $show->field('sn');
             $show->field('mac');
             $show->field('ip');
@@ -168,6 +170,9 @@ class DeviceRecordController extends AdminController
                 ->options(VendorRecord::all()
                     ->pluck('name', 'id'))
                 ->required();
+            $form->select('purchased_channel_id', admin_trans_label('Purchased Channel Id'))
+                ->options(PurchasedChannel::all()
+                    ->pluck('name', 'id'));
             $form->text('sn');
             $form->text('mac');
             $form->text('ip');

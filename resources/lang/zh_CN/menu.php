@@ -16,7 +16,7 @@ return [
 
         'software_management' => '软件管理',
         'software_categories' => '软件分类',
-        'vendor_management' => '制造商管理',
+        'purchased_channels' => '购入途径',
         'vendor_records' => '制造商',
         'software_records' => '软件',
         'hardware_management' => '硬件管理',

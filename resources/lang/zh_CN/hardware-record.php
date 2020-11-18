@@ -5,6 +5,7 @@ return [
         'Owner' => '所属设备',
         'Category' => '分类',
         'Vendor' => '供应商',
+        'Purchased Channel Id' => '购入途径',
         'records' => '硬件'
     ],
     'fields' => [
@@ -16,6 +17,9 @@ return [
         ],
         'vendor' => [
             'name' => '制造商'
+        ],
+        'channel' => [
+            'name' => '购入途径'
         ],
         'specification' => '规格',
         'sn' => '序列号',
