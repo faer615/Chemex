@@ -10,16 +10,31 @@ use App\Admin\Actions\Grid\RowAction\MaintenanceAction;
 use App\Admin\Repositories\DeviceRecord;
 use App\Models\DeviceCategory;
 use App\Models\VendorRecord;
+use App\Services\ExpirationService;
 use App\Support\Info;
 use App\Support\Track;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Grid\Tools\Selector;
 use Dcat\Admin\Http\Controllers\AdminController;
+use Dcat\Admin\Layout\Content;
+use Dcat\Admin\Layout\Row;
 use Dcat\Admin\Show;
+use Dcat\Admin\Widgets\Card;
 
 class DeviceRecordController extends AdminController
 {
+    public function index(Content $content)
+    {
+        return $content
+            ->title($this->title())
+            ->description($this->description()['index'] ?? trans('admin.list'))
+            ->body(function (Row $row) {
+                $row->column(3, new Card('30天内即将过保设备数', ExpirationService::deviceCounts()));
+            })
+            ->body($this->grid());
+    }
+
     /**
      * Make a grid builder.
      *
@@ -28,6 +43,7 @@ class DeviceRecordController extends AdminController
     protected function grid()
     {
         return Grid::make(new DeviceRecord(['category', 'vendor']), function (Grid $grid) {
+
             $grid->column('id');
             $grid->column('qrcode')->qrcode(function () {
                 return base64_encode('device:' . $this->id);
@@ -123,6 +139,9 @@ class DeviceRecordController extends AdminController
             $show->field('mac');
             $show->field('ip');
             $show->field('photo')->image();
+            $show->field('price');
+            $show->field('purchased');
+            $show->field('expired');
             $show->field('created_at');
             $show->field('updated_at');
 
@@ -155,6 +174,9 @@ class DeviceRecordController extends AdminController
             $form->image('photo')
                 ->autoUpload()
                 ->uniqueName();
+            $form->currency('price');
+            $form->date('purchased');
+            $form->date('expired');
 
             $form->display('created_at');
             $form->display('updated_at');

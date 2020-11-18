@@ -10,6 +10,9 @@ return [
         'description' => '描述',
         'location' => '所在地',
         'logo' => 'LOGO',
+        'contacts' => '联系人',
+        'phone' => '联系电话',
+        'title' => '职位'
     ],
     'options' => [
     ],

@@ -4,6 +4,7 @@ namespace App\Admin\Controllers;
 
 use App\Admin\Repositories\VendorRecord;
 use Dcat\Admin\Form;
+use Dcat\Admin\Form\NestedForm;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Show;
@@ -51,6 +52,7 @@ class VendorRecordController extends AdminController
             $show->field('name');
             $show->field('description');
             $show->field('location');
+            $show->field('contacts')->view('vendor_records.contacts');
             $show->field('created_at');
             $show->field('updated_at');
         });
@@ -73,6 +75,12 @@ class VendorRecordController extends AdminController
             })->required();
             $form->text('description');
             $form->text('location');
+            $form->table('contacts', function (NestedForm $table) {
+                $table->text('name');
+                $table->mobile('phone');
+                $table->email('email');
+                $table->text('title');
+            });
             $form->display('created_at');
             $form->display('updated_at');
 
