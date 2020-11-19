@@ -11,6 +11,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @method static where(string $key, string $value, string $value = null)
+ * @property mixed name
+ * @property mixed category_id
+ * @property mixed vendor_id
+ * @property mixed sn
+ * @property mixed mac
+ * @property mixed ip
+ * @property mixed price
+ * @property mixed purchased
+ * @property mixed expired
+ * @property mixed purchased_channel_id
  */
 class DeviceRecord extends Model
 {

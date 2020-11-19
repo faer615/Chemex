@@ -22,7 +22,7 @@ return [
     | `img` tag, eg '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo' => '<img src="/static/images/logo.png" style="max-width: none;">',
+    'logo' => '咖啡壶',
 
     /*
     |--------------------------------------------------------------------------
@@ -34,7 +34,7 @@ return [
     | '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo-mini' => '<img src="/static/images/logo-mini.png">',
+    'logo-mini' => 'CX',
 
     /*
      |--------------------------------------------------------------------------
@@ -277,7 +277,7 @@ return [
         // default, blue, blue-light, blue-dark, green
         'color' => 'blue-light',
 
-        'body_class' => 'sidebar-separate',
+        'body_class' => '',
 
         'sidebar_collapsed' => false,
 
