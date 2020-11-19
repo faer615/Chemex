@@ -5,6 +5,7 @@ namespace App\Admin\Actions\Grid\RowAction;
 use App\Models\CheckRecord;
 use App\Models\CheckTrack;
 use Dcat\Admin\Actions\Response;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Grid\RowAction;
 
 class CheckCancelAction extends RowAction
@@ -21,6 +22,12 @@ class CheckCancelAction extends RowAction
      */
     public function handle()
     {
+        if (!Admin::user()->can('check.cancel')) {
+            return $this->response()
+                ->error('你没有权限执行此操作！')
+                ->refresh();
+        }
+
         $check_tracks = CheckTrack::where('check_id', $this->getKey())->get();
         foreach ($check_tracks as $check_track) {
             $check_track->delete();

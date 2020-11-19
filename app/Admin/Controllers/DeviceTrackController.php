@@ -6,6 +6,7 @@ use App\Admin\Actions\Grid\AbstractTool\DeviceTrackTrashedAction;
 use App\Admin\Actions\Grid\RowAction\DeviceTrackDisableAction;
 use App\Admin\Repositories\DeviceTrack;
 use App\Support\Data;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Widgets\Alert;
@@ -37,7 +38,9 @@ class DeviceTrackController extends AdminController
             $grid->setActionClass(Grid\Displayers\Actions::class);
 
             $grid->actions(function (Grid\Displayers\Actions $actions) {
-                $actions->append(new DeviceTrackDisableAction());
+                if (Admin::user()->can('device.track.disable')) {
+                    $actions->append(new DeviceTrackDisableAction());
+                }
             });
 
             $grid->toolsWithOutline(false);

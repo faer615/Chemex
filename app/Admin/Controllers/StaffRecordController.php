@@ -6,6 +6,7 @@ use App\Admin\Actions\Grid\RowAction\StaffDeleteAction;
 use App\Admin\Repositories\StaffRecord;
 use App\Models\StaffDepartment;
 use App\Support\Data;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Http\Controllers\AdminController;
@@ -35,10 +36,13 @@ class StaffRecordController extends AdminController
 
             $grid->enableDialogCreate();
             $grid->disableRowSelector();
+            $grid->disableDeleteButton();
             $grid->disableBatchActions();
 
             $grid->actions(function (Grid\Displayers\Actions $actions) {
-                $actions->append(new StaffDeleteAction());
+                if (Admin::user()->can('staff.delete')) {
+                    $actions->append(new StaffDeleteAction());
+                }
             });
 
             $grid->toolsWithOutline(false);

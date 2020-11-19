@@ -5,6 +5,7 @@ namespace App\Admin\Actions\Grid\RowAction;
 use App\Models\CheckRecord;
 use App\Models\CheckTrack;
 use Dcat\Admin\Actions\Response;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Grid\RowAction;
 
 class CheckFinishAction extends RowAction
@@ -21,6 +22,12 @@ class CheckFinishAction extends RowAction
      */
     public function handle()
     {
+        if (!Admin::user()->can('check.finish')) {
+            return $this->response()
+                ->error('你没有权限执行此操作！')
+                ->refresh();
+        }
+
         $check_track = CheckTrack::where('status', 0)->where('check_id', $this->getKey())->first();
         if (empty($check_track)) {
             $check_record = CheckRecord::where('id', $this->getKey())->firstOrFail();

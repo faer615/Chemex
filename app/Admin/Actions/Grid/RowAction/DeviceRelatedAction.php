@@ -4,6 +4,7 @@ namespace App\Admin\Actions\Grid\RowAction;
 
 use App\Models\DeviceRecord;
 use App\Support\Data;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Grid\RowAction;
 use Dcat\Admin\Widgets\Modal;
 
@@ -12,10 +13,14 @@ class DeviceRelatedAction extends RowAction
     /**
      * @return string
      */
-    protected $title = '📝 软硬件清单';
+    protected $title = '📝 设备关联信息清单';
 
     public function render()
     {
+        if (!Admin::user()->can('device.history')) {
+            return '你没有权限执行此操作！';
+        }
+
         // 实例化表单类并传递自定义参数
         $id = $this->getKey();
 

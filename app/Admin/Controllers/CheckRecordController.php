@@ -11,6 +11,7 @@ use App\Models\DeviceRecord;
 use App\Models\HardwareRecord;
 use App\Models\SoftwareRecord;
 use App\Support\Data;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Http\Controllers\AdminController;
@@ -35,8 +36,12 @@ class CheckRecordController extends AdminController
 
             $grid->actions(function (Grid\Displayers\Actions $actions) {
                 if ($this->status == 0) {
-                    $actions->append(new CheckFinishAction());
-                    $actions->append(new CheckCancelAction());
+                    if (Admin::user()->can('check.finish')) {
+                        $actions->append(new CheckFinishAction());
+                    }
+                    if (Admin::user()->can('check.cancel')) {
+                        $actions->append(new CheckCancelAction());
+                    }
                 }
             });
 

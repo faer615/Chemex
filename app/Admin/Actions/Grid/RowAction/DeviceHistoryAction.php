@@ -5,6 +5,7 @@ namespace App\Admin\Actions\Grid\RowAction;
 use App\Models\DeviceTrack;
 use App\Models\HardwareTrack;
 use App\Models\SoftwareTrack;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Grid\RowAction;
 use Dcat\Admin\Widgets\Modal;
 
@@ -17,6 +18,10 @@ class DeviceHistoryAction extends RowAction
 
     public function render()
     {
+        if (!Admin::user()->can('device.history')) {
+            return '你没有权限执行此操作！';
+        }
+
         // 实例化表单类并传递自定义参数
         $id = $this->getKey();
 

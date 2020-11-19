@@ -10,6 +10,7 @@ use App\Models\DeviceRecord;
 use App\Models\HardwareRecord;
 use App\Models\SoftwareRecord;
 use App\Support\Data;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Widgets\Alert;
@@ -55,8 +56,12 @@ class CheckTrackController extends AdminController
             $grid->column('updated_at');
 
             $grid->actions(function (Grid\Displayers\Actions $actions) {
-                $actions->append(new CheckTrackYesAction());
-                $actions->append(new CheckTrackNoAction());
+                if (Admin::user()->can('check.track.yes')) {
+                    $actions->append(new CheckTrackYesAction());
+                }
+                if (Admin::user()->can('check.track.no')) {
+                    $actions->append(new CheckTrackNoAction());
+                }
             });
 
             $grid->disableRowSelector();

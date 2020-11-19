@@ -5,6 +5,7 @@ namespace App\Admin\Controllers;
 use App\Admin\Actions\Grid\RowAction\ServiceTrackDisableAction;
 use App\Admin\Repositories\ServiceTrack;
 use App\Support\Data;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Widgets\Alert;
@@ -37,7 +38,9 @@ class ServiceTrackController extends AdminController
             $grid->setActionClass(Grid\Displayers\Actions::class);
 
             $grid->actions(function (Grid\Displayers\Actions $actions) {
-                $actions->append(new ServiceTrackDisableAction());
+                if (Admin::user()->can('service.track.disable')) {
+                    $actions->append(new ServiceTrackDisableAction());
+                }
             });
         });
     }

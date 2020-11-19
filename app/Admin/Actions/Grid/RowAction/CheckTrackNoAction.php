@@ -21,6 +21,12 @@ class CheckTrackNoAction extends RowAction
      */
     public function handle()
     {
+        if (!Admin::user()->can('check.track.no')) {
+            return $this->response()
+                ->error('你没有权限执行此操作！')
+                ->refresh();
+        }
+
         $check_track = CheckTrack::where('id', $this->getKey())->first();
         if (empty($check_track)) {
             return $this->response()

@@ -6,6 +6,7 @@ use App\Admin\Actions\Grid\RowAction\ServiceDeleteAction;
 use App\Admin\Actions\Grid\RowAction\ServiceIssueAction;
 use App\Admin\Actions\Grid\RowAction\ServiceTrackAction;
 use App\Admin\Repositories\ServiceRecord;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Http\Controllers\AdminController;
@@ -27,9 +28,15 @@ class ServiceRecordController extends AdminController
             $grid->column('status')->switch('green');
 
             $grid->actions(function (Grid\Displayers\Actions $actions) {
-                $actions->append(new ServiceDeleteAction());
-                $actions->append(new ServiceTrackAction());
-                $actions->append(new ServiceIssueAction());
+                if (Admin::user()->can('service.delete')) {
+                    $actions->append(new ServiceDeleteAction());
+                }
+                if (Admin::user()->can('service.track')) {
+                    $actions->append(new ServiceTrackAction());
+                }
+                if (Admin::user()->can('service.issue')) {
+                    $actions->append(new ServiceIssueAction());
+                }
             });
 
             $grid->enableDialogCreate();

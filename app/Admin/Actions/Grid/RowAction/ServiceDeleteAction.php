@@ -5,6 +5,7 @@ namespace App\Admin\Actions\Grid\RowAction;
 use App\Models\ServiceRecord;
 use App\Models\ServiceTrack;
 use Dcat\Admin\Actions\Response;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Grid\RowAction;
 
 class ServiceDeleteAction extends RowAction
@@ -21,6 +22,12 @@ class ServiceDeleteAction extends RowAction
      */
     public function handle()
     {
+        if (!Admin::user()->can('service.delete')) {
+            return $this->response()
+                ->error('你没有权限执行此操作！')
+                ->refresh();
+        }
+
         $service = ServiceRecord::where('id', $this->getKey())->first();
         if (empty($service)) {
             return $this->response()

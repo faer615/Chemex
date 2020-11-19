@@ -11,6 +11,7 @@ use App\Models\HardwareCategory;
 use App\Models\PurchasedChannel;
 use App\Models\VendorRecord;
 use App\Support\Track;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Http\Controllers\AdminController;
@@ -41,10 +42,18 @@ class HardwareRecordController extends AdminController
             });
 
             $grid->actions(function (Grid\Displayers\Actions $actions) {
-                $actions->append(new HardwareDeleteAction());
-                $actions->append(new HardwareTrackAction());
-                $actions->append(new HardwareHistoryAction());
-                $actions->append(new MaintenanceAction('hardware'));
+                if (Admin::user()->can('hardware.delete')) {
+                    $actions->append(new HardwareDeleteAction());
+                }
+                if (Admin::user()->can('hardware.track')) {
+                    $actions->append(new HardwareTrackAction());
+                }
+                if (Admin::user()->can('hardware.history')) {
+                    $actions->append(new HardwareHistoryAction());
+                }
+                if (Admin::user()->can('hardware.maintenance')) {
+                    $actions->append(new MaintenanceAction('hardware'));
+                }
             });
 
             $grid->quickSearch('id', 'name')

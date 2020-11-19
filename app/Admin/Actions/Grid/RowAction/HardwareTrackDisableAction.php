@@ -4,6 +4,7 @@ namespace App\Admin\Actions\Grid\RowAction;
 
 use App\Models\HardwareTrack;
 use Dcat\Admin\Actions\Response;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Grid\RowAction;
 
 class HardwareTrackDisableAction extends RowAction
@@ -20,6 +21,12 @@ class HardwareTrackDisableAction extends RowAction
      */
     public function handle()
     {
+        if (!Admin::user()->can('hardware.track.disable')) {
+            return $this->response()
+                ->error('你没有权限执行此操作！')
+                ->refresh();
+        }
+
         $hardware_track = HardwareTrack::where('id', $this->getKey())->first();
 
         if (empty($hardware_track)) {

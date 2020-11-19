@@ -5,6 +5,7 @@ namespace App\Admin\Actions\Grid\RowAction;
 use App\Models\HardwareRecord;
 use App\Models\HardwareTrack;
 use Dcat\Admin\Actions\Response;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Grid\RowAction;
 
 class HardwareDeleteAction extends RowAction
@@ -21,6 +22,12 @@ class HardwareDeleteAction extends RowAction
      */
     public function handle()
     {
+        if (!Admin::user()->can('hardware.delete')) {
+            return $this->response()
+                ->error('你没有权限执行此操作！')
+                ->refresh();
+        }
+
         $hardware = HardwareRecord::where('id', $this->getKey())->first();
         if (empty($hardware)) {
             return $this->response()

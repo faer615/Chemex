@@ -3,6 +3,7 @@
 namespace App\Admin\Actions\Grid\RowAction;
 
 use App\Models\SoftwareTrack;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Grid\RowAction;
 use Dcat\Admin\Widgets\Modal;
 
@@ -15,6 +16,10 @@ class SoftwareHistoryAction extends RowAction
 
     public function render()
     {
+        if (!Admin::user()->can('software.history')) {
+            return '你没有权限执行此操作！';
+        }
+
         // 实例化表单类并传递自定义参数
         $id = $this->getKey();
 

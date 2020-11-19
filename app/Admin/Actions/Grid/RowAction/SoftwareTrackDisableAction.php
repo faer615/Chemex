@@ -4,6 +4,7 @@ namespace App\Admin\Actions\Grid\RowAction;
 
 use App\Models\SoftwareTrack;
 use Dcat\Admin\Actions\Response;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Grid\RowAction;
 
 class SoftwareTrackDisableAction extends RowAction
@@ -20,6 +21,12 @@ class SoftwareTrackDisableAction extends RowAction
      */
     public function handle()
     {
+        if (!Admin::user()->can('software.track.disable')) {
+            return $this->response()
+                ->error('你没有权限执行此操作！')
+                ->refresh();
+        }
+
         $software_track = SoftwareTrack::where('id', $this->getKey())->first();
 
         if (empty($software_track)) {

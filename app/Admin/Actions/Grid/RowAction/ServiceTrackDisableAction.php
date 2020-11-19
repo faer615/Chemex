@@ -4,6 +4,7 @@ namespace App\Admin\Actions\Grid\RowAction;
 
 use App\Models\ServiceTrack;
 use Dcat\Admin\Actions\Response;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Grid\RowAction;
 
 class ServiceTrackDisableAction extends RowAction
@@ -20,6 +21,12 @@ class ServiceTrackDisableAction extends RowAction
      */
     public function handle()
     {
+        if (!Admin::user()->can('service.track.disable')) {
+            return $this->response()
+                ->error('你没有权限执行此操作！')
+                ->refresh();
+        }
+
         $service_track = ServiceTrack::where('id', $this->getKey())->first();
 
         if (empty($service_track)) {

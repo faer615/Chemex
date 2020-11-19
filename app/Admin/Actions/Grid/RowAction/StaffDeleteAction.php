@@ -5,6 +5,7 @@ namespace App\Admin\Actions\Grid\RowAction;
 use App\Models\DeviceTrack;
 use App\Models\StaffRecord;
 use Dcat\Admin\Actions\Response;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Grid\RowAction;
 
 class StaffDeleteAction extends RowAction
@@ -21,6 +22,12 @@ class StaffDeleteAction extends RowAction
      */
     public function handle()
     {
+        if (!Admin::user()->can('staff.delete')) {
+            return $this->response()
+                ->error('你没有权限执行此操作！')
+                ->refresh();
+        }
+
         $staff = StaffRecord::where('id', $this->getKey())->first();
         if (empty($staff)) {
             return $this->response()

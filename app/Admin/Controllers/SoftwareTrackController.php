@@ -5,6 +5,7 @@ namespace App\Admin\Controllers;
 use App\Admin\Actions\Grid\RowAction\SoftwareTrackDisableAction;
 use App\Admin\Repositories\SoftwareTrack;
 use App\Support\Data;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Widgets\Alert;
@@ -35,7 +36,9 @@ class SoftwareTrackController extends AdminController
             $grid->setActionClass(Grid\Displayers\Actions::class);
 
             $grid->actions(function (Grid\Displayers\Actions $actions) {
-                $actions->append(new SoftwareTrackDisableAction());
+                if (Admin::user()->can('software.track.disable')) {
+                    $actions->append(new SoftwareTrackDisableAction());
+                }
             });
 
             $grid->quickSearch('software_id')

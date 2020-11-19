@@ -14,6 +14,7 @@ use App\Models\VendorRecord;
 use App\Services\ExpirationService;
 use App\Support\Info;
 use App\Support\Track;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Grid\Tools\Selector;
@@ -86,10 +87,19 @@ class DeviceRecordController extends AdminController
             $grid->disableDeleteButton();
 
             $grid->actions(function (Grid\Displayers\Actions $actions) {
-                $actions->append(new DeviceDeleteAction());
-                $actions->append(new DeviceTrackAction());
-                $actions->append(new DeviceRelatedAction());
-                $actions->append(new DeviceHistoryAction());
+                if (Admin::user()->can('device.delete')) {
+                    $actions->append(new DeviceDeleteAction());
+                }
+                if (Admin::user()->can('device.track')) {
+                    $actions->append(new DeviceTrackAction());
+                }
+                if (Admin::user()->can('device.related')) {
+                    $actions->append(new DeviceRelatedAction());
+                }
+                if (Admin::user()->can('device.history')) {
+                    $actions->append(new DeviceHistoryAction());
+                }
+
 //                if (!empty($this->ip) && !empty($this->ssh_username) && !empty($this->ssh_password) && !empty($this->ssh_port)) {
 //                    $url = Info::getSSHBaseUrl($this->ip, $this->ssh_port, $this->ssh_username, $this->ssh_password);
 //                    $web_ssh_status = System::checkWebSSHServiceStatus($url);
@@ -100,7 +110,10 @@ class DeviceRecordController extends AdminController
 //                    }
 //                }
 //                $actions->append(new DeviceSSHInfoAction());
-                $actions->append(new MaintenanceAction('device'));
+
+                if (Admin::user()->can('device.maintenance')) {
+                    $actions->append(new MaintenanceAction('device'));
+                }
             });
 
             $grid->quickSearch('id', 'name', 'ip', 'mac')

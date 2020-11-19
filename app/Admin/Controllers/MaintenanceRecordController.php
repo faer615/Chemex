@@ -6,6 +6,7 @@ use App\Admin\Actions\Grid\RowAction\MaintenanceFixAction;
 use App\Admin\Repositories\MaintenanceRecord;
 use App\Support\Data;
 use App\Support\Info;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Grid\Tools\Selector;
 use Dcat\Admin\Http\Controllers\AdminController;
@@ -48,7 +49,7 @@ class MaintenanceRecordController extends AdminController
             $grid->setActionClass(Grid\Displayers\Actions::class);
 
             $grid->actions(function (Grid\Displayers\Actions $actions) {
-                if ($this->status == 0) {
+                if ($this->status == 0 && Admin::user()->can('maintenance.fix')) {
                     $actions->append(new MaintenanceFixAction());
                 }
             });

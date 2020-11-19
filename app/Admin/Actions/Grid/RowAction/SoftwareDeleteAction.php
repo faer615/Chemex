@@ -5,6 +5,7 @@ namespace App\Admin\Actions\Grid\RowAction;
 use App\Models\SoftwareRecord;
 use App\Models\SoftwareTrack;
 use Dcat\Admin\Actions\Response;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Grid\RowAction;
 
 class SoftwareDeleteAction extends RowAction
@@ -21,6 +22,12 @@ class SoftwareDeleteAction extends RowAction
      */
     public function handle()
     {
+        if (!Admin::user()->can('software.delete')) {
+            return $this->response()
+                ->error('你没有权限执行此操作！')
+                ->refresh();
+        }
+
         $software = SoftwareRecord::where('id', $this->getKey())->first();
         if (empty($software)) {
             return $this->response()

@@ -11,6 +11,7 @@ use App\Models\SoftwareCategory;
 use App\Models\VendorRecord;
 use App\Support\Data;
 use App\Support\Track;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Http\Controllers\AdminController;
@@ -44,11 +45,19 @@ class SoftwareRecordController extends AdminController
             });
 
             $grid->actions(function (Grid\Displayers\Actions $actions) {
-                $actions->append(new SoftwareDeleteAction());
-                $actions->append(new SoftwareTrackAction());
-                $actions->append(new SoftwareHistoryAction());
-                $tracks_route = route('software.tracks.index', ['_search_' => $this->id]);
-                $actions->append("<a href='$tracks_route'>💿 管理归属</a>");
+                if (Admin::user()->can('software.delete')) {
+                    $actions->append(new SoftwareDeleteAction());
+                }
+                if (Admin::user()->can('software.track')) {
+                    $actions->append(new SoftwareTrackAction());
+                }
+                if (Admin::user()->can('software.history')) {
+                    $actions->append(new SoftwareHistoryAction());
+                }
+                if (Admin::user()->can('software.track.list')) {
+                    $tracks_route = route('software.tracks.index', ['_search_' => $this->id]);
+                    $actions->append("<a href='$tracks_route'>💿 管理归属</a>");
+                }
             });
 
             $grid->quickSearch('id', 'name')

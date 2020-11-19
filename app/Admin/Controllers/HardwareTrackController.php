@@ -5,6 +5,7 @@ namespace App\Admin\Controllers;
 use App\Admin\Actions\Grid\RowAction\HardwareTrackDisableAction;
 use App\Admin\Repositories\HardwareTrack;
 use App\Support\Data;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Widgets\Alert;
@@ -34,7 +35,9 @@ class HardwareTrackController extends AdminController
             $grid->setActionClass(Grid\Displayers\Actions::class);
 
             $grid->actions(function (Grid\Displayers\Actions $actions) {
-                $actions->append(new HardwareTrackDisableAction());
+                if (Admin::user()->can('hardware.track.disable')) {
+                    $actions->append(new HardwareTrackDisableAction());
+                }
             });
 
             $grid->toolsWithOutline(false);

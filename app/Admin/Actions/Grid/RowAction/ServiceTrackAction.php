@@ -3,6 +3,7 @@
 namespace App\Admin\Actions\Grid\RowAction;
 
 use App\Admin\Forms\ServiceTrackForm;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Grid\RowAction;
 use Dcat\Admin\Widgets\Modal;
 
@@ -15,6 +16,9 @@ class ServiceTrackAction extends RowAction
 
     public function render()
     {
+        if (!Admin::user()->can('service.track')) {
+            return '你没有权限执行此操作！';
+        }
         // 实例化表单类并传递自定义参数
         $form = ServiceTrackForm::make()->payload(['id' => $this->getKey()]);
 

@@ -8,6 +8,7 @@ use App\Models\HardwareTrack;
 use App\Models\ServiceTrack;
 use App\Models\SoftwareTrack;
 use Dcat\Admin\Actions\Response;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Grid\RowAction;
 
 class DeviceDeleteAction extends RowAction
@@ -24,6 +25,12 @@ class DeviceDeleteAction extends RowAction
      */
     public function handle()
     {
+        if (!Admin::user()->can('device.delete')) {
+            return $this->response()
+                ->error('你没有权限执行此操作！')
+                ->refresh();
+        }
+
         $device = DeviceRecord::where('id', $this->getKey())->first();
         if (empty($device)) {
             return $this->response()
