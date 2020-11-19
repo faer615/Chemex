@@ -14,7 +14,7 @@ class UpdateVendorRecordsColumnsTable extends Migration
     public function up()
     {
         Schema::table('vendor_records', function (Blueprint $table) {
-            $table->json('contacts');
+            $table->json('contacts')->nullable();
         });
     }
 
