@@ -26,6 +26,15 @@ Admin::style(
 .main-footer {
     display:none;
 }
+
+.navbar{
+    margin:0 35px 0 35px;
+    height: 70px;
+}
+
+.nav-link{
+    padding: 0;
+}
 CSS
 
 );

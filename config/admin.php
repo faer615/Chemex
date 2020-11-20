@@ -277,14 +277,14 @@ return [
         // default, blue, blue-light, blue-dark, green
         'color' => 'blue-light',
 
-        'body_class' => '',
+//        'body_class' => 'sidebar-separate',
 
         'sidebar_collapsed' => false,
 
         // light, primary, dark
         'sidebar_style' => 'light',
 
-        'dark_mode_switch' => true,
+//        'dark_mode_switch' => true,
 
         // bg-primary, bg-info, bg-warning, bg-success, bg-danger, bg-dark
         'navbar_color' => '',
