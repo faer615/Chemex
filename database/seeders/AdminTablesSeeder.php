@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class AdminTablesSeeder extends Seeder
 {
@@ -15,8 +14,8 @@ class AdminTablesSeeder extends Seeder
     public function run()
     {
         // base tables
-        Dcat\Admin\Models\Menu::truncate();
-        Dcat\Admin\Models\Menu::insert(
+        \Dcat\Admin\Models\Menu::truncate();
+        \Dcat\Admin\Models\Menu::insert(
             [
                 [
                     "id" => 1,
@@ -405,8 +404,8 @@ class AdminTablesSeeder extends Seeder
             ]
         );
 
-        Dcat\Admin\Models\Permission::truncate();
-        Dcat\Admin\Models\Permission::insert(
+        \Dcat\Admin\Models\Permission::truncate();
+        \Dcat\Admin\Models\Permission::insert(
             [
                 [
                     "id" => 1,
@@ -1192,100 +1191,5 @@ class AdminTablesSeeder extends Seeder
             ]
         );
 
-        Dcat\Admin\Models\Role::truncate();
-        Dcat\Admin\Models\Role::insert(
-            [
-                [
-                    "id" => 1,
-                    "name" => "超级管理员",
-                    "slug" => "administrator",
-                    "created_at" => "2020-09-18 09:45:49",
-                    "updated_at" => "2020-11-18 17:45:16"
-                ],
-                [
-                    "id" => 2,
-                    "name" => "观察者",
-                    "slug" => "observer",
-                    "created_at" => "2020-11-19 09:25:18",
-                    "updated_at" => "2020-11-19 14:09:37"
-                ]
-            ]
-        );
-
-        // pivot tables
-        DB::table('admin_role_menu')->truncate();
-        DB::table('admin_role_menu')->insert(
-            [
-
-            ]
-        );
-
-        DB::table('admin_role_permissions')->truncate();
-        DB::table('admin_role_permissions')->insert(
-            [
-                [
-                    "role_id" => 2,
-                    "permission_id" => 51,
-                    "created_at" => NULL,
-                    "updated_at" => NULL
-                ],
-                [
-                    "role_id" => 2,
-                    "permission_id" => 53,
-                    "created_at" => NULL,
-                    "updated_at" => NULL
-                ],
-                [
-                    "role_id" => 2,
-                    "permission_id" => 55,
-                    "created_at" => NULL,
-                    "updated_at" => NULL
-                ],
-                [
-                    "role_id" => 2,
-                    "permission_id" => 57,
-                    "created_at" => NULL,
-                    "updated_at" => NULL
-                ],
-                [
-                    "role_id" => 2,
-                    "permission_id" => 59,
-                    "created_at" => NULL,
-                    "updated_at" => NULL
-                ],
-                [
-                    "role_id" => 2,
-                    "permission_id" => 61,
-                    "created_at" => NULL,
-                    "updated_at" => NULL
-                ],
-                [
-                    "role_id" => 2,
-                    "permission_id" => 63,
-                    "created_at" => NULL,
-                    "updated_at" => NULL
-                ],
-                [
-                    "role_id" => 2,
-                    "permission_id" => 65,
-                    "created_at" => NULL,
-                    "updated_at" => NULL
-                ],
-                [
-                    "role_id" => 2,
-                    "permission_id" => 67,
-                    "created_at" => NULL,
-                    "updated_at" => NULL
-                ],
-                [
-                    "role_id" => 2,
-                    "permission_id" => 69,
-                    "created_at" => NULL,
-                    "updated_at" => NULL
-                ]
-            ]
-        );
-
-        // finish
     }
 }

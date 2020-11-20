@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-    <img src="https://img.shields.io/badge/Latest Release-1.7.1-orange" />
+    <img src="https://img.shields.io/badge/Latest Release-1.7.2-orange" />
     <img src="https://img.shields.io/badge/PHP-7.3+-green" />
     <img src="https://img.shields.io/badge/MariaDB-10.2+-blueviolet" />
     <img src="https://img.shields.io/badge/License-GPL3.0-blue" />
@@ -45,6 +45,16 @@ Chemex 是完全免费且开源的，任何人都可以无限制的修改代码�
 <p align="center">
     <img src="https://oss.celaraze.com/chemex/Chemex%20%E5%92%96%E5%95%A1%E5%A3%B6%20%281%29.png" />
 </p>
+
+## 特点
+
+优秀的 RBAC 权限控制。
+
+尽可能的操作简化。
+
+支持在线更新，随时保持应用的最新版本。
+
+数据支持导出导入，迁移更方便。
     
 ### 版本号命名
 
