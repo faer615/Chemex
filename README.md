@@ -31,6 +31,12 @@
 
 没有它们就没有 Chemex 咖啡壶：
 
+`JetBrains` 提供优秀的IDE。
+
+<a href="https://www.jetbrains.com/?from=Chemex" target="_blank">
+<img src="https://oss.celaraze.com/chemex/jetbrains.svg" />
+</a>
+
 [Laravel](https://laravel.com/) ，优雅的 PHP Web 框架。
 
 [Dcat Admin](https://dcatadmin.com) ，高颜值、高效率的后台开发框架。
