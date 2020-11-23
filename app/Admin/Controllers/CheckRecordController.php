@@ -117,7 +117,7 @@ class CheckRecordController extends AdminController
             });
 
             $form->saved(function (Form $form) {
-                $check_record = $form->repository()->eloquent();
+                $check_record = $form->model();
                 switch ($check_record->check_item) {
                     case 'hardware':
                         $items = HardwareRecord::all();
