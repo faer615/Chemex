@@ -38,9 +38,14 @@ class ServiceTrackController extends AdminController
             $grid->setActionClass(Grid\Displayers\Actions::class);
 
             $grid->actions(function (Grid\Displayers\Actions $actions) {
-                if (Admin::user()->can('service.track.disable')) {
+                if (Admin::user()->can('service.track.disable') && $this->deleted_at == null) {
                     $actions->append(new ServiceTrackDisableAction());
                 }
+            });
+
+            $grid->filter(function (Grid\Filter $filter) {
+                $filter->panel();
+                $filter->scope('history', '查看历史归属记录')->onlyTrashed();
             });
         });
     }

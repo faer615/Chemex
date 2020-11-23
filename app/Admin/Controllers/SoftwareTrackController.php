@@ -36,7 +36,7 @@ class SoftwareTrackController extends AdminController
             $grid->setActionClass(Grid\Displayers\Actions::class);
 
             $grid->actions(function (Grid\Displayers\Actions $actions) {
-                if (Admin::user()->can('software.track.disable')) {
+                if (Admin::user()->can('software.track.disable') && $this->deleted_at == null) {
                     $actions->append(new SoftwareTrackDisableAction());
                 }
             });
@@ -44,6 +44,11 @@ class SoftwareTrackController extends AdminController
             $grid->quickSearch('software_id')
                 ->placeholder('输入软件ID以筛选')
                 ->auto(false);
+
+            $grid->filter(function (Grid\Filter $filter) {
+                $filter->panel();
+                $filter->scope('history', '查看历史归属记录')->onlyTrashed();
+            });
 
             $grid->toolsWithOutline(false);
         });

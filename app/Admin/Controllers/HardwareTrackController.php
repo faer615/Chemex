@@ -35,9 +35,14 @@ class HardwareTrackController extends AdminController
             $grid->setActionClass(Grid\Displayers\Actions::class);
 
             $grid->actions(function (Grid\Displayers\Actions $actions) {
-                if (Admin::user()->can('hardware.track.disable')) {
+                if (Admin::user()->can('hardware.track.disable') && $this->deleted_at == null) {
                     $actions->append(new HardwareTrackDisableAction());
                 }
+            });
+
+            $grid->filter(function (Grid\Filter $filter) {
+                $filter->panel();
+                $filter->scope('history', '查看历史归属记录')->onlyTrashed();
             });
 
             $grid->toolsWithOutline(false);
