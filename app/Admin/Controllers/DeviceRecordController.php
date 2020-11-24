@@ -12,6 +12,7 @@ use App\Admin\Repositories\DeviceRecord;
 use App\Models\DeviceCategory;
 use App\Models\PurchasedChannel;
 use App\Models\VendorRecord;
+use App\Services\DeviceRecordService;
 use App\Services\ExpirationService;
 use App\Support\Info;
 use App\Support\Track;
@@ -36,6 +37,18 @@ class DeviceRecordController extends AdminController
                 $row->column(3, new Card('30天内即将过保设备数', ExpirationService::deviceCounts()));
             })
             ->body($this->grid());
+    }
+
+    public function show($id, Content $content)
+    {
+        $data = DeviceRecordService::related($id);
+        return $content
+            ->title($this->title())
+            ->description($this->description()['index'] ?? trans('admin.show'))
+            ->body(function (Row $row) use ($id, $data) {
+                $row->column(6, $this->detail($id));
+                $row->column(6, new Card('归属信息', view('device_records.related')->with('data', $data)));
+            });
     }
 
     /**

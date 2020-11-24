@@ -9,6 +9,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @method static where(string $key, string $value)
+ * @property mixed check_id
+ * @property mixed item_id
+ * @property int|mixed status
+ * @property int|mixed checker
  */
 class CheckTrack extends Model
 {
