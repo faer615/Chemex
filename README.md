@@ -1,5 +1,3 @@
-<img style="width: 100%" src="https://oss.celaraze.com/chemex/banner.gif"/>
-
 <div align="center">
     <img src="https://oss.celaraze.com/chemex/logo.png" />
 </div>
@@ -10,7 +8,7 @@
 </p>
 
 <p align="center">
-    <img src="https://img.shields.io/badge/Latest Release-1.7.3-orange" />
+    <img src="https://img.shields.io/badge/Latest Release-2.0.0-orange" />
     <img src="https://img.shields.io/badge/PHP-7.3+-green" />
     <img src="https://img.shields.io/badge/MariaDB-10.2+-blueviolet" />
     <img src="https://img.shields.io/badge/License-GPL3.0-blue" />
@@ -69,36 +67,7 @@ Chemex 咖啡壶将会以咖啡豆品种作为 `major` 版本的命名，例如 
 |major|版本名|发布|
 |----|----|----|
 |1.x|肯亚（Kenya）|✔|
-    
-### 开发计划
-
-|序号|项目|状态|优先级|
-|----|----|----|----|
-|1|制造商管理基础|✔|紧急|
-|2|雇员管理基础|✔|紧急|
-|3|硬件管理基础|✔|紧急|
-|4|软件管理基础|✔|紧急|
-|5|设备管理基础|✔|紧急|
-|6|盘点管理基础|✔|紧急|
-|7|自动生成二维码|✔|一般|
-|8|扫描二维码查看信息|✔|一般|
-|9|硬件归属|✔|紧急|
-|10|软件归属|✔|紧急|
-|11|软件授权数量管理|✔|一般|
-|12|软件解除归属|✔|一般|
-|13|历史履历|✔|紧急|
-|14|操作人员全记录|✔|紧急|
-|15|简易部署|✔|紧急|
-|16|图表基础|✔|一般|
-|17|图表更多的优化|✔|一般|
-|18|移动端盘点|✔|一般|
-|19|数据库导出（备份）|❌|紧急|
-|20|人性化的站点配置|❌|一般|
-|21|服务程序管理基础|✔|一般|
-|22|服务程序状态看板|✔|一般|
-|23|设备在线SSH管理|✔|一般|
-|24|维修管理基础|✔|紧急|
-|25|支持OTA升级|✔|紧急|
+|2.x|耶加雪菲（Yirgacheffe）|➖|
 
 ## 环境要求
 

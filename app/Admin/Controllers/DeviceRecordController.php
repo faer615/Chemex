@@ -21,6 +21,7 @@ use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Grid\Tools\Selector;
 use Dcat\Admin\Http\Controllers\AdminController;
+use Dcat\Admin\Layout\Column;
 use Dcat\Admin\Layout\Content;
 use Dcat\Admin\Layout\Row;
 use Dcat\Admin\Show;
@@ -41,13 +42,22 @@ class DeviceRecordController extends AdminController
 
     public function show($id, Content $content)
     {
+        $name = Info::deviceIdToStaffName($id);
         $data = DeviceRecordService::related($id);
         return $content
             ->title($this->title())
             ->description($this->description()['index'] ?? trans('admin.show'))
-            ->body(function (Row $row) use ($id, $data) {
-                $row->column(6, $this->detail($id));
-                $row->column(6, new Card('归属信息', view('device_records.related')->with('data', $data)));
+            ->body(function (Row $row) use ($id, $name, $data) {
+                // 判断权限
+                if (!Admin::user()->can('device.history')) {
+                    $row->column(12, $this->detail($id));
+                } else {
+                    $row->column(6, $this->detail($id));
+                    $row->column(6, function (Column $column) use ($id, $name, $data) {
+                        $column->row(new Card(view('device_records.staff')->with('name', $name)));
+                        $column->row(new Card('归属信息', view('device_records.related')->with('data', $data)));
+                    });
+                }
             });
     }
 

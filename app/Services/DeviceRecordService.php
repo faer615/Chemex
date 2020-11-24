@@ -23,6 +23,8 @@ class DeviceRecordService
         $hardware = $device->hardware;
         // 获取所有软件
         $software = $device->software;
+        // 获取所有服务程序
+        $service = $device->service;
 
         // 转换软件授权方式的显示内容
         foreach ($software as $item) {
@@ -31,6 +33,7 @@ class DeviceRecordService
 
         $data['hardware'] = $hardware;
         $data['software'] = $software;
+        $data['service'] = $service;
 
         return $data;
     }

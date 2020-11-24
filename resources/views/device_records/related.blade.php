@@ -56,6 +56,27 @@
 @else
     <div style="text-align: center;color: rgba(0,0,0,0.7)">无内容</div>
 @endif
+<h4 style="margin-top: 20px;">服务程序</h4>
+@if(count($data['service'])>0)
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>名称</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach($data['software'] as $item)
+            <tr class="tr">
+                <td>{{$item->id}}</td>
+                <td>{{$item->name}}</td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
+@else
+    <div style="text-align: center;color: rgba(0,0,0,0.7)">无内容</div>
+@endif
 <style>
     .tr td {
         height: auto;

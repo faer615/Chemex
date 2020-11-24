@@ -106,4 +106,34 @@ class DeviceRecord extends Model
             'id',   // 主表对中间表的关联字段
             'software_id'); // 中间表对远程表的关联字段
     }
+
+    /**
+     * 设备下所有软件
+     * @return HasManyThrough
+     */
+    public function service()
+    {
+        return $this->hasManyThrough(
+            ServiceRecord::class,  // 远程表
+            ServiceTrack::class,   // 中间表
+            'device_id',    // 中间表对主表的关联字段
+            'id',   // 远程表对中间表的关联字段
+            'id',   // 主表对中间表的关联字段
+            'service_id'); // 中间表对远程表的关联字段
+    }
+
+    /**
+     * 设备下所有软件
+     * @return HasManyThrough
+     */
+    public function staff()
+    {
+        return $this->hasOneThrough(
+            StaffRecord::class,  // 远程表
+            DeviceTrack::class,   // 中间表
+            'device_id',    // 中间表对主表的关联字段
+            'id',   // 远程表对中间表的关联字段
+            'id',   // 主表对中间表的关联字段
+            'staff_id'); // 中间表对远程表的关联字段
+    }
 }

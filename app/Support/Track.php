@@ -36,12 +36,6 @@ class Track
         }
     }
 
-    //TODO
-    public static function currentDeviceTrackDepartment()
-    {
-
-    }
-
     /**
      * 获取硬件当前归属的设备
      * @param $hardware_id
@@ -148,10 +142,5 @@ class Track
         }
         $services = json_decode($services, true);
         return $services;
-    }
-
-    public function deleteSoftwareTracks($software_id)
-    {
-
     }
 }
