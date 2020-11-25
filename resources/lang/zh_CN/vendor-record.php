@@ -11,6 +11,7 @@ return [
         'location' => '所在地',
         'logo' => 'LOGO',
         'contacts' => '联系人',
+        'contact_name' => '姓名',
         'phone' => '联系电话',
         'title' => '职位'
     ],
