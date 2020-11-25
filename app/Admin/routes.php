@@ -50,5 +50,4 @@ Route::group([
         'index' => 'service.issues.index'
     ]]);
     $router->resource('/maintenance/records', 'MaintenanceRecordController');
-    $router->resource('/clip/records', 'ClipRecordController');
 });

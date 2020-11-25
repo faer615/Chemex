@@ -40,6 +40,5 @@ return [
         'service_issues' => '服务程序异常',
         'maintenance_records' => '维修记录',
         'version' => '版本信息',
-        'clip_records' => '书签',
     ],
 ];

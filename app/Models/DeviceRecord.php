@@ -123,7 +123,7 @@ class DeviceRecord extends Model
     }
 
     /**
-     * 设备下所有软件
+     * 设备所属雇员
      * @return HasManyThrough
      */
     public function staff()

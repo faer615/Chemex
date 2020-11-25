@@ -67,9 +67,7 @@ class VendorRecordController extends AdminController
     {
         return Form::make(new VendorRecord(), function (Form $form) {
             $form->display('id');
-            $form->text('name')
-                ->rules('unique:vendor_records,name,$selfName,name')
-                ->required();
+            $form->text('name')->required();
             $form->text('description');
             $form->text('location');
             $form->table('contacts', function (NestedForm $table) {

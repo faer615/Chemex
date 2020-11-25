@@ -9,6 +9,7 @@ use App\Admin\Actions\Grid\RowAction\DeviceTrackAction;
 use App\Admin\Actions\Grid\RowAction\MaintenanceAction;
 use App\Admin\Actions\Grid\ToolAction\DeviceRecordImportAction;
 use App\Admin\Repositories\DeviceRecord;
+use App\Models\ClipRecord;
 use App\Models\DeviceCategory;
 use App\Models\PurchasedChannel;
 use App\Models\VendorRecord;

@@ -8,9 +8,9 @@
     </tr>
     </thead>
     <tbody>
-    @foreach(json_decode($value,true) as $item)
+    @foreach($value as $item)
         <tr>
-            <td>{{$item['name']}}</td>
+            <td>{{$item['contact_name']}}</td>
             <td>{{$item['phone']}}</td>
             <td>{{$item['email']}}</td>
             <td>{{$item['title']}}</td>
