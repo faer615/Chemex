@@ -319,5 +319,5 @@ return [
     ],
 
     'demo' => env('ADMIN_DEMO'),
-    'chemex_version' => '1.7.3'
+    'chemex_version' => '1.7.4'
 ];
