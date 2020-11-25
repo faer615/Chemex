@@ -37,4 +37,14 @@ class VendorRecord extends Model
             $model->creator = $name;
         });
     }
+
+    public function getContactsAttribute($contacts)
+    {
+        return array_values(json_decode($contacts, true) ?: []);
+    }
+
+    public function setContactsAttribute($contacts)
+    {
+        $this->attributes['contacts'] = json_encode(array_values($contacts));
+    }
 }

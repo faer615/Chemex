@@ -41,6 +41,7 @@ class DeviceRecordImportForm extends Form
                             $device_records->sn = $row['序列号'];
                             $device_records->mac = $row['MAC'];
                             $device_records->ip = $row['IP'];
+
                             if (!empty($row['价格'])) {
                                 $device_records->price = $row['价格'];
                             }
@@ -54,6 +55,7 @@ class DeviceRecordImportForm extends Form
                             if (!empty($purchased_channel)) {
                                 $device_records->purchased_channel_id = $purchased_channel->id;
                             }
+
                             $device_records->save();
                         }
                     }

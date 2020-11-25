@@ -67,26 +67,19 @@ class VendorRecordController extends AdminController
     {
         return Form::make(new VendorRecord(), function (Form $form) {
             $form->display('id');
-            $form->text('name')->creationRules(function (Form $form) {
-                // 如果不是编辑状态，则添加字段唯一验证
-                if (!$id = $form->model()->id) {
-                    return 'required|unique:vendor_records,name';
-                }
-            })->required();
+            $form->text('name')
+                ->rules('unique:vendor_records,name,$selfName,name')
+                ->required();
             $form->text('description');
             $form->text('location');
             $form->table('contacts', function (NestedForm $table) {
-                $table->text('name');
+                $table->text('contact_name');
                 $table->mobile('phone');
                 $table->email('email');
                 $table->text('title');
             });
             $form->display('created_at');
             $form->display('updated_at');
-
-            $form->saving(function () {
-
-            });
         });
     }
 }
