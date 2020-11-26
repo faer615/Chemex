@@ -6,6 +6,7 @@ return [
         'Category' => '分类',
         'Vendor' => '供应商',
         'Purchased Channel Id' => '购入途径',
+        'Expiration Left Days' => '保固剩余天数',
         'records' => '硬件'
     ],
     'fields' => [

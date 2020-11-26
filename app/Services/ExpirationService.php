@@ -5,6 +5,8 @@ namespace App\Services;
 
 
 use App\Models\DeviceRecord;
+use App\Models\HardwareRecord;
+use App\Models\SoftwareRecord;
 
 /**
  * 检测记录是否过期（比如保固时间）
@@ -31,16 +33,47 @@ class ExpirationService
     }
 
     /**
-     * 判断设备维保剩余天数
+     * 判断物品维保剩余天数后返回 HTML 渲染体
+     * @param $item_type
      * @param $id
      * @return string
      */
-    public static function deviceExpirationLeftDays($id)
+    public static function itemExpirationLeftDaysRender($item_type, $id)
     {
-        $device = DeviceRecord::where('id', $id)->first();
+        $days = ExpirationService::itemExpirationLeftDays($item_type, $id);
+        if ($days <= 0) {
+            return "<span class='badge badge-pill badge-dark'>过保</span>";
+        } elseif ($days <= 7 && $days > 0) {
+            return "<span class='badge badge-pill badge-danger'>$days</span>";
+        } elseif ($days <= 30 && $days > 7) {
+            return "<span class='badge badge-pill badge-warning'>$days</span>";
+        } else {
+            return "<span class='badge badge-pill badge-success'>$days</span>";
+        }
+    }
+
+    /**
+     * 判断物品维保剩余天数
+     * @param $item_type
+     * @param $id
+     * @return string
+     */
+    public static function itemExpirationLeftDays($item_type, $id)
+    {
+        $item = null;
+        switch ($item_type) {
+            case 'hardware':
+                $item = HardwareRecord::where('id', $id)->first();
+                break;
+            case 'software':
+                $item = SoftwareRecord::where('id', $id)->first();
+                break;
+            default:
+                $item = DeviceRecord::where('id', $id)->first();
+        }
         $day = 0;
-        if ($device) {
-            $expired = strtotime($device->expired);
+        if ($item) {
+            $expired = strtotime($item->expired);
             $now = time();
             $diff = $expired - $now;
             if ($diff <= 0) {

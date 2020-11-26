@@ -9,6 +9,7 @@ use App\Admin\Repositories\SoftwareRecord;
 use App\Models\PurchasedChannel;
 use App\Models\SoftwareCategory;
 use App\Models\VendorRecord;
+use App\Services\ExpirationService;
 use App\Support\Data;
 use App\Support\Track;
 use Dcat\Admin\Admin;
@@ -42,6 +43,9 @@ class SoftwareRecordController extends AdminController
             $grid->column('counts');
             $grid->column('', admin_trans_label('Left Counts'))->display(function () {
                 return Track::leftSoftwareCounts($this->id);
+            });
+            $grid->column('', admin_trans_label('Expiration Left Days'))->display(function () {
+                return ExpirationService::itemExpirationLeftDaysRender('software', $this->id);
             });
 
             $grid->actions(function (Grid\Displayers\Actions $actions) {

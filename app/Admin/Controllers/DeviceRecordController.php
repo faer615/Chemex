@@ -14,7 +14,6 @@ use App\Models\PurchasedChannel;
 use App\Models\VendorRecord;
 use App\Services\DeviceRecordService;
 use App\Services\ExpirationService;
-use App\Support\Data;
 use App\Support\Info;
 use App\Support\Track;
 use Dcat\Admin\Admin;
@@ -30,15 +29,57 @@ use Dcat\Admin\Widgets\Card;
 
 class DeviceRecordController extends AdminController
 {
-    public function index(Content $content)
+    public function show($id, Content $content)
     {
+        $name = Info::deviceIdToStaffName($id);
+        $related = DeviceRecordService::related($id);
+        $history = DeviceRecordService::history($id);
         return $content
             ->title($this->title())
-            ->description($this->description()['index'] ?? trans('admin.list'))
-            ->body(function (Row $row) {
-                $row->column(3, new Card('30天内即将过保设备数', ExpirationService::deviceCounts()));
-            })
-            ->body($this->grid());
+            ->description($this->description()['index'] ?? trans('admin.show'))
+            ->body(function (Row $row) use ($id, $name, $related, $history) {
+                // 判断权限
+                if (!Admin::user()->can('device.history')) {
+                    $row->column(12, $this->detail($id));
+                } else {
+                    $row->column(6, $this->detail($id));
+                    $row->column(6, function (Column $column) use ($id, $name, $related, $history) {
+                        $column->row(new Card(view('device_records.staff')->with('name', $name)));
+                        $column->row(new Card('归属信息', view('device_records.related')->with('data', $related)));
+                        $column->row(new Card('履历', view('history')->with('data', $history)));
+                    });
+                }
+            });
+    }
+
+    /**
+     * Make a show builder.
+     *
+     * @param mixed $id
+     *
+     * @return Show
+     */
+    protected function detail($id)
+    {
+        return Show::make($id, new DeviceRecord(['category', 'vendor', 'channel']), function (Show $show) {
+            $show->field('id');
+            $show->field('name');
+            $show->field('description');
+            $show->field('category.name');
+            $show->field('vendor.name');
+            $show->field('channel.name');
+            $show->field('sn');
+            $show->field('mac');
+            $show->field('ip');
+            $show->field('photo')->image();
+            $show->field('price');
+            $show->field('purchased');
+            $show->field('expired');
+            $show->field('created_at');
+            $show->field('updated_at');
+
+            $show->disableDeleteButton();
+        });
     }
 
     /**
@@ -86,16 +127,7 @@ class DeviceRecordController extends AdminController
                 return Info::staffIdToDepartmentName($res);
             });
             $grid->column('', admin_trans_label('Expiration Left Days'))->display(function () {
-                $days = ExpirationService::deviceExpirationLeftDays($this->id);
-                if ($days <= 0) {
-                    return "<span class='badge badge-pill badge-dark'>过保</span>";
-                } elseif ($days <= 7 && $days > 0) {
-                    return "<span class='badge badge-pill badge-danger'>$days</span>";
-                } elseif ($days <= 30 && $days > 7) {
-                    return "<span class='badge badge-pill badge-warning'>$days</span>";
-                } else {
-                    return "<span class='badge badge-pill badge-success'>$days</span>";
-                }
+                return ExpirationService::itemExpirationLeftDaysRender('device', $this->id);
             });
 
             $grid->toolsWithOutline(false);
@@ -151,59 +183,6 @@ class DeviceRecordController extends AdminController
             $grid->disableBatchActions();
 
             $grid->export();
-        });
-    }
-
-    public function show($id, Content $content)
-    {
-        $name = Info::deviceIdToStaffName($id);
-        $related = DeviceRecordService::related($id);
-        $history = DeviceRecordService::history($id);
-        return $content
-            ->title($this->title())
-            ->description($this->description()['index'] ?? trans('admin.show'))
-            ->body(function (Row $row) use ($id, $name, $related, $history) {
-                // 判断权限
-                if (!Admin::user()->can('device.history')) {
-                    $row->column(12, $this->detail($id));
-                } else {
-                    $row->column(6, $this->detail($id));
-                    $row->column(6, function (Column $column) use ($id, $name, $related, $history) {
-                        $column->row(new Card(view('device_records.staff')->with('name', $name)));
-                        $column->row(new Card('归属信息', view('device_records.related')->with('data', $related)));
-                        $column->row(new Card('履历', view('history')->with('data', $history)));
-                    });
-                }
-            });
-    }
-
-    /**
-     * Make a show builder.
-     *
-     * @param mixed $id
-     *
-     * @return Show
-     */
-    protected function detail($id)
-    {
-        return Show::make($id, new DeviceRecord(['category', 'vendor', 'channel']), function (Show $show) {
-            $show->field('id');
-            $show->field('name');
-            $show->field('description');
-            $show->field('category.name');
-            $show->field('vendor.name');
-            $show->field('channel.name');
-            $show->field('sn');
-            $show->field('mac');
-            $show->field('ip');
-            $show->field('photo')->image();
-            $show->field('price');
-            $show->field('purchased');
-            $show->field('expired');
-            $show->field('created_at');
-            $show->field('updated_at');
-
-            $show->disableDeleteButton();
         });
     }
 

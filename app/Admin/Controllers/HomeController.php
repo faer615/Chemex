@@ -13,6 +13,7 @@ use App\Admin\Metrics\SoftwareCounts;
 use App\Admin\Metrics\StaffCounts;
 use App\Http\Controllers\Controller;
 use App\Support\Track;
+use Dcat\Admin\Layout\Column;
 use Dcat\Admin\Layout\Content;
 use Dcat\Admin\Layout\Row;
 use Dcat\Admin\Widgets\Card;
@@ -25,17 +26,23 @@ class HomeController extends Controller
             ->header('仪表盘')
             ->description('随时掌握你的资源情况')
             ->body(function (Row $row) {
-                $row->column(2, new DeviceCounts());
-                $row->column(2, new HardwareCounts());
-                $row->column(2, new SoftwareCounts());
-                $row->column(2, new StaffCounts());
-                $row->column(2, new ServiceCounts());
-                $row->column(2, new ServiceIssueCounts());
-                $row->column(4, new CheckDevicePercentage());
-                $row->column(4, new CheckHardwarePercentage());
-                $row->column(4, new CheckSoftwarePercentage());
-                $services = Track::getServiceIssueStatus();
-                $row->column(12, new Card(view('services_dashboard')->with('services', $services)));
+                $row->column(2, function (Column $column) {
+                    $column->row(new DeviceCounts());
+                    $column->row(new HardwareCounts());
+                    $column->row(new SoftwareCounts());
+                    $column->row(new StaffCounts());
+                    $column->row(new ServiceCounts());
+                    $column->row(new ServiceIssueCounts());
+                });
+                $row->column(10, function (Column $column) {
+                    $column->row(function (Row $row) {
+                        $row->column(4, new CheckDevicePercentage());
+                        $row->column(4, new CheckHardwarePercentage());
+                        $row->column(4, new CheckSoftwarePercentage());
+                    });
+                    $services = Track::getServiceIssueStatus();
+                    $column->row(new Card(view('services_dashboard')->with('services', $services)));
+                });
             });
     }
 }

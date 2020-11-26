@@ -10,6 +10,7 @@ use App\Admin\Repositories\HardwareRecord;
 use App\Models\HardwareCategory;
 use App\Models\PurchasedChannel;
 use App\Models\VendorRecord;
+use App\Services\ExpirationService;
 use App\Support\Track;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
@@ -39,6 +40,10 @@ class HardwareRecordController extends AdminController
             $grid->column('sn');
             $grid->column('', admin_trans_label('Owner'))->display(function () {
                 return Track::currentHardwareTrack($this->id);
+            });
+
+            $grid->column('', admin_trans_label('Expiration Left Days'))->display(function () {
+                return ExpirationService::itemExpirationLeftDaysRender('hardware', $this->id);
             });
 
             $grid->actions(function (Grid\Displayers\Actions $actions) {
