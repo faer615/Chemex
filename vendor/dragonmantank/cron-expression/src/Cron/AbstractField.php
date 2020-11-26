@@ -48,7 +48,7 @@ abstract class AbstractField implements FieldInterface
     /**
      * Check to see if a field is satisfied by a value.
      *
-     * @param string $dateValue Date value to check
+     * @param int $dateValue Date value to check
      * @param string $value Value to test
      *
      * @return bool
@@ -63,7 +63,7 @@ abstract class AbstractField implements FieldInterface
             return $this->isInRange($dateValue, $value);
         }
 
-        return '*' === $value || $dateValue === (int)$value;
+        return '*' === $value || $dateValue === (int) $value;
     }
 
     /**
@@ -100,11 +100,12 @@ abstract class AbstractField implements FieldInterface
      */
     public function isInRange(int $dateValue, $value): bool
     {
-        $parts = array_map(function ($value) {
-            $value = trim($value);
+        $parts = array_map(
+            function ($value) {
+                $value = trim($value);
 
-            return $this->convertLiterals($value);
-        },
+                return $this->convertLiterals($value);
+            },
             explode('-', $value, 2)
         );
 
@@ -114,7 +115,7 @@ abstract class AbstractField implements FieldInterface
     /**
      * Test if a value is within an increments of ranges (offset[-to]/step size).
      *
-     * @param string $dateValue Set date value
+     * @param int $dateValue Set date value
      * @param string $value Value to test
      *
      * @return bool
@@ -126,6 +127,7 @@ abstract class AbstractField implements FieldInterface
         $step = $chunks[1] ?? 0;
 
         // No step or 0 steps aren't cool
+        /** @phpstan-ignore-next-line */
         if (null === $step || '0' === $step || 0 === $step) {
             return false;
         }
@@ -152,7 +154,7 @@ abstract class AbstractField implements FieldInterface
         if ($step >= $this->rangeEnd) {
             $thisRange = [$this->fullRange[$step % \count($this->fullRange)]];
         } else {
-            $thisRange = range($rangeStart, $rangeEnd, (int)$step);
+            $thisRange = range($rangeStart, $rangeEnd, (int) $step);
         }
 
         return \in_array($dateValue, $thisRange, true);
@@ -201,7 +203,7 @@ abstract class AbstractField implements FieldInterface
                 $values = [$this->fullRange[$stepSize % \count($this->fullRange)]];
             } else {
                 for ($i = $offset; $i <= $to; $i += $stepSize) {
-                    $values[] = (int)$i;
+                    $values[] = (int) $i;
                 }
             }
             sort($values);
@@ -210,6 +212,25 @@ abstract class AbstractField implements FieldInterface
         }
 
         return $values;
+    }
+
+    /**
+     * Convert literal.
+     *
+     * @param string $value
+     *
+     * @return string
+     */
+    protected function convertLiterals(string $value): string
+    {
+        if (\count($this->literals)) {
+            $key = array_search(strtoupper($value), $this->literals, true);
+            if (false !== $key) {
+                return (string) $key;
+            }
+        }
+
+        return $value;
     }
 
     /**
@@ -270,32 +291,13 @@ abstract class AbstractField implements FieldInterface
             return false;
         }
 
-        if (\is_float($value) || false !== strpos($value, '.')) {
+        if (false !== strpos($value, '.')) {
             return false;
         }
 
         // We should have a numeric by now, so coerce this into an integer
-        $value = (int)$value;
+        $value = (int) $value;
 
         return \in_array($value, $this->fullRange, true);
-    }
-
-    /**
-     * Convert literal.
-     *
-     * @param string $value
-     *
-     * @return string
-     */
-    protected function convertLiterals(string $value): string
-    {
-        if (\count($this->literals)) {
-            $key = array_search(strtoupper($value), $this->literals, true);
-            if (false !== $key) {
-                return (string)$key;
-            }
-        }
-
-        return $value;
     }
 }

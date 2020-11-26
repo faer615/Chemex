@@ -7,10 +7,20 @@
 
 namespace Lcobucci\JWT;
 
+use DateTimeImmutable;
 use Lcobucci\JWT\Claim\Factory as ClaimFactory;
 use Lcobucci\JWT\Parsing\Encoder;
 use Lcobucci\JWT\Signer\Key;
-use function implode;
+use Lcobucci\JWT\Token\DataSet;
+use Lcobucci\JWT\Token\RegisteredClaimGiven;
+use Lcobucci\JWT\Token\RegisteredClaims;
+
+use function array_key_exists;
+use function current;
+use function in_array;
+use function is_array;
+use function trigger_error;
+use const E_USER_DEPRECATED;
 
 /**
  * This class makes easier the token creation process
@@ -25,7 +35,7 @@ class Builder
      *
      * @var array
      */
-    private $headers = ['typ' => 'JWT', 'alg' => 'none'];
+    private $headers = ['typ'=> 'JWT', 'alg' => 'none'];
 
     /**
      * The token claim set
@@ -67,8 +77,7 @@ class Builder
     public function __construct(
         Encoder $encoder = null,
         ClaimFactory $claimFactory = null
-    )
-    {
+    ) {
         $this->encoder = $encoder ?: new Encoder();
         $this->claimFactory = $claimFactory ?: new ClaimFactory();
     }
@@ -86,7 +95,7 @@ class Builder
      */
     public function canOnlyBeUsedBy($audience, $replicateAsHeader = false)
     {
-        return $this->setRegisteredClaim('aud', (string)$audience, $replicateAsHeader);
+        return $this->permittedFor($audience, $replicateAsHeader);
     }
 
     /**
@@ -99,52 +108,68 @@ class Builder
      */
     public function permittedFor($audience, $replicateAsHeader = false)
     {
-        return $this->setRegisteredClaim('aud', (string)$audience, $replicateAsHeader);
+        return $this->setRegisteredClaim('aud', [(string) $audience], $replicateAsHeader);
     }
 
     /**
      * Configures the audience
      *
+     * @deprecated This method will be removed on v4
+     * @see Builder::permittedFor()
+     *
      * @param string $audience
      * @param boolean $replicateAsHeader
      *
      * @return Builder
-     * @see Builder::permittedFor()
-     *
-     * @deprecated This method will be removed on v4
      */
     public function setAudience($audience, $replicateAsHeader = false)
     {
-        return $this->setRegisteredClaim('aud', (string)$audience, $replicateAsHeader);
+        return $this->permittedFor($audience, $replicateAsHeader);
     }
 
     /**
      * Configures the expiration time
      *
-     * @param int $expiration
+     * @param int|DateTimeImmutable $expiration
      * @param boolean $replicateAsHeader
      *
      * @return Builder
      */
     public function expiresAt($expiration, $replicateAsHeader = false)
     {
-        return $this->setRegisteredClaim('exp', (int)$expiration, $replicateAsHeader);
+        return $this->setRegisteredClaim('exp', $this->convertToDate($expiration), $replicateAsHeader);
+    }
+
+    /**
+     * @param int|DateTimeImmutable $value
+     *
+     * @return DateTimeImmutable
+     */
+    private function convertToDate($value)
+    {
+        if (! $value instanceof DateTimeImmutable) {
+            trigger_error('Using integers for registered date claims is deprecated, please use DateTimeImmutable objects instead.', E_USER_DEPRECATED);
+
+            return new DateTimeImmutable('@' . $value);
+        }
+
+        return $value;
     }
 
     /**
      * Configures the expiration time
      *
-     * @param int $expiration
+     * @deprecated This method will be removed on v4
+     * @see Builder::expiresAt()
+     *
+     * @param int|DateTimeImmutable $expiration
      * @param boolean $replicateAsHeader
      *
      * @return Builder
-     * @see Builder::expiresAt()
-     *
-     * @deprecated This method will be removed on v4
      */
     public function setExpiration($expiration, $replicateAsHeader = false)
     {
-        return $this->setRegisteredClaim('exp', (int)$expiration, $replicateAsHeader);
+        return $this->expiresAt($expiration, $replicateAsHeader);
     }
 
     /**
@@ -157,19 +182,19 @@ class Builder
      */
     public function identifiedBy($id, $replicateAsHeader = false)
     {
-        return $this->setRegisteredClaim('jti', (string)$id, $replicateAsHeader);
+        return $this->setRegisteredClaim('jti', (string) $id, $replicateAsHeader);
     }
 
     /**
      * Configures the token id
      *
+     * @deprecated This method will be removed on v4
+     * @see Builder::identifiedBy()
+     *
      * @param string $id
      * @param boolean $replicateAsHeader
      *
      * @return Builder
-     * @see Builder::identifiedBy()
-     *
-     * @deprecated This method will be removed on v4
      */
     public function setId($id, $replicateAsHeader = false)
     {
@@ -179,26 +204,26 @@ class Builder
     /**
      * Configures the time that the token was issued
      *
-     * @param int $issuedAt
+     * @param int|DateTimeImmutable $issuedAt
      * @param boolean $replicateAsHeader
      *
      * @return Builder
      */
     public function issuedAt($issuedAt, $replicateAsHeader = false)
     {
-        return $this->setRegisteredClaim('iat', (int)$issuedAt, $replicateAsHeader);
+        return $this->setRegisteredClaim('iat', $this->convertToDate($issuedAt), $replicateAsHeader);
     }
 
     /**
      * Configures the time that the token was issued
      *
-     * @param int $issuedAt
+     * @deprecated This method will be removed on v4
+     * @see Builder::issuedAt()
+     *
+     * @param int|DateTimeImmutable $issuedAt
      * @param boolean $replicateAsHeader
      *
      * @return Builder
-     * @see Builder::issuedAt()
-     *
-     * @deprecated This method will be removed on v4
      */
     public function setIssuedAt($issuedAt, $replicateAsHeader = false)
     {
@@ -215,19 +240,19 @@ class Builder
      */
     public function issuedBy($issuer, $replicateAsHeader = false)
     {
-        return $this->setRegisteredClaim('iss', (string)$issuer, $replicateAsHeader);
+        return $this->setRegisteredClaim('iss', (string) $issuer, $replicateAsHeader);
     }
 
     /**
      * Configures the issuer
      *
+     * @deprecated This method will be removed on v4
+     * @see Builder::issuedBy()
+     *
      * @param string $issuer
      * @param boolean $replicateAsHeader
      *
      * @return Builder
-     * @see Builder::issuedBy()
-     *
-     * @deprecated This method will be removed on v4
      */
     public function setIssuer($issuer, $replicateAsHeader = false)
     {
@@ -237,26 +262,26 @@ class Builder
     /**
      * Configures the time before which the token cannot be accepted
      *
-     * @param int $notBefore
+     * @param int|DateTimeImmutable $notBefore
      * @param boolean $replicateAsHeader
      *
      * @return Builder
      */
     public function canOnlyBeUsedAfter($notBefore, $replicateAsHeader = false)
     {
-        return $this->setRegisteredClaim('nbf', (int)$notBefore, $replicateAsHeader);
+        return $this->setRegisteredClaim('nbf', $this->convertToDate($notBefore), $replicateAsHeader);
     }
 
     /**
      * Configures the time before which the token cannot be accepted
      *
-     * @param int $notBefore
+     * @deprecated This method will be removed on v4
+     * @see Builder::canOnlyBeUsedAfter()
+     *
+     * @param int|DateTimeImmutable $notBefore
      * @param boolean $replicateAsHeader
      *
      * @return Builder
-     * @see Builder::canOnlyBeUsedAfter()
-     *
-     * @deprecated This method will be removed on v4
      */
     public function setNotBefore($notBefore, $replicateAsHeader = false)
     {
@@ -273,23 +298,45 @@ class Builder
      */
     public function relatedTo($subject, $replicateAsHeader = false)
     {
-        return $this->setRegisteredClaim('sub', (string)$subject, $replicateAsHeader);
+        return $this->setRegisteredClaim('sub', (string) $subject, $replicateAsHeader);
     }
 
     /**
      * Configures the subject
      *
+     * @deprecated This method will be removed on v4
+     * @see Builder::relatedTo()
+     *
      * @param string $subject
      * @param boolean $replicateAsHeader
      *
      * @return Builder
-     * @see Builder::relatedTo()
-     *
-     * @deprecated This method will be removed on v4
      */
     public function setSubject($subject, $replicateAsHeader = false)
     {
         return $this->relatedTo($subject, $replicateAsHeader);
+    }
+
+    /**
+     * Configures a registered claim
+     *
+     * @param string $name
+     * @param mixed $value
+     * @param boolean $replicate
+     *
+     * @return Builder
+     */
+    protected function setRegisteredClaim($name, $value, $replicate)
+    {
+        $this->configureClaim($name, $value);
+
+        if ($replicate) {
+            trigger_error('Replicating claims as headers is deprecated and will removed from v4.0. Please manually set the header if you need it replicated.', E_USER_DEPRECATED);
+
+            $this->headers[$name] = $value;
+        }
+
+        return $this;
     }
 
     /**
@@ -302,7 +349,7 @@ class Builder
      */
     public function withHeader($name, $value)
     {
-        $this->headers[(string)$name] = $this->claimFactory->create($name, $value);
+        $this->headers[(string) $name] = $value;
 
         return $this;
     }
@@ -310,13 +357,13 @@ class Builder
     /**
      * Configures a header item
      *
+     * @deprecated This method will be removed on v4
+     * @see Builder::withHeader()
+     *
      * @param string $name
      * @param mixed $value
      *
      * @return Builder
-     * @see Builder::withHeader()
-     *
-     * @deprecated This method will be removed on v4
      */
     public function setHeader($name, $value)
     {
@@ -340,16 +387,14 @@ class Builder
     }
 
     /**
-     * Configures a claim item
-     *
      * @param string $name
      * @param mixed $value
      *
      * @return Builder
      */
-    public function withClaim($name, $value)
+    private function configureClaim($name, $value)
     {
-        $this->claims[(string)$name] = $this->claimFactory->create($name, $value);
+        $this->claims[(string) $name] = $value;
 
         return $this;
     }
@@ -361,29 +406,50 @@ class Builder
      * @param mixed $value
      *
      * @return Builder
-     * @see Builder::withClaim()
+     *
+     * @throws RegisteredClaimGiven
+     */
+    public function withClaim($name, $value)
+    {
+        if (in_array($name, RegisteredClaims::ALL, true)) {
+            throw RegisteredClaimGiven::forClaim($name);
+        }
+
+        return $this->configureClaim($name, $value);
+    }
+
+    /**
+     * Configures a claim item
      *
      * @deprecated This method will be removed on v4
+     * @see Builder::withClaim()
+     *
+     * @param string $name
+     * @param mixed $value
+     *
+     * @return Builder
      */
     public function set($name, $value)
     {
-        return $this->withClaim($name, $value);
+        return $this->configureClaim($name, $value);
     }
 
     /**
      * Signs the data
      *
+     * @deprecated This method will be removed on v4
+     * @see Builder::getToken()
+     *
      * @param Signer $signer
      * @param Key|string $key
      *
      * @return Builder
-     * @see Builder::getToken()
-     *
-     * @deprecated This method will be removed on v4
      */
     public function sign(Signer $signer, $key)
     {
-        if (!$key instanceof Key) {
+        if (! $key instanceof Key) {
+            trigger_error('Implicit conversion of keys from strings is deprecated. Please use InMemory or LocalFileReference classes.', E_USER_DEPRECATED);
+
             $key = new Key($key);
         }
 
@@ -396,10 +462,10 @@ class Builder
     /**
      * Removes the signature from the builder
      *
-     * @return Builder
+     * @deprecated This method will be removed on v4
      * @see Builder::getToken()
      *
-     * @deprecated This method will be removed on v4
+     * @return Builder
      */
     public function unsign()
     {
@@ -416,6 +482,10 @@ class Builder
      */
     public function getToken(Signer $signer = null, Key $key = null)
     {
+        if ($signer === null || $key === null) {
+            trigger_error('Not specifying the signer and key to Builder#getToken() is deprecated. Please move the arguments from Builder#sign() to Builder#getToken().', E_USER_DEPRECATED);
+        }
+
         $signer = $signer ?: $this->signer;
         $key = $key ?: $this->key;
 
@@ -423,51 +493,60 @@ class Builder
             $signer->modifyHeader($this->headers);
         }
 
-        $payload = [
-            $this->encoder->base64UrlEncode($this->encoder->jsonEncode($this->headers)),
-            $this->encoder->base64UrlEncode($this->encoder->jsonEncode($this->claims))
-        ];
+        $headers = new DataSet(
+            $this->headers,
+            $this->encoder->base64UrlEncode($this->encoder->jsonEncode($this->convertItems($this->headers)))
+        );
 
-        $signature = $this->createSignature($payload, $signer, $key);
+        $claims = new DataSet(
+            $this->claims,
+            $this->encoder->base64UrlEncode($this->encoder->jsonEncode($this->convertItems($this->claims)))
+        );
 
-        if ($signature !== null) {
-            $payload[] = $this->encoder->base64UrlEncode($signature);
-        }
-
-        return new Token($this->headers, $this->claims, $signature, $payload);
+        return new Token(
+            $headers,
+            $claims,
+            $this->createSignature($headers->toString() . '.' . $claims->toString(), $signer, $key),
+            ['', ''],
+            $this->claimFactory
+        );
     }
 
     /**
-     * Configures a registered claim
+     * @param array<string, mixed> $items
      *
-     * @param string $name
-     * @param mixed $value
-     * @param boolean $replicate
-     *
-     * @return Builder
+     * @return array<string, mixed>
      */
-    protected function setRegisteredClaim($name, $value, $replicate)
+    private function convertItems(array $items)
     {
-        $this->withClaim($name, $value);
+        foreach (RegisteredClaims::DATE_CLAIMS as $name) {
+            if (! array_key_exists($name, $items) || ! $items[$name] instanceof DateTimeImmutable) {
+                continue;
+            }
 
-        if ($replicate) {
-            $this->headers[$name] = $this->claims[$name];
+            $items[$name] = $items[$name]->getTimestamp();
         }
 
-        return $this;
+        if (array_key_exists(RegisteredClaims::AUDIENCE, $items) && is_array($items[RegisteredClaims::AUDIENCE])) {
+            $items[RegisteredClaims::AUDIENCE] = current($items[RegisteredClaims::AUDIENCE]);
+        }
+
+        return $items;
     }
 
     /**
-     * @param string[] $payload
+     * @param string $payload
      *
-     * @return Signature|null
+     * @return Signature
      */
-    private function createSignature(array $payload, Signer $signer = null, Key $key = null)
+    private function createSignature($payload, Signer $signer = null, Key $key = null)
     {
         if ($signer === null || $key === null) {
-            return null;
+            return Signature::fromEmptyData();
         }
 
-        return $signer->sign(implode('.', $payload), $key);
+        $hash = $signer->sign($payload, $key)->hash();
+
+        return new Signature($hash, $this->encoder->base64UrlEncode($hash));
     }
 }

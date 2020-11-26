@@ -1,11 +1,7 @@
 <?php
-
 namespace Lcobucci\JWT\Signer;
 
 use InvalidArgumentException;
-use Lcobucci\JWT\Signer;
-use function assert;
-use function is_array;
 use function is_resource;
 use function openssl_error_string;
 use function openssl_free_key;
@@ -24,10 +20,8 @@ abstract class OpenSSL extends BaseSigner
         try {
             $signature = '';
 
-            if (!openssl_sign($payload, $signature, $privateKey, $this->getAlgorithm())) {
-                throw new InvalidArgumentException(
-                    'There was an error while creating the signature: ' . openssl_error_string()
-                );
+            if (! openssl_sign($payload, $signature, $privateKey, $this->getAlgorithm())) {
+                throw CannotSignPayload::errorHappened(openssl_error_string());
             }
 
             return $signature;
@@ -35,35 +29,6 @@ abstract class OpenSSL extends BaseSigner
             openssl_free_key($privateKey);
         }
     }
-
-    /**
-     * @param $expected
-     * @param $payload
-     * @param $pem
-     * @return bool
-     */
-    public function doVerify($expected, $payload, Key $key)
-    {
-        $publicKey = $this->getPublicKey($key->getContent());
-        $result = openssl_verify($payload, $expected, $publicKey, $this->getAlgorithm());
-        openssl_free_key($publicKey);
-
-        return $result === 1;
-    }
-
-    /**
-     * Returns the type of key to be used to create/verify the signature (using OpenSSL constants)
-     *
-     * @internal
-     */
-    abstract public function getKeyType();
-
-    /**
-     * Returns which algorithm to be used to create/verify the signature (using OpenSSL constants)
-     *
-     * @internal
-     */
-    abstract public function getAlgorithm();
 
     /**
      * @param string $pem
@@ -77,6 +42,21 @@ abstract class OpenSSL extends BaseSigner
         $this->validateKey($privateKey);
 
         return $privateKey;
+    }
+
+    /**
+     * @param $expected
+     * @param $payload
+     * @param $pem
+     * @return bool
+     */
+    public function doVerify($expected, $payload, Key $key)
+    {
+        $publicKey = $this->getPublicKey($key->getContent());
+        $result    = openssl_verify($payload, $expected, $publicKey, $this->getAlgorithm());
+        openssl_free_key($publicKey);
+
+        return $result === 1;
     }
 
     /**
@@ -101,16 +81,28 @@ abstract class OpenSSL extends BaseSigner
      */
     private function validateKey($key)
     {
-        if (!is_resource($key)) {
-            throw new InvalidArgumentException(
-                'It was not possible to parse your key, reason: ' . openssl_error_string()
-            );
+        if (! is_resource($key)) {
+            throw InvalidKeyProvided::cannotBeParsed(openssl_error_string());
         }
 
         $details = openssl_pkey_get_details($key);
 
-        if (!isset($details['key']) || $details['type'] !== $this->getKeyType()) {
-            throw new InvalidArgumentException('This key is not compatible with this signer');
+        if (! isset($details['key']) || $details['type'] !== $this->getKeyType()) {
+            throw InvalidKeyProvided::incompatibleKey();
         }
     }
+
+    /**
+     * Returns the type of key to be used to create/verify the signature (using OpenSSL constants)
+     *
+     * @internal
+     */
+    abstract public function getKeyType();
+
+    /**
+     * Returns which algorithm to be used to create/verify the signature (using OpenSSL constants)
+     *
+     * @internal
+     */
+    abstract public function getAlgorithm();
 }
