@@ -4,6 +4,7 @@
 namespace App\Support;
 
 
+use Dcat\Admin\Admin;
 use Dcat\Admin\Widgets\Alert;
 
 class Data
@@ -171,6 +172,40 @@ class Data
         $alert->warning();
         $alert->icon('feather icon-alert-triangle');
         return $alert;
+    }
+
+    /**
+     * 保固状态
+     * @return string[]
+     */
+    public static function expiredStatus()
+    {
+        return [
+            'one day' => '一天内过期',
+            'three day' => '三天内过期',
+            'one week' => '一周内过期',
+            'one month' => '一月内过期',
+            'normal' => '正常',
+            'none' => '无效的设备',
+            'default' => '错误'
+        ];
+    }
+
+    /**
+     * 保固状态颜色
+     * @return array
+     */
+    public static function expiredStatusColors()
+    {
+        return [
+            'one day' => 'danger',
+            'three day' => 'danger',
+            'one week' => 'warning',
+            'one month' => 'warning',
+            'normal' => 'success',
+            'none' => 'primary',
+            'default' => Admin::color()->gray()
+        ];
     }
 
 }

@@ -56,12 +56,11 @@ class Info
             return '设备状态异常';
         } else {
             $staff = $device->staff;
-            return $staff->name ? $staff->name : '闲置';
-//            if (empty($staff)) {
-//                return '闲置';
-//            } else {
-//                return $staff->name;
-//            }
+            if (empty($staff)) {
+                return '闲置';
+            } else {
+                return $staff->name;
+            }
         }
     }
 

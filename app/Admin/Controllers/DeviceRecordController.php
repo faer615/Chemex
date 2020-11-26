@@ -14,6 +14,7 @@ use App\Models\PurchasedChannel;
 use App\Models\VendorRecord;
 use App\Services\DeviceRecordService;
 use App\Services\ExpirationService;
+use App\Support\Data;
 use App\Support\Info;
 use App\Support\Track;
 use Dcat\Admin\Admin;
@@ -83,6 +84,18 @@ class DeviceRecordController extends AdminController
                     return '';
                 }
                 return Info::staffIdToDepartmentName($res);
+            });
+            $grid->column('', admin_trans_label('Expiration Left Days'))->display(function () {
+                $days = ExpirationService::deviceExpirationLeftDays($this->id);
+                if ($days <= 0) {
+                    return "<span class='badge badge-pill badge-dark'>过保</span>";
+                } elseif ($days <= 7 && $days > 0) {
+                    return "<span class='badge badge-pill badge-danger'>$days</span>";
+                } elseif ($days <= 30 && $days > 7) {
+                    return "<span class='badge badge-pill badge-warning'>$days</span>";
+                } else {
+                    return "<span class='badge badge-pill badge-success'>$days</span>";
+                }
             });
 
             $grid->toolsWithOutline(false);

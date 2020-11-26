@@ -30,15 +30,26 @@ class ExpirationService
         return $result;
     }
 
-    //TODO
-    public static function deviceExpirationStatus($id)
+    /**
+     * 判断设备维保剩余天数
+     * @param $id
+     * @return string
+     */
+    public static function deviceExpirationLeftDays($id)
     {
         $device = DeviceRecord::where('id', $id)->first();
+        $day = 0;
         if ($device) {
             $expired = strtotime($device->expired);
-
-        } else {
-            return '设备失效';
+            $now = time();
+            $diff = $expired - $now;
+            if ($diff <= 0) {
+                $day = 0;
+            } else {
+                $day = $diff / 60 / 60 / 24;
+                $day = ceil($day);
+            }
         }
+        return (int)$day;
     }
 }
