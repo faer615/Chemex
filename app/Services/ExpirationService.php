@@ -29,4 +29,16 @@ class ExpirationService
         }
         return $result;
     }
+
+    //TODO
+    public static function deviceExpirationStatus($id)
+    {
+        $device = DeviceRecord::where('id', $id)->first();
+        if ($device) {
+            $expired = strtotime($device->expired);
+
+        } else {
+            return '设备失效';
+        }
+    }
 }

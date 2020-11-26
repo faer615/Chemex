@@ -9,7 +9,6 @@ use App\Admin\Actions\Grid\RowAction\DeviceTrackAction;
 use App\Admin\Actions\Grid\RowAction\MaintenanceAction;
 use App\Admin\Actions\Grid\ToolAction\DeviceRecordImportAction;
 use App\Admin\Repositories\DeviceRecord;
-use App\Models\ClipRecord;
 use App\Models\DeviceCategory;
 use App\Models\PurchasedChannel;
 use App\Models\VendorRecord;
@@ -39,29 +38,6 @@ class DeviceRecordController extends AdminController
                 $row->column(3, new Card('30天内即将过保设备数', ExpirationService::deviceCounts()));
             })
             ->body($this->grid());
-    }
-
-    public function show($id, Content $content)
-    {
-        $name = Info::deviceIdToStaffName($id);
-        $related = DeviceRecordService::related($id);
-        $history = DeviceRecordService::history($id);
-        return $content
-            ->title($this->title())
-            ->description($this->description()['index'] ?? trans('admin.show'))
-            ->body(function (Row $row) use ($id, $name, $related, $history) {
-                // 判断权限
-                if (!Admin::user()->can('device.history')) {
-                    $row->column(12, $this->detail($id));
-                } else {
-                    $row->column(6, $this->detail($id));
-                    $row->column(6, function (Column $column) use ($id, $name, $related, $history) {
-                        $column->row(new Card(view('device_records.staff')->with('name', $name)));
-                        $column->row(new Card('归属信息', view('device_records.related')->with('data', $related)));
-                        $column->row(new Card('履历', view('history')->with('data', $history)));
-                    });
-                }
-            });
     }
 
     /**
@@ -163,6 +139,29 @@ class DeviceRecordController extends AdminController
 
             $grid->export();
         });
+    }
+
+    public function show($id, Content $content)
+    {
+        $name = Info::deviceIdToStaffName($id);
+        $related = DeviceRecordService::related($id);
+        $history = DeviceRecordService::history($id);
+        return $content
+            ->title($this->title())
+            ->description($this->description()['index'] ?? trans('admin.show'))
+            ->body(function (Row $row) use ($id, $name, $related, $history) {
+                // 判断权限
+                if (!Admin::user()->can('device.history')) {
+                    $row->column(12, $this->detail($id));
+                } else {
+                    $row->column(6, $this->detail($id));
+                    $row->column(6, function (Column $column) use ($id, $name, $related, $history) {
+                        $column->row(new Card(view('device_records.staff')->with('name', $name)));
+                        $column->row(new Card('归属信息', view('device_records.related')->with('data', $related)));
+                        $column->row(new Card('履历', view('history')->with('data', $history)));
+                    });
+                }
+            });
     }
 
     /**

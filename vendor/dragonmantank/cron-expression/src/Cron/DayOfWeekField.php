@@ -66,25 +66,25 @@ class DayOfWeekField extends AbstractField
         // Convert text day of the week values to integers
         $value = $this->convertLiterals($value);
 
-        $currentYear = (int)$date->format('Y');
-        $currentMonth = (int)$date->format('m');
-        $lastDayOfMonth = (int)$date->format('t');
+        $currentYear = (int) $date->format('Y');
+        $currentMonth = (int) $date->format('m');
+        $lastDayOfMonth = (int) $date->format('t');
 
         // Find out if this is the last specific weekday of the month
         if (strpos($value, 'L')) {
-            $weekday = (int)$this->convertLiterals(substr($value, 0, strpos($value, 'L')));
+            /** @phpstan-ignore-next-line */
+            $weekday = $this->convertLiterals(substr($value, 0, strpos($value, 'L')));
             $weekday %= 7;
 
             $tdate = clone $date;
             $tdate = $tdate->setDate($currentYear, $currentMonth, $lastDayOfMonth);
             while ($tdate->format('w') != $weekday) {
                 $tdateClone = new DateTime();
-                $tdate = $tdateClone
-                    ->setTimezone($tdate->getTimezone())
+                $tdate = $tdateClone->setTimezone($tdate->getTimezone())
                     ->setDate($currentYear, $currentMonth, --$lastDayOfMonth);
             }
 
-            return (int)$date->format('j') === $lastDayOfMonth;
+            return (int) $date->format('j') === $lastDayOfMonth;
         }
 
         // Handle # hash tokens
@@ -94,7 +94,7 @@ class DayOfWeekField extends AbstractField
             if (!is_numeric($nth)) {
                 throw new InvalidArgumentException("Hashed weekdays must be numeric, {$nth} given");
             } else {
-                $nth = (int)$nth;
+                $nth = (int) $nth;
             }
 
             // 0 and 7 are both Sunday, however 7 matches date('N') format ISO-8601
@@ -102,7 +102,7 @@ class DayOfWeekField extends AbstractField
                 $weekday = 7;
             }
 
-            $weekday = (int)$this->convertLiterals((string)$weekday);
+            $weekday = (int) $this->convertLiterals((string) $weekday);
 
             // Validate the hash fields
             if ($weekday < 0 || $weekday > 7) {
@@ -114,7 +114,7 @@ class DayOfWeekField extends AbstractField
             }
 
             // The current weekday must match the targeted weekday to proceed
-            if ((int)$date->format('N') !== $weekday) {
+            if ((int) $date->format('N') !== $weekday) {
                 return false;
             }
 
@@ -123,7 +123,7 @@ class DayOfWeekField extends AbstractField
             $dayCount = 0;
             $currentDay = 1;
             while ($currentDay < $lastDayOfMonth + 1) {
-                if ((int)$tdate->format('N') === $weekday) {
+                if ((int) $tdate->format('N') === $weekday) {
                     if (++$dayCount >= $nth) {
                         break;
                     }
@@ -131,7 +131,7 @@ class DayOfWeekField extends AbstractField
                 $tdate = $tdate->setDate($currentYear, $currentMonth, ++$currentDay);
             }
 
-            return (int)$date->format('j') === $currentDay;
+            return (int) $date->format('j') === $currentDay;
         }
 
         // Handle day of the week values
@@ -147,9 +147,9 @@ class DayOfWeekField extends AbstractField
 
         // Test to see which Sunday to use -- 0 == 7 == Sunday
         $format = \in_array(7, array_map(function ($value) {
-            return (int)$value;
+            return (int) $value;
         }, str_split($value)), true) ? 'N' : 'w';
-        $fieldValue = (int)$date->format($format);
+        $fieldValue = (int) $date->format($format);
 
         return $this->isSatisfied($fieldValue, $value);
     }
@@ -157,9 +157,9 @@ class DayOfWeekField extends AbstractField
     /**
      * @inheritDoc
      *
-     * @param \DateTime|\DateTimeImmutable &$date
+     * @param \DateTime|\DateTimeImmutable $date
      */
-    public function increment(DateTimeInterface &$date, $invert = false): FieldInterface
+    public function increment(DateTimeInterface &$date, $invert = false, $parts = null): FieldInterface
     {
         if ($invert) {
             $date = $date->modify('-1 day')->setTime(23, 59, 0);
@@ -187,7 +187,7 @@ class DayOfWeekField extends AbstractField
                 $chunks = explode('#', $value);
                 $chunks[0] = $this->convertLiterals($chunks[0]);
 
-                if (parent::validate($chunks[0]) && is_numeric($chunks[1]) && \in_array((int)$chunks[1], $this->nthRange, true)) {
+                if (parent::validate($chunks[0]) && is_numeric($chunks[1]) && \in_array((int) $chunks[1], $this->nthRange, true)) {
                     return true;
                 }
             }
