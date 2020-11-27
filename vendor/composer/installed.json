@@ -2222,17 +2222,17 @@
     },
     {
         "name": "lcobucci/jwt",
-        "version": "3.4.0",
-        "version_normalized": "3.4.0.0",
+        "version": "3.4.1",
+        "version_normalized": "3.4.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/lcobucci/jwt.git",
-            "reference": "320b9f05741b24acbbaf1106ed267ff3817fd74d"
+            "reference": "958a9873a63b0244a72f6e354ccc86019ee674a5"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/lcobucci/jwt/zipball/320b9f05741b24acbbaf1106ed267ff3817fd74d",
-            "reference": "320b9f05741b24acbbaf1106ed267ff3817fd74d",
+            "url": "https://api.github.com/repos/lcobucci/jwt/zipball/958a9873a63b0244a72f6e354ccc86019ee674a5",
+            "reference": "958a9873a63b0244a72f6e354ccc86019ee674a5",
             "shasum": "",
             "mirrors": [
                 {
@@ -2256,7 +2256,7 @@
         "suggest": {
             "lcobucci/clock": "*"
         },
-        "time": "2020-11-25T01:46:26+00:00",
+        "time": "2020-11-27T01:17:14+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -3623,17 +3623,17 @@
     },
     {
         "name": "phpunit/php-code-coverage",
-        "version": "9.2.3",
-        "version_normalized": "9.2.3.0",
+        "version": "9.2.4",
+        "version_normalized": "9.2.4.0",
         "source": {
             "type": "git",
             "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-            "reference": "6b20e2055f7c29b56cb3870b3de7cc463d7add41"
+            "reference": "0a7f0acf9269c190fd982b5c04423feae986b6e0"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/6b20e2055f7c29b56cb3870b3de7cc463d7add41",
-            "reference": "6b20e2055f7c29b56cb3870b3de7cc463d7add41",
+            "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/0a7f0acf9269c190fd982b5c04423feae986b6e0",
+            "reference": "0a7f0acf9269c190fd982b5c04423feae986b6e0",
             "shasum": "",
             "mirrors": [
                 {
@@ -3664,7 +3664,7 @@
             "ext-pcov": "*",
             "ext-xdebug": "*"
         },
-        "time": "2020-10-30T10:46:41+00:00",
+        "time": "2020-11-27T06:15:15+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {

@@ -8,7 +8,7 @@ use Dcat\Admin\Contracts\LazyRenderable;
 use Dcat\Admin\Traits\LazyWidget;
 use Dcat\Admin\Widgets\Form;
 
-class CheckTrackActionForm extends Form implements LazyRenderable
+class CheckTrackForm extends Form implements LazyRenderable
 {
     use LazyWidget;
 
@@ -65,6 +65,6 @@ class CheckTrackActionForm extends Form implements LazyRenderable
             ->options([1 => '盘到啦', 2 => '没盘道'])
             ->default(1)
             ->required();
-        $this->text('description', '描述');
+        $this->textarea('description', '描述');
     }
 }

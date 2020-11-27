@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateCheckTrackDescriptionColumn extends Migration
+class UpdateServiceIssuesDescriptionColumn extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class UpdateCheckTrackDescriptionColumn extends Migration
      */
     public function up()
     {
-        Schema::table('check_tracks', function (Blueprint $table) {
+        Schema::table('service_issues', function (Blueprint $table) {
             $table->string('description')->nullable();
         });
     }
@@ -25,7 +25,7 @@ class UpdateCheckTrackDescriptionColumn extends Migration
      */
     public function down()
     {
-        Schema::table('check_tracks', function (Blueprint $table) {
+        Schema::table('service_issues', function (Blueprint $table) {
             $table->dropColumn('description');
         });
     }
