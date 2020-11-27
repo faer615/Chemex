@@ -23,7 +23,6 @@ class RowActions extends DropdownActions
         $this->prependDefaultActions();
 
         $default = $this->default;
-        $custom = $this->appends;
 
         // 判断行操作按钮是否启用了查看
         // 如果有就返回按钮，如果无就返回空

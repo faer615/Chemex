@@ -96,6 +96,7 @@ class DeviceRecordController extends AdminController
             $grid->column('qrcode')->qrcode(function () {
                 return base64_encode('device:' . $this->id);
             }, 200, 200);
+            $grid->column('photo')->image('', 50, 50);
             $grid->column('name')->display(function ($name) {
                 $tag = Info::getSoftwareIcon($this->id);
                 if (empty($tag)) {
@@ -104,11 +105,14 @@ class DeviceRecordController extends AdminController
                     return "<img src='/static/images/icons/$tag.png' style='width: 25px;height: 25px;margin-right: 10px'/>$name";
                 }
             });
+            $grid->column('description');
             $grid->column('category.name');
             $grid->column('vendor.name');
             $grid->column('sn');
             $grid->column('mac');
             $grid->column('ip');
+            $grid->column('price');
+            $grid->column('expired');
             $grid->column('owner')->display(function () {
                 $res = Track::currentDeviceTrackStaff($this->id);
                 switch ($res) {
