@@ -126,7 +126,7 @@ class DeviceRecordController extends AdminController
                 }
                 return Info::staffIdToDepartmentName($res);
             });
-            $grid->column('', admin_trans_label('Expiration Left Days'))->display(function () {
+            $grid->column('expiration_left_days', admin_trans_label('Expiration Left Days'))->display(function () {
                 return ExpirationService::itemExpirationLeftDaysRender('device', $this->id);
             });
 
@@ -168,6 +168,8 @@ class DeviceRecordController extends AdminController
                 }
             });
 
+            $grid->showColumnSelector();
+
             $grid->quickSearch('id', 'name', 'ip', 'mac')
                 ->placeholder('试着搜索一下')
                 ->auto(false);
@@ -196,7 +198,6 @@ class DeviceRecordController extends AdminController
         return Form::make(new DeviceRecord(), function (Form $form) {
             $form->display('id');
             $form->text('name')->required();
-            $form->text('description');
             $form->select('category_id', admin_trans_label('Category'))
                 ->options(DeviceCategory::all()
                     ->pluck('name', 'id'))
@@ -205,6 +206,8 @@ class DeviceRecordController extends AdminController
                 ->options(VendorRecord::all()
                     ->pluck('name', 'id'))
                 ->required();
+            $form->divider();
+            $form->text('description');
             $form->select('purchased_channel_id', admin_trans_label('Purchased Channel Id'))
                 ->options(PurchasedChannel::all()
                     ->pluck('name', 'id'));
@@ -213,7 +216,8 @@ class DeviceRecordController extends AdminController
             $form->text('ip');
             $form->image('photo')
                 ->autoUpload()
-                ->uniqueName();
+                ->uniqueName()
+                ->help('可以选择提供一张设备的照片作为概览。');
             $form->currency('price');
             $form->date('purchased');
             $form->date('expired');

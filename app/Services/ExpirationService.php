@@ -41,6 +41,9 @@ class ExpirationService
     public static function itemExpirationLeftDaysRender($item_type, $id)
     {
         $days = ExpirationService::itemExpirationLeftDays($item_type, $id);
+        if ($days == 'none') {
+            return '';
+        }
         if ($days <= 0) {
             return "<span class='badge badge-pill badge-dark'>过保</span>";
         } elseif ($days <= 7 && $days > 0) {
@@ -73,6 +76,9 @@ class ExpirationService
         }
         $day = 0;
         if ($item) {
+            if (empty($item->expired)) {
+                return 'none';
+            }
             $expired = strtotime($item->expired);
             $now = time();
             $diff = $expired - $now;
