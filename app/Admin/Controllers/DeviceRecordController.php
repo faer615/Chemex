@@ -174,6 +174,7 @@ class DeviceRecordController extends AdminController
             });
 
             $grid->showColumnSelector();
+            $grid->hideColumns(['description', 'price', 'expired']);
 
             $grid->quickSearch('id', 'name', 'ip', 'mac')
                 ->placeholder('试着搜索一下')
