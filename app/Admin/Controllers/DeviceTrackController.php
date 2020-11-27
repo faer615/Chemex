@@ -4,6 +4,7 @@ namespace App\Admin\Controllers;
 
 use App\Admin\Actions\Grid\AbstractTool\DeviceTrackTrashedAction;
 use App\Admin\Actions\Grid\RowAction\DeviceTrackDisableAction;
+use App\Admin\Grid\Displayers\RowActions;
 use App\Admin\Repositories\DeviceTrack;
 use App\Support\Data;
 use Dcat\Admin\Admin;
@@ -35,9 +36,7 @@ class DeviceTrackController extends AdminController
             $grid->disableEditButton();
             $grid->disableDeleteButton();
 
-            $grid->setActionClass(Grid\Displayers\Actions::class);
-
-            $grid->actions(function (Grid\Displayers\Actions $actions) {
+            $grid->actions(function (RowActions $actions) {
                 if (Admin::user()->can('device.track.disable') && $this->deleted_at == null) {
                     $actions->append(new DeviceTrackDisableAction());
                 }

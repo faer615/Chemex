@@ -8,6 +8,7 @@ use App\Admin\Actions\Grid\RowAction\DeviceRelatedAction;
 use App\Admin\Actions\Grid\RowAction\DeviceTrackAction;
 use App\Admin\Actions\Grid\RowAction\MaintenanceAction;
 use App\Admin\Actions\Grid\ToolAction\DeviceRecordImportAction;
+use App\Admin\Grid\Displayers\RowActions;
 use App\Admin\Repositories\DeviceRecord;
 use App\Models\DeviceCategory;
 use App\Models\PurchasedChannel;
@@ -138,7 +139,7 @@ class DeviceRecordController extends AdminController
                 new DeviceRecordImportAction()
             ]);
 
-            $grid->actions(function (Grid\Displayers\Actions $actions) {
+            $grid->actions(function (RowActions $actions) {
                 if (Admin::user()->can('device.delete')) {
                     $actions->append(new DeviceDeleteAction());
                 }

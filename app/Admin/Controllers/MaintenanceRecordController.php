@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Actions\Grid\RowAction\MaintenanceFixAction;
+use App\Admin\Grid\Displayers\RowActions;
 use App\Admin\Repositories\MaintenanceRecord;
 use App\Support\Data;
 use App\Support\Info;
@@ -46,9 +47,7 @@ class MaintenanceRecordController extends AdminController
 
             $grid->toolsWithOutline(false);
 
-            $grid->setActionClass(Grid\Displayers\Actions::class);
-
-            $grid->actions(function (Grid\Displayers\Actions $actions) {
+            $grid->actions(function (RowActions $actions) {
                 if ($this->status == 0 && Admin::user()->can('maintenance.fix')) {
                     $actions->append(new MaintenanceFixAction());
                 }

@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Actions\Grid\RowAction\CheckTrackAction;
+use App\Admin\Grid\Displayers\RowActions;
 use App\Admin\Repositories\CheckTrack;
 use App\Models\CheckRecord;
 use App\Models\DeviceRecord;
@@ -61,9 +62,7 @@ class CheckTrackController extends AdminController
             $grid->disableViewButton();
             $grid->disableDeleteButton();
 
-            $grid->setActionClass(Grid\Displayers\Actions::class);
-
-            $grid->actions(function (Grid\Displayers\Actions $actions) {
+            $grid->actions(function (RowActions $actions) {
                 if (Admin::user()->can('check.track') && $this->status == 0) {
                     $actions->append(new CheckTrackAction());
                 }

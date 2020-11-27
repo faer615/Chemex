@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Actions\Grid\RowAction\StaffDeleteAction;
+use App\Admin\Grid\Displayers\RowActions;
 use App\Admin\Repositories\StaffRecord;
 use App\Models\StaffDepartment;
 use App\Support\Data;
@@ -39,7 +40,7 @@ class StaffRecordController extends AdminController
             $grid->disableDeleteButton();
             $grid->disableBatchActions();
 
-            $grid->actions(function (Grid\Displayers\Actions $actions) {
+            $grid->actions(function (RowActions $actions) {
                 if (Admin::user()->can('staff.delete')) {
                     $actions->append(new StaffDeleteAction());
                 }

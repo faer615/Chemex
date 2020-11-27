@@ -6,6 +6,7 @@ use App\Admin\Actions\Grid\RowAction\HardwareDeleteAction;
 use App\Admin\Actions\Grid\RowAction\HardwareHistoryAction;
 use App\Admin\Actions\Grid\RowAction\HardwareTrackAction;
 use App\Admin\Actions\Grid\RowAction\MaintenanceAction;
+use App\Admin\Grid\Displayers\RowActions;
 use App\Admin\Repositories\HardwareRecord;
 use App\Models\HardwareCategory;
 use App\Models\PurchasedChannel;
@@ -46,7 +47,7 @@ class HardwareRecordController extends AdminController
                 return ExpirationService::itemExpirationLeftDaysRender('hardware', $this->id);
             });
 
-            $grid->actions(function (Grid\Displayers\Actions $actions) {
+            $grid->actions(function (RowActions $actions) {
                 if (Admin::user()->can('hardware.delete')) {
                     $actions->append(new HardwareDeleteAction());
                 }

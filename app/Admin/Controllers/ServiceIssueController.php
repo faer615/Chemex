@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Actions\Grid\RowAction\ServiceIssueFixAction;
+use App\Admin\Grid\Displayers\RowActions;
 use App\Admin\Repositories\ServiceIssue;
 use App\Support\Data;
 use Dcat\Admin\Admin;
@@ -31,9 +32,7 @@ class ServiceIssueController extends AdminController
             $grid->column('start');
             $grid->column('end');
 
-            $grid->setActionClass(Grid\Displayers\Actions::class);
-
-            $grid->actions(function (Grid\Displayers\Actions $actions) {
+            $grid->actions(function (RowActions $actions) {
                 if ($this->status == 1 && Admin::user()->can('service.issue.fix')) {
                     $actions->append(new ServiceIssueFixAction());
                 }

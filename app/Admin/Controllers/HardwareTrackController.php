@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Actions\Grid\RowAction\HardwareTrackDisableAction;
+use App\Admin\Grid\Displayers\RowActions;
 use App\Admin\Repositories\HardwareTrack;
 use App\Support\Data;
 use Dcat\Admin\Admin;
@@ -32,9 +33,8 @@ class HardwareTrackController extends AdminController
             $grid->disableViewButton();
             $grid->disableEditButton();
             $grid->disableDeleteButton();
-            $grid->setActionClass(Grid\Displayers\Actions::class);
 
-            $grid->actions(function (Grid\Displayers\Actions $actions) {
+            $grid->actions(function (RowActions $actions) {
                 if (Admin::user()->can('hardware.track.disable') && $this->deleted_at == null) {
                     $actions->append(new HardwareTrackDisableAction());
                 }

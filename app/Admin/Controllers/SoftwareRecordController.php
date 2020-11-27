@@ -5,6 +5,7 @@ namespace App\Admin\Controllers;
 use App\Admin\Actions\Grid\RowAction\SoftwareDeleteAction;
 use App\Admin\Actions\Grid\RowAction\SoftwareHistoryAction;
 use App\Admin\Actions\Grid\RowAction\SoftwareTrackAction;
+use App\Admin\Grid\Displayers\RowActions;
 use App\Admin\Repositories\SoftwareRecord;
 use App\Models\PurchasedChannel;
 use App\Models\SoftwareCategory;
@@ -48,7 +49,7 @@ class SoftwareRecordController extends AdminController
                 return ExpirationService::itemExpirationLeftDaysRender('software', $this->id);
             });
 
-            $grid->actions(function (Grid\Displayers\Actions $actions) {
+            $grid->actions(function (RowActions $actions) {
                 if (Admin::user()->can('software.delete')) {
                     $actions->append(new SoftwareDeleteAction());
                 }
