@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Admin\\Actions\\Grid\\RowAction\\CheckCancelAction' => $baseDir . '/app/Admin/Actions/Grid/RowAction/CheckCancelAction.php',
     'App\\Admin\\Actions\\Grid\\RowAction\\CheckFinishAction' => $baseDir . '/app/Admin/Actions/Grid/RowAction/CheckFinishAction.php',
+    'App\\Admin\\Actions\\Grid\\RowAction\\CheckTrackAction' => $baseDir . '/app/Admin/Actions/Grid/RowAction/CheckTrackAction.php',
     'App\\Admin\\Actions\\Grid\\RowAction\\CheckTrackNoAction' => $baseDir . '/app/Admin/Actions/Grid/RowAction/CheckTrackNoAction.php',
     'App\\Admin\\Actions\\Grid\\RowAction\\CheckTrackYesAction' => $baseDir . '/app/Admin/Actions/Grid/RowAction/CheckTrackYesAction.php',
     'App\\Admin\\Actions\\Grid\\RowAction\\DeviceDeleteAction' => $baseDir . '/app/Admin/Actions/Grid/RowAction/DeviceDeleteAction.php',
@@ -55,6 +56,7 @@ return array(
     'App\\Admin\\Controllers\\StaffRecordController' => $baseDir . '/app/Admin/Controllers/StaffRecordController.php',
     'App\\Admin\\Controllers\\VendorRecordController' => $baseDir . '/app/Admin/Controllers/VendorRecordController.php',
     'App\\Admin\\Controllers\\VersionController' => $baseDir . '/app/Admin/Controllers/VersionController.php',
+    'App\\Admin\\Forms\\CheckTrackActionForm' => $baseDir . '/app/Admin/Forms/CheckTrackActionForm.php',
     'App\\Admin\\Forms\\DeviceRecordImportForm' => $baseDir . '/app/Admin/Forms/DeviceRecordImportForm.php',
     'App\\Admin\\Forms\\DeviceSSHInfoForm' => $baseDir . '/app/Admin/Forms/DeviceSSHInfoForm.php',
     'App\\Admin\\Forms\\DeviceTrackForm' => $baseDir . '/app/Admin/Forms/DeviceTrackForm.php',
@@ -64,6 +66,7 @@ return array(
     'App\\Admin\\Forms\\ServiceIssueForm' => $baseDir . '/app/Admin/Forms/ServiceIssueForm.php',
     'App\\Admin\\Forms\\ServiceTrackForm' => $baseDir . '/app/Admin/Forms/ServiceTrackForm.php',
     'App\\Admin\\Forms\\SoftwareTrackForm' => $baseDir . '/app/Admin/Forms/SoftwareTrackForm.php',
+    'App\\Admin\\Grid\\Displayers\\RowActions' => $baseDir . '/app/Admin/Grid/Displayers/RowActions.php',
     'App\\Admin\\Metrics\\CheckDevicePercentage' => $baseDir . '/app/Admin/Metrics/CheckDevicePercentage.php',
     'App\\Admin\\Metrics\\CheckHardwarePercentage' => $baseDir . '/app/Admin/Metrics/CheckHardwarePercentage.php',
     'App\\Admin\\Metrics\\CheckRecordsReview' => $baseDir . '/app/Admin/Metrics/CheckRecordsReview.php',
