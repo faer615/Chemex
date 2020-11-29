@@ -15,6 +15,7 @@ use App\Models\VendorRecord;
 use App\Services\ExpirationService;
 use App\Services\SoftwareRecordService;
 use App\Support\Data;
+use App\Support\Info;
 use App\Support\Track;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
@@ -41,14 +42,19 @@ class SoftwareRecordController extends AdminController
                     $row->column(12, $this->detail($id));
                 } else {
                     $row->column(6, $this->detail($id));
-                    $row->column(6, function (Column $column) use ($history) {
-                        $grid = Grid::make(new SoftwareTrack(['software', 'device']), function (Grid $grid) {
+                    $row->column(6, function (Column $column) use ($id, $history) {
+                        $grid = Grid::make(new SoftwareTrack(['software', 'device']), function (Grid $grid) use ($id) {
+                            $grid->model()->where('software_id', '=', $id);
                             $grid->tableCollapse(false);
                             $grid->withBorder();
 
                             $grid->column('id');
-                            $grid->column('software.name');
-                            $grid->column('device.name');
+                            $grid->column('device.name', admin_trans_label('Device Name'))->link(function () {
+                                return route('device.records.show', $this->device['id']);
+                            });
+                            $grid->column('staff', admin_trans_label('Staff Name'))->display(function () {
+                                return Info::deviceIdToStaffName($this->device['id']);
+                            });
 
                             $grid->disableCreateButton();
                             $grid->disableBatchActions();

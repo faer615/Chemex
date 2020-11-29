@@ -31,4 +31,8 @@
     a {
         padding: 0 4px;
     }
+
+    .dropdown .dropdown-menu:before {
+        left: 10.2rem;
+    }
 </style>
