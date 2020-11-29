@@ -5,6 +5,8 @@ namespace App\Models;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -64,5 +66,24 @@ class HardwareRecord extends Model
     public function channel()
     {
         return $this->hasOne(PurchasedChannel::class, 'id', 'purchased_channel_id');
+    }
+
+    /**
+     * 所属设备
+     * @return BelongsTo
+     */
+    /**
+     * 设备所属雇员
+     * @return HasManyThrough
+     */
+    public function device()
+    {
+        return $this->hasOneThrough(
+            DeviceRecord::class,  // 远程表
+            HardwareTrack::class,   // 中间表
+            'hardware_id',    // 中间表对主表的关联字段
+            'id',   // 远程表对中间表的关联字段
+            'id',   // 主表对中间表的关联字段
+            'device_id'); // 中间表对远程表的关联字段
     }
 }

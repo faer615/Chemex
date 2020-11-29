@@ -66,7 +66,7 @@ return [
     'diff_yesterday_regexp' => 'ayer(?:\\s+a)?(?:\\s+las)?',
     'diff_tomorrow' => 'mañana',
     'diff_tomorrow_regexp' => 'mañana(?:\\s+a)?(?:\\s+las)?',
-    'diff_before_yesterday' => 'antier',
+    'diff_before_yesterday' => 'anteayer',
     'diff_after_tomorrow' => 'pasado mañana',
     'formats' => [
         'LT' => 'H:mm',
@@ -78,19 +78,19 @@ return [
     ],
     'calendar' => [
         'sameDay' => function (\Carbon\CarbonInterface $current) {
-            return '[hoy a la' . ($current->hour !== 1 ? 's' : '') . '] LT';
+            return '[hoy a la'.($current->hour !== 1 ? 's' : '').'] LT';
         },
         'nextDay' => function (\Carbon\CarbonInterface $current) {
-            return '[mañana a la' . ($current->hour !== 1 ? 's' : '') . '] LT';
+            return '[mañana a la'.($current->hour !== 1 ? 's' : '').'] LT';
         },
         'nextWeek' => function (\Carbon\CarbonInterface $current) {
-            return 'dddd [a la' . ($current->hour !== 1 ? 's' : '') . '] LT';
+            return 'dddd [a la'.($current->hour !== 1 ? 's' : '').'] LT';
         },
         'lastDay' => function (\Carbon\CarbonInterface $current) {
-            return '[ayer a la' . ($current->hour !== 1 ? 's' : '') . '] LT';
+            return '[ayer a la'.($current->hour !== 1 ? 's' : '').'] LT';
         },
         'lastWeek' => function (\Carbon\CarbonInterface $current) {
-            return '[el] dddd [pasado a la' . ($current->hour !== 1 ? 's' : '') . '] LT';
+            return '[el] dddd [pasado a la'.($current->hour !== 1 ? 's' : '').'] LT';
         },
         'sameElse' => 'L',
     ],

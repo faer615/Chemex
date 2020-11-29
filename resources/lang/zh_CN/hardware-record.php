@@ -22,6 +22,9 @@ return [
         'channel' => [
             'name' => '购入途径'
         ],
+        'device' => [
+            'name' => '所属设备'
+        ],
         'specification' => '规格',
         'sn' => '序列号',
         'price' => '价格',

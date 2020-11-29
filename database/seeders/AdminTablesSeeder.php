@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class AdminTablesSeeder extends Seeder
 {
@@ -320,74 +321,74 @@ class AdminTablesSeeder extends Seeder
                 [
                     "id" => 54,
                     "parent_id" => 0,
-                    "order" => 27,
+                    "order" => 28,
                     "title" => "Version",
                     "icon" => "feather icon-chevrons-down",
                     "uri" => "version",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-10-22 15:05:00",
-                    "updated_at" => "2020-11-18 21:14:55"
+                    "updated_at" => "2020-11-25 19:58:20"
                 ],
                 [
                     "id" => 55,
                     "parent_id" => 56,
-                    "order" => 32,
+                    "order" => 33,
                     "title" => "Menu",
                     "icon" => NULL,
                     "uri" => "auth/menu",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-11-03 14:22:49",
-                    "updated_at" => "2020-11-18 21:14:55"
+                    "updated_at" => "2020-11-25 19:58:20"
                 ],
                 [
                     "id" => 56,
                     "parent_id" => 0,
-                    "order" => 28,
+                    "order" => 29,
                     "title" => "Settings",
                     "icon" => NULL,
                     "uri" => NULL,
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-11-03 14:23:14",
-                    "updated_at" => "2020-11-18 21:14:55"
+                    "updated_at" => "2020-11-25 19:58:20"
                 ],
                 [
                     "id" => 57,
                     "parent_id" => 56,
-                    "order" => 29,
+                    "order" => 30,
                     "title" => "Users",
                     "icon" => NULL,
                     "uri" => "auth/users",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-11-03 14:25:13",
-                    "updated_at" => "2020-11-18 21:14:55"
+                    "updated_at" => "2020-11-25 19:58:20"
                 ],
                 [
                     "id" => 58,
                     "parent_id" => 56,
-                    "order" => 30,
+                    "order" => 31,
                     "title" => "Roles",
                     "icon" => NULL,
                     "uri" => "auth/roles",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-11-03 14:25:25",
-                    "updated_at" => "2020-11-18 21:14:55"
+                    "updated_at" => "2020-11-25 19:58:20"
                 ],
                 [
                     "id" => 59,
                     "parent_id" => 56,
-                    "order" => 31,
+                    "order" => 32,
                     "title" => "Permissions",
                     "icon" => NULL,
                     "uri" => "auth/permissions",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-11-03 14:26:37",
-                    "updated_at" => "2020-11-18 21:14:55"
+                    "updated_at" => "2020-11-25 19:58:20"
                 ],
                 [
                     "id" => 60,
@@ -867,7 +868,7 @@ class AdminTablesSeeder extends Seeder
                     "order" => 47,
                     "parent_id" => 38,
                     "created_at" => "2020-11-19 10:22:25",
-                    "updated_at" => "2020-11-19 13:45:12"
+                    "updated_at" => "2020-11-27 15:25:36"
                 ],
                 [
                     "id" => 44,
@@ -882,25 +883,14 @@ class AdminTablesSeeder extends Seeder
                 ],
                 [
                     "id" => 45,
-                    "name" => "盘盈",
-                    "slug" => "check.track.yes",
+                    "name" => "盘点动作",
+                    "slug" => "check.track",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 52,
                     "parent_id" => 44,
                     "created_at" => "2020-11-19 10:30:28",
-                    "updated_at" => "2020-11-19 14:00:55"
-                ],
-                [
-                    "id" => 46,
-                    "name" => "盘亏",
-                    "slug" => "check.track.no",
-                    "http_method" => "",
-                    "http_path" => "",
-                    "order" => 53,
-                    "parent_id" => 44,
-                    "created_at" => "2020-11-19 10:30:39",
-                    "updated_at" => "2020-11-19 14:00:55"
+                    "updated_at" => "2020-11-27 14:55:44"
                 ],
                 [
                     "id" => 47,
@@ -1191,5 +1181,100 @@ class AdminTablesSeeder extends Seeder
             ]
         );
 
+        \Dcat\Admin\Models\Role::truncate();
+        \Dcat\Admin\Models\Role::insert(
+            [
+                [
+                    "id" => 1,
+                    "name" => "超级管理员",
+                    "slug" => "administrator",
+                    "created_at" => "2020-09-18 09:45:49",
+                    "updated_at" => "2020-11-18 17:45:16"
+                ],
+                [
+                    "id" => 2,
+                    "name" => "观察者",
+                    "slug" => "observer",
+                    "created_at" => "2020-11-19 09:25:18",
+                    "updated_at" => "2020-11-19 14:09:37"
+                ]
+            ]
+        );
+
+        // pivot tables
+        DB::table('admin_role_menu')->truncate();
+        DB::table('admin_role_menu')->insert(
+            [
+
+            ]
+        );
+
+        DB::table('admin_role_permissions')->truncate();
+        DB::table('admin_role_permissions')->insert(
+            [
+                [
+                    "role_id" => 2,
+                    "permission_id" => 51,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "role_id" => 2,
+                    "permission_id" => 53,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "role_id" => 2,
+                    "permission_id" => 55,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "role_id" => 2,
+                    "permission_id" => 57,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "role_id" => 2,
+                    "permission_id" => 59,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "role_id" => 2,
+                    "permission_id" => 61,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "role_id" => 2,
+                    "permission_id" => 63,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "role_id" => 2,
+                    "permission_id" => 65,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "role_id" => 2,
+                    "permission_id" => 67,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "role_id" => 2,
+                    "permission_id" => 69,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ]
+            ]
+        );
+
+        // finish
     }
 }

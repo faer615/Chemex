@@ -39,17 +39,16 @@ class DeviceRecordController extends AdminController
             ->title($this->title())
             ->description($this->description()['index'] ?? trans('admin.show'))
             ->body(function (Row $row) use ($id, $name, $related, $history) {
-                // 判断权限
-                if (!Admin::user()->can('device.history')) {
-                    $row->column(12, $this->detail($id));
-                } else {
-                    $row->column(6, $this->detail($id));
-                    $row->column(6, function (Column $column) use ($id, $name, $related, $history) {
-                        $column->row(new Card(view('device_records.staff')->with('name', $name)));
+                $row->column(6, $this->detail($id));
+                $row->column(6, function (Column $column) use ($id, $name, $related, $history) {
+                    $column->row(new Card(view('device_records.staff')->with('name', $name)));
+                    if (Admin::user()->can('device.related')) {
                         $column->row(new Card('归属信息', view('device_records.related')->with('data', $related)));
+                    }
+                    if (Admin::user()->can('device.history')) {
                         $column->row(new Card('履历', view('history')->with('data', $history)));
-                    });
-                }
+                    }
+                });
             });
     }
 

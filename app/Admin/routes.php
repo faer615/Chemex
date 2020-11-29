@@ -19,7 +19,8 @@ Route::group([
     $router->get('/test', 'HomeController@test');
     $router->resource('/device/tracks', 'DeviceTrackController');
     $router->resource('/device/records', 'DeviceRecordController', ['names' => [
-        'index' => 'device.records.index'
+        'index' => 'device.records.index',
+        'show' => 'device.records.show'
     ]]);
     $router->resource('/device/categories', 'DeviceCategoryController');
     $router->resource('/software/tracks', 'SoftwareTrackController', ['names' => [
