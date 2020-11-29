@@ -6,11 +6,15 @@ use App\Admin\Actions\Grid\RowAction\HardwareTrackDisableAction;
 use App\Admin\Grid\Displayers\RowActions;
 use App\Admin\Repositories\HardwareTrack;
 use App\Support\Data;
+use DateTime;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Widgets\Alert;
 
+/**
+ * @property DateTime deleted_at
+ */
 class HardwareTrackController extends AdminController
 {
     /**
@@ -56,7 +60,7 @@ class HardwareTrackController extends AdminController
      *
      * @return Alert
      */
-    protected function detail($id)
+    protected function detail()
     {
         return Data::unsupportedOperationWarning();
     }

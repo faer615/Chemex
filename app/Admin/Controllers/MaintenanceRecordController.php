@@ -13,6 +13,10 @@ use Dcat\Admin\Grid\Tools\Selector;
 use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Widgets\Alert;
 
+/**
+ * @property Int item_id
+ * @property String item
+ */
 class MaintenanceRecordController extends AdminController
 {
     /**
@@ -70,11 +74,9 @@ class MaintenanceRecordController extends AdminController
     /**
      * Make a show builder.
      *
-     * @param mixed $id
-     *
      * @return Alert
      */
-    protected function detail($id)
+    protected function detail()
     {
         return Data::unsupportedOperationWarning();
     }

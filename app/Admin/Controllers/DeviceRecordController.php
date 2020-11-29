@@ -28,6 +28,9 @@ use Dcat\Admin\Layout\Row;
 use Dcat\Admin\Show;
 use Dcat\Admin\Widgets\Card;
 
+/**
+ * @property  Int id
+ */
 class DeviceRecordController extends AdminController
 {
     public function show($id, Content $content)
@@ -101,7 +104,7 @@ class DeviceRecordController extends AdminController
                 if (empty($tag)) {
                     return $name;
                 } else {
-                    return "<img src='/static/images/icons/$tag.png' style='width: 25px;height: 25px;margin-right: 10px'/>$name";
+                    return "<img alt='$tag' src='/static/images/icons/$tag.png' style='width: 25px;height: 25px;margin-right: 10px'/>$name";
                 }
             });
             $grid->column('description');

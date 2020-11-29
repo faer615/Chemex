@@ -66,7 +66,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($data['software'] as $item)
+        @foreach($data['service'] as $item)
             <tr class="tr">
                 <td>{{$item->id}}</td>
                 <td>{{$item->name}}</td>

@@ -5,6 +5,7 @@ namespace App\Models;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -36,5 +37,20 @@ class ServiceRecord extends Model
             }
             $model->creator = $name;
         });
+    }
+
+    /**
+     * 所属设备
+     * @return HasOneThrough
+     */
+    public function device()
+    {
+        return $this->hasOneThrough(
+            DeviceRecord::class,  // 远程表
+            ServiceTrack::class,   // 中间表
+            'service_id',    // 中间表对主表的关联字段
+            'id',   // 远程表对中间表的关联字段
+            'id',   // 主表对中间表的关联字段
+            'device_id'); // 中间表对远程表的关联字段
     }
 }

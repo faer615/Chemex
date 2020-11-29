@@ -18,6 +18,9 @@ use Dcat\Admin\Grid;
 use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Show;
 
+/**
+ * @property  Int status
+ */
 class CheckRecordController extends AdminController
 {
     /**

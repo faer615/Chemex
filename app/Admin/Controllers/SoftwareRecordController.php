@@ -9,6 +9,7 @@ use App\Admin\Actions\Grid\RowAction\SoftwareTrackDisableAction;
 use App\Admin\Grid\Displayers\RowActions;
 use App\Admin\Repositories\SoftwareRecord;
 use App\Admin\Repositories\SoftwareTrack;
+use App\Models\DeviceRecord;
 use App\Models\PurchasedChannel;
 use App\Models\SoftwareCategory;
 use App\Models\VendorRecord;
@@ -17,6 +18,7 @@ use App\Services\SoftwareRecordService;
 use App\Support\Data;
 use App\Support\Info;
 use App\Support\Track;
+use DateTime;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -27,6 +29,11 @@ use Dcat\Admin\Layout\Row;
 use Dcat\Admin\Show;
 use Dcat\Admin\Widgets\Card;
 
+/**
+ * @property  DeviceRecord device
+ * @property  Int id
+ * @property  DateTime deleted_at
+ */
 class SoftwareRecordController extends AdminController
 {
 
@@ -75,6 +82,35 @@ class SoftwareRecordController extends AdminController
                     });
                 }
             });
+    }
+
+    /**
+     * Make a show builder.
+     *
+     * @param mixed $id
+     *
+     * @return Show
+     */
+    protected function detail($id)
+    {
+        return Show::make($id, new SoftwareRecord(['category', 'vendor', 'channel']), function (Show $show) {
+            $show->field('id');
+            $show->field('name');
+            $show->field('description');
+            $show->field('category.name');
+            $show->field('version');
+            $show->field('vendor.name');
+            $show->field('channel.name');
+            $show->field('price');
+            $show->field('purchased');
+            $show->field('expired');
+            $show->field('distribution')->using(Data::distribution());
+            $show->field('counts');
+            $show->field('created_at');
+            $show->field('updated_at');
+
+            $show->disableDeleteButton();
+        });
     }
 
     /**
@@ -133,35 +169,6 @@ class SoftwareRecordController extends AdminController
             $grid->toolsWithOutline(false);
 
             $grid->export();
-        });
-    }
-
-    /**
-     * Make a show builder.
-     *
-     * @param mixed $id
-     *
-     * @return Show
-     */
-    protected function detail($id)
-    {
-        return Show::make($id, new SoftwareRecord(['category', 'vendor', 'channel']), function (Show $show) {
-            $show->field('id');
-            $show->field('name');
-            $show->field('description');
-            $show->field('category.name');
-            $show->field('version');
-            $show->field('vendor.name');
-            $show->field('channel.name');
-            $show->field('price');
-            $show->field('purchased');
-            $show->field('expired');
-            $show->field('distribution')->using(Data::distribution());
-            $show->field('counts');
-            $show->field('created_at');
-            $show->field('updated_at');
-
-            $show->disableDeleteButton();
         });
     }
 

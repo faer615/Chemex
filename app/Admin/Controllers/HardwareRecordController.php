@@ -8,6 +8,7 @@ use App\Admin\Actions\Grid\RowAction\HardwareTrackAction;
 use App\Admin\Actions\Grid\RowAction\MaintenanceAction;
 use App\Admin\Grid\Displayers\RowActions;
 use App\Admin\Repositories\HardwareRecord;
+use App\Models\DeviceRecord;
 use App\Models\HardwareCategory;
 use App\Models\PurchasedChannel;
 use App\Models\VendorRecord;
@@ -19,6 +20,10 @@ use Dcat\Admin\Grid;
 use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Show;
 
+/**
+ * @property  DeviceRecord device
+ * @property  Int id
+ */
 class HardwareRecordController extends AdminController
 {
     /**
