@@ -40,18 +40,6 @@ class ErrorListener implements EventSubscriberInterface
         $this->debug = $debug;
     }
 
-    public static function getSubscribedEvents(): array
-    {
-        return [
-            KernelEvents::CONTROLLER_ARGUMENTS => 'onControllerArguments',
-            KernelEvents::EXCEPTION => [
-                ['logKernelException', 0],
-                ['onKernelException', -128],
-            ],
-            KernelEvents::RESPONSE => ['removeCspHeader', -128],
-        ];
-    }
-
     public function logKernelException(ExceptionEvent $event)
     {
         $e = FlattenException::createFromThrowable($event->getThrowable());
@@ -119,6 +107,18 @@ class ErrorListener implements EventSubscriberInterface
             $arguments[$k] = FlattenException::createFromThrowable($e);
             $event->setArguments($arguments);
         }
+    }
+
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            KernelEvents::CONTROLLER_ARGUMENTS => 'onControllerArguments',
+            KernelEvents::EXCEPTION => [
+                ['logKernelException', 0],
+                ['onKernelException', -128],
+            ],
+            KernelEvents::RESPONSE => ['removeCspHeader', -128],
+        ];
     }
 
     /**

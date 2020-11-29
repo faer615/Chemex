@@ -24,6 +24,14 @@ class PhpExtractor extends AbstractFileExtractor implements ExtractorInterface
     const MESSAGE_TOKEN = 300;
     const METHOD_ARGUMENTS_TOKEN = 1000;
     const DOMAIN_TOKEN = 1001;
+
+    /**
+     * Prefix for new found message.
+     *
+     * @var string
+     */
+    private $prefix = '';
+
     /**
      * The sequence that captures translation messages.
      *
@@ -47,12 +55,6 @@ class PhpExtractor extends AbstractFileExtractor implements ExtractorInterface
             self::MESSAGE_TOKEN,
         ],
     ];
-    /**
-     * Prefix for new found message.
-     *
-     * @var string
-     */
-    private $prefix = '';
 
     /**
      * {@inheritdoc}
@@ -89,77 +91,6 @@ class PhpExtractor extends AbstractFileExtractor implements ExtractorInterface
         }
 
         return $token;
-    }
-
-    /**
-     * Extracts trans message from PHP tokens.
-     */
-    protected function parseTokens(array $tokens, MessageCatalogue $catalog, string $filename)
-    {
-        $tokenIterator = new \ArrayIterator($tokens);
-
-        for ($key = 0; $key < $tokenIterator->count(); ++$key) {
-            foreach ($this->sequences as $sequence) {
-                $message = '';
-                $domain = 'messages';
-                $tokenIterator->seek($key);
-
-                foreach ($sequence as $sequenceKey => $item) {
-                    $this->seekToNextRelevantToken($tokenIterator);
-
-                    if ($this->normalizeToken($tokenIterator->current()) === $item) {
-                        $tokenIterator->next();
-                        continue;
-                    } elseif (self::MESSAGE_TOKEN === $item) {
-                        $message = $this->getValue($tokenIterator);
-
-                        if (\count($sequence) === ($sequenceKey + 1)) {
-                            break;
-                        }
-                    } elseif (self::METHOD_ARGUMENTS_TOKEN === $item) {
-                        $this->skipMethodArgument($tokenIterator);
-                    } elseif (self::DOMAIN_TOKEN === $item) {
-                        $domainToken = $this->getValue($tokenIterator);
-                        if ('' !== $domainToken) {
-                            $domain = $domainToken;
-                        }
-
-                        break;
-                    } else {
-                        break;
-                    }
-                }
-
-                if ($message) {
-                    $catalog->set($message, $this->prefix . $message, $domain);
-                    $metadata = $catalog->getMetadata($message, $domain) ?? [];
-                    $normalizedFilename = preg_replace('{[\\\\/]+}', '/', $filename);
-                    $metadata['sources'][] = $normalizedFilename . ':' . $tokens[$key][2];
-                    $catalog->setMetadata($message, $metadata, $domain);
-                    break;
-                }
-            }
-        }
-    }
-
-    /**
-     * @return bool
-     *
-     * @throws \InvalidArgumentException
-     */
-    protected function canBeExtracted(string $file)
-    {
-        return $this->isFile($file) && 'php' === pathinfo($file, \PATHINFO_EXTENSION);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function extractFromDirectory($directory)
-    {
-        $finder = new Finder();
-
-        return $finder->files()->name('*.php')->in($directory);
     }
 
     /**
@@ -241,5 +172,76 @@ class PhpExtractor extends AbstractFileExtractor implements ExtractorInterface
         }
 
         return $message;
+    }
+
+    /**
+     * Extracts trans message from PHP tokens.
+     */
+    protected function parseTokens(array $tokens, MessageCatalogue $catalog, string $filename)
+    {
+        $tokenIterator = new \ArrayIterator($tokens);
+
+        for ($key = 0; $key < $tokenIterator->count(); ++$key) {
+            foreach ($this->sequences as $sequence) {
+                $message = '';
+                $domain = 'messages';
+                $tokenIterator->seek($key);
+
+                foreach ($sequence as $sequenceKey => $item) {
+                    $this->seekToNextRelevantToken($tokenIterator);
+
+                    if ($this->normalizeToken($tokenIterator->current()) === $item) {
+                        $tokenIterator->next();
+                        continue;
+                    } elseif (self::MESSAGE_TOKEN === $item) {
+                        $message = $this->getValue($tokenIterator);
+
+                        if (\count($sequence) === ($sequenceKey + 1)) {
+                            break;
+                        }
+                    } elseif (self::METHOD_ARGUMENTS_TOKEN === $item) {
+                        $this->skipMethodArgument($tokenIterator);
+                    } elseif (self::DOMAIN_TOKEN === $item) {
+                        $domainToken = $this->getValue($tokenIterator);
+                        if ('' !== $domainToken) {
+                            $domain = $domainToken;
+                        }
+
+                        break;
+                    } else {
+                        break;
+                    }
+                }
+
+                if ($message) {
+                    $catalog->set($message, $this->prefix.$message, $domain);
+                    $metadata = $catalog->getMetadata($message, $domain) ?? [];
+                    $normalizedFilename = preg_replace('{[\\\\/]+}', '/', $filename);
+                    $metadata['sources'][] = $normalizedFilename.':'.$tokens[$key][2];
+                    $catalog->setMetadata($message, $metadata, $domain);
+                    break;
+                }
+            }
+        }
+    }
+
+    /**
+     * @return bool
+     *
+     * @throws \InvalidArgumentException
+     */
+    protected function canBeExtracted(string $file)
+    {
+        return $this->isFile($file) && 'php' === pathinfo($file, \PATHINFO_EXTENSION);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function extractFromDirectory($directory)
+    {
+        $finder = new Finder();
+
+        return $finder->files()->name('*.php')->in($directory);
     }
 }

@@ -105,14 +105,6 @@ class InlineFragmentRenderer extends RoutableFragmentRenderer
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'inline';
-    }
-
     protected function createSubRequest($uri, Request $request)
     {
         $cookies = $request->cookies->all();
@@ -129,9 +121,7 @@ class InlineFragmentRenderer extends RoutableFragmentRenderer
         static $setSession;
 
         if (null === $setSession) {
-            $setSession = \Closure::bind(static function ($subRequest, $request) {
-                $subRequest->session = $request->session;
-            }, null, Request::class);
+            $setSession = \Closure::bind(static function ($subRequest, $request) { $subRequest->session = $request->session; }, null, Request::class);
         }
         $setSession($subRequest, $request);
 
@@ -143,5 +133,13 @@ class InlineFragmentRenderer extends RoutableFragmentRenderer
         }
 
         return $subRequest;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getName()
+    {
+        return 'inline';
     }
 }

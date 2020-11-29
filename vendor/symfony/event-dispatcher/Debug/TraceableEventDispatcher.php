@@ -177,7 +177,7 @@ class TraceableEventDispatcher implements EventDispatcherInterface, ResetInterfa
         $hash = $request ? spl_object_hash($request) : null;
         $called = [];
         foreach ($this->callStack as $listener) {
-            list($eventName, $requestHash) = $this->callStack->getInfo();
+            [$eventName, $requestHash] = $this->callStack->getInfo();
             if (null === $hash || $hash === $requestHash) {
                 $called[] = $listener->getInfo($eventName);
             }
@@ -207,7 +207,7 @@ class TraceableEventDispatcher implements EventDispatcherInterface, ResetInterfa
 
         if (null !== $this->callStack) {
             foreach ($this->callStack as $calledListener) {
-                list(, $requestHash) = $this->callStack->getInfo();
+                [, $requestHash] = $this->callStack->getInfo();
 
                 if (null === $hash || $hash === $requestHash) {
                     $calledListeners[] = $calledListener->getWrappedListener();
@@ -255,8 +255,8 @@ class TraceableEventDispatcher implements EventDispatcherInterface, ResetInterfa
     /**
      * Proxies all method calls to the original event dispatcher.
      *
-     * @param string $method The method name
-     * @param array $arguments The method arguments
+     * @param string $method    The method name
+     * @param array  $arguments The method arguments
      *
      * @return mixed
      */

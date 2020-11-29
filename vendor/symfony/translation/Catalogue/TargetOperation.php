@@ -35,7 +35,7 @@ class TargetOperation extends AbstractOperation
             'new' => [],
             'obsolete' => [],
         ];
-        $intlDomain = $domain . MessageCatalogueInterface::INTL_DOMAIN_SUFFIX;
+        $intlDomain = $domain.MessageCatalogueInterface::INTL_DOMAIN_SUFFIX;
 
         // For 'all' messages, the code can't be simplified as ``$this->messages[$domain]['all'] = $target->all($domain);``,
         // because doing so will drop messages like {x: x ∈ source ∧ x ∉ target.all ∧ x ∈ target.fallback}

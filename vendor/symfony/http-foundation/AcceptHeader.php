@@ -93,7 +93,7 @@ class AcceptHeader
      */
     public function get(string $value)
     {
-        return $this->items[$value] ?? $this->items[explode('/', $value)[0] . '/*'] ?? $this->items['*/*'] ?? $this->items['*'] ?? null;
+        return $this->items[$value] ?? $this->items[explode('/', $value)[0].'/*'] ?? $this->items['*/*'] ?? $this->items['*'] ?? null;
     }
 
     /**

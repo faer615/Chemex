@@ -51,7 +51,7 @@ class FunctionExtension extends AbstractExtension
     public function translateNthChild(XPathExpr $xpath, FunctionNode $function, bool $last = false, bool $addNameTest = true): XPathExpr
     {
         try {
-            list($a, $b) = Parser::parseSeries($function->getArguments());
+            [$a, $b] = Parser::parseSeries($function->getArguments());
         } catch (SyntaxErrorException $e) {
             throw new ExpressionErrorException(sprintf('Invalid series: "%s".', implode('", "', $function->getArguments())), 0, $e);
         }
@@ -62,7 +62,7 @@ class FunctionExtension extends AbstractExtension
         }
 
         if (0 === $a) {
-            return $xpath->addCondition('position() = ' . ($last ? 'last() - ' . ($b - 1) : $b));
+            return $xpath->addCondition('position() = '.($last ? 'last() - '.($b - 1) : $b));
         }
 
         if ($a < 0) {
@@ -78,12 +78,12 @@ class FunctionExtension extends AbstractExtension
         $expr = 'position()';
 
         if ($last) {
-            $expr = 'last() - ' . $expr;
+            $expr = 'last() - '.$expr;
             --$b;
         }
 
         if (0 !== $b) {
-            $expr .= ' - ' . $b;
+            $expr .= ' - '.$b;
         }
 
         $conditions = [sprintf('%s %s 0', $expr, $sign)];
@@ -133,7 +133,7 @@ class FunctionExtension extends AbstractExtension
         $arguments = $function->getArguments();
         foreach ($arguments as $token) {
             if (!($token->isString() || $token->isIdentifier())) {
-                throw new ExpressionErrorException('Expected a single string or identifier for :contains(), got ' . implode(', ', $arguments));
+                throw new ExpressionErrorException('Expected a single string or identifier for :contains(), got '.implode(', ', $arguments));
             }
         }
 
@@ -151,7 +151,7 @@ class FunctionExtension extends AbstractExtension
         $arguments = $function->getArguments();
         foreach ($arguments as $token) {
             if (!($token->isString() || $token->isIdentifier())) {
-                throw new ExpressionErrorException('Expected a single string or identifier for :lang(), got ' . implode(', ', $arguments));
+                throw new ExpressionErrorException('Expected a single string or identifier for :lang(), got '.implode(', ', $arguments));
             }
         }
 

@@ -17,10 +17,10 @@ use Symfony\Component\String\Exception\InvalidArgumentException;
 /**
  * Represents a string of Unicode code points encoded as UTF-8.
  *
- * @throws ExceptionInterface
+ * @author Nicolas Grekas <p@tchwork.com>
  * @author Hugo Hamon <hugohamon@neuf.fr>
  *
- * @author Nicolas Grekas <p@tchwork.com>
+ * @throws ExceptionInterface
  */
 class CodePointString extends AbstractUnicodeString
 {
@@ -60,7 +60,7 @@ class CodePointString extends AbstractUnicodeString
             $rx .= '.{65535}';
             $length -= 65535;
         }
-        $rx .= '.{' . $length . '})/us';
+        $rx .= '.{'.$length.'})/us';
 
         $str = clone $this;
         $chunks = [];
@@ -87,7 +87,7 @@ class CodePointString extends AbstractUnicodeString
         } elseif (\is_array($suffix) || $suffix instanceof \Traversable) {
             return parent::endsWith($suffix);
         } else {
-            $suffix = (string)$suffix;
+            $suffix = (string) $suffix;
         }
 
         if ('' === $suffix || !preg_match('//u', $suffix)) {
@@ -95,7 +95,7 @@ class CodePointString extends AbstractUnicodeString
         }
 
         if ($this->ignoreCase) {
-            return preg_match('{' . preg_quote($suffix) . '$}iuD', $this->string);
+            return preg_match('{'.preg_quote($suffix).'$}iuD', $this->string);
         }
 
         return \strlen($this->string) >= \strlen($suffix) && 0 === substr_compare($this->string, $suffix, -\strlen($suffix));
@@ -108,7 +108,7 @@ class CodePointString extends AbstractUnicodeString
         } elseif (\is_array($string) || $string instanceof \Traversable) {
             return parent::equalsTo($string);
         } else {
-            $string = (string)$string;
+            $string = (string) $string;
         }
 
         if ('' !== $string && $this->ignoreCase) {
@@ -125,7 +125,7 @@ class CodePointString extends AbstractUnicodeString
         } elseif (\is_array($needle) || $needle instanceof \Traversable) {
             return parent::indexOf($needle, $offset);
         } else {
-            $needle = (string)$needle;
+            $needle = (string) $needle;
         }
 
         if ('' === $needle) {
@@ -144,7 +144,7 @@ class CodePointString extends AbstractUnicodeString
         } elseif (\is_array($needle) || $needle instanceof \Traversable) {
             return parent::indexOfLast($needle, $offset);
         } else {
-            $needle = (string)$needle;
+            $needle = (string) $needle;
         }
 
         if ('' === $needle) {
@@ -164,7 +164,7 @@ class CodePointString extends AbstractUnicodeString
     public function prepend(string ...$prefix): AbstractString
     {
         $str = clone $this;
-        $str->string = (1 >= \count($prefix) ? ($prefix[0] ?? '') : implode('', $prefix)) . $this->string;
+        $str->string = (1 >= \count($prefix) ? ($prefix[0] ?? '') : implode('', $prefix)).$this->string;
 
         if (!preg_match('//u', $str->string)) {
             throw new InvalidArgumentException('Invalid UTF-8 string.');
@@ -186,7 +186,7 @@ class CodePointString extends AbstractUnicodeString
         }
 
         if ($this->ignoreCase) {
-            $str->string = implode($to, preg_split('{' . preg_quote($from) . '}iuD', $this->string));
+            $str->string = implode($to, preg_split('{'.preg_quote($from).'}iuD', $this->string));
         } else {
             $str->string = str_replace($from, $to, $this->string);
         }
@@ -227,7 +227,7 @@ class CodePointString extends AbstractUnicodeString
         }
 
         if (null !== $flags) {
-            return parent::split($delimiter . 'u', $limit, $flags);
+            return parent::split($delimiter.'u', $limit, $flags);
         }
 
         if (!preg_match('//u', $delimiter)) {
@@ -236,7 +236,7 @@ class CodePointString extends AbstractUnicodeString
 
         $str = clone $this;
         $chunks = $this->ignoreCase
-            ? preg_split('{' . preg_quote($delimiter) . '}iuD', $this->string, $limit)
+            ? preg_split('{'.preg_quote($delimiter).'}iuD', $this->string, $limit)
             : explode($delimiter, $this->string, $limit);
 
         foreach ($chunks as &$chunk) {
@@ -254,7 +254,7 @@ class CodePointString extends AbstractUnicodeString
         } elseif (\is_array($prefix) || $prefix instanceof \Traversable) {
             return parent::startsWith($prefix);
         } else {
-            $prefix = (string)$prefix;
+            $prefix = (string) $prefix;
         }
 
         if ('' === $prefix || !preg_match('//u', $prefix)) {

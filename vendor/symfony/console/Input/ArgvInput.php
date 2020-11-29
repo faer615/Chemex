@@ -157,12 +157,12 @@ class ArgvInput extends Input
             $arg = $this->definition->getArgument($c);
             $this->arguments[$arg->getName()] = $arg->isArray() ? [$token] : $token;
 
-            // if last argument isArray(), append token to last argument
+        // if last argument isArray(), append token to last argument
         } elseif ($this->definition->hasArgument($c - 1) && $this->definition->getArgument($c - 1)->isArray()) {
             $arg = $this->definition->getArgument($c - 1);
             $this->arguments[$arg->getName()][] = $token;
 
-            // unexpected argument
+        // unexpected argument
         } else {
             $all = $this->definition->getArguments();
             if (\count($all)) {
@@ -272,7 +272,7 @@ class ArgvInput extends Input
      */
     public function hasParameterOption($values, bool $onlyParams = false)
     {
-        $values = (array)$values;
+        $values = (array) $values;
 
         foreach ($this->tokens as $token) {
             if ($onlyParams && '--' === $token) {
@@ -282,7 +282,7 @@ class ArgvInput extends Input
                 // Options with values:
                 //   For long options, test for '--option=' at beginning
                 //   For short options, test for '-o' at beginning
-                $leading = 0 === strpos($value, '--') ? $value . '=' : $value;
+                $leading = 0 === strpos($value, '--') ? $value.'=' : $value;
                 if ($token === $value || '' !== $leading && 0 === strpos($token, $leading)) {
                     return true;
                 }
@@ -297,7 +297,7 @@ class ArgvInput extends Input
      */
     public function getParameterOption($values, $default = false, bool $onlyParams = false)
     {
-        $values = (array)$values;
+        $values = (array) $values;
         $tokens = $this->tokens;
 
         while (0 < \count($tokens)) {
@@ -313,7 +313,7 @@ class ArgvInput extends Input
                 // Options with values:
                 //   For long options, test for '--option=' at beginning
                 //   For short options, test for '-o' at beginning
-                $leading = 0 === strpos($value, '--') ? $value . '=' : $value;
+                $leading = 0 === strpos($value, '--') ? $value.'=' : $value;
                 if ('' !== $leading && 0 === strpos($token, $leading)) {
                     return substr($token, \strlen($leading));
                 }
@@ -332,7 +332,7 @@ class ArgvInput extends Input
     {
         $tokens = array_map(function ($token) {
             if (preg_match('{^(-[^=]+=)(.+)}', $token, $match)) {
-                return $match[1] . $this->escapeToken($match[2]);
+                return $match[1].$this->escapeToken($match[2]);
             }
 
             if ($token && '-' !== $token[0]) {

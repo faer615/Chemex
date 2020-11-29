@@ -48,8 +48,8 @@ class TranslatorPathsPass extends AbstractRecursivePass
         foreach ($this->findControllerArguments($container) as $controller => $argument) {
             $id = substr($controller, 0, strpos($controller, ':') ?: \strlen($controller));
             if ($container->hasDefinition($id)) {
-                list($locatorRef) = $argument->getValues();
-                $this->controllers[(string)$locatorRef][$container->getDefinition($id)->getClass()] = true;
+                [$locatorRef] = $argument->getValues();
+                $this->controllers[(string) $locatorRef][$container->getDefinition($id)->getClass()] = true;
             }
         }
 
@@ -82,7 +82,7 @@ class TranslatorPathsPass extends AbstractRecursivePass
     protected function processValue($value, bool $isRoot = false)
     {
         if ($value instanceof Reference) {
-            if ((string)$value === $this->translatorServiceId) {
+            if ((string) $value === $this->translatorServiceId) {
                 for ($i = $this->level - 1; $i >= 0; --$i) {
                     $class = $this->definitions[$i]->getClass();
 
@@ -126,8 +126,8 @@ class TranslatorPathsPass extends AbstractRecursivePass
             return $argument->getArgument(0);
         }
 
-        if ($container->hasDefinition('debug.' . $this->resolverServiceId)) {
-            $argument = $container->getDefinition('debug.' . $this->resolverServiceId)->getArgument(0);
+        if ($container->hasDefinition('debug.'.$this->resolverServiceId)) {
+            $argument = $container->getDefinition('debug.'.$this->resolverServiceId)->getArgument(0);
             if ($argument instanceof Reference) {
                 $argument = $container->getDefinition($argument);
             }

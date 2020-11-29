@@ -114,8 +114,8 @@ class JsonDescriptor extends Descriptor
     private function getInputOptionData(InputOption $option): array
     {
         return [
-            'name' => '--' . $option->getName(),
-            'shortcut' => $option->getShortcut() ? '-' . str_replace('|', '|-', $option->getShortcut()) : '',
+            'name' => '--'.$option->getName(),
+            'shortcut' => $option->getShortcut() ? '-'.str_replace('|', '|-', $option->getShortcut()) : '',
             'accept_value' => $option->acceptValue(),
             'is_value_required' => $option->isValueRequired(),
             'is_multiple' => $option->isArray(),

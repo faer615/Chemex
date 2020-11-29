@@ -78,7 +78,7 @@ class FileLinkFormatter
     public static function generateUrlFormat(UrlGeneratorInterface $router, string $routeName, string $queryString): ?string
     {
         try {
-            return $router->generate($routeName) . $queryString;
+            return $router->generate($routeName).$queryString;
         } catch (\Throwable $e) {
             return null;
         }
@@ -95,8 +95,8 @@ class FileLinkFormatter
 
             if ($request instanceof Request && (!$this->urlFormat instanceof \Closure || $this->urlFormat = ($this->urlFormat)())) {
                 return [
-                    $request->getSchemeAndHttpHost() . $this->urlFormat,
-                    $this->baseDir . \DIRECTORY_SEPARATOR, '',
+                    $request->getSchemeAndHttpHost().$this->urlFormat,
+                    $this->baseDir.\DIRECTORY_SEPARATOR, '',
                 ];
             }
         }

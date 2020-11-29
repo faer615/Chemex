@@ -63,6 +63,20 @@ class InputDefinition
     }
 
     /**
+     * Sets the InputArgument objects.
+     *
+     * @param InputArgument[] $arguments An array of InputArgument objects
+     */
+    public function setArguments(array $arguments = [])
+    {
+        $this->arguments = [];
+        $this->requiredCount = 0;
+        $this->hasOptional = false;
+        $this->hasAnArrayArgument = false;
+        $this->addArguments($arguments);
+    }
+
+    /**
      * Adds an array of InputArgument objects.
      *
      * @param InputArgument[] $arguments An array of InputArgument objects
@@ -151,20 +165,6 @@ class InputDefinition
     }
 
     /**
-     * Sets the InputArgument objects.
-     *
-     * @param InputArgument[] $arguments An array of InputArgument objects
-     */
-    public function setArguments(array $arguments = [])
-    {
-        $this->arguments = [];
-        $this->requiredCount = 0;
-        $this->hasOptional = false;
-        $this->hasAnArrayArgument = false;
-        $this->addArguments($arguments);
-    }
-
-    /**
      * Returns the number of InputArguments.
      *
      * @return int The number of InputArguments
@@ -197,6 +197,18 @@ class InputDefinition
         }
 
         return $values;
+    }
+
+    /**
+     * Sets the InputOption objects.
+     *
+     * @param InputOption[] $options An array of InputOption objects
+     */
+    public function setOptions(array $options = [])
+    {
+        $this->options = [];
+        $this->shortcuts = [];
+        $this->addOptions($options);
     }
 
     /**
@@ -273,18 +285,6 @@ class InputDefinition
     public function getOptions()
     {
         return $this->options;
-    }
-
-    /**
-     * Sets the InputOption objects.
-     *
-     * @param InputOption[] $options An array of InputOption objects
-     */
-    public function setOptions(array $options = [])
-    {
-        $this->options = [];
-        $this->shortcuts = [];
-        $this->addOptions($options);
     }
 
     /**
@@ -372,19 +372,19 @@ class InputDefinition
 
         $tail = '';
         foreach ($this->getArguments() as $argument) {
-            $element = '<' . $argument->getName() . '>';
+            $element = '<'.$argument->getName().'>';
             if ($argument->isArray()) {
                 $element .= '...';
             }
 
             if (!$argument->isRequired()) {
-                $element = '[' . $element;
+                $element = '['.$element;
                 $tail .= ']';
             }
 
             $elements[] = $element;
         }
 
-        return implode(' ', $elements) . $tail;
+        return implode(' ', $elements).$tail;
     }
 }

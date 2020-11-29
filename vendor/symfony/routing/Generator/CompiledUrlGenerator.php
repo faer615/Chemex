@@ -35,12 +35,12 @@ class CompiledUrlGenerator extends UrlGenerator
     {
         $locale = $parameters['_locale']
             ?? $this->context->getParameter('_locale')
-                ?: $this->defaultLocale;
+            ?: $this->defaultLocale;
 
         if (null !== $locale) {
             do {
-                if (($this->compiledRoutes[$name . '.' . $locale][1]['_canonical_route'] ?? null) === $name) {
-                    $name .= '.' . $locale;
+                if (($this->compiledRoutes[$name.'.'.$locale][1]['_canonical_route'] ?? null) === $name) {
+                    $name .= '.'.$locale;
                     break;
                 }
             } while (false !== $locale = strstr($locale, '_', true));
@@ -50,7 +50,7 @@ class CompiledUrlGenerator extends UrlGenerator
             throw new RouteNotFoundException(sprintf('Unable to generate a URL for the named route "%s" as such route does not exist.', $name));
         }
 
-        list($variables, $defaults, $requirements, $tokens, $hostTokens, $requiredSchemes) = $this->compiledRoutes[$name];
+        [$variables, $defaults, $requirements, $tokens, $hostTokens, $requiredSchemes] = $this->compiledRoutes[$name];
 
         if (isset($defaults['_canonical_route']) && isset($defaults['_locale'])) {
             if (!\in_array('_locale', $variables, true)) {

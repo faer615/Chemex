@@ -35,6 +35,17 @@ class Parser implements ParserInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function parse(string $source): array
+    {
+        $reader = new Reader($source);
+        $stream = $this->tokenizer->tokenize($reader);
+
+        return $this->parseSelectorList($stream);
+    }
+
+    /**
      * Parses the arguments for ":nth-child()" and friends.
      *
      * @param Token[] $tokens
@@ -58,7 +69,7 @@ class Parser implements ParserInterface
                 throw SyntaxErrorException::stringAsFunctionArgument();
             }
 
-            return (int)$string;
+            return (int) $string;
         };
 
         switch (true) {
@@ -76,20 +87,9 @@ class Parser implements ParserInterface
         $first = isset($split[0]) ? $split[0] : null;
 
         return [
-            $first ? ('-' === $first || '+' === $first ? $int($first . '1') : $int($first)) : 1,
+            $first ? ('-' === $first || '+' === $first ? $int($first.'1') : $int($first)) : 1,
             isset($split[1]) && $split[1] ? $int($split[1]) : 0,
         ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function parse(string $source): array
-    {
-        $reader = new Reader($source);
-        $stream = $this->tokenizer->tokenize($reader);
-
-        return $this->parseSelectorList($stream);
     }
 
     private function parseSelectorList(TokenStream $stream): array
@@ -113,7 +113,7 @@ class Parser implements ParserInterface
 
     private function parserSelectorNode(TokenStream $stream): Node\SelectorNode
     {
-        list($result, $pseudoElement) = $this->parseSimpleSelector($stream);
+        [$result, $pseudoElement] = $this->parseSimpleSelector($stream);
 
         while (true) {
             $stream->skipWhitespace();
@@ -134,7 +134,7 @@ class Parser implements ParserInterface
                 $combinator = ' ';
             }
 
-            list($nextSelector, $pseudoElement) = $this->parseSimpleSelector($stream);
+            [$nextSelector, $pseudoElement] = $this->parseSimpleSelector($stream);
             $result = new Node\CombinedSelectorNode($result, $combinator, $nextSelector);
         }
 
@@ -209,7 +209,7 @@ class Parser implements ParserInterface
                         throw SyntaxErrorException::nestedNot();
                     }
 
-                    list($argument, $argumentPseudoElement) = $this->parseSimpleSelector($stream, true);
+                    [$argument, $argumentPseudoElement] = $this->parseSimpleSelector($stream, true);
                     $next = $stream->getNext();
 
                     if (null !== $argumentPseudoElement) {
@@ -322,7 +322,7 @@ class Parser implements ParserInterface
             } elseif ($next->isDelimiter(['^', '$', '*', '~', '|', '!'])
                 && $stream->getPeek()->isDelimiter(['='])
             ) {
-                $operator = $next->getValue() . '=';
+                $operator = $next->getValue().'=';
                 $stream->getNext();
             } else {
                 throw SyntaxErrorException::unexpectedToken('operator', $next);
@@ -334,7 +334,7 @@ class Parser implements ParserInterface
 
         if ($value->isNumber()) {
             // if the value is a number, it's casted into a string
-            $value = new Token(Token::TYPE_STRING, (string)$value->getValue(), $value->getPosition());
+            $value = new Token(Token::TYPE_STRING, (string) $value->getValue(), $value->getPosition());
         }
 
         if (!($value->isIdentifier() || $value->isString())) {

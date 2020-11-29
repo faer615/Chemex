@@ -33,8 +33,8 @@ abstract class Output implements OutputInterface
     private $formatter;
 
     /**
-     * @param int $verbosity The verbosity level (one of the VERBOSITY constants in OutputInterface)
-     * @param bool $decorated Whether to decorate messages
+     * @param int                           $verbosity The verbosity level (one of the VERBOSITY constants in OutputInterface)
+     * @param bool                          $decorated Whether to decorate messages
      * @param OutputFormatterInterface|null $formatter Output formatter instance (null to use default OutputFormatter)
      */
     public function __construct(?int $verbosity = self::VERBOSITY_NORMAL, bool $decorated = false, OutputFormatterInterface $formatter = null)
@@ -47,17 +47,17 @@ abstract class Output implements OutputInterface
     /**
      * {@inheritdoc}
      */
-    public function getFormatter()
+    public function setFormatter(OutputFormatterInterface $formatter)
     {
-        return $this->formatter;
+        $this->formatter = $formatter;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function setFormatter(OutputFormatterInterface $formatter)
+    public function getFormatter()
     {
-        $this->formatter = $formatter;
+        return $this->formatter;
     }
 
     /**
@@ -79,17 +79,17 @@ abstract class Output implements OutputInterface
     /**
      * {@inheritdoc}
      */
-    public function getVerbosity()
+    public function setVerbosity(int $level)
     {
-        return $this->verbosity;
+        $this->verbosity = $level;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function setVerbosity(int $level)
+    public function getVerbosity()
     {
-        $this->verbosity = $level;
+        return $this->verbosity;
     }
 
     /**

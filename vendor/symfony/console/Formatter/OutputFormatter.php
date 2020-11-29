@@ -25,25 +25,12 @@ class OutputFormatter implements WrappableOutputFormatterInterface
     private $styles = [];
     private $styleStack;
 
-    /**
-     * Initializes console output formatter.
-     *
-     * @param OutputFormatterStyleInterface[] $styles Array of "name => FormatterStyle" instances
-     */
-    public function __construct(bool $decorated = false, array $styles = [])
+    public function __clone()
     {
-        $this->decorated = $decorated;
-
-        $this->setStyle('error', new OutputFormatterStyle('white', 'red'));
-        $this->setStyle('info', new OutputFormatterStyle('green'));
-        $this->setStyle('comment', new OutputFormatterStyle('yellow'));
-        $this->setStyle('question', new OutputFormatterStyle('black', 'cyan'));
-
-        foreach ($styles as $name => $style) {
-            $this->setStyle($name, $style);
+        $this->styleStack = clone $this->styleStack;
+        foreach ($this->styles as $key => $value) {
+            $this->styles[$key] = clone $value;
         }
-
-        $this->styleStack = new OutputFormatterStyleStack();
     }
 
     /**
@@ -76,11 +63,24 @@ class OutputFormatter implements WrappableOutputFormatterInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Initializes console output formatter.
+     *
+     * @param OutputFormatterStyleInterface[] $styles Array of "name => FormatterStyle" instances
      */
-    public function isDecorated()
+    public function __construct(bool $decorated = false, array $styles = [])
     {
-        return $this->decorated;
+        $this->decorated = $decorated;
+
+        $this->setStyle('error', new OutputFormatterStyle('white', 'red'));
+        $this->setStyle('info', new OutputFormatterStyle('green'));
+        $this->setStyle('comment', new OutputFormatterStyle('yellow'));
+        $this->setStyle('question', new OutputFormatterStyle('black', 'cyan'));
+
+        foreach ($styles as $name => $style) {
+            $this->setStyle($name, $style);
+        }
+
+        $this->styleStack = new OutputFormatterStyleStack();
     }
 
     /**
@@ -89,6 +89,14 @@ class OutputFormatter implements WrappableOutputFormatterInterface
     public function setDecorated(bool $decorated)
     {
         $this->decorated = $decorated;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isDecorated()
+    {
+        return $this->decorated;
     }
 
     /**
@@ -241,18 +249,18 @@ class OutputFormatter implements WrappableOutputFormatterInterface
         }
 
         if ($currentLineLength) {
-            $prefix = substr($text, 0, $i = $width - $currentLineLength) . "\n";
+            $prefix = substr($text, 0, $i = $width - $currentLineLength)."\n";
             $text = substr($text, $i);
         } else {
             $prefix = '';
         }
 
         preg_match('~(\\n)$~', $text, $matches);
-        $text = $prefix . preg_replace('~([^\\n]{' . $width . '})\\ *~', "\$1\n", $text);
-        $text = rtrim($text, "\n") . ($matches[1] ?? '');
+        $text = $prefix.preg_replace('~([^\\n]{'.$width.'})\\ *~', "\$1\n", $text);
+        $text = rtrim($text, "\n").($matches[1] ?? '');
 
         if (!$currentLineLength && '' !== $current && "\n" !== substr($current, -1)) {
-            $text = "\n" . $text;
+            $text = "\n".$text;
         }
 
         $lines = explode("\n", $text);

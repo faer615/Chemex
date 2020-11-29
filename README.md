@@ -113,27 +113,9 @@ Chemex 咖啡壶将会以咖啡豆品种作为 `major` 版本的命名，例如 
 
 10：修改web服务器的伪静态规则为：`try_files $uri $uri/ /index.php?$args;`。
 
-11：为了确保在线自动更新可用，请确认网站根目录及其所有子目录的权限为可读写，即 `755`，拥有者为 `www`。
+11：执行 `php artisan chemex:reset` 来初始化 `admin` 账户的密码，理员账号密码为：`admin / admin`。
 
-12：此时可以通过访问 `http://your_domain` 来使用 Chemex，如果 `admin` 的账号密码不正确，请执行 `php artisan chemex:reset` 来重置管理员账号密码为：`admin / admin`。
-
-#### OVF部署
-
-下载地址：[Chemex_OVF.7z](https://pan.baidu.com/s/1BuuXEI9rGL3x3mG-idvsMw) ，提取码： `nh5o` 。
-
-出于此系统使用的最终用户均以IT运维人员居多，考虑到部署过程中可能涉及到的开发相关配置，为了减少这部分的依赖，也提供了 `OVF` 的开放虚拟机格式部署方式。支持 `ESXi 6.5+` 和 `VMWare WorkStation 10+` ，只需要导入即可完成部署。
-
-导入方式不再赘述了，这是IT运维人员的基本操作，这里有一些配置需要注意：
-
-`LNMP` 环境使用了 [AppNode](https://www.appnode.com/) 作为面板，访问地址：`http://127.0.0.1:8888`，用户名密码均为 `admin`。
-
-在面板中已经部署好了 Chemex 最新版本，可以在 `AppNode面板` 中找到 `网站管理` 查看，面板的使用方法也请移步参照官方。
-
-此 `OVF` 基于 `CentOS 7` 制作，`root` 密码为 `123456`，桌面 GUI 环境登录用户为 `chemex`，密码为 `ITuser123!`。
-
-数据库 `root` 密码为 `123456`。
-
-Chemex 访问地址 `http://127.0.0.1`，剩下的本地化配置还请自行修改站点配置。
+11：此时可以通过访问 `http://your_domain` 来使用 Chemex。
 
 ### 开发环境
 
@@ -155,15 +137,19 @@ Chemex 访问地址 `http://127.0.0.1`，剩下的本地化配置还请自行修
 
 ## 更新
 
-### 自动
+### Git pull
 
-Chemex支持自动在线自动更新，进入菜单 `更新` 进行操作即可。
+随时随地保持更新可以在项目根目录中执行 `sudo git pull reset --hard && git pull --force` 命令，将会同步分支的最新修改内容。
 
-为了确保在线自动更新可用，请确认网站根目录及其所有子目录的权限为 `755`，拥有者为 `www`。
+接着，执行 `php artisan migrate` 来更新数据库结构。
+
+然后，执行 `php artisan db:seed --class=AdminTablesSeeder` 来更新数据库表数据。
+
+享受使用吧。
 
 ### 手动
 
-下载最新的 Release 包，覆盖文件到根目录即可，其它可能的配置修改参考 Release 说明。
+下载最新的 Release 包，覆盖文件到根目录即可，并参考 Release 中注明的额外更新步骤进行更新。
 
 ## 截图
 

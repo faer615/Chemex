@@ -98,6 +98,13 @@ class QpEncoder implements EncoderInterface
         }
     }
 
+    protected function initSafeMap(): void
+    {
+        foreach (array_merge([0x09, 0x20], range(0x21, 0x3C), range(0x3E, 0x7E)) as $byte) {
+            $this->safeMap[$byte] = \chr($byte);
+        }
+    }
+
     /**
      * {@inheritdoc}
      *
@@ -149,13 +156,6 @@ class QpEncoder implements EncoderInterface
         }
 
         return $this->standardize(implode("=\r\n", $lines));
-    }
-
-    protected function initSafeMap(): void
-    {
-        foreach (array_merge([0x09, 0x20], range(0x21, 0x3C), range(0x3E, 0x7E)) as $byte) {
-            $this->safeMap[$byte] = \chr($byte);
-        }
     }
 
     /**

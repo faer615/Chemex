@@ -61,6 +61,11 @@ class RouterDataCollector extends DataCollector
         ];
     }
 
+    protected function guessRoute(Request $request, $controller)
+    {
+        return 'n/a';
+    }
+
     /**
      * Remembers the controller associated to each request.
      */
@@ -99,10 +104,5 @@ class RouterDataCollector extends DataCollector
     public function getName()
     {
         return 'router';
-    }
-
-    protected function guessRoute(Request $request, $controller)
-    {
-        return 'n/a';
     }
 }

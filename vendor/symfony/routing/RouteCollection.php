@@ -52,9 +52,9 @@ class RouteCollection implements \IteratorAggregate, \Countable
      *
      * It implements \IteratorAggregate.
      *
-     * @return \ArrayIterator|Route[] An \ArrayIterator object for iterating over routes
      * @see all()
      *
+     * @return \ArrayIterator|Route[] An \ArrayIterator object for iterating over routes
      */
     public function getIterator()
     {
@@ -124,7 +124,7 @@ class RouteCollection implements \IteratorAggregate, \Countable
      */
     public function remove($name)
     {
-        foreach ((array)$name as $n) {
+        foreach ((array) $name as $n) {
             unset($this->routes[$n], $this->priorities[$n]);
         }
     }
@@ -163,7 +163,7 @@ class RouteCollection implements \IteratorAggregate, \Countable
         }
 
         foreach ($this->routes as $route) {
-            $route->setPath('/' . $prefix . $route->getPath());
+            $route->setPath('/'.$prefix.$route->getPath());
             $route->addDefaults($defaults);
             $route->addRequirements($requirements);
         }
@@ -178,12 +178,12 @@ class RouteCollection implements \IteratorAggregate, \Countable
         $prefixedPriorities = [];
 
         foreach ($this->routes as $name => $route) {
-            $prefixedRoutes[$prefix . $name] = $route;
+            $prefixedRoutes[$prefix.$name] = $route;
             if (null !== $canonicalName = $route->getDefault('_canonical_route')) {
-                $route->setDefault('_canonical_route', $prefix . $canonicalName);
+                $route->setDefault('_canonical_route', $prefix.$canonicalName);
             }
             if (isset($this->priorities[$name])) {
-                $prefixedPriorities[$prefix . $name] = $this->priorities[$name];
+                $prefixedPriorities[$prefix.$name] = $this->priorities[$name];
             }
         }
 
@@ -297,7 +297,7 @@ class RouteCollection implements \IteratorAggregate, \Countable
      */
     public function addResource(ResourceInterface $resource)
     {
-        $key = (string)$resource;
+        $key = (string) $resource;
 
         if (!isset($this->resources[$key])) {
             $this->resources[$key] = $resource;

@@ -35,11 +35,26 @@ abstract class AbstractSessionHandler implements \SessionHandlerInterface, \Sess
     {
         $this->sessionName = $sessionName;
         if (!headers_sent() && !ini_get('session.cache_limiter') && '0' !== ini_get('session.cache_limiter')) {
-            header(sprintf('Cache-Control: max-age=%d, private, must-revalidate', 60 * (int)ini_get('session.cache_expire')));
+            header(sprintf('Cache-Control: max-age=%d, private, must-revalidate', 60 * (int) ini_get('session.cache_expire')));
         }
 
         return true;
     }
+
+    /**
+     * @return string
+     */
+    abstract protected function doRead(string $sessionId);
+
+    /**
+     * @return bool
+     */
+    abstract protected function doWrite(string $sessionId, string $data);
+
+    /**
+     * @return bool
+     */
+    abstract protected function doDestroy(string $sessionId);
 
     /**
      * @return bool
@@ -132,19 +147,4 @@ abstract class AbstractSessionHandler implements \SessionHandlerInterface, \Sess
 
         return $this->newSessionId === $sessionId || $this->doDestroy($sessionId);
     }
-
-    /**
-     * @return string
-     */
-    abstract protected function doRead(string $sessionId);
-
-    /**
-     * @return bool
-     */
-    abstract protected function doWrite(string $sessionId, string $data);
-
-    /**
-     * @return bool
-     */
-    abstract protected function doDestroy(string $sessionId);
 }

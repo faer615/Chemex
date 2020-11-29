@@ -37,51 +37,62 @@ use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
  */
 class Router implements RouterInterface, RequestMatcherInterface
 {
-    private static $cache = [];
     /**
      * @var UrlMatcherInterface|null
      */
     protected $matcher;
+
     /**
      * @var UrlGeneratorInterface|null
      */
     protected $generator;
+
     /**
      * @var RequestContext
      */
     protected $context;
+
     /**
      * @var LoaderInterface
      */
     protected $loader;
+
     /**
      * @var RouteCollection|null
      */
     protected $collection;
+
     /**
      * @var mixed
      */
     protected $resource;
+
     /**
      * @var array
      */
     protected $options = [];
+
     /**
      * @var LoggerInterface|null
      */
     protected $logger;
+
     /**
      * @var string|null
      */
     protected $defaultLocale;
+
     /**
      * @var ConfigCacheFactoryInterface|null
      */
     private $configCacheFactory;
+
     /**
      * @var ExpressionFunctionProviderInterface[]
      */
     private $expressionLanguageProviders = [];
+
+    private static $cache = [];
 
     /**
      * @param mixed $resource The main resource to load
@@ -94,23 +105,6 @@ class Router implements RouterInterface, RequestMatcherInterface
         $this->context = $context ?: new RequestContext();
         $this->setOptions($options);
         $this->defaultLocale = $defaultLocale;
-    }
-
-    private static function getCompiledRoutes(string $path): array
-    {
-        if ([] === self::$cache && \function_exists('opcache_invalidate') && filter_var(ini_get('opcache.enable'), \FILTER_VALIDATE_BOOLEAN) && (!\in_array(\PHP_SAPI, ['cli', 'phpdbg'], true) || filter_var(ini_get('opcache.enable_cli'), \FILTER_VALIDATE_BOOLEAN))) {
-            self::$cache = null;
-        }
-
-        if (null === self::$cache) {
-            return require $path;
-        }
-
-        if (isset(self::$cache[$path])) {
-            return self::$cache[$path];
-        }
-
-        return self::$cache[$path] = require $path;
     }
 
     /**
@@ -205,14 +199,6 @@ class Router implements RouterInterface, RequestMatcherInterface
     /**
      * {@inheritdoc}
      */
-    public function getContext()
-    {
-        return $this->context;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function setContext(RequestContext $context)
     {
         $this->context = $context;
@@ -223,6 +209,14 @@ class Router implements RouterInterface, RequestMatcherInterface
         if (null !== $this->generator) {
             $this->getGenerator()->setContext($context);
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getContext()
+    {
+        return $this->context;
     }
 
     /**
@@ -290,7 +284,7 @@ class Router implements RouterInterface, RequestMatcherInterface
             return $this->matcher;
         }
 
-        $cache = $this->getConfigCacheFactory()->cache($this->options['cache_dir'] . '/url_matching_routes.php',
+        $cache = $this->getConfigCacheFactory()->cache($this->options['cache_dir'].'/url_matching_routes.php',
             function (ConfigCacheInterface $cache) {
                 $dumper = $this->getMatcherDumperInstance();
                 if (method_exists($dumper, 'addExpressionLanguageProvider')) {
@@ -325,7 +319,7 @@ class Router implements RouterInterface, RequestMatcherInterface
             }
             $this->generator = new $this->options['generator_class']($routes, $this->context, $this->logger, $this->defaultLocale);
         } else {
-            $cache = $this->getConfigCacheFactory()->cache($this->options['cache_dir'] . '/url_generating_routes.php',
+            $cache = $this->getConfigCacheFactory()->cache($this->options['cache_dir'].'/url_generating_routes.php',
                 function (ConfigCacheInterface $cache) {
                     $dumper = $this->getGeneratorDumperInstance();
 
@@ -375,5 +369,22 @@ class Router implements RouterInterface, RequestMatcherInterface
         }
 
         return $this->configCacheFactory;
+    }
+
+    private static function getCompiledRoutes(string $path): array
+    {
+        if ([] === self::$cache && \function_exists('opcache_invalidate') && filter_var(ini_get('opcache.enable'), \FILTER_VALIDATE_BOOLEAN) && (!\in_array(\PHP_SAPI, ['cli', 'phpdbg'], true) || filter_var(ini_get('opcache.enable_cli'), \FILTER_VALIDATE_BOOLEAN))) {
+            self::$cache = null;
+        }
+
+        if (null === self::$cache) {
+            return require $path;
+        }
+
+        if (isset(self::$cache[$path])) {
+            return self::$cache[$path];
+        }
+
+        return self::$cache[$path] = require $path;
     }
 }
