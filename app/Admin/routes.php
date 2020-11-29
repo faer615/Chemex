@@ -23,17 +23,19 @@ Route::group([
         'show' => 'device.records.show'
     ]]);
     $router->resource('/device/categories', 'DeviceCategoryController');
+    $router->resource('/software/records', 'SoftwareRecordController', ['names' => [
+        'index' => 'software.records.index',
+        'show' => 'software.records.show'
+    ]]);
     $router->resource('/software/tracks', 'SoftwareTrackController', ['names' => [
         'index' => 'software.tracks.index'
     ]]);
-    $router->resource('/software/records', 'SoftwareRecordController', ['names' => [
-        'index' => 'software.records.index'
-    ]]);
     $router->resource('/software/categories', 'SoftwareCategoryController');
-    $router->resource('/hardware/tracks', 'HardwareTrackController');
     $router->resource('/hardware/records', 'HardwareRecordController', ['names' => [
-        'index' => 'hardware.records.index'
+        'index' => 'hardware.records.index',
+        'show' => 'hardware.records.show'
     ]]);
+    $router->resource('/hardware/tracks', 'HardwareTrackController');
     $router->resource('/hardware/categories', 'HardwareCategoryController');
     $router->resource('/vendor/records', 'VendorRecordController');
     $router->resource('/purchased/channels', 'PurchasedChannelController');
@@ -44,11 +46,12 @@ Route::group([
     $router->resource('/check/records', 'CheckRecordController');
     $router->resource('/check/tracks', 'CheckTrackController');
     $router->resource('/service/records', 'ServiceRecordController', ['names' => [
-        'index' => 'service.records.index'
+        'index' => 'service.records.index',
+        'show' => 'service.records.show'
     ]]);
-    $router->resource('/service/tracks', 'ServiceTrackController');
     $router->resource('/service/issues', 'ServiceIssueController', ['names' => [
         'index' => 'service.issues.index'
     ]]);
+    $router->resource('/service/tracks', 'ServiceTrackController');
     $router->resource('/maintenance/records', 'MaintenanceRecordController');
 });
