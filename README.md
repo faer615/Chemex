@@ -1,6 +1,4 @@
-<div align="center">
-    <img src="https://oss.celaraze.com/chemex/logo.png" />
-</div>
+# 咖啡壶（Chemex）
 
 <p align="center">
 <a href="http://chemex.it" target="_blank">咖啡壶（Chemex）官方网站</a> |
@@ -16,7 +14,6 @@
 
 <p align="center">
     <img src="https://travis-ci.com/Celaraze/Chemex.svg?branch=main" />
-    <img src='https://gitee.com/celaraze/Chemex/badge/giteego.svg?name=PHP base env build&id=13010' />
     <img src="https://github.com/Celaraze/Chemex/workflows/Laravel/badge.svg?event=push" />
     <img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FCelaraze%2FChemex.svg?type=shield" />
 </p>
