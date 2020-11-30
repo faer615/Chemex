@@ -3,7 +3,7 @@
 </div>
 
 <p align="center">
-<a href="http://chemex.it" target="_blank">Chemex 官方网站</a> |
+<a href="http://chemex.it" target="_blank">咖啡壶 Chemex 官方网站</a> |
 <a href="https://chemex.famio.cn" target="_blank">Demo 演示站点</a>
 </p>
 
@@ -27,7 +27,7 @@
 
 ## 鸣谢
 
-没有它们就没有 Chemex 咖啡壶：
+没有它们就没有 咖啡壶（Chemex）：
 
 `JetBrains` 提供优秀的IDE。
 
@@ -43,8 +43,8 @@
 
 ## 简介
 
-Chemex 是一个轻量的、现代设计风格的 ICT 资产管理系统。得益于 [Laravel](https://laravel.com/) 框架以及 [Dcat Admin](https://dcatadmin.com) 开发平台，使其具备了优雅、简洁的优秀体验。
-Chemex 是完全免费且开源的，任何人都可以无限制的修改代码以及部署服务，这对于很多想要对ICT资产做信息化管理的中小型企业来说，是一个很好的选择：低廉的成本换回的是高效的管理方案，同时又有健康的生态提供支持。
+咖啡壶（Chemex）是一个轻量的、现代设计风格的 ICT 资产管理系统。得益于 [Laravel](https://laravel.com/) 框架以及 [Dcat Admin](https://dcatadmin.com) 开发平台，使其具备了优雅、简洁的优秀体验。
+咖啡壶（Chemex） 是完全免费且开源的，任何人都可以无限制的修改代码以及部署服务，这对于很多想要对ICT资产做信息化管理的中小型企业来说，是一个很好的选择：低廉的成本换回的是高效的管理方案，同时又有健康的生态提供支持。
 
 <p align="center">
     <img src="https://oss.celaraze.com/chemex/Chemex%20%E5%92%96%E5%95%A1%E5%A3%B6%20%281%29.png" />
@@ -62,7 +62,7 @@ Chemex 是完全免费且开源的，任何人都可以无限制的修改代码�
     
 ### 版本号命名
 
-Chemex 咖啡壶将会以咖啡豆品种作为 `major` 版本的命名，例如 `1.x` 版本称为 `肯亚（Kenya）`，旨在为 ICT 运维人员提供管理能力的同时，普及咖啡知识，静下心喝一杯属于当前版本的冲煮咖啡。
+咖啡壶（Chemex）将会以咖啡豆品种作为 `major` 版本的命名，例如 `1.x` 版本称为 `肯亚（Kenya）`，旨在为 ICT 运维人员提供管理能力的同时，普及咖啡知识，静下心喝一杯属于当前版本的冲煮咖啡。
 
 |major|版本名|发布|
 |----|----|----|

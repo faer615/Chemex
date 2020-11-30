@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Dcat\Admin\Models;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -15,8 +16,8 @@ class AdminTablesSeeder extends Seeder
     public function run()
     {
         // base tables
-        \Dcat\Admin\Models\Menu::truncate();
-        \Dcat\Admin\Models\Menu::insert(
+        Models\Menu::truncate();
+        Models\Menu::insert(
             [
                 [
                     "id" => 1,
@@ -405,8 +406,8 @@ class AdminTablesSeeder extends Seeder
             ]
         );
 
-        \Dcat\Admin\Models\Permission::truncate();
-        \Dcat\Admin\Models\Permission::insert(
+        Models\Permission::truncate();
+        Models\Permission::insert(
             [
                 [
                     "id" => 1,
@@ -612,10 +613,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "maintenance",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 56,
+                    "order" => 55,
                     "parent_id" => 0,
                     "created_at" => "2020-11-19 10:01:59",
-                    "updated_at" => "2020-11-19 14:00:55"
+                    "updated_at" => "2020-11-30 09:30:13"
                 ],
                 [
                     "id" => 21,
@@ -623,10 +624,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "vendor",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 61,
+                    "order" => 60,
                     "parent_id" => 0,
                     "created_at" => "2020-11-19 10:03:42",
-                    "updated_at" => "2020-11-19 14:02:15"
+                    "updated_at" => "2020-11-30 09:30:13"
                 ],
                 [
                     "id" => 22,
@@ -634,10 +635,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "purchased",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 64,
+                    "order" => 63,
                     "parent_id" => 0,
                     "created_at" => "2020-11-19 10:04:11",
-                    "updated_at" => "2020-11-19 14:03:31"
+                    "updated_at" => "2020-11-30 09:30:14"
                 ],
                 [
                     "id" => 23,
@@ -645,10 +646,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "version",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 65,
+                    "order" => 66,
                     "parent_id" => 0,
                     "created_at" => "2020-11-19 10:04:37",
-                    "updated_at" => "2020-11-19 14:03:31"
+                    "updated_at" => "2020-11-30 09:30:14"
                 ],
                 [
                     "id" => 24,
@@ -898,10 +899,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "maintenance.actions",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 59,
+                    "order" => 58,
                     "parent_id" => 20,
                     "created_at" => "2020-11-19 10:31:18",
-                    "updated_at" => "2020-11-19 14:02:22"
+                    "updated_at" => "2020-11-30 09:30:13"
                 ],
                 [
                     "id" => 48,
@@ -909,10 +910,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "maintenance.fix",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 60,
+                    "order" => 59,
                     "parent_id" => 47,
                     "created_at" => "2020-11-19 10:31:43",
-                    "updated_at" => "2020-11-19 14:02:15"
+                    "updated_at" => "2020-11-30 09:30:13"
                 ],
                 [
                     "id" => 49,
@@ -920,10 +921,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "check.finish",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 54,
+                    "order" => 53,
                     "parent_id" => 44,
                     "created_at" => "2020-11-19 10:35:29",
-                    "updated_at" => "2020-11-19 14:00:55"
+                    "updated_at" => "2020-11-30 09:30:13"
                 ],
                 [
                     "id" => 50,
@@ -931,10 +932,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "check.cancel",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 55,
+                    "order" => 54,
                     "parent_id" => 44,
                     "created_at" => "2020-11-19 10:35:38",
-                    "updated_at" => "2020-11-19 14:00:55"
+                    "updated_at" => "2020-11-30 09:30:13"
                 ],
                 [
                     "id" => 51,
@@ -1074,10 +1075,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "maintenance.read-only",
                     "http_method" => "GET",
                     "http_path" => "maintenance/records*",
-                    "order" => 57,
+                    "order" => 56,
                     "parent_id" => 20,
                     "created_at" => "2020-11-19 14:01:46",
-                    "updated_at" => "2020-11-19 14:02:15"
+                    "updated_at" => "2020-11-30 09:30:13"
                 ],
                 [
                     "id" => 64,
@@ -1085,10 +1086,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "maintenance.all",
                     "http_method" => "",
                     "http_path" => "maintenance/records*,maintenance/records/create*",
-                    "order" => 58,
+                    "order" => 57,
                     "parent_id" => 20,
                     "created_at" => "2020-11-19 14:02:10",
-                    "updated_at" => "2020-11-19 14:02:15"
+                    "updated_at" => "2020-11-30 09:30:13"
                 ],
                 [
                     "id" => 65,
@@ -1096,10 +1097,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "vendor.read-only",
                     "http_method" => "GET",
                     "http_path" => "vendor/records*",
-                    "order" => 62,
+                    "order" => 61,
                     "parent_id" => 21,
                     "created_at" => "2020-11-19 14:03:07",
-                    "updated_at" => "2020-11-19 14:03:31"
+                    "updated_at" => "2020-11-30 09:30:13"
                 ],
                 [
                     "id" => 66,
@@ -1107,10 +1108,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "vendor.all",
                     "http_method" => "",
                     "http_path" => "vendor/records*,vendor/records/create*",
-                    "order" => 63,
+                    "order" => 62,
                     "parent_id" => 21,
                     "created_at" => "2020-11-19 14:03:24",
-                    "updated_at" => "2020-11-19 14:03:31"
+                    "updated_at" => "2020-11-30 09:30:14"
                 ],
                 [
                     "id" => 67,
@@ -1118,10 +1119,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "puchased.read-only",
                     "http_method" => "GET",
                     "http_path" => "purchased/channels*",
-                    "order" => 66,
+                    "order" => 64,
                     "parent_id" => 22,
                     "created_at" => "2020-11-19 14:04:08",
-                    "updated_at" => "2020-11-19 14:04:08"
+                    "updated_at" => "2020-11-30 09:30:14"
                 ],
                 [
                     "id" => 68,
@@ -1129,10 +1130,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "purchased.all",
                     "http_method" => "",
                     "http_path" => "purchased/channels*,purchased/channels/create*",
-                    "order" => 67,
+                    "order" => 65,
                     "parent_id" => 22,
                     "created_at" => "2020-11-19 14:04:39",
-                    "updated_at" => "2020-11-19 14:04:39"
+                    "updated_at" => "2020-11-30 09:30:14"
                 ],
                 [
                     "id" => 69,
@@ -1140,10 +1141,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "version.read-only",
                     "http_method" => "GET",
                     "http_path" => "version",
-                    "order" => 68,
+                    "order" => 67,
                     "parent_id" => 23,
                     "created_at" => "2020-11-19 14:05:14",
-                    "updated_at" => "2020-11-19 14:05:14"
+                    "updated_at" => "2020-11-30 09:30:14"
                 ],
                 [
                     "id" => 70,
@@ -1151,21 +1152,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "version.actions",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 69,
+                    "order" => 68,
                     "parent_id" => 23,
                     "created_at" => "2020-11-19 14:05:40",
-                    "updated_at" => "2020-11-19 14:05:40"
-                ],
-                [
-                    "id" => 71,
-                    "name" => "升级",
-                    "slug" => "version.unzip",
-                    "http_method" => "",
-                    "http_path" => "version/unzip*",
-                    "order" => 70,
-                    "parent_id" => 23,
-                    "created_at" => "2020-11-19 14:06:08",
-                    "updated_at" => "2020-11-19 14:06:08"
+                    "updated_at" => "2020-11-30 09:30:14"
                 ],
                 [
                     "id" => 72,
@@ -1173,16 +1163,16 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "version.migrate",
                     "http_method" => "",
                     "http_path" => "version/migrate",
-                    "order" => 71,
-                    "parent_id" => 23,
+                    "order" => 69,
+                    "parent_id" => 70,
                     "created_at" => "2020-11-19 14:06:39",
-                    "updated_at" => "2020-11-19 14:06:39"
+                    "updated_at" => "2020-11-30 09:30:14"
                 ]
             ]
         );
 
-        \Dcat\Admin\Models\Role::truncate();
-        \Dcat\Admin\Models\Role::insert(
+        Models\Role::truncate();
+        Models\Role::insert(
             [
                 [
                     "id" => 1,
@@ -1201,7 +1191,700 @@ class AdminTablesSeeder extends Seeder
             ]
         );
 
+        Models\Setting::truncate();
+        Models\Setting::insert(
+            [
+                [
+                    "slug" => "celaraze:dcatadmin-menu-switch",
+                    "value" => "[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]",
+                    "created_at" => "2020-11-09 16:22:52",
+                    "updated_at" => "2020-11-09 16:23:06"
+                ],
+                [
+                    "slug" => "dcat-admin:operation-log",
+                    "value" => "{\"except\":[],\"allowed_methods\":[],\"secret_fields\":[]}",
+                    "created_at" => "2020-11-04 15:19:51",
+                    "updated_at" => "2020-11-04 15:19:51"
+                ]
+            ]
+        );
+
+        Models\Extension::truncate();
+        Models\Extension::insert(
+            [
+                [
+                    "id" => 6,
+                    "name" => "celaraze.colorful-bar",
+                    "version" => "1.0.0",
+                    "is_enabled" => 0,
+                    "options" => NULL,
+                    "created_at" => NULL,
+                    "updated_at" => "2020-11-09 15:51:07"
+                ],
+                [
+                    "id" => 7,
+                    "name" => "celaraze.dcatadmin-menu-switch",
+                    "version" => "1.0.0",
+                    "is_enabled" => 1,
+                    "options" => NULL,
+                    "created_at" => "2020-11-09 15:55:26",
+                    "updated_at" => "2020-11-09 15:55:30"
+                ]
+            ]
+        );
+
+        Models\ExtensionHistory::truncate();
+        Models\ExtensionHistory::insert(
+            [
+                [
+                    "id" => 7,
+                    "name" => "celaraze.dcatadmin-menu-switch",
+                    "type" => 1,
+                    "version" => "1.0.0",
+                    "detail" => "Initialize extension.",
+                    "created_at" => "2020-11-09 15:55:26",
+                    "updated_at" => "2020-11-09 15:55:26"
+                ]
+            ]
+        );
+
         // pivot tables
+        DB::table('admin_permission_menu')->truncate();
+        DB::table('admin_permission_menu')->insert(
+            [
+                [
+                    "permission_id" => 2,
+                    "menu_id" => 32,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 2,
+                    "menu_id" => 33,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 2,
+                    "menu_id" => 34,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 2,
+                    "menu_id" => 35,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 2,
+                    "menu_id" => 36,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 2,
+                    "menu_id" => 37,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 2,
+                    "menu_id" => 38,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 2,
+                    "menu_id" => 39,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 2,
+                    "menu_id" => 40,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 2,
+                    "menu_id" => 41,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 2,
+                    "menu_id" => 42,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 2,
+                    "menu_id" => 43,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 2,
+                    "menu_id" => 44,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 2,
+                    "menu_id" => 45,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 2,
+                    "menu_id" => 46,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 2,
+                    "menu_id" => 47,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 2,
+                    "menu_id" => 48,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 2,
+                    "menu_id" => 49,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 2,
+                    "menu_id" => 50,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 2,
+                    "menu_id" => 51,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 2,
+                    "menu_id" => 52,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 3,
+                    "menu_id" => 32,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 3,
+                    "menu_id" => 33,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 3,
+                    "menu_id" => 34,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 3,
+                    "menu_id" => 35,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 3,
+                    "menu_id" => 36,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 3,
+                    "menu_id" => 37,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 3,
+                    "menu_id" => 38,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 3,
+                    "menu_id" => 39,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 3,
+                    "menu_id" => 40,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 3,
+                    "menu_id" => 41,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 3,
+                    "menu_id" => 42,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 3,
+                    "menu_id" => 43,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 3,
+                    "menu_id" => 44,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 3,
+                    "menu_id" => 45,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 3,
+                    "menu_id" => 46,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 3,
+                    "menu_id" => 47,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 3,
+                    "menu_id" => 48,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 3,
+                    "menu_id" => 49,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 3,
+                    "menu_id" => 50,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 3,
+                    "menu_id" => 51,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 3,
+                    "menu_id" => 52,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 4,
+                    "menu_id" => 32,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 4,
+                    "menu_id" => 33,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 4,
+                    "menu_id" => 34,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 4,
+                    "menu_id" => 35,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 4,
+                    "menu_id" => 36,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 4,
+                    "menu_id" => 37,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 4,
+                    "menu_id" => 38,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 4,
+                    "menu_id" => 39,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 4,
+                    "menu_id" => 40,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 4,
+                    "menu_id" => 41,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 4,
+                    "menu_id" => 42,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 4,
+                    "menu_id" => 43,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 4,
+                    "menu_id" => 44,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 4,
+                    "menu_id" => 45,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 4,
+                    "menu_id" => 46,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 4,
+                    "menu_id" => 47,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 4,
+                    "menu_id" => 48,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 4,
+                    "menu_id" => 49,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 4,
+                    "menu_id" => 50,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 4,
+                    "menu_id" => 51,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 4,
+                    "menu_id" => 52,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 5,
+                    "menu_id" => 32,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 5,
+                    "menu_id" => 33,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 5,
+                    "menu_id" => 34,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 5,
+                    "menu_id" => 35,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 5,
+                    "menu_id" => 36,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 5,
+                    "menu_id" => 37,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 5,
+                    "menu_id" => 38,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 5,
+                    "menu_id" => 39,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 5,
+                    "menu_id" => 40,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 5,
+                    "menu_id" => 41,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 5,
+                    "menu_id" => 42,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 5,
+                    "menu_id" => 43,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 5,
+                    "menu_id" => 44,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 5,
+                    "menu_id" => 45,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 5,
+                    "menu_id" => 46,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 5,
+                    "menu_id" => 47,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 5,
+                    "menu_id" => 48,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 5,
+                    "menu_id" => 49,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 5,
+                    "menu_id" => 50,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 5,
+                    "menu_id" => 51,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 5,
+                    "menu_id" => 52,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 6,
+                    "menu_id" => 32,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 6,
+                    "menu_id" => 33,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 6,
+                    "menu_id" => 34,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 6,
+                    "menu_id" => 35,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 6,
+                    "menu_id" => 36,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 6,
+                    "menu_id" => 37,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 6,
+                    "menu_id" => 38,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 6,
+                    "menu_id" => 39,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 6,
+                    "menu_id" => 40,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 6,
+                    "menu_id" => 41,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 6,
+                    "menu_id" => 42,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 6,
+                    "menu_id" => 43,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 6,
+                    "menu_id" => 44,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 6,
+                    "menu_id" => 45,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 6,
+                    "menu_id" => 46,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 6,
+                    "menu_id" => 47,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 6,
+                    "menu_id" => 48,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 6,
+                    "menu_id" => 49,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 6,
+                    "menu_id" => 50,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 6,
+                    "menu_id" => 51,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ],
+                [
+                    "permission_id" => 6,
+                    "menu_id" => 52,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ]
+            ]
+        );
+
         DB::table('admin_role_menu')->truncate();
         DB::table('admin_role_menu')->insert(
             [
