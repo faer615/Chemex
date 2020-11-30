@@ -1892,6 +1892,18 @@ class AdminTablesSeeder extends Seeder
             ]
         );
 
+        DB::table('admin_role_users')->truncate();
+        DB::table('admin_role_users')->insert(
+            [
+                [
+                    "role_id" => 1,
+                    "user_id" => 1,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ]
+            ]
+        );
+
         DB::table('admin_role_permissions')->truncate();
         DB::table('admin_role_permissions')->insert(
             [
