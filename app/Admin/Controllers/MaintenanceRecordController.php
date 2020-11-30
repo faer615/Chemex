@@ -14,8 +14,9 @@ use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Widgets\Alert;
 
 /**
- * @property Int item_id
- * @property String item
+ * @property int item_id
+ * @property string item
+ * @property int status
  */
 class MaintenanceRecordController extends AdminController
 {

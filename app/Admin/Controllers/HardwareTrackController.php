@@ -56,8 +56,6 @@ class HardwareTrackController extends AdminController
     /**
      * Make a show builder.
      *
-     * @param mixed $id
-     *
      * @return Alert
      */
     protected function detail()

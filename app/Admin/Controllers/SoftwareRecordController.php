@@ -31,7 +31,7 @@ use Dcat\Admin\Widgets\Card;
 
 /**
  * @property  DeviceRecord device
- * @property  Int id
+ * @property  int id
  * @property  DateTime deleted_at
  */
 class SoftwareRecordController extends AdminController

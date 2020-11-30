@@ -13,7 +13,7 @@ use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Widgets\Alert;
 
 /**
- * @property DateTime deleted_at
+ * @property datetime deleted_at
  */
 class DeviceTrackController extends AdminController
 {
@@ -56,8 +56,6 @@ class DeviceTrackController extends AdminController
 
     /**
      * Make a show builder.
-     *
-     * @param mixed $id
      *
      * @return Alert
      */

@@ -9,6 +9,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
  * @method static where(string $key, string $value)
+ * @property string username
  */
 class AdminUser extends User implements JWTSubject
 {

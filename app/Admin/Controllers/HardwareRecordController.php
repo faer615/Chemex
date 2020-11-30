@@ -22,7 +22,7 @@ use Dcat\Admin\Show;
 
 /**
  * @property  DeviceRecord device
- * @property  Int id
+ * @property  int id
  */
 class HardwareRecordController extends AdminController
 {
@@ -78,7 +78,6 @@ class HardwareRecordController extends AdminController
             $grid->disableBatchActions();
 
             $grid->toolsWithOutline(false);
-
             $grid->export();
         });
     }

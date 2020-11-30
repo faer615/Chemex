@@ -29,10 +29,17 @@ use Dcat\Admin\Show;
 use Dcat\Admin\Widgets\Card;
 
 /**
- * @property  Int id
+ * @property  int id
  */
 class DeviceRecordController extends AdminController
 {
+    /**
+     * 详情页构建器
+     * 为了复写详情页的布局
+     * @param mixed $id
+     * @param Content $content
+     * @return Content
+     */
     public function show($id, Content $content)
     {
         $name = Info::deviceIdToStaffName($id);
@@ -137,10 +144,9 @@ class DeviceRecordController extends AdminController
                 return ExpirationService::itemExpirationLeftDaysRender('device', $this->id);
             });
 
-            $grid->toolsWithOutline(false);
-
+            $grid->disableRowSelector();
+            $grid->disableBatchActions();
             $grid->disableDeleteButton();
-
             $grid->tools([
                 new DeviceRecordImportAction()
             ]);
@@ -158,18 +164,6 @@ class DeviceRecordController extends AdminController
                 if (Admin::user()->can('device.history')) {
                     $actions->append(new DeviceHistoryAction());
                 }
-
-//                if (!empty($this->ip) && !empty($this->ssh_username) && !empty($this->ssh_password) && !empty($this->ssh_port)) {
-//                    $url = Info::getSSHBaseUrl($this->ip, $this->ssh_port, $this->ssh_username, $this->ssh_password);
-//                    $web_ssh_status = System::checkWebSSHServiceStatus($url);
-//                    if ($web_ssh_status == 200) {
-//                        $actions->append("<a href='$url' target='_blank'>💻 通过SSH连接...</a>");
-//                    } else {
-//                        $actions->append("<a disabled>💻 通过SSH连接...（WebSSH服务未启动）</a>");
-//                    }
-//                }
-//                $actions->append(new DeviceSSHInfoAction());
-
                 if (Admin::user()->can('device.maintenance')) {
                     $actions->append(new MaintenanceAction('device'));
                 }
@@ -188,10 +182,7 @@ class DeviceRecordController extends AdminController
             });
 
             $grid->enableDialogCreate();
-
-            $grid->disableRowSelector();
-            $grid->disableBatchActions();
-
+            $grid->toolsWithOutline(false);
             $grid->export();
         });
     }

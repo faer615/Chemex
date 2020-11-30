@@ -15,6 +15,10 @@ use Dcat\Admin\Grid;
 use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Widgets\Alert;
 
+/**
+ * @property int check_id
+ * @property int status
+ */
 class CheckTrackController extends AdminController
 {
     /**
@@ -69,7 +73,6 @@ class CheckTrackController extends AdminController
             });
 
             $grid->toolsWithOutline(false);
-
             $grid->quickSearch('check_id')
                 ->placeholder('输入任务ID以筛选')
                 ->auto(false);
