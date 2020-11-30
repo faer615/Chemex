@@ -3,7 +3,7 @@
 </div>
 
 <p align="center">
-<a href="http://chemex.it" target="_blank">咖啡壶 Chemex 官方网站</a> |
+<a href="http://chemex.it" target="_blank">咖啡壶（Chemex）官方网站</a> |
 <a href="https://chemex.famio.cn" target="_blank">Demo 演示站点</a>
 </p>
 
@@ -50,16 +50,18 @@
     <img src="https://oss.celaraze.com/chemex/Chemex%20%E5%92%96%E5%95%A1%E5%A3%B6%20%281%29.png" />
 </p>
 
+`1.x` 版本升级到 `2.x` 版本请参考：[1.x升级2.x的操作方式](https://gitee.com/celaraze/Chemex/wikis/1.x%E5%8D%87%E7%BA%A72.x%E7%9A%84%E6%93%8D%E4%BD%9C%E6%96%B9%E5%BC%8F) 。
+
 ## 特点
 
-优秀的 RBAC 权限控制。
+涵盖 IT 资产管理的基本功能需求，项目主导者有八年多运维管理经验。
 
-尽可能的操作简化。
+社区响应速度快，提出 Issue 后都会及时回复。
 
-支持在线更新，随时保持应用的最新版本。
+尽可能的操作简化，能一步解决的，绝不会设计第二步。
 
-数据支持导出导入，迁移更方便。
-    
+UI设计来自多个优秀开源项目，例如：Bootstrap、AdminLTE、Apex Charts等。
+  
 ### 版本号命名
 
 咖啡壶（Chemex）将会以咖啡豆品种作为 `major` 版本的命名，例如 `1.x` 版本称为 `肯亚（Kenya）`，旨在为 ICT 运维人员提供管理能力的同时，普及咖啡知识，静下心喝一杯属于当前版本的冲煮咖啡。
@@ -93,7 +95,7 @@
 
 2：为你的计算机安装 `PHP` 环境，参考：[PHP官方](https://www.php.net/downloads) 。
 
-3：为你的计算机安装 `mariaDB` ，并且有可以使用的 `mariadb-client` 客户端工具，一般安装完 `MariaDB` 会自动安装，如果在 Ubuntu 上可能需要另外执行 `sudo apt install mariadb-client` 进行安装。
+3：为你的计算机安装 `mariaDB`。
 
 4：创建一个数据库，命名任意，但记得之后填写配置时需要对应正确，并且数据库字符集为 `utf8-general-ci`。
 
@@ -105,17 +107,15 @@
 
 8：进入项目根目录，执行 `php artisan migrate` 进行数据库迁移。
 
-9：进入项目根目录，执行 `php artisan chemex:install` 进行安装。
+9：进入项目根目录，执行 `php artisan chemex:install` 进行安装，进度会卡住没反应（一般来说5秒），直接按回车继续即可。
 
 10：你可能使用的web服务器为 `nginx` 以及 `apache`，无论怎样，应用的起始路径在 `/public` 目录，请确保指向正确。
 
 11：修改web服务器的伪静态规则为：`try_files $uri $uri/ /index.php?$args;`。
 
-12：此时可以通过访问 `http://your_domain` 来使用 Chemex。管理员账号密码为：`admin / admin`。
+12：此时可以通过访问 `http://your_domain` 来使用 咖啡壶（Chemex）。管理员账号密码为：`admin / admin`。
 
-## 更新
-
-### Git Pull
+## 更新（通过Git Pull方式）
 
 随时随地保持更新可以在项目根目录中执行 `sudo git pull reset --hard && git pull --force` 命令，将会同步分支的最新修改内容。
 
@@ -145,10 +145,8 @@
 
 ## 参与贡献
 
-1：`Fork` 本仓库，修改代码，提交 `Pull Request`。
-
-2：如果您的组织、公司正在使用Chemex，请在 issue 中告知。
+`Fork` 本仓库，修改代码，提交 `Pull Request`。
 
 ## 开源协议
 
-Chemex 遵循 [GPL3.0](https://www.gnu.org/licenses/gpl-3.0.html) 开源协议。
+咖啡壶（Chemex）遵循 [GPL3.0](https://www.gnu.org/licenses/gpl-3.0.html) 开源协议。

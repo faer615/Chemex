@@ -64,8 +64,12 @@ class HardwareRecordController extends AdminController
                     $actions->append(new MaintenanceAction('hardware'));
                 }
             });
-            $grid->column('device.name')->link(function () {
-                return route('device.records.show', $this->device['id']);
+            $grid->column('device.name')->link(function ($device_name) {
+                if (!empty($device_name)) {
+                    return route('device.records.show', $this->device['id']);
+                } else {
+                    return '';
+                }
             });
 
             $grid->quickSearch('id', 'name')
