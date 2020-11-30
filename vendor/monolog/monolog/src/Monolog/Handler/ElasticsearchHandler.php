@@ -54,10 +54,10 @@ class ElasticsearchHandler extends AbstractProcessingHandler
     protected $options = [];
 
     /**
-     * @param Client $client Elasticsearch Client object
-     * @param array $options Handler configuration
-     * @param string|int $level The minimum logging level at which this handler will be triggered
-     * @param bool $bubble Whether the messages that are handled can bubble up the stack or not
+     * @param Client     $client  Elasticsearch Client object
+     * @param array      $options Handler configuration
+     * @param string|int $level   The minimum logging level at which this handler will be triggered
+     * @param bool       $bubble  Whether the messages that are handled can bubble up the stack or not
      */
     public function __construct(Client $client, array $options = [], $level = Logger::DEBUG, bool $bubble = true)
     {
@@ -65,12 +65,20 @@ class ElasticsearchHandler extends AbstractProcessingHandler
         $this->client = $client;
         $this->options = array_merge(
             [
-                'index' => 'monolog', // Elastic index name
-                'type' => '_doc',    // Elastic document type
+                'index'        => 'monolog', // Elastic index name
+                'type'         => '_doc',    // Elastic document type
                 'ignore_error' => false,     // Suppress Elasticsearch exceptions
             ],
             $options
         );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function write(array $record): void
+    {
+        $this->bulkSend([$record['formatted']]);
     }
 
     /**
@@ -96,6 +104,14 @@ class ElasticsearchHandler extends AbstractProcessingHandler
     }
 
     /**
+     * {@inheritDoc}
+     */
+    protected function getDefaultFormatter(): FormatterInterface
+    {
+        return new ElasticsearchFormatter($this->options['index'], $this->options['type']);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function handleBatch(array $records): void
@@ -105,25 +121,9 @@ class ElasticsearchHandler extends AbstractProcessingHandler
     }
 
     /**
-     * {@inheritDoc}
-     */
-    protected function write(array $record): void
-    {
-        $this->bulkSend([$record['formatted']]);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function getDefaultFormatter(): FormatterInterface
-    {
-        return new ElasticsearchFormatter($this->options['index'], $this->options['type']);
-    }
-
-    /**
      * Use Elasticsearch bulk API to send list of documents
      *
-     * @param array $records
+     * @param  array             $records
      * @throws \RuntimeException
      */
     protected function bulkSend(array $records): void
@@ -137,7 +137,7 @@ class ElasticsearchHandler extends AbstractProcessingHandler
                 $params['body'][] = [
                     'index' => [
                         '_index' => $record['_index'],
-                        '_type' => $record['_type'],
+                        '_type'  => $record['_type'],
                     ],
                 ];
                 unset($record['_index'], $record['_type']);
@@ -151,7 +151,7 @@ class ElasticsearchHandler extends AbstractProcessingHandler
                 throw $this->createExceptionFromResponses($responses);
             }
         } catch (Throwable $e) {
-            if (!$this->options['ignore_error']) {
+            if (! $this->options['ignore_error']) {
                 throw new RuntimeException('Error sending messages to Elasticsearch', 0, $e);
             }
         }

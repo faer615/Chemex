@@ -56,8 +56,7 @@ final class Guid extends Uuid implements UuidInterface
         NumberConverterInterface $numberConverter,
         CodecInterface $codec,
         TimeConverterInterface $timeConverter
-    )
-    {
+    ) {
         parent::__construct($fields, $numberConverter, $codec, $timeConverter);
     }
 }

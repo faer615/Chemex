@@ -32,8 +32,7 @@ final class Uuid extends BaseUuid implements UuidInterface
         NumberConverterInterface $numberConverter,
         CodecInterface $codec,
         TimeConverterInterface $timeConverter
-    )
-    {
+    ) {
         parent::__construct($fields, $numberConverter, $codec, $timeConverter);
     }
 }

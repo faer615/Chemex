@@ -50,7 +50,7 @@ final class Integer implements NumberInterface
      */
     public function __construct($value)
     {
-        $value = (string)$value;
+        $value = (string) $value;
         $sign = '+';
 
         // If the value contains a sign, remove it for ctype_digit() check.

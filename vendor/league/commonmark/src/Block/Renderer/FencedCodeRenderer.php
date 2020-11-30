@@ -23,9 +23,9 @@ use League\CommonMark\Util\Xml;
 final class FencedCodeRenderer implements BlockRendererInterface
 {
     /**
-     * @param FencedCode $block
+     * @param FencedCode               $block
      * @param ElementRendererInterface $htmlRenderer
-     * @param bool $inTightList
+     * @param bool                     $inTightList
      *
      * @return HtmlElement
      */

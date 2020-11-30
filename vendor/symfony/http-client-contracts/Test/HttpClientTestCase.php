@@ -28,6 +28,8 @@ abstract class HttpClientTestCase extends TestCase
         TestHttpServer::start();
     }
 
+    abstract protected function getHttpClient(string $testCase): HttpClientInterface;
+
     public function testGetRequest()
     {
         $client = $this->getHttpClient(__FUNCTION__);
@@ -133,9 +135,7 @@ abstract class HttpClientTestCase extends TestCase
 
         $this->assertSame($firstContent, $secondContent);
 
-        $response = $client->request('GET', 'http://localhost:8057', ['buffer' => function () {
-            return false;
-        }]);
+        $response = $client->request('GET', 'http://localhost:8057', ['buffer' => function () { return false; }]);
         $response->getContent();
 
         $this->expectException(TransportExceptionInterface::class);
@@ -225,13 +225,13 @@ abstract class HttpClientTestCase extends TestCase
 
         try {
             $response->getHeaders();
-            $this->fail(ClientExceptionInterface::class . ' expected');
+            $this->fail(ClientExceptionInterface::class.' expected');
         } catch (ClientExceptionInterface $e) {
         }
 
         try {
             $response->getContent();
-            $this->fail(ClientExceptionInterface::class . ' expected');
+            $this->fail(ClientExceptionInterface::class.' expected');
         } catch (ClientExceptionInterface $e) {
         }
 
@@ -245,7 +245,7 @@ abstract class HttpClientTestCase extends TestCase
             foreach ($client->stream($response) as $chunk) {
                 $this->assertTrue($chunk->isFirst());
             }
-            $this->fail(ClientExceptionInterface::class . ' expected');
+            $this->fail(ClientExceptionInterface::class.' expected');
         } catch (ClientExceptionInterface $e) {
         }
     }
@@ -265,14 +265,14 @@ abstract class HttpClientTestCase extends TestCase
 
         try {
             $response->getStatusCode();
-            $this->fail(TransportExceptionInterface::class . ' expected');
+            $this->fail(TransportExceptionInterface::class.' expected');
         } catch (TransportExceptionInterface $e) {
             $this->addToAssertionCount(1);
         }
 
         try {
             $response->getStatusCode();
-            $this->fail(TransportExceptionInterface::class . ' still expected');
+            $this->fail(TransportExceptionInterface::class.' still expected');
         } catch (TransportExceptionInterface $e) {
             $this->addToAssertionCount(1);
         }
@@ -282,7 +282,7 @@ abstract class HttpClientTestCase extends TestCase
         try {
             foreach ($client->stream($response) as $r => $chunk) {
             }
-            $this->fail(TransportExceptionInterface::class . ' expected');
+            $this->fail(TransportExceptionInterface::class.' expected');
         } catch (TransportExceptionInterface $e) {
             $this->addToAssertionCount(1);
         }
@@ -313,9 +313,7 @@ abstract class HttpClientTestCase extends TestCase
         $this->expectException(TransportExceptionInterface::class);
 
         $response = $client->request('POST', 'http://localhost:8057/', [
-            'body' => function () {
-                yield [];
-            },
+            'body' => function () { yield []; },
         ]);
 
         $response->getStatusCode();
@@ -433,7 +431,7 @@ abstract class HttpClientTestCase extends TestCase
 
         try {
             $response->getHeaders();
-            $this->fail(RedirectionExceptionInterface::class . ' expected');
+            $this->fail(RedirectionExceptionInterface::class.' expected');
         } catch (RedirectionExceptionInterface $e) {
         }
 
@@ -534,9 +532,7 @@ abstract class HttpClientTestCase extends TestCase
         $response = $client->request('POST', 'http://localhost:8057/post', [
             'headers' => ['Content-Length' => 14],
             'body' => 'foo=0123456789',
-            'on_progress' => function (...$state) use (&$steps) {
-                $steps[] = $state;
-            },
+            'on_progress' => function (...$state) use (&$steps) { $steps[] = $state; },
         ]);
 
         $body = $response->toArray();
@@ -657,7 +653,7 @@ abstract class HttpClientTestCase extends TestCase
         try {
             foreach ($client->stream([$response]) as $chunk) {
             }
-            $this->fail(ClientExceptionInterface::class . ' expected');
+            $this->fail(ClientExceptionInterface::class.' expected');
         } catch (TransportExceptionInterface $e) {
             $this->assertSame('Aborting the request.', $e->getPrevious()->getMessage());
         }
@@ -754,7 +750,7 @@ abstract class HttpClientTestCase extends TestCase
 
         try {
             $response->getContent();
-            $this->fail(TimeoutExceptionInterface::class . ' expected');
+            $this->fail(TimeoutExceptionInterface::class.' expected');
         } catch (TimeoutExceptionInterface $e) {
         }
 
@@ -858,7 +854,7 @@ abstract class HttpClientTestCase extends TestCase
 
         try {
             $client->request('GET', 'http://localhost:8057/404');
-            $this->fail(ClientExceptionInterface::class . ' expected');
+            $this->fail(ClientExceptionInterface::class.' expected');
         } catch (ClientExceptionInterface $e) {
             $this->assertSame('GET', $e->getResponse()->toArray(false)['REQUEST_METHOD']);
         }
@@ -870,7 +866,7 @@ abstract class HttpClientTestCase extends TestCase
 
         try {
             $client->request('GET', 'http://localhost:8057/404-gzipped');
-            $this->fail(ClientExceptionInterface::class . ' expected');
+            $this->fail(ClientExceptionInterface::class.' expected');
         } catch (ClientExceptionInterface $e) {
             $this->assertSame('some text', $e->getResponse()->getContent(false));
         }
@@ -897,7 +893,7 @@ abstract class HttpClientTestCase extends TestCase
 
     public function testNoProxy()
     {
-        putenv('no_proxy=' . $_SERVER['no_proxy'] = 'example.com, localhost');
+        putenv('no_proxy='.$_SERVER['no_proxy'] = 'example.com, localhost');
 
         try {
             $client = $this->getHttpClient(__FUNCTION__);
@@ -1042,6 +1038,4 @@ abstract class HttpClientTestCase extends TestCase
 
         $this->assertLessThan(10, $duration);
     }
-
-    abstract protected function getHttpClient(string $testCase): HttpClientInterface;
 }

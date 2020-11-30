@@ -39,23 +39,6 @@ final class InlineMentionParser implements InlineParserInterface
         $this->handleRegex = $handleRegex;
     }
 
-    /**
-     * @return InlineMentionParser
-     */
-    public static function createTwitterHandleParser()
-    {
-        return new self('https://twitter.com/%s', '/^[A-Za-z0-9_]{1,15}(?!\w)/');
-    }
-
-    /**
-     * @return InlineMentionParser
-     */
-    public static function createGithubHandleParser()
-    {
-        // RegEx adapted from https://github.com/shinnn/github-username-regex/blob/master/index.js
-        return new self('https://www.github.com/%s', '/^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}(?!\w)/');
-    }
-
     public function getCharacters(): array
     {
         return ['@'];
@@ -92,5 +75,22 @@ final class InlineMentionParser implements InlineParserInterface
         $inlineContext->getContainer()->appendChild(new Link($url, '@' . $handle));
 
         return true;
+    }
+
+    /**
+     * @return InlineMentionParser
+     */
+    public static function createTwitterHandleParser()
+    {
+        return new self('https://twitter.com/%s', '/^[A-Za-z0-9_]{1,15}(?!\w)/');
+    }
+
+    /**
+     * @return InlineMentionParser
+     */
+    public static function createGithubHandleParser()
+    {
+        // RegEx adapted from https://github.com/shinnn/github-username-regex/blob/master/index.js
+        return new self('https://www.github.com/%s', '/^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}(?!\w)/');
     }
 }

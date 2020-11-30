@@ -76,7 +76,7 @@ class TelegramBotHandler extends AbstractProcessingHandler
     private $disableNotification;
 
     /**
-     * @param string $apiKey Telegram bot access token provided by BotFather
+     * @param string $apiKey  Telegram bot access token provided by BotFather
      * @param string $channel Telegram channel name
      * @inheritDoc
      */
@@ -88,8 +88,7 @@ class TelegramBotHandler extends AbstractProcessingHandler
         string $parseMode = null,
         bool $disableWebPagePreview = null,
         bool $disableNotification = null
-    )
-    {
+    ) {
         parent::__construct($level, $bubble);
 
         $this->apiKey = $apiKey;

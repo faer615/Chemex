@@ -53,8 +53,7 @@ final class UuidV1 extends Uuid implements UuidInterface
         NumberConverterInterface $numberConverter,
         CodecInterface $codec,
         TimeConverterInterface $timeConverter
-    )
-    {
+    ) {
         if ($fields->getVersion() !== Uuid::UUID_TYPE_TIME) {
             throw new InvalidArgumentException(
                 'Fields used to create a UuidV1 must represent a '
@@ -87,7 +86,7 @@ final class UuidV1 extends Uuid implements UuidInterface
                 . str_pad($time->getMicroseconds()->toString(), 6, '0', STR_PAD_LEFT)
             );
         } catch (Throwable $e) {
-            throw new DateTimeException($e->getMessage(), (int)$e->getCode(), $e);
+            throw new DateTimeException($e->getMessage(), (int) $e->getCode(), $e);
         }
     }
 }

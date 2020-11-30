@@ -19,13 +19,13 @@ trait PluggableTrait
      *
      * @param PluginInterface $plugin
      *
-     * @return $this
      * @throws LogicException
      *
+     * @return $this
      */
     public function addPlugin(PluginInterface $plugin)
     {
-        if (!method_exists($plugin, 'handle')) {
+        if ( ! method_exists($plugin, 'handle')) {
             throw new LogicException(get_class($plugin) . ' does not have a handle method.');
         }
 
@@ -35,14 +35,52 @@ trait PluggableTrait
     }
 
     /**
+     * Find a specific plugin.
+     *
+     * @param string $method
+     *
+     * @throws PluginNotFoundException
+     *
+     * @return PluginInterface
+     */
+    protected function findPlugin($method)
+    {
+        if ( ! isset($this->plugins[$method])) {
+            throw new PluginNotFoundException('Plugin not found for method: ' . $method);
+        }
+
+        return $this->plugins[$method];
+    }
+
+    /**
+     * Invoke a plugin by method name.
+     *
+     * @param string              $method
+     * @param array               $arguments
+     * @param FilesystemInterface $filesystem
+     *
+     * @throws PluginNotFoundException
+     *
+     * @return mixed
+     */
+    protected function invokePlugin($method, array $arguments, FilesystemInterface $filesystem)
+    {
+        $plugin = $this->findPlugin($method);
+        $plugin->setFilesystem($filesystem);
+        $callback = [$plugin, 'handle'];
+
+        return call_user_func_array($callback, $arguments);
+    }
+
+    /**
      * Plugins pass-through.
      *
      * @param string $method
-     * @param array $arguments
+     * @param array  $arguments
      *
-     * @return mixed
      * @throws BadMethodCallException
      *
+     * @return mixed
      */
     public function __call($method, array $arguments)
     {
@@ -55,43 +93,5 @@ trait PluggableTrait
                 . '::' . $method
             );
         }
-    }
-
-    /**
-     * Find a specific plugin.
-     *
-     * @param string $method
-     *
-     * @return PluginInterface
-     * @throws PluginNotFoundException
-     *
-     */
-    protected function findPlugin($method)
-    {
-        if (!isset($this->plugins[$method])) {
-            throw new PluginNotFoundException('Plugin not found for method: ' . $method);
-        }
-
-        return $this->plugins[$method];
-    }
-
-    /**
-     * Invoke a plugin by method name.
-     *
-     * @param string $method
-     * @param array $arguments
-     * @param FilesystemInterface $filesystem
-     *
-     * @return mixed
-     * @throws PluginNotFoundException
-     *
-     */
-    protected function invokePlugin($method, array $arguments, FilesystemInterface $filesystem)
-    {
-        $plugin = $this->findPlugin($method);
-        $plugin->setFilesystem($filesystem);
-        $callback = [$plugin, 'handle'];
-
-        return call_user_func_array($callback, $arguments);
     }
 }

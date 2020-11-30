@@ -43,7 +43,7 @@ final class See extends BaseTag implements Factory\StaticMethod
      */
     public function __construct(Reference $refers, ?Description $description = null)
     {
-        $this->refers = $refers;
+        $this->refers      = $refers;
         $this->description = $description;
     }
 
@@ -52,8 +52,7 @@ final class See extends BaseTag implements Factory\StaticMethod
         ?FqsenResolver $typeResolver = null,
         ?DescriptionFactory $descriptionFactory = null,
         ?TypeContext $context = null
-    ): self
-    {
+    ) : self {
         Assert::notNull($descriptionFactory);
 
         $parts = Utils::pregSplit('/\s+/Su', $body, 2);
@@ -67,7 +66,7 @@ final class See extends BaseTag implements Factory\StaticMethod
         return new static(new FqsenRef(self::resolveFqsen($parts[0], $typeResolver, $context)), $description);
     }
 
-    private static function resolveFqsen(string $parts, ?FqsenResolver $fqsenResolver, ?TypeContext $context): Fqsen
+    private static function resolveFqsen(string $parts, ?FqsenResolver $fqsenResolver, ?TypeContext $context) : Fqsen
     {
         Assert::notNull($fqsenResolver);
         $fqsenParts = explode('::', $parts);
@@ -83,7 +82,7 @@ final class See extends BaseTag implements Factory\StaticMethod
     /**
      * Returns the ref of this tag.
      */
-    public function getReference(): Reference
+    public function getReference() : Reference
     {
         return $this->refers;
     }
@@ -91,7 +90,7 @@ final class See extends BaseTag implements Factory\StaticMethod
     /**
      * Returns a string representation of this tag.
      */
-    public function __toString(): string
+    public function __toString() : string
     {
         if ($this->description) {
             $description = $this->description->render();
@@ -99,7 +98,7 @@ final class See extends BaseTag implements Factory\StaticMethod
             $description = '';
         }
 
-        $refers = (string)$this->refers;
+        $refers = (string) $this->refers;
 
         return $refers . ($description !== '' ? ($refers !== '' ? ' ' : '') . $description : '');
     }

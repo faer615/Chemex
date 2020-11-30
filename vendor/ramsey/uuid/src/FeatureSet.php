@@ -160,8 +160,7 @@ class FeatureSet
         bool $forceNoBigNumber = false,
         bool $ignoreSystemNode = false,
         bool $enablePecl = false
-    )
-    {
+    ) {
         $this->disableBigNumber = $forceNoBigNumber;
         $this->disable64Bit = $force32Bit;
         $this->ignoreSystemNode = $ignoreSystemNode;
@@ -195,20 +194,6 @@ class FeatureSet
     }
 
     /**
-     * Sets the calculator to use in this environment
-     */
-    public function setCalculator(CalculatorInterface $calculator): void
-    {
-        $this->calculator = $calculator;
-        $this->numberConverter = $this->buildNumberConverter($calculator);
-        $this->timeConverter = $this->buildTimeConverter($calculator);
-
-        if (isset($this->timeProvider)) {
-            $this->timeGenerator = $this->buildTimeGenerator($this->timeProvider);
-        }
-    }
-
-    /**
      * Returns the codec configured for this environment
      */
     public function getCodec(): CodecInterface
@@ -238,15 +223,6 @@ class FeatureSet
     public function getNodeProvider(): NodeProviderInterface
     {
         return $this->nodeProvider;
-    }
-
-    /**
-     * Sets the node provider to use in this environment
-     */
-    public function setNodeProvider(NodeProviderInterface $nodeProvider): void
-    {
-        $this->nodeProvider = $nodeProvider;
-        $this->timeGenerator = $this->buildTimeGenerator($this->timeProvider);
     }
 
     /**
@@ -290,11 +266,17 @@ class FeatureSet
     }
 
     /**
-     * Set the validator to use in this environment
+     * Sets the calculator to use in this environment
      */
-    public function setValidator(ValidatorInterface $validator): void
+    public function setCalculator(CalculatorInterface $calculator): void
     {
-        $this->validator = $validator;
+        $this->calculator = $calculator;
+        $this->numberConverter = $this->buildNumberConverter($calculator);
+        $this->timeConverter = $this->buildTimeConverter($calculator);
+
+        if (isset($this->timeProvider)) {
+            $this->timeGenerator = $this->buildTimeGenerator($this->timeProvider);
+        }
     }
 
     /**
@@ -306,12 +288,29 @@ class FeatureSet
     }
 
     /**
+     * Sets the node provider to use in this environment
+     */
+    public function setNodeProvider(NodeProviderInterface $nodeProvider): void
+    {
+        $this->nodeProvider = $nodeProvider;
+        $this->timeGenerator = $this->buildTimeGenerator($this->timeProvider);
+    }
+
+    /**
      * Sets the time provider to use in this environment
      */
     public function setTimeProvider(TimeProviderInterface $timeProvider): void
     {
         $this->timeProvider = $timeProvider;
         $this->timeGenerator = $this->buildTimeGenerator($timeProvider);
+    }
+
+    /**
+     * Set the validator to use in this environment
+     */
+    public function setValidator(ValidatorInterface $validator): void
+    {
+        $this->validator = $validator;
     }
 
     /**
@@ -333,8 +332,7 @@ class FeatureSet
      */
     private function buildDceSecurityGenerator(
         DceSecurityProviderInterface $dceSecurityProvider
-    ): DceSecurityGeneratorInterface
-    {
+    ): DceSecurityGeneratorInterface {
         return new DceSecurityGenerator(
             $this->numberConverter,
             $this->timeGenerator,

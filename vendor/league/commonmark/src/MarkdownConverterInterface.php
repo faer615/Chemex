@@ -21,9 +21,9 @@ interface MarkdownConverterInterface
      *
      * @param string $markdown
      *
-     * @return string HTML
-     *
      * @throws \RuntimeException
+     *
+     * @return string HTML
      *
      * @api
      */

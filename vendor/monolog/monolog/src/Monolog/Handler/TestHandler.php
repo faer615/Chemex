@@ -104,7 +104,7 @@ class TestHandler extends AbstractProcessingHandler
 
     /**
      * @param string|array $record Either a message string or an array containing message and optionally context keys that will be checked against all records
-     * @param string|int $level Logging level value or name
+     * @param string|int   $level  Logging level value or name
      */
     public function hasRecord($record, $level): bool
     {
@@ -167,6 +167,15 @@ class TestHandler extends AbstractProcessingHandler
         return false;
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    protected function write(array $record): void
+    {
+        $this->recordsByLevel[$record['level']][] = $record;
+        $this->records[] = $record;
+    }
+
     public function __call($method, $args)
     {
         if (preg_match('/(.*)(Debug|Info|Notice|Warning|Error|Critical|Alert|Emergency)(.*)/', $method, $matches) > 0) {
@@ -180,14 +189,5 @@ class TestHandler extends AbstractProcessingHandler
         }
 
         throw new \BadMethodCallException('Call to undefined method ' . get_class($this) . '::' . $method . '()');
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function write(array $record): void
-    {
-        $this->recordsByLevel[$record['level']][] = $record;
-        $this->records[] = $record;
     }
 }

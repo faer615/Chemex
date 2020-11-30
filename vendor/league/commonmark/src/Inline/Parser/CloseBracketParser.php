@@ -103,10 +103,10 @@ final class CloseBracketParser implements InlineParserInterface, EnvironmentAwar
     }
 
     /**
-     * @param Cursor $cursor
+     * @param Cursor                $cursor
      * @param ReferenceMapInterface $referenceMap
-     * @param DelimiterInterface $opener
-     * @param int $startPos
+     * @param DelimiterInterface    $opener
+     * @param int                   $startPos
      *
      * @return array<string, string>|false
      */

@@ -20,23 +20,12 @@ use function substr;
 abstract class AbstractLexer
 {
     /**
-     * The next token in the input.
-     *
-     * @var array|null
-     */
-    public $lookahead;
-    /**
-     * The last matched/seen token.
-     *
-     * @var array|null
-     */
-    public $token;
-    /**
      * Lexer original input string.
      *
      * @var string
      */
     private $input;
+
     /**
      * Array of scanned tokens.
      *
@@ -49,18 +38,35 @@ abstract class AbstractLexer
      * @var array
      */
     private $tokens = [];
+
     /**
      * Current lexer position in input string.
      *
      * @var int
      */
     private $position = 0;
+
     /**
      * Current peek of current lexer position.
      *
      * @var int
      */
     private $peek = 0;
+
+    /**
+     * The next token in the input.
+     *
+     * @var array|null
+     */
+    public $lookahead;
+
+    /**
+     * The last matched/seen token.
+     *
+     * @var array|null
+     */
+    public $token;
+
     /**
      * Composed regex for input parsing.
      *
@@ -80,7 +86,7 @@ abstract class AbstractLexer
      */
     public function setInput($input)
     {
-        $this->input = $input;
+        $this->input  = $input;
         $this->tokens = [];
 
         $this->reset();
@@ -95,9 +101,9 @@ abstract class AbstractLexer
     public function reset()
     {
         $this->lookahead = null;
-        $this->token = null;
-        $this->peek = 0;
-        $this->position = 0;
+        $this->token     = null;
+        $this->peek      = 0;
+        $this->position  = 0;
     }
 
     /**
@@ -165,8 +171,8 @@ abstract class AbstractLexer
      */
     public function moveNext()
     {
-        $this->peek = 0;
-        $this->token = $this->lookahead;
+        $this->peek      = 0;
+        $this->token     = $this->lookahead;
         $this->lookahead = isset($this->tokens[$this->position])
             ? $this->tokens[$this->position++] : null;
 
@@ -190,7 +196,7 @@ abstract class AbstractLexer
     /**
      * Checks if given value is identical to the given token.
      *
-     * @param mixed $value
+     * @param mixed      $value
      * @param int|string $token
      *
      * @return bool
@@ -221,10 +227,48 @@ abstract class AbstractLexer
      */
     public function glimpse()
     {
-        $peek = $this->peek();
+        $peek       = $this->peek();
         $this->peek = 0;
 
         return $peek;
+    }
+
+    /**
+     * Scans the input string for tokens.
+     *
+     * @param string $input A query string.
+     *
+     * @return void
+     */
+    protected function scan($input)
+    {
+        if (! isset($this->regex)) {
+            $this->regex = sprintf(
+                '/(%s)|%s/%s',
+                implode(')|(', $this->getCatchablePatterns()),
+                implode('|', $this->getNonCatchablePatterns()),
+                $this->getModifiers()
+            );
+        }
+
+        $flags   = PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_OFFSET_CAPTURE;
+        $matches = preg_split($this->regex, $input, -1, $flags);
+
+        if ($matches === false) {
+            // Work around https://bugs.php.net/78122
+            $matches = [[$input, 0]];
+        }
+
+        foreach ($matches as $match) {
+            // Must remain before 'value' assignment since it can change content
+            $type = $this->getType($match[0]);
+
+            $this->tokens[] = [
+                'value' => $match[0],
+                'type'  => $type,
+                'position' => $match[1],
+            ];
+        }
     }
 
     /**
@@ -247,44 +291,6 @@ abstract class AbstractLexer
         }
 
         return $token;
-    }
-
-    /**
-     * Scans the input string for tokens.
-     *
-     * @param string $input A query string.
-     *
-     * @return void
-     */
-    protected function scan($input)
-    {
-        if (!isset($this->regex)) {
-            $this->regex = sprintf(
-                '/(%s)|%s/%s',
-                implode(')|(', $this->getCatchablePatterns()),
-                implode('|', $this->getNonCatchablePatterns()),
-                $this->getModifiers()
-            );
-        }
-
-        $flags = PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_OFFSET_CAPTURE;
-        $matches = preg_split($this->regex, $input, -1, $flags);
-
-        if ($matches === false) {
-            // Work around https://bugs.php.net/78122
-            $matches = [[$input, 0]];
-        }
-
-        foreach ($matches as $match) {
-            // Must remain before 'value' assignment since it can change content
-            $type = $this->getType($match[0]);
-
-            $this->tokens[] = [
-                'value' => $match[0],
-                'type' => $type,
-                'position' => $match[1],
-            ];
-        }
     }
 
     /**

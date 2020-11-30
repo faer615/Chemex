@@ -105,11 +105,11 @@ class NamedParameterMap extends AbstractMap
 
         foreach ($namedParameters as $key => $value) {
             if (is_int($key)) {
-                $names[] = (string)$value;
+                $names[] = (string) $value;
                 $types[] = 'mixed';
             } else {
                 $names[] = $key;
-                $types[] = (string)$value;
+                $types[] = (string) $value;
             }
         }
 

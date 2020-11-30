@@ -39,10 +39,10 @@ final class Object_ implements Type
      */
     public function __construct(?Fqsen $fqsen = null)
     {
-        if (strpos((string)$fqsen, '::') !== false || strpos((string)$fqsen, '()') !== false) {
+        if (strpos((string) $fqsen, '::') !== false || strpos((string) $fqsen, '()') !== false) {
             throw new InvalidArgumentException(
                 'Object types can only refer to a class, interface or trait but a method, function, constant or '
-                . 'property was received: ' . (string)$fqsen
+                . 'property was received: ' . (string) $fqsen
             );
         }
 
@@ -52,15 +52,15 @@ final class Object_ implements Type
     /**
      * Returns the FQSEN associated with this object.
      */
-    public function getFqsen(): ?Fqsen
+    public function getFqsen() : ?Fqsen
     {
         return $this->fqsen;
     }
 
-    public function __toString(): string
+    public function __toString() : string
     {
         if ($this->fqsen) {
-            return (string)$this->fqsen;
+            return (string) $this->fqsen;
         }
 
         return 'object';

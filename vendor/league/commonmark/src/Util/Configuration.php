@@ -66,7 +66,7 @@ final class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @param string $keyPath
+     * @param string      $keyPath
      * @param string|null $default
      *
      * @return mixed|null
@@ -87,7 +87,7 @@ final class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @param string $keyPath
+     * @param string      $keyPath
      * @param string|null $value
      */
     private function setByPath(string $keyPath, $value = null): void

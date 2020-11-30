@@ -18,10 +18,10 @@ abstract class GenericLanguageInflectorFactory implements LanguageInflectorFacto
     final public function __construct()
     {
         $this->singularRulesets[] = $this->getSingularRuleset();
-        $this->pluralRulesets[] = $this->getPluralRuleset();
+        $this->pluralRulesets[]   = $this->getPluralRuleset();
     }
 
-    final public function build(): Inflector
+    final public function build() : Inflector
     {
         return new Inflector(
             new CachedWordInflector(new RulesetInflector(
@@ -33,7 +33,7 @@ abstract class GenericLanguageInflectorFactory implements LanguageInflectorFacto
         );
     }
 
-    final public function withSingularRules(?Ruleset $singularRules, bool $reset = false): LanguageInflectorFactory
+    final public function withSingularRules(?Ruleset $singularRules, bool $reset = false) : LanguageInflectorFactory
     {
         if ($reset) {
             $this->singularRulesets = [];
@@ -46,7 +46,7 @@ abstract class GenericLanguageInflectorFactory implements LanguageInflectorFacto
         return $this;
     }
 
-    final public function withPluralRules(?Ruleset $pluralRules, bool $reset = false): LanguageInflectorFactory
+    final public function withPluralRules(?Ruleset $pluralRules, bool $reset = false) : LanguageInflectorFactory
     {
         if ($reset) {
             $this->pluralRulesets = [];
@@ -59,7 +59,7 @@ abstract class GenericLanguageInflectorFactory implements LanguageInflectorFacto
         return $this;
     }
 
-    abstract protected function getSingularRuleset(): Ruleset;
+    abstract protected function getSingularRuleset() : Ruleset;
 
-    abstract protected function getPluralRuleset(): Ruleset;
+    abstract protected function getPluralRuleset() : Ruleset;
 }

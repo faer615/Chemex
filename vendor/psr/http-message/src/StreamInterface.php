@@ -92,9 +92,9 @@ interface StreamInterface
      * If the stream is not seekable, this method will raise an exception;
      * otherwise, it will perform a seek(0).
      *
-     * @throws \RuntimeException on failure.
-     * @link http://www.php.net/manual/en/function.fseek.php
      * @see seek()
+     * @link http://www.php.net/manual/en/function.fseek.php
+     * @throws \RuntimeException on failure.
      */
     public function rewind();
 

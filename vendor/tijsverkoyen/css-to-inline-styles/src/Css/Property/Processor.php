@@ -17,7 +17,7 @@ class Processor
     {
         $propertiesString = $this->cleanup($propertiesString);
 
-        $properties = (array)explode(';', $propertiesString);
+        $properties = (array) explode(';', $propertiesString);
         $keysToRemove = array();
         $numberOfProperties = count($properties);
 
@@ -38,6 +38,25 @@ class Processor
         }
 
         return array_values($properties);
+    }
+
+    /**
+     * @param string $string
+     *
+     * @return string
+     */
+    private function cleanup($string)
+    {
+        $string = str_replace(array("\r", "\n"), '', $string);
+        $string = str_replace(array("\t"), ' ', $string);
+        $string = str_replace('"', '\'', $string);
+        $string = preg_replace('|/\*.*?\*/|', '', $string);
+        $string = preg_replace('/\s\s+/', ' ', $string);
+
+        $string = trim($string);
+        $string = rtrim($string, ';');
+
+        return $string;
     }
 
     /**
@@ -104,24 +123,5 @@ class Processor
         }
 
         return implode(' ', $chunks);
-    }
-
-    /**
-     * @param string $string
-     *
-     * @return string
-     */
-    private function cleanup($string)
-    {
-        $string = str_replace(array("\r", "\n"), '', $string);
-        $string = str_replace(array("\t"), ' ', $string);
-        $string = str_replace('"', '\'', $string);
-        $string = preg_replace('|/\*.*?\*/|', '', $string);
-        $string = preg_replace('/\s\s+/', ' ', $string);
-
-        $string = trim($string);
-        $string = rtrim($string, ';');
-
-        return $string;
     }
 }

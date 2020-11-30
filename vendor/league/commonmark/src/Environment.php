@@ -102,32 +102,6 @@ final class Environment implements ConfigurableEnvironmentInterface
         $this->delimiterProcessors = new DelimiterProcessorCollection();
     }
 
-    public static function createCommonMarkEnvironment(): ConfigurableEnvironmentInterface
-    {
-        $environment = new static();
-        $environment->addExtension(new CommonMarkCoreExtension());
-        $environment->mergeConfig([
-            'renderer' => [
-                'block_separator' => "\n",
-                'inner_separator' => "\n",
-                'soft_break' => "\n",
-            ],
-            'html_input' => self::HTML_INPUT_ALLOW,
-            'allow_unsafe_links' => true,
-            'max_nesting_level' => \INF,
-        ]);
-
-        return $environment;
-    }
-
-    public static function createGFMEnvironment(): ConfigurableEnvironmentInterface
-    {
-        $environment = self::createCommonMarkEnvironment();
-        $environment->addExtension(new GithubFlavoredMarkdownExtension());
-
-        return $environment;
-    }
-
     public function mergeConfig(array $config = [])
     {
         $this->assertUninitialized('Failed to modify configuration.');
@@ -135,16 +109,16 @@ final class Environment implements ConfigurableEnvironmentInterface
         $this->config->merge($config);
     }
 
-    public function getConfig($key = null, $default = null)
-    {
-        return $this->config->get($key, $default);
-    }
-
     public function setConfig(array $config = [])
     {
         $this->assertUninitialized('Failed to modify configuration.');
 
         $this->config->replace($config);
+    }
+
+    public function getConfig($key = null, $default = null)
+    {
+        return $this->config->get($key, $default);
     }
 
     public function addBlockParser(BlockParserInterface $parser, int $priority = 0): ConfigurableEnvironmentInterface
@@ -288,6 +262,63 @@ final class Environment implements ConfigurableEnvironmentInterface
         return $this;
     }
 
+    private function initializeExtensions(): void
+    {
+        // Ask all extensions to register their components
+        while (!empty($this->uninitializedExtensions)) {
+            foreach ($this->uninitializedExtensions as $i => $extension) {
+                $extension->register($this);
+                unset($this->uninitializedExtensions[$i]);
+            }
+        }
+
+        $this->extensionsInitialized = true;
+
+        // Lastly, let's build a regex which matches non-inline characters
+        // This will enable a huge performance boost with inline parsing
+        $this->buildInlineParserCharacterRegex();
+    }
+
+    /**
+     * @param object $object
+     */
+    private function injectEnvironmentAndConfigurationIfNeeded($object): void
+    {
+        if ($object instanceof EnvironmentAwareInterface) {
+            $object->setEnvironment($this);
+        }
+
+        if ($object instanceof ConfigurationAwareInterface) {
+            $object->setConfiguration($this->config);
+        }
+    }
+
+    public static function createCommonMarkEnvironment(): ConfigurableEnvironmentInterface
+    {
+        $environment = new static();
+        $environment->addExtension(new CommonMarkCoreExtension());
+        $environment->mergeConfig([
+            'renderer' => [
+                'block_separator' => "\n",
+                'inner_separator' => "\n",
+                'soft_break'      => "\n",
+            ],
+            'html_input'         => self::HTML_INPUT_ALLOW,
+            'allow_unsafe_links' => true,
+            'max_nesting_level'  => \INF,
+        ]);
+
+        return $environment;
+    }
+
+    public static function createGFMEnvironment(): ConfigurableEnvironmentInterface
+    {
+        $environment = self::createCommonMarkEnvironment();
+        $environment->addExtension(new GithubFlavoredMarkdownExtension());
+
+        return $environment;
+    }
+
     public function getInlineParserCharacterRegex(): string
     {
         return $this->inlineParserCharacterRegex;
@@ -329,37 +360,6 @@ final class Environment implements ConfigurableEnvironmentInterface
         }
     }
 
-    private function initializeExtensions(): void
-    {
-        // Ask all extensions to register their components
-        while (!empty($this->uninitializedExtensions)) {
-            foreach ($this->uninitializedExtensions as $i => $extension) {
-                $extension->register($this);
-                unset($this->uninitializedExtensions[$i]);
-            }
-        }
-
-        $this->extensionsInitialized = true;
-
-        // Lastly, let's build a regex which matches non-inline characters
-        // This will enable a huge performance boost with inline parsing
-        $this->buildInlineParserCharacterRegex();
-    }
-
-    /**
-     * @param object $object
-     */
-    private function injectEnvironmentAndConfigurationIfNeeded($object): void
-    {
-        if ($object instanceof EnvironmentAwareInterface) {
-            $object->setEnvironment($this);
-        }
-
-        if ($object instanceof ConfigurationAwareInterface) {
-            $object->setConfiguration($this->config);
-        }
-    }
-
     private function buildInlineParserCharacterRegex(): void
     {
         $chars = \array_unique(\array_merge(
@@ -395,8 +395,8 @@ final class Environment implements ConfigurableEnvironmentInterface
 
     /**
      * @param array<string, PrioritizedList> $list
-     * @param string $class
-     * @param string $type
+     * @param string                         $class
+     * @param string                         $type
      *
      * @return iterable
      *

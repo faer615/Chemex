@@ -37,7 +37,7 @@ interface ConfigurationInterface
      * The key can be a string or a slash-delimited path to a nested value
      *
      * @param string|null $key
-     * @param mixed|null $default
+     * @param mixed|null  $default
      *
      * @return mixed|null
      */
@@ -48,7 +48,7 @@ interface ConfigurationInterface
      *
      * The key can be a string or a slash-delimited path to a nested value
      *
-     * @param string $key
+     * @param string     $key
      * @param mixed|null $value
      *
      * @return void

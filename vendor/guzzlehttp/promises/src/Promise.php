@@ -17,66 +17,21 @@ class Promise implements PromiseInterface
     private $handlers = [];
 
     /**
-     * @param callable $waitFn Fn that when invoked resolves the promise.
+     * @param callable $waitFn   Fn that when invoked resolves the promise.
      * @param callable $cancelFn Fn that when invoked cancels the promise.
      */
     public function __construct(
         callable $waitFn = null,
         callable $cancelFn = null
-    )
-    {
+    ) {
         $this->waitFn = $waitFn;
         $this->cancelFn = $cancelFn;
-    }
-
-    /**
-     * Call a stack of handlers using a specific callback index and value.
-     *
-     * @param int $index 1 (resolve) or 2 (reject).
-     * @param mixed $value Value to pass to the callback.
-     * @param array $handler Array of handler data (promise and callbacks).
-     */
-    private static function callHandler($index, $value, array $handler)
-    {
-        /** @var PromiseInterface $promise */
-        $promise = $handler[0];
-
-        // The promise may have been cancelled or resolved before placing
-        // this thunk in the queue.
-        if (Is::settled($promise)) {
-            return;
-        }
-
-        try {
-            if (isset($handler[$index])) {
-                /*
-                 * If $f throws an exception, then $handler will be in the exception
-                 * stack trace. Since $handler contains a reference to the callable
-                 * itself we get a circular reference. We clear the $handler
-                 * here to avoid that memory leak.
-                 */
-                $f = $handler[$index];
-                unset($handler);
-                $promise->resolve($f($value));
-            } elseif ($index === 1) {
-                // Forward resolution values as-is.
-                $promise->resolve($value);
-            } else {
-                // Forward rejections down the chain.
-                $promise->reject($value);
-            }
-        } catch (\Throwable $reason) {
-            $promise->reject($reason);
-        } catch (\Exception $reason) {
-            $promise->reject($reason);
-        }
     }
 
     public function then(
         callable $onFulfilled = null,
         callable $onRejected = null
-    )
-    {
+    ) {
         if ($this->state === self::PENDING) {
             $p = new Promise(null, [$this, 'cancel']);
             $this->handlers[] = [$p, $onFulfilled, $onRejected];
@@ -215,6 +170,49 @@ class Promise implements PromiseInterface
                     }
                 }
             );
+        }
+    }
+
+    /**
+     * Call a stack of handlers using a specific callback index and value.
+     *
+     * @param int   $index   1 (resolve) or 2 (reject).
+     * @param mixed $value   Value to pass to the callback.
+     * @param array $handler Array of handler data (promise and callbacks).
+     */
+    private static function callHandler($index, $value, array $handler)
+    {
+        /** @var PromiseInterface $promise */
+        $promise = $handler[0];
+
+        // The promise may have been cancelled or resolved before placing
+        // this thunk in the queue.
+        if (Is::settled($promise)) {
+            return;
+        }
+
+        try {
+            if (isset($handler[$index])) {
+                /*
+                 * If $f throws an exception, then $handler will be in the exception
+                 * stack trace. Since $handler contains a reference to the callable
+                 * itself we get a circular reference. We clear the $handler
+                 * here to avoid that memory leak.
+                 */
+                $f = $handler[$index];
+                unset($handler);
+                $promise->resolve($f($value));
+            } elseif ($index === 1) {
+                // Forward resolution values as-is.
+                $promise->resolve($value);
+            } else {
+                // Forward rejections down the chain.
+                $promise->reject($value);
+            }
+        } catch (\Throwable $reason) {
+            $promise->reject($reason);
+        } catch (\Exception $reason) {
+            $promise->reject($reason);
         }
     }
 

@@ -26,6 +26,35 @@ class BrowserConsoleHandler extends AbstractProcessingHandler
     protected static $records = [];
 
     /**
+     * {@inheritDoc}
+     *
+     * Formatted output may contain some formatting markers to be transferred to `console.log` using the %c format.
+     *
+     * Example of formatted string:
+     *
+     *     You can do [[blue text]]{color: blue} or [[green background]]{background-color: green; color: white}
+     */
+    protected function getDefaultFormatter(): FormatterInterface
+    {
+        return new LineFormatter('[[%channel%]]{macro: autolabel} [[%level_name%]]{font-weight: bold} %message%');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function write(array $record): void
+    {
+        // Accumulate records
+        static::$records[] = $record;
+
+        // Register shutdown handler if not already done
+        if (!static::$initialized) {
+            static::$initialized = true;
+            $this->registerShutdownFunction();
+        }
+    }
+
+    /**
      * Convert records to javascript console commands and send it to the browser.
      * This method is automatically called on PHP shutdown if output is HTML or Javascript.
      */
@@ -46,12 +75,34 @@ class BrowserConsoleHandler extends AbstractProcessingHandler
         }
     }
 
+    public function close(): void
+    {
+        self::resetStatic();
+    }
+
+    public function reset()
+    {
+        parent::reset();
+
+        self::resetStatic();
+    }
+
     /**
      * Forget all logged records
      */
     public static function resetStatic(): void
     {
         static::$records = [];
+    }
+
+    /**
+     * Wrapper for register_shutdown_function to allow overriding
+     */
+    protected function registerShutdownFunction(): void
+    {
+        if (PHP_SAPI !== 'cli') {
+            register_shutdown_function(['Monolog\Handler\BrowserConsoleHandler', 'send']);
+        }
     }
 
     /**
@@ -167,7 +218,7 @@ class BrowserConsoleHandler extends AbstractProcessingHandler
             if (empty($value)) {
                 $value = static::quote('');
             }
-            $script[] = static::call('log', static::quote('%s: %o'), static::quote((string)$key), $value);
+            $script[] = static::call('log', static::quote('%s: %o'), static::quote((string) $key), $value);
         }
 
         return $script;
@@ -188,56 +239,5 @@ class BrowserConsoleHandler extends AbstractProcessingHandler
     private static function call_array(string $method, array $args): string
     {
         return 'c.' . $method . '(' . implode(', ', $args) . ');';
-    }
-
-    public function close(): void
-    {
-        self::resetStatic();
-    }
-
-    public function reset()
-    {
-        parent::reset();
-
-        self::resetStatic();
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * Formatted output may contain some formatting markers to be transferred to `console.log` using the %c format.
-     *
-     * Example of formatted string:
-     *
-     *     You can do [[blue text]]{color: blue} or [[green background]]{background-color: green; color: white}
-     */
-    protected function getDefaultFormatter(): FormatterInterface
-    {
-        return new LineFormatter('[[%channel%]]{macro: autolabel} [[%level_name%]]{font-weight: bold} %message%');
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function write(array $record): void
-    {
-        // Accumulate records
-        static::$records[] = $record;
-
-        // Register shutdown handler if not already done
-        if (!static::$initialized) {
-            static::$initialized = true;
-            $this->registerShutdownFunction();
-        }
-    }
-
-    /**
-     * Wrapper for register_shutdown_function to allow overriding
-     */
-    protected function registerShutdownFunction(): void
-    {
-        if (PHP_SAPI !== 'cli') {
-            register_shutdown_function(['Monolog\Handler\BrowserConsoleHandler', 'send']);
-        }
     }
 }

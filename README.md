@@ -71,73 +71,51 @@ Chemex 咖啡壶将会以咖啡豆品种作为 `major` 版本的命名，例如 
 
 ## 环境要求
 
+`git`，用于管理版本，部署和升级必要工具。
+
 `PHP 7.3 +`
 
-`MariaDB 10.2 +`
+`MariaDB 10.2 +`，数据库引擎，理论上 `MySQL 5.6+` 兼容支持。
 
 `ext-zip` 扩展，注意和 PHP 版本相同。
 
 `ext-json` 扩展，注意和 PHP 版本相同。
 
-源码开发依赖于 `composer` 包管理器。
-
 ## 部署
 
 > 注意：使用过程中，必须避免直接修改数据库数据，Laravel 拥有强大的 Eloquent ORM 模型层，Chemex 中的所有逻辑交互都由模型关联完成，直接修改数据库数据将会导致未知的错误。应用脱离数据库直接交互是现在最流行的做法。
-
-### 生产环境
-
-#### 源码部署
 
 > 视频部署演示教程：https://www.bilibili.com/video/BV1uK4y1j7pw/
 
 生产环境下为遵守安全策略，非常建议在服务器本地进行部署，暂时不提供相关线上初始化安装的功能。因此，虽然前期部署的步骤较多，但已经为大家自动化处理了很大部分的流程，只需要跟着下面的命令一步步执行，一般是不会有部署问题的。
 
-1：为你的计算机安装 `PHP` 环境，参考：[PHP官方](https://www.php.net/downloads) 。
+1：为你的计算机安装 `git`，Windows 环境请安装这个，Linux 环境一般都会自带，如果没有就执行 `yum/apt` 命令来安装即可。
 
-2：为你的计算机安装 `mariaDB` ，并且有可以使用的 `mariadb-client` 客户端工具，一般安装完 `MariaDB` 会自动安装，如果在 Ubuntu 上可能需要另外执行 `sudo apt install mariadb-client` 进行安装。
+2：为你的计算机安装 `PHP` 环境，参考：[PHP官方](https://www.php.net/downloads) 。
 
-3：创建一个数据库，命名任意，但记得之后填写配置时需要对应正确，并且数据库字符集为 `utf8-general-ci`。
+3：为你的计算机安装 `mariaDB` ，并且有可以使用的 `mariadb-client` 客户端工具，一般安装完 `MariaDB` 会自动安装，如果在 Ubuntu 上可能需要另外执行 `sudo apt install mariadb-client` 进行安装。
 
-4：下载 [发行版](https://gitee.com/celaraze/Chemex/releases) ，解压得到程序目录，放置到你想要放置的地方。
+4：创建一个数据库，命名任意，但记得之后填写配置时需要对应正确，并且数据库字符集为 `utf8-general-ci`。
 
-5：在项目根目录中，复制 `.env.example` 文件为一份新的，并重命名为 `.env`。
+5：在你想要的目录中，执行 `git clone https://gitee.com/celaraze/Chemex.git` 完成下载。
 
-6：在 `.env` 中配置数据库信息以及 `APP_URL` 信息。
+6：在项目根目录中，复制 `.env.example` 文件为一份新的，并重命名为 `.env`。
 
-7：进入项目根目录，执行 `php artisan migrate` 进行数据库迁移。
+7：在 `.env` 中配置数据库信息以及 `APP_URL` 信息。
 
-8：进入项目根目录，执行 `php artisan chemex:install` 进行安装。
+8：进入项目根目录，执行 `php artisan migrate` 进行数据库迁移。
 
-9：你可能使用的web服务器为 `nginx` 以及 `apache`，无论怎样，应用的起始路径在 `/public` 目录，请确保指向正确。
+9：进入项目根目录，执行 `php artisan chemex:install` 进行安装。
 
-10：修改web服务器的伪静态规则为：`try_files $uri $uri/ /index.php?$args;`。
+10：你可能使用的web服务器为 `nginx` 以及 `apache`，无论怎样，应用的起始路径在 `/public` 目录，请确保指向正确。
 
-11：执行 `php artisan chemex:reset` 来初始化 `admin` 账户的密码，理员账号密码为：`admin / admin`。
+11：修改web服务器的伪静态规则为：`try_files $uri $uri/ /index.php?$args;`。
 
-11：此时可以通过访问 `http://your_domain` 来使用 Chemex。
-
-### 开发环境
-
-欢迎对此感兴趣的开发者进行协同开发，使 Chemex 更趋于完美。开发过程相对于简单，没有过多得环境配置和改动。
-
-1：为你的计算机安装 `PHP` 环境，参考：[PHP官方](https://www.php.net/downloads) 。
-
-2：安装 `composer` 包管理工具，参考：[composer官方](https://getcomposer.org/download/) 。
-
-3：在项目根目录中，复制 `.env.example` 为 `.env`。
-
-4：在 `.env` 中配置数据库信息以及 `APP_URL` 信息。
-
-5：进入项目根目录，执行 `php artisan migrate` 进行数据库迁移。
-
-6：仍然在项目根目录中，执行 `php artisan chemex:install` 进行安装。
-
-7：参考 [Laravel](https://laravel.com/) 以及 [Dcat Admin](https://dcatadmin.com) 相关文档进行开发。
+12：此时可以通过访问 `http://your_domain` 来使用 Chemex。管理员账号密码为：`admin / admin`。
 
 ## 更新
 
-### Git pull
+### Git Pull
 
 随时随地保持更新可以在项目根目录中执行 `sudo git pull reset --hard && git pull --force` 命令，将会同步分支的最新修改内容。
 
@@ -146,10 +124,6 @@ Chemex 咖啡壶将会以咖啡豆品种作为 `major` 版本的命名，例如 
 然后，执行 `php artisan db:seed --class=AdminTablesSeeder` 来更新数据库表数据。
 
 享受使用吧。
-
-### 手动
-
-下载最新的 Release 包，覆盖文件到根目录即可，并参考 Release 中注明的额外更新步骤进行更新。
 
 ## 截图
 

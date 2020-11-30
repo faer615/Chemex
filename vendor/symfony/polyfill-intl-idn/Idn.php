@@ -76,10 +76,10 @@ final class Idn
         -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
         26, 27, 28, 29, 30, 31, 32, 33, 34, 35, -1, -1, -1, -1, -1, -1,
 
-        -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
+        -1,  0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14,
         15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, -1, -1, -1, -1, -1,
 
-        -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
+        -1,  0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14,
         15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, -1, -1, -1, -1, -1,
 
         -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
@@ -139,9 +139,9 @@ final class Idn
      * @see https://www.unicode.org/reports/tr46/#ToASCII
      *
      * @param string $domainName
-     * @param int $options
-     * @param int $variant
-     * @param array $idna_info
+     * @param int    $options
+     * @param int    $variant
+     * @param array  $idna_info
      *
      * @return string|false
      */
@@ -160,13 +160,13 @@ final class Idn
             'VerifyDnsLength' => true,
         );
         $info = new Info();
-        $labels = self::process((string)$domainName, $options, $info);
+        $labels = self::process((string) $domainName, $options, $info);
 
         foreach ($labels as $i => $label) {
             // Only convert labels to punycode that contain non-ASCII code points
             if (1 === preg_match('/[^\x00-\x7F]/', $label)) {
                 try {
-                    $label = 'xn--' . self::punycodeEncode($label);
+                    $label = 'xn--'.self::punycodeEncode($label);
                 } catch (Exception $e) {
                     $info->errors |= self::ERROR_PUNYCODE;
                 }
@@ -192,9 +192,9 @@ final class Idn
      * @see https://www.unicode.org/reports/tr46/#ToUnicode
      *
      * @param string $domainName
-     * @param int $options
-     * @param int $variant
-     * @param array $idna_info
+     * @param int    $options
+     * @param int    $variant
+     * @param array  $idna_info
      *
      * @return string|false
      */
@@ -205,7 +205,7 @@ final class Idn
         }
 
         $info = new Info();
-        $labels = self::process((string)$domainName, array(
+        $labels = self::process((string) $domainName, array(
             'CheckHyphens' => true,
             'CheckBidi' => self::INTL_IDNA_VARIANT_2003 === $variant || 0 !== ($options & self::IDNA_CHECK_BIDI),
             'CheckJoiners' => self::INTL_IDNA_VARIANT_UTS46 === $variant && 0 !== ($options & self::IDNA_CHECK_CONTEXTJ),
@@ -229,7 +229,7 @@ final class Idn
     private static function isValidContextJ(array $codePoints, $label)
     {
         if (!isset(self::$virama)) {
-            self::$virama = require __DIR__ . \DIRECTORY_SEPARATOR . 'Resources' . \DIRECTORY_SEPARATOR . 'unidata' . \DIRECTORY_SEPARATOR . 'virama.php';
+            self::$virama = require __DIR__.\DIRECTORY_SEPARATOR.'Resources'.\DIRECTORY_SEPARATOR.'unidata'.\DIRECTORY_SEPARATOR.'virama.php';
         }
 
         $offset = 0;
@@ -266,7 +266,7 @@ final class Idn
     /**
      * @see https://www.unicode.org/reports/tr46/#ProcessingStepMap
      *
-     * @param string $input
+     * @param string              $input
      * @param array<string, bool> $options
      *
      * @return string
@@ -284,7 +284,7 @@ final class Idn
                 case 'disallowed':
                     $info->errors |= self::ERROR_DISALLOWED;
 
-                // no break.
+                    // no break.
 
                 case 'valid':
                     $str .= mb_chr($codePoint, 'utf-8');
@@ -314,7 +314,7 @@ final class Idn
     /**
      * @see https://www.unicode.org/reports/tr46/#Processing
      *
-     * @param string $domain
+     * @param string              $domain
      * @param array<string, bool> $options
      *
      * @return array<int, string>
@@ -481,9 +481,9 @@ final class Idn
     /**
      * @see https://www.unicode.org/reports/tr46/#Validity_Criteria
      *
-     * @param string $label
+     * @param string              $label
      * @param array<string, bool> $options
-     * @param bool $canBeEmpty
+     * @param bool                $canBeEmpty
      */
     private static function validateLabel($label, Info $info, array $options, $canBeEmpty)
     {
@@ -746,8 +746,8 @@ final class Idn
     /**
      * @see https://tools.ietf.org/html/rfc3492#section-6.1
      *
-     * @param int $delta
-     * @param int $numPoints
+     * @param int  $delta
+     * @param int  $numPoints
      * @param bool $firstTime
      *
      * @return int
@@ -768,7 +768,7 @@ final class Idn
     }
 
     /**
-     * @param int $d
+     * @param int  $d
      * @param bool $flag
      *
      * @return string
@@ -871,7 +871,7 @@ final class Idn
     }
 
     /**
-     * @param int $codePoint
+     * @param int  $codePoint
      * @param bool $useSTD3ASCIIRules
      *
      * @return array{status: string, mapping?: string}
@@ -880,12 +880,12 @@ final class Idn
     {
         if (!self::$mappingTableLoaded) {
             self::$mappingTableLoaded = true;
-            self::$mapped = require __DIR__ . '/Resources/unidata/mapped.php';
-            self::$ignored = require __DIR__ . '/Resources/unidata/ignored.php';
-            self::$deviation = require __DIR__ . '/Resources/unidata/deviation.php';
-            self::$disallowed = require __DIR__ . '/Resources/unidata/disallowed.php';
-            self::$disallowed_STD3_mapped = require __DIR__ . '/Resources/unidata/disallowed_STD3_mapped.php';
-            self::$disallowed_STD3_valid = require __DIR__ . '/Resources/unidata/disallowed_STD3_valid.php';
+            self::$mapped = require __DIR__.'/Resources/unidata/mapped.php';
+            self::$ignored = require __DIR__.'/Resources/unidata/ignored.php';
+            self::$deviation = require __DIR__.'/Resources/unidata/deviation.php';
+            self::$disallowed = require __DIR__.'/Resources/unidata/disallowed.php';
+            self::$disallowed_STD3_mapped = require __DIR__.'/Resources/unidata/disallowed_STD3_mapped.php';
+            self::$disallowed_STD3_valid = require __DIR__.'/Resources/unidata/disallowed_STD3_valid.php';
         }
 
         if (isset(self::$mapped[$codePoint])) {

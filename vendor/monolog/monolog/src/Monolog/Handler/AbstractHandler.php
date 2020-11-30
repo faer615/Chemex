@@ -25,8 +25,8 @@ abstract class AbstractHandler extends Handler implements ResettableInterface
     protected $bubble = true;
 
     /**
-     * @param int|string $level The minimum logging level at which this handler will be triggered
-     * @param bool $bubble Whether the messages that are handled can bubble up the stack or not
+     * @param int|string $level  The minimum logging level at which this handler will be triggered
+     * @param bool       $bubble Whether the messages that are handled can bubble up the stack or not
      */
     public function __construct($level = Logger::DEBUG, bool $bubble = true)
     {
@@ -43,6 +43,19 @@ abstract class AbstractHandler extends Handler implements ResettableInterface
     }
 
     /**
+     * Sets minimum logging level at which this handler will be triggered.
+     *
+     * @param  int|string $level Level or level name
+     * @return self
+     */
+    public function setLevel($level): self
+    {
+        $this->level = Logger::toMonologLevel($level);
+
+        return $this;
+    }
+
+    /**
      * Gets minimum logging level at which this handler will be triggered.
      *
      * @return int
@@ -53,14 +66,15 @@ abstract class AbstractHandler extends Handler implements ResettableInterface
     }
 
     /**
-     * Sets minimum logging level at which this handler will be triggered.
+     * Sets the bubbling behavior.
      *
-     * @param int|string $level Level or level name
+     * @param  bool $bubble true means that this handler allows bubbling.
+     *                      false means that bubbling is not permitted.
      * @return self
      */
-    public function setLevel($level): self
+    public function setBubble(bool $bubble): self
     {
-        $this->level = Logger::toMonologLevel($level);
+        $this->bubble = $bubble;
 
         return $this;
     }
@@ -74,20 +88,6 @@ abstract class AbstractHandler extends Handler implements ResettableInterface
     public function getBubble(): bool
     {
         return $this->bubble;
-    }
-
-    /**
-     * Sets the bubbling behavior.
-     *
-     * @param bool $bubble true means that this handler allows bubbling.
-     *                      false means that bubbling is not permitted.
-     * @return self
-     */
-    public function setBubble(bool $bubble): self
-    {
-        $this->bubble = $bubble;
-
-        return $this;
     }
 
     public function reset()

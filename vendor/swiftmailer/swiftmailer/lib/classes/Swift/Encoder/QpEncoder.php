@@ -18,6 +18,20 @@
 class Swift_Encoder_QpEncoder implements Swift_Encoder
 {
     /**
+     * The CharacterStream used for reading characters (as opposed to bytes).
+     *
+     * @var Swift_CharacterStream
+     */
+    protected $charStream;
+
+    /**
+     * A filter used if input should be canonicalized.
+     *
+     * @var Swift_StreamFilter
+     */
+    protected $filter;
+
+    /**
      * Pre-computed QP for HUGE optimization.
      *
      * @var string[]
@@ -75,20 +89,10 @@ class Swift_Encoder_QpEncoder implements Swift_Encoder
         245 => '=F5', 246 => '=F6', 247 => '=F7', 248 => '=F8', 249 => '=F9',
         250 => '=FA', 251 => '=FB', 252 => '=FC', 253 => '=FD', 254 => '=FE',
         255 => '=FF',
-    ];
+        ];
+
     protected static $safeMapShare = [];
-    /**
-     * The CharacterStream used for reading characters (as opposed to bytes).
-     *
-     * @var Swift_CharacterStream
-     */
-    protected $charStream;
-    /**
-     * A filter used if input should be canonicalized.
-     *
-     * @var Swift_StreamFilter
-     */
-    protected $filter;
+
     /**
      * A map of non-encoded ascii characters.
      *
@@ -100,7 +104,7 @@ class Swift_Encoder_QpEncoder implements Swift_Encoder
      * Creates a new QpEncoder for the given CharacterStream.
      *
      * @param Swift_CharacterStream $charStream to use for reading characters
-     * @param Swift_StreamFilter $filter if input should be canonicalized
+     * @param Swift_StreamFilter    $filter     if input should be canonicalized
      */
     public function __construct(Swift_CharacterStream $charStream, Swift_StreamFilter $filter = null)
     {
@@ -129,6 +133,19 @@ class Swift_Encoder_QpEncoder implements Swift_Encoder
         }
     }
 
+    protected function getSafeMapShareId()
+    {
+        return get_class($this);
+    }
+
+    protected function initSafeMap()
+    {
+        foreach (array_merge(
+            [0x09, 0x20], range(0x21, 0x3C), range(0x3E, 0x7E)) as $byte) {
+            $this->safeMap[$byte] = chr($byte);
+        }
+    }
+
     /**
      * Takes an unencoded string and produces a QP encoded string from it.
      *
@@ -136,9 +153,9 @@ class Swift_Encoder_QpEncoder implements Swift_Encoder
      * If the first line needs to be shorter, indicate the difference with
      * $firstLineOffset.
      *
-     * @param string $string to encode
-     * @param int $firstLineOffset optional
-     * @param int $maxLineLength optional 0 indicates the default of 76 chars
+     * @param string $string          to encode
+     * @param int    $firstLineOffset optional
+     * @param int    $maxLineLength   optional 0 indicates the default of 76 chars
      *
      * @return string
      */
@@ -216,31 +233,10 @@ class Swift_Encoder_QpEncoder implements Swift_Encoder
     }
 
     /**
-     * Make a deep copy of object.
-     */
-    public function __clone()
-    {
-        $this->charStream = clone $this->charStream;
-    }
-
-    protected function getSafeMapShareId()
-    {
-        return get_class($this);
-    }
-
-    protected function initSafeMap()
-    {
-        foreach (array_merge(
-                     [0x09, 0x20], range(0x21, 0x3C), range(0x3E, 0x7E)) as $byte) {
-            $this->safeMap[$byte] = chr($byte);
-        }
-    }
-
-    /**
      * Encode the given byte array into a verbatim QP form.
      *
      * @param int[] $bytes
-     * @param int $size
+     * @param int   $size
      *
      * @return string
      */
@@ -284,7 +280,7 @@ class Swift_Encoder_QpEncoder implements Swift_Encoder
     {
         $string = str_replace(["\t=0D=0A", ' =0D=0A', '=0D=0A'],
             ["=09\r\n", "=20\r\n", "\r\n"], $string
-        );
+            );
         switch ($end = ord(substr($string, -1))) {
             case 0x09:
             case 0x20:
@@ -292,5 +288,13 @@ class Swift_Encoder_QpEncoder implements Swift_Encoder
         }
 
         return $string;
+    }
+
+    /**
+     * Make a deep copy of object.
+     */
+    public function __clone()
+    {
+        $this->charStream = clone $this->charStream;
     }
 }

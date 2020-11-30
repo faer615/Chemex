@@ -45,9 +45,9 @@ class Swift_Mime_MimePart extends Swift_Mime_SimpleMimeEntity
      * Set the body of this entity, either as a string, or as an instance of
      * {@link Swift_OutputByteStream}.
      *
-     * @param mixed $body
+     * @param mixed  $body
      * @param string $contentType optional
-     * @param string $charset optional
+     * @param string $charset     optional
      *
      * @return $this
      */
@@ -145,19 +145,13 @@ class Swift_Mime_MimePart extends Swift_Mime_SimpleMimeEntity
     /**
      * Get the nesting level of this entity.
      *
-     * @return int
      * @see LEVEL_TOP, LEVEL_ALTERNATIVE, LEVEL_MIXED, LEVEL_RELATED
      *
+     * @return int
      */
     public function getNestingLevel()
     {
         return $this->nestingLevel;
-    }
-
-    /** Set the nesting level of this entity */
-    protected function setNestingLevel($level)
-    {
-        $this->nestingLevel = $level;
     }
 
     /**
@@ -184,6 +178,12 @@ class Swift_Mime_MimePart extends Swift_Mime_SimpleMimeEntity
             $this->setFormat($this->userFormat);
             $this->setDelSp($this->userDelSp);
         }
+    }
+
+    /** Set the nesting level of this entity */
+    protected function setNestingLevel($level)
+    {
+        $this->nestingLevel = $level;
     }
 
     /** Encode charset when charset is not utf-8 */

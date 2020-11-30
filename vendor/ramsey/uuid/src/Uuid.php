@@ -257,283 +257,11 @@ class Uuid implements UuidInterface
         NumberConverterInterface $numberConverter,
         CodecInterface $codec,
         TimeConverterInterface $timeConverter
-    )
-    {
+    ) {
         $this->fields = $fields;
         $this->codec = $codec;
         $this->numberConverter = $numberConverter;
         $this->timeConverter = $timeConverter;
-    }
-
-    /**
-     * Returns the factory used to create UUIDs
-     */
-    public static function getFactory(): UuidFactoryInterface
-    {
-        if (self::$factory === null) {
-            self::$factory = new UuidFactory();
-        }
-
-        return self::$factory;
-    }
-
-    /**
-     * Sets the factory used to create UUIDs
-     *
-     * @param UuidFactoryInterface $factory A factory that will be used by this
-     *     class to create UUIDs
-     */
-    public static function setFactory(UuidFactoryInterface $factory): void
-    {
-        // Note: non-strict equality is intentional here. If the factory is configured differently, every assumption
-        //       around purity is broken, and we have to internally decide everything differently.
-        // phpcs:ignore SlevomatCodingStandard.Operators.DisallowEqualOperators.DisallowedNotEqualOperator
-        self::$factoryReplaced = ($factory != new UuidFactory());
-
-        self::$factory = $factory;
-    }
-
-    /**
-     * Creates a UUID from a byte string
-     *
-     * @param string $bytes A binary string
-     *
-     * @return UuidInterface A UuidInterface instance created from a binary
-     *     string representation
-     *
-     * @psalm-pure note: changing the internal factory is an edge case not covered by purity invariants,
-     *             but under constant factory setups, this method operates in functionally pure manners
-     *
-     * @psalm-suppress ImpureStaticProperty we know that the factory being replaced can lead to massive
-     *                                      havoc across all consumers: that should never happen, and
-     *                                      is generally to be discouraged. Until the factory is kept
-     *                                      un-replaced, this method is effectively pure.
-     */
-    public static function fromBytes(string $bytes): UuidInterface
-    {
-        if (!self::$factoryReplaced && strlen($bytes) === 16) {
-            $base16Uuid = bin2hex($bytes);
-
-            // Note: we are calling `fromString` internally because we don't know if the given `$bytes` is a valid UUID
-            return self::fromString(
-                substr($base16Uuid, 0, 8)
-                . '-'
-                . substr($base16Uuid, 8, 4)
-                . '-'
-                . substr($base16Uuid, 12, 4)
-                . '-'
-                . substr($base16Uuid, 16, 4)
-                . '-'
-                . substr($base16Uuid, 20, 12)
-            );
-        }
-
-        return self::getFactory()->fromBytes($bytes);
-    }
-
-    /**
-     * Creates a UUID from the string standard representation
-     *
-     * @param string $uuid A hexadecimal string
-     *
-     * @return UuidInterface A UuidInterface instance created from a hexadecimal
-     *     string representation
-     *
-     * @psalm-pure note: changing the internal factory is an edge case not covered by purity invariants,
-     *             but under constant factory setups, this method operates in functionally pure manners
-     *
-     * @psalm-suppress ImpureStaticProperty we know that the factory being replaced can lead to massive
-     *                                      havoc across all consumers: that should never happen, and
-     *                                      is generally to be discouraged. Until the factory is kept
-     *                                      un-replaced, this method is effectively pure.
-     */
-    public static function fromString(string $uuid): UuidInterface
-    {
-        if (!self::$factoryReplaced && preg_match(LazyUuidFromString::VALID_REGEX, $uuid) === 1) {
-            return new LazyUuidFromString(strtolower($uuid));
-        }
-
-        return self::getFactory()->fromString($uuid);
-    }
-
-    /**
-     * Creates a UUID from a DateTimeInterface instance
-     *
-     * @param DateTimeInterface $dateTime The date and time
-     * @param Hexadecimal|null $node A 48-bit number representing the hardware
-     *     address
-     * @param int|null $clockSeq A 14-bit number used to help avoid duplicates
-     *     that could arise when the clock is set backwards in time or if the
-     *     node ID changes
-     *
-     * @return UuidInterface A UuidInterface instance that represents a
-     *     version 1 UUID created from a DateTimeInterface instance
-     */
-    public static function fromDateTime(
-        DateTimeInterface $dateTime,
-        ?Hexadecimal $node = null,
-        ?int $clockSeq = null
-    ): UuidInterface
-    {
-        return self::getFactory()->fromDateTime($dateTime, $node, $clockSeq);
-    }
-
-    /**
-     * Creates a UUID from a 128-bit integer string
-     *
-     * @param string $integer String representation of 128-bit integer
-     *
-     * @return UuidInterface A UuidInterface instance created from the string
-     *     representation of a 128-bit integer
-     *
-     * @psalm-pure note: changing the internal factory is an edge case not covered by purity invariants,
-     *             but under constant factory setups, this method operates in functionally pure manners
-     */
-    public static function fromInteger(string $integer): UuidInterface
-    {
-        return self::getFactory()->fromInteger($integer);
-    }
-
-    /**
-     * Returns true if the provided string is a valid UUID
-     *
-     * @param string $uuid A string to validate as a UUID
-     *
-     * @return bool True if the string is a valid UUID, false otherwise
-     *
-     * @psalm-pure note: changing the internal factory is an edge case not covered by purity invariants,
-     *             but under constant factory setups, this method operates in functionally pure manners
-     */
-    public static function isValid(string $uuid): bool
-    {
-        return self::getFactory()->getValidator()->validate($uuid);
-    }
-
-    /**
-     * Returns a version 1 (time-based) UUID from a host ID, sequence number,
-     * and the current time
-     *
-     * @param Hexadecimal|int|string|null $node A 48-bit number representing the
-     *     hardware address; this number may be represented as an integer or a
-     *     hexadecimal string
-     * @param int $clockSeq A 14-bit number used to help avoid duplicates that
-     *     could arise when the clock is set backwards in time or if the node ID
-     *     changes
-     *
-     * @return UuidInterface A UuidInterface instance that represents a
-     *     version 1 UUID
-     */
-    public static function uuid1($node = null, ?int $clockSeq = null): UuidInterface
-    {
-        return self::getFactory()->uuid1($node, $clockSeq);
-    }
-
-    /**
-     * Returns a version 2 (DCE Security) UUID from a local domain, local
-     * identifier, host ID, clock sequence, and the current time
-     *
-     * @param int $localDomain The local domain to use when generating bytes,
-     *     according to DCE Security
-     * @param IntegerObject|null $localIdentifier The local identifier for the
-     *     given domain; this may be a UID or GID on POSIX systems, if the local
-     *     domain is person or group, or it may be a site-defined identifier
-     *     if the local domain is org
-     * @param Hexadecimal|null $node A 48-bit number representing the hardware
-     *     address
-     * @param int|null $clockSeq A 14-bit number used to help avoid duplicates
-     *     that could arise when the clock is set backwards in time or if the
-     *     node ID changes (in a version 2 UUID, the lower 8 bits of this number
-     *     are replaced with the domain).
-     *
-     * @return UuidInterface A UuidInterface instance that represents a
-     *     version 2 UUID
-     */
-    public static function uuid2(
-        int $localDomain,
-        ?IntegerObject $localIdentifier = null,
-        ?Hexadecimal $node = null,
-        ?int $clockSeq = null
-    ): UuidInterface
-    {
-        return self::getFactory()->uuid2($localDomain, $localIdentifier, $node, $clockSeq);
-    }
-
-    /**
-     * Returns a version 3 (name-based) UUID based on the MD5 hash of a
-     * namespace ID and a name
-     *
-     * @param string|UuidInterface $ns The namespace (must be a valid UUID)
-     * @param string $name The name to use for creating a UUID
-     *
-     * @return UuidInterface A UuidInterface instance that represents a
-     *     version 3 UUID
-     *
-     * @psalm-suppress ImpureMethodCall we know that the factory being replaced can lead to massive
-     *                                  havoc across all consumers: that should never happen, and
-     *                                  is generally to be discouraged. Until the factory is kept
-     *                                  un-replaced, this method is effectively pure.
-     *
-     * @psalm-pure note: changing the internal factory is an edge case not covered by purity invariants,
-     *             but under constant factory setups, this method operates in functionally pure manners
-     */
-    public static function uuid3($ns, string $name): UuidInterface
-    {
-        return self::getFactory()->uuid3($ns, $name);
-    }
-
-    /**
-     * Returns a version 4 (random) UUID
-     *
-     * @return UuidInterface A UuidInterface instance that represents a
-     *     version 4 UUID
-     */
-    public static function uuid4(): UuidInterface
-    {
-        return self::getFactory()->uuid4();
-    }
-
-    /**
-     * Returns a version 5 (name-based) UUID based on the SHA-1 hash of a
-     * namespace ID and a name
-     *
-     * @param string|UuidInterface $ns The namespace (must be a valid UUID)
-     * @param string $name The name to use for creating a UUID
-     *
-     * @return UuidInterface A UuidInterface instance that represents a
-     *     version 5 UUID
-     *
-     * @psalm-pure note: changing the internal factory is an edge case not covered by purity invariants,
-     *             but under constant factory setups, this method operates in functionally pure manners
-     *
-     * @psalm-suppress ImpureMethodCall we know that the factory being replaced can lead to massive
-     *                                  havoc across all consumers: that should never happen, and
-     *                                  is generally to be discouraged. Until the factory is kept
-     *                                  un-replaced, this method is effectively pure.
-     */
-    public static function uuid5($ns, string $name): UuidInterface
-    {
-        return self::getFactory()->uuid5($ns, $name);
-    }
-
-    /**
-     * Returns a version 6 (ordered-time) UUID from a host ID, sequence number,
-     * and the current time
-     *
-     * @param Hexadecimal|null $node A 48-bit number representing the hardware
-     *     address
-     * @param int $clockSeq A 14-bit number used to help avoid duplicates that
-     *     could arise when the clock is set backwards in time or if the node ID
-     *     changes
-     *
-     * @return UuidInterface A UuidInterface instance that represents a
-     *     version 6 UUID
-     */
-    public static function uuid6(
-        ?Hexadecimal $node = null,
-        ?int $clockSeq = null
-    ): UuidInterface
-    {
-        return self::getFactory()->uuid6($node, $clockSeq);
     }
 
     /**
@@ -637,5 +365,273 @@ class Uuid implements UuidInterface
     public function toString(): string
     {
         return $this->codec->encode($this);
+    }
+
+    /**
+     * Returns the factory used to create UUIDs
+     */
+    public static function getFactory(): UuidFactoryInterface
+    {
+        if (self::$factory === null) {
+            self::$factory = new UuidFactory();
+        }
+
+        return self::$factory;
+    }
+
+    /**
+     * Sets the factory used to create UUIDs
+     *
+     * @param UuidFactoryInterface $factory A factory that will be used by this
+     *     class to create UUIDs
+     */
+    public static function setFactory(UuidFactoryInterface $factory): void
+    {
+        // Note: non-strict equality is intentional here. If the factory is configured differently, every assumption
+        //       around purity is broken, and we have to internally decide everything differently.
+        // phpcs:ignore SlevomatCodingStandard.Operators.DisallowEqualOperators.DisallowedNotEqualOperator
+        self::$factoryReplaced = ($factory != new UuidFactory());
+
+        self::$factory = $factory;
+    }
+
+    /**
+     * Creates a UUID from a byte string
+     *
+     * @param string $bytes A binary string
+     *
+     * @return UuidInterface A UuidInterface instance created from a binary
+     *     string representation
+     *
+     * @psalm-pure note: changing the internal factory is an edge case not covered by purity invariants,
+     *             but under constant factory setups, this method operates in functionally pure manners
+     *
+     * @psalm-suppress ImpureStaticProperty we know that the factory being replaced can lead to massive
+     *                                      havoc across all consumers: that should never happen, and
+     *                                      is generally to be discouraged. Until the factory is kept
+     *                                      un-replaced, this method is effectively pure.
+     */
+    public static function fromBytes(string $bytes): UuidInterface
+    {
+        if (! self::$factoryReplaced && strlen($bytes) === 16) {
+            $base16Uuid = bin2hex($bytes);
+
+            // Note: we are calling `fromString` internally because we don't know if the given `$bytes` is a valid UUID
+            return self::fromString(
+                substr($base16Uuid, 0, 8)
+                . '-'
+                . substr($base16Uuid, 8, 4)
+                . '-'
+                . substr($base16Uuid, 12, 4)
+                . '-'
+                . substr($base16Uuid, 16, 4)
+                . '-'
+                . substr($base16Uuid, 20, 12)
+            );
+        }
+
+        return self::getFactory()->fromBytes($bytes);
+    }
+
+    /**
+     * Creates a UUID from the string standard representation
+     *
+     * @param string $uuid A hexadecimal string
+     *
+     * @return UuidInterface A UuidInterface instance created from a hexadecimal
+     *     string representation
+     *
+     * @psalm-pure note: changing the internal factory is an edge case not covered by purity invariants,
+     *             but under constant factory setups, this method operates in functionally pure manners
+     *
+     * @psalm-suppress ImpureStaticProperty we know that the factory being replaced can lead to massive
+     *                                      havoc across all consumers: that should never happen, and
+     *                                      is generally to be discouraged. Until the factory is kept
+     *                                      un-replaced, this method is effectively pure.
+     */
+    public static function fromString(string $uuid): UuidInterface
+    {
+        if (! self::$factoryReplaced && preg_match(LazyUuidFromString::VALID_REGEX, $uuid) === 1) {
+            return new LazyUuidFromString(strtolower($uuid));
+        }
+
+        return self::getFactory()->fromString($uuid);
+    }
+
+    /**
+     * Creates a UUID from a DateTimeInterface instance
+     *
+     * @param DateTimeInterface $dateTime The date and time
+     * @param Hexadecimal|null $node A 48-bit number representing the hardware
+     *     address
+     * @param int|null $clockSeq A 14-bit number used to help avoid duplicates
+     *     that could arise when the clock is set backwards in time or if the
+     *     node ID changes
+     *
+     * @return UuidInterface A UuidInterface instance that represents a
+     *     version 1 UUID created from a DateTimeInterface instance
+     */
+    public static function fromDateTime(
+        DateTimeInterface $dateTime,
+        ?Hexadecimal $node = null,
+        ?int $clockSeq = null
+    ): UuidInterface {
+        return self::getFactory()->fromDateTime($dateTime, $node, $clockSeq);
+    }
+
+    /**
+     * Creates a UUID from a 128-bit integer string
+     *
+     * @param string $integer String representation of 128-bit integer
+     *
+     * @return UuidInterface A UuidInterface instance created from the string
+     *     representation of a 128-bit integer
+     *
+     * @psalm-pure note: changing the internal factory is an edge case not covered by purity invariants,
+     *             but under constant factory setups, this method operates in functionally pure manners
+     */
+    public static function fromInteger(string $integer): UuidInterface
+    {
+        return self::getFactory()->fromInteger($integer);
+    }
+
+    /**
+     * Returns true if the provided string is a valid UUID
+     *
+     * @param string $uuid A string to validate as a UUID
+     *
+     * @return bool True if the string is a valid UUID, false otherwise
+     *
+     * @psalm-pure note: changing the internal factory is an edge case not covered by purity invariants,
+     *             but under constant factory setups, this method operates in functionally pure manners
+     */
+    public static function isValid(string $uuid): bool
+    {
+        return self::getFactory()->getValidator()->validate($uuid);
+    }
+
+    /**
+     * Returns a version 1 (time-based) UUID from a host ID, sequence number,
+     * and the current time
+     *
+     * @param Hexadecimal|int|string|null $node A 48-bit number representing the
+     *     hardware address; this number may be represented as an integer or a
+     *     hexadecimal string
+     * @param int $clockSeq A 14-bit number used to help avoid duplicates that
+     *     could arise when the clock is set backwards in time or if the node ID
+     *     changes
+     *
+     * @return UuidInterface A UuidInterface instance that represents a
+     *     version 1 UUID
+     */
+    public static function uuid1($node = null, ?int $clockSeq = null): UuidInterface
+    {
+        return self::getFactory()->uuid1($node, $clockSeq);
+    }
+
+    /**
+     * Returns a version 2 (DCE Security) UUID from a local domain, local
+     * identifier, host ID, clock sequence, and the current time
+     *
+     * @param int $localDomain The local domain to use when generating bytes,
+     *     according to DCE Security
+     * @param IntegerObject|null $localIdentifier The local identifier for the
+     *     given domain; this may be a UID or GID on POSIX systems, if the local
+     *     domain is person or group, or it may be a site-defined identifier
+     *     if the local domain is org
+     * @param Hexadecimal|null $node A 48-bit number representing the hardware
+     *     address
+     * @param int|null $clockSeq A 14-bit number used to help avoid duplicates
+     *     that could arise when the clock is set backwards in time or if the
+     *     node ID changes (in a version 2 UUID, the lower 8 bits of this number
+     *     are replaced with the domain).
+     *
+     * @return UuidInterface A UuidInterface instance that represents a
+     *     version 2 UUID
+     */
+    public static function uuid2(
+        int $localDomain,
+        ?IntegerObject $localIdentifier = null,
+        ?Hexadecimal $node = null,
+        ?int $clockSeq = null
+    ): UuidInterface {
+        return self::getFactory()->uuid2($localDomain, $localIdentifier, $node, $clockSeq);
+    }
+
+    /**
+     * Returns a version 3 (name-based) UUID based on the MD5 hash of a
+     * namespace ID and a name
+     *
+     * @param string|UuidInterface $ns The namespace (must be a valid UUID)
+     * @param string $name The name to use for creating a UUID
+     *
+     * @return UuidInterface A UuidInterface instance that represents a
+     *     version 3 UUID
+     *
+     * @psalm-suppress ImpureMethodCall we know that the factory being replaced can lead to massive
+     *                                  havoc across all consumers: that should never happen, and
+     *                                  is generally to be discouraged. Until the factory is kept
+     *                                  un-replaced, this method is effectively pure.
+     *
+     * @psalm-pure note: changing the internal factory is an edge case not covered by purity invariants,
+     *             but under constant factory setups, this method operates in functionally pure manners
+     */
+    public static function uuid3($ns, string $name): UuidInterface
+    {
+        return self::getFactory()->uuid3($ns, $name);
+    }
+
+    /**
+     * Returns a version 4 (random) UUID
+     *
+     * @return UuidInterface A UuidInterface instance that represents a
+     *     version 4 UUID
+     */
+    public static function uuid4(): UuidInterface
+    {
+        return self::getFactory()->uuid4();
+    }
+
+    /**
+     * Returns a version 5 (name-based) UUID based on the SHA-1 hash of a
+     * namespace ID and a name
+     *
+     * @param string|UuidInterface $ns The namespace (must be a valid UUID)
+     * @param string $name The name to use for creating a UUID
+     *
+     * @return UuidInterface A UuidInterface instance that represents a
+     *     version 5 UUID
+     *
+     * @psalm-pure note: changing the internal factory is an edge case not covered by purity invariants,
+     *             but under constant factory setups, this method operates in functionally pure manners
+     *
+     * @psalm-suppress ImpureMethodCall we know that the factory being replaced can lead to massive
+     *                                  havoc across all consumers: that should never happen, and
+     *                                  is generally to be discouraged. Until the factory is kept
+     *                                  un-replaced, this method is effectively pure.
+     */
+    public static function uuid5($ns, string $name): UuidInterface
+    {
+        return self::getFactory()->uuid5($ns, $name);
+    }
+
+    /**
+     * Returns a version 6 (ordered-time) UUID from a host ID, sequence number,
+     * and the current time
+     *
+     * @param Hexadecimal|null $node A 48-bit number representing the hardware
+     *     address
+     * @param int $clockSeq A 14-bit number used to help avoid duplicates that
+     *     could arise when the clock is set backwards in time or if the node ID
+     *     changes
+     *
+     * @return UuidInterface A UuidInterface instance that represents a
+     *     version 6 UUID
+     */
+    public static function uuid6(
+        ?Hexadecimal $node = null,
+        ?int $clockSeq = null
+    ): UuidInterface {
+        return self::getFactory()->uuid6($node, $clockSeq);
     }
 }

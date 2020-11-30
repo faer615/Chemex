@@ -37,7 +37,7 @@ abstract class Option implements IteratorAggregate
      *
      * @template S
      *
-     * @param S $value The actual return value.
+     * @param S $value     The actual return value.
      * @param S $noneValue The value which should be considered "None"; null by
      *                     default.
      *
@@ -62,7 +62,7 @@ abstract class Option implements IteratorAggregate
      * @template S
      *
      * @param array<string|int,S>|ArrayAccess<string|int,S>|null $array A potential array or \ArrayAccess value.
-     * @param string $key The key to check.
+     * @param string                                             $key   The key to check.
      *
      * @return Option<S>
      */
@@ -84,10 +84,10 @@ abstract class Option implements IteratorAggregate
      *
      * @template S
      *
-     * @param callable $callback The callback to evaluate.
-     * @param array $arguments The arguments for the callback.
-     * @param S $noneValue The value which should be considered "None";
-     *                             null by default.
+     * @param callable $callback  The callback to evaluate.
+     * @param array    $arguments The arguments for the callback.
+     * @param S        $noneValue The value which should be considered "None";
+    *                             null by default.
      *
      * @return LazyOption<S>
      */
@@ -116,7 +116,7 @@ abstract class Option implements IteratorAggregate
      * @template S
      *
      * @param Option<S>|callable|S $value
-     * @param S $noneValue Used when $value is mixed or
+     * @param S                    $noneValue Used when $value is mixed or
      *                                        callable, for None-check.
      *
      * @return Option<S>|LazyOption<S>
@@ -153,7 +153,7 @@ abstract class Option implements IteratorAggregate
      * @template S
      *
      * @param callable $callback
-     * @param mixed $noneValue
+     * @param mixed    $noneValue
      *
      * @return callable
      */
@@ -177,7 +177,7 @@ abstract class Option implements IteratorAggregate
             }
 
             $args = array_map(
-            /** @return T */
+                /** @return T */
                 static function (self $o) {
                     // it is safe to do so because the fold above checked
                     // that all arguments are of type Some
@@ -194,9 +194,9 @@ abstract class Option implements IteratorAggregate
     /**
      * Returns the value if available, or throws an exception otherwise.
      *
-     * @return T
      * @throws \RuntimeException If value is not available.
      *
+     * @return T
      */
     abstract public function get();
 
@@ -282,11 +282,11 @@ abstract class Option implements IteratorAggregate
      * If you're looking for something like ``ifEmpty``, you can use ``getOrCall``
      * and ``getOrElse`` in these cases.
      *
+     * @deprecated Use forAll() instead.
+     *
      * @param callable(T):mixed $callable
      *
      * @return void
-     * @deprecated Use forAll() instead.
-     *
      */
     abstract public function ifDefined($callable);
 
@@ -413,7 +413,7 @@ abstract class Option implements IteratorAggregate
      *
      * @template S
      *
-     * @param S $initialValue
+     * @param S                $initialValue
      * @param callable(S, T):S $callable
      *
      * @return S
@@ -425,7 +425,7 @@ abstract class Option implements IteratorAggregate
      *
      * @template S
      *
-     * @param S $initialValue
+     * @param S                $initialValue
      * @param callable(T, S):S $callable
      *
      * @return S

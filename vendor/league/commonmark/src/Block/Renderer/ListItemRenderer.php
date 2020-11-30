@@ -24,9 +24,9 @@ use League\CommonMark\HtmlElement;
 final class ListItemRenderer implements BlockRendererInterface
 {
     /**
-     * @param ListItem $block
+     * @param ListItem                 $block
      * @param ElementRendererInterface $htmlRenderer
-     * @param bool $inTightList
+     * @param bool                     $inTightList
      *
      * @return string
      */

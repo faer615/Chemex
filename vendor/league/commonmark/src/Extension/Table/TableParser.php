@@ -31,35 +31,6 @@ final class TableParser implements BlockParserInterface, EnvironmentAwareInterfa
      */
     private $environment;
 
-    private static function getAlignment(bool $left, bool $right): ?string
-    {
-        if ($left && $right) {
-            return TableCell::ALIGN_CENTER;
-        } elseif ($left) {
-            return TableCell::ALIGN_LEFT;
-        } elseif ($right) {
-            return TableCell::ALIGN_RIGHT;
-        }
-
-        return null;
-    }
-
-    private static function isANewBlock(EnvironmentInterface $environment, string $line): bool
-    {
-        $context = new Context(new Document(), $environment);
-        $context->setNextLine($line);
-        $cursor = new Cursor($line);
-
-        /** @var BlockParserInterface $parser */
-        foreach ($environment->getBlockParsers() as $parser) {
-            if ($parser->parse($context, $cursor)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     public function parse(ContextInterface $context, Cursor $cursor): bool
     {
         $container = $context->getContainer();
@@ -86,7 +57,7 @@ final class TableParser implements BlockParserInterface, EnvironmentAwareInterfa
             return false;
         }
 
-        $head = $this->parseRow(trim((string)array_pop($lines)), $columns, TableCell::TYPE_HEAD);
+        $head = $this->parseRow(trim((string) array_pop($lines)), $columns, TableCell::TYPE_HEAD);
         if (null === $head) {
             $cursor->restoreState($oldState);
 
@@ -128,15 +99,10 @@ final class TableParser implements BlockParserInterface, EnvironmentAwareInterfa
         return true;
     }
 
-    public function setEnvironment(EnvironmentInterface $environment)
-    {
-        $this->environment = $environment;
-    }
-
     /**
-     * @param string $line
+     * @param string             $line
      * @param array<int, string> $columns
-     * @param string $type
+     * @param string             $type
      *
      * @return TableRow|null
      */
@@ -279,5 +245,39 @@ final class TableParser implements BlockParserInterface, EnvironmentAwareInterfa
         }
 
         return $columns;
+    }
+
+    private static function getAlignment(bool $left, bool $right): ?string
+    {
+        if ($left && $right) {
+            return TableCell::ALIGN_CENTER;
+        } elseif ($left) {
+            return TableCell::ALIGN_LEFT;
+        } elseif ($right) {
+            return TableCell::ALIGN_RIGHT;
+        }
+
+        return null;
+    }
+
+    public function setEnvironment(EnvironmentInterface $environment)
+    {
+        $this->environment = $environment;
+    }
+
+    private static function isANewBlock(EnvironmentInterface $environment, string $line): bool
+    {
+        $context = new Context(new Document(), $environment);
+        $context->setNextLine($line);
+        $cursor = new Cursor($line);
+
+        /** @var BlockParserInterface $parser */
+        foreach ($environment->getBlockParsers() as $parser) {
+            if ($parser->parse($context, $cursor)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

@@ -66,7 +66,7 @@ class Util
         $result = [];
 
         foreach ($map as $from => $to) {
-            if (!isset($object[$from])) {
+            if ( ! isset($object[$from])) {
                 continue;
             }
 
@@ -81,9 +81,9 @@ class Util
      *
      * @param string $path
      *
-     * @return string
      * @throws LogicException
      *
+     * @return string
      */
     public static function normalizePath($path)
     {
@@ -95,9 +95,9 @@ class Util
      *
      * @param string $path
      *
-     * @return string
      * @throws LogicException
      *
+     * @return string
      */
     public static function normalizeRelativePath($path)
     {
@@ -110,24 +110,42 @@ class Util
             switch ($part) {
                 case '':
                 case '.':
-                    break;
+                break;
 
-                case '..':
-                    if (empty($parts)) {
-                        throw new LogicException(
-                            'Path is outside of the defined root, path: [' . $path . ']'
-                        );
-                    }
-                    array_pop($parts);
-                    break;
+            case '..':
+                if (empty($parts)) {
+                    throw new LogicException(
+                        'Path is outside of the defined root, path: [' . $path . ']'
+                    );
+                }
+                array_pop($parts);
+                break;
 
-                default:
-                    $parts[] = $part;
-                    break;
+            default:
+                $parts[] = $part;
+                break;
             }
         }
 
         return implode('/', $parts);
+    }
+
+    /**
+     * Removes unprintable characters and invalid unicode characters.
+     *
+     * @param string $path
+     *
+     * @return string $path
+     */
+    protected static function removeFunkyWhiteSpace($path)
+    {
+        // We do this check in a loop, since removing invalid unicode characters
+        // can lead to new characters being created.
+        while (preg_match('#\p{C}+|^\./#u', $path)) {
+            $path = preg_replace('#\p{C}+|^\./#u', '', $path);
+        }
+
+        return $path;
     }
 
     /**
@@ -158,7 +176,7 @@ class Util
     /**
      * Guess MIME Type based on the path of the file and it's content.
      *
-     * @param string $path
+     * @param string          $path
      * @param string|resource $content
      *
      * @return string|null MIME Type or NULL if no extension detected
@@ -167,7 +185,7 @@ class Util
     {
         $mimeType = MimeType::detectByContent($content);
 
-        if (!(empty($mimeType) || in_array($mimeType, ['application/x-empty', 'text/plain', 'text/x-asm']))) {
+        if ( ! (empty($mimeType) || in_array($mimeType, ['application/x-empty', 'text/plain', 'text/x-asm']))) {
             return $mimeType;
         }
 
@@ -255,29 +273,11 @@ class Util
     {
         $stat = fstat($resource);
 
-        if (!is_array($stat) || !isset($stat['size'])) {
+        if ( ! is_array($stat) || ! isset($stat['size'])) {
             return null;
         }
 
         return $stat['size'];
-    }
-
-    /**
-     * Removes unprintable characters and invalid unicode characters.
-     *
-     * @param string $path
-     *
-     * @return string $path
-     */
-    protected static function removeFunkyWhiteSpace($path)
-    {
-        // We do this check in a loop, since removing invalid unicode characters
-        // can lead to new characters being created.
-        while (preg_match('#\p{C}+|^\./#u', $path)) {
-            $path = preg_replace('#\p{C}+|^\./#u', '', $path);
-        }
-
-        return $path;
     }
 
     /**
@@ -295,13 +295,13 @@ class Util
             $listedDirectories[] = $object['path'];
         }
 
-        if (!isset($object['dirname']) || trim($object['dirname']) === '') {
+        if ( ! isset($object['dirname']) || trim($object['dirname']) === '') {
             return [$directories, $listedDirectories];
         }
 
         $parent = $object['dirname'];
 
-        while (isset($parent) && trim($parent) !== '' && !in_array($parent, $directories)) {
+        while (isset($parent) && trim($parent) !== '' && ! in_array($parent, $directories)) {
             $directories[] = $parent;
             $parent = static::dirname($parent);
         }

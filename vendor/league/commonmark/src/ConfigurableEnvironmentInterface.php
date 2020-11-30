@@ -49,8 +49,8 @@ interface ConfigurableEnvironmentInterface extends EnvironmentInterface
     /**
      * Registers the given block parser with the Environment
      *
-     * @param BlockParserInterface $parser Block parser instance
-     * @param int $priority Priority (a higher number will be executed earlier)
+     * @param BlockParserInterface $parser   Block parser instance
+     * @param int                  $priority Priority (a higher number will be executed earlier)
      *
      * @return self
      */
@@ -59,8 +59,8 @@ interface ConfigurableEnvironmentInterface extends EnvironmentInterface
     /**
      * Registers the given inline parser with the Environment
      *
-     * @param InlineParserInterface $parser Inline parser instance
-     * @param int $priority Priority (a higher number will be executed earlier)
+     * @param InlineParserInterface $parser   Inline parser instance
+     * @param int                   $priority Priority (a higher number will be executed earlier)
      *
      * @return self
      */
@@ -76,9 +76,9 @@ interface ConfigurableEnvironmentInterface extends EnvironmentInterface
     public function addDelimiterProcessor(DelimiterProcessorInterface $processor): ConfigurableEnvironmentInterface;
 
     /**
-     * @param string $blockClass The fully-qualified block element class name the renderer below should handle
+     * @param string                 $blockClass    The fully-qualified block element class name the renderer below should handle
      * @param BlockRendererInterface $blockRenderer The renderer responsible for rendering the type of element given above
-     * @param int $priority Priority (a higher number will be executed earlier)
+     * @param int                    $priority      Priority (a higher number will be executed earlier)
      *
      * @return self
      */
@@ -87,9 +87,9 @@ interface ConfigurableEnvironmentInterface extends EnvironmentInterface
     /**
      * Registers the given inline renderer with the Environment
      *
-     * @param string $inlineClass The fully-qualified inline element class name the renderer below should handle
-     * @param InlineRendererInterface $renderer The renderer responsible for rendering the type of element given above
-     * @param int $priority Priority (a higher number will be executed earlier)
+     * @param string                  $inlineClass The fully-qualified inline element class name the renderer below should handle
+     * @param InlineRendererInterface $renderer    The renderer responsible for rendering the type of element given above
+     * @param int                     $priority    Priority (a higher number will be executed earlier)
      *
      * @return self
      */
@@ -98,9 +98,9 @@ interface ConfigurableEnvironmentInterface extends EnvironmentInterface
     /**
      * Registers the given event listener
      *
-     * @param string $eventClass Fully-qualified class name of the event this listener should respond to
-     * @param callable $listener Listener to be executed
-     * @param int $priority Priority (a higher number will be executed earlier)
+     * @param string   $eventClass Fully-qualified class name of the event this listener should respond to
+     * @param callable $listener   Listener to be executed
+     * @param int      $priority   Priority (a higher number will be executed earlier)
      *
      * @return self
      */

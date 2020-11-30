@@ -24,9 +24,11 @@ final class TableExtension implements ExtensionInterface
     {
         $environment
             ->addBlockParser(new TableParser())
+
             ->addBlockRenderer(Table::class, new TableRenderer())
             ->addBlockRenderer(TableSection::class, new TableSectionRenderer())
             ->addBlockRenderer(TableRow::class, new TableRowRenderer())
-            ->addBlockRenderer(TableCell::class, new TableCellRenderer());
+            ->addBlockRenderer(TableCell::class, new TableCellRenderer())
+        ;
     }
 }

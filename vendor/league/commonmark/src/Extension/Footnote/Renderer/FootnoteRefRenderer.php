@@ -46,8 +46,8 @@ final class FootnoteRefRenderer implements InlineRendererInterface, Configuratio
                 'a',
                 [
                     'class' => $class,
-                    'href' => \mb_strtolower($inline->getReference()->getDestination()),
-                    'role' => 'doc-noteref',
+                    'href'  => \mb_strtolower($inline->getReference()->getDestination()),
+                    'role'  => 'doc-noteref',
                 ],
                 $inline->getReference()->getTitle()
             ),

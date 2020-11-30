@@ -24,7 +24,7 @@ final class GuardedWriter implements WriterInterface
      * Create a new guarded writer instance.
      *
      * @param \Dotenv\Repository\Adapter\WriterInterface $writer
-     * @param string[] $allowList
+     * @param string[]                                   $allowList
      *
      * @return void
      */

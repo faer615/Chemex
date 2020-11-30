@@ -27,8 +27,8 @@ final class Return_ extends TagWithType implements Factory\StaticMethod
 {
     public function __construct(Type $type, ?Description $description = null)
     {
-        $this->name = 'return';
-        $this->type = $type;
+        $this->name        = 'return';
+        $this->type        = $type;
         $this->description = $description;
     }
 
@@ -37,20 +37,19 @@ final class Return_ extends TagWithType implements Factory\StaticMethod
         ?TypeResolver $typeResolver = null,
         ?DescriptionFactory $descriptionFactory = null,
         ?TypeContext $context = null
-    ): self
-    {
+    ) : self {
         Assert::notNull($typeResolver);
         Assert::notNull($descriptionFactory);
 
         [$type, $description] = self::extractTypeFromBody($body);
 
-        $type = $typeResolver->resolve($type, $context);
+        $type        = $typeResolver->resolve($type, $context);
         $description = $descriptionFactory->create($description, $context);
 
         return new static($type, $description);
     }
 
-    public function __toString(): string
+    public function __toString() : string
     {
         if ($this->description) {
             $description = $this->description->render();

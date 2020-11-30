@@ -35,8 +35,20 @@ final class LazyOption extends Option
     private $option;
 
     /**
+     * @template S
+     * @param callable(mixed...):(Option<S>) $callback
+     * @param array<int, mixed>              $arguments
+     *
+     * @return LazyOption<S>
+     */
+    public static function create($callback, array $arguments = [])
+    {
+        return new self($callback, $arguments);
+    }
+
+    /**
      * @param callable(mixed...):(Option<T>) $callback
-     * @param array<int, mixed> $arguments
+     * @param array<int, mixed>              $arguments
      */
     public function __construct($callback, array $arguments = [])
     {
@@ -46,18 +58,6 @@ final class LazyOption extends Option
 
         $this->callback = $callback;
         $this->arguments = $arguments;
-    }
-
-    /**
-     * @template S
-     * @param callable(mixed...):(Option<S>) $callback
-     * @param array<int, mixed> $arguments
-     *
-     * @return LazyOption<S>
-     */
-    public static function create($callback, array $arguments = [])
-    {
-        return new self($callback, $arguments);
     }
 
     public function isDefined()

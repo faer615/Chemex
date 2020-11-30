@@ -49,12 +49,12 @@ final class Delimiter implements DelimiterInterface
     private $index;
 
     /**
-     * @param string $char
-     * @param int $numDelims
+     * @param string                  $char
+     * @param int                     $numDelims
      * @param AbstractStringContainer $node
-     * @param bool $canOpen
-     * @param bool $canClose
-     * @param int|null $index
+     * @param bool                    $canOpen
+     * @param bool                    $canClose
+     * @param int|null                $index
      */
     public function __construct(string $char, int $numDelims, AbstractStringContainer $node, bool $canOpen, bool $canClose, ?int $index = null)
     {

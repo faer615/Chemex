@@ -24,6 +24,9 @@ use function preg_match;
  */
 final class Deprecated extends BaseTag implements Factory\StaticMethod
 {
+    /** @var string */
+    protected $name = 'deprecated';
+
     /**
      * PCRE regular expression matching a version vector.
      * Assumes the "x" modifier.
@@ -39,8 +42,7 @@ final class Deprecated extends BaseTag implements Factory\StaticMethod
         # around the actual version vector.
         [^\s\:]+\:\s*\$[^\$]+\$
     )';
-    /** @var string */
-    protected $name = 'deprecated';
+
     /** @var string|null The version vector. */
     private $version;
 
@@ -48,7 +50,7 @@ final class Deprecated extends BaseTag implements Factory\StaticMethod
     {
         Assert::nullOrNotEmpty($version);
 
-        $this->version = $version;
+        $this->version     = $version;
         $this->description = $description;
     }
 
@@ -59,8 +61,7 @@ final class Deprecated extends BaseTag implements Factory\StaticMethod
         ?string $body,
         ?DescriptionFactory $descriptionFactory = null,
         ?TypeContext $context = null
-    ): self
-    {
+    ) : self {
         if (empty($body)) {
             return new static();
         }
@@ -84,7 +85,7 @@ final class Deprecated extends BaseTag implements Factory\StaticMethod
     /**
      * Gets the version section of the tag.
      */
-    public function getVersion(): ?string
+    public function getVersion() : ?string
     {
         return $this->version;
     }
@@ -92,7 +93,7 @@ final class Deprecated extends BaseTag implements Factory\StaticMethod
     /**
      * Returns a string representation for this tag.
      */
-    public function __toString(): string
+    public function __toString() : string
     {
         if ($this->description) {
             $description = $this->description->render();
@@ -100,7 +101,7 @@ final class Deprecated extends BaseTag implements Factory\StaticMethod
             $description = '';
         }
 
-        $version = (string)$this->version;
+        $version = (string) $this->version;
 
         return $version . ($description !== '' ? ($version !== '' ? ' ' : '') . $description : '');
     }

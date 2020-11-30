@@ -45,11 +45,11 @@ class Serializer
     /**
      * Create a Serializer instance.
      *
-     * @param int $indent The number of times the indent string is repeated.
-     * @param string $indentString The string to indent the comment with.
-     * @param bool $indentFirstLine Whether to indent the first line.
-     * @param int|null $lineLength The max length of a line or NULL to disable line wrapping.
-     * @param Formatter $tagFormatter A custom tag formatter, defaults to PassthroughFormatter.
+     * @param int       $indent          The number of times the indent string is repeated.
+     * @param string    $indentString    The string to indent the comment with.
+     * @param bool      $indentFirstLine Whether to indent the first line.
+     * @param int|null  $lineLength      The max length of a line or NULL to disable line wrapping.
+     * @param Formatter $tagFormatter    A custom tag formatter, defaults to PassthroughFormatter.
      */
     public function __construct(
         int $indent = 0,
@@ -57,13 +57,12 @@ class Serializer
         bool $indentFirstLine = true,
         ?int $lineLength = null,
         ?Formatter $tagFormatter = null
-    )
-    {
-        $this->indent = $indent;
-        $this->indentString = $indentString;
+    ) {
+        $this->indent              = $indent;
+        $this->indentString        = $indentString;
         $this->isFirstLineIndented = $indentFirstLine;
-        $this->lineLength = $lineLength;
-        $this->tagFormatter = $tagFormatter ?: new PassthroughFormatter();
+        $this->lineLength          = $lineLength;
+        $this->tagFormatter        = $tagFormatter ?: new PassthroughFormatter();
     }
 
     /**
@@ -73,9 +72,9 @@ class Serializer
      *
      * @return string The serialized doc block.
      */
-    public function getDocComment(DocBlock $docblock): string
+    public function getDocComment(DocBlock $docblock) : string
     {
-        $indent = str_repeat($this->indentString, $this->indent);
+        $indent      = str_repeat($this->indentString, $this->indent);
         $firstIndent = $this->isFirstLineIndented ? $indent : '';
         // 3 === strlen(' * ')
         $wrapLength = $this->lineLength ? $this->lineLength - strlen($indent) - 3 : null;
@@ -99,7 +98,7 @@ class Serializer
         return $comment . $indent . ' */';
     }
 
-    private function removeTrailingSpaces(string $indent, string $text): string
+    private function removeTrailingSpaces(string $indent, string $text) : string
     {
         return str_replace(
             sprintf("\n%s * \n", $indent),
@@ -108,7 +107,7 @@ class Serializer
         );
     }
 
-    private function addAsterisksForEachLine(string $indent, string $text): string
+    private function addAsterisksForEachLine(string $indent, string $text) : string
     {
         return str_replace(
             "\n",
@@ -117,9 +116,9 @@ class Serializer
         );
     }
 
-    private function getSummaryAndDescriptionTextBlock(DocBlock $docblock, ?int $wrapLength): string
+    private function getSummaryAndDescriptionTextBlock(DocBlock $docblock, ?int $wrapLength) : string
     {
-        $text = $docblock->getSummary() . ((string)$docblock->getDescription() ? "\n\n" . $docblock->getDescription()
+        $text = $docblock->getSummary() . ((string) $docblock->getDescription() ? "\n\n" . $docblock->getDescription()
                 : '');
         if ($wrapLength !== null) {
             $text = wordwrap($text, $wrapLength);
@@ -130,7 +129,7 @@ class Serializer
         return $text;
     }
 
-    private function addTagBlock(DocBlock $docblock, ?int $wrapLength, string $indent, string $comment): string
+    private function addTagBlock(DocBlock $docblock, ?int $wrapLength, string $indent, string $comment) : string
     {
         foreach ($docblock->getTags() as $tag) {
             $tagText = $this->tagFormatter->format($tag);

@@ -62,6 +62,17 @@ abstract class Node
     }
 
     /**
+     * @param Node|null $node
+     *
+     * @return void
+     */
+    protected function setParent(Node $node = null)
+    {
+        $this->parent = $node;
+        $this->depth = ($node === null) ? 0 : $node->depth + 1;
+    }
+
+    /**
      * Inserts the $sibling node after $this
      *
      * @param Node $sibling
@@ -264,16 +275,5 @@ abstract class Node
         foreach ($children as $child) {
             $this->appendChild(clone $child);
         }
-    }
-
-    /**
-     * @param Node|null $node
-     *
-     * @return void
-     */
-    protected function setParent(Node $node = null)
-    {
-        $this->parent = $node;
-        $this->depth = ($node === null) ? 0 : $node->depth + 1;
     }
 }

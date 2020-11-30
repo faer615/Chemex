@@ -42,24 +42,8 @@ final class Author extends BaseTag implements Factory\StaticMethod
             throw new InvalidArgumentException('The author tag does not have a valid e-mail address');
         }
 
-        $this->authorName = $authorName;
+        $this->authorName  = $authorName;
         $this->authorEmail = $authorEmail;
-    }
-
-    /**
-     * Attempts to create a new Author object based on †he tag body.
-     */
-    public static function create(string $body): ?self
-    {
-        $splitTagContent = preg_match('/^([^\<]*)(?:\<([^\>]*)\>)?$/u', $body, $matches);
-        if (!$splitTagContent) {
-            return null;
-        }
-
-        $authorName = trim($matches[1]);
-        $email = isset($matches[2]) ? trim($matches[2]) : '';
-
-        return new static($authorName, $email);
     }
 
     /**
@@ -67,7 +51,7 @@ final class Author extends BaseTag implements Factory\StaticMethod
      *
      * @return string The author's name.
      */
-    public function getAuthorName(): string
+    public function getAuthorName() : string
     {
         return $this->authorName;
     }
@@ -77,7 +61,7 @@ final class Author extends BaseTag implements Factory\StaticMethod
      *
      * @return string The author's email.
      */
-    public function getEmail(): string
+    public function getEmail() : string
     {
         return $this->authorEmail;
     }
@@ -85,7 +69,7 @@ final class Author extends BaseTag implements Factory\StaticMethod
     /**
      * Returns this tag in string form.
      */
-    public function __toString(): string
+    public function __toString() : string
     {
         if ($this->authorEmail) {
             $authorEmail = '<' . $this->authorEmail . '>';
@@ -93,8 +77,24 @@ final class Author extends BaseTag implements Factory\StaticMethod
             $authorEmail = '';
         }
 
-        $authorName = (string)$this->authorName;
+        $authorName = (string) $this->authorName;
 
         return $authorName . ($authorEmail !== '' ? ($authorName !== '' ? ' ' : '') . $authorEmail : '');
+    }
+
+    /**
+     * Attempts to create a new Author object based on †he tag body.
+     */
+    public static function create(string $body) : ?self
+    {
+        $splitTagContent = preg_match('/^([^\<]*)(?:\<([^\>]*)\>)?$/u', $body, $matches);
+        if (!$splitTagContent) {
+            return null;
+        }
+
+        $authorName = trim($matches[1]);
+        $email      = isset($matches[2]) ? trim($matches[2]) : '';
+
+        return new static($authorName, $email);
     }
 }

@@ -89,8 +89,7 @@ final class Coroutine implements PromiseInterface
     public function then(
         callable $onFulfilled = null,
         callable $onRejected = null
-    )
-    {
+    ) {
         return $this->result->then($onFulfilled, $onRejected);
     }
 
@@ -123,6 +122,12 @@ final class Coroutine implements PromiseInterface
     {
         $this->currentPromise->cancel();
         $this->result->cancel();
+    }
+
+    private function nextCoroutine($yielded)
+    {
+        $this->currentPromise = Create::promiseFor($yielded)
+            ->then([$this, '_handleSuccess'], [$this, '_handleFailure']);
     }
 
     /**
@@ -160,11 +165,5 @@ final class Coroutine implements PromiseInterface
         } catch (Throwable $throwable) {
             $this->result->reject($throwable);
         }
-    }
-
-    private function nextCoroutine($yielded)
-    {
-        $this->currentPromise = Create::promiseFor($yielded)
-            ->then([$this, '_handleSuccess'], [$this, '_handleFailure']);
     }
 }

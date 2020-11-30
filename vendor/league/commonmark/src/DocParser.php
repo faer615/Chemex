@@ -53,9 +53,9 @@ final class DocParser implements DocParserInterface
     /**
      * @param string $input
      *
-     * @return Document
      * @throws \RuntimeException
      *
+     * @return Document
      */
     public function parse(string $input): Document
     {
@@ -141,7 +141,7 @@ final class DocParser implements DocParserInterface
      * Sets the container to the last open child (or its parent)
      *
      * @param ContextInterface $context
-     * @param Cursor $cursor
+     * @param Cursor           $cursor
      */
     private function resetContainer(ContextInterface $context, Cursor $cursor): void
     {
@@ -170,7 +170,7 @@ final class DocParser implements DocParserInterface
      * Parse blocks
      *
      * @param ContextInterface $context
-     * @param Cursor $cursor
+     * @param Cursor           $cursor
      */
     private function parseBlocks(ContextInterface $context, Cursor $cursor): void
     {

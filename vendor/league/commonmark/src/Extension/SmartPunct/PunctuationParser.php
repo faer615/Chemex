@@ -38,7 +38,9 @@ final class PunctuationParser implements InlineParserInterface
             $inlineContext->getContainer()->appendChild(new Text('…'));
 
             return true;
-        } // Em/En-dashes
+        }
+
+        // Em/En-dashes
         elseif ($ch === '-' && $matched = $cursor->match('/^(?<!-)(-{2,})/')) {
             $count = strlen($matched);
             $en_dash = '–';

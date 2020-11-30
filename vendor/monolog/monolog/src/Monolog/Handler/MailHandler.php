@@ -36,7 +36,7 @@ abstract class MailHandler extends AbstractProcessingHandler
         }
 
         if (!empty($messages)) {
-            $this->send((string)$this->getFormatter()->formatBatch($messages), $messages);
+            $this->send((string) $this->getFormatter()->formatBatch($messages), $messages);
         }
     }
 
@@ -44,7 +44,7 @@ abstract class MailHandler extends AbstractProcessingHandler
      * Send a mail with the given content
      *
      * @param string $content formatted email body to be sent
-     * @param array $records the array of log records that formed this content
+     * @param array  $records the array of log records that formed this content
      */
     abstract protected function send(string $content, array $records): void;
 
@@ -53,7 +53,7 @@ abstract class MailHandler extends AbstractProcessingHandler
      */
     protected function write(array $record): void
     {
-        $this->send((string)$record['formatted'], [$record]);
+        $this->send((string) $record['formatted'], [$record]);
     }
 
     protected function getHighestRecord(array $records): array

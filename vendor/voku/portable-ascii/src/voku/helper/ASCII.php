@@ -321,10 +321,10 @@ final class ASCII
      *
      * @psalm-suppress InvalidNullableReturnType - we use the prepare* methods here, so we don't get NULL here
      *
-     * @param string $language [optional] <p>Language of the source string e.g.: en, de_at, or de-ch.
+     * @param string $language              [optional] <p>Language of the source string e.g.: en, de_at, or de-ch.
      *                                      (default is 'en') | ASCII::*_LANGUAGE_CODE</p>
-     * @param bool $replace_extra_symbols [optional] <p>Add some more replacements e.g. "£" with " pound ".</p>
-     * @param bool $asOrigReplaceArray [optional] <p>TRUE === return {orig: string[], replace: string[]}
+     * @param bool   $replace_extra_symbols [optional] <p>Add some more replacements e.g. "£" with " pound ".</p>
+     * @param bool   $asOrigReplaceArray    [optional] <p>TRUE === return {orig: string[], replace: string[]}
      *                                      array</p>
      *
      * @psalm-pure
@@ -338,8 +338,7 @@ final class ASCII
         string $language = self::ENGLISH_LANGUAGE_CODE,
         bool $replace_extra_symbols = false,
         bool $asOrigReplaceArray = true
-    ): array
-    {
+    ): array {
         $language = self::get_language($language);
 
         // init
@@ -363,7 +362,7 @@ final class ASCII
 
                 if ($asOrigReplaceArray) {
                     $CHARS_ARRAY[$cacheKey][$language] = [
-                        'orig' => \array_keys($tmpArray),
+                        'orig'    => \array_keys($tmpArray),
                         'replace' => \array_values($tmpArray),
                     ];
                 } else {
@@ -373,7 +372,7 @@ final class ASCII
                 /** @noinspection NestedPositiveIfStatementsInspection */
                 if ($asOrigReplaceArray) {
                     $CHARS_ARRAY[$cacheKey][$language] = [
-                        'orig' => [],
+                        'orig'    => [],
                         'replace' => [],
                     ];
                 } else {
@@ -389,7 +388,7 @@ final class ASCII
 
                 if ($asOrigReplaceArray) {
                     $CHARS_ARRAY[$cacheKey][$language] = [
-                        'orig' => \array_keys($tmpArray),
+                        'orig'    => \array_keys($tmpArray),
                         'replace' => \array_values($tmpArray),
                     ];
                 } else {
@@ -399,7 +398,7 @@ final class ASCII
                 /** @noinspection NestedPositiveIfStatementsInspection */
                 if ($asOrigReplaceArray) {
                     $CHARS_ARRAY[$cacheKey][$language] = [
-                        'orig' => [],
+                        'orig'    => [],
                         'replace' => [],
                     ];
                 } else {
@@ -421,7 +420,7 @@ final class ASCII
      * </code>
      *
      * @param bool $replace_extra_symbols [optional] <p>Add some more replacements e.g. "£" with " pound ".</p>
-     * @param bool $asOrigReplaceArray [optional] <p>TRUE === return {orig: string[], replace: string[]}
+     * @param bool $asOrigReplaceArray    [optional] <p>TRUE === return {orig: string[], replace: string[]}
      *                                    array</p>
      *
      * @psalm-pure
@@ -434,8 +433,7 @@ final class ASCII
     public static function charsArrayWithSingleLanguageValues(
         bool $replace_extra_symbols = false,
         bool $asOrigReplaceArray = true
-    ): array
-    {
+    ): array {
         // init
         /**
          * @var array<string,array>
@@ -469,7 +467,7 @@ final class ASCII
 
         if ($asOrigReplaceArray) {
             $CHARS_ARRAY[$cacheKey] = [
-                'orig' => \array_keys($CHARS_ARRAY[$cacheKey]),
+                'orig'    => \array_keys($CHARS_ARRAY[$cacheKey]),
                 'replace' => \array_values($CHARS_ARRAY[$cacheKey]),
             ];
         }
@@ -480,16 +478,16 @@ final class ASCII
     /**
      * Accepts a string and removes all non-UTF-8 characters from it + extras if needed.
      *
-     * @param string $str <p>The string to be sanitized.</p>
-     * @param bool $normalize_whitespace [optional] <p>Set to true, if you need to normalize the
+     * @param string $str                         <p>The string to be sanitized.</p>
+     * @param bool   $normalize_whitespace        [optional] <p>Set to true, if you need to normalize the
      *                                            whitespace.</p>
-     * @param bool $normalize_msword [optional] <p>Set to true, if you need to normalize MS Word chars
+     * @param bool   $normalize_msword            [optional] <p>Set to true, if you need to normalize MS Word chars
      *                                            e.g.: "…"
      *                                            => "..."</p>
-     * @param bool $keep_non_breaking_space [optional] <p>Set to true, to keep non-breaking-spaces, in
+     * @param bool   $keep_non_breaking_space     [optional] <p>Set to true, to keep non-breaking-spaces, in
      *                                            combination with
      *                                            $normalize_whitespace</p>
-     * @param bool $remove_invisible_characters [optional] <p>Set to false, if you not want to remove invisible
+     * @param bool   $remove_invisible_characters [optional] <p>Set to false, if you not want to remove invisible
      *                                            characters e.g.: "\0"</p>
      *
      * @psalm-pure
@@ -503,8 +501,7 @@ final class ASCII
         bool $keep_non_breaking_space = false,
         bool $normalize_msword = true,
         bool $remove_invisible_characters = true
-    ): string
-    {
+    ): string {
         // http://stackoverflow.com/questions/1401317/remove-non-utf8-characters-from-string
         // caused connection reset problem on larger strings
 
@@ -519,7 +516,7 @@ final class ASCII
         | ( [\x80-\xBF] )                 # invalid byte in range 10000000 - 10111111
         | ( [\xC0-\xFF] )                 # invalid byte in range 11000000 - 11111111
         /x';
-        $str = (string)\preg_replace($regex, '$1', $str);
+        $str = (string) \preg_replace($regex, '$1', $str);
 
         if ($normalize_whitespace) {
             $str = self::normalize_whitespace($str, $keep_non_breaking_space);
@@ -600,7 +597,7 @@ final class ASCII
             $map = self::$ASCII_MAPS[self::EXTRA_MSWORD_CHARS_LANGUAGE_CODE] ?? [];
 
             $MSWORD_CACHE = [
-                'orig' => \array_keys($map),
+                'orig'    => \array_keys($map),
                 'replace' => \array_values($map),
             ];
         }
@@ -615,11 +612,11 @@ final class ASCII
      * ASCII::normalize_whitespace("abc-\xc2\xa0-öäü-\xe2\x80\xaf-\xE2\x80\xAC", true); // "abc-\xc2\xa0-öäü- -"
      * </code>
      *
-     * @param string $str <p>The string to be normalized.</p>
-     * @param bool $keepNonBreakingSpace [optional] <p>Set to true, to keep non-breaking-spaces.</p>
-     * @param bool $keepBidiUnicodeControls [optional] <p>Set to true, to keep non-printable (for the web)
+     * @param string $str                          <p>The string to be normalized.</p>
+     * @param bool   $keepNonBreakingSpace         [optional] <p>Set to true, to keep non-breaking-spaces.</p>
+     * @param bool   $keepBidiUnicodeControls      [optional] <p>Set to true, to keep non-printable (for the web)
      *                                             bidirectional text chars.</p>
-     * @param bool $normalize_control_characters [optional] <p>Set to true, to convert LINE-, PARAGRAPH-SEPARATOR with "\n" and LINE TABULATION with "\t".</p>
+     * @param bool   $normalize_control_characters [optional] <p>Set to true, to convert LINE-, PARAGRAPH-SEPARATOR with "\n" and LINE TABULATION with "\t".</p>
      *
      * @psalm-pure
      *
@@ -631,8 +628,7 @@ final class ASCII
         bool $keepNonBreakingSpace = false,
         bool $keepBidiUnicodeControls = false,
         bool $normalize_control_characters = false
-    ): string
-    {
+    ): string {
         if ($str === '') {
             return '';
         }
@@ -641,7 +637,7 @@ final class ASCII
          * @var array<int,array<string,string>>
          */
         static $WHITESPACE_CACHE = [];
-        $cacheKey = (int)$keepNonBreakingSpace;
+        $cacheKey = (int) $keepNonBreakingSpace;
 
         if ($normalize_control_characters) {
             $str = \str_replace(
@@ -701,9 +697,9 @@ final class ASCII
      * copy&past from https://github.com/bcit-ci/CodeIgniter/blob/develop/system/core/Common.php
      *
      * @param string $str
-     * @param bool $url_encoded
+     * @param bool   $url_encoded
      * @param string $replacement
-     * @param bool $keep_basic_control_characters
+     * @param bool   $keep_basic_control_characters
      *
      * @psalm-pure
      *
@@ -714,8 +710,7 @@ final class ASCII
         bool $url_encoded = false,
         string $replacement = '',
         bool $keep_basic_control_characters = true
-    ): string
-    {
+    ): string {
         // init
         $non_displayables = [];
 
@@ -736,7 +731,7 @@ final class ASCII
         }
 
         do {
-            $str = (string)\preg_replace($non_displayables, $replacement, $str, -1, $count);
+            $str = (string) \preg_replace($non_displayables, $replacement, $str, -1, $count);
         } while ($count !== 0);
 
         return $str;
@@ -754,14 +749,14 @@ final class ASCII
      * ASCII::to_ascii('�Düsseldorf�', 'en'); // Dusseldorf
      * </code>
      *
-     * @param string $str <p>The input string.</p>
-     * @param string $language [optional] <p>Language of the source string.
+     * @param string    $str                       <p>The input string.</p>
+     * @param string    $language                  [optional] <p>Language of the source string.
      *                                             (default is 'en') | ASCII::*_LANGUAGE_CODE</p>
-     * @param bool $remove_unsupported_chars [optional] <p>Whether or not to remove the
+     * @param bool      $remove_unsupported_chars  [optional] <p>Whether or not to remove the
      *                                             unsupported characters.</p>
-     * @param bool $replace_extra_symbols [optional]  <p>Add some more replacements e.g. "£" with " pound
+     * @param bool      $replace_extra_symbols     [optional]  <p>Add some more replacements e.g. "£" with " pound
      *                                             ".</p>
-     * @param bool $use_transliterate [optional]  <p>Use ASCII::to_transliterate() for unknown chars.</p>
+     * @param bool      $use_transliterate         [optional]  <p>Use ASCII::to_transliterate() for unknown chars.</p>
      * @param bool|null $replace_single_chars_only [optional]  <p>Single char replacement is better for the
      *                                             performance, but some languages need to replace more then one char
      *                                             at the same time. | NULL === auto-setting, depended on the
@@ -779,8 +774,7 @@ final class ASCII
         bool $replace_extra_symbols = false,
         bool $use_transliterate = false,
         bool $replace_single_chars_only = null
-    ): string
-    {
+    ): string {
         if ($str === '') {
             return '';
         }
@@ -970,8 +964,8 @@ final class ASCII
         }
 
         if ($remove_unsupported_chars) {
-            $str = (string)\str_replace(["\n\r", "\n", "\r", "\t"], ' ', $str);
-            $str = (string)\preg_replace('/' . self::$REGEX_ASCII . '/', '', $str);
+            $str = (string) \str_replace(["\n\r", "\n", "\r", "\t"], ' ', $str);
+            $str = (string) \preg_replace('/' . self::$REGEX_ASCII . '/', '', $str);
         }
 
         return $str;
@@ -985,7 +979,7 @@ final class ASCII
      * </code>
      *
      * @param string $str
-     * @param bool $use_transliterate <p>ASCII::to_transliterate() is used by default - unsafe characters are
+     * @param bool   $use_transliterate <p>ASCII::to_transliterate() is used by default - unsafe characters are
      *                                  simply replaced with hyphen otherwise.</p>
      * @param string $fallback_char
      *
@@ -998,15 +992,14 @@ final class ASCII
         string $str,
         bool $use_transliterate = true,
         string $fallback_char = '-'
-    ): string
-    {
+    ): string {
         if ($use_transliterate) {
             $str = self::to_transliterate($str, $fallback_char);
         }
 
         $fallback_char_escaped = \preg_quote($fallback_char, '/');
 
-        $str = (string)\preg_replace(
+        $str = (string) \preg_replace(
             [
                 '/[^' . $fallback_char_escaped . '.\\-a-zA-Z0-9\\s]/', // 1) remove un-needed chars
                 '/[\\s]+/u',                                           // 2) convert spaces to $fallback_char
@@ -1031,15 +1024,15 @@ final class ASCII
      * is also converted to lowercase. The language of the source string can
      * also be supplied for language-specific transliteration.
      *
-     * @param string $str
-     * @param string $separator [optional] <p>The string used to replace whitespace.</p>
-     * @param string $language [optional] <p>Language of the source string.
+     * @param string                $str
+     * @param string                $separator             [optional] <p>The string used to replace whitespace.</p>
+     * @param string                $language              [optional] <p>Language of the source string.
      *                                                     (default is 'en') | ASCII::*_LANGUAGE_CODE</p>
-     * @param array<string, string> $replacements [optional] <p>A map of replaceable strings.</p>
-     * @param bool $replace_extra_symbols [optional]  <p>Add some more replacements e.g. "£" with "
+     * @param array<string, string> $replacements          [optional] <p>A map of replaceable strings.</p>
+     * @param bool                  $replace_extra_symbols [optional]  <p>Add some more replacements e.g. "£" with "
      *                                                     pound ".</p>
-     * @param bool $use_str_to_lower [optional] <p>Use "string to lower" for the input.</p>
-     * @param bool $use_transliterate [optional]  <p>Use ASCII::to_transliterate() for unknown
+     * @param bool                  $use_str_to_lower      [optional] <p>Use "string to lower" for the input.</p>
+     * @param bool                  $use_transliterate     [optional]  <p>Use ASCII::to_transliterate() for unknown
      *                                                     chars.</p>
      * @psalm-pure
      *
@@ -1054,8 +1047,7 @@ final class ASCII
         bool $replace_extra_symbols = false,
         bool $use_str_to_lower = true,
         bool $use_transliterate = false
-    ): string
-    {
+    ): string {
         if ($str === '') {
             return '';
         }
@@ -1074,7 +1066,7 @@ final class ASCII
 
         $str = \str_replace('@', $separator, $str);
 
-        $str = (string)\preg_replace(
+        $str = (string) \preg_replace(
             '/[^a-zA-Z\\d\\s\\-_' . \preg_quote($separator, '/') . ']/',
             '',
             $str
@@ -1084,17 +1076,17 @@ final class ASCII
             $str = \strtolower($str);
         }
 
-        $str = (string)\preg_replace('/^[\'\\s]+|[\'\\s]+$/', '', $str);
-        $str = (string)\preg_replace('/\\B([A-Z])/', '-\1', $str);
-        $str = (string)\preg_replace('/[\\-_\\s]+/', $separator, $str);
+        $str = (string) \preg_replace('/^[\'\\s]+|[\'\\s]+$/', '', $str);
+        $str = (string) \preg_replace('/\\B([A-Z])/', '-\1', $str);
+        $str = (string) \preg_replace('/[\\-_\\s]+/', $separator, $str);
 
         $l = \strlen($separator);
         if ($l && \strpos($str, $separator) === 0) {
-            $str = (string)\substr($str, $l);
+            $str = (string) \substr($str, $l);
         }
 
         if (\substr($str, -$l) === $separator) {
-            $str = (string)\substr($str, 0, \strlen($str) - $l);
+            $str = (string) \substr($str, 0, \strlen($str) - $l);
         }
 
         return $str;
@@ -1109,10 +1101,10 @@ final class ASCII
      * ASCII::to_transliterate('déjà σσς iıii'); // 'deja sss iiii'
      * </code>
      *
-     * @param string $str <p>The input string.</p>
+     * @param string      $str     <p>The input string.</p>
      * @param string|null $unknown [optional] <p>Character use if character unknown. (default is '?')
      *                             But you can also use NULL to keep the unknown chars.</p>
-     * @param bool $strict [optional] <p>Use "transliterator_transliterate()" from PHP-Intl
+     * @param bool        $strict  [optional] <p>Use "transliterator_transliterate()" from PHP-Intl
      *
      * @psalm-pure
      *
@@ -1125,8 +1117,7 @@ final class ASCII
         string $str,
         $unknown = '?',
         bool $strict = false
-    ): string
-    {
+    ): string {
         /**
          * @var array<int,string>|null
          */
@@ -1359,7 +1350,7 @@ final class ASCII
 
         $regex = '/(?<first>[a-z]+)_\g{first}/';
 
-        return (string)\preg_replace($regex, '$1', $language);
+        return (string) \preg_replace($regex, '$1', $language);
     }
 
     /**

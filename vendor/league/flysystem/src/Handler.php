@@ -23,7 +23,7 @@ abstract class Handler
      * Constructor.
      *
      * @param FilesystemInterface $filesystem
-     * @param string $path
+     * @param string              $path
      */
     public function __construct(FilesystemInterface $filesystem = null, $path = null)
     {
@@ -64,16 +64,6 @@ abstract class Handler
     }
 
     /**
-     * Retrieve the Filesystem object.
-     *
-     * @return FilesystemInterface
-     */
-    public function getFilesystem()
-    {
-        return $this->filesystem;
-    }
-
-    /**
      * Set the Filesystem object.
      *
      * @param FilesystemInterface $filesystem
@@ -86,15 +76,15 @@ abstract class Handler
 
         return $this;
     }
-
+    
     /**
-     * Retrieve the entree path.
+     * Retrieve the Filesystem object.
      *
-     * @return string path
+     * @return FilesystemInterface
      */
-    public function getPath()
+    public function getFilesystem()
     {
-        return $this->path;
+        return $this->filesystem;
     }
 
     /**
@@ -112,10 +102,20 @@ abstract class Handler
     }
 
     /**
+     * Retrieve the entree path.
+     *
+     * @return string path
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
      * Plugins pass-through.
      *
      * @param string $method
-     * @param array $arguments
+     * @param array  $arguments
      *
      * @return mixed
      */

@@ -17,6 +17,8 @@ use phpDocumentor\Reflection\DocBlock\Tags\Formatter;
 
 interface Tag
 {
+    public function getName() : string;
+
     /**
      * @return Tag|mixed Class that implements Tag
      *
@@ -24,9 +26,7 @@ interface Tag
      */
     public static function create(string $body);
 
-    public function getName(): string;
+    public function render(?Formatter $formatter = null) : string;
 
-    public function render(?Formatter $formatter = null): string;
-
-    public function __toString(): string;
+    public function __toString() : string;
 }

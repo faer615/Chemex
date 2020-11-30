@@ -85,16 +85,16 @@ final class GatherFootnotesListener implements ConfigurationAwareInterface
         }
     }
 
-    public function setConfiguration(ConfigurationInterface $config): void
-    {
-        $this->config = $config;
-    }
-
     private function getFootnotesContainer(Document $document): FootnoteContainer
     {
         $footnoteContainer = new FootnoteContainer();
         $document->appendChild($footnoteContainer);
 
         return $footnoteContainer;
+    }
+
+    public function setConfiguration(ConfigurationInterface $config): void
+    {
+        $this->config = $config;
     }
 }
