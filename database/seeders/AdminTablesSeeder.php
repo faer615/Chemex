@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Dcat\Admin\Models;
 use Illuminate\Database\Seeder;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class AdminTablesSeeder extends Seeder
 {
@@ -1985,11 +1985,6 @@ class AdminTablesSeeder extends Seeder
                     "updated_at" => NULL
                 ]
             ]
-        );
-
-        DB::table('TablePermissionsUsers')->truncate();
-        DB::table('TablePermissionsUsers')->insert(
-            ArrayPivotPermissionsUsers
         );
 
         // finish

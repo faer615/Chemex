@@ -2959,6 +2959,8 @@ class ComposerStaticInit382e7a58c430de36cb5ae9f1c9187249
         'Illuminate\\Database\\Console\\WipeCommand' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Console/WipeCommand.php',
         'Illuminate\\Database\\DatabaseManager' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/DatabaseManager.php',
         'Illuminate\\Database\\DatabaseServiceProvider' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/DatabaseServiceProvider.php',
+        'Illuminate\\Database\\DatabaseTransactionRecord' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/DatabaseTransactionRecord.php',
+        'Illuminate\\Database\\DatabaseTransactionsManager' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/DatabaseTransactionsManager.php',
         'Illuminate\\Database\\DetectsConcurrencyErrors' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/DetectsConcurrencyErrors.php',
         'Illuminate\\Database\\DetectsLostConnections' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/DetectsLostConnections.php',
         'Illuminate\\Database\\Eloquent\\Builder' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php',
