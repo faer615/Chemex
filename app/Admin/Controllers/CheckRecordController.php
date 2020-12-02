@@ -19,7 +19,7 @@ use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Show;
 
 /**
- * @property  Int status
+ * @property  int status
  */
 class CheckRecordController extends AdminController
 {
@@ -55,9 +55,7 @@ class CheckRecordController extends AdminController
             });
 
             $grid->toolsWithOutline(false);
-
             $grid->enableDialogCreate();
-
             $grid->export();
         });
     }
@@ -110,6 +108,8 @@ class CheckRecordController extends AdminController
             $form->display('created_at');
             $form->display('updated_at');
 
+            // 提交回调，为了检测在盘点任务创建时，是否有已存在的盘点任务
+            // 如果有，就中止，如果没有，就继续
             $form->submitted(function (Form $form) {
                 $check_record = \App\Models\CheckRecord::where('check_item', $form->check_item)
                     ->where('status', 0)
@@ -120,6 +120,7 @@ class CheckRecordController extends AdminController
                 }
             });
 
+            // 保存回调，创建盘点任务的同时，自动生成与之相关的全部盘点追踪记录
             $form->saved(function (Form $form) {
                 $check_record = $form->model();
                 switch ($check_record->check_item) {

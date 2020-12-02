@@ -1192,8 +1192,8 @@ class AdminTablesSeeder extends Seeder
         );
 
         Models\Setting::truncate();
-        Models\Setting::insert(
-            [
+		Models\Setting::insert(
+			[
                 [
                     "slug" => "celaraze:dcatadmin-menu-switch",
                     "value" => "[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]",
@@ -1207,11 +1207,11 @@ class AdminTablesSeeder extends Seeder
                     "updated_at" => "2020-11-04 15:19:51"
                 ]
             ]
-        );
+		);
 
-        Models\Extension::truncate();
-        Models\Extension::insert(
-            [
+		Models\Extension::truncate();
+		Models\Extension::insert(
+			[
                 [
                     "id" => 6,
                     "name" => "celaraze.colorful-bar",
@@ -1231,11 +1231,11 @@ class AdminTablesSeeder extends Seeder
                     "updated_at" => "2020-11-09 15:55:30"
                 ]
             ]
-        );
+		);
 
-        Models\ExtensionHistory::truncate();
-        Models\ExtensionHistory::insert(
-            [
+		Models\ExtensionHistory::truncate();
+		Models\ExtensionHistory::insert(
+			[
                 [
                     "id" => 7,
                     "name" => "celaraze.dcatadmin-menu-switch",
@@ -1246,12 +1246,12 @@ class AdminTablesSeeder extends Seeder
                     "updated_at" => "2020-11-09 15:55:26"
                 ]
             ]
-        );
+		);
 
         // pivot tables
         DB::table('admin_permission_menu')->truncate();
-        DB::table('admin_permission_menu')->insert(
-            [
+		DB::table('admin_permission_menu')->insert(
+			[
                 [
                     "permission_id" => 2,
                     "menu_id" => 32,
@@ -1883,7 +1883,7 @@ class AdminTablesSeeder extends Seeder
                     "updated_at" => NULL
                 ]
             ]
-        );
+		);
 
         DB::table('admin_role_menu')->truncate();
         DB::table('admin_role_menu')->insert(
@@ -1952,6 +1952,35 @@ class AdminTablesSeeder extends Seeder
                 [
                     "role_id" => 2,
                     "permission_id" => 69,
+                    "created_at" => NULL,
+                    "updated_at" => NULL
+                ]
+            ]
+        );
+
+        // users tables
+        Models\Administrator::truncate();
+        Models\Administrator::insert(
+            [
+                [
+                    "id" => 1,
+                    "username" => "admin",
+                    "password" => "\$2y\$10\$FsFiwYyL039sq4HBCmf5Eu7dR1pD.CWsxtyXlB2bkglrOM0oZtZjO",
+                    "name" => "Administrator",
+                    "avatar" => NULL,
+                    "remember_token" => NULL,
+                    "created_at" => "2020-11-30 09:58:49",
+                    "updated_at" => "2020-11-30 09:58:49"
+                ]
+            ]
+        );
+
+        DB::table('admin_role_users')->truncate();
+        DB::table('admin_role_users')->insert(
+            [
+                [
+                    "role_id" => 1,
+                    "user_id" => 1,
                     "created_at" => NULL,
                     "updated_at" => NULL
                 ]

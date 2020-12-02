@@ -22,7 +22,7 @@ use Dcat\Admin\Show;
 
 /**
  * @property  DeviceRecord device
- * @property  Int id
+ * @property  int id
  */
 class HardwareRecordController extends AdminController
 {
@@ -64,8 +64,12 @@ class HardwareRecordController extends AdminController
                     $actions->append(new MaintenanceAction('hardware'));
                 }
             });
-            $grid->column('device.name')->link(function () {
-                return route('device.records.show', $this->device['id']);
+            $grid->column('device.name')->link(function ($device_name) {
+                if (!empty($device_name)) {
+                    return route('device.records.show', $this->device['id']);
+                } else {
+                    return '';
+                }
             });
 
             $grid->quickSearch('id', 'name')
@@ -78,7 +82,6 @@ class HardwareRecordController extends AdminController
             $grid->disableBatchActions();
 
             $grid->toolsWithOutline(false);
-
             $grid->export();
         });
     }
