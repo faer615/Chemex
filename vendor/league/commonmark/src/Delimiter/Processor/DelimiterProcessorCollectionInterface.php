@@ -24,9 +24,9 @@ interface DelimiterProcessorCollectionInterface
      *
      * @param DelimiterProcessorInterface $processor The delim processor to add
      *
-     * @return void
      * @throws \InvalidArgumentException Exception will be thrown if attempting to add multiple processors for the same character
      *
+     * @return void
      */
     public function add(DelimiterProcessorInterface $processor);
 

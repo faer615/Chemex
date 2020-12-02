@@ -44,7 +44,7 @@ class DeviceDeleteAction extends RowAction
             $device_track->delete();
         }
 
-        // 软删除设备归属记录
+        // 软删除硬件归属记录
         $hardware_tracks = HardwareTrack::where('device_id', $device->id)->get();
         foreach ($hardware_tracks as $hardware_track) {
             $hardware_track->delete();

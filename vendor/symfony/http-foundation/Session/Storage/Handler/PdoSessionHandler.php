@@ -300,11 +300,78 @@ class PdoSessionHandler extends AbstractSessionHandler
     }
 
     /**
+     * {@inheritdoc}
+     */
+    protected function doDestroy(string $sessionId)
+    {
+        // delete the record associated with this id
+        $sql = "DELETE FROM $this->table WHERE $this->idCol = :id";
+
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':id', $sessionId, \PDO::PARAM_STR);
+            $stmt->execute();
+        } catch (\PDOException $e) {
+            $this->rollback();
+
+            throw $e;
+        }
+
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function doWrite(string $sessionId, string $data)
+    {
+        $maxlifetime = (int) ini_get('session.gc_maxlifetime');
+
+        try {
+            // We use a single MERGE SQL query when supported by the database.
+            $mergeStmt = $this->getMergeStatement($sessionId, $data, $maxlifetime);
+            if (null !== $mergeStmt) {
+                $mergeStmt->execute();
+
+                return true;
+            }
+
+            $updateStmt = $this->getUpdateStatement($sessionId, $data, $maxlifetime);
+            $updateStmt->execute();
+
+            // When MERGE is not supported, like in Postgres < 9.5, we have to use this approach that can result in
+            // duplicate key errors when the same session is written simultaneously (given the LOCK_NONE behavior).
+            // We can just catch such an error and re-execute the update. This is similar to a serializable
+            // transaction with retry logic on serialization failures but without the overhead and without possible
+            // false positives due to longer gap locking.
+            if (!$updateStmt->rowCount()) {
+                try {
+                    $insertStmt = $this->getInsertStatement($sessionId, $data, $maxlifetime);
+                    $insertStmt->execute();
+                } catch (\PDOException $e) {
+                    // Handle integrity violation SQLSTATE 23000 (or a subclass like 23505 in Postgres) for duplicate keys
+                    if (0 === strpos($e->getCode(), '23')) {
+                        $updateStmt->execute();
+                    } else {
+                        throw $e;
+                    }
+                }
+            }
+        } catch (\PDOException $e) {
+            $this->rollback();
+
+            throw $e;
+        }
+
+        return true;
+    }
+
+    /**
      * @return bool
      */
     public function updateTimestamp($sessionId, $data)
     {
-        $expiry = time() + (int)ini_get('session.gc_maxlifetime');
+        $expiry = time() + (int) ini_get('session.gc_maxlifetime');
 
         try {
             $updateStmt = $this->pdo->prepare(
@@ -361,158 +428,6 @@ class PdoSessionHandler extends AbstractSessionHandler
         }
 
         return true;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function doDestroy(string $sessionId)
-    {
-        // delete the record associated with this id
-        $sql = "DELETE FROM $this->table WHERE $this->idCol = :id";
-
-        try {
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->bindParam(':id', $sessionId, \PDO::PARAM_STR);
-            $stmt->execute();
-        } catch (\PDOException $e) {
-            $this->rollback();
-
-            throw $e;
-        }
-
-        return true;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function doWrite(string $sessionId, string $data)
-    {
-        $maxlifetime = (int)ini_get('session.gc_maxlifetime');
-
-        try {
-            // We use a single MERGE SQL query when supported by the database.
-            $mergeStmt = $this->getMergeStatement($sessionId, $data, $maxlifetime);
-            if (null !== $mergeStmt) {
-                $mergeStmt->execute();
-
-                return true;
-            }
-
-            $updateStmt = $this->getUpdateStatement($sessionId, $data, $maxlifetime);
-            $updateStmt->execute();
-
-            // When MERGE is not supported, like in Postgres < 9.5, we have to use this approach that can result in
-            // duplicate key errors when the same session is written simultaneously (given the LOCK_NONE behavior).
-            // We can just catch such an error and re-execute the update. This is similar to a serializable
-            // transaction with retry logic on serialization failures but without the overhead and without possible
-            // false positives due to longer gap locking.
-            if (!$updateStmt->rowCount()) {
-                try {
-                    $insertStmt = $this->getInsertStatement($sessionId, $data, $maxlifetime);
-                    $insertStmt->execute();
-                } catch (\PDOException $e) {
-                    // Handle integrity violation SQLSTATE 23000 (or a subclass like 23505 in Postgres) for duplicate keys
-                    if (0 === strpos($e->getCode(), '23')) {
-                        $updateStmt->execute();
-                    } else {
-                        throw $e;
-                    }
-                }
-            }
-        } catch (\PDOException $e) {
-            $this->rollback();
-
-            throw $e;
-        }
-
-        return true;
-    }
-
-    /**
-     * Reads the session data in respect to the different locking strategies.
-     *
-     * We need to make sure we do not return session data that is already considered garbage according
-     * to the session.gc_maxlifetime setting because gc() is called after read() and only sometimes.
-     *
-     * @return string
-     */
-    protected function doRead(string $sessionId)
-    {
-        if (self::LOCK_ADVISORY === $this->lockMode) {
-            $this->unlockStatements[] = $this->doAdvisoryLock($sessionId);
-        }
-
-        $selectSql = $this->getSelectSql();
-        $selectStmt = $this->pdo->prepare($selectSql);
-        $selectStmt->bindParam(':id', $sessionId, \PDO::PARAM_STR);
-        $insertStmt = null;
-
-        do {
-            $selectStmt->execute();
-            $sessionRows = $selectStmt->fetchAll(\PDO::FETCH_NUM);
-
-            if ($sessionRows) {
-                $expiry = (int)$sessionRows[0][1];
-                if ($expiry <= self::MAX_LIFETIME) {
-                    $expiry += $sessionRows[0][2];
-                }
-
-                if ($expiry < time()) {
-                    $this->sessionExpired = true;
-
-                    return '';
-                }
-
-                return \is_resource($sessionRows[0][0]) ? stream_get_contents($sessionRows[0][0]) : $sessionRows[0][0];
-            }
-
-            if (null !== $insertStmt) {
-                $this->rollback();
-                throw new \RuntimeException('Failed to read session: INSERT reported a duplicate id but next SELECT did not return any data.');
-            }
-
-            if (!filter_var(ini_get('session.use_strict_mode'), \FILTER_VALIDATE_BOOLEAN) && self::LOCK_TRANSACTIONAL === $this->lockMode && 'sqlite' !== $this->driver) {
-                // In strict mode, session fixation is not possible: new sessions always start with a unique
-                // random id, so that concurrency is not possible and this code path can be skipped.
-                // Exclusive-reading of non-existent rows does not block, so we need to do an insert to block
-                // until other connections to the session are committed.
-                try {
-                    $insertStmt = $this->getInsertStatement($sessionId, '', 0);
-                    $insertStmt->execute();
-                } catch (\PDOException $e) {
-                    // Catch duplicate key error because other connection created the session already.
-                    // It would only not be the case when the other connection destroyed the session.
-                    if (0 === strpos($e->getCode(), '23')) {
-                        // Retrieve finished session data written by concurrent connection by restarting the loop.
-                        // We have to start a new transaction as a failed query will mark the current transaction as
-                        // aborted in PostgreSQL and disallow further queries within it.
-                        $this->rollback();
-                        $this->beginTransaction();
-                        continue;
-                    }
-
-                    throw $e;
-                }
-            }
-
-            return '';
-        } while (true);
-    }
-
-    /**
-     * Return a PDO instance.
-     *
-     * @return \PDO
-     */
-    protected function getConnection()
-    {
-        if (null === $this->pdo) {
-            $this->connect($this->dsn ?: ini_get('session.save_path'));
-        }
-
-        return $this->pdo;
     }
 
     /**
@@ -574,25 +489,25 @@ class PdoSessionHandler extends AbstractSessionHandler
         switch ($driver) {
             case 'mysql':
             case 'pgsql':
-                $dsn = $driver . ':';
+                $dsn = $driver.':';
 
                 if (isset($params['host']) && '' !== $params['host']) {
-                    $dsn .= 'host=' . $params['host'] . ';';
+                    $dsn .= 'host='.$params['host'].';';
                 }
 
                 if (isset($params['port']) && '' !== $params['port']) {
-                    $dsn .= 'port=' . $params['port'] . ';';
+                    $dsn .= 'port='.$params['port'].';';
                 }
 
                 if (isset($params['path'])) {
                     $dbName = substr($params['path'], 1); // Remove the leading slash
-                    $dsn .= 'dbname=' . $dbName . ';';
+                    $dsn .= 'dbname='.$dbName.';';
                 }
 
                 return $dsn;
 
             case 'sqlite':
-                return 'sqlite:' . substr($params['path'], 1);
+                return 'sqlite:'.substr($params['path'], 1);
 
             case 'sqlsrv':
                 $dsn = 'sqlsrv:server=';
@@ -602,12 +517,12 @@ class PdoSessionHandler extends AbstractSessionHandler
                 }
 
                 if (isset($params['port']) && '' !== $params['port']) {
-                    $dsn .= ',' . $params['port'];
+                    $dsn .= ','.$params['port'];
                 }
 
                 if (isset($params['path'])) {
                     $dbName = substr($params['path'], 1); // Remove the leading slash
-                    $dsn .= ';Database=' . $dbName;
+                    $dsn .= ';Database='.$dbName;
                 }
 
                 return $dsn;
@@ -683,6 +598,77 @@ class PdoSessionHandler extends AbstractSessionHandler
             }
             $this->inTransaction = false;
         }
+    }
+
+    /**
+     * Reads the session data in respect to the different locking strategies.
+     *
+     * We need to make sure we do not return session data that is already considered garbage according
+     * to the session.gc_maxlifetime setting because gc() is called after read() and only sometimes.
+     *
+     * @return string
+     */
+    protected function doRead(string $sessionId)
+    {
+        if (self::LOCK_ADVISORY === $this->lockMode) {
+            $this->unlockStatements[] = $this->doAdvisoryLock($sessionId);
+        }
+
+        $selectSql = $this->getSelectSql();
+        $selectStmt = $this->pdo->prepare($selectSql);
+        $selectStmt->bindParam(':id', $sessionId, \PDO::PARAM_STR);
+        $insertStmt = null;
+
+        do {
+            $selectStmt->execute();
+            $sessionRows = $selectStmt->fetchAll(\PDO::FETCH_NUM);
+
+            if ($sessionRows) {
+                $expiry = (int) $sessionRows[0][1];
+                if ($expiry <= self::MAX_LIFETIME) {
+                    $expiry += $sessionRows[0][2];
+                }
+
+                if ($expiry < time()) {
+                    $this->sessionExpired = true;
+
+                    return '';
+                }
+
+                return \is_resource($sessionRows[0][0]) ? stream_get_contents($sessionRows[0][0]) : $sessionRows[0][0];
+            }
+
+            if (null !== $insertStmt) {
+                $this->rollback();
+                throw new \RuntimeException('Failed to read session: INSERT reported a duplicate id but next SELECT did not return any data.');
+            }
+
+            if (!filter_var(ini_get('session.use_strict_mode'), \FILTER_VALIDATE_BOOLEAN) && self::LOCK_TRANSACTIONAL === $this->lockMode && 'sqlite' !== $this->driver) {
+                // In strict mode, session fixation is not possible: new sessions always start with a unique
+                // random id, so that concurrency is not possible and this code path can be skipped.
+                // Exclusive-reading of non-existent rows does not block, so we need to do an insert to block
+                // until other connections to the session are committed.
+                try {
+                    $insertStmt = $this->getInsertStatement($sessionId, '', 0);
+                    $insertStmt->execute();
+                } catch (\PDOException $e) {
+                    // Catch duplicate key error because other connection created the session already.
+                    // It would only not be the case when the other connection destroyed the session.
+                    if (0 === strpos($e->getCode(), '23')) {
+                        // Retrieve finished session data written by concurrent connection by restarting the loop.
+                        // We have to start a new transaction as a failed query will mark the current transaction as
+                        // aborted in PostgreSQL and disallow further queries within it.
+                        $this->rollback();
+                        $this->beginTransaction();
+                        continue;
+                    }
+
+                    throw $e;
+                }
+            }
+
+            return '';
+        } while (true);
     }
 
     /**
@@ -854,21 +840,21 @@ class PdoSessionHandler extends AbstractSessionHandler
     {
         switch (true) {
             case 'mysql' === $this->driver:
-                $mergeSql = "INSERT INTO $this->table ($this->idCol, $this->dataCol, $this->lifetimeCol, $this->timeCol) VALUES (:id, :data, :expiry, :time) " .
+                $mergeSql = "INSERT INTO $this->table ($this->idCol, $this->dataCol, $this->lifetimeCol, $this->timeCol) VALUES (:id, :data, :expiry, :time) ".
                     "ON DUPLICATE KEY UPDATE $this->dataCol = VALUES($this->dataCol), $this->lifetimeCol = VALUES($this->lifetimeCol), $this->timeCol = VALUES($this->timeCol)";
                 break;
             case 'sqlsrv' === $this->driver && version_compare($this->pdo->getAttribute(\PDO::ATTR_SERVER_VERSION), '10', '>='):
                 // MERGE is only available since SQL Server 2008 and must be terminated by semicolon
                 // It also requires HOLDLOCK according to https://weblogs.sqlteam.com/dang/2009/01/31/upsert-race-condition-with-merge/
-                $mergeSql = "MERGE INTO $this->table WITH (HOLDLOCK) USING (SELECT 1 AS dummy) AS src ON ($this->idCol = ?) " .
-                    "WHEN NOT MATCHED THEN INSERT ($this->idCol, $this->dataCol, $this->lifetimeCol, $this->timeCol) VALUES (?, ?, ?, ?) " .
+                $mergeSql = "MERGE INTO $this->table WITH (HOLDLOCK) USING (SELECT 1 AS dummy) AS src ON ($this->idCol = ?) ".
+                    "WHEN NOT MATCHED THEN INSERT ($this->idCol, $this->dataCol, $this->lifetimeCol, $this->timeCol) VALUES (?, ?, ?, ?) ".
                     "WHEN MATCHED THEN UPDATE SET $this->dataCol = ?, $this->lifetimeCol = ?, $this->timeCol = ?;";
                 break;
             case 'sqlite' === $this->driver:
                 $mergeSql = "INSERT OR REPLACE INTO $this->table ($this->idCol, $this->dataCol, $this->lifetimeCol, $this->timeCol) VALUES (:id, :data, :expiry, :time)";
                 break;
             case 'pgsql' === $this->driver && version_compare($this->pdo->getAttribute(\PDO::ATTR_SERVER_VERSION), '9.5', '>='):
-                $mergeSql = "INSERT INTO $this->table ($this->idCol, $this->dataCol, $this->lifetimeCol, $this->timeCol) VALUES (:id, :data, :expiry, :time) " .
+                $mergeSql = "INSERT INTO $this->table ($this->idCol, $this->dataCol, $this->lifetimeCol, $this->timeCol) VALUES (:id, :data, :expiry, :time) ".
                     "ON CONFLICT ($this->idCol) DO UPDATE SET ($this->dataCol, $this->lifetimeCol, $this->timeCol) = (EXCLUDED.$this->dataCol, EXCLUDED.$this->lifetimeCol, EXCLUDED.$this->timeCol)";
                 break;
             default:
@@ -895,5 +881,19 @@ class PdoSessionHandler extends AbstractSessionHandler
         }
 
         return $mergeStmt;
+    }
+
+    /**
+     * Return a PDO instance.
+     *
+     * @return \PDO
+     */
+    protected function getConnection()
+    {
+        if (null === $this->pdo) {
+            $this->connect($this->dsn ?: ini_get('session.save_path'));
+        }
+
+        return $this->pdo;
     }
 }

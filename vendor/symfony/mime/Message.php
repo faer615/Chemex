@@ -39,11 +39,6 @@ class Message extends RawMessage
         }
     }
 
-    public function getBody(): ?AbstractPart
-    {
-        return $this->body;
-    }
-
     /**
      * @return $this
      */
@@ -54,9 +49,9 @@ class Message extends RawMessage
         return $this;
     }
 
-    public function getHeaders(): Headers
+    public function getBody(): ?AbstractPart
     {
-        return $this->headers;
+        return $this->body;
     }
 
     /**
@@ -67,6 +62,11 @@ class Message extends RawMessage
         $this->headers = $headers;
 
         return $this;
+    }
+
+    public function getHeaders(): Headers
+    {
+        return $this->headers;
     }
 
     public function getPreparedHeaders(): Headers
@@ -107,7 +107,7 @@ class Message extends RawMessage
             $body = new TextPart('');
         }
 
-        return $this->getPreparedHeaders()->toString() . $body->toString();
+        return $this->getPreparedHeaders()->toString().$body->toString();
     }
 
     public function toIterable(): iterable
@@ -143,7 +143,7 @@ class Message extends RawMessage
             throw new LogicException('An email must have a "From" or a "Sender" header.');
         }
 
-        return bin2hex(random_bytes(16)) . strstr($sender->getAddress(), '@');
+        return bin2hex(random_bytes(16)).strstr($sender->getAddress(), '@');
     }
 
     public function __serialize(): array

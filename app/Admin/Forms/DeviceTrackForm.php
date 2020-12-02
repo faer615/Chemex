@@ -76,6 +76,7 @@ class DeviceTrackForm extends Form implements LazyRenderable
     {
         $this->select('staff_id', '新使用者')
             ->options(StaffRecord::all()->pluck('name', 'id'))
+            ->help('选择新使用者后，将会自动解除此设备与老使用者的归属关系。')
             ->required();
     }
 }

@@ -129,7 +129,7 @@ class RouteCollectionBuilder
     {
         if (null === $name) {
             // used as a flag to know which routes will need a name later
-            $name = '_unnamed_route_' . spl_object_hash($route);
+            $name = '_unnamed_route_'.spl_object_hash($route);
         }
 
         $this->routes[$name] = $route;
@@ -235,6 +235,18 @@ class RouteCollectionBuilder
     }
 
     /**
+     * Adds a resource for this collection.
+     *
+     * @return $this
+     */
+    private function addResource(ResourceInterface $resource): self
+    {
+        $this->resources[] = $resource;
+
+        return $this;
+    }
+
+    /**
      * Creates the final RouteCollection and returns it.
      *
      * @return RouteCollection
@@ -255,7 +267,7 @@ class RouteCollectionBuilder
                 }
 
                 if (null !== $this->prefix) {
-                    $route->setPath('/' . $this->prefix . $route->getPath());
+                    $route->setPath('/'.$this->prefix.$route->getPath());
                 }
 
                 if (!$route->getHost()) {
@@ -299,25 +311,13 @@ class RouteCollectionBuilder
     }
 
     /**
-     * Adds a resource for this collection.
-     *
-     * @return $this
-     */
-    private function addResource(ResourceInterface $resource): self
-    {
-        $this->resources[] = $resource;
-
-        return $this;
-    }
-
-    /**
      * Generates a route name based on details of this route.
      */
     private function generateRouteName(Route $route): string
     {
-        $methods = implode('_', $route->getMethods()) . '_';
+        $methods = implode('_', $route->getMethods()).'_';
 
-        $routeName = $methods . $route->getPath();
+        $routeName = $methods.$route->getPath();
         $routeName = str_replace(['/', ':', '|', '-'], '_', $routeName);
         $routeName = preg_replace('/[^a-z0-9A-Z_.]+/', '', $routeName);
 
@@ -330,8 +330,8 @@ class RouteCollectionBuilder
     /**
      * Finds a loader able to load an imported resource and loads it.
      *
-     * @param mixed $resource A resource
-     * @param string|null $type The resource type or null if unknown
+     * @param mixed       $resource A resource
+     * @param string|null $type     The resource type or null if unknown
      *
      * @return RouteCollection[]
      *

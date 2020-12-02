@@ -6,7 +6,10 @@ return [
         'Vendor' => '制造商',
         'Left Counts' => '剩余授权数量',
         'Purchased Channel Id' => '购入途径',
+        'Expiration Left Days' => '保固剩余天数',
         'records' => '软件',
+        'Device Name' => '设备名称',
+        'Staff Name' => '雇员名称'
     ],
     'fields' => [
         'qrcode' => '二维码',

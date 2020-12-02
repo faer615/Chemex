@@ -3,13 +3,18 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Actions\Grid\RowAction\HardwareTrackDisableAction;
+use App\Admin\Grid\Displayers\RowActions;
 use App\Admin\Repositories\HardwareTrack;
 use App\Support\Data;
+use DateTime;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Widgets\Alert;
 
+/**
+ * @property DateTime deleted_at
+ */
 class HardwareTrackController extends AdminController
 {
     /**
@@ -32,9 +37,8 @@ class HardwareTrackController extends AdminController
             $grid->disableViewButton();
             $grid->disableEditButton();
             $grid->disableDeleteButton();
-            $grid->setActionClass(Grid\Displayers\Actions::class);
 
-            $grid->actions(function (Grid\Displayers\Actions $actions) {
+            $grid->actions(function (RowActions $actions) {
                 if (Admin::user()->can('hardware.track.disable') && $this->deleted_at == null) {
                     $actions->append(new HardwareTrackDisableAction());
                 }
@@ -56,7 +60,7 @@ class HardwareTrackController extends AdminController
      *
      * @return Alert
      */
-    protected function detail($id)
+    protected function detail()
     {
         return Data::unsupportedOperationWarning();
     }

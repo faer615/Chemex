@@ -69,6 +69,34 @@ class RedisSessionHandler extends AbstractSessionHandler
     /**
      * {@inheritdoc}
      */
+    protected function doRead(string $sessionId): string
+    {
+        return $this->redis->get($this->prefix.$sessionId) ?: '';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function doWrite(string $sessionId, string $data): bool
+    {
+        $result = $this->redis->setEx($this->prefix.$sessionId, (int) ($this->ttl ?? ini_get('session.gc_maxlifetime')), $data);
+
+        return $result && !$result instanceof ErrorInterface;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function doDestroy(string $sessionId): bool
+    {
+        $this->redis->del($this->prefix.$sessionId);
+
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function close(): bool
     {
         return true;
@@ -87,34 +115,6 @@ class RedisSessionHandler extends AbstractSessionHandler
      */
     public function updateTimestamp($sessionId, $data)
     {
-        return (bool)$this->redis->expire($this->prefix . $sessionId, (int)($this->ttl ?? ini_get('session.gc_maxlifetime')));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function doRead(string $sessionId): string
-    {
-        return $this->redis->get($this->prefix . $sessionId) ?: '';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function doWrite(string $sessionId, string $data): bool
-    {
-        $result = $this->redis->setEx($this->prefix . $sessionId, (int)($this->ttl ?? ini_get('session.gc_maxlifetime')), $data);
-
-        return $result && !$result instanceof ErrorInterface;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function doDestroy(string $sessionId): bool
-    {
-        $this->redis->del($this->prefix . $sessionId);
-
-        return true;
+        return (bool) $this->redis->expire($this->prefix.$sessionId, (int) ($this->ttl ?? ini_get('session.gc_maxlifetime')));
     }
 }

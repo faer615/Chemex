@@ -2,8 +2,8 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Actions\Grid\RowAction\CheckTrackNoAction;
-use App\Admin\Actions\Grid\RowAction\CheckTrackYesAction;
+use App\Admin\Actions\Grid\RowAction\CheckTrackAction;
+use App\Admin\Grid\Displayers\RowActions;
 use App\Admin\Repositories\CheckTrack;
 use App\Models\CheckRecord;
 use App\Models\DeviceRecord;
@@ -55,21 +55,18 @@ class CheckTrackController extends AdminController
             $grid->column('created_at');
             $grid->column('updated_at');
 
-            $grid->actions(function (Grid\Displayers\Actions $actions) {
-                if (Admin::user()->can('check.track.yes')) {
-                    $actions->append(new CheckTrackYesAction());
-                }
-                if (Admin::user()->can('check.track.no')) {
-                    $actions->append(new CheckTrackNoAction());
-                }
-            });
-
             $grid->disableRowSelector();
             $grid->disableBatchActions();
             $grid->disableCreateButton();
             $grid->disableEditButton();
             $grid->disableViewButton();
             $grid->disableDeleteButton();
+
+            $grid->actions(function (RowActions $actions) {
+                if (Admin::user()->can('check.track') && $this->status == 0) {
+                    $actions->append(new CheckTrackAction());
+                }
+            });
 
             $grid->toolsWithOutline(false);
 
@@ -82,11 +79,9 @@ class CheckTrackController extends AdminController
     /**
      * Make a show builder.
      *
-     * @param mixed $id
-     *
      * @return Alert
      */
-    protected function detail($id)
+    protected function detail()
     {
         return Data::unsupportedOperationWarning();
     }

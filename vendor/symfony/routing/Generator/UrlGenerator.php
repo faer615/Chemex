@@ -50,6 +50,9 @@ class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInt
     protected $strictRequirements = true;
 
     protected $logger;
+
+    private $defaultLocale;
+
     /**
      * This array defines the characters (besides alphanumeric ones) that will not be percent-encoded in the path segment of the generated URL.
      *
@@ -77,7 +80,6 @@ class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInt
         '%2A' => '*',
         '%7C' => '|',
     ];
-    private $defaultLocale;
 
     public function __construct(RouteCollection $routes, RequestContext $context, LoggerInterface $logger = null, string $defaultLocale = null)
     {
@@ -88,54 +90,11 @@ class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInt
     }
 
     /**
-     * Returns the target path as relative reference from the base path.
-     *
-     * Only the URIs path component (no schema, host etc.) is relevant and must be given, starting with a slash.
-     * Both paths must be absolute and not contain relative parts.
-     * Relative URLs from one resource to another are useful when generating self-contained downloadable document archives.
-     * Furthermore, they can be used to reduce the link size in documents.
-     *
-     * Example target paths, given a base path of "/a/b/c/d":
-     * - "/a/b/c/d"     -> ""
-     * - "/a/b/c/"      -> "./"
-     * - "/a/b/"        -> "../"
-     * - "/a/b/c/other" -> "other"
-     * - "/a/x/y"       -> "../../x/y"
-     *
-     * @param string $basePath The base path
-     * @param string $targetPath The target path
-     *
-     * @return string The relative target path
+     * {@inheritdoc}
      */
-    public static function getRelativePath(string $basePath, string $targetPath)
+    public function setContext(RequestContext $context)
     {
-        if ($basePath === $targetPath) {
-            return '';
-        }
-
-        $sourceDirs = explode('/', isset($basePath[0]) && '/' === $basePath[0] ? substr($basePath, 1) : $basePath);
-        $targetDirs = explode('/', isset($targetPath[0]) && '/' === $targetPath[0] ? substr($targetPath, 1) : $targetPath);
-        array_pop($sourceDirs);
-        $targetFile = array_pop($targetDirs);
-
-        foreach ($sourceDirs as $i => $dir) {
-            if (isset($targetDirs[$i]) && $dir === $targetDirs[$i]) {
-                unset($sourceDirs[$i], $targetDirs[$i]);
-            } else {
-                break;
-            }
-        }
-
-        $targetDirs[] = $targetFile;
-        $path = str_repeat('../', \count($sourceDirs)) . implode('/', $targetDirs);
-
-        // A reference to the same base directory or an empty subdirectory must be prefixed with "./".
-        // This also applies to a segment with a colon character (e.g., "file:colon") that cannot be used
-        // as the first segment of a relative-path reference, as it would be mistaken for a scheme name
-        // (see http://tools.ietf.org/html/rfc3986#section-4.2).
-        return '' === $path || '/' === $path[0]
-        || false !== ($colonPos = strpos($path, ':')) && ($colonPos < ($slashPos = strpos($path, '/')) || false === $slashPos)
-            ? "./$path" : $path;
+        $this->context = $context;
     }
 
     /**
@@ -144,14 +103,6 @@ class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInt
     public function getContext()
     {
         return $this->context;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setContext(RequestContext $context)
-    {
-        $this->context = $context;
     }
 
     /**
@@ -178,11 +129,11 @@ class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInt
         $route = null;
         $locale = $parameters['_locale']
             ?? $this->context->getParameter('_locale')
-                ?: $this->defaultLocale;
+            ?: $this->defaultLocale;
 
         if (null !== $locale) {
             do {
-                if (null !== ($route = $this->routes->get($name . '.' . $locale)) && $route->getDefault('_canonical_route') === $name) {
+                if (null !== ($route = $this->routes->get($name.'.'.$locale)) && $route->getDefault('_canonical_route') === $name) {
                     break;
                 }
             } while (false !== $locale = strstr($locale, '_', true));
@@ -210,11 +161,11 @@ class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInt
     }
 
     /**
-     * @return string
+     * @throws MissingMandatoryParametersException When some parameters are missing that are mandatory for the route
      * @throws InvalidParameterException           When a parameter value for a placeholder is not correct because
      *                                             it does not match the requirement
      *
-     * @throws MissingMandatoryParametersException When some parameters are missing that are mandatory for the route
+     * @return string
      */
     protected function doGenerate(array $variables, array $defaults, array $requirements, array $tokens, array $parameters, string $name, int $referenceType, array $hostTokens, array $requiredSchemes = [])
     {
@@ -235,9 +186,9 @@ class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInt
                 // variable is not important by default
                 $important = $token[5] ?? false;
 
-                if (!$optional || $important || !\array_key_exists($varName, $defaults) || (null !== $mergedParams[$varName] && (string)$mergedParams[$varName] !== (string)$defaults[$varName])) {
+                if (!$optional || $important || !\array_key_exists($varName, $defaults) || (null !== $mergedParams[$varName] && (string) $mergedParams[$varName] !== (string) $defaults[$varName])) {
                     // check requirement (while ignoring look-around patterns)
-                    if (null !== $this->strictRequirements && !preg_match('#^' . preg_replace('/\(\?(?:=|<=|!|<!)((?:[^()\\\\]+|\\\\.|\((?1)\))*)\)/', '', $token[2]) . '$#i' . (empty($token[4]) ? '' : 'u'), $mergedParams[$token[3]])) {
+                    if (null !== $this->strictRequirements && !preg_match('#^'.preg_replace('/\(\?(?:=|<=|!|<!)((?:[^()\\\\]+|\\\\.|\((?1)\))*)\)/', '', $token[2]).'$#i'.(empty($token[4]) ? '' : 'u'), $mergedParams[$token[3]])) {
                         if ($this->strictRequirements) {
                             throw new InvalidParameterException(strtr($message, ['{parameter}' => $varName, '{route}' => $name, '{expected}' => $token[2], '{given}' => $mergedParams[$varName]]));
                         }
@@ -249,12 +200,12 @@ class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInt
                         return '';
                     }
 
-                    $url = $token[1] . $mergedParams[$varName] . $url;
+                    $url = $token[1].$mergedParams[$varName].$url;
                     $optional = false;
                 }
             } else {
                 // static text
-                $url = $token[1] . $url;
+                $url = $token[1].$url;
                 $optional = false;
             }
         }
@@ -271,9 +222,9 @@ class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInt
         // otherwise we would generate a URI that, when followed by a user agent (e.g. browser), does not match this route
         $url = strtr($url, ['/../' => '/%2E%2E/', '/./' => '/%2E/']);
         if ('/..' === substr($url, -3)) {
-            $url = substr($url, 0, -2) . '%2E%2E';
+            $url = substr($url, 0, -2).'%2E%2E';
         } elseif ('/.' === substr($url, -2)) {
-            $url = substr($url, 0, -1) . '%2E';
+            $url = substr($url, 0, -1).'%2E';
         }
 
         $schemeAuthority = '';
@@ -292,7 +243,7 @@ class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInt
             foreach ($hostTokens as $token) {
                 if ('variable' === $token[0]) {
                     // check requirement (while ignoring look-around patterns)
-                    if (null !== $this->strictRequirements && !preg_match('#^' . preg_replace('/\(\?(?:=|<=|!|<!)((?:[^()\\\\]+|\\\\.|\((?1)\))*)\)/', '', $token[2]) . '$#i' . (empty($token[4]) ? '' : 'u'), $mergedParams[$token[3]])) {
+                    if (null !== $this->strictRequirements && !preg_match('#^'.preg_replace('/\(\?(?:=|<=|!|<!)((?:[^()\\\\]+|\\\\.|\((?1)\))*)\)/', '', $token[2]).'$#i'.(empty($token[4]) ? '' : 'u'), $mergedParams[$token[3]])) {
                         if ($this->strictRequirements) {
                             throw new InvalidParameterException(strtr($message, ['{parameter}' => $token[3], '{route}' => $name, '{expected}' => $token[2], '{given}' => $mergedParams[$token[3]]]));
                         }
@@ -304,9 +255,9 @@ class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInt
                         return '';
                     }
 
-                    $routeHost = $token[1] . $mergedParams[$token[3]] . $routeHost;
+                    $routeHost = $token[1].$mergedParams[$token[3]].$routeHost;
                 } else {
-                    $routeHost = $token[1] . $routeHost;
+                    $routeHost = $token[1].$routeHost;
                 }
             }
 
@@ -322,20 +273,20 @@ class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInt
             if ('' !== $host || ('' !== $scheme && 'http' !== $scheme && 'https' !== $scheme)) {
                 $port = '';
                 if ('http' === $scheme && 80 !== $this->context->getHttpPort()) {
-                    $port = ':' . $this->context->getHttpPort();
+                    $port = ':'.$this->context->getHttpPort();
                 } elseif ('https' === $scheme && 443 !== $this->context->getHttpsPort()) {
-                    $port = ':' . $this->context->getHttpsPort();
+                    $port = ':'.$this->context->getHttpsPort();
                 }
 
                 $schemeAuthority = self::NETWORK_PATH === $referenceType || '' === $scheme ? '//' : "$scheme://";
-                $schemeAuthority .= $host . $port;
+                $schemeAuthority .= $host.$port;
             }
         }
 
         if (self::RELATIVE_PATH === $referenceType) {
             $url = self::getRelativePath($this->context->getPathInfo(), $url);
         } else {
-            $url = $schemeAuthority . $this->context->getBaseUrl() . $url;
+            $url = $schemeAuthority.$this->context->getBaseUrl().$url;
         }
 
         // add a query string if needed
@@ -352,13 +303,64 @@ class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInt
         }
 
         if ($extra && $query = http_build_query($extra, '', '&', \PHP_QUERY_RFC3986)) {
-            $url .= '?' . strtr($query, self::QUERY_FRAGMENT_DECODED);
+            $url .= '?'.strtr($query, self::QUERY_FRAGMENT_DECODED);
         }
 
         if ('' !== $fragment) {
-            $url .= '#' . strtr(rawurlencode($fragment), self::QUERY_FRAGMENT_DECODED);
+            $url .= '#'.strtr(rawurlencode($fragment), self::QUERY_FRAGMENT_DECODED);
         }
 
         return $url;
+    }
+
+    /**
+     * Returns the target path as relative reference from the base path.
+     *
+     * Only the URIs path component (no schema, host etc.) is relevant and must be given, starting with a slash.
+     * Both paths must be absolute and not contain relative parts.
+     * Relative URLs from one resource to another are useful when generating self-contained downloadable document archives.
+     * Furthermore, they can be used to reduce the link size in documents.
+     *
+     * Example target paths, given a base path of "/a/b/c/d":
+     * - "/a/b/c/d"     -> ""
+     * - "/a/b/c/"      -> "./"
+     * - "/a/b/"        -> "../"
+     * - "/a/b/c/other" -> "other"
+     * - "/a/x/y"       -> "../../x/y"
+     *
+     * @param string $basePath   The base path
+     * @param string $targetPath The target path
+     *
+     * @return string The relative target path
+     */
+    public static function getRelativePath(string $basePath, string $targetPath)
+    {
+        if ($basePath === $targetPath) {
+            return '';
+        }
+
+        $sourceDirs = explode('/', isset($basePath[0]) && '/' === $basePath[0] ? substr($basePath, 1) : $basePath);
+        $targetDirs = explode('/', isset($targetPath[0]) && '/' === $targetPath[0] ? substr($targetPath, 1) : $targetPath);
+        array_pop($sourceDirs);
+        $targetFile = array_pop($targetDirs);
+
+        foreach ($sourceDirs as $i => $dir) {
+            if (isset($targetDirs[$i]) && $dir === $targetDirs[$i]) {
+                unset($sourceDirs[$i], $targetDirs[$i]);
+            } else {
+                break;
+            }
+        }
+
+        $targetDirs[] = $targetFile;
+        $path = str_repeat('../', \count($sourceDirs)).implode('/', $targetDirs);
+
+        // A reference to the same base directory or an empty subdirectory must be prefixed with "./".
+        // This also applies to a segment with a colon character (e.g., "file:colon") that cannot be used
+        // as the first segment of a relative-path reference, as it would be mistaken for a scheme name
+        // (see http://tools.ietf.org/html/rfc3986#section-4.2).
+        return '' === $path || '/' === $path[0]
+            || false !== ($colonPos = strpos($path, ':')) && ($colonPos < ($slashPos = strpos($path, '/')) || false === $slashPos)
+            ? "./$path" : $path;
     }
 }

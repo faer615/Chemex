@@ -4,7 +4,6 @@
  * Thanks to https://github.com/flaushi for his suggestion:
  * https://github.com/doctrine/dbal/issues/2873#issuecomment-534956358
  */
-
 namespace Carbon\Doctrine;
 
 use Carbon\Carbon;
@@ -16,6 +15,11 @@ use Exception;
 
 trait CarbonTypeConverter
 {
+    protected function getCarbonClassName(): string
+    {
+        return Carbon::class;
+    }
+
     public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
     {
         $precision = ($fieldDeclaration['precision'] ?: 10) === 10
@@ -64,7 +68,7 @@ trait CarbonTypeConverter
             throw ConversionException::conversionFailedFormat(
                 $value,
                 $this->getName(),
-                'Y-m-d H:i:s.u or any format supported by ' . $class . '::parse()',
+                'Y-m-d H:i:s.u or any format supported by '.$class.'::parse()',
                 $error
             );
         }
@@ -90,10 +94,5 @@ trait CarbonTypeConverter
             $this->getName(),
             ['null', 'DateTime', 'Carbon']
         );
-    }
-
-    protected function getCarbonClassName(): string
-    {
-        return Carbon::class;
     }
 }

@@ -3,13 +3,18 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Actions\Grid\RowAction\ServiceTrackDisableAction;
+use App\Admin\Grid\Displayers\RowActions;
 use App\Admin\Repositories\ServiceTrack;
 use App\Support\Data;
+use DateTime;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Widgets\Alert;
 
+/**
+ * @property DateTime deleted_at
+ */
 class ServiceTrackController extends AdminController
 {
     /**
@@ -35,9 +40,7 @@ class ServiceTrackController extends AdminController
             $grid->disableEditButton();
             $grid->disableDeleteButton();
 
-            $grid->setActionClass(Grid\Displayers\Actions::class);
-
-            $grid->actions(function (Grid\Displayers\Actions $actions) {
+            $grid->actions(function (RowActions $actions) {
                 if (Admin::user()->can('service.track.disable') && $this->deleted_at == null) {
                     $actions->append(new ServiceTrackDisableAction());
                 }
@@ -53,11 +56,9 @@ class ServiceTrackController extends AdminController
     /**
      * Make a show builder.
      *
-     * @param mixed $id
-     *
      * @return Alert
      */
-    protected function detail($id)
+    protected function detail()
     {
         return Data::unsupportedOperationWarning();
     }

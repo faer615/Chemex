@@ -29,7 +29,7 @@ final class HtmlInlineRenderer implements InlineRendererInterface, Configuration
     protected $config;
 
     /**
-     * @param HtmlInline $inline
+     * @param HtmlInline               $inline
      * @param ElementRendererInterface $htmlRenderer
      *
      * @return string

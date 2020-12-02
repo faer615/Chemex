@@ -5,74 +5,83 @@ namespace App\Admin\Controllers;
 use App\Admin\Actions\Grid\RowAction\SoftwareDeleteAction;
 use App\Admin\Actions\Grid\RowAction\SoftwareHistoryAction;
 use App\Admin\Actions\Grid\RowAction\SoftwareTrackAction;
+use App\Admin\Actions\Grid\RowAction\SoftwareTrackDisableAction;
+use App\Admin\Grid\Displayers\RowActions;
 use App\Admin\Repositories\SoftwareRecord;
+use App\Admin\Repositories\SoftwareTrack;
+use App\Models\DeviceRecord;
 use App\Models\PurchasedChannel;
 use App\Models\SoftwareCategory;
 use App\Models\VendorRecord;
+use App\Services\ExpirationService;
+use App\Services\SoftwareRecordService;
 use App\Support\Data;
+use App\Support\Info;
 use App\Support\Track;
+use DateTime;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Http\Controllers\AdminController;
+use Dcat\Admin\Layout\Column;
+use Dcat\Admin\Layout\Content;
+use Dcat\Admin\Layout\Row;
 use Dcat\Admin\Show;
+use Dcat\Admin\Widgets\Card;
 
+/**
+ * @property  DeviceRecord device
+ * @property  Int id
+ * @property  DateTime deleted_at
+ */
 class SoftwareRecordController extends AdminController
 {
-    /**
-     * Make a grid builder.
-     *
-     * @return Grid
-     */
-    protected function grid()
+
+    public function show($id, Content $content)
     {
-        return Grid::make(new SoftwareRecord(['category', 'vendor']), function (Grid $grid) {
-            $grid->column('id');
-            $grid->column('qrcode')->qrcode(function () {
-                return base64_encode('software:' . $this->id);
-            }, 200, 200);
-            $grid->column('name');
-            $grid->column('category.name');
-            $grid->column('version');
-            $grid->column('vendor.name');
-            $grid->column('price');
-            $grid->column('purchased');
-            $grid->column('expired');
-            $grid->column('distribution')->using(Data::distribution());
-            $grid->column('counts');
-            $grid->column('', admin_trans_label('Left Counts'))->display(function () {
-                return Track::leftSoftwareCounts($this->id);
+        $history = SoftwareRecordService::history($id);
+        return $content
+            ->title($this->title())
+            ->description($this->description()['index'] ?? trans('admin.show'))
+            ->body(function (Row $row) use ($id, $history) {
+                // 判断权限
+                if (!Admin::user()->can('software.track.list')) {
+                    $row->column(12, $this->detail($id));
+                } else {
+                    $row->column(6, $this->detail($id));
+                    $row->column(6, function (Column $column) use ($id, $history) {
+                        $grid = Grid::make(new SoftwareTrack(['software', 'device']), function (Grid $grid) use ($id) {
+                            $grid->model()->where('software_id', '=', $id);
+                            $grid->tableCollapse(false);
+                            $grid->withBorder();
+
+                            $grid->column('id');
+                            $grid->column('device.name', admin_trans_label('Device Name'))->link(function () {
+                                return route('device.records.show', $this->device['id']);
+                            });
+                            $grid->column('staff', admin_trans_label('Staff Name'))->display(function () {
+                                return Info::deviceIdToStaffName($this->device['id']);
+                            });
+
+                            $grid->disableCreateButton();
+                            $grid->disableBatchActions();
+                            $grid->disableRowSelector();
+                            $grid->disableRefreshButton();
+                            $grid->disableViewButton();
+                            $grid->disableEditButton();
+                            $grid->disableDeleteButton();
+
+                            $grid->actions(function (RowActions $actions) {
+                                if (Admin::user()->can('software.track.disable') && $this->deleted_at == null) {
+                                    $actions->append(new SoftwareTrackDisableAction());
+                                }
+                            });
+                        });
+                        $column->row(new Card('管理归属（授权）', $grid));
+                        $column->row(new Card('履历', view('history')->with('data', $history)));
+                    });
+                }
             });
-
-            $grid->actions(function (Grid\Displayers\Actions $actions) {
-                if (Admin::user()->can('software.delete')) {
-                    $actions->append(new SoftwareDeleteAction());
-                }
-                if (Admin::user()->can('software.track')) {
-                    $actions->append(new SoftwareTrackAction());
-                }
-                if (Admin::user()->can('software.history')) {
-                    $actions->append(new SoftwareHistoryAction());
-                }
-                if (Admin::user()->can('software.track.list')) {
-                    $tracks_route = route('software.tracks.index', ['_search_' => $this->id]);
-                    $actions->append("<a href='$tracks_route'>💿 管理归属</a>");
-                }
-            });
-
-            $grid->quickSearch('id', 'name')
-                ->placeholder('输入ID或者名称以搜索')
-                ->auto(false);
-
-            $grid->enableDialogCreate();
-            $grid->disableRowSelector();
-            $grid->disableDeleteButton();
-            $grid->disableBatchActions();
-
-            $grid->toolsWithOutline(false);
-
-            $grid->export();
-        });
     }
 
     /**
@@ -101,6 +110,65 @@ class SoftwareRecordController extends AdminController
             $show->field('updated_at');
 
             $show->disableDeleteButton();
+        });
+    }
+
+    /**
+     * Make a grid builder.
+     *
+     * @return Grid
+     */
+    protected function grid()
+    {
+        return Grid::make(new SoftwareRecord(['category', 'vendor']), function (Grid $grid) {
+            $grid->column('id');
+            $grid->column('qrcode')->qrcode(function () {
+                return base64_encode('software:' . $this->id);
+            }, 200, 200);
+            $grid->column('name');
+            $grid->column('category.name');
+            $grid->column('version');
+            $grid->column('vendor.name');
+            $grid->column('price');
+            $grid->column('purchased');
+            $grid->column('expired');
+            $grid->column('distribution')->using(Data::distribution());
+            $grid->column('counts');
+            $grid->column('', admin_trans_label('Left Counts'))->display(function () {
+                return Track::leftSoftwareCounts($this->id);
+            });
+            $grid->column('', admin_trans_label('Expiration Left Days'))->display(function () {
+                return ExpirationService::itemExpirationLeftDaysRender('software', $this->id);
+            });
+
+            $grid->actions(function (RowActions $actions) {
+                if (Admin::user()->can('software.delete')) {
+                    $actions->append(new SoftwareDeleteAction());
+                }
+                if (Admin::user()->can('software.track')) {
+                    $actions->append(new SoftwareTrackAction());
+                }
+                if (Admin::user()->can('software.history')) {
+                    $actions->append(new SoftwareHistoryAction());
+                }
+                if (Admin::user()->can('software.track.list')) {
+                    $tracks_route = route('software.tracks.index', ['_search_' => $this->id]);
+                    $actions->append("<a href='$tracks_route'>💿 管理归属</a>");
+                }
+            });
+
+            $grid->quickSearch('id', 'name')
+                ->placeholder('输入ID或者名称以搜索')
+                ->auto(false);
+
+            $grid->enableDialogCreate();
+            $grid->disableRowSelector();
+            $grid->disableDeleteButton();
+            $grid->disableBatchActions();
+
+            $grid->toolsWithOutline(false);
+
+            $grid->export();
         });
     }
 

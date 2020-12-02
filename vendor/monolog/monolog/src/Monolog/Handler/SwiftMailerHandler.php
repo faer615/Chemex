@@ -30,10 +30,10 @@ class SwiftMailerHandler extends MailHandler
     /**
      * @psalm-param Swift_Message|callable(string, array): Swift_Message $message
      *
-     * @param \Swift_Mailer $mailer The mailer to use
+     * @param \Swift_Mailer          $mailer  The mailer to use
      * @param callable|Swift_Message $message An example message for real messages, only the body will be replaced
-     * @param string|int $level The minimum logging level at which this handler will be triggered
-     * @param bool $bubble Whether the messages that are handled can bubble up the stack or not
+     * @param string|int             $level   The minimum logging level at which this handler will be triggered
+     * @param bool                   $bubble  Whether the messages that are handled can bubble up the stack or not
      */
     public function __construct(\Swift_Mailer $mailer, $message, $level = Logger::ERROR, bool $bubble = true)
     {
@@ -64,8 +64,8 @@ class SwiftMailerHandler extends MailHandler
     /**
      * Creates instance of Swift_Message to be sent
      *
-     * @param string $content formatted email body to be sent
-     * @param array $records Log records that formed the content
+     * @param  string        $content formatted email body to be sent
+     * @param  array         $records Log records that formed the content
      * @return Swift_Message
      */
     protected function buildMessage(string $content, array $records): Swift_Message

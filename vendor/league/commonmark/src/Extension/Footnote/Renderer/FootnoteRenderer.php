@@ -28,9 +28,9 @@ final class FootnoteRenderer implements BlockRendererInterface, ConfigurationAwa
     private $config;
 
     /**
-     * @param Footnote $block
+     * @param Footnote                 $block
      * @param ElementRendererInterface $htmlRenderer
-     * @param bool $inTightList
+     * @param bool                     $inTightList
      *
      * @return HtmlElement
      */

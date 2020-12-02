@@ -45,9 +45,9 @@ class ServerDumpCommand extends Command
     {
         $this->server = $server;
         $this->descriptors = $descriptors + [
-                'cli' => new CliDescriptor(new CliDumper()),
-                'html' => new HtmlDescriptor(new HtmlDumper()),
-            ];
+            'cli' => new CliDescriptor(new CliDumper()),
+            'html' => new HtmlDescriptor(new HtmlDumper()),
+        ];
 
         parent::__construct();
     }
@@ -71,7 +71,8 @@ and redirecting the output to a file:
   <info>php %command.full_name% --format="html" > dump.html</info>
 
 EOF
-            );
+            )
+        ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

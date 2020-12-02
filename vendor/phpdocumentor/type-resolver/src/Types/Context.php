@@ -48,7 +48,7 @@ final class Context
      * Initializes the new context and normalizes all passed namespaces to be in Qualified Namespace Name (QNN)
      * format (without a preceding `\`).
      *
-     * @param string $namespace The namespace where this DocBlock resides in.
+     * @param string   $namespace        The namespace where this DocBlock resides in.
      * @param string[] $namespaceAliases List of namespace aliases => Fully Qualified Namespace.
      *
      * @psalm-param array<string, string> $namespaceAliases
@@ -77,7 +77,7 @@ final class Context
     /**
      * Returns the Qualified Namespace Name (thus without `\` in front) where the associated element is in.
      */
-    public function getNamespace(): string
+    public function getNamespace() : string
     {
         return $this->namespace;
     }
@@ -90,7 +90,7 @@ final class Context
      *
      * @psalm-return array<string, string>
      */
-    public function getNamespaceAliases(): array
+    public function getNamespaceAliases() : array
     {
         return $this->namespaceAliases;
     }

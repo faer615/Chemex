@@ -226,7 +226,7 @@ final class LazyUuidFromString implements UuidInterface
 
     public function equals(?object $other): bool
     {
-        if (!$other instanceof UuidInterface) {
+        if (! $other instanceof UuidInterface) {
             return false;
         }
 
@@ -242,7 +242,7 @@ final class LazyUuidFromString implements UuidInterface
      */
     public function getBytes(): string
     {
-        return (string)hex2bin(str_replace('-', '', $this->uuid));
+        return (string) hex2bin(str_replace('-', '', $this->uuid));
     }
 
     public function getFields(): FieldsInterface
@@ -497,7 +497,7 @@ final class LazyUuidFromString implements UuidInterface
     public function getTimestamp(): string
     {
         $instance = ($this->unwrapped ?? $this->unwrap());
-        $fields = $instance->getFields();
+        $fields   = $instance->getFields();
 
         if ($fields->getVersion() !== 1) {
             throw new UnsupportedOperationException('Not a time-based UUID');

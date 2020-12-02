@@ -27,7 +27,7 @@ class ConsoleSectionOutput extends StreamOutput
     private $terminal;
 
     /**
-     * @param resource $stream
+     * @param resource               $stream
      * @param ConsoleSectionOutput[] $sections
      */
     public function __construct($stream, array &$sections, int $verbosity, bool $decorated, OutputFormatterInterface $formatter)

@@ -48,12 +48,12 @@ final class RegexHelper
     public const PARTIAL_DECLARATION = '<![A-Z]+' . '\s+[^>]*>';
     public const PARTIAL_CDATA = '<!\[CDATA\[[\s\S]*?]\]>';
     public const PARTIAL_HTMLTAG = '(?:' . self::PARTIAL_OPENTAG . '|' . self::PARTIAL_CLOSETAG . '|' . self::PARTIAL_HTMLCOMMENT . '|' .
-    self::PARTIAL_PROCESSINGINSTRUCTION . '|' . self::PARTIAL_DECLARATION . '|' . self::PARTIAL_CDATA . ')';
+        self::PARTIAL_PROCESSINGINSTRUCTION . '|' . self::PARTIAL_DECLARATION . '|' . self::PARTIAL_CDATA . ')';
     public const PARTIAL_HTMLBLOCKOPEN = '<(?:' . self::PARTIAL_BLOCKTAGNAME . '(?:[\s\/>]|$)' . '|' .
-    '\/' . self::PARTIAL_BLOCKTAGNAME . '(?:[\s>]|$)' . '|' . '[?!])';
+        '\/' . self::PARTIAL_BLOCKTAGNAME . '(?:[\s>]|$)' . '|' . '[?!])';
     public const PARTIAL_LINK_TITLE = '^(?:"(' . self::PARTIAL_ESCAPED_CHAR . '|[^"\x00])*"' .
-    '|' . '\'(' . self::PARTIAL_ESCAPED_CHAR . '|[^\'\x00])*\'' .
-    '|' . '\((' . self::PARTIAL_ESCAPED_CHAR . '|[^()\x00])*\))';
+        '|' . '\'(' . self::PARTIAL_ESCAPED_CHAR . '|[^\'\x00])*\'' .
+        '|' . '\((' . self::PARTIAL_ESCAPED_CHAR . '|[^()\x00])*\))';
 
     public const REGEX_PUNCTUATION = '/^[\x{2000}-\x{206F}\x{2E00}-\x{2E7F}\p{Pc}\p{Pd}\p{Pe}\p{Pf}\p{Pi}\p{Po}\p{Ps}\\\\\'!"#\$%&\(\)\*\+,\-\.\\/:;<=>\?@\[\]\^_`\{\|\}~]/u';
     public const REGEX_UNSAFE_PROTOCOL = '/^javascript:|vbscript:|file:|data:/i';
@@ -76,7 +76,7 @@ final class RegexHelper
      *
      * @param string $regex
      * @param string $string
-     * @param int $offset
+     * @param int    $offset
      *
      * @return int|null Index of match, or null
      */
@@ -99,7 +99,7 @@ final class RegexHelper
      *
      * @param string $pattern
      * @param string $subject
-     * @param int $offset
+     * @param int    $offset
      *
      * @return array<string>|null
      */

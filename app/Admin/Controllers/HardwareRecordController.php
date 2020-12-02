@@ -6,10 +6,13 @@ use App\Admin\Actions\Grid\RowAction\HardwareDeleteAction;
 use App\Admin\Actions\Grid\RowAction\HardwareHistoryAction;
 use App\Admin\Actions\Grid\RowAction\HardwareTrackAction;
 use App\Admin\Actions\Grid\RowAction\MaintenanceAction;
+use App\Admin\Grid\Displayers\RowActions;
 use App\Admin\Repositories\HardwareRecord;
+use App\Models\DeviceRecord;
 use App\Models\HardwareCategory;
 use App\Models\PurchasedChannel;
 use App\Models\VendorRecord;
+use App\Services\ExpirationService;
 use App\Support\Track;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
@@ -17,6 +20,10 @@ use Dcat\Admin\Grid;
 use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Show;
 
+/**
+ * @property  DeviceRecord device
+ * @property  Int id
+ */
 class HardwareRecordController extends AdminController
 {
     /**
@@ -26,7 +33,7 @@ class HardwareRecordController extends AdminController
      */
     protected function grid()
     {
-        return Grid::make(new HardwareRecord(['category', 'vendor']), function (Grid $grid) {
+        return Grid::make(new HardwareRecord(['category', 'vendor', 'device']), function (Grid $grid) {
             $grid->column('id');
             $grid->column('qrcode')->qrcode(function () {
                 return base64_encode('hardware:' . $this->id);
@@ -40,8 +47,10 @@ class HardwareRecordController extends AdminController
             $grid->column('', admin_trans_label('Owner'))->display(function () {
                 return Track::currentHardwareTrack($this->id);
             });
-
-            $grid->actions(function (Grid\Displayers\Actions $actions) {
+            $grid->column('', admin_trans_label('Expiration Left Days'))->display(function () {
+                return ExpirationService::itemExpirationLeftDaysRender('hardware', $this->id);
+            });
+            $grid->actions(function (RowActions $actions) {
                 if (Admin::user()->can('hardware.delete')) {
                     $actions->append(new HardwareDeleteAction());
                 }
@@ -54,6 +63,9 @@ class HardwareRecordController extends AdminController
                 if (Admin::user()->can('hardware.maintenance')) {
                     $actions->append(new MaintenanceAction('hardware'));
                 }
+            });
+            $grid->column('device.name')->link(function () {
+                return route('device.records.show', $this->device['id']);
             });
 
             $grid->quickSearch('id', 'name')
@@ -80,13 +92,14 @@ class HardwareRecordController extends AdminController
      */
     protected function detail($id)
     {
-        return Show::make($id, new HardwareRecord(['category', 'vendor', 'channel']), function (Show $show) {
+        return Show::make($id, new HardwareRecord(['category', 'vendor', 'channel', 'device']), function (Show $show) {
             $show->field('id');
             $show->field('name');
             $show->field('description');
             $show->field('category.name');
             $show->field('vendor.name');
             $show->field('channel.name');
+            $show->field('device.name');
             $show->field('specification');
             $show->field('sn');
             $show->field('price');

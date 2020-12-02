@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\DB;
 
 class Install extends Command
 {
@@ -40,10 +39,7 @@ class Install extends Command
     public function handle()
     {
         $this->info('正在优化配置！');
-        Artisan::call('config:clear');
-        Artisan::call('route:clear');
-        Artisan::call('view:clear');
-        Artisan::call('cache:clear');
+        Artisan::call('optimize:clear');
         $this->info('正在设置存储系统！');
         Artisan::call('storage:link');
         $this->info('正在配置APP密钥！');
@@ -51,7 +47,8 @@ class Install extends Command
         $this->info('正在配置JWT密钥！');
         Artisan::call('jwt:secret');
         $this->info('正在初始化数据！');
-        DB::unprepared(file_get_contents(base_path('database/scripts/initData.sql')));
+        Artisan::call('db:seed --class=AdminTablesSeeder');
+        Artisan::call('chemex:reset');
         $this->info('安装完成！');
         $this->warn('用户名密码都为：admin');
         return 0;

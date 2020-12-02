@@ -27,6 +27,28 @@ use Monolog\Logger;
 class ProcessHandler extends AbstractProcessingHandler
 {
     /**
+     * Holds the process to receive data on its STDIN.
+     *
+     * @var resource|bool|null
+     */
+    private $process;
+
+    /**
+     * @var string
+     */
+    private $command;
+
+    /**
+     * @var string|null
+     */
+    private $cwd;
+
+    /**
+     * @var array
+     */
+    private $pipes = [];
+
+    /**
      * @var array
      */
     protected const DESCRIPTOR_SPEC = [
@@ -34,31 +56,13 @@ class ProcessHandler extends AbstractProcessingHandler
         1 => ['pipe', 'w'],  // STDOUT is a pipe that the child will write to
         2 => ['pipe', 'w'],  // STDERR is a pipe to catch the any errors
     ];
-    /**
-     * Holds the process to receive data on its STDIN.
-     *
-     * @var resource|bool|null
-     */
-    private $process;
-    /**
-     * @var string
-     */
-    private $command;
-    /**
-     * @var string|null
-     */
-    private $cwd;
-    /**
-     * @var array
-     */
-    private $pipes = [];
 
     /**
-     * @param string $command Command for the process to start. Absolute paths are recommended,
+     * @param  string                    $command Command for the process to start. Absolute paths are recommended,
      *                                            especially if you do not use the $cwd parameter.
-     * @param string|int $level The minimum logging level at which this handler will be triggered.
-     * @param bool $bubble Whether the messages that are handled can bubble up the stack or not.
-     * @param string|null $cwd "Current working directory" (CWD) for the process to be executed in.
+     * @param  string|int                $level   The minimum logging level at which this handler will be triggered.
+     * @param  bool                      $bubble  Whether the messages that are handled can bubble up the stack or not.
+     * @param  string|null               $cwd     "Current working directory" (CWD) for the process to be executed in.
      * @throws \InvalidArgumentException
      */
     public function __construct(string $command, $level = Logger::DEBUG, bool $bubble = true, ?string $cwd = null)
@@ -77,20 +81,6 @@ class ProcessHandler extends AbstractProcessingHandler
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function close(): void
-    {
-        if (is_resource($this->process)) {
-            foreach ($this->pipes as $pipe) {
-                fclose($pipe);
-            }
-            proc_close($this->process);
-            $this->process = null;
-        }
-    }
-
-    /**
      * Writes the record down to the log of the implementing handler
      *
      * @throws \UnexpectedValueException
@@ -105,40 +95,6 @@ class ProcessHandler extends AbstractProcessingHandler
         if (empty($errors) === false) {
             throw new \UnexpectedValueException(sprintf('Errors while writing to process: %s', $errors));
         }
-    }
-
-    /**
-     * Selects the STDERR stream.
-     *
-     * @return int|bool
-     */
-    protected function selectErrorStream()
-    {
-        $empty = [];
-        $errorPipes = [$this->pipes[2]];
-
-        return stream_select($errorPipes, $empty, $empty, 1);
-    }
-
-    /**
-     * Reads the errors of the process, if there are any.
-     *
-     * @codeCoverageIgnore
-     * @return string Empty string if there are no errors.
-     */
-    protected function readProcessErrors(): string
-    {
-        return stream_get_contents($this->pipes[2]);
-    }
-
-    /**
-     * Writes to the input stream of the opened process.
-     *
-     * @codeCoverageIgnore
-     */
-    protected function writeProcessInput(string $string): void
-    {
-        fwrite($this->pipes[0], $string);
     }
 
     /**
@@ -184,6 +140,54 @@ class ProcessHandler extends AbstractProcessingHandler
             throw new \UnexpectedValueException(
                 sprintf('The process "%s" could not be opened: ' . $errors, $this->command)
             );
+        }
+    }
+
+    /**
+     * Selects the STDERR stream.
+     *
+     * @return int|bool
+     */
+    protected function selectErrorStream()
+    {
+        $empty = [];
+        $errorPipes = [$this->pipes[2]];
+
+        return stream_select($errorPipes, $empty, $empty, 1);
+    }
+
+    /**
+     * Reads the errors of the process, if there are any.
+     *
+     * @codeCoverageIgnore
+     * @return string Empty string if there are no errors.
+     */
+    protected function readProcessErrors(): string
+    {
+        return stream_get_contents($this->pipes[2]);
+    }
+
+    /**
+     * Writes to the input stream of the opened process.
+     *
+     * @codeCoverageIgnore
+     */
+    protected function writeProcessInput(string $string): void
+    {
+        fwrite($this->pipes[0], $string);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function close(): void
+    {
+        if (is_resource($this->process)) {
+            foreach ($this->pipes as $pipe) {
+                fclose($pipe);
+            }
+            proc_close($this->process);
+            $this->process = null;
         }
     }
 }

@@ -41,11 +41,27 @@ class StrictSessionHandler extends AbstractSessionHandler
     }
 
     /**
+     * {@inheritdoc}
+     */
+    protected function doRead(string $sessionId)
+    {
+        return $this->handler->read($sessionId);
+    }
+
+    /**
      * @return bool
      */
     public function updateTimestamp($sessionId, $data)
     {
         return $this->write($sessionId, $data);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function doWrite(string $sessionId, string $data)
+    {
+        return $this->handler->write($sessionId, $data);
     }
 
     /**
@@ -57,6 +73,16 @@ class StrictSessionHandler extends AbstractSessionHandler
         $destroyed = parent::destroy($sessionId);
 
         return $this->doDestroy ? $this->doDestroy($sessionId) : $destroyed;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function doDestroy(string $sessionId)
+    {
+        $this->doDestroy = false;
+
+        return $this->handler->destroy($sessionId);
     }
 
     /**
@@ -73,31 +99,5 @@ class StrictSessionHandler extends AbstractSessionHandler
     public function gc($maxlifetime)
     {
         return $this->handler->gc($maxlifetime);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function doRead(string $sessionId)
-    {
-        return $this->handler->read($sessionId);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function doWrite(string $sessionId, string $data)
-    {
-        return $this->handler->write($sessionId, $data);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function doDestroy(string $sessionId)
-    {
-        $this->doDestroy = false;
-
-        return $this->handler->destroy($sessionId);
     }
 }

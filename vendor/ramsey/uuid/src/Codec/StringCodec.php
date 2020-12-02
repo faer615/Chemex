@@ -132,6 +132,6 @@ class StringCodec implements CodecInterface
             );
         }
 
-        return (string)hex2bin($parsedUuid);
+        return (string) hex2bin($parsedUuid);
     }
 }

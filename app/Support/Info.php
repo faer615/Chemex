@@ -39,6 +39,28 @@ class Info
             ->first();
         if (!empty($staff)) {
             return $staff->department->name;
+        } else {
+            return '无部门';
+        }
+    }
+
+    /**
+     * 设备ID换取雇员名称
+     * @param $device_id
+     * @return string
+     */
+    public static function deviceIdToStaffName($device_id)
+    {
+        $device = DeviceRecord::where('id', $device_id)->first();
+        if (empty($device)) {
+            return '设备状态异常';
+        } else {
+            $staff = $device->staff;
+            if (empty($staff)) {
+                return '闲置';
+            } else {
+                return $staff->name;
+            }
         }
     }
 

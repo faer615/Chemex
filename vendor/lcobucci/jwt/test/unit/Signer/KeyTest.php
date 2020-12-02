@@ -90,8 +90,8 @@ class KeyTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses   Lcobucci\JWT\Signer\Key::__construct
-     * @uses   Lcobucci\JWT\Signer\Key::setContent
+     * @uses Lcobucci\JWT\Signer\Key::__construct
+     * @uses Lcobucci\JWT\Signer\Key::setContent
      *
      * @covers Lcobucci\JWT\Signer\Key::getContent
      */
@@ -105,8 +105,8 @@ class KeyTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses   Lcobucci\JWT\Signer\Key::__construct
-     * @uses   Lcobucci\JWT\Signer\Key::setContent
+     * @uses Lcobucci\JWT\Signer\Key::__construct
+     * @uses Lcobucci\JWT\Signer\Key::setContent
      *
      * @covers Lcobucci\JWT\Signer\Key::getPassphrase
      */

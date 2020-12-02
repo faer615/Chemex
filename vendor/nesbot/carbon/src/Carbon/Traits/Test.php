@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Carbon\Traits;
 
 use Closure;
@@ -26,34 +25,6 @@ trait Test
      * @var static
      */
     protected static $testNow;
-
-    /**
-     * Temporarily sets a static date to be used within the callback.
-     * Using setTestNow to set the date, executing the callback, then
-     * clearing the test instance.
-     *
-     * /!\ Use this method for unit tests only.
-     *
-     * @param Closure|static|string|false|null $testNow real or mock Carbon instance
-     * @param Closure|null $callback
-     */
-    public static function withTestNow($testNow = null, $callback = null)
-    {
-        static::setTestNow($testNow);
-        $callback();
-        static::setTestNow();
-    }
-
-    /**
-     * Get the Carbon instance (real or mock) to be returned when a "now"
-     * instance is created.
-     *
-     * @return Closure|static the current instance used for testing
-     */
-    public static function getTestNow()
-    {
-        return static::$testNow;
-    }
 
     /**
      * Set a Carbon instance (real or mock) to be returned when a "now"
@@ -84,6 +55,34 @@ trait Test
     }
 
     /**
+     * Temporarily sets a static date to be used within the callback.
+     * Using setTestNow to set the date, executing the callback, then
+     * clearing the test instance.
+     *
+     * /!\ Use this method for unit tests only.
+     *
+     * @param Closure|static|string|false|null $testNow real or mock Carbon instance
+     * @param Closure|null $callback
+     */
+    public static function withTestNow($testNow = null, $callback = null)
+    {
+        static::setTestNow($testNow);
+        $callback();
+        static::setTestNow();
+    }
+
+    /**
+     * Get the Carbon instance (real or mock) to be returned when a "now"
+     * instance is created.
+     *
+     * @return Closure|static the current instance used for testing
+     */
+    public static function getTestNow()
+    {
+        return static::$testNow;
+    }
+
+    /**
      * Determine if there is a valid test instance set. A valid test instance
      * is anything that is not null.
      *
@@ -98,7 +97,7 @@ trait Test
      * Return the given timezone and set it to the test instance if not null.
      * If null, get the timezone from the test instance and return it.
      *
-     * @param string|\DateTimeZone $tz
+     * @param string|\DateTimeZone    $tz
      * @param \Carbon\CarbonInterface $testInstance
      *
      * @return string|\DateTimeZone

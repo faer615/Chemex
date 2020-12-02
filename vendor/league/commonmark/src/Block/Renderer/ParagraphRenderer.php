@@ -22,9 +22,9 @@ use League\CommonMark\HtmlElement;
 final class ParagraphRenderer implements BlockRendererInterface
 {
     /**
-     * @param Paragraph $block
+     * @param Paragraph                $block
      * @param ElementRendererInterface $htmlRenderer
-     * @param bool $inTightList
+     * @param bool                     $inTightList
      *
      * @return HtmlElement|string
      */

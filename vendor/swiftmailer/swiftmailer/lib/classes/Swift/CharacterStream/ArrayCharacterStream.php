@@ -43,24 +43,13 @@ class Swift_CharacterStream_ArrayCharacterStream implements Swift_CharacterStrea
      * Create a new CharacterStream with the given $chars, if set.
      *
      * @param Swift_CharacterReaderFactory $factory for loading validators
-     * @param string $charset used in the stream
+     * @param string                       $charset used in the stream
      */
     public function __construct(Swift_CharacterReaderFactory $factory, $charset)
     {
         self::initializeMaps();
         $this->setCharacterReaderFactory($factory);
         $this->setCharacterSet($charset);
-    }
-
-    private static function initializeMaps()
-    {
-        if (!isset(self::$charMap)) {
-            self::$charMap = [];
-            for ($byte = 0; $byte < 256; ++$byte) {
-                self::$charMap[$byte] = chr($byte);
-            }
-            self::$byteMap = array_flip(self::$charMap);
-        }
     }
 
     /**
@@ -287,5 +276,16 @@ class Swift_CharacterStream_ArrayCharacterStream implements Swift_CharacterStrea
         }
 
         return false;
+    }
+
+    private static function initializeMaps()
+    {
+        if (!isset(self::$charMap)) {
+            self::$charMap = [];
+            for ($byte = 0; $byte < 256; ++$byte) {
+                self::$charMap[$byte] = chr($byte);
+            }
+            self::$byteMap = array_flip(self::$charMap);
+        }
     }
 }

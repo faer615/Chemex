@@ -61,8 +61,8 @@ class FileProfilerStorage implements ProfilerStorageInterface
         $result = [];
         while (\count($result) < $limit && $line = $this->readLineFromFile($file)) {
             $values = str_getcsv($line);
-            list($csvToken, $csvIp, $csvMethod, $csvUrl, $csvTime, $csvParent, $csvStatusCode) = $values;
-            $csvTime = (int)$csvTime;
+            [$csvToken, $csvIp, $csvMethod, $csvUrl, $csvTime, $csvParent, $csvStatusCode] = $values;
+            $csvTime = (int) $csvTime;
 
             if ($ip && false === strpos($csvIp, $ip) || $url && false === strpos($csvUrl, $url) || $method && false === strpos($csvMethod, $method) || $statusCode && false === strpos($csvStatusCode, $statusCode)) {
                 continue;
@@ -120,7 +120,7 @@ class FileProfilerStorage implements ProfilerStorageInterface
         }
 
         if (\function_exists('gzcompress')) {
-            $file = 'compress.zlib://' . $file;
+            $file = 'compress.zlib://'.$file;
         }
 
         return $this->createProfileFromData($token, unserialize(file_get_contents($file)));
@@ -168,7 +168,7 @@ class FileProfilerStorage implements ProfilerStorageInterface
         $context = stream_context_create();
 
         if (\function_exists('gzcompress')) {
-            $file = 'compress.zlib://' . $file;
+            $file = 'compress.zlib://'.$file;
             stream_context_set_option($context, 'zlib', 'level', 3);
         }
 
@@ -208,7 +208,7 @@ class FileProfilerStorage implements ProfilerStorageInterface
         $folderA = substr($token, -2, 2);
         $folderB = substr($token, -4, 2);
 
-        return $this->folder . '/' . $folderA . '/' . $folderB . '/' . $token;
+        return $this->folder.'/'.$folderA.'/'.$folderB.'/'.$token;
     }
 
     /**
@@ -218,7 +218,7 @@ class FileProfilerStorage implements ProfilerStorageInterface
      */
     protected function getIndexFilename()
     {
-        return $this->folder . '/index.csv';
+        return $this->folder.'/index.csv';
     }
 
     /**
@@ -252,12 +252,12 @@ class FileProfilerStorage implements ProfilerStorageInterface
             $buffer = fread($file, $chunkSize);
 
             if (false === ($upTo = strrpos($buffer, "\n"))) {
-                $line = $buffer . $line;
+                $line = $buffer.$line;
                 continue;
             }
 
             $position += $upTo;
-            $line = substr($buffer, $upTo + 1) . $line;
+            $line = substr($buffer, $upTo + 1).$line;
             fseek($file, max(0, $position), \SEEK_SET);
 
             if ('' !== $line) {
@@ -292,7 +292,7 @@ class FileProfilerStorage implements ProfilerStorageInterface
             }
 
             if (\function_exists('gzcompress')) {
-                $file = 'compress.zlib://' . $file;
+                $file = 'compress.zlib://'.$file;
             }
 
             $profile->addChild($this->createProfileFromData($token, unserialize(file_get_contents($file)), $profile));

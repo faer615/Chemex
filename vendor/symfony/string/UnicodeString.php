@@ -44,7 +44,7 @@ class UnicodeString extends AbstractUnicodeString
     public function append(string ...$suffix): AbstractString
     {
         $str = clone $this;
-        $str->string = $this->string . (1 >= \count($suffix) ? ($suffix[0] ?? '') : implode('', $suffix));
+        $str->string = $this->string.(1 >= \count($suffix) ? ($suffix[0] ?? '') : implode('', $suffix));
         normalizer_is_normalized($str->string) ?: $str->string = normalizer_normalize($str->string);
 
         if (false === $str->string) {
@@ -69,7 +69,7 @@ class UnicodeString extends AbstractUnicodeString
             $rx .= '\X{65535}';
             $length -= 65535;
         }
-        $rx .= '\X{' . $length . '})/u';
+        $rx .= '\X{'.$length.'})/u';
 
         $str = clone $this;
         $chunks = [];
@@ -89,7 +89,7 @@ class UnicodeString extends AbstractUnicodeString
         } elseif (\is_array($suffix) || $suffix instanceof \Traversable) {
             return parent::endsWith($suffix);
         } else {
-            $suffix = (string)$suffix;
+            $suffix = (string) $suffix;
         }
 
         $form = null === $this->ignoreCase ? \Normalizer::NFD : \Normalizer::NFC;
@@ -113,7 +113,7 @@ class UnicodeString extends AbstractUnicodeString
         } elseif (\is_array($string) || $string instanceof \Traversable) {
             return parent::equalsTo($string);
         } else {
-            $string = (string)$string;
+            $string = (string) $string;
         }
 
         $form = null === $this->ignoreCase ? \Normalizer::NFD : \Normalizer::NFC;
@@ -133,7 +133,7 @@ class UnicodeString extends AbstractUnicodeString
         } elseif (\is_array($needle) || $needle instanceof \Traversable) {
             return parent::indexOf($needle, $offset);
         } else {
-            $needle = (string)$needle;
+            $needle = (string) $needle;
         }
 
         $form = null === $this->ignoreCase ? \Normalizer::NFD : \Normalizer::NFC;
@@ -159,7 +159,7 @@ class UnicodeString extends AbstractUnicodeString
         } elseif (\is_array($needle) || $needle instanceof \Traversable) {
             return parent::indexOfLast($needle, $offset);
         } else {
-            $needle = (string)$needle;
+            $needle = (string) $needle;
         }
 
         $form = null === $this->ignoreCase ? \Normalizer::NFD : \Normalizer::NFC;
@@ -219,7 +219,7 @@ class UnicodeString extends AbstractUnicodeString
     public function prepend(string ...$prefix): AbstractString
     {
         $str = clone $this;
-        $str->string = (1 >= \count($prefix) ? ($prefix[0] ?? '') : implode('', $prefix)) . $this->string;
+        $str->string = (1 >= \count($prefix) ? ($prefix[0] ?? '') : implode('', $prefix)).$this->string;
         normalizer_is_normalized($str->string) ?: $str->string = normalizer_normalize($str->string);
 
         if (false === $str->string) {
@@ -241,11 +241,11 @@ class UnicodeString extends AbstractUnicodeString
 
             while ('' !== $tail && false !== $i = $indexOf($tail, $from)) {
                 $slice = grapheme_substr($tail, 0, $i);
-                $result .= $slice . $to;
+                $result .= $slice.$to;
                 $tail = substr($tail, \strlen($slice) + \strlen($from));
             }
 
-            $str->string = $result . $tail;
+            $str->string = $result.$tail;
             normalizer_is_normalized($str->string) ?: $str->string = normalizer_normalize($str->string);
 
             if (false === $str->string) {
@@ -271,7 +271,7 @@ class UnicodeString extends AbstractUnicodeString
         if (\PHP_VERSION_ID < 80000 && 0 > $start && grapheme_strlen($this->string) < -$start) {
             $start = 0;
         }
-        $str->string = (string)grapheme_substr($this->string, $start, $length ?? 2147483647);
+        $str->string = (string) grapheme_substr($this->string, $start, $length ?? 2147483647);
 
         return $str;
     }
@@ -306,7 +306,7 @@ class UnicodeString extends AbstractUnicodeString
         }
 
         if (null !== $flags) {
-            return parent::split($delimiter . 'u', $limit, $flags);
+            return parent::split($delimiter.'u', $limit, $flags);
         }
 
         normalizer_is_normalized($delimiter) ?: $delimiter = normalizer_normalize($delimiter);
@@ -340,7 +340,7 @@ class UnicodeString extends AbstractUnicodeString
         } elseif (\is_array($prefix) || $prefix instanceof \Traversable) {
             return parent::startsWith($prefix);
         } else {
-            $prefix = (string)$prefix;
+            $prefix = (string) $prefix;
         }
 
         $form = null === $this->ignoreCase ? \Normalizer::NFD : \Normalizer::NFC;

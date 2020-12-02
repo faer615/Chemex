@@ -43,6 +43,16 @@ final class DelimiterStack
         $this->top = $newDelimiter;
     }
 
+    private function findEarliest(DelimiterInterface $stackBottom = null): ?DelimiterInterface
+    {
+        $delimiter = $this->top;
+        while ($delimiter !== null && $delimiter->getPrevious() !== $stackBottom) {
+            $delimiter = $delimiter->getPrevious();
+        }
+
+        return $delimiter;
+    }
+
     /**
      * @param DelimiterInterface $delimiter
      *
@@ -59,6 +69,22 @@ final class DelimiterStack
             $this->top = $delimiter->getPrevious();
         } else {
             $delimiter->getNext()->setPrevious($delimiter->getPrevious());
+        }
+    }
+
+    private function removeDelimiterAndNode(DelimiterInterface $delimiter): void
+    {
+        $delimiter->getInlineNode()->detach();
+        $this->removeDelimiter($delimiter);
+    }
+
+    private function removeDelimitersBetween(DelimiterInterface $opener, DelimiterInterface $closer): void
+    {
+        $delimiter = $closer->getPrevious();
+        while ($delimiter !== null && $delimiter !== $opener) {
+            $previous = $delimiter->getPrevious();
+            $this->removeDelimiter($delimiter);
+            $delimiter = $previous;
         }
     }
 
@@ -114,7 +140,7 @@ final class DelimiterStack
     }
 
     /**
-     * @param DelimiterInterface|null $stackBottom
+     * @param DelimiterInterface|null      $stackBottom
      * @param DelimiterProcessorCollection $processors
      *
      * @return void
@@ -204,31 +230,5 @@ final class DelimiterStack
 
         // Remove all delimiters
         $this->removeAll($stackBottom);
-    }
-
-    private function findEarliest(DelimiterInterface $stackBottom = null): ?DelimiterInterface
-    {
-        $delimiter = $this->top;
-        while ($delimiter !== null && $delimiter->getPrevious() !== $stackBottom) {
-            $delimiter = $delimiter->getPrevious();
-        }
-
-        return $delimiter;
-    }
-
-    private function removeDelimiterAndNode(DelimiterInterface $delimiter): void
-    {
-        $delimiter->getInlineNode()->detach();
-        $this->removeDelimiter($delimiter);
-    }
-
-    private function removeDelimitersBetween(DelimiterInterface $opener, DelimiterInterface $closer): void
-    {
-        $delimiter = $closer->getPrevious();
-        while ($delimiter !== null && $delimiter !== $opener) {
-            $previous = $delimiter->getPrevious();
-            $this->removeDelimiter($delimiter);
-            $delimiter = $previous;
-        }
     }
 }

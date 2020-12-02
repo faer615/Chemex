@@ -38,6 +38,6 @@ class DefaultNameGenerator implements NameGeneratorInterface
             ));
         }
 
-        return (string)$bytes;
+        return (string) $bytes;
     }
 }

@@ -19,6 +19,23 @@ final class EmailAutolinkProcessor
 {
     const REGEX = '/([A-Za-z0-9.\-_+]+@[A-Za-z0-9\-_]+\.[A-Za-z0-9\-_.]+)/';
 
+    /**
+     * @param DocumentParsedEvent $e
+     *
+     * @return void
+     */
+    public function __invoke(DocumentParsedEvent $e)
+    {
+        $walker = $e->getDocument()->walker();
+
+        while ($event = $walker->next()) {
+            $node = $event->getNode();
+            if ($node instanceof Text && !($node->parent() instanceof Link)) {
+                self::processAutolinks($node);
+            }
+        }
+    }
+
     private static function processAutolinks(Text $node): void
     {
         $contents = \preg_split(self::REGEX, $node->getContent(), -1, PREG_SPLIT_DELIM_CAPTURE);
@@ -57,22 +74,5 @@ final class EmailAutolinkProcessor
         }
 
         $node->detach();
-    }
-
-    /**
-     * @param DocumentParsedEvent $e
-     *
-     * @return void
-     */
-    public function __invoke(DocumentParsedEvent $e)
-    {
-        $walker = $e->getDocument()->walker();
-
-        while ($event = $walker->next()) {
-            $node = $event->getNode();
-            if ($node instanceof Text && !($node->parent() instanceof Link)) {
-                self::processAutolinks($node);
-            }
-        }
     }
 }

@@ -2,10 +2,7 @@
     "name": "symfony/var-dumper",
     "type": "library",
     "description": "Symfony mechanism for exploring and dumping PHP variables",
-    "keywords": [
-        "dump",
-        "debug"
-    ],
+    "keywords": ["dump", "debug"],
     "homepage": "https://symfony.com",
     "license": "MIT",
     "authors": [
@@ -39,12 +36,8 @@
         "symfony/console": "To use the ServerDumpCommand and/or the bin/var-dump-server script"
     },
     "autoload": {
-        "files": [
-            "Resources/functions/dump.php"
-        ],
-        "psr-4": {
-            "Symfony\\Component\\VarDumper\\": ""
-        },
+        "files": [ "Resources/functions/dump.php" ],
+        "psr-4": { "Symfony\\Component\\VarDumper\\": "" },
         "exclude-from-classmap": [
             "/Tests/"
         ]

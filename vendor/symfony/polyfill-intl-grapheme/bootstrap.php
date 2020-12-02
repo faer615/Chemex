@@ -26,56 +26,29 @@ if (!defined('GRAPHEME_EXTR_MAXCHARS')) {
 }
 
 if (!function_exists('grapheme_extract')) {
-    function grapheme_extract($haystack, $size, $extract_type = 0, $start = 0, &$next = 0)
-    {
-        return p\Grapheme::grapheme_extract($haystack, $size, $extract_type, $start, $next);
-    }
+    function grapheme_extract($haystack, $size, $extract_type = 0, $start = 0, &$next = 0) { return p\Grapheme::grapheme_extract($haystack, $size, $extract_type, $start, $next); }
 }
 if (!function_exists('grapheme_stripos')) {
-    function grapheme_stripos($haystack, $needle, $offset = 0)
-    {
-        return p\Grapheme::grapheme_stripos($haystack, $needle, $offset);
-    }
+    function grapheme_stripos($haystack, $needle, $offset = 0) { return p\Grapheme::grapheme_stripos($haystack, $needle, $offset); }
 }
 if (!function_exists('grapheme_stristr')) {
-    function grapheme_stristr($haystack, $needle, $before_needle = false)
-    {
-        return p\Grapheme::grapheme_stristr($haystack, $needle, $before_needle);
-    }
+    function grapheme_stristr($haystack, $needle, $before_needle = false) { return p\Grapheme::grapheme_stristr($haystack, $needle, $before_needle); }
 }
 if (!function_exists('grapheme_strlen')) {
-    function grapheme_strlen($input)
-    {
-        return p\Grapheme::grapheme_strlen($input);
-    }
+    function grapheme_strlen($input) { return p\Grapheme::grapheme_strlen($input); }
 }
 if (!function_exists('grapheme_strpos')) {
-    function grapheme_strpos($haystack, $needle, $offset = 0)
-    {
-        return p\Grapheme::grapheme_strpos($haystack, $needle, $offset);
-    }
+    function grapheme_strpos($haystack, $needle, $offset = 0) { return p\Grapheme::grapheme_strpos($haystack, $needle, $offset); }
 }
 if (!function_exists('grapheme_strripos')) {
-    function grapheme_strripos($haystack, $needle, $offset = 0)
-    {
-        return p\Grapheme::grapheme_strripos($haystack, $needle, $offset);
-    }
+    function grapheme_strripos($haystack, $needle, $offset = 0) { return p\Grapheme::grapheme_strripos($haystack, $needle, $offset); }
 }
 if (!function_exists('grapheme_strrpos')) {
-    function grapheme_strrpos($haystack, $needle, $offset = 0)
-    {
-        return p\Grapheme::grapheme_strrpos($haystack, $needle, $offset);
-    }
+    function grapheme_strrpos($haystack, $needle, $offset = 0) { return p\Grapheme::grapheme_strrpos($haystack, $needle, $offset); }
 }
 if (!function_exists('grapheme_strstr')) {
-    function grapheme_strstr($haystack, $needle, $before_needle = false)
-    {
-        return p\Grapheme::grapheme_strstr($haystack, $needle, $before_needle);
-    }
+    function grapheme_strstr($haystack, $needle, $before_needle = false) { return p\Grapheme::grapheme_strstr($haystack, $needle, $before_needle); }
 }
 if (!function_exists('grapheme_substr')) {
-    function grapheme_substr($string, $start, $length = null)
-    {
-        return p\Grapheme::grapheme_substr($string, $start, $length);
-    }
+    function grapheme_substr($string, $start, $length = null) { return p\Grapheme::grapheme_substr($string, $start, $length); }
 }

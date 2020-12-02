@@ -19,9 +19,25 @@ class HmacTest extends \PHPUnit\Framework\TestCase
     protected $signer;
 
     /**
+     * {@inheritdoc}
+     */
+    protected function setUp()
+    {
+        $this->signer = $this->getMockForAbstractClass(Hmac::class);
+
+        $this->signer->expects($this->any())
+                     ->method('getAlgorithmId')
+                     ->willReturn('TEST123');
+
+        $this->signer->expects($this->any())
+                     ->method('getAlgorithm')
+                     ->willReturn('sha256');
+    }
+
+    /**
      * @test
      *
-     * @uses   Lcobucci\JWT\Signer\Key
+     * @uses Lcobucci\JWT\Signer\Key
      *
      * @covers Lcobucci\JWT\Signer\Hmac::createHash
      */
@@ -39,10 +55,10 @@ class HmacTest extends \PHPUnit\Framework\TestCase
      *
      * @depends createHashMustReturnAHashAccordingWithTheAlgorithm
      *
-     * @uses    Lcobucci\JWT\Signer\Hmac::createHash
-     * @uses    Lcobucci\JWT\Signer\Key
+     * @uses Lcobucci\JWT\Signer\Hmac::createHash
+     * @uses Lcobucci\JWT\Signer\Key
      *
-     * @covers  Lcobucci\JWT\Signer\Hmac::doVerify
+     * @covers Lcobucci\JWT\Signer\Hmac::doVerify
      */
     public function doVerifyShouldReturnTrueWhenExpectedHashWasCreatedWithSameInformation($expected)
     {
@@ -54,10 +70,10 @@ class HmacTest extends \PHPUnit\Framework\TestCase
      *
      * @depends createHashMustReturnAHashAccordingWithTheAlgorithm
      *
-     * @uses    Lcobucci\JWT\Signer\Hmac::createHash
-     * @uses    Lcobucci\JWT\Signer\Key
+     * @uses Lcobucci\JWT\Signer\Hmac::createHash
+     * @uses Lcobucci\JWT\Signer\Key
      *
-     * @covers  Lcobucci\JWT\Signer\Hmac::doVerify
+     * @covers Lcobucci\JWT\Signer\Hmac::doVerify
      */
     public function doVerifyShouldReturnFalseWhenExpectedHashWasNotCreatedWithSameInformation($expected)
     {
@@ -67,7 +83,7 @@ class HmacTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses   Lcobucci\JWT\Signer\Key
+     * @uses Lcobucci\JWT\Signer\Key
      *
      * @covers Lcobucci\JWT\Signer\Hmac::doVerify
      */
@@ -91,10 +107,10 @@ class HmacTest extends \PHPUnit\Framework\TestCase
      *
      * @depends createHashMustReturnAHashAccordingWithTheAlgorithm
      *
-     * @uses    Lcobucci\JWT\Signer\Hmac::createHash
-     * @uses    Lcobucci\JWT\Signer\Key
+     * @uses Lcobucci\JWT\Signer\Hmac::createHash
+     * @uses Lcobucci\JWT\Signer\Key
      *
-     * @covers  Lcobucci\JWT\Signer\Hmac::hashEquals
+     * @covers Lcobucci\JWT\Signer\Hmac::hashEquals
      */
     public function hashEqualsShouldReturnFalseWhenExpectedHashIsDifferentThanGenerated($expected)
     {
@@ -106,29 +122,13 @@ class HmacTest extends \PHPUnit\Framework\TestCase
      *
      * @depends createHashMustReturnAHashAccordingWithTheAlgorithm
      *
-     * @uses    Lcobucci\JWT\Signer\Hmac::createHash
-     * @uses    Lcobucci\JWT\Signer\Key
+     * @uses Lcobucci\JWT\Signer\Hmac::createHash
+     * @uses Lcobucci\JWT\Signer\Key
      *
-     * @covers  Lcobucci\JWT\Signer\Hmac::hashEquals
+     * @covers Lcobucci\JWT\Signer\Hmac::hashEquals
      */
     public function hashEqualsShouldReturnTrueWhenExpectedHashIsEqualsThanGenerated($expected)
     {
         $this->assertTrue($this->signer->hashEquals($expected, $this->signer->createHash('test', new Key('123'))));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function setUp()
-    {
-        $this->signer = $this->getMockForAbstractClass(Hmac::class);
-
-        $this->signer->expects($this->any())
-            ->method('getAlgorithmId')
-            ->willReturn('TEST123');
-
-        $this->signer->expects($this->any())
-            ->method('getAlgorithm')
-            ->willReturn('sha256');
     }
 }

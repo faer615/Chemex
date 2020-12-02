@@ -95,7 +95,7 @@ class ArrayCollection implements \IteratorAggregate, \Countable, \ArrayAccess
 
     /**
      * @param int|string $key
-     * @param mixed $value
+     * @param mixed      $value
      *
      * @return void
      *
@@ -258,7 +258,7 @@ class ArrayCollection implements \IteratorAggregate, \Countable, \ArrayAccess
      * Offset to set
      *
      * @param int|string|null $offset The offset to assign the value to.
-     * @param mixed $value The value to set.
+     * @param mixed           $value  The value to set.
      *
      * @return void
      *
@@ -295,7 +295,7 @@ class ArrayCollection implements \IteratorAggregate, \Countable, \ArrayAccess
     /**
      * Returns a subset of the array
      *
-     * @param int $offset
+     * @param int      $offset
      * @param int|null $length
      *
      * @return array<int|string, mixed>
@@ -336,9 +336,9 @@ class ArrayCollection implements \IteratorAggregate, \Countable, \ArrayAccess
     }
 
     /**
-     * @return void
      * @deprecated
      *
+     * @return void
      */
     public function removeGaps()
     {

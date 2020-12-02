@@ -35,40 +35,48 @@ class Table
     private const SEPARATOR_BOTTOM = 3;
     private const BORDER_OUTSIDE = 0;
     private const BORDER_INSIDE = 1;
-    private static $styles;
+
     private $headerTitle;
     private $footerTitle;
+
     /**
      * Table headers.
      */
     private $headers = [];
+
     /**
      * Table rows.
      */
     private $rows = [];
     private $horizontal = false;
+
     /**
      * Column widths cache.
      */
     private $effectiveColumnWidths = [];
+
     /**
      * Number of columns cache.
      *
      * @var int
      */
     private $numberOfColumns;
+
     /**
      * @var OutputInterface
      */
     private $output;
+
     /**
      * @var TableStyle
      */
     private $style;
+
     /**
      * @var array
      */
     private $columnStyles = [];
+
     /**
      * User set column widths.
      *
@@ -76,6 +84,9 @@ class Table
      */
     private $columnWidths = [];
     private $columnMaxWidths = [];
+
+    private static $styles;
+
     private $rendered = false;
 
     public function __construct(OutputInterface $output)
@@ -119,58 +130,6 @@ class Table
         throw new InvalidArgumentException(sprintf('Style "%s" is not defined.', $name));
     }
 
-    private static function initStyles(): array
-    {
-        $borderless = new TableStyle();
-        $borderless
-            ->setHorizontalBorderChars('=')
-            ->setVerticalBorderChars(' ')
-            ->setDefaultCrossingChar(' ');
-
-        $compact = new TableStyle();
-        $compact
-            ->setHorizontalBorderChars('')
-            ->setVerticalBorderChars(' ')
-            ->setDefaultCrossingChar('')
-            ->setCellRowContentFormat('%s');
-
-        $styleGuide = new TableStyle();
-        $styleGuide
-            ->setHorizontalBorderChars('-')
-            ->setVerticalBorderChars(' ')
-            ->setDefaultCrossingChar(' ')
-            ->setCellHeaderFormat('%s');
-
-        $box = (new TableStyle())
-            ->setHorizontalBorderChars('─')
-            ->setVerticalBorderChars('│')
-            ->setCrossingChars('┼', '┌', '┬', '┐', '┤', '┘', '┴', '└', '├');
-
-        $boxDouble = (new TableStyle())
-            ->setHorizontalBorderChars('═', '─')
-            ->setVerticalBorderChars('║', '│')
-            ->setCrossingChars('┼', '╔', '╤', '╗', '╢', '╝', '╧', '╚', '╟', '╠', '╪', '╣');
-
-        return [
-            'default' => new TableStyle(),
-            'borderless' => $borderless,
-            'compact' => $compact,
-            'symfony-style-guide' => $styleGuide,
-            'box' => $box,
-            'box-double' => $boxDouble,
-        ];
-    }
-
-    /**
-     * Gets the current table style.
-     *
-     * @return TableStyle
-     */
-    public function getStyle()
-    {
-        return $this->style;
-    }
-
     /**
      * Sets table style.
      *
@@ -183,6 +142,16 @@ class Table
         $this->style = $this->resolveStyle($name);
 
         return $this;
+    }
+
+    /**
+     * Gets the current table style.
+     *
+     * @return TableStyle
+     */
+    public function getStyle()
+    {
+        return $this->style;
     }
 
     /**
@@ -449,13 +418,13 @@ class Table
 
         $crossings = $this->style->getCrossingChars();
         if (self::SEPARATOR_MID === $type) {
-            list($horizontal, $leftChar, $midChar, $rightChar) = [$borders[2], $crossings[8], $crossings[0], $crossings[4]];
+            [$horizontal, $leftChar, $midChar, $rightChar] = [$borders[2], $crossings[8], $crossings[0], $crossings[4]];
         } elseif (self::SEPARATOR_TOP === $type) {
-            list($horizontal, $leftChar, $midChar, $rightChar) = [$borders[0], $crossings[1], $crossings[2], $crossings[3]];
+            [$horizontal, $leftChar, $midChar, $rightChar] = [$borders[0], $crossings[1], $crossings[2], $crossings[3]];
         } elseif (self::SEPARATOR_TOP_BOTTOM === $type) {
-            list($horizontal, $leftChar, $midChar, $rightChar) = [$borders[0], $crossings[9], $crossings[10], $crossings[11]];
+            [$horizontal, $leftChar, $midChar, $rightChar] = [$borders[0], $crossings[9], $crossings[10], $crossings[11]];
         } else {
-            list($horizontal, $leftChar, $midChar, $rightChar) = [$borders[0], $crossings[7], $crossings[6], $crossings[5]];
+            [$horizontal, $leftChar, $midChar, $rightChar] = [$borders[0], $crossings[7], $crossings[6], $crossings[5]];
         }
 
         $markup = $leftChar;
@@ -470,14 +439,14 @@ class Table
             if ($titleLength > $limit = $markupLength - 4) {
                 $titleLength = $limit;
                 $formatLength = Helper::strlenWithoutDecoration($formatter, sprintf($titleFormat, ''));
-                $formattedTitle = sprintf($titleFormat, Helper::substr($title, 0, $limit - $formatLength - 3) . '...');
+                $formattedTitle = sprintf($titleFormat, Helper::substr($title, 0, $limit - $formatLength - 3).'...');
             }
 
             $titleStart = ($markupLength - $titleLength) / 2;
             if (false === mb_detect_encoding($markup, null, true)) {
                 $markup = substr_replace($markup, $formattedTitle, $titleStart, $titleLength);
             } else {
-                $markup = mb_substr($markup, 0, $titleStart) . $formattedTitle . mb_substr($markup, $titleStart + $titleLength);
+                $markup = mb_substr($markup, 0, $titleStart).$formattedTitle.mb_substr($markup, $titleStart + $titleLength);
             }
         }
 
@@ -807,6 +776,53 @@ class Table
     {
         $this->effectiveColumnWidths = [];
         $this->numberOfColumns = null;
+    }
+
+    private static function initStyles(): array
+    {
+        $borderless = new TableStyle();
+        $borderless
+            ->setHorizontalBorderChars('=')
+            ->setVerticalBorderChars(' ')
+            ->setDefaultCrossingChar(' ')
+        ;
+
+        $compact = new TableStyle();
+        $compact
+            ->setHorizontalBorderChars('')
+            ->setVerticalBorderChars(' ')
+            ->setDefaultCrossingChar('')
+            ->setCellRowContentFormat('%s')
+        ;
+
+        $styleGuide = new TableStyle();
+        $styleGuide
+            ->setHorizontalBorderChars('-')
+            ->setVerticalBorderChars(' ')
+            ->setDefaultCrossingChar(' ')
+            ->setCellHeaderFormat('%s')
+        ;
+
+        $box = (new TableStyle())
+            ->setHorizontalBorderChars('─')
+            ->setVerticalBorderChars('│')
+            ->setCrossingChars('┼', '┌', '┬', '┐', '┤', '┘', '┴', '└', '├')
+        ;
+
+        $boxDouble = (new TableStyle())
+            ->setHorizontalBorderChars('═', '─')
+            ->setVerticalBorderChars('║', '│')
+            ->setCrossingChars('┼', '╔', '╤', '╗', '╢', '╝', '╧', '╚', '╟', '╠', '╪', '╣')
+        ;
+
+        return [
+            'default' => new TableStyle(),
+            'borderless' => $borderless,
+            'compact' => $compact,
+            'symfony-style-guide' => $styleGuide,
+            'box' => $box,
+            'box-double' => $boxDouble,
+        ];
     }
 
     private function resolveStyle($name): TableStyle

@@ -25,22 +25,24 @@ class SyslogUdpHandler extends AbstractSyslogHandler
 {
     const RFC3164 = 0;
     const RFC5424 = 1;
-    protected $socket;
-    protected $ident;
-    protected $rfc;
+
     private $dateFormats = array(
         self::RFC3164 => 'M d H:i:s',
         self::RFC5424 => \DateTime::RFC3339,
     );
 
+    protected $socket;
+    protected $ident;
+    protected $rfc;
+
     /**
-     * @param string $host
-     * @param int $port
+     * @param string     $host
+     * @param int        $port
      * @param string|int $facility Either one of the names of the keys in $this->facilities, or a LOG_* facility constant
-     * @param string|int $level The minimum logging level at which this handler will be triggered
-     * @param bool $bubble Whether the messages that are handled can bubble up the stack or not
-     * @param string $ident Program name or tag for each log message.
-     * @param int $rfc RFC to format the message for.
+     * @param string|int $level    The minimum logging level at which this handler will be triggered
+     * @param bool       $bubble   Whether the messages that are handled can bubble up the stack or not
+     * @param string     $ident    Program name or tag for each log message.
+     * @param int        $rfc      RFC to format the message for.
      */
     public function __construct(string $host, int $port = 514, $facility = LOG_USER, $level = Logger::DEBUG, bool $bubble = true, string $ident = 'php', int $rfc = self::RFC5424)
     {
@@ -52,21 +54,6 @@ class SyslogUdpHandler extends AbstractSyslogHandler
         $this->socket = new UdpSocket($host, $port ?: 514);
     }
 
-    public function close(): void
-    {
-        $this->socket->close();
-    }
-
-    /**
-     * Inject your own socket, mainly used for testing
-     */
-    public function setSocket(UdpSocket $socket): self
-    {
-        $this->socket = $socket;
-
-        return $this;
-    }
-
     protected function write(array $record): void
     {
         $lines = $this->splitMessageIntoLines($record['formatted']);
@@ -76,6 +63,20 @@ class SyslogUdpHandler extends AbstractSyslogHandler
         foreach ($lines as $line) {
             $this->socket->write($line, $header);
         }
+    }
+
+    public function close(): void
+    {
+        $this->socket->close();
+    }
+
+    private function splitMessageIntoLines($message): array
+    {
+        if (is_array($message)) {
+            $message = implode("\n", $message);
+        }
+
+        return preg_split('/$\R?^/m', (string) $message, -1, PREG_SPLIT_NO_EMPTY);
     }
 
     /**
@@ -112,12 +113,13 @@ class SyslogUdpHandler extends AbstractSyslogHandler
         }
     }
 
-    private function splitMessageIntoLines($message): array
+    /**
+     * Inject your own socket, mainly used for testing
+     */
+    public function setSocket(UdpSocket $socket): self
     {
-        if (is_array($message)) {
-            $message = implode("\n", $message);
-        }
+        $this->socket = $socket;
 
-        return preg_split('/$\R?^/m', (string)$message, -1, PREG_SPLIT_NO_EMPTY);
+        return $this;
     }
 }

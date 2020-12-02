@@ -39,6 +39,6 @@ return [
         'service_tracks' => '服务程序归属记录',
         'service_issues' => '服务程序异常',
         'maintenance_records' => '维修记录',
-        'version' => '版本信息'
+        'version' => '版本信息',
     ],
 ];

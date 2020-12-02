@@ -50,16 +50,6 @@ abstract class AbstractSessionListener implements EventSubscriberInterface
         $this->debug = $debug;
     }
 
-    public static function getSubscribedEvents(): array
-    {
-        return [
-            KernelEvents::REQUEST => ['onKernelRequest', 128],
-            // low priority to come after regular response listeners, but higher than StreamedResponseListener
-            KernelEvents::RESPONSE => ['onKernelResponse', -1000],
-            KernelEvents::FINISH_REQUEST => ['onFinishRequest'],
-        ];
-    }
-
     public function onKernelRequest(RequestEvent $event)
     {
         if (!$event->isMasterRequest()) {
@@ -68,14 +58,9 @@ abstract class AbstractSessionListener implements EventSubscriberInterface
 
         $session = null;
         $request = $event->getRequest();
-        if ($request->hasSession()) {
-            // no-op
-        } elseif (method_exists($request, 'setSessionFactory')) {
-            $request->setSessionFactory(function () {
-                return $this->getSession();
-            });
-        } elseif ($session = $this->getSession()) {
-            $request->setSession($session);
+        if (!$request->hasSession()) {
+            $sess = null;
+            $request->setSessionFactory(function () use (&$sess) { return $sess ?? $sess = $this->getSession(); });
         }
 
         $session = $session ?? ($this->container && $this->container->has('initialized_session') ? $this->container->get('initialized_session') : null);
@@ -187,6 +172,16 @@ abstract class AbstractSessionListener implements EventSubscriberInterface
         }
 
         throw new UnexpectedSessionUsageException('Session was used while the request was declared stateless.');
+    }
+
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            KernelEvents::REQUEST => ['onKernelRequest', 128],
+            // low priority to come after regular response listeners, but higher than StreamedResponseListener
+            KernelEvents::RESPONSE => ['onKernelResponse', -1000],
+            KernelEvents::FINISH_REQUEST => ['onFinishRequest'],
+        ];
     }
 
     /**

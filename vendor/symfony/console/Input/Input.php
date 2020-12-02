@@ -56,6 +56,11 @@ abstract class Input implements InputInterface, StreamableInputInterface
     }
 
     /**
+     * Processes command line arguments.
+     */
+    abstract protected function parse();
+
+    /**
      * {@inheritdoc}
      */
     public function validate()
@@ -181,21 +186,16 @@ abstract class Input implements InputInterface, StreamableInputInterface
     /**
      * {@inheritdoc}
      */
-    public function getStream()
-    {
-        return $this->stream;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function setStream($stream)
     {
         $this->stream = $stream;
     }
 
     /**
-     * Processes command line arguments.
+     * {@inheritdoc}
      */
-    abstract protected function parse();
+    public function getStream()
+    {
+        return $this->stream;
+    }
 }

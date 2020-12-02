@@ -42,7 +42,7 @@ class SplCaster
     public static function castHeap(\Iterator $c, array $a, Stub $stub, $isNested)
     {
         $a += [
-            Caster::PREFIX_VIRTUAL . 'heap' => iterator_to_array(clone $c),
+            Caster::PREFIX_VIRTUAL.'heap' => iterator_to_array(clone $c),
         ];
 
         return $a;
@@ -55,8 +55,8 @@ class SplCaster
         $c->setIteratorMode(\SplDoublyLinkedList::IT_MODE_KEEP | $mode & ~\SplDoublyLinkedList::IT_MODE_DELETE);
 
         $a += [
-            $prefix . 'mode' => new ConstStub((($mode & \SplDoublyLinkedList::IT_MODE_LIFO) ? 'IT_MODE_LIFO' : 'IT_MODE_FIFO') . ' | ' . (($mode & \SplDoublyLinkedList::IT_MODE_DELETE) ? 'IT_MODE_DELETE' : 'IT_MODE_KEEP'), $mode),
-            $prefix . 'dllist' => iterator_to_array($c),
+            $prefix.'mode' => new ConstStub((($mode & \SplDoublyLinkedList::IT_MODE_LIFO) ? 'IT_MODE_LIFO' : 'IT_MODE_FIFO').' | '.(($mode & \SplDoublyLinkedList::IT_MODE_DELETE) ? 'IT_MODE_DELETE' : 'IT_MODE_KEEP'), $mode),
+            $prefix.'dllist' => iterator_to_array($c),
         ];
         $c->setIteratorMode($mode);
 
@@ -96,7 +96,7 @@ class SplCaster
 
         if (\PHP_VERSION_ID < 80000) {
             if (false === $c->getPathname()) {
-                $a[$prefix . '⚠'] = 'The parent constructor was not called: the object is in an invalid state';
+                $a[$prefix.'⚠'] = 'The parent constructor was not called: the object is in an invalid state';
 
                 return $a;
             }
@@ -108,7 +108,7 @@ class SplCaster
                     throw $e;
                 }
 
-                $a[$prefix . '⚠'] = 'The parent constructor was not called: the object is in an invalid state';
+                $a[$prefix.'⚠'] = 'The parent constructor was not called: the object is in an invalid state';
 
                 return $a;
             } catch (\Error $e) {
@@ -116,7 +116,7 @@ class SplCaster
                     throw $e;
                 }
 
-                $a[$prefix . '⚠'] = 'The parent constructor was not called: the object is in an invalid state';
+                $a[$prefix.'⚠'] = 'The parent constructor was not called: the object is in an invalid state';
 
                 return $a;
             }
@@ -124,23 +124,23 @@ class SplCaster
 
         foreach ($map as $key => $accessor) {
             try {
-                $a[$prefix . $key] = $c->$accessor();
+                $a[$prefix.$key] = $c->$accessor();
             } catch (\Exception $e) {
             }
         }
 
-        if (isset($a[$prefix . 'realPath'])) {
-            $a[$prefix . 'realPath'] = new LinkStub($a[$prefix . 'realPath']);
+        if (isset($a[$prefix.'realPath'])) {
+            $a[$prefix.'realPath'] = new LinkStub($a[$prefix.'realPath']);
         }
 
-        if (isset($a[$prefix . 'perms'])) {
-            $a[$prefix . 'perms'] = new ConstStub(sprintf('0%o', $a[$prefix . 'perms']), $a[$prefix . 'perms']);
+        if (isset($a[$prefix.'perms'])) {
+            $a[$prefix.'perms'] = new ConstStub(sprintf('0%o', $a[$prefix.'perms']), $a[$prefix.'perms']);
         }
 
         static $mapDate = ['aTime', 'mTime', 'cTime'];
         foreach ($mapDate as $key) {
-            if (isset($a[$prefix . $key])) {
-                $a[$prefix . $key] = new ConstStub(date('Y-m-d H:i:s', $a[$prefix . $key]), $a[$prefix . $key]);
+            if (isset($a[$prefix.$key])) {
+                $a[$prefix.$key] = new ConstStub(date('Y-m-d H:i:s', $a[$prefix.$key]), $a[$prefix.$key]);
             }
         }
 
@@ -162,23 +162,23 @@ class SplCaster
 
         foreach ($map as $key => $accessor) {
             try {
-                $a[$prefix . $key] = $c->$accessor();
+                $a[$prefix.$key] = $c->$accessor();
             } catch (\Exception $e) {
             }
         }
 
-        if (isset($a[$prefix . 'flags'])) {
+        if (isset($a[$prefix.'flags'])) {
             $flagsArray = [];
             foreach (self::$splFileObjectFlags as $value => $name) {
-                if ($a[$prefix . 'flags'] & $value) {
+                if ($a[$prefix.'flags'] & $value) {
                     $flagsArray[] = $name;
                 }
             }
-            $a[$prefix . 'flags'] = new ConstStub(implode('|', $flagsArray), $a[$prefix . 'flags']);
+            $a[$prefix.'flags'] = new ConstStub(implode('|', $flagsArray), $a[$prefix.'flags']);
         }
 
-        if (isset($a[$prefix . 'fstat'])) {
-            $a[$prefix . 'fstat'] = new CutArrayStub($a[$prefix . 'fstat'], ['dev', 'ino', 'nlink', 'rdev', 'blksize', 'blocks']);
+        if (isset($a[$prefix.'fstat'])) {
+            $a[$prefix.'fstat'] = new CutArrayStub($a[$prefix.'fstat'], ['dev', 'ino', 'nlink', 'rdev', 'blksize', 'blocks']);
         }
 
         return $a;
@@ -187,7 +187,7 @@ class SplCaster
     public static function castObjectStorage(\SplObjectStorage $c, array $a, Stub $stub, bool $isNested)
     {
         $storage = [];
-        unset($a[Caster::PREFIX_DYNAMIC . "\0gcdata"]); // Don't hit https://bugs.php.net/65967
+        unset($a[Caster::PREFIX_DYNAMIC."\0gcdata"]); // Don't hit https://bugs.php.net/65967
         unset($a["\0SplObjectStorage\0storage"]);
 
         $clone = clone $c;
@@ -195,11 +195,11 @@ class SplCaster
             $storage[] = [
                 'object' => $obj,
                 'info' => $clone->getInfo(),
-            ];
+             ];
         }
 
         $a += [
-            Caster::PREFIX_VIRTUAL . 'storage' => $storage,
+            Caster::PREFIX_VIRTUAL.'storage' => $storage,
         ];
 
         return $a;
@@ -207,14 +207,14 @@ class SplCaster
 
     public static function castOuterIterator(\OuterIterator $c, array $a, Stub $stub, bool $isNested)
     {
-        $a[Caster::PREFIX_VIRTUAL . 'innerIterator'] = $c->getInnerIterator();
+        $a[Caster::PREFIX_VIRTUAL.'innerIterator'] = $c->getInnerIterator();
 
         return $a;
     }
 
     public static function castWeakReference(\WeakReference $c, array $a, Stub $stub, bool $isNested)
     {
-        $a[Caster::PREFIX_VIRTUAL . 'object'] = $c->get();
+        $a[Caster::PREFIX_VIRTUAL.'object'] = $c->get();
 
         return $a;
     }
@@ -230,14 +230,14 @@ class SplCaster
             $c->setFlags($flags);
         }
         if (\PHP_VERSION_ID < 70400) {
-            $a[$prefix . 'storage'] = $c->getArrayCopy();
+            $a[$prefix.'storage'] = $c->getArrayCopy();
         }
         $a += [
-            $prefix . 'flag::STD_PROP_LIST' => (bool)($flags & \ArrayObject::STD_PROP_LIST),
-            $prefix . 'flag::ARRAY_AS_PROPS' => (bool)($flags & \ArrayObject::ARRAY_AS_PROPS),
+            $prefix.'flag::STD_PROP_LIST' => (bool) ($flags & \ArrayObject::STD_PROP_LIST),
+            $prefix.'flag::ARRAY_AS_PROPS' => (bool) ($flags & \ArrayObject::ARRAY_AS_PROPS),
         ];
         if ($c instanceof \ArrayObject) {
-            $a[$prefix . 'iteratorClass'] = new ClassStub($c->getIteratorClass());
+            $a[$prefix.'iteratorClass'] = new ClassStub($c->getIteratorClass());
         }
 
         return $a;

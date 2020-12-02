@@ -46,10 +46,10 @@ class ElasticaHandler extends AbstractProcessingHandler
     protected $options = [];
 
     /**
-     * @param Client $client Elastica Client object
-     * @param array $options Handler configuration
-     * @param int|string $level The minimum logging level at which this handler will be triggered
-     * @param bool $bubble Whether the messages that are handled can bubble up the stack or not
+     * @param Client     $client  Elastica Client object
+     * @param array      $options Handler configuration
+     * @param int|string $level   The minimum logging level at which this handler will be triggered
+     * @param bool       $bubble  Whether the messages that are handled can bubble up the stack or not
      */
     public function __construct(Client $client, array $options = [], $level = Logger::DEBUG, bool $bubble = true)
     {
@@ -57,12 +57,20 @@ class ElasticaHandler extends AbstractProcessingHandler
         $this->client = $client;
         $this->options = array_merge(
             [
-                'index' => 'monolog',      // Elastic index name
-                'type' => 'record',       // Elastic document type
-                'ignore_error' => false,          // Suppress Elastica exceptions
+                'index'          => 'monolog',      // Elastic index name
+                'type'           => 'record',       // Elastic document type
+                'ignore_error'   => false,          // Suppress Elastica exceptions
             ],
             $options
         );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function write(array $record): void
+    {
+        $this->bulkSend([$record['formatted']]);
     }
 
     /**
@@ -83,28 +91,20 @@ class ElasticaHandler extends AbstractProcessingHandler
     }
 
     /**
+     * {@inheritDoc}
+     */
+    protected function getDefaultFormatter(): FormatterInterface
+    {
+        return new ElasticaFormatter($this->options['index'], $this->options['type']);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function handleBatch(array $records): void
     {
         $documents = $this->getFormatter()->formatBatch($records);
         $this->bulkSend($documents);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function write(array $record): void
-    {
-        $this->bulkSend([$record['formatted']]);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function getDefaultFormatter(): FormatterInterface
-    {
-        return new ElasticaFormatter($this->options['index'], $this->options['type']);
     }
 
     /**

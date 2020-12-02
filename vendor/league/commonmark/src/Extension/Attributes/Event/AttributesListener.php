@@ -30,6 +30,43 @@ final class AttributesListener
     private const DIRECTION_PREFIX = 'prefix';
     private const DIRECTION_SUFFIX = 'suffix';
 
+    public function processDocument(DocumentParsedEvent $event): void
+    {
+        $walker = $event->getDocument()->walker();
+        while ($event = $walker->next()) {
+            $node = $event->getNode();
+            if (!$node instanceof AttributesInline && ($event->isEntering() || !$node instanceof Attributes)) {
+                continue;
+            }
+
+            [$target, $direction] = self::findTargetAndDirection($node);
+
+            if ($target instanceof AbstractBlock || $target instanceof AbstractInline) {
+                $parent = $target->parent();
+                if ($parent instanceof ListItem && $parent->parent() instanceof ListBlock && $parent->parent()->isTight()) {
+                    $target = $parent;
+                }
+
+                if ($direction === self::DIRECTION_SUFFIX) {
+                    $attributes = AttributesHelper::mergeAttributes($target, $node->getAttributes());
+                } else {
+                    $attributes = AttributesHelper::mergeAttributes($node->getAttributes(), $target);
+                }
+
+                $target->data['attributes'] = $attributes;
+            }
+
+            if ($node instanceof AbstractBlock && $node->endsWithBlankLine() && $node->next() && $node->previous()) {
+                $previous = $node->previous();
+                if ($previous instanceof AbstractBlock) {
+                    $previous->setLastLineBlank(true);
+                }
+            }
+
+            $node->detach();
+        }
+    }
+
     /**
      * @param Node $node
      *
@@ -100,42 +137,5 @@ final class AttributesListener
     private static function isAttributesNode(Node $node): bool
     {
         return $node instanceof Attributes || $node instanceof AttributesInline;
-    }
-
-    public function processDocument(DocumentParsedEvent $event): void
-    {
-        $walker = $event->getDocument()->walker();
-        while ($event = $walker->next()) {
-            $node = $event->getNode();
-            if (!$node instanceof AttributesInline && ($event->isEntering() || !$node instanceof Attributes)) {
-                continue;
-            }
-
-            [$target, $direction] = self::findTargetAndDirection($node);
-
-            if ($target instanceof AbstractBlock || $target instanceof AbstractInline) {
-                $parent = $target->parent();
-                if ($parent instanceof ListItem && $parent->parent() instanceof ListBlock && $parent->parent()->isTight()) {
-                    $target = $parent;
-                }
-
-                if ($direction === self::DIRECTION_SUFFIX) {
-                    $attributes = AttributesHelper::mergeAttributes($target, $node->getAttributes());
-                } else {
-                    $attributes = AttributesHelper::mergeAttributes($node->getAttributes(), $target);
-                }
-
-                $target->data['attributes'] = $attributes;
-            }
-
-            if ($node instanceof AbstractBlock && $node->endsWithBlankLine() && $node->next() && $node->previous()) {
-                $previous = $node->previous();
-                if ($previous instanceof AbstractBlock) {
-                    $previous->setLastLineBlank(true);
-                }
-            }
-
-            $node->detach();
-        }
     }
 }

@@ -51,9 +51,9 @@ final class HttpClientKernel implements HttpKernelInterface
             $body = $part->bodyToIterable();
         }
         $response = $this->client->request($request->getMethod(), $request->getUri(), [
-                'headers' => $headers,
-                'body' => $body,
-            ] + $request->attributes->get('http_client_options', []));
+            'headers' => $headers,
+            'body' => $body,
+        ] + $request->attributes->get('http_client_options', []));
 
         $response = new Response($response->getContent(!$catch), $response->getStatusCode(), $response->getHeaders(!$catch));
 
@@ -101,7 +101,7 @@ final class HttpClientKernel implements HttpKernelInterface
         }
         $cookies = [];
         foreach ($request->cookies->all() as $name => $value) {
-            $cookies[] = $name . '=' . $value;
+            $cookies[] = $name.'='.$value;
         }
         if ($cookies) {
             $headers['cookie'] = implode('; ', $cookies);

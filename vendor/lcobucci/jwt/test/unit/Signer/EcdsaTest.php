@@ -32,6 +32,22 @@ class EcdsaTest extends \PHPUnit\Framework\TestCase
         $this->pointsManipulator = new MultibyteStringConverter();
     }
 
+    private function getSigner()
+    {
+        $signer = $this->getMockForAbstractClass(Ecdsa::class, [$this->pointsManipulator]);
+
+        $signer->method('getAlgorithm')
+            ->willReturn(OPENSSL_ALGO_SHA256);
+
+        $signer->method('getAlgorithmId')
+            ->willReturn('ES256');
+
+        $signer->method('getKeyLength')
+            ->willReturn(64);
+
+        return $signer;
+    }
+
     /**
      * @test
      *
@@ -41,15 +57,15 @@ class EcdsaTest extends \PHPUnit\Framework\TestCase
      * @covers \Lcobucci\JWT\Signer\OpenSSL
      * @covers \Lcobucci\JWT\Signer\BaseSigner
      *
-     * @uses   \Lcobucci\JWT\Signer\Ecdsa::__construct
-     * @uses   \Lcobucci\JWT\Signer\Key
-     * @uses   \Lcobucci\JWT\Signature
+     * @uses \Lcobucci\JWT\Signer\Ecdsa::__construct
+     * @uses \Lcobucci\JWT\Signer\Key
+     * @uses \Lcobucci\JWT\Signature
      */
     public function createHashShouldReturnTheAHashBasedOnTheOpenSslSignature()
     {
         $payload = 'testing';
 
-        $signer = $this->getSigner();
+        $signer    = $this->getSigner();
         $signature = $signer->sign($payload, self::$ecdsaKeys['private']);
 
         $publicKey = openssl_pkey_get_public(self::$ecdsaKeys['public1']->getContent());
@@ -75,12 +91,12 @@ class EcdsaTest extends \PHPUnit\Framework\TestCase
      * @covers \Lcobucci\JWT\Signer\OpenSSL
      * @covers \Lcobucci\JWT\Signer\BaseSigner
      *
-     * @uses   \Lcobucci\JWT\Signer\Ecdsa::__construct
-     * @uses   \Lcobucci\JWT\Signer\Key
+     * @uses \Lcobucci\JWT\Signer\Ecdsa::__construct
+     * @uses \Lcobucci\JWT\Signer\Key
      */
     public function doVerifyShouldDelegateToEcdsaSignerUsingPublicKey()
     {
-        $payload = 'testing';
+        $payload    = 'testing';
         $privateKey = openssl_pkey_get_private(self::$ecdsaKeys['private']->getContent());
 
         self::assertInternalType('resource', $privateKey);
@@ -97,21 +113,5 @@ class EcdsaTest extends \PHPUnit\Framework\TestCase
                 self::$ecdsaKeys['public1']
             )
         );
-    }
-
-    private function getSigner()
-    {
-        $signer = $this->getMockForAbstractClass(Ecdsa::class, [$this->pointsManipulator]);
-
-        $signer->method('getAlgorithm')
-            ->willReturn(OPENSSL_ALGO_SHA256);
-
-        $signer->method('getAlgorithmId')
-            ->willReturn('ES256');
-
-        $signer->method('getKeyLength')
-            ->willReturn(64);
-
-        return $signer;
     }
 }

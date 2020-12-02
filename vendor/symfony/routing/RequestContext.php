@@ -257,7 +257,7 @@ class RequestContext
     public function setQueryString(?string $queryString)
     {
         // string cast to be fault-tolerant, accepting null
-        $this->queryString = (string)$queryString;
+        $this->queryString = (string) $queryString;
 
         return $this;
     }

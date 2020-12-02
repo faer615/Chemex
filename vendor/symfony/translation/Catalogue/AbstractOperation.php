@@ -29,6 +29,12 @@ abstract class AbstractOperation implements OperationInterface
     protected $source;
     protected $target;
     protected $result;
+
+    /**
+     * @var array|null The domains affected by this operation
+     */
+    private $domains;
+
     /**
      * This array stores 'all', 'new' and 'obsolete' messages for all valid domains.
      *
@@ -51,10 +57,6 @@ abstract class AbstractOperation implements OperationInterface
      * @var array The array that stores 'all', 'new' and 'obsolete' messages
      */
     protected $messages;
-    /**
-     * @var array|null The domains affected by this operation
-     */
-    private $domains;
 
     /**
      * @throws LogicException

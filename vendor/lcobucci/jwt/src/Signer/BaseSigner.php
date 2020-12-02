@@ -45,31 +45,6 @@ abstract class BaseSigner implements Signer
     }
 
     /**
-     * Creates a hash with the given data
-     *
-     * @param string $payload
-     * @param Key $key
-     *
-     * @return string
-     * @internal
-     *
-     */
-    abstract public function createHash($payload, Key $key);
-
-    /**
-     * Performs the signature verification
-     *
-     * @param string $expected
-     * @param string $payload
-     * @param Key $key
-     *
-     * @return boolean
-     * @internal
-     *
-     */
-    abstract public function doVerify($expected, $payload, Key $key);
-
-    /**
      * @param Key|string $key
      *
      * @return Key
@@ -82,4 +57,29 @@ abstract class BaseSigner implements Signer
 
         return $key;
     }
+
+    /**
+     * Creates a hash with the given data
+     *
+     * @internal
+     *
+     * @param string $payload
+     * @param Key $key
+     *
+     * @return string
+     */
+    abstract public function createHash($payload, Key $key);
+
+    /**
+     * Performs the signature verification
+     *
+     * @internal
+     *
+     * @param string $expected
+     * @param string $payload
+     * @param Key $key
+     *
+     * @return boolean
+     */
+    abstract public function doVerify($expected, $payload, Key $key);
 }

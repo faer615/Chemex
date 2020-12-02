@@ -68,10 +68,10 @@ class FatalError extends \Error
         }
 
         foreach ([
-                     'file' => $error['file'],
-                     'line' => $error['line'],
-                     'trace' => $trace,
-                 ] as $property => $value) {
+            'file' => $error['file'],
+            'line' => $error['line'],
+            'trace' => $trace,
+        ] as $property => $value) {
             if (null !== $value) {
                 $refl = new \ReflectionProperty(\Error::class, $property);
                 $refl->setAccessible(true);

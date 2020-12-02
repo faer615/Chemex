@@ -44,13 +44,18 @@ class DayOfMonthField extends AbstractField
      * @param int $currentMonth Current month
      * @param int $targetDay Target day of the month
      *
-     * @return \DateTime Returns the nearest date
+     * @return \DateTime|null Returns the nearest date
      */
     private static function getNearestWeekday(int $currentYear, int $currentMonth, int $targetDay): ?DateTime
     {
-        $tday = str_pad((string)$targetDay, 2, '0', STR_PAD_LEFT);
+        $tday = str_pad((string) $targetDay, 2, '0', STR_PAD_LEFT);
         $target = DateTime::createFromFormat('Y-m-d', "${currentYear}-${currentMonth}-${tday}");
-        $currentWeekday = (int)$target->format('N');
+
+        if ($target === false) {
+            return null;
+        }
+
+        $currentWeekday = (int) $target->format('N');
 
         if ($currentWeekday < 6) {
             return $target;
@@ -62,11 +67,13 @@ class DayOfMonthField extends AbstractField
             if ($adjusted > 0 && $adjusted <= $lastDayOfMonth) {
                 $target->setDate($currentYear, $currentMonth, $adjusted);
 
-                if ((int)$target->format('N') < 6 && (int)$target->format('m') === $currentMonth) {
+                if ((int) $target->format('N') < 6 && (int) $target->format('m') === $currentMonth) {
                     return $target;
                 }
             }
         }
+
+        return null;
     }
 
     /**
@@ -89,24 +96,26 @@ class DayOfMonthField extends AbstractField
         // Check to see if this is the nearest weekday to a particular value
         if (strpos($value, 'W')) {
             // Parse the target day
-            $targetDay = (int)substr($value, 0, strpos($value, 'W'));
+            /** @phpstan-ignore-next-line */
+            $targetDay = (int) substr($value, 0, strpos($value, 'W'));
             // Find out if the current day is the nearest day of the week
+            /** @phpstan-ignore-next-line */
             return $date->format('j') === self::getNearestWeekday(
-                    (int)$date->format('Y'),
-                    (int)$date->format('m'),
-                    $targetDay
-                )->format('j');
+                (int) $date->format('Y'),
+                (int) $date->format('m'),
+                $targetDay
+            )->format('j');
         }
 
-        return $this->isSatisfied((int)$date->format('d'), $value);
+        return $this->isSatisfied((int) $date->format('d'), $value);
     }
 
     /**
      * @inheritDoc
      *
-     * @param \DateTime|\DateTimeImmutable &$date
+     * @param \DateTime|\DateTimeImmutable $date
      */
-    public function increment(DateTimeInterface &$date, $invert = false): FieldInterface
+    public function increment(DateTimeInterface &$date, $invert = false, $parts = null): FieldInterface
     {
         if ($invert) {
             $date = $date->modify('previous day')->setTime(23, 59);

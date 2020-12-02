@@ -24,8 +24,8 @@ class IntlCaster
     public static function castMessageFormatter(\MessageFormatter $c, array $a, Stub $stub, bool $isNested)
     {
         $a += [
-            Caster::PREFIX_VIRTUAL . 'locale' => $c->getLocale(),
-            Caster::PREFIX_VIRTUAL . 'pattern' => $c->getPattern(),
+            Caster::PREFIX_VIRTUAL.'locale' => $c->getLocale(),
+            Caster::PREFIX_VIRTUAL.'pattern' => $c->getPattern(),
         ];
 
         return self::castError($c, $a);
@@ -34,8 +34,8 @@ class IntlCaster
     public static function castNumberFormatter(\NumberFormatter $c, array $a, Stub $stub, bool $isNested, int $filter = 0)
     {
         $a += [
-            Caster::PREFIX_VIRTUAL . 'locale' => $c->getLocale(),
-            Caster::PREFIX_VIRTUAL . 'pattern' => $c->getPattern(),
+            Caster::PREFIX_VIRTUAL.'locale' => $c->getLocale(),
+            Caster::PREFIX_VIRTUAL.'pattern' => $c->getPattern(),
         ];
 
         if ($filter & Caster::EXCLUDE_VERBOSE) {
@@ -45,7 +45,7 @@ class IntlCaster
         }
 
         $a += [
-            Caster::PREFIX_VIRTUAL . 'attributes' => new EnumStub(
+            Caster::PREFIX_VIRTUAL.'attributes' => new EnumStub(
                 [
                     'PARSE_INT_ONLY' => $c->getAttribute(\NumberFormatter::PARSE_INT_ONLY),
                     'GROUPING_USED' => $c->getAttribute(\NumberFormatter::GROUPING_USED),
@@ -69,7 +69,7 @@ class IntlCaster
                     'LENIENT_PARSE' => $c->getAttribute(\NumberFormatter::LENIENT_PARSE),
                 ]
             ),
-            Caster::PREFIX_VIRTUAL . 'text_attributes' => new EnumStub(
+            Caster::PREFIX_VIRTUAL.'text_attributes' => new EnumStub(
                 [
                     'POSITIVE_PREFIX' => $c->getTextAttribute(\NumberFormatter::POSITIVE_PREFIX),
                     'POSITIVE_SUFFIX' => $c->getTextAttribute(\NumberFormatter::POSITIVE_SUFFIX),
@@ -81,7 +81,7 @@ class IntlCaster
                     'PUBLIC_RULESETS' => $c->getTextAttribute(\NumberFormatter::PUBLIC_RULESETS),
                 ]
             ),
-            Caster::PREFIX_VIRTUAL . 'symbols' => new EnumStub(
+            Caster::PREFIX_VIRTUAL.'symbols' => new EnumStub(
                 [
                     'DECIMAL_SEPARATOR_SYMBOL' => $c->getSymbol(\NumberFormatter::DECIMAL_SEPARATOR_SYMBOL),
                     'GROUPING_SEPARATOR_SYMBOL' => $c->getSymbol(\NumberFormatter::GROUPING_SEPARATOR_SYMBOL),
@@ -102,7 +102,7 @@ class IntlCaster
                     'SIGNIFICANT_DIGIT_SYMBOL' => $c->getSymbol(\NumberFormatter::SIGNIFICANT_DIGIT_SYMBOL),
                     'MONETARY_GROUPING_SEPARATOR_SYMBOL' => $c->getSymbol(\NumberFormatter::MONETARY_GROUPING_SEPARATOR_SYMBOL),
                 ]
-            ),
+             ),
         ];
 
         return self::castError($c, $a);
@@ -111,14 +111,14 @@ class IntlCaster
     public static function castIntlTimeZone(\IntlTimeZone $c, array $a, Stub $stub, bool $isNested)
     {
         $a += [
-            Caster::PREFIX_VIRTUAL . 'display_name' => $c->getDisplayName(),
-            Caster::PREFIX_VIRTUAL . 'id' => $c->getID(),
-            Caster::PREFIX_VIRTUAL . 'raw_offset' => $c->getRawOffset(),
+            Caster::PREFIX_VIRTUAL.'display_name' => $c->getDisplayName(),
+            Caster::PREFIX_VIRTUAL.'id' => $c->getID(),
+            Caster::PREFIX_VIRTUAL.'raw_offset' => $c->getRawOffset(),
         ];
 
         if ($c->useDaylightTime()) {
             $a += [
-                Caster::PREFIX_VIRTUAL . 'dst_savings' => $c->getDSTSavings(),
+                Caster::PREFIX_VIRTUAL.'dst_savings' => $c->getDSTSavings(),
             ];
         }
 
@@ -128,15 +128,15 @@ class IntlCaster
     public static function castIntlCalendar(\IntlCalendar $c, array $a, Stub $stub, bool $isNested, int $filter = 0)
     {
         $a += [
-            Caster::PREFIX_VIRTUAL . 'type' => $c->getType(),
-            Caster::PREFIX_VIRTUAL . 'first_day_of_week' => $c->getFirstDayOfWeek(),
-            Caster::PREFIX_VIRTUAL . 'minimal_days_in_first_week' => $c->getMinimalDaysInFirstWeek(),
-            Caster::PREFIX_VIRTUAL . 'repeated_wall_time_option' => $c->getRepeatedWallTimeOption(),
-            Caster::PREFIX_VIRTUAL . 'skipped_wall_time_option' => $c->getSkippedWallTimeOption(),
-            Caster::PREFIX_VIRTUAL . 'time' => $c->getTime(),
-            Caster::PREFIX_VIRTUAL . 'in_daylight_time' => $c->inDaylightTime(),
-            Caster::PREFIX_VIRTUAL . 'is_lenient' => $c->isLenient(),
-            Caster::PREFIX_VIRTUAL . 'time_zone' => ($filter & Caster::EXCLUDE_VERBOSE) ? new CutStub($c->getTimeZone()) : $c->getTimeZone(),
+            Caster::PREFIX_VIRTUAL.'type' => $c->getType(),
+            Caster::PREFIX_VIRTUAL.'first_day_of_week' => $c->getFirstDayOfWeek(),
+            Caster::PREFIX_VIRTUAL.'minimal_days_in_first_week' => $c->getMinimalDaysInFirstWeek(),
+            Caster::PREFIX_VIRTUAL.'repeated_wall_time_option' => $c->getRepeatedWallTimeOption(),
+            Caster::PREFIX_VIRTUAL.'skipped_wall_time_option' => $c->getSkippedWallTimeOption(),
+            Caster::PREFIX_VIRTUAL.'time' => $c->getTime(),
+            Caster::PREFIX_VIRTUAL.'in_daylight_time' => $c->inDaylightTime(),
+            Caster::PREFIX_VIRTUAL.'is_lenient' => $c->isLenient(),
+            Caster::PREFIX_VIRTUAL.'time_zone' => ($filter & Caster::EXCLUDE_VERBOSE) ? new CutStub($c->getTimeZone()) : $c->getTimeZone(),
         ];
 
         return self::castError($c, $a);
@@ -145,14 +145,14 @@ class IntlCaster
     public static function castIntlDateFormatter(\IntlDateFormatter $c, array $a, Stub $stub, bool $isNested, int $filter = 0)
     {
         $a += [
-            Caster::PREFIX_VIRTUAL . 'locale' => $c->getLocale(),
-            Caster::PREFIX_VIRTUAL . 'pattern' => $c->getPattern(),
-            Caster::PREFIX_VIRTUAL . 'calendar' => $c->getCalendar(),
-            Caster::PREFIX_VIRTUAL . 'time_zone_id' => $c->getTimeZoneId(),
-            Caster::PREFIX_VIRTUAL . 'time_type' => $c->getTimeType(),
-            Caster::PREFIX_VIRTUAL . 'date_type' => $c->getDateType(),
-            Caster::PREFIX_VIRTUAL . 'calendar_object' => ($filter & Caster::EXCLUDE_VERBOSE) ? new CutStub($c->getCalendarObject()) : $c->getCalendarObject(),
-            Caster::PREFIX_VIRTUAL . 'time_zone' => ($filter & Caster::EXCLUDE_VERBOSE) ? new CutStub($c->getTimeZone()) : $c->getTimeZone(),
+            Caster::PREFIX_VIRTUAL.'locale' => $c->getLocale(),
+            Caster::PREFIX_VIRTUAL.'pattern' => $c->getPattern(),
+            Caster::PREFIX_VIRTUAL.'calendar' => $c->getCalendar(),
+            Caster::PREFIX_VIRTUAL.'time_zone_id' => $c->getTimeZoneId(),
+            Caster::PREFIX_VIRTUAL.'time_type' => $c->getTimeType(),
+            Caster::PREFIX_VIRTUAL.'date_type' => $c->getDateType(),
+            Caster::PREFIX_VIRTUAL.'calendar_object' => ($filter & Caster::EXCLUDE_VERBOSE) ? new CutStub($c->getCalendarObject()) : $c->getCalendarObject(),
+            Caster::PREFIX_VIRTUAL.'time_zone' => ($filter & Caster::EXCLUDE_VERBOSE) ? new CutStub($c->getTimeZone()) : $c->getTimeZone(),
         ];
 
         return self::castError($c, $a);
@@ -162,8 +162,8 @@ class IntlCaster
     {
         if ($errorCode = $c->getErrorCode()) {
             $a += [
-                Caster::PREFIX_VIRTUAL . 'error_code' => $errorCode,
-                Caster::PREFIX_VIRTUAL . 'error_message' => $c->getErrorMessage(),
+                Caster::PREFIX_VIRTUAL.'error_code' => $errorCode,
+                Caster::PREFIX_VIRTUAL.'error_message' => $c->getErrorMessage(),
             ];
         }
 

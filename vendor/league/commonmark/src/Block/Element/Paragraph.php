@@ -62,6 +62,23 @@ class Paragraph extends AbstractStringContainerBlock implements InlineContainerI
         }
     }
 
+    /**
+     * @param ContextInterface $context
+     * @param Cursor           $cursor
+     *
+     * @return bool
+     */
+    protected function parseReferences(ContextInterface $context, Cursor $cursor)
+    {
+        $referenceFound = false;
+        while ($cursor->getCharacter() === '[' && $context->getReferenceParser()->parse($cursor)) {
+            $this->finalStringContents = $cursor->getRemainder();
+            $referenceFound = true;
+        }
+
+        return $referenceFound;
+    }
+
     public function handleRemainingContents(ContextInterface $context, Cursor $cursor)
     {
         $cursor->advanceToNextNonSpaceOrTab();
@@ -77,22 +94,5 @@ class Paragraph extends AbstractStringContainerBlock implements InlineContainerI
     public function getStrings(): array
     {
         return $this->strings->toArray();
-    }
-
-    /**
-     * @param ContextInterface $context
-     * @param Cursor $cursor
-     *
-     * @return bool
-     */
-    protected function parseReferences(ContextInterface $context, Cursor $cursor)
-    {
-        $referenceFound = false;
-        while ($cursor->getCharacter() === '[' && $context->getReferenceParser()->parse($cursor)) {
-            $this->finalStringContents = $cursor->getRemainder();
-            $referenceFound = true;
-        }
-
-        return $referenceFound;
     }
 }

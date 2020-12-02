@@ -49,10 +49,10 @@ class Swift_Mime_Headers_PathHeader extends Swift_Mime_Headers_AbstractHeader
     /**
      * Get the type of Header that this instance represents.
      *
-     * @return int
+     * @see TYPE_TEXT, TYPE_PARAMETERIZED, TYPE_MAILBOX
      * @see TYPE_DATE, TYPE_ID, TYPE_PATH
      *
-     * @see TYPE_TEXT, TYPE_PARAMETERIZED, TYPE_MAILBOX
+     * @return int
      */
     public function getFieldType()
     {
@@ -84,18 +84,6 @@ class Swift_Mime_Headers_PathHeader extends Swift_Mime_Headers_AbstractHeader
     }
 
     /**
-     * Get the address which is used in this Header (if any).
-     *
-     * Null is returned if no address is set.
-     *
-     * @return string
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
-
-    /**
      * Set the Address which should appear in this Header.
      *
      * @param string $address
@@ -116,21 +104,33 @@ class Swift_Mime_Headers_PathHeader extends Swift_Mime_Headers_AbstractHeader
     }
 
     /**
+     * Get the address which is used in this Header (if any).
+     *
+     * Null is returned if no address is set.
+     *
+     * @return string
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
      * Get the string value of the body in this Header.
      *
      * This is not necessarily RFC 2822 compliant since folding white space will
      * not be added at this stage (see {@link toString()} for that).
      *
-     * @return string
      * @see toString()
      *
+     * @return string
      */
     public function getFieldBody()
     {
         if (!$this->getCachedValue()) {
             if (isset($this->address)) {
                 $address = $this->addressEncoder->encodeString($this->address);
-                $this->setCachedValue('<' . $address . '>');
+                $this->setCachedValue('<'.$address.'>');
             }
         }
 

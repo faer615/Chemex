@@ -79,6 +79,7 @@ class ServiceTrackForm extends Form implements LazyRenderable
     {
         $this->select('device_id', '新设备')
             ->options(DeviceRecord::all()->pluck('name', 'id'))
+            ->help('选择新设备后，将会自动解除此服务程序与老设备的归属关系。')
             ->required();
     }
 }

@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Carbon\Traits;
 
 /**
@@ -21,7 +20,7 @@ trait Timestamp
      *
      * Timestamp input can be given as int, float or a string containing one or more numbers.
      *
-     * @param float|int|string $timestamp
+     * @param float|int|string          $timestamp
      * @param \DateTimeZone|string|null $tz
      *
      * @return static
@@ -79,7 +78,7 @@ trait Timestamp
      *
      * Timestamp input can be given as int, float or a string containing one or more numbers.
      *
-     * @param float|int|string $timestamp
+     * @param float|int|string          $timestamp
      * @param \DateTimeZone|string|null $tz
      *
      * @return static
@@ -88,42 +87,6 @@ trait Timestamp
     {
         return static::createFromTimestampMsUTC($timestamp)
             ->setTimezone($tz);
-    }
-
-    /**
-     * Return an array with integer part digits and decimals digits split from one or more positive numbers
-     * (such as timestamps) as string with the given number of decimals (6 by default).
-     *
-     * By splitting integer and decimal, this method obtain a better precision than
-     * number_format when the input is a string.
-     *
-     * @param float|int|string $numbers one or more numbers
-     * @param int $decimals number of decimals precision (6 by default)
-     *
-     * @return array 0-index is integer part, 1-index is decimal part digits
-     */
-    private static function getIntegerAndDecimalParts($numbers, $decimals = 6)
-    {
-        if (\is_int($numbers) || \is_float($numbers)) {
-            $numbers = number_format($numbers, $decimals, '.', '');
-        }
-
-        $sign = substr($numbers, 0, 1) === '-' ? -1 : 1;
-        $integer = 0;
-        $decimal = 0;
-
-        foreach (preg_split('`[^0-9.]+`', $numbers) as $chunk) {
-            [$integerPart, $decimalPart] = explode('.', "$chunk.");
-
-            $integer += \intval($integerPart);
-            $decimal += \floatval("0.$decimalPart");
-        }
-
-        $overflow = floor($decimal);
-        $integer += $overflow;
-        $decimal -= $overflow;
-
-        return [$sign * $integer, $decimal === 0.0 ? 0.0 : $sign * round($decimal * pow(10, $decimals))];
     }
 
     /**
@@ -143,9 +106,6 @@ trait Timestamp
     /**
      * Returns a timestamp rounded with the given precision (6 by default).
      *
-     * @param int $precision
-     *
-     * @return float
      * @example getPreciseTimestamp()   1532087464437474 (microsecond maximum precision)
      * @example getPreciseTimestamp(6)  1532087464437474
      * @example getPreciseTimestamp(5)  153208746443747  (1/100000 second precision)
@@ -157,6 +117,9 @@ trait Timestamp
      * @example getPreciseTimestamp(-1) 153208746        (10 second precision)
      * @example getPreciseTimestamp(-2) 15320875         (100 second precision)
      *
+     * @param int $precision
+     *
+     * @return float
      */
     public function getPreciseTimestamp($precision = 6)
     {
@@ -183,5 +146,41 @@ trait Timestamp
     public function unix()
     {
         return $this->getTimestamp();
+    }
+
+    /**
+     * Return an array with integer part digits and decimals digits split from one or more positive numbers
+     * (such as timestamps) as string with the given number of decimals (6 by default).
+     *
+     * By splitting integer and decimal, this method obtain a better precision than
+     * number_format when the input is a string.
+     *
+     * @param float|int|string $numbers  one or more numbers
+     * @param int              $decimals number of decimals precision (6 by default)
+     *
+     * @return array 0-index is integer part, 1-index is decimal part digits
+     */
+    private static function getIntegerAndDecimalParts($numbers, $decimals = 6)
+    {
+        if (\is_int($numbers) || \is_float($numbers)) {
+            $numbers = number_format($numbers, $decimals, '.', '');
+        }
+
+        $sign = substr($numbers, 0, 1) === '-' ? -1 : 1;
+        $integer = 0;
+        $decimal = 0;
+
+        foreach (preg_split('`[^0-9.]+`', $numbers) as $chunk) {
+            [$integerPart, $decimalPart] = explode('.', "$chunk.");
+
+            $integer += \intval($integerPart);
+            $decimal += \floatval("0.$decimalPart");
+        }
+
+        $overflow = floor($decimal);
+        $integer += $overflow;
+        $decimal -= $overflow;
+
+        return [$sign * $integer, $decimal === 0.0 ? 0.0 : $sign * round($decimal * pow(10, $decimals))];
     }
 }

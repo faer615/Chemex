@@ -1,5 +1,4 @@
 <?php
-
 namespace Lcobucci\JWT;
 
 use Lcobucci\JWT\Signer\Keychain;

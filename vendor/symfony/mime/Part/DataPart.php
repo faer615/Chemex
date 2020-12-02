@@ -35,7 +35,7 @@ class DataPart extends TextPart
         if (null === $contentType) {
             $contentType = 'application/octet-stream';
         }
-        list($this->mediaType, $subtype) = explode('/', $contentType);
+        [$this->mediaType, $subtype] = explode('/', $contentType);
 
         parent::__construct($body, null, $subtype, $encoding);
 
@@ -111,10 +111,15 @@ class DataPart extends TextPart
     {
         $str = parent::asDebugString();
         if (null !== $this->filename) {
-            $str .= ' filename: ' . $this->filename;
+            $str .= ' filename: '.$this->filename;
         }
 
         return $str;
+    }
+
+    private function generateContentId(): string
+    {
+        return bin2hex(random_bytes(16)).'@symfony';
     }
 
     public function __destruct()
@@ -156,10 +161,5 @@ class DataPart extends TextPart
             $r->setValue($this, $this->_parent[$name]);
         }
         unset($this->_parent);
-    }
-
-    private function generateContentId(): string
-    {
-        return bin2hex(random_bytes(16)) . '@symfony';
     }
 }

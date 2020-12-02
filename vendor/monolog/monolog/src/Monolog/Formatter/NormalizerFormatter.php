@@ -105,18 +105,8 @@ class NormalizerFormatter implements FormatterInterface
         return $this;
     }
 
-    public function addJsonEncodeOption($option)
-    {
-        $this->jsonEncodeOptions |= $option;
-    }
-
-    public function removeJsonEncodeOption($option)
-    {
-        $this->jsonEncodeOptions &= ~$option;
-    }
-
     /**
-     * @param mixed $data
+     * @param  mixed                      $data
      * @return int|bool|string|null|array
      */
     protected function normalize($data, int $depth = 0)
@@ -144,7 +134,7 @@ class NormalizerFormatter implements FormatterInterface
             $count = 1;
             foreach ($data as $key => $value) {
                 if ($count++ > $this->maxNormalizeItemCount) {
-                    $normalized['...'] = 'Over ' . $this->maxNormalizeItemCount . ' items (' . count($data) . ' total), aborting normalization';
+                    $normalized['...'] = 'Over ' . $this->maxNormalizeItemCount . ' items ('.count($data).' total), aborting normalization';
                     break;
                 }
 
@@ -184,7 +174,7 @@ class NormalizerFormatter implements FormatterInterface
             return sprintf('[resource(%s)]', get_resource_type($data));
         }
 
-        return '[unknown(' . gettype($data) . ')]';
+        return '[unknown('.gettype($data).')]';
     }
 
     /**
@@ -193,14 +183,14 @@ class NormalizerFormatter implements FormatterInterface
     protected function normalizeException(Throwable $e, int $depth = 0)
     {
         if ($e instanceof \JsonSerializable) {
-            return (array)$e->jsonSerialize();
+            return (array) $e->jsonSerialize();
         }
 
         $data = [
             'class' => Utils::getClass($e),
             'message' => $e->getMessage(),
-            'code' => (int)$e->getCode(),
-            'file' => $e->getFile() . ':' . $e->getLine(),
+            'code' => (int) $e->getCode(),
+            'file' => $e->getFile().':'.$e->getLine(),
         ];
 
         if ($e instanceof \SoapFault) {
@@ -224,7 +214,7 @@ class NormalizerFormatter implements FormatterInterface
         $trace = $e->getTrace();
         foreach ($trace as $frame) {
             if (isset($frame['file'])) {
-                $data['trace'][] = $frame['file'] . ':' . $frame['line'];
+                $data['trace'][] = $frame['file'].':'.$frame['line'];
             }
         }
 
@@ -238,9 +228,9 @@ class NormalizerFormatter implements FormatterInterface
     /**
      * Return the JSON representation of a value
      *
-     * @param mixed $data
-     * @return string            if encoding fails and ignoreErrors is true 'null' is returned
+     * @param  mixed             $data
      * @throws \RuntimeException if encoding fails and errors are not ignored
+     * @return string            if encoding fails and ignoreErrors is true 'null' is returned
      */
     protected function toJson($data, bool $ignoreErrors = false): string
     {
@@ -252,9 +242,19 @@ class NormalizerFormatter implements FormatterInterface
         // in case the date format isn't custom then we defer to the custom DateTimeImmutable
         // formatting logic, which will pick the right format based on whether useMicroseconds is on
         if ($this->dateFormat === self::SIMPLE_DATE && $date instanceof DateTimeImmutable) {
-            return (string)$date;
+            return (string) $date;
         }
 
         return $date->format($this->dateFormat);
+    }
+
+    public function addJsonEncodeOption($option)
+    {
+        $this->jsonEncodeOptions |= $option;
+    }
+
+    public function removeJsonEncodeOption($option)
+    {
+        $this->jsonEncodeOptions &= ~$option;
     }
 }

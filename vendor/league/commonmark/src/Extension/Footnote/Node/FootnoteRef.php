@@ -27,8 +27,8 @@ final class FootnoteRef extends AbstractInline
 
     /**
      * @param ReferenceInterface $reference
-     * @param string|null $content
-     * @param array<mixed> $data
+     * @param string|null        $content
+     * @param array<mixed>       $data
      */
     public function __construct(ReferenceInterface $reference, ?string $content = null, array $data = [])
     {

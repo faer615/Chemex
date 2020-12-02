@@ -67,18 +67,17 @@ final class Method extends BaseTag implements Factory\StaticMethod
         ?Type $returnType = null,
         bool $static = false,
         ?Description $description = null
-    )
-    {
+    ) {
         Assert::stringNotEmpty($methodName);
 
         if ($returnType === null) {
             $returnType = new Void_();
         }
 
-        $this->methodName = $methodName;
-        $this->arguments = $this->filterArguments($arguments);
-        $this->returnType = $returnType;
-        $this->isStatic = $static;
+        $this->methodName  = $methodName;
+        $this->arguments   = $this->filterArguments($arguments);
+        $this->returnType  = $returnType;
+        $this->isStatic    = $static;
         $this->description = $description;
     }
 
@@ -87,8 +86,7 @@ final class Method extends BaseTag implements Factory\StaticMethod
         ?TypeResolver $typeResolver = null,
         ?DescriptionFactory $descriptionFactory = null,
         ?TypeContext $context = null
-    ): ?self
-    {
+    ) : ?self {
         Assert::stringNotEmpty($body);
         Assert::notNull($typeResolver);
         Assert::notNull($descriptionFactory);
@@ -147,7 +145,7 @@ final class Method extends BaseTag implements Factory\StaticMethod
             $returnType = 'void';
         }
 
-        $returnType = $typeResolver->resolve($returnType, $context);
+        $returnType  = $typeResolver->resolve($returnType, $context);
         $description = $descriptionFactory->create($description, $context);
 
         /** @phpstan-var array<int, array{name: string, type: Type}> $arguments */
@@ -163,7 +161,7 @@ final class Method extends BaseTag implements Factory\StaticMethod
                     $argumentType = $typeResolver->resolve($argument[0], $context);
                     $argumentName = '';
                     if (isset($argument[1])) {
-                        $argument[1] = self::stripRestArg($argument[1]);
+                        $argument[1]  = self::stripRestArg($argument[1]);
                         $argumentName = substr($argument[1], 1);
                     }
                 }
@@ -175,19 +173,10 @@ final class Method extends BaseTag implements Factory\StaticMethod
         return new static($methodName, $arguments, $returnType, $static, $description);
     }
 
-    private static function stripRestArg(string $argument): string
-    {
-        if (strpos($argument, '...') === 0) {
-            $argument = trim(substr($argument, 3));
-        }
-
-        return $argument;
-    }
-
     /**
      * Retrieves the method name.
      */
-    public function getMethodName(): string
+    public function getMethodName() : string
     {
         return $this->methodName;
     }
@@ -197,7 +186,7 @@ final class Method extends BaseTag implements Factory\StaticMethod
      *
      * @phpstan-return array<int, array{name: string, type: Type}>
      */
-    public function getArguments(): array
+    public function getArguments() : array
     {
         return $this->arguments;
     }
@@ -207,17 +196,17 @@ final class Method extends BaseTag implements Factory\StaticMethod
      *
      * @return bool TRUE if the method declaration is for a static method, FALSE otherwise.
      */
-    public function isStatic(): bool
+    public function isStatic() : bool
     {
         return $this->isStatic;
     }
 
-    public function getReturnType(): Type
+    public function getReturnType() : Type
     {
         return $this->returnType;
     }
 
-    public function __toString(): string
+    public function __toString() : string
     {
         $arguments = [];
         foreach ($this->arguments as $argument) {
@@ -234,9 +223,9 @@ final class Method extends BaseTag implements Factory\StaticMethod
 
         $static = $this->isStatic ? 'static' : '';
 
-        $returnType = (string)$this->returnType;
+        $returnType = (string) $this->returnType;
 
-        $methodName = (string)$this->methodName;
+        $methodName = (string) $this->methodName;
 
         return $static
             . ($returnType !== '' ? ($static !== '' ? ' ' : '') . $returnType : '')
@@ -253,7 +242,7 @@ final class Method extends BaseTag implements Factory\StaticMethod
      * @phpstan-param array<int, array{name: string, type: Type}|string> $arguments
      * @phpstan-return array<int, array{name: string, type: Type}>
      */
-    private function filterArguments(array $arguments = []): array
+    private function filterArguments(array $arguments = []) : array
     {
         $result = [];
         foreach ($arguments as $argument) {
@@ -277,5 +266,14 @@ final class Method extends BaseTag implements Factory\StaticMethod
         }
 
         return $result;
+    }
+
+    private static function stripRestArg(string $argument) : string
+    {
+        if (strpos($argument, '...') === 0) {
+            $argument = trim(substr($argument, 3));
+        }
+
+        return $argument;
     }
 }

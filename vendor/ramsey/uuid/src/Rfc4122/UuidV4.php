@@ -45,8 +45,7 @@ final class UuidV4 extends Uuid implements UuidInterface
         NumberConverterInterface $numberConverter,
         CodecInterface $codec,
         TimeConverterInterface $timeConverter
-    )
-    {
+    ) {
         if ($fields->getVersion() !== Uuid::UUID_TYPE_RANDOM) {
             throw new InvalidArgumentException(
                 'Fields used to create a UuidV4 must represent a '

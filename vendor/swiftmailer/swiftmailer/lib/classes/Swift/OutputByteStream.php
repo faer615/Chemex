@@ -27,9 +27,9 @@ interface Swift_OutputByteStream
      *
      * @param int $length
      *
-     * @return string|bool
      * @throws Swift_IoException
      *
+     * @return string|bool
      */
     public function read($length);
 
@@ -38,9 +38,9 @@ interface Swift_OutputByteStream
      *
      * @param int $byteOffset
      *
-     * @return bool
      * @throws Swift_IoException
      *
+     * @return bool
      */
     public function setReadPointer($byteOffset);
 }

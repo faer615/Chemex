@@ -19,6 +19,14 @@ class SignatureTest extends \PHPUnit\Framework\TestCase
     protected $signer;
 
     /**
+     * {@inheritdoc}
+     */
+    protected function setUp()
+    {
+        $this->signer = $this->createMock(Signer::class);
+    }
+
+    /**
      * @test
      *
      * @covers Lcobucci\JWT\Signature::__construct
@@ -33,7 +41,7 @@ class SignatureTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses   Lcobucci\JWT\Signature::__construct
+     * @uses Lcobucci\JWT\Signature::__construct
      *
      * @covers Lcobucci\JWT\Signature::__toString
      */
@@ -41,33 +49,25 @@ class SignatureTest extends \PHPUnit\Framework\TestCase
     {
         $signature = new Signature('test');
 
-        $this->assertEquals('test', (string)$signature);
+        $this->assertEquals('test', (string) $signature);
     }
 
     /**
      * @test
      *
-     * @uses   Lcobucci\JWT\Signature::__construct
-     * @uses   Lcobucci\JWT\Signature::__toString
+     * @uses Lcobucci\JWT\Signature::__construct
+     * @uses Lcobucci\JWT\Signature::__toString
      *
      * @covers Lcobucci\JWT\Signature::verify
      */
     public function verifyMustReturnWhatSignerSays()
     {
         $this->signer->expects($this->any())
-            ->method('verify')
-            ->willReturn(true);
+                     ->method('verify')
+                     ->willReturn(true);
 
         $signature = new Signature('test');
 
         $this->assertTrue($signature->verify($this->signer, 'one', 'key'));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function setUp()
-    {
-        $this->signer = $this->createMock(Signer::class);
     }
 }

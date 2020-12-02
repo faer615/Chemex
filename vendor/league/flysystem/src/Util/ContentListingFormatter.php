@@ -26,7 +26,7 @@ class ContentListingFormatter
 
     /**
      * @param string $directory
-     * @param bool $recursive
+     * @param bool   $recursive
      */
     public function __construct($directory, $recursive, $caseSensitive = true)
     {

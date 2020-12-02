@@ -44,18 +44,18 @@ final class HeadingPermalinkRenderer implements InlineRendererInterface, Configu
 
         $slug = $inline->getSlug();
 
-        $idPrefix = (string)$this->config->get('heading_permalink/id_prefix', 'user-content');
+        $idPrefix = (string) $this->config->get('heading_permalink/id_prefix', 'user-content');
         if ($idPrefix !== '') {
             $idPrefix .= '-';
         }
 
         $attrs = [
-            'id' => $idPrefix . $slug,
-            'href' => '#' . $slug,
-            'name' => $slug,
-            'class' => $this->config->get('heading_permalink/html_class', 'heading-permalink'),
+            'id'          => $idPrefix . $slug,
+            'href'        => '#' . $slug,
+            'name'        => $slug,
+            'class'       => $this->config->get('heading_permalink/html_class', 'heading-permalink'),
             'aria-hidden' => 'true',
-            'title' => $this->config->get('heading_permalink/title', 'Permalink'),
+            'title'       => $this->config->get('heading_permalink/title', 'Permalink'),
         ];
 
         $innerContents = $this->config->get('heading_permalink/inner_contents');

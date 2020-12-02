@@ -74,8 +74,7 @@ class CombGenerator implements RandomGeneratorInterface
     public function __construct(
         RandomGeneratorInterface $generator,
         NumberConverterInterface $numberConverter
-    )
-    {
+    ) {
         $this->converter = $numberConverter;
         $this->randomGenerator = $generator;
     }
@@ -106,9 +105,9 @@ class CombGenerator implements RandomGeneratorInterface
             STR_PAD_LEFT
         );
 
-        return (string)hex2bin(
+        return (string) hex2bin(
             str_pad(
-                bin2hex((string)$hash),
+                bin2hex((string) $hash),
                 $length - self::TIMESTAMP_BYTES,
                 '0'
             )

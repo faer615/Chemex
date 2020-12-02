@@ -55,7 +55,7 @@ class ArrayInput extends Input
      */
     public function hasParameterOption($values, bool $onlyParams = false)
     {
-        $values = (array)$values;
+        $values = (array) $values;
 
         foreach ($this->parameters as $k => $v) {
             if (!\is_int($k)) {
@@ -79,7 +79,7 @@ class ArrayInput extends Input
      */
     public function getParameterOption($values, $default = false, bool $onlyParams = false)
     {
-        $values = (array)$values;
+        $values = (array) $values;
 
         foreach ($this->parameters as $k => $v) {
             if ($onlyParams && ('--' === $k || (\is_int($k) && '--' === $v))) {
@@ -110,10 +110,10 @@ class ArrayInput extends Input
             if ($param && \is_string($param) && '-' === $param[0]) {
                 if (\is_array($val)) {
                     foreach ($val as $v) {
-                        $params[] = $param . ('' != $v ? '=' . $this->escapeToken($v) : '');
+                        $params[] = $param.('' != $v ? '='.$this->escapeToken($v) : '');
                     }
                 } else {
-                    $params[] = $param . ('' != $val ? '=' . $this->escapeToken($val) : '');
+                    $params[] = $param.('' != $val ? '='.$this->escapeToken($val) : '');
                 }
             } else {
                 $params[] = \is_array($val) ? implode(' ', array_map([$this, 'escapeToken'], $val)) : $this->escapeToken($val);
@@ -186,8 +186,8 @@ class ArrayInput extends Input
     /**
      * Adds an argument value.
      *
-     * @param string|int $name The argument name
-     * @param mixed $value The value for the argument
+     * @param string|int $name  The argument name
+     * @param mixed      $value The value for the argument
      *
      * @throws InvalidArgumentException When argument given doesn't exist
      */

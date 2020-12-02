@@ -15,15 +15,15 @@ final class Substitution
     public function __construct(Word $from, Word $to)
     {
         $this->from = $from;
-        $this->to = $to;
+        $this->to   = $to;
     }
 
-    public function getFrom(): Word
+    public function getFrom() : Word
     {
         return $this->from;
     }
 
-    public function getTo(): Word
+    public function getTo() : Word
     {
         return $this->to;
     }

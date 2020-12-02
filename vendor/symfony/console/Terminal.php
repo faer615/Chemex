@@ -18,9 +18,47 @@ class Terminal
     private static $stty;
 
     /**
-     * @return bool
+     * Gets the terminal width.
+     *
+     * @return int
+     */
+    public function getWidth()
+    {
+        $width = getenv('COLUMNS');
+        if (false !== $width) {
+            return (int) trim($width);
+        }
+
+        if (null === self::$width) {
+            self::initDimensions();
+        }
+
+        return self::$width ?: 80;
+    }
+
+    /**
+     * Gets the terminal height.
+     *
+     * @return int
+     */
+    public function getHeight()
+    {
+        $height = getenv('LINES');
+        if (false !== $height) {
+            return (int) trim($height);
+        }
+
+        if (null === self::$height) {
+            self::initDimensions();
+        }
+
+        return self::$height ?: 50;
+    }
+
+    /**
      * @internal
      *
+     * @return bool
      */
     public static function hasSttyAvailable()
     {
@@ -44,16 +82,16 @@ class Terminal
             if (preg_match('/^(\d+)x(\d+)(?: \((\d+)x(\d+)\))?$/', trim(getenv('ANSICON')), $matches)) {
                 // extract [w, H] from "wxh (WxH)"
                 // or [w, h] from "wxh"
-                self::$width = (int)$matches[1];
-                self::$height = isset($matches[4]) ? (int)$matches[4] : (int)$matches[2];
+                self::$width = (int) $matches[1];
+                self::$height = isset($matches[4]) ? (int) $matches[4] : (int) $matches[2];
             } elseif (!self::hasVt100Support() && self::hasSttyAvailable()) {
                 // only use stty on Windows if the terminal does not support vt100 (e.g. Windows 7 + git-bash)
                 // testing for stty in a Windows 10 vt100-enabled console will implicitly disable vt100 support on STDOUT
                 self::initDimensionsUsingStty();
             } elseif (null !== $dimensions = self::getConsoleMode()) {
                 // extract [w, h] from "wxh"
-                self::$width = (int)$dimensions[0];
-                self::$height = (int)$dimensions[1];
+                self::$width = (int) $dimensions[0];
+                self::$height = (int) $dimensions[1];
             }
         } else {
             self::initDimensionsUsingStty();
@@ -76,12 +114,12 @@ class Terminal
         if ($sttyString = self::getSttyColumns()) {
             if (preg_match('/rows.(\d+);.columns.(\d+);/i', $sttyString, $matches)) {
                 // extract [w, h] from "rows h; columns w;"
-                self::$width = (int)$matches[2];
-                self::$height = (int)$matches[1];
+                self::$width = (int) $matches[2];
+                self::$height = (int) $matches[1];
             } elseif (preg_match('/;.(\d+).rows;.(\d+).columns/i', $sttyString, $matches)) {
                 // extract [w, h] from "; h rows; w columns"
-                self::$width = (int)$matches[2];
-                self::$height = (int)$matches[1];
+                self::$width = (int) $matches[2];
+                self::$height = (int) $matches[1];
             }
         }
     }
@@ -99,7 +137,7 @@ class Terminal
             return null;
         }
 
-        return [(int)$matches[2], (int)$matches[1]];
+        return [(int) $matches[2], (int) $matches[1]];
     }
 
     /**
@@ -132,43 +170,5 @@ class Terminal
         proc_close($process);
 
         return $info;
-    }
-
-    /**
-     * Gets the terminal width.
-     *
-     * @return int
-     */
-    public function getWidth()
-    {
-        $width = getenv('COLUMNS');
-        if (false !== $width) {
-            return (int)trim($width);
-        }
-
-        if (null === self::$width) {
-            self::initDimensions();
-        }
-
-        return self::$width ?: 80;
-    }
-
-    /**
-     * Gets the terminal height.
-     *
-     * @return int
-     */
-    public function getHeight()
-    {
-        $height = getenv('LINES');
-        if (false !== $height) {
-            return (int)trim($height);
-        }
-
-        if (null === self::$height) {
-            self::initDimensions();
-        }
-
-        return self::$height ?: 50;
     }
 }

@@ -40,11 +40,11 @@ class MongoDBHandler extends AbstractProcessingHandler
     /**
      * Constructor.
      *
-     * @param Client|Manager $mongodb MongoDB library or driver client
-     * @param string $database Database name
-     * @param string $collection Collection name
-     * @param string|int $level The minimum logging level at which this handler will be triggered
-     * @param bool $bubble Whether the messages that are handled can bubble up the stack or not
+     * @param Client|Manager $mongodb    MongoDB library or driver client
+     * @param string         $database   Database name
+     * @param string         $collection Collection name
+     * @param string|int     $level      The minimum logging level at which this handler will be triggered
+     * @param bool           $bubble     Whether the messages that are handled can bubble up the stack or not
      */
     public function __construct($mongodb, string $database, string $collection, $level = Logger::DEBUG, bool $bubble = true)
     {

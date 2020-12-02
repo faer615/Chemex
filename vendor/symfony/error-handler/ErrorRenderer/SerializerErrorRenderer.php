@@ -32,7 +32,7 @@ class SerializerErrorRenderer implements ErrorRendererInterface
     /**
      * @param string|callable(FlattenException) $format The format as a string or a callable that should return it
      *                                                  formats not supported by Request::getMimeTypes() should be given as mime types
-     * @param bool|callable $debug The debugging mode as a boolean or a callable that should return it
+     * @param bool|callable                     $debug  The debugging mode as a boolean or a callable that should return it
      */
     public function __construct(SerializerInterface $serializer, $format, ErrorRendererInterface $fallbackErrorRenderer = null, $debug = false)
     {
@@ -50,17 +50,6 @@ class SerializerErrorRenderer implements ErrorRendererInterface
         $this->debug = $debug;
     }
 
-    public static function getPreferredFormat(RequestStack $requestStack): \Closure
-    {
-        return static function () use ($requestStack) {
-            if (!$request = $requestStack->getCurrentRequest()) {
-                throw new NotEncodableValueException();
-            }
-
-            return $request->getPreferredFormat();
-        };
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -70,7 +59,7 @@ class SerializerErrorRenderer implements ErrorRendererInterface
         $debug = \is_bool($this->debug) ? $this->debug : ($this->debug)($exception);
         if ($debug) {
             $headers['X-Debug-Exception'] = rawurlencode($exception->getMessage());
-            $headers['X-Debug-Exception-File'] = rawurlencode($exception->getFile()) . ':' . $exception->getLine();
+            $headers['X-Debug-Exception-File'] = rawurlencode($exception->getFile()).':'.$exception->getLine();
         }
 
         $flattenException = FlattenException::createFromThrowable($exception, null, $headers);
@@ -86,9 +75,20 @@ class SerializerErrorRenderer implements ErrorRendererInterface
                 'exception' => $exception,
                 'debug' => $debug,
             ]))
-                ->setHeaders($flattenException->getHeaders() + $headers);
+            ->setHeaders($flattenException->getHeaders() + $headers);
         } catch (NotEncodableValueException $e) {
             return $this->fallbackErrorRenderer->render($exception);
         }
+    }
+
+    public static function getPreferredFormat(RequestStack $requestStack): \Closure
+    {
+        return static function () use ($requestStack) {
+            if (!$request = $requestStack->getCurrentRequest()) {
+                throw new NotEncodableValueException();
+            }
+
+            return $request->getPreferredFormat();
+        };
     }
 }

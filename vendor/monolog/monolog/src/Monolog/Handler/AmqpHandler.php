@@ -31,15 +31,15 @@ class AmqpHandler extends AbstractProcessingHandler
     protected $exchangeName;
 
     /**
-     * @param AMQPExchange|AMQPChannel $exchange AMQPExchange (php AMQP ext) or PHP AMQP lib channel, ready for use
-     * @param string|null $exchangeName Optional exchange name, for AMQPChannel (PhpAmqpLib) only
-     * @param string|int $level The minimum logging level at which this handler will be triggered
-     * @param bool $bubble Whether the messages that are handled can bubble up the stack or not
+     * @param AMQPExchange|AMQPChannel $exchange     AMQPExchange (php AMQP ext) or PHP AMQP lib channel, ready for use
+     * @param string|null              $exchangeName Optional exchange name, for AMQPChannel (PhpAmqpLib) only
+     * @param string|int               $level        The minimum logging level at which this handler will be triggered
+     * @param bool                     $bubble       Whether the messages that are handled can bubble up the stack or not
      */
     public function __construct($exchange, ?string $exchangeName = null, $level = Logger::DEBUG, bool $bubble = true)
     {
         if ($exchange instanceof AMQPChannel) {
-            $this->exchangeName = (string)$exchangeName;
+            $this->exchangeName = (string) $exchangeName;
         } elseif (!$exchange instanceof AMQPExchange) {
             throw new \InvalidArgumentException('PhpAmqpLib\Channel\AMQPChannel or AMQPExchange instance required');
         } elseif ($exchangeName) {
@@ -48,6 +48,33 @@ class AmqpHandler extends AbstractProcessingHandler
         $this->exchange = $exchange;
 
         parent::__construct($level, $bubble);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function write(array $record): void
+    {
+        $data = $record["formatted"];
+        $routingKey = $this->getRoutingKey($record);
+
+        if ($this->exchange instanceof AMQPExchange) {
+            $this->exchange->publish(
+                $data,
+                $routingKey,
+                0,
+                [
+                    'delivery_mode' => 2,
+                    'content_type' => 'application/json',
+                ]
+            );
+        } else {
+            $this->exchange->basic_publish(
+                $this->createAmqpMessage($data),
+                $this->exchangeName,
+                $routingKey
+            );
+        }
     }
 
     /**
@@ -80,33 +107,6 @@ class AmqpHandler extends AbstractProcessingHandler
     }
 
     /**
-     * {@inheritDoc}
-     */
-    protected function write(array $record): void
-    {
-        $data = $record["formatted"];
-        $routingKey = $this->getRoutingKey($record);
-
-        if ($this->exchange instanceof AMQPExchange) {
-            $this->exchange->publish(
-                $data,
-                $routingKey,
-                0,
-                [
-                    'delivery_mode' => 2,
-                    'content_type' => 'application/json',
-                ]
-            );
-        } else {
-            $this->exchange->basic_publish(
-                $this->createAmqpMessage($data),
-                $this->exchangeName,
-                $routingKey
-            );
-        }
-    }
-
-    /**
      * Gets the routing key for the AMQP exchange
      */
     protected function getRoutingKey(array $record): string
@@ -114,14 +114,6 @@ class AmqpHandler extends AbstractProcessingHandler
         $routingKey = sprintf('%s.%s', $record['level_name'], $record['channel']);
 
         return strtolower($routingKey);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function getDefaultFormatter(): FormatterInterface
-    {
-        return new JsonFormatter(JsonFormatter::BATCH_MODE_JSON, false);
     }
 
     private function createAmqpMessage(string $data): AMQPMessage
@@ -133,5 +125,13 @@ class AmqpHandler extends AbstractProcessingHandler
                 'content_type' => 'application/json',
             ]
         );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function getDefaultFormatter(): FormatterInterface
+    {
+        return new JsonFormatter(JsonFormatter::BATCH_MODE_JSON, false);
     }
 }

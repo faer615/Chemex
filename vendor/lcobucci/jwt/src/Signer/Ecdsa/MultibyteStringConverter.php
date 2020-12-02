@@ -9,7 +9,6 @@
  *
  * @link https://github.com/web-token/jwt-framework/blob/v1.2/src/Component/Core/Util/ECSignature.php
  */
-
 namespace Lcobucci\JWT\Signer\Ecdsa;
 
 use InvalidArgumentException;
@@ -29,17 +28,44 @@ use const STR_PAD_LEFT;
  */
 final class MultibyteStringConverter implements SignatureConverter
 {
-    const ASN1_SEQUENCE = '30';
-    const ASN1_INTEGER = '02';
-    const ASN1_MAX_SINGLE_BYTE = 128;
-    const ASN1_LENGTH_2BYTES = '81';
+    const ASN1_SEQUENCE          = '30';
+    const ASN1_INTEGER           = '02';
+    const ASN1_MAX_SINGLE_BYTE   = 128;
+    const ASN1_LENGTH_2BYTES     = '81';
     const ASN1_BIG_INTEGER_LIMIT = '7f';
-    const ASN1_NEGATIVE_INTEGER = '00';
-    const BYTE_SIZE = 2;
+    const ASN1_NEGATIVE_INTEGER  = '00';
+    const BYTE_SIZE              = 2;
+
+    public function toAsn1($signature, $length)
+    {
+        $signature = bin2hex($signature);
+
+        if (self::octetLength($signature) !== $length) {
+            throw new InvalidArgumentException('Invalid signature length.');
+        }
+
+        $pointR = self::preparePositiveInteger(mb_substr($signature, 0, $length, '8bit'));
+        $pointS = self::preparePositiveInteger(mb_substr($signature, $length, null, '8bit'));
+
+        $lengthR = self::octetLength($pointR);
+        $lengthS = self::octetLength($pointS);
+
+        $totalLength  = $lengthR + $lengthS + self::BYTE_SIZE + self::BYTE_SIZE;
+        $lengthPrefix = $totalLength > self::ASN1_MAX_SINGLE_BYTE ? self::ASN1_LENGTH_2BYTES : '';
+
+        $asn1 = hex2bin(
+            self::ASN1_SEQUENCE
+            . $lengthPrefix . dechex($totalLength)
+            . self::ASN1_INTEGER . dechex($lengthR) . $pointR
+            . self::ASN1_INTEGER . dechex($lengthS) . $pointS
+        );
+
+        return $asn1;
+    }
 
     private static function octetLength($data)
     {
-        return (int)(mb_strlen($data, '8bit') / self::BYTE_SIZE);
+        return (int) (mb_strlen($data, '8bit') / self::BYTE_SIZE);
     }
 
     private static function preparePositiveInteger($data)
@@ -56,65 +82,9 @@ final class MultibyteStringConverter implements SignatureConverter
         return $data;
     }
 
-    private static function readAsn1Content($message, &$position, $length)
-    {
-        $content = mb_substr($message, $position, $length, '8bit');
-        $position += $length;
-
-        return $content;
-    }
-
-    private static function readAsn1Integer($message, &$position)
-    {
-        if (self::readAsn1Content($message, $position, self::BYTE_SIZE) !== self::ASN1_INTEGER) {
-            throw new InvalidArgumentException('Invalid data. Should contain an integer.');
-        }
-
-        $length = (int)hexdec(self::readAsn1Content($message, $position, self::BYTE_SIZE));
-
-        return self::readAsn1Content($message, $position, $length * self::BYTE_SIZE);
-    }
-
-    private static function retrievePositiveInteger($data)
-    {
-        while (mb_substr($data, 0, self::BYTE_SIZE, '8bit') === self::ASN1_NEGATIVE_INTEGER
-            && mb_substr($data, 2, self::BYTE_SIZE, '8bit') > self::ASN1_BIG_INTEGER_LIMIT) {
-            $data = mb_substr($data, 2, null, '8bit');
-        }
-
-        return $data;
-    }
-
-    public function toAsn1($signature, $length)
-    {
-        $signature = bin2hex($signature);
-
-        if (self::octetLength($signature) !== $length) {
-            throw new InvalidArgumentException('Invalid signature length.');
-        }
-
-        $pointR = self::preparePositiveInteger(mb_substr($signature, 0, $length, '8bit'));
-        $pointS = self::preparePositiveInteger(mb_substr($signature, $length, null, '8bit'));
-
-        $lengthR = self::octetLength($pointR);
-        $lengthS = self::octetLength($pointS);
-
-        $totalLength = $lengthR + $lengthS + self::BYTE_SIZE + self::BYTE_SIZE;
-        $lengthPrefix = $totalLength > self::ASN1_MAX_SINGLE_BYTE ? self::ASN1_LENGTH_2BYTES : '';
-
-        $asn1 = hex2bin(
-            self::ASN1_SEQUENCE
-            . $lengthPrefix . dechex($totalLength)
-            . self::ASN1_INTEGER . dechex($lengthR) . $pointR
-            . self::ASN1_INTEGER . dechex($lengthS) . $pointS
-        );
-
-        return $asn1;
-    }
-
     public function fromAsn1($signature, $length)
     {
-        $message = bin2hex($signature);
+        $message  = bin2hex($signature);
         $position = 0;
 
         if (self::readAsn1Content($message, $position, self::BYTE_SIZE) !== self::ASN1_SEQUENCE) {
@@ -131,5 +101,34 @@ final class MultibyteStringConverter implements SignatureConverter
         $points = hex2bin(str_pad($pointR, $length, '0', STR_PAD_LEFT) . str_pad($pointS, $length, '0', STR_PAD_LEFT));
 
         return $points;
+    }
+
+    private static function readAsn1Content($message, &$position, $length)
+    {
+        $content   = mb_substr($message, $position, $length, '8bit');
+        $position += $length;
+
+        return $content;
+    }
+
+    private static function readAsn1Integer($message, &$position)
+    {
+        if (self::readAsn1Content($message, $position, self::BYTE_SIZE) !== self::ASN1_INTEGER) {
+            throw new InvalidArgumentException('Invalid data. Should contain an integer.');
+        }
+
+        $length = (int) hexdec(self::readAsn1Content($message, $position, self::BYTE_SIZE));
+
+        return self::readAsn1Content($message, $position, $length * self::BYTE_SIZE);
+    }
+
+    private static function retrievePositiveInteger($data)
+    {
+        while (mb_substr($data, 0, self::BYTE_SIZE, '8bit') === self::ASN1_NEGATIVE_INTEGER
+            && mb_substr($data, 2, self::BYTE_SIZE, '8bit') > self::ASN1_BIG_INTEGER_LIMIT) {
+            $data = mb_substr($data, 2, null, '8bit');
+        }
+
+        return $data;
     }
 }

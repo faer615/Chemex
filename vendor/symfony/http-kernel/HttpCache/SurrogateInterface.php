@@ -59,7 +59,7 @@ interface SurrogateInterface
     /**
      * Renders a Surrogate tag.
      *
-     * @param string $alt An alternate URI
+     * @param string $alt     An alternate URI
      * @param string $comment A comment to add as an esi:include tag
      *
      * @return string

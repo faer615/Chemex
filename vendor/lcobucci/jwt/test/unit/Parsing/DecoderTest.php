@@ -23,7 +23,7 @@ class DecoderTest extends \PHPUnit\Framework\TestCase
         $decoder = new Decoder();
 
         $this->assertEquals(
-            (object)['test' => 'test'],
+            (object) ['test' => 'test'],
             $decoder->jsonDecode('{"test":"test"}')
         );
     }

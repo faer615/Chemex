@@ -61,7 +61,7 @@ class IpUtils
      */
     public static function checkIp4(?string $requestIp, string $ip)
     {
-        $cacheKey = $requestIp . '-' . $ip;
+        $cacheKey = $requestIp.'-'.$ip;
         if (isset(self::$checkedIps[$cacheKey])) {
             return self::$checkedIps[$cacheKey];
         }
@@ -71,7 +71,7 @@ class IpUtils
         }
 
         if (false !== strpos($ip, '/')) {
-            list($address, $netmask) = explode('/', $ip, 2);
+            [$address, $netmask] = explode('/', $ip, 2);
 
             if ('0' === $netmask) {
                 return self::$checkedIps[$cacheKey] = filter_var($address, \FILTER_VALIDATE_IP, \FILTER_FLAG_IPV4);
@@ -96,19 +96,19 @@ class IpUtils
      * Compares two IPv6 addresses.
      * In case a subnet is given, it checks if it contains the request IP.
      *
+     * @author David Soria Parra <dsp at php dot net>
+     *
+     * @see https://github.com/dsp/v6tools
+     *
      * @param string $ip IPv6 address or subnet in CIDR notation
      *
      * @return bool Whether the IP is valid
      *
      * @throws \RuntimeException When IPV6 support is not enabled
-     * @see https://github.com/dsp/v6tools
-     *
-     * @author David Soria Parra <dsp at php dot net>
-     *
      */
     public static function checkIp6(?string $requestIp, string $ip)
     {
-        $cacheKey = $requestIp . '-' . $ip;
+        $cacheKey = $requestIp.'-'.$ip;
         if (isset(self::$checkedIps[$cacheKey])) {
             return self::$checkedIps[$cacheKey];
         }
@@ -118,10 +118,10 @@ class IpUtils
         }
 
         if (false !== strpos($ip, '/')) {
-            list($address, $netmask) = explode('/', $ip, 2);
+            [$address, $netmask] = explode('/', $ip, 2);
 
             if ('0' === $netmask) {
-                return (bool)unpack('n*', @inet_pton($address));
+                return (bool) unpack('n*', @inet_pton($address));
             }
 
             if ($netmask < 1 || $netmask > 128) {
@@ -177,7 +177,7 @@ class IpUtils
         $ip = inet_ntop($packedAddress & inet_pton($mask));
 
         if ($wrappedIPv6) {
-            $ip = '[' . $ip . ']';
+            $ip = '['.$ip.']';
         }
 
         return $ip;

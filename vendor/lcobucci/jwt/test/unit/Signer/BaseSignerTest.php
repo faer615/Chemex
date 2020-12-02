@@ -21,6 +21,17 @@ class BaseSignerTest extends \PHPUnit\Framework\TestCase
     protected $signer;
 
     /**
+     * {@inheritdoc}
+     */
+    protected function setUp()
+    {
+        $this->signer = $this->getMockForAbstractClass(BaseSigner::class);
+
+        $this->signer->method('getAlgorithmId')
+                     ->willReturn('TEST123');
+    }
+
+    /**
      * @test
      *
      * @covers Lcobucci\JWT\Signer\BaseSigner::modifyHeader
@@ -38,8 +49,8 @@ class BaseSignerTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses   Lcobucci\JWT\Signature::__construct
-     * @uses   Lcobucci\JWT\Signer\Key
+     * @uses Lcobucci\JWT\Signature::__construct
+     * @uses Lcobucci\JWT\Signer\Key
      *
      * @covers Lcobucci\JWT\Signer\BaseSigner::sign
      * @covers Lcobucci\JWT\Signer\BaseSigner::getKey
@@ -49,9 +60,9 @@ class BaseSignerTest extends \PHPUnit\Framework\TestCase
         $key = new Key('123');
 
         $this->signer->expects($this->once())
-            ->method('createHash')
-            ->with('test', $key)
-            ->willReturn('test');
+                     ->method('createHash')
+                     ->with('test', $key)
+                     ->willReturn('test');
 
         $this->assertEquals(new Signature('test'), $this->signer->sign('test', $key));
     }
@@ -59,8 +70,8 @@ class BaseSignerTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses   Lcobucci\JWT\Signature::__construct
-     * @uses   Lcobucci\JWT\Signer\Key
+     * @uses Lcobucci\JWT\Signature::__construct
+     * @uses Lcobucci\JWT\Signer\Key
      *
      * @covers Lcobucci\JWT\Signer\BaseSigner::sign
      * @covers Lcobucci\JWT\Signer\BaseSigner::getKey
@@ -68,9 +79,9 @@ class BaseSignerTest extends \PHPUnit\Framework\TestCase
     public function signShouldConvertKeyWhenItsNotAnObject()
     {
         $this->signer->expects($this->once())
-            ->method('createHash')
-            ->with('test', new Key('123'))
-            ->willReturn('test');
+                     ->method('createHash')
+                     ->with('test', new Key('123'))
+                     ->willReturn('test');
 
         $this->assertEquals(new Signature('test'), $this->signer->sign('test', '123'));
     }
@@ -78,8 +89,8 @@ class BaseSignerTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses   Lcobucci\JWT\Signature::__construct
-     * @uses   Lcobucci\JWT\Signer\Key
+     * @uses Lcobucci\JWT\Signature::__construct
+     * @uses Lcobucci\JWT\Signer\Key
      *
      * @covers Lcobucci\JWT\Signer\BaseSigner::verify
      * @covers Lcobucci\JWT\Signer\BaseSigner::getKey
@@ -89,9 +100,9 @@ class BaseSignerTest extends \PHPUnit\Framework\TestCase
         $key = new Key('123');
 
         $this->signer->expects($this->once())
-            ->method('doVerify')
-            ->with('test', 'test', $key)
-            ->willReturn(true);
+                     ->method('doVerify')
+                     ->with('test', 'test', $key)
+                     ->willReturn(true);
 
         $this->assertTrue($this->signer->verify('test', 'test', $key));
     }
@@ -99,8 +110,8 @@ class BaseSignerTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses   Lcobucci\JWT\Signature::__construct
-     * @uses   Lcobucci\JWT\Signer\Key
+     * @uses Lcobucci\JWT\Signature::__construct
+     * @uses Lcobucci\JWT\Signer\Key
      *
      * @covers Lcobucci\JWT\Signer\BaseSigner::verify
      * @covers Lcobucci\JWT\Signer\BaseSigner::getKey
@@ -108,21 +119,10 @@ class BaseSignerTest extends \PHPUnit\Framework\TestCase
     public function verifyShouldConvertKeyWhenItsNotAnObject()
     {
         $this->signer->expects($this->once())
-            ->method('doVerify')
-            ->with('test', 'test', new Key('123'))
-            ->willReturn(true);
+                     ->method('doVerify')
+                     ->with('test', 'test', new Key('123'))
+                     ->willReturn(true);
 
         $this->assertTrue($this->signer->verify('test', 'test', '123'));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function setUp()
-    {
-        $this->signer = $this->getMockForAbstractClass(BaseSigner::class);
-
-        $this->signer->method('getAlgorithmId')
-            ->willReturn('TEST123');
     }
 }

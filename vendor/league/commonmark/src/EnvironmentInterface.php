@@ -26,7 +26,7 @@ interface EnvironmentInterface
 
     /**
      * @param string|null $key
-     * @param mixed $default
+     * @param mixed       $default
      *
      * @return mixed
      */

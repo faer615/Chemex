@@ -22,7 +22,7 @@ use League\CommonMark\Inline\Element\Emphasis;
 final class EmphasisRenderer implements InlineRendererInterface
 {
     /**
-     * @param Emphasis $inline
+     * @param Emphasis                 $inline
      * @param ElementRendererInterface $htmlRenderer
      *
      * @return HtmlElement

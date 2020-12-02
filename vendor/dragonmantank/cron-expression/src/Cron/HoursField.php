@@ -27,14 +27,14 @@ class HoursField extends AbstractField
      */
     public function isSatisfiedBy(DateTimeInterface $date, $value): bool
     {
-        return $this->isSatisfied((int)$date->format('H'), $value);
+        return $this->isSatisfied((int) $date->format('H'), $value);
     }
 
     /**
      * {@inheritdoc}
      *
-     * @param \DateTime|\DateTimeImmutable &$date
-     * @param string|null $parts
+     * @param \DateTime|\DateTimeImmutable $date
+     * @param string|null                  $parts
      */
     public function increment(DateTimeInterface &$date, $invert = false, $parts = null): FieldInterface
     {
@@ -71,8 +71,8 @@ class HoursField extends AbstractField
             }
         }
 
-        $hour = (int)$hours[$position];
-        if ((!$invert && (int)$date->format('H') >= $hour) || ($invert && (int)$date->format('H') <= $hour)) {
+        $hour = (int) $hours[$position];
+        if ((!$invert && (int) $date->format('H') >= $hour) || ($invert && (int) $date->format('H') <= $hour)) {
             $date = $date->modify(($invert ? '-' : '+') . '1 day');
             $date = $date->setTime($invert ? 23 : 0, $invert ? 59 : 0);
         } else {

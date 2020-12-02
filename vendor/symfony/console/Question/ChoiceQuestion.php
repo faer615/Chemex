@@ -27,8 +27,8 @@ class ChoiceQuestion extends Question
 
     /**
      * @param string $question The question to ask to the user
-     * @param array $choices The list of available choices
-     * @param mixed $default The default answer to return
+     * @param array  $choices  The list of available choices
+     * @param mixed  $default  The default answer to return
      */
     public function __construct(string $question, array $choices, $default = null)
     {
@@ -54,16 +54,6 @@ class ChoiceQuestion extends Question
     }
 
     /**
-     * Returns whether the choices are multiselect.
-     *
-     * @return bool
-     */
-    public function isMultiselect()
-    {
-        return $this->multiselect;
-    }
-
-    /**
      * Sets multiselect option.
      *
      * When multiselect is set to true, multiple choices can be answered.
@@ -76,6 +66,16 @@ class ChoiceQuestion extends Question
         $this->setValidator($this->getDefaultValidator());
 
         return $this;
+    }
+
+    /**
+     * Returns whether the choices are multiselect.
+     *
+     * @return bool
+     */
+    public function isMultiselect()
+    {
+        return $this->multiselect;
     }
 
     /**
@@ -169,7 +169,7 @@ class ChoiceQuestion extends Question
                     throw new InvalidArgumentException(sprintf($errorMessage, $value));
                 }
 
-                $multiselectChoices[] = (string)$result;
+                $multiselectChoices[] = (string) $result;
             }
 
             if ($multiselect) {

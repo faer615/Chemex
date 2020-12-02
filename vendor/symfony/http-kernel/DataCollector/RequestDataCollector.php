@@ -34,14 +34,6 @@ class RequestDataCollector extends DataCollector implements EventSubscriberInter
         $this->controllers = new \SplObjectStorage();
     }
 
-    public static function getSubscribedEvents()
-    {
-        return [
-            KernelEvents::CONTROLLER => 'onKernelController',
-            KernelEvents::RESPONSE => 'onKernelResponse',
-        ];
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -137,9 +129,7 @@ class RequestDataCollector extends DataCollector implements EventSubscriberInter
                 continue;
             }
             if ('request_headers' === $key || 'response_headers' === $key) {
-                $this->data[$key] = array_map(function ($v) {
-                    return isset($v[0]) && !isset($v[1]) ? $v[0] : $v;
-                }, $value);
+                $this->data[$key] = array_map(function ($v) { return isset($v[0]) && !isset($v[1]) ? $v[0] : $v; }, $value);
             }
         }
 
@@ -163,13 +153,13 @@ class RequestDataCollector extends DataCollector implements EventSubscriberInter
                     'method' => $request->getMethod(),
                     'controller' => $this->parseController($request->attributes->get('_controller')),
                     'status_code' => $statusCode,
-                    'status_text' => Response::$statusTexts[(int)$statusCode],
+                    'status_text' => Response::$statusTexts[(int) $statusCode],
                 ]),
                 0, '/', null, $request->isSecure(), true, false, 'lax'
             ));
         }
 
-        $this->data['identifier'] = $this->data['route'] ?: (\is_array($this->data['controller']) ? $this->data['controller']['class'] . '::' . $this->data['controller']['method'] . '()' : $this->data['controller']);
+        $this->data['identifier'] = $this->data['route'] ?: (\is_array($this->data['controller']) ? $this->data['controller']['class'].'::'.$this->data['controller']['method'].'()' : $this->data['controller']);
 
         if ($response->headers->has('x-previous-debug-token')) {
             $this->data['forward_token'] = $response->headers->get('x-previous-debug-token');
@@ -374,6 +364,14 @@ class RequestDataCollector extends DataCollector implements EventSubscriberInter
         if ($event->getRequest()->cookies->has('sf_redirect')) {
             $event->getRequest()->attributes->set('_redirected', true);
         }
+    }
+
+    public static function getSubscribedEvents()
+    {
+        return [
+            KernelEvents::CONTROLLER => 'onKernelController',
+            KernelEvents::RESPONSE => 'onKernelResponse',
+        ];
     }
 
     /**

@@ -46,42 +46,28 @@ final class InvalidTag implements Tag
         $this->body = $body;
     }
 
-    public static function create(string $body, string $name = ''): self
-    {
-        return new self($name, $body);
-    }
-
-    public function getException(): ?Throwable
+    public function getException() : ?Throwable
     {
         return $this->throwable;
     }
 
-    public function getName(): string
+    public function getName() : string
     {
         return $this->name;
     }
 
-    public function withError(Throwable $exception): self
+    public static function create(string $body, string $name = '') : self
+    {
+        return new self($name, $body);
+    }
+
+    public function withError(Throwable $exception) : self
     {
         $this->flattenExceptionBacktrace($exception);
-        $tag = new self($this->name, $this->body);
+        $tag            = new self($this->name, $this->body);
         $tag->throwable = $exception;
 
         return $tag;
-    }
-
-    public function render(?Formatter $formatter = null): string
-    {
-        if ($formatter === null) {
-            $formatter = new Formatter\PassthroughFormatter();
-        }
-
-        return $formatter->format($this);
-    }
-
-    public function __toString(): string
-    {
-        return $this->body;
     }
 
     /**
@@ -90,7 +76,7 @@ final class InvalidTag implements Tag
      * Not all objects are serializable. So we need to remove them from the
      * stored exception to be sure that we do not break existing library usage.
      */
-    private function flattenExceptionBacktrace(Throwable $exception): void
+    private function flattenExceptionBacktrace(Throwable $exception) : void
     {
         $traceProperty = (new ReflectionClass(Exception::class))->getProperty('trace');
         $traceProperty->setAccessible(true);
@@ -99,7 +85,7 @@ final class InvalidTag implements Tag
             $trace = $exception->getTrace();
             if (isset($trace[0]['args'])) {
                 $trace = array_map(
-                    function (array $call): array {
+                    function (array $call) : array {
                         $call['args'] = array_map([$this, 'flattenArguments'], $call['args']);
 
                         return $call;
@@ -126,7 +112,7 @@ final class InvalidTag implements Tag
     {
         if ($value instanceof Closure) {
             $closureReflection = new ReflectionFunction($value);
-            $value = sprintf(
+            $value             = sprintf(
                 '(Closure at %s:%s)',
                 $closureReflection->getFileName(),
                 $closureReflection->getStartLine()
@@ -140,5 +126,19 @@ final class InvalidTag implements Tag
         }
 
         return $value;
+    }
+
+    public function render(?Formatter $formatter = null) : string
+    {
+        if ($formatter === null) {
+            $formatter = new Formatter\PassthroughFormatter();
+        }
+
+        return $formatter->format($this);
+    }
+
+    public function __toString() : string
+    {
+        return $this->body;
     }
 }

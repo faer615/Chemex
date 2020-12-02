@@ -24,19 +24,20 @@ namespace Symfony\Component\HttpFoundation;
  */
 class JsonResponse extends Response
 {
-    const DEFAULT_ENCODING_OPTIONS = 15;
     protected $data;
+    protected $callback;
 
     // Encode <, >, ', &, and " characters in the JSON, making it also safe to be embedded into HTML.
     // 15 === JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT
-    protected $callback;
+    const DEFAULT_ENCODING_OPTIONS = 15;
+
     protected $encodingOptions = self::DEFAULT_ENCODING_OPTIONS;
 
     /**
-     * @param mixed $data The response data
-     * @param int $status The response status code
+     * @param mixed $data    The response data
+     * @param int   $status  The response status code
      * @param array $headers An array of response headers
-     * @param bool $json If the data is already a JSON string
+     * @param bool  $json    If the data is already a JSON string
      */
     public function __construct($data = null, int $status = 200, array $headers = [], bool $json = false)
     {
@@ -57,8 +58,8 @@ class JsonResponse extends Response
      *     return JsonResponse::create(['key' => 'value'])
      *         ->setSharedMaxAge(300);
      *
-     * @param mixed $data The JSON response data
-     * @param int $status The response status code
+     * @param mixed $data    The JSON response data
+     * @param int   $status  The response status code
      * @param array $headers An array of response headers
      *
      * @return static
@@ -80,9 +81,9 @@ class JsonResponse extends Response
      *     return JsonResponse::fromJsonString('{"key": "value"}')
      *         ->setSharedMaxAge(300);
      *
-     * @param string|null $data The JSON response string
-     * @param int $status The response status code
-     * @param array $headers An array of response headers
+     * @param string|null $data    The JSON response string
+     * @param int         $status  The response status code
+     * @param array       $headers An array of response headers
      *
      * @return static
      */
@@ -110,7 +111,7 @@ class JsonResponse extends Response
             $pattern = '/^[$_\p{L}][$_\p{L}\p{Mn}\p{Mc}\p{Nd}\p{Pc}\x{200C}\x{200D}]*(?:\[(?:"(?:\\\.|[^"\\\])*"|\'(?:\\\.|[^\'\\\])*\'|\d+)\])*?$/u';
             $reserved = [
                 'break', 'do', 'instanceof', 'typeof', 'case', 'else', 'new', 'var', 'catch', 'finally', 'return', 'void', 'continue', 'for', 'switch', 'while',
-                'debugger', 'function', 'this', 'with', 'default', 'if', 'throw', 'delete', 'in', 'try', 'class', 'enum', 'extends', 'super', 'const', 'export',
+                'debugger', 'function', 'this', 'with', 'default', 'if', 'throw', 'delete', 'in', 'try', 'class', 'enum', 'extends', 'super',  'const', 'export',
                 'import', 'implements', 'let', 'private', 'public', 'yield', 'interface', 'package', 'protected', 'static', 'null', 'true', 'false',
             ];
             $parts = explode('.', $callback);

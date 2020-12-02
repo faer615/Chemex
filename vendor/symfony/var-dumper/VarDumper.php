@@ -19,7 +19,7 @@ use Symfony\Component\VarDumper\Dumper\ContextualizedDumper;
 use Symfony\Component\VarDumper\Dumper\HtmlDumper;
 
 // Load the global dump() function
-require_once __DIR__ . '/Resources/functions/dump.php';
+require_once __DIR__.'/Resources/functions/dump.php';
 
 /**
  * @author Nicolas Grekas <p@tchwork.com>

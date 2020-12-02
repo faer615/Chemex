@@ -50,7 +50,7 @@ class MemcachedSessionHandler extends AbstractSessionHandler
             throw new \InvalidArgumentException(sprintf('The following options are not supported "%s".', implode(', ', $diff)));
         }
 
-        $this->ttl = isset($options['expiretime']) ? (int)$options['expiretime'] : 86400;
+        $this->ttl = isset($options['expiretime']) ? (int) $options['expiretime'] : 86400;
         $this->prefix = isset($options['prefix']) ? $options['prefix'] : 'sf2s';
     }
 
@@ -63,13 +63,39 @@ class MemcachedSessionHandler extends AbstractSessionHandler
     }
 
     /**
+     * {@inheritdoc}
+     */
+    protected function doRead(string $sessionId)
+    {
+        return $this->memcached->get($this->prefix.$sessionId) ?: '';
+    }
+
+    /**
      * @return bool
      */
     public function updateTimestamp($sessionId, $data)
     {
-        $this->memcached->touch($this->prefix . $sessionId, time() + $this->ttl);
+        $this->memcached->touch($this->prefix.$sessionId, time() + $this->ttl);
 
         return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function doWrite(string $sessionId, string $data)
+    {
+        return $this->memcached->set($this->prefix.$sessionId, $data, time() + $this->ttl);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function doDestroy(string $sessionId)
+    {
+        $result = $this->memcached->delete($this->prefix.$sessionId);
+
+        return $result || \Memcached::RES_NOTFOUND == $this->memcached->getResultCode();
     }
 
     /**
@@ -79,32 +105,6 @@ class MemcachedSessionHandler extends AbstractSessionHandler
     {
         // not required here because memcached will auto expire the records anyhow.
         return true;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function doRead(string $sessionId)
-    {
-        return $this->memcached->get($this->prefix . $sessionId) ?: '';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function doWrite(string $sessionId, string $data)
-    {
-        return $this->memcached->set($this->prefix . $sessionId, $data, time() + $this->ttl);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function doDestroy(string $sessionId)
-    {
-        $result = $this->memcached->delete($this->prefix . $sessionId);
-
-        return $result || \Memcached::RES_NOTFOUND == $this->memcached->getResultCode();
     }
 
     /**

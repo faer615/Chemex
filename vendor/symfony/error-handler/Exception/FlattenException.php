@@ -142,7 +142,7 @@ class FlattenException
      */
     public function setClass($class): self
     {
-        $this->class = false !== strpos($class, "@anonymous\0") ? (get_parent_class($class) ?: key(class_implements($class)) ?: 'class') . '@anonymous' : $class;
+        $this->class = false !== strpos($class, "@anonymous\0") ? (get_parent_class($class) ?: key(class_implements($class)) ?: 'class').'@anonymous' : $class;
 
         return $this;
     }
@@ -201,7 +201,7 @@ class FlattenException
     {
         if (false !== strpos($message, "@anonymous\0")) {
             $message = preg_replace_callback('/[a-zA-Z_\x7f-\xff][\\\\a-zA-Z0-9_\x7f-\xff]*+@anonymous\x00.*?\.php(?:0x?|:[0-9]++\$)[0-9a-fA-F]++/', function ($m) {
-                return class_exists($m[0], false) ? (get_parent_class($m[0]) ?: key(class_implements($m[0])) ?: 'class') . '@anonymous' : $m[0];
+                return class_exists($m[0], false) ? (get_parent_class($m[0]) ?: key(class_implements($m[0])) ?: 'class').'@anonymous' : $m[0];
             }, $message);
         }
 
@@ -265,6 +265,16 @@ class FlattenException
     /**
      * @return $this
      */
+    public function setTraceFromThrowable(\Throwable $throwable): self
+    {
+        $this->traceAsString = $throwable->getTraceAsString();
+
+        return $this->setTrace($throwable->getTrace(), $throwable->getFile(), $throwable->getLine());
+    }
+
+    /**
+     * @return $this
+     */
     public function setTrace($trace, $file, $line): self
     {
         $this->trace = [];
@@ -302,59 +312,6 @@ class FlattenException
         return $this;
     }
 
-    /**
-     * @return $this
-     */
-    public function setTraceFromThrowable(\Throwable $throwable): self
-    {
-        $this->traceAsString = $throwable->getTraceAsString();
-
-        return $this->setTrace($throwable->getTrace(), $throwable->getFile(), $throwable->getLine());
-    }
-
-    public function getTraceAsString(): string
-    {
-        return $this->traceAsString;
-    }
-
-    public function getAsString(): string
-    {
-        if (null !== $this->asString) {
-            return $this->asString;
-        }
-
-        $message = '';
-        $next = false;
-
-        foreach (array_reverse(array_merge([$this], $this->getAllPrevious())) as $exception) {
-            if ($next) {
-                $message .= 'Next ';
-            } else {
-                $next = true;
-            }
-            $message .= $exception->getClass();
-
-            if ('' != $exception->getMessage()) {
-                $message .= ': ' . $exception->getMessage();
-            }
-
-            $message .= ' in ' . $exception->getFile() . ':' . $exception->getLine() .
-                "\nStack trace:\n" . $exception->getTraceAsString() . "\n\n";
-        }
-
-        return rtrim($message);
-    }
-
-    /**
-     * @return $this
-     */
-    public function setAsString(?string $asString): self
-    {
-        $this->asString = $asString;
-
-        return $this;
-    }
-
     private function flattenArgs(array $args, int $level = 0, int &$count = 0): array
     {
         $result = [];
@@ -384,7 +341,7 @@ class FlattenException
             } elseif (\is_resource($value)) {
                 $result[$key] = ['resource', get_resource_type($value)];
             } else {
-                $result[$key] = ['string', (string)$value];
+                $result[$key] = ['string', (string) $value];
             }
         }
 
@@ -396,5 +353,48 @@ class FlattenException
         $array = new \ArrayObject($value);
 
         return $array['__PHP_Incomplete_Class_Name'];
+    }
+
+    public function getTraceAsString(): string
+    {
+        return $this->traceAsString;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setAsString(?string $asString): self
+    {
+        $this->asString = $asString;
+
+        return $this;
+    }
+
+    public function getAsString(): string
+    {
+        if (null !== $this->asString) {
+            return $this->asString;
+        }
+
+        $message = '';
+        $next = false;
+
+        foreach (array_reverse(array_merge([$this], $this->getAllPrevious())) as $exception) {
+            if ($next) {
+                $message .= 'Next ';
+            } else {
+                $next = true;
+            }
+            $message .= $exception->getClass();
+
+            if ('' != $exception->getMessage()) {
+                $message .= ': '.$exception->getMessage();
+            }
+
+            $message .= ' in '.$exception->getFile().':'.$exception->getLine().
+                "\nStack trace:\n".$exception->getTraceAsString()."\n\n";
+        }
+
+        return rtrim($message);
     }
 }

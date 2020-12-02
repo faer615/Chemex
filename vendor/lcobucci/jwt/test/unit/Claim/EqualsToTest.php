@@ -18,11 +18,11 @@ class EqualsToTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses   Lcobucci\JWT\Claim\Basic::__construct
-     * @uses   Lcobucci\JWT\Claim\Basic::getName
-     * @uses   Lcobucci\JWT\ValidationData::__construct
-     * @uses   Lcobucci\JWT\ValidationData::has
-     * @uses   Lcobucci\JWT\ValidationData::setCurrentTime
+     * @uses Lcobucci\JWT\Claim\Basic::__construct
+     * @uses Lcobucci\JWT\Claim\Basic::getName
+     * @uses Lcobucci\JWT\ValidationData::__construct
+     * @uses Lcobucci\JWT\ValidationData::has
+     * @uses Lcobucci\JWT\ValidationData::setCurrentTime
      *
      * @covers Lcobucci\JWT\Claim\EqualsTo::validate
      */
@@ -36,14 +36,14 @@ class EqualsToTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses   Lcobucci\JWT\Claim\Basic::__construct
-     * @uses   Lcobucci\JWT\Claim\Basic::getName
-     * @uses   Lcobucci\JWT\Claim\Basic::getValue
-     * @uses   Lcobucci\JWT\ValidationData::__construct
-     * @uses   Lcobucci\JWT\ValidationData::setIssuer
-     * @uses   Lcobucci\JWT\ValidationData::has
-     * @uses   Lcobucci\JWT\ValidationData::get
-     * @uses   Lcobucci\JWT\ValidationData::setCurrentTime
+     * @uses Lcobucci\JWT\Claim\Basic::__construct
+     * @uses Lcobucci\JWT\Claim\Basic::getName
+     * @uses Lcobucci\JWT\Claim\Basic::getValue
+     * @uses Lcobucci\JWT\ValidationData::__construct
+     * @uses Lcobucci\JWT\ValidationData::setIssuer
+     * @uses Lcobucci\JWT\ValidationData::has
+     * @uses Lcobucci\JWT\ValidationData::get
+     * @uses Lcobucci\JWT\ValidationData::setCurrentTime
      *
      * @covers Lcobucci\JWT\Claim\EqualsTo::validate
      */
@@ -60,14 +60,14 @@ class EqualsToTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @uses   Lcobucci\JWT\Claim\Basic::__construct
-     * @uses   Lcobucci\JWT\Claim\Basic::getName
-     * @uses   Lcobucci\JWT\Claim\Basic::getValue
-     * @uses   Lcobucci\JWT\ValidationData::__construct
-     * @uses   Lcobucci\JWT\ValidationData::setIssuer
-     * @uses   Lcobucci\JWT\ValidationData::has
-     * @uses   Lcobucci\JWT\ValidationData::get
-     * @uses   Lcobucci\JWT\ValidationData::setCurrentTime
+     * @uses Lcobucci\JWT\Claim\Basic::__construct
+     * @uses Lcobucci\JWT\Claim\Basic::getName
+     * @uses Lcobucci\JWT\Claim\Basic::getValue
+     * @uses Lcobucci\JWT\ValidationData::__construct
+     * @uses Lcobucci\JWT\ValidationData::setIssuer
+     * @uses Lcobucci\JWT\ValidationData::has
+     * @uses Lcobucci\JWT\ValidationData::get
+     * @uses Lcobucci\JWT\ValidationData::setCurrentTime
      *
      * @covers Lcobucci\JWT\Claim\EqualsTo::validate
      */

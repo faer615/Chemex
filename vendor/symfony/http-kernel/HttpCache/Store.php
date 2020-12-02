@@ -119,7 +119,7 @@ class Store implements StoreInterface
         flock($h, \LOCK_UN); // release the lock we just acquired
         fclose($h);
 
-        return (bool)$wouldBlock;
+        return (bool) $wouldBlock;
     }
 
     /**
@@ -225,6 +225,16 @@ class Store implements StoreInterface
     }
 
     /**
+     * Returns content digest for $response.
+     *
+     * @return string
+     */
+    protected function generateContentDigest(Response $response)
+    {
+        return 'en'.hash('sha256', $response->getContent());
+    }
+
+    /**
      * Invalidates all cache entries that match the request.
      *
      * @throws \RuntimeException
@@ -252,62 +262,12 @@ class Store implements StoreInterface
     }
 
     /**
-     * Purges data for the given URL.
-     *
-     * This method purges both the HTTP and the HTTPS version of the cache entry.
-     *
-     * @return bool true if the URL exists with either HTTP or HTTPS scheme and has been purged, false otherwise
-     */
-    public function purge(string $url)
-    {
-        $http = preg_replace('#^https:#', 'http:', $url);
-        $https = preg_replace('#^http:#', 'https:', $url);
-
-        $purgedHttp = $this->doPurge($http);
-        $purgedHttps = $this->doPurge($https);
-
-        return $purgedHttp || $purgedHttps;
-    }
-
-    public function getPath(string $key)
-    {
-        return $this->root . \DIRECTORY_SEPARATOR . substr($key, 0, 2) . \DIRECTORY_SEPARATOR . substr($key, 2, 2) . \DIRECTORY_SEPARATOR . substr($key, 4, 2) . \DIRECTORY_SEPARATOR . substr($key, 6);
-    }
-
-    /**
-     * Returns content digest for $response.
-     *
-     * @return string
-     */
-    protected function generateContentDigest(Response $response)
-    {
-        return 'en' . hash('sha256', $response->getContent());
-    }
-
-    /**
-     * Generates a cache key for the given Request.
-     *
-     * This method should return a key that must only depend on a
-     * normalized version of the request URI.
-     *
-     * If the same URI can have more than one representation, based on some
-     * headers, use a Vary header to indicate them, and each representation will
-     * be stored independently under the same cache key.
-     *
-     * @return string A key for the given Request
-     */
-    protected function generateCacheKey(Request $request)
-    {
-        return 'md' . hash('sha256', $request->getUri());
-    }
-
-    /**
      * Determines whether two Request HTTP header sets are non-varying based on
      * the vary response header value provided.
      *
      * @param string|null $vary A Response vary header
-     * @param array $env1 A Request HTTP header array
-     * @param array $env2 A Request HTTP header array
+     * @param array       $env1 A Request HTTP header array
+     * @param array       $env2 A Request HTTP header array
      */
     private function requestsMatch(?string $vary, array $env1, array $env2): bool
     {
@@ -339,6 +299,24 @@ class Store implements StoreInterface
         }
 
         return unserialize($entries);
+    }
+
+    /**
+     * Purges data for the given URL.
+     *
+     * This method purges both the HTTP and the HTTPS version of the cache entry.
+     *
+     * @return bool true if the URL exists with either HTTP or HTTPS scheme and has been purged, false otherwise
+     */
+    public function purge(string $url)
+    {
+        $http = preg_replace('#^https:#', 'http:', $url);
+        $https = preg_replace('#^http:#', 'https:', $url);
+
+        $purgedHttp = $this->doPurge($http);
+        $purgedHttps = $this->doPurge($https);
+
+        return $purgedHttp || $purgedHttps;
     }
 
     /**
@@ -423,6 +401,28 @@ class Store implements StoreInterface
         @chmod($path, 0666 & ~umask());
 
         return true;
+    }
+
+    public function getPath(string $key)
+    {
+        return $this->root.\DIRECTORY_SEPARATOR.substr($key, 0, 2).\DIRECTORY_SEPARATOR.substr($key, 2, 2).\DIRECTORY_SEPARATOR.substr($key, 4, 2).\DIRECTORY_SEPARATOR.substr($key, 6);
+    }
+
+    /**
+     * Generates a cache key for the given Request.
+     *
+     * This method should return a key that must only depend on a
+     * normalized version of the request URI.
+     *
+     * If the same URI can have more than one representation, based on some
+     * headers, use a Vary header to indicate them, and each representation will
+     * be stored independently under the same cache key.
+     *
+     * @return string A key for the given Request
+     */
+    protected function generateCacheKey(Request $request)
+    {
+        return 'md'.hash('sha256', $request->getUri());
     }
 
     /**

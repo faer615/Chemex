@@ -20,6 +20,19 @@ class MimeType
     }
 
     /**
+     * @return MimeTypeDetector
+     */
+    protected static function detector()
+    {
+        if ( ! static::$detector instanceof MimeTypeDetector) {
+            static::$detector = new FinfoMimeTypeDetector();
+        }
+
+        return static::$detector;
+    }
+
+
+    /**
      * Detects MIME Type based on given content.
      *
      * @param mixed $content
@@ -63,17 +76,5 @@ class MimeType
     public static function getExtensionToMimeTypeMap()
     {
         return static::$extensionToMimeTypeMap;
-    }
-
-    /**
-     * @return MimeTypeDetector
-     */
-    protected static function detector()
-    {
-        if (!static::$detector instanceof MimeTypeDetector) {
-            static::$detector = new FinfoMimeTypeDetector();
-        }
-
-        return static::$detector;
     }
 }

@@ -59,8 +59,7 @@ function v2(
     ?IntegerObject $localIdentifier = null,
     ?Hexadecimal $node = null,
     ?int $clockSeq = null
-): string
-{
+): string {
     return Uuid::uuid2($localDomain, $localIdentifier, $node, $clockSeq)->toString();
 }
 
