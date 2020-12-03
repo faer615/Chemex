@@ -120,6 +120,8 @@ UI设计来自多个优秀开源项目，例如：Bootstrap、AdminLTE、Apex Ch
 
 然后，执行 `php artisan db:seed --class=AdminTablesSeeder` 来更新数据库表数据。
 
+注意：只有 `main` 分支才是适用于生产环境的分支。
+
 享受使用吧。
 
 ## 截图
