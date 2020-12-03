@@ -15,6 +15,7 @@ use App\Models\PurchasedChannel;
 use App\Models\VendorRecord;
 use App\Services\DeviceRecordService;
 use App\Services\ExpirationService;
+use App\Services\ExportService;
 use App\Support\Info;
 use App\Support\Track;
 use Dcat\Admin\Admin;
@@ -56,7 +57,8 @@ class DeviceRecordController extends AdminController
                         $column->row(new Card('归属信息', view('device_records.related')->with('data', $related)));
                     }
                     if (Admin::user()->can('device.history')) {
-                        $column->row(new Card('履历', view('history')->with('data', $history)));
+                        $card = new Card('履历', view('history')->with('data', $history));
+                        $column->row($card->tool('<a class="btn btn-primary btn-xs" href="' . route('export.device.history', $id) . '" target="_blank">导出到 Excel</a>'));
                     }
                 });
             });
@@ -225,5 +227,15 @@ class DeviceRecordController extends AdminController
 
             $form->disableDeleteButton();
         });
+    }
+
+    /**
+     * 履历导出
+     * @param $device_id
+     * @return mixed
+     */
+    public function exportHistory($device_id)
+    {
+        return ExportService::DeviceHistory($device_id);
     }
 }

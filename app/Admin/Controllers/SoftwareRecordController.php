@@ -14,6 +14,7 @@ use App\Models\PurchasedChannel;
 use App\Models\SoftwareCategory;
 use App\Models\VendorRecord;
 use App\Services\ExpirationService;
+use App\Services\ExportService;
 use App\Services\SoftwareRecordService;
 use App\Support\Data;
 use App\Support\Info;
@@ -78,7 +79,8 @@ class SoftwareRecordController extends AdminController
                             });
                         });
                         $column->row(new Card('管理归属（授权）', $grid));
-                        $column->row(new Card('履历', view('history')->with('data', $history)));
+                        $card = new Card('履历', view('history')->with('data', $history));
+                        $column->row($card->tool('<a class="btn btn-primary btn-xs" href="' . route('export.software.history', $id) . '" target="_blank">导出到 Excel</a>'));
                     });
                 }
             });
@@ -210,5 +212,15 @@ class SoftwareRecordController extends AdminController
 
             $form->disableDeleteButton();
         });
+    }
+
+    /**
+     * 履历导出
+     * @param $software_id
+     * @return mixed
+     */
+    public function exportHistory($software_id)
+    {
+        return ExportService::SoftwareHistory($software_id);
     }
 }

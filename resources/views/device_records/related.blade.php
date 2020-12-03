@@ -31,7 +31,7 @@
     <div style="text-align: center;color: rgba(0,0,0,0.7)">无内容</div>
 @endif
 @if(count($data['software'])>0)
-    <table class="table table-hover table-bordered">
+    <table class="table table-hover table-bordered" style="margin-top: 20px;">
         <thead>
         <tr>
             <th colspan="6" class="title">软件</th>
@@ -63,7 +63,7 @@
     <div style="text-align: center;color: rgba(0,0,0,0.7)">无内容</div>
 @endif
 @if(count($data['service'])>0)
-    <table class="table table-hover table-bordered">
+    <table class="table table-hover table-bordered" style="margin-top: 20px;">
         <thead>
         <tr>
             <th colspan="6" class="title">服务程序</th>

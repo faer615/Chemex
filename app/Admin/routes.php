@@ -1,5 +1,7 @@
 <?php
 
+use App\Admin\Controllers\DeviceRecordController;
+use App\Admin\Controllers\SoftwareRecordController;
 use Dcat\Admin\Admin;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
@@ -53,4 +55,7 @@ Route::group([
     ]]);
     $router->resource('/service/tracks', 'ServiceTrackController');
     $router->resource('/maintenance/records', 'MaintenanceRecordController');
+
+    $router->get('/export/device/{device_id}/history', [DeviceRecordController::class, 'exportHistory'])->name('export.device.history');
+    $router->get('/export/software/{software_id}/history', [SoftwareRecordController::class, 'exportHistory'])->name('export.software.history');
 });
