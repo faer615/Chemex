@@ -62,7 +62,7 @@ class CheckTrackForm extends Form implements LazyRenderable
     public function form()
     {
         $this->radio('status', '盘点状态')
-            ->options([1 => '盘到啦', 2 => '没盘道'])
+            ->options([1 => '盘到啦', 2 => '没盘到'])
             ->default(1)
             ->required();
         $this->textarea('description', '描述');
