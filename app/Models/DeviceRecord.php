@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Crypt;
 /**
  * @method static where(string $key, string $value, string $value = null)
  * @property mixed name
+ * @property mixed description
  * @property mixed category_id
  * @property mixed vendor_id
  * @property mixed sn
@@ -22,6 +23,8 @@ use Illuminate\Support\Facades\Crypt;
  * @property mixed purchased
  * @property mixed expired
  * @property mixed purchased_channel_id
+ * @property mixed security_password
+ * @property mixed admin_password
  */
 class DeviceRecord extends Model
 {

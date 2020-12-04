@@ -25,7 +25,7 @@ class DeviceRecordImportForm extends Form
     public function handle(array $input)
     {
         $file = $input['file'];
-        $file_path = storage_path('app/public/' . $file);
+        $file_path = public_path('uploads/' . $file);
         try {
             $rows = Excel::import($file_path)->first()->toArray();
             foreach ($rows as $row) {
@@ -38,22 +38,21 @@ class DeviceRecordImportForm extends Form
                             $device_records->name = $row['名称'];
                             $device_records->category_id = $category->id;
                             $device_records->vendor_id = $vendor->id;
-                            $device_records->sn = $row['序列号'];
+                            $device_records->sn = $row['序列号'] ?? '';
                             $device_records->mac = $row['MAC'];
                             $device_records->ip = $row['IP'];
+                            $device_records->security_password = $row['security_password'] ?? '';
+                            $device_records->admin_password = $row['admin_password'] ?? '';
+                            $device_records->description = $row['描述'] ?? '';
+                            $device_records->price = $row['价格'] ?? null;
+                            $device_records->purchased = $row['购入日期'] ?? null;
+                            $device_records->expired = $row['过保日期'] ?? null;
 
-                            if (!empty($row['价格'])) {
-                                $device_records->price = $row['价格'];
-                            }
-                            if (!empty($row['购入日期'])) {
-                                $device_records->purchased = $row['购入日期'];
-                            }
-                            if (!empty($row['过保日期'])) {
-                                $device_records->expired = $row['过保日期'];
-                            }
-                            $purchased_channel = PurchasedChannel::where('name', $row['购入途径'])->first();
-                            if (!empty($purchased_channel)) {
-                                $device_records->purchased_channel_id = $purchased_channel->id;
+                            if (!empty($row['购入途径'])) {
+                                $purchased_channel = PurchasedChannel::where('name', $row['购入途径'])->first();
+                                if (!empty($purchased_channel)) {
+                                    $device_records->purchased_channel_id = $purchased_channel->id;
+                                }
                             }
 
                             $device_records->save();
