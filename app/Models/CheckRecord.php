@@ -43,7 +43,7 @@ class CheckRecord extends Model
      * 雇员
      * @return HasOne
      */
-    public function user()
+    public function user(): HasOne
     {
         return $this->hasOne(AdminUser::class, 'id', 'user_id');
     }

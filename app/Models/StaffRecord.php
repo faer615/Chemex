@@ -5,6 +5,7 @@ namespace App\Models;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -38,7 +39,7 @@ class StaffRecord extends Model
         });
     }
 
-    public function department()
+    public function department(): HasOne
     {
         return $this->hasOne(StaffDepartment::class, 'id', 'department_id');
     }

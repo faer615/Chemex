@@ -38,7 +38,7 @@ use Dcat\Admin\Widgets\Card;
 class SoftwareRecordController extends AdminController
 {
 
-    public function show($id, Content $content)
+    public function show($id, Content $content): Content
     {
         $history = SoftwareRecordService::history($id);
         return $content
@@ -93,7 +93,7 @@ class SoftwareRecordController extends AdminController
      *
      * @return Show
      */
-    protected function detail($id)
+    protected function detail($id): Show
     {
         return Show::make($id, new SoftwareRecord(['category', 'vendor', 'channel']), function (Show $show) {
             $show->field('id');
@@ -116,11 +116,21 @@ class SoftwareRecordController extends AdminController
     }
 
     /**
+     * 履历导出
+     * @param $software_id
+     * @return mixed
+     */
+    public function exportHistory($software_id)
+    {
+        return ExportService::SoftwareHistory($software_id);
+    }
+
+    /**
      * Make a grid builder.
      *
      * @return Grid
      */
-    protected function grid()
+    protected function grid(): Grid
     {
         return Grid::make(new SoftwareRecord(['category', 'vendor']), function (Grid $grid) {
             $grid->column('id');
@@ -179,7 +189,7 @@ class SoftwareRecordController extends AdminController
      *
      * @return Form
      */
-    protected function form()
+    protected function form(): Form
     {
         return Form::make(new SoftwareRecord(), function (Form $form) {
             $form->display('id');
@@ -212,15 +222,5 @@ class SoftwareRecordController extends AdminController
 
             $form->disableDeleteButton();
         });
-    }
-
-    /**
-     * 履历导出
-     * @param $software_id
-     * @return mixed
-     */
-    public function exportHistory($software_id)
-    {
-        return ExportService::SoftwareHistory($software_id);
     }
 }

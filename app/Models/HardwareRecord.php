@@ -45,7 +45,7 @@ class HardwareRecord extends Model
      * 硬件分类
      * @return HasOne
      */
-    public function category()
+    public function category(): HasOne
     {
         return $this->hasOne(HardwareCategory::class, 'id', 'category_id');
     }
@@ -54,7 +54,7 @@ class HardwareRecord extends Model
      * 制造商
      * @return HasOne
      */
-    public function vendor()
+    public function vendor(): HasOne
     {
         return $this->hasOne(VendorRecord::class, 'id', 'vendor_id');
     }
@@ -63,7 +63,7 @@ class HardwareRecord extends Model
      * 购入途径
      * @return HasOne
      */
-    public function channel()
+    public function channel(): HasOne
     {
         return $this->hasOne(PurchasedChannel::class, 'id', 'purchased_channel_id');
     }
@@ -76,7 +76,7 @@ class HardwareRecord extends Model
      * 设备所属雇员
      * @return HasManyThrough
      */
-    public function device()
+    public function device(): HasManyThrough
     {
         return $this->hasOneThrough(
             DeviceRecord::class,  // 远程表

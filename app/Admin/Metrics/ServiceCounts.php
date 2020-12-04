@@ -18,7 +18,7 @@ class ServiceCounts extends Card
      *
      * @return $this
      */
-    public function content($content)
+    public function content($content): ServiceCounts
     {
         if ($content instanceof LazyGrid) {
             $content->simple();

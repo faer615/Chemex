@@ -20,7 +20,7 @@ class StaffRecordController extends AdminController
      *
      * @return Grid
      */
-    protected function grid()
+    protected function grid(): Grid
     {
         return Grid::make(new StaffRecord(['department']), function (Grid $grid) {
             $grid->column('id');
@@ -59,7 +59,7 @@ class StaffRecordController extends AdminController
      *
      * @return Show
      */
-    protected function detail($id)
+    protected function detail($id): Show
     {
         return Show::make($id, new StaffRecord(['department']), function (Show $show) {
             $show->field('id');
@@ -81,7 +81,7 @@ class StaffRecordController extends AdminController
      *
      * @return Form
      */
-    protected function form()
+    protected function form(): Form
     {
         return Form::make(new StaffRecord(), function (Form $form) {
             $form->display('id');

@@ -22,7 +22,7 @@ class ServiceTrackController extends AdminController
      *
      * @return Grid
      */
-    protected function grid()
+    protected function grid(): Grid
     {
         return Grid::make(new ServiceTrack(['service', 'device']), function (Grid $grid) {
             $grid->column('id');
@@ -58,7 +58,7 @@ class ServiceTrackController extends AdminController
      *
      * @return Alert
      */
-    protected function detail()
+    protected function detail(): Alert
     {
         return Data::unsupportedOperationWarning();
     }
@@ -68,7 +68,7 @@ class ServiceTrackController extends AdminController
      *
      * @return Alert
      */
-    protected function form()
+    protected function form(): Alert
     {
         return Data::unsupportedOperationWarning();
     }

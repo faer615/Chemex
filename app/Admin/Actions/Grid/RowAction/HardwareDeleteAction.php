@@ -20,7 +20,7 @@ class HardwareDeleteAction extends RowAction
      *
      * @return Response
      */
-    public function handle()
+    public function handle(): Response
     {
         if (!Admin::user()->can('hardware.delete')) {
             return $this->response()

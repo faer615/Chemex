@@ -13,7 +13,7 @@ class Data
      * 发行方式
      * @return string[]
      */
-    public static function distribution()
+    public static function distribution(): array
     {
         return [
             'u' => '未知',
@@ -27,7 +27,7 @@ class Data
      * 性别
      * @return string[]
      */
-    public static function genders()
+    public static function genders(): array
     {
         return [
             '无' => '无',
@@ -40,7 +40,7 @@ class Data
      * 物件
      * @return string[]
      */
-    public static function items()
+    public static function items(): array
     {
         return [
             'device' => '设备',
@@ -53,7 +53,7 @@ class Data
      * 盘点任务状态
      * @return string[]
      */
-    public static function checkRecordStatus()
+    public static function checkRecordStatus(): array
     {
         return [
             0 => '进行',
@@ -66,7 +66,7 @@ class Data
      * 维修状态
      * @return string[]
      */
-    public static function maintenanceStatus()
+    public static function maintenanceStatus(): array
     {
         return [
             0 => '等待处理',
@@ -79,7 +79,7 @@ class Data
      * 盘点追踪状态
      * @return string[]
      */
-    public static function checkTrackStatus()
+    public static function checkTrackStatus(): array
     {
         return [
             0 => '未盘点',
@@ -92,7 +92,7 @@ class Data
      * 服务异常状态
      * @return string[]
      */
-    public static function serviceIssueStatus()
+    public static function serviceIssueStatus(): array
     {
         return [
             0 => '正常',
@@ -106,7 +106,7 @@ class Data
      * 软件标签
      * @return array
      */
-    public static function softwareTags()
+    public static function softwareTags(): array
     {
         return [
             'windows' => [
@@ -166,7 +166,7 @@ class Data
      * 返回不支持操作的错误信息 warning
      * @return Alert
      */
-    public static function unsupportedOperationWarning()
+    public static function unsupportedOperationWarning(): Alert
     {
         $alert = Alert::make('此功能不允许通过此操作实现。', '未提供的操作');
         $alert->warning();
@@ -178,7 +178,7 @@ class Data
      * 保固状态
      * @return string[]
      */
-    public static function expiredStatus()
+    public static function expiredStatus(): array
     {
         return [
             'one day' => '一天内过期',
@@ -195,7 +195,7 @@ class Data
      * 保固状态颜色
      * @return array
      */
-    public static function expiredStatusColors()
+    public static function expiredStatusColors(): array
     {
         return [
             'one day' => 'danger',

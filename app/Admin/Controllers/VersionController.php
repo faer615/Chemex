@@ -19,7 +19,7 @@ class VersionController extends Controller
      * @param Content $content
      * @return Content
      */
-    public function index(Content $content)
+    public function index(Content $content): Content
     {
         $version = config('admin.chemex_version');
         $description = Version::list()['yirgacheffe'];
@@ -42,7 +42,7 @@ class VersionController extends Controller
      * 更新数据库结构
      * @return JsonResponse
      */
-    public function migrate()
+    public function migrate(): JsonResponse
     {
         $result = ConfigService::migrate();
         if ($result) {
@@ -57,7 +57,7 @@ class VersionController extends Controller
      * 清理全部缓存
      * @return JsonResponse
      */
-    public function clear()
+    public function clear(): JsonResponse
     {
         $result = ConfigService::clear();
         if ($result) {

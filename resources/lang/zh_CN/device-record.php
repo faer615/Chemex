@@ -29,7 +29,9 @@ return [
         'department' => '部门',
         'price' => '价格',
         'purchased' => '购入日期',
-        'expired' => '过保日期'
+        'expired' => '过保日期',
+        'security_password' => '安全密码',
+        'admin_password' => '管理员密码'
     ],
     'options' => [
     ],

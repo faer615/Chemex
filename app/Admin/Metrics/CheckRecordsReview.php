@@ -18,13 +18,12 @@ class CheckRecordsReview extends Card
      *
      * @return $this
      */
-    public function content($content)
+    public function content($content): CheckRecordsReview
     {
         if ($content instanceof LazyGrid) {
             $content->simple();
         }
         $counts = CheckRecord::where('status', 1)->get()->count();
-        $route = route('device.records.index');
         $html = <<<HTML
 <div class="info-box" style="background:transparent;margin-bottom: 0;">
   <span class="info-box-icon" style="background: rgba(99,181,247,1);color: white"><i class="feather icon-message-square"></i></span>

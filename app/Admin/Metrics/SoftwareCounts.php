@@ -17,7 +17,7 @@ class SoftwareCounts extends Card
      *
      * @return $this
      */
-    public function content($content)
+    public function content($content): SoftwareCounts
     {
         $counts = SoftwareRecord::all()->count();
         $route = route('software.records.index');

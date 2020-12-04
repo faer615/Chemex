@@ -17,7 +17,7 @@ class StaffCounts extends Card
      *
      * @return $this
      */
-    public function content($content)
+    public function content($content): StaffCounts
     {
         $counts = StaffRecord::all()->count();
         $route = route('staff.records.index');

@@ -21,7 +21,7 @@ class CheckDevicePercentage extends Card
      *
      * @return $this
      */
-    public function content($content)
+    public function content($content): CheckDevicePercentage
     {
         if ($content instanceof LazyGrid) {
             $content->simple();

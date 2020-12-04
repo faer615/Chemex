@@ -20,7 +20,7 @@ class StaffDeleteAction extends RowAction
      *
      * @return Response
      */
-    public function handle()
+    public function handle(): Response
     {
         if (!Admin::user()->can('staff.delete')) {
             return $this->response()

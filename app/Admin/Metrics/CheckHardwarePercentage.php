@@ -21,7 +21,7 @@ class CheckHardwarePercentage extends Card
      *
      * @return $this
      */
-    public function content($content)
+    public function content($content): CheckHardwarePercentage
     {
         if ($content instanceof LazyGrid) {
             $content->simple();

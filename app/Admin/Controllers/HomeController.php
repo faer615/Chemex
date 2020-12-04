@@ -20,7 +20,7 @@ use Dcat\Admin\Widgets\Card;
 
 class HomeController extends Controller
 {
-    public function index(Content $content)
+    public function index(Content $content): Content
     {
         return $content
             ->header('仪表盘')

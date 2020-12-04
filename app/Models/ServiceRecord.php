@@ -43,7 +43,7 @@ class ServiceRecord extends Model
      * 所属设备
      * @return HasOneThrough
      */
-    public function device()
+    public function device(): HasOneThrough
     {
         return $this->hasOneThrough(
             DeviceRecord::class,  // 远程表

@@ -22,7 +22,7 @@ class DeviceTrackController extends AdminController
      *
      * @return Grid
      */
-    protected function grid()
+    protected function grid(): Grid
     {
         return Grid::make(new DeviceTrack(['device', 'staff']), function (Grid $grid) {
 
@@ -59,7 +59,7 @@ class DeviceTrackController extends AdminController
      *
      * @return Alert
      */
-    protected function detail()
+    protected function detail(): Alert
     {
         return Data::unsupportedOperationWarning();
     }
@@ -69,7 +69,7 @@ class DeviceTrackController extends AdminController
      *
      * @return Alert
      */
-    protected function form()
+    protected function form(): Alert
     {
         return Data::unsupportedOperationWarning();
     }

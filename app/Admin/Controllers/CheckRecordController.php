@@ -28,7 +28,7 @@ class CheckRecordController extends AdminController
      *
      * @return Grid
      */
-    protected function grid()
+    protected function grid(): Grid
     {
         return Grid::make(new CheckRecord(['user']), function (Grid $grid) {
             $grid->column('id');
@@ -67,7 +67,7 @@ class CheckRecordController extends AdminController
      *
      * @return Show
      */
-    protected function detail($id)
+    protected function detail($id): Show
     {
         return Show::make($id, new CheckRecord(['user']), function (Show $show) {
             $show->field('id');
@@ -89,7 +89,7 @@ class CheckRecordController extends AdminController
      *
      * @return Form
      */
-    protected function form()
+    protected function form(): Form
     {
         return Form::make(new CheckRecord(), function (Form $form) {
             $form->display('id');

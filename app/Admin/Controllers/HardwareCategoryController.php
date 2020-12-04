@@ -15,7 +15,7 @@ class HardwareCategoryController extends AdminController
      *
      * @return Grid
      */
-    protected function grid()
+    protected function grid(): Grid
     {
         return Grid::make(new HardwareCategory(), function (Grid $grid) {
             $grid->column('id');
@@ -35,7 +35,7 @@ class HardwareCategoryController extends AdminController
      *
      * @return Show
      */
-    protected function detail($id)
+    protected function detail($id): Show
     {
         return Show::make($id, new HardwareCategory(), function (Show $show) {
             $show->field('id');
@@ -51,7 +51,7 @@ class HardwareCategoryController extends AdminController
      *
      * @return Form
      */
-    protected function form()
+    protected function form(): Form
     {
         return Form::make(new HardwareCategory(), function (Form $form) {
             $form->display('id');

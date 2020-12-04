@@ -24,7 +24,7 @@ class ServiceRecordController extends AdminController
      *
      * @return Grid
      */
-    protected function grid()
+    protected function grid(): Grid
     {
         return Grid::make(new ServiceRecord(['device']), function (Grid $grid) {
             $grid->column('id');
@@ -68,7 +68,7 @@ class ServiceRecordController extends AdminController
      *
      * @return Show
      */
-    protected function detail($id)
+    protected function detail($id): Show
     {
         return Show::make($id, new ServiceRecord(['device']), function (Show $show) {
             $show->field('id');
@@ -87,7 +87,7 @@ class ServiceRecordController extends AdminController
      *
      * @return Form
      */
-    protected function form()
+    protected function form(): Form
     {
         return Form::make(new ServiceRecord(), function (Form $form) {
             $form->display('id');

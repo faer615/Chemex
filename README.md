@@ -40,14 +40,17 @@
 
 ## 简介
 
-咖啡壶（Chemex）是一个轻量的、现代设计风格的 ICT 资产管理系统。得益于 [Laravel](https://laravel.com/) 框架以及 [Dcat Admin](https://dcatadmin.com) 开发平台，使其具备了优雅、简洁的优秀体验。
-咖啡壶（Chemex） 是完全免费且开源的，任何人都可以无限制的修改代码以及部署服务，这对于很多想要对ICT资产做信息化管理的中小型企业来说，是一个很好的选择：低廉的成本换回的是高效的管理方案，同时又有健康的生态提供支持。
+咖啡壶（Chemex）是一个轻量的、现代设计风格的 ICT 资产管理系统。得益于 [Laravel](https://laravel.com/) 框架以及 [Dcat Admin](https://dcatadmin.com)
+开发平台，使其具备了优雅、简洁的优秀体验。 咖啡壶（Chemex）
+是完全免费且开源的，任何人都可以无限制的修改代码以及部署服务，这对于很多想要对ICT资产做信息化管理的中小型企业来说，是一个很好的选择：低廉的成本换回的是高效的管理方案，同时又有健康的生态提供支持。
 
 <p align="center">
     <img src="https://oss.celaraze.com/chemex/Chemex%20%E5%92%96%E5%95%A1%E5%A3%B6%20%281%29.png" />
 </p>
 
-`1.x` 版本升级到 `2.x` 版本请参考：[1.x升级2.x的操作方式](https://gitee.com/celaraze/Chemex/wikis/1.x%E5%8D%87%E7%BA%A72.x%E7%9A%84%E6%93%8D%E4%BD%9C%E6%96%B9%E5%BC%8F) 。
+`1.x` 版本升级到 `2.x`
+版本请参考：[1.x升级2.x的操作方式](https://gitee.com/celaraze/Chemex/wikis/1.x%E5%8D%87%E7%BA%A72.x%E7%9A%84%E6%93%8D%E4%BD%9C%E6%96%B9%E5%BC%8F)
+。
 
 ## 特点
 
@@ -58,7 +61,7 @@
 尽可能的操作简化，能一步解决的，绝不会设计第二步。
 
 UI设计来自多个优秀开源项目，例如：Bootstrap、AdminLTE、Apex Charts等。
-  
+
 ### 版本号命名
 
 咖啡壶（Chemex）将会以咖啡豆品种作为 `major` 版本的命名，例如 `1.x` 版本称为 `肯亚（Kenya）`，旨在为 ICT 运维人员提供管理能力的同时，普及咖啡知识，静下心喝一杯属于当前版本的冲煮咖啡。
@@ -114,7 +117,7 @@ UI设计来自多个优秀开源项目，例如：Bootstrap、AdminLTE、Apex Ch
 
 ## 更新（通过Git Pull方式）
 
-随时随地保持更新可以在项目根目录中执行 `sudo git pull reset --hard && git pull --force` 命令，将会同步分支的最新修改内容。
+随时随地保持更新可以在项目根目录中执行 `sudo git reset --hard && git pull --force` 命令，将会同步分支的最新修改内容。
 
 接着，执行 `php artisan migrate` 来更新数据库结构。
 

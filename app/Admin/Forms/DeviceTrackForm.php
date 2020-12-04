@@ -6,6 +6,7 @@ use App\Models\DeviceRecord;
 use App\Models\DeviceTrack;
 use App\Models\StaffRecord;
 use Dcat\Admin\Contracts\LazyRenderable;
+use Dcat\Admin\Http\JsonResponse;
 use Dcat\Admin\Traits\LazyWidget;
 use Dcat\Admin\Widgets\Form;
 
@@ -19,7 +20,7 @@ class DeviceTrackForm extends Form implements LazyRenderable
     use LazyWidget;
 
     // 处理请求
-    public function handle(array $input)
+    public function handle(array $input): JsonResponse
     {
         // 获取设备id
         $device_id = $this->payload['id'] ?? null;

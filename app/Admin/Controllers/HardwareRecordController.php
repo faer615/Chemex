@@ -31,7 +31,7 @@ class HardwareRecordController extends AdminController
      *
      * @return Grid
      */
-    protected function grid()
+    protected function grid(): Grid
     {
         return Grid::make(new HardwareRecord(['category', 'vendor', 'device']), function (Grid $grid) {
             $grid->column('id');
@@ -93,7 +93,7 @@ class HardwareRecordController extends AdminController
      *
      * @return Show
      */
-    protected function detail($id)
+    protected function detail($id): Show
     {
         return Show::make($id, new HardwareRecord(['category', 'vendor', 'channel', 'device']), function (Show $show) {
             $show->field('id');
@@ -120,7 +120,7 @@ class HardwareRecordController extends AdminController
      *
      * @return Form
      */
-    protected function form()
+    protected function form(): Form
     {
         return Form::make(new HardwareRecord(), function (Form $form) {
             $form->display('id');

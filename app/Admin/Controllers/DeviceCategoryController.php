@@ -15,7 +15,7 @@ class DeviceCategoryController extends AdminController
      *
      * @return Grid
      */
-    protected function grid()
+    protected function grid(): Grid
     {
         return Grid::make(new DeviceCategory(), function (Grid $grid) {
             $grid->column('id');
@@ -34,7 +34,7 @@ class DeviceCategoryController extends AdminController
      *
      * @return Show
      */
-    protected function detail($id)
+    protected function detail($id): Show
     {
         return Show::make($id, new DeviceCategory(), function (Show $show) {
             $show->field('id');
@@ -50,7 +50,7 @@ class DeviceCategoryController extends AdminController
      *
      * @return Form
      */
-    protected function form()
+    protected function form(): Form
     {
         return Form::make(new DeviceCategory(), function (Form $form) {
             $form->display('id');

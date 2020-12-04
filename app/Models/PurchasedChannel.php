@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * @method static where(string $string, $购入途径)
+ * @method static where(string $string, string $value)
  */
 class PurchasedChannel extends Model
 {

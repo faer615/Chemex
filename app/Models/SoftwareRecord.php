@@ -43,7 +43,7 @@ class SoftwareRecord extends Model
      * 软件分类
      * @return HasOne
      */
-    public function category()
+    public function category(): HasOne
     {
         return $this->hasOne(SoftwareCategory::class, 'id', 'category_id');
     }
@@ -52,7 +52,7 @@ class SoftwareRecord extends Model
      * 制造商
      * @return HasOne
      */
-    public function vendor()
+    public function vendor(): HasOne
     {
         return $this->hasOne(VendorRecord::class, 'id', 'vendor_id');
     }
@@ -61,7 +61,7 @@ class SoftwareRecord extends Model
      * 购入途径
      * @return HasOne
      */
-    public function channel()
+    public function channel(): HasOne
     {
         return $this->hasOne(PurchasedChannel::class, 'id', 'purchased_channel_id');
     }

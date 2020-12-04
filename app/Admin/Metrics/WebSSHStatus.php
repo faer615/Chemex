@@ -43,7 +43,7 @@ class WebSSHStatus extends Line
      * @param $color
      * @return $this
      */
-    public function withContent($text, $color)
+    public function withContent($text, $color): WebSSHStatus
     {
         return $this->content(
             <<<HTML

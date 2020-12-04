@@ -14,7 +14,7 @@ class System
      * @param $url
      * @return int|mixed
      */
-    public static function checkWebSSHServiceStatus($url)
+    public static function checkWebSSHServiceStatus($url): int
     {
         try {
             $response = Http::get($url);
@@ -28,7 +28,7 @@ class System
      * 检查WebSSH服务是否被安装
      * @return int
      */
-    public static function checkWebSSHServiceInstalled()
+    public static function checkWebSSHServiceInstalled(): int
     {
         $result = exec('which wssh', $outputs);
         if (empty($result)) {
@@ -45,7 +45,7 @@ class System
      * @param string $delimiter
      * @return int
      */
-    public static function diffVersion($old, $new, $delimiter = '.')
+    public static function diffVersion($old, $new, $delimiter = '.'): int
     {
         $old = explode($delimiter, $old);
         $new = explode($delimiter, $new);

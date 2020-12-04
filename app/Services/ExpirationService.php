@@ -19,7 +19,7 @@ class ExpirationService
      * 30天内即将过期的设备
      * @return int
      */
-    public static function deviceCounts()
+    public static function deviceCounts(): int
     {
         $result = 0;
         $devices = DeviceRecord::where('expired', '!=', null)->get();
@@ -38,7 +38,7 @@ class ExpirationService
      * @param $id
      * @return string
      */
-    public static function itemExpirationLeftDaysRender($item_type, $id)
+    public static function itemExpirationLeftDaysRender($item_type, $id): string
     {
         $days = ExpirationService::itemExpirationLeftDays($item_type, $id);
         if ($days == 'none') {

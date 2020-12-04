@@ -16,7 +16,7 @@ class VendorRecordController extends AdminController
      *
      * @return Grid
      */
-    protected function grid()
+    protected function grid(): Grid
     {
         return Grid::make(new VendorRecord(), function (Grid $grid) {
             $grid->column('id');
@@ -45,7 +45,7 @@ class VendorRecordController extends AdminController
      *
      * @return Show
      */
-    protected function detail($id)
+    protected function detail($id): Show
     {
         return Show::make($id, new VendorRecord(), function (Show $show) {
             $show->field('id');
@@ -63,7 +63,7 @@ class VendorRecordController extends AdminController
      *
      * @return Form
      */
-    protected function form()
+    protected function form(): Form
     {
         return Form::make(new VendorRecord(), function (Form $form) {
             $form->display('id');

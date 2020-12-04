@@ -18,7 +18,7 @@ class HardwareCounts extends Card
      *
      * @return $this
      */
-    public function content($content)
+    public function content($content): HardwareCounts
     {
         if ($content instanceof LazyGrid) {
             $content->simple();

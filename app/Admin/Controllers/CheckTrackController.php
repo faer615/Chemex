@@ -26,7 +26,7 @@ class CheckTrackController extends AdminController
      *
      * @return Grid
      */
-    protected function grid()
+    protected function grid(): Grid
     {
         return Grid::make(new CheckTrack(['user']), function (Grid $grid) {
             $grid->column('id');
@@ -84,7 +84,7 @@ class CheckTrackController extends AdminController
      *
      * @return Alert
      */
-    protected function detail()
+    protected function detail(): Alert
     {
         return Data::unsupportedOperationWarning();
     }
@@ -94,7 +94,7 @@ class CheckTrackController extends AdminController
      *
      * @return Alert
      */
-    protected function form()
+    protected function form(): Alert
     {
         return Data::unsupportedOperationWarning();
     }

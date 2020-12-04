@@ -12,6 +12,9 @@ use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Show;
 use Dcat\Admin\Widgets\Alert;
 
+/**
+ * @property int status
+ */
 class ServiceIssueController extends AdminController
 {
     /**
@@ -19,7 +22,7 @@ class ServiceIssueController extends AdminController
      *
      * @return Grid
      */
-    protected function grid()
+    protected function grid(): Grid
     {
         return Grid::make(new ServiceIssue(['service']), function (Grid $grid) {
 
@@ -57,7 +60,7 @@ class ServiceIssueController extends AdminController
      *
      * @return Show
      */
-    protected function detail($id)
+    protected function detail($id): Show
     {
         return Show::make($id, new ServiceIssue(['service']), function (Show $show) {
             $show->field('id');
@@ -79,7 +82,7 @@ class ServiceIssueController extends AdminController
      *
      * @return Alert
      */
-    protected function form()
+    protected function form(): Alert
     {
         return Data::unsupportedOperationWarning();
     }

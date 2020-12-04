@@ -20,7 +20,7 @@ class ServiceDeleteAction extends RowAction
      *
      * @return Response
      */
-    public function handle()
+    public function handle(): Response
     {
         if (!Admin::user()->can('service.delete')) {
             return $this->response()

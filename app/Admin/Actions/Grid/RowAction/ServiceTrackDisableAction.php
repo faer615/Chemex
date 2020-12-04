@@ -19,7 +19,7 @@ class ServiceTrackDisableAction extends RowAction
      *
      * @return Response
      */
-    public function handle()
+    public function handle(): Response
     {
         if (!Admin::user()->can('service.track.disable')) {
             return $this->response()

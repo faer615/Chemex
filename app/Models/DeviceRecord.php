@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Crypt;
 
 /**
  * @method static where(string $key, string $value, string $value = null)
@@ -54,7 +55,7 @@ class DeviceRecord extends Model
      * 设备分类
      * @return HasOne
      */
-    public function category()
+    public function category(): HasOne
     {
         return $this->hasOne(DeviceCategory::class, 'id', 'category_id');
     }
@@ -63,7 +64,7 @@ class DeviceRecord extends Model
      * 制造商
      * @return HasOne
      */
-    public function vendor()
+    public function vendor(): HasOne
     {
         return $this->hasOne(VendorRecord::class, 'id', 'vendor_id');
     }
@@ -72,7 +73,7 @@ class DeviceRecord extends Model
      * 购入途径
      * @return HasOne
      */
-    public function channel()
+    public function channel(): HasOne
     {
         return $this->hasOne(PurchasedChannel::class, 'id', 'purchased_channel_id');
     }
@@ -81,7 +82,7 @@ class DeviceRecord extends Model
      * 设备下所有硬件
      * @return HasManyThrough
      */
-    public function hardware()
+    public function hardware(): HasManyThrough
     {
         return $this->hasManyThrough(
             HardwareRecord::class,  // 远程表
@@ -96,7 +97,7 @@ class DeviceRecord extends Model
      * 设备下所有软件
      * @return HasManyThrough
      */
-    public function software()
+    public function software(): HasManyThrough
     {
         return $this->hasManyThrough(
             SoftwareRecord::class,  // 远程表
@@ -111,7 +112,7 @@ class DeviceRecord extends Model
      * 设备下所有软件
      * @return HasManyThrough
      */
-    public function service()
+    public function service(): HasManyThrough
     {
         return $this->hasManyThrough(
             ServiceRecord::class,  // 远程表
@@ -126,7 +127,7 @@ class DeviceRecord extends Model
      * 设备所属雇员
      * @return HasManyThrough
      */
-    public function staff()
+    public function staff(): HasManyThrough
     {
         return $this->hasOneThrough(
             StaffRecord::class,  // 远程表
@@ -135,5 +136,43 @@ class DeviceRecord extends Model
             'id',   // 远程表对中间表的关联字段
             'id',   // 主表对中间表的关联字段
             'staff_id'); // 中间表对远程表的关联字段
+    }
+
+    /**
+     * 对安全密码字段读取做解密转换
+     * @param $security_password
+     * @return array|string
+     */
+    public function getSecurityPasswordAttribute($security_password)
+    {
+        return Crypt::decryptString($security_password);
+    }
+
+    /**
+     * 对安全密码字段写入做加密转换
+     * @param $security_password
+     */
+    public function setSecurityPasswordAttribute($security_password)
+    {
+        $this->attributes['security_password'] = Crypt::encryptString($security_password);
+    }
+
+    /**
+     * 对管理员密码字段读取做解密转换
+     * @param $admin_password
+     * @return array|string
+     */
+    public function getAdminPasswordAttribute($admin_password)
+    {
+        return Crypt::decryptString($admin_password);
+    }
+
+    /**
+     * 对管理员密码字段写入做加密转换
+     * @param $admin_password
+     */
+    public function setAdminPasswordAttribute($admin_password)
+    {
+        $this->attributes['admin_password'] = Crypt::encryptString($admin_password);
     }
 }

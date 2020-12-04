@@ -6,7 +6,7 @@ namespace App\Support;
 
 class Version
 {
-    public static function list()
+    public static function list(): array
     {
         return [
             'kenya' => [

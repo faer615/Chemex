@@ -18,7 +18,7 @@ class Info
      * @param $staff_id
      * @return string
      */
-    public static function staffIdToName($staff_id)
+    public static function staffIdToName($staff_id): string
     {
         $staff = StaffRecord::where('id', $staff_id)
             ->first();
@@ -33,7 +33,7 @@ class Info
      * @param $staff_id
      * @return mixed
      */
-    public static function staffIdToDepartmentName($staff_id)
+    public static function staffIdToDepartmentName($staff_id): string
     {
         $staff = StaffRecord::where('id', $staff_id)
             ->first();
@@ -49,7 +49,7 @@ class Info
      * @param $device_id
      * @return string
      */
-    public static function deviceIdToStaffName($device_id)
+    public static function deviceIdToStaffName($device_id): string
     {
         $device = DeviceRecord::where('id', $device_id)->first();
         if (empty($device)) {
@@ -69,7 +69,7 @@ class Info
      * @param $device_id
      * @return string
      */
-    public static function getSoftwareIcon($device_id)
+    public static function getSoftwareIcon($device_id): string
     {
         $software_tracks = SoftwareTrack::where('device_id', $device_id)
             ->get();
@@ -116,7 +116,7 @@ class Info
      * @param $password
      * @return string
      */
-    public static function getSSHBaseUrl($host, $port, $username, $password)
+    public static function getSSHBaseUrl($host, $port, $username, $password): string
     {
         return "http://127.0.0.1:8222/?hostname=$host&port=$port&username=$username&password=$password";
     }
@@ -127,7 +127,7 @@ class Info
      * @param $item_id
      * @return string
      */
-    public static function itemIdToItemName($item, $item_id)
+    public static function itemIdToItemName($item, $item_id): string
     {
         switch ($item) {
             case 'hardware':

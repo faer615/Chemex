@@ -18,7 +18,7 @@ class DeviceCounts extends Card
      *
      * @return $this
      */
-    public function content($content)
+    public function content($content): DeviceCounts
     {
         if ($content instanceof LazyGrid) {
             $content->simple();

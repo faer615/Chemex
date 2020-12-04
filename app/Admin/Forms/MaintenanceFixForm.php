@@ -4,6 +4,7 @@ namespace App\Admin\Forms;
 
 use App\Models\MaintenanceRecord;
 use Dcat\Admin\Contracts\LazyRenderable;
+use Dcat\Admin\Http\JsonResponse;
 use Dcat\Admin\Traits\LazyWidget;
 use Dcat\Admin\Widgets\Form;
 
@@ -12,7 +13,7 @@ class MaintenanceFixForm extends Form implements LazyRenderable
     use LazyWidget;
 
     // 处理请求
-    public function handle(array $input)
+    public function handle(array $input): JsonResponse
     {
         // 获取物品id
         $id = $this->payload['id'] ?? null;

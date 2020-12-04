@@ -5,6 +5,7 @@ namespace App\Models;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -42,12 +43,12 @@ class CheckTrack extends Model
         });
     }
 
-    public function user()
+    public function user(): HasOne
     {
         return $this->hasOne(AdminUser::class, 'id', 'checker');
     }
 
-    public function check()
+    public function check(): HasOne
     {
         return $this->hasOne(CheckRecord::class, 'id', 'check_id');
     }

@@ -41,7 +41,7 @@ class Track
      * @param $hardware_id
      * @return string
      */
-    public static function currentHardwareTrack($hardware_id)
+    public static function currentHardwareTrack($hardware_id): string
     {
         $hardware_track = HardwareTrack::where('hardware_id', $hardware_id)
             ->first();

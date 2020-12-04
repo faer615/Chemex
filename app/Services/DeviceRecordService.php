@@ -17,7 +17,7 @@ class DeviceRecordService
      * @param $id
      * @return mixed
      */
-    public static function related($id)
+    public static function related($id): array
     {
         $device = DeviceRecord::where('id', $id)
             ->firstOrFail();
@@ -46,7 +46,7 @@ class DeviceRecordService
      * @param $id
      * @return array
      */
-    public static function history($id)
+    public static function history($id): array
     {
         $data = [];
 

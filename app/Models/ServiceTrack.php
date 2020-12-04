@@ -5,6 +5,7 @@ namespace App\Models;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -38,12 +39,12 @@ class ServiceTrack extends Model
         });
     }
 
-    public function service()
+    public function service(): HasOne
     {
         return $this->hasOne(ServiceRecord::class, 'id', 'service_id');
     }
 
-    public function device()
+    public function device(): HasOne
     {
         return $this->hasOne(DeviceRecord::class, 'id', 'device_id');
     }

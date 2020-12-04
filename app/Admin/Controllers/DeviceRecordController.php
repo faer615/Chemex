@@ -41,7 +41,7 @@ class DeviceRecordController extends AdminController
      * @param Content $content
      * @return Content
      */
-    public function show($id, Content $content)
+    public function show($id, Content $content): Content
     {
         $name = Info::deviceIdToStaffName($id);
         $related = DeviceRecordService::related($id);
@@ -71,7 +71,7 @@ class DeviceRecordController extends AdminController
      *
      * @return Show
      */
-    protected function detail($id)
+    protected function detail($id): Show
     {
         return Show::make($id, new DeviceRecord(['category', 'vendor', 'channel']), function (Show $show) {
             $show->field('id');
@@ -87,6 +87,9 @@ class DeviceRecordController extends AdminController
             $show->field('price');
             $show->field('purchased');
             $show->field('expired');
+            //TODO 对安全密码和管理员密码做权限设定
+            $show->field('security_password');
+            $show->field('admin_password');
             $show->field('created_at');
             $show->field('updated_at');
 
@@ -95,11 +98,21 @@ class DeviceRecordController extends AdminController
     }
 
     /**
+     * 履历导出
+     * @param $device_id
+     * @return mixed
+     */
+    public function exportHistory($device_id)
+    {
+        return ExportService::DeviceHistory($device_id);
+    }
+
+    /**
      * Make a grid builder.
      *
      * @return Grid
      */
-    protected function grid()
+    protected function grid(): Grid
     {
         return Grid::make(new DeviceRecord(['category', 'vendor']), function (Grid $grid) {
 
@@ -194,7 +207,7 @@ class DeviceRecordController extends AdminController
      *
      * @return Form
      */
-    protected function form()
+    protected function form(): Form
     {
         return Form::make(new DeviceRecord(), function (Form $form) {
             $form->display('id');
@@ -221,21 +234,14 @@ class DeviceRecordController extends AdminController
             $form->currency('price');
             $form->date('purchased');
             $form->date('expired');
-
+            $form->password('security_password')
+                ->help('安全密码，可以代表BIOS密码等。');
+            $form->password('admin_password')
+                ->help('管理员密码，可以代表计算机管理员账户密码以及打印机管理员密码等。');
             $form->display('created_at');
             $form->display('updated_at');
 
             $form->disableDeleteButton();
         });
-    }
-
-    /**
-     * 履历导出
-     * @param $device_id
-     * @return mixed
-     */
-    public function exportHistory($device_id)
-    {
-        return ExportService::DeviceHistory($device_id);
     }
 }
