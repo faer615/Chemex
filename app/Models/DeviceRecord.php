@@ -148,7 +148,9 @@ class DeviceRecord extends Model
      */
     public function getSecurityPasswordAttribute($security_password)
     {
-        return Crypt::decryptString($security_password);
+        if (!empty($security_password)) {
+            return Crypt::decryptString($security_password);
+        }
     }
 
     /**
@@ -167,7 +169,9 @@ class DeviceRecord extends Model
      */
     public function getAdminPasswordAttribute($admin_password)
     {
-        return Crypt::decryptString($admin_password);
+        if (!empty($admin_password)) {
+            return Crypt::decryptString($admin_password);
+        }
     }
 
     /**

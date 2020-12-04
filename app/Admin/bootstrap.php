@@ -35,6 +35,14 @@ Admin::style(
 .nav-link{
     padding: 0;
 }
+
+.empty-data {
+        text-align: center;
+        color: rgba(0, 0, 0, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: left;
+    }
 CSS
 
 );

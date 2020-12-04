@@ -41,8 +41,8 @@ class DeviceRecordImportForm extends Form
                             $device_records->sn = $row['序列号'] ?? '';
                             $device_records->mac = $row['MAC'];
                             $device_records->ip = $row['IP'];
-                            $device_records->security_password = $row['security_password'] ?? '';
-                            $device_records->admin_password = $row['admin_password'] ?? '';
+                            $device_records->security_password = $row['安全密码'] ?? '';
+                            $device_records->admin_password = $row['管理员密码'] ?? '';
                             $device_records->description = $row['描述'] ?? '';
                             $device_records->price = $row['价格'] ?? null;
                             $device_records->purchased = $row['购入日期'] ?? null;

@@ -31,7 +31,7 @@
         </tbody>
     </table>
 @else
-    <div style="text-align: center;color: rgba(0,0,0,0.7)">无内容</div>
+    <div class="empty-data"><i class="feather icon-alert-circle"></i>暂无数据</div>
 @endif
 <style>
     .tr td {

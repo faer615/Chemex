@@ -2,7 +2,8 @@
 
 <p align="center">
 <a href="http://chemex.it" target="_blank">咖啡壶（Chemex）官方网站</a> |
-<a href="https://chemex.famio.cn" target="_blank">Demo 演示站点</a>
+<a href="https://chemex.famio.cn" target="_blank">Demo 演示站点</a> |
+<a href="https://jq.qq.com/?_wv=1027&k=hPqoSblB" target="_blank">用户交流群</a>
 </p>
 
 <p align="center">
