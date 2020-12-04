@@ -112,7 +112,8 @@ class Data
             'windows' => [
                 'windows',
                 'win10',
-                'win8'
+                'win8',
+                'win7'
             ],
             'macos' => [
                 'mac',
