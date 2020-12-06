@@ -246,17 +246,17 @@
     },
     {
         "name": "dcat/easy-excel",
-        "version": "1.0.3",
-        "version_normalized": "1.0.3.0",
+        "version": "1.0.4",
+        "version_normalized": "1.0.4.0",
         "source": {
             "type": "git",
             "url": "https://github.com/jqhph/easy-excel.git",
-            "reference": "badb6734420a77263f82e35ac218d2b4223fe833"
+            "reference": "f3674b15efd96cd3a4f3aae255c7ed2d0c5ae25c"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/jqhph/easy-excel/zipball/badb6734420a77263f82e35ac218d2b4223fe833",
-            "reference": "badb6734420a77263f82e35ac218d2b4223fe833",
+            "url": "https://api.github.com/repos/jqhph/easy-excel/zipball/f3674b15efd96cd3a4f3aae255c7ed2d0c5ae25c",
+            "reference": "f3674b15efd96cd3a4f3aae255c7ed2d0c5ae25c",
             "shasum": "",
             "mirrors": [
                 {
@@ -267,14 +267,14 @@
         },
         "require": {
             "box/spout": "~3",
-            "league/flysystem": "~1",
+            "league/flysystem": "~1|~2",
             "php": ">=7.1.0"
         },
         "require-dev": {
             "friendsofphp/php-cs-fixer": "^2",
             "phpunit/phpunit": "~7|~8.0"
         },
-        "time": "2020-09-21T02:19:34+00:00",
+        "time": "2020-12-06T05:31:29+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -309,17 +309,17 @@
     },
     {
         "name": "dcat/laravel-admin",
-        "version": "2.0.10-beta",
-        "version_normalized": "2.0.10.0-beta",
+        "version": "2.0.11-beta",
+        "version_normalized": "2.0.11.0-beta",
         "source": {
             "type": "git",
             "url": "https://github.com/jqhph/dcat-admin.git",
-            "reference": "67f411fa7b04688e78aa007f0cc98fa718a07684"
+            "reference": "e6ea5b34ca193c418c36bf5663619ae419b7a9e6"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/jqhph/dcat-admin/zipball/67f411fa7b04688e78aa007f0cc98fa718a07684",
-            "reference": "67f411fa7b04688e78aa007f0cc98fa718a07684",
+            "url": "https://api.github.com/repos/jqhph/dcat-admin/zipball/e6ea5b34ca193c418c36bf5663619ae419b7a9e6",
+            "reference": "e6ea5b34ca193c418c36bf5663619ae419b7a9e6",
             "shasum": "",
             "mirrors": [
                 {
@@ -342,7 +342,7 @@
             "phpstan/phpstan": "^0.12.0",
             "phpunit/phpunit": "^7.5"
         },
-        "time": "2020-11-29T14:47:02+00:00",
+        "time": "2020-12-06T13:35:02+00:00",
         "type": "library",
         "extra": {
             "laravel": {
