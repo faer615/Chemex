@@ -125,7 +125,7 @@ UI设计来自多个优秀开源项目，例如：Bootstrap、AdminLTE、Apex Ch
 
 2: OVF 镜像的 LNMP 环境使用了 `AppNode` 面板，部署完后需要更新下 `AppNode` 的面板授权关系和 Chemex 站点域名。
 
-3：面板地址：http://your-ip:8888，用户名和密码都是 `Chemex`。
+3：面板地址：http://your-ip:8888 ，用户名和密码都是 `Chemex`。
 
 4：具体使用方法可以参考 `AppNode` 官方说明：[https://www.appnode.com/](https://www.appnode.com/) 。
 
