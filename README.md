@@ -1,4 +1,6 @@
-# 咖啡壶（Chemex）
+<p align="center">
+    <img src="https://oss.celaraze.com/chemex/logo-mini.png" />
+</p>
 
 <p align="center">
 <a href="http://chemex.it" target="_blank">咖啡壶（Chemex）官方网站</a> |
