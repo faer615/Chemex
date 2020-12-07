@@ -86,6 +86,8 @@ UI设计来自多个优秀开源项目，例如：Bootstrap、AdminLTE、Apex Ch
 
 ## 部署
 
+### Git部署
+
 > 注意：使用过程中，必须避免直接修改数据库数据，Laravel 拥有强大的 Eloquent ORM 模型层，Chemex 中的所有逻辑交互都由模型关联完成，直接修改数据库数据将会导致未知的错误。应用脱离数据库直接交互是现在最流行的做法。
 
 > 视频部署演示教程：https://www.bilibili.com/video/BV1uK4y1j7pw/
@@ -115,6 +117,21 @@ UI设计来自多个优秀开源项目，例如：Bootstrap、AdminLTE、Apex Ch
 11：修改web服务器的伪静态规则为：`try_files $uri $uri/ /index.php?$args;`。
 
 12：此时可以通过访问 `http://your_domain` 来使用 咖啡壶（Chemex）。管理员账号密码为：`admin / admin`。
+
+### OVF 部署
+
+1：下载 OVF 镜像：[https://pan.baidu.com/s/16mc-q0pGtzwjOR4SqAoBuA](https://pan.baidu.com/s/16mc-q0pGtzwjOR4SqAoBuA)
+，提取码 `95m4`。
+
+2: OVF 镜像的 LNMP 环境使用了 `AppNode` 面板，部署完后需要更新下 `AppNode` 的面板授权关系和 Chemex 站点域名。
+
+3：面板地址：http://your-ip:8888，用户名和密码都是 `Chemex`。
+
+4：具体使用方法可以参考 `AppNode` 官方说明：[https://www.appnode.com/](https://www.appnode.com/) 。
+
+5：为什么不用 `宝塔面板` ：因为宝塔在部署完成后必须要绑定手机号码才能继续使用，我无法将自己的手机号码绑定到面板中去再通过 OVF 镜像分发给你们。
+
+6：访问 `http://your-ip/admin` 来访问咖啡壶（Chemex），用户名密码都是 `admin`。
 
 ## 更新（通过Git Pull方式）
 
