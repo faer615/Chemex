@@ -18,9 +18,8 @@ class DeviceCategory extends Model
 
     protected $table = 'device_categories';
 
-    protected static function boot()
+    protected static function booted()
     {
-        parent::boot();
         self::hasCreator();
     }
 }

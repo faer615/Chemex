@@ -19,7 +19,7 @@ class AdminUser extends User implements JWTSubject
     protected $table = 'admin_users';
     protected $hidden = ['password'];
 
-    protected static function boot()
+    protected static function booted()
     {
         // 保存回调，demo模式下不允许修改管理员信息
         static::saving(function () {

@@ -20,9 +20,8 @@ class HardwareRecord extends Model
 
     protected $table = 'hardware_records';
 
-    protected static function boot()
+    protected static function booted()
     {
-        parent::boot();
         self::hasCreator();
     }
 

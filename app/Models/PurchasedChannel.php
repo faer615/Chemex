@@ -18,9 +18,8 @@ class PurchasedChannel extends Model
 
     protected $table = 'purchased_channels';
 
-    protected static function boot()
+    protected static function booted()
     {
-        parent::boot();
         self::hasCreator();
     }
 

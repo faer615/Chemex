@@ -15,8 +15,10 @@ Route::group([
 ], function (Router $router) {
     $router->get('/', 'HomeController@index');
     $router->get('/version', 'VersionController@index');
-    $router->get('/version/migrate', 'VersionController@migrate')->name('migrate');
-    $router->get('/version/clear', 'VersionController@clear')->name('clear');
+    $router->get('/version/migrate', 'VersionController@migrate')
+        ->name('migrate');
+    $router->get('/version/clear', 'VersionController@clear')
+        ->name('clear');
     $router->get('/test', 'HomeController@test');
     $router->resource('/device/tracks', 'DeviceTrackController');
     $router->resource('/device/records', 'DeviceRecordController', ['names' => [
@@ -56,6 +58,8 @@ Route::group([
     $router->resource('/service/tracks', 'ServiceTrackController');
     $router->resource('/maintenance/records', 'MaintenanceRecordController');
 
-    $router->get('/export/device/{device_id}/history', [DeviceRecordController::class, 'exportHistory'])->name('export.device.history');
-    $router->get('/export/software/{software_id}/history', [SoftwareRecordController::class, 'exportHistory'])->name('export.software.history');
+    $router->get('/export/device/{device_id}/history', [DeviceRecordController::class, 'exportHistory'])
+        ->name('export.device.history');
+    $router->get('/export/software/{software_id}/history', [SoftwareRecordController::class, 'exportHistory'])
+        ->name('export.software.history');
 });

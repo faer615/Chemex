@@ -35,9 +35,8 @@ class DeviceRecord extends Model
 
     protected $table = 'device_records';
 
-    protected static function boot()
+    protected static function booted()
     {
-        parent::boot();
         self::hasCreator();
     }
 

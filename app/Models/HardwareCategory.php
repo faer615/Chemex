@@ -18,9 +18,8 @@ class HardwareCategory extends Model
 
     protected $table = 'hardware_categories';
 
-    protected static function boot()
+    protected static function booted()
     {
-        parent::boot();
         self::hasCreator();
     }
 }

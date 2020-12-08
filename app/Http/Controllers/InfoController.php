@@ -25,7 +25,7 @@ class InfoController extends Controller
      * @param $string
      * @return JsonResponse
      */
-    public function info($string)
+    public function info($string): JsonResponse
     {
         $string = base64_decode($string);
         $item = explode(':', $string)[0];
@@ -61,7 +61,7 @@ class InfoController extends Controller
      * @param $string
      * @return JsonResponse
      */
-    public function check($string)
+    public function check($string): JsonResponse
     {
         $string = base64_decode($string);
         $item = explode(':', $string)[0];
@@ -102,7 +102,7 @@ class InfoController extends Controller
      * 盘点动作
      * @return JsonResponse
      */
-    public function checkDo()
+    public function checkDo(): JsonResponse
     {
         $track_id = request('track_id') ?? null;
         $check_option = request('option') ?? null;

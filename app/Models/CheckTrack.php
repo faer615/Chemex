@@ -23,9 +23,8 @@ class CheckTrack extends Model
 
     protected $table = 'check_tracks';
 
-    protected static function boot()
+    protected static function booted()
     {
-        parent::boot();
         self::hasCreator();
     }
 

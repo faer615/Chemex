@@ -19,9 +19,8 @@ class StaffRecord extends Model
 
     protected $table = 'staff_records';
 
-    protected static function boot()
+    protected static function booted()
     {
-        parent::boot();
         self::hasCreator();
     }
 

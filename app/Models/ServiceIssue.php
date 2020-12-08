@@ -24,9 +24,8 @@ class ServiceIssue extends Model
 
     protected $table = 'service_issues';
 
-    protected static function boot()
+    protected static function booted()
     {
-        parent::boot();
         self::hasCreator();
     }
 

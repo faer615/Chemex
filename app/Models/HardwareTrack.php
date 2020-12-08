@@ -21,9 +21,8 @@ class HardwareTrack extends Model
 
     protected $table = 'hardware_tracks';
 
-    protected static function boot()
+    protected static function booted()
     {
-        parent::boot();
         self::hasCreator();
     }
 

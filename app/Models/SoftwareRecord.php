@@ -19,9 +19,8 @@ class SoftwareRecord extends Model
 
     protected $table = 'software_records';
 
-    protected static function boot()
+    protected static function booted()
     {
-        parent::boot();
         self::hasCreator();
     }
 

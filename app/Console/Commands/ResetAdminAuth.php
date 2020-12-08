@@ -36,7 +36,7 @@ class ResetAdminAuth extends Command
      *
      * @return int|void
      */
-    public function handle()
+    public function handle(): int
     {
         $user = AdminUser::where('username', 'admin')->first();
         if (empty($user)) {

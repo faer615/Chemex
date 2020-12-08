@@ -13,10 +13,9 @@ class AuthController extends Controller
 
     /**
      * 登录
-     *
      * @return JsonResponse
      */
-    public function login()
+    public function login(): JsonResponse
     {
         $credentials = request(['username', 'password']);
 
@@ -29,12 +28,10 @@ class AuthController extends Controller
 
     /**
      * 返回Token
-     *
      * @param string $token
-     *
      * @return JsonResponse
      */
-    protected function respondWithToken(string $token)
+    protected function respondWithToken(string $token): JsonResponse
     {
         return response()->json([
             'access_token' => $token,
@@ -44,20 +41,18 @@ class AuthController extends Controller
 
     /**
      * 获取登录的用户信息
-     *
      * @return JsonResponse
      */
-    public function me()
+    public function me(): JsonResponse
     {
         return response()->json(auth('api')->user());
     }
 
     /**
      * 注销
-     *
      * @return JsonResponse
      */
-    public function logout()
+    public function logout(): JsonResponse
     {
         auth('api')->logout();
 
@@ -69,7 +64,7 @@ class AuthController extends Controller
      * 值得注意的是用上面的getToken再获取一次Token并不算做刷新，两次获得的Token是并行的，即两个都可用。
      * @return JsonResponse
      */
-    public function refresh()
+    public function refresh(): JsonResponse
     {
         return $this->respondWithToken(auth('api')->refresh());
     }

@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Traits\HasCreator;
-use Dcat\Admin\Admin;
 use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -24,9 +23,8 @@ class MaintenanceRecord extends Model
 
     protected $table = 'maintenance_records';
 
-    protected static function boot()
+    protected static function booted()
     {
-        parent::boot();
         self::hasCreator();
     }
 }

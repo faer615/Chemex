@@ -19,9 +19,8 @@ class DeviceTrack extends Model
 
     protected $table = 'device_tracks';
 
-    protected static function boot()
+    protected static function booted()
     {
-        parent::boot();
         self::hasCreator();
     }
 

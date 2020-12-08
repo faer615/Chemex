@@ -18,9 +18,8 @@ class VendorRecord extends Model
 
     protected $table = 'vendor_records';
 
-    protected static function boot()
+    protected static function booted()
     {
-        parent::boot();
         self::hasCreator();
     }
 

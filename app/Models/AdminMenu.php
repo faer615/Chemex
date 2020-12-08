@@ -13,7 +13,7 @@ class AdminMenu extends Model
 
     protected $table = 'admin_menu';
 
-    protected static function boot()
+    protected static function booted()
     {
         // 保存回调，demo模式下不允许修改菜单
         static::saving(function () {

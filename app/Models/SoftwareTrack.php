@@ -21,9 +21,8 @@ class SoftwareTrack extends Model
 
     protected $table = 'software_tracks';
 
-    protected static function boot()
+    protected static function booted()
     {
-        parent::boot();
         self::hasCreator();
     }
 

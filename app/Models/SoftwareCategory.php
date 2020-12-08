@@ -18,9 +18,8 @@ class SoftwareCategory extends Model
 
     protected $table = 'software_categories';
 
-    protected static function boot()
+    protected static function booted()
     {
-        parent::boot();
         self::hasCreator();
     }
 }

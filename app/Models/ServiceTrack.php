@@ -21,9 +21,8 @@ class ServiceTrack extends Model
 
     protected $table = 'service_tracks';
 
-    protected static function boot()
+    protected static function booted()
     {
-        parent::boot();
         self::hasCreator();
     }
 

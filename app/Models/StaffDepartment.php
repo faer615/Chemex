@@ -19,9 +19,8 @@ class StaffDepartment extends Model
 
     protected $table = 'staff_departments';
 
-    protected static function boot()
+    protected static function booted()
     {
-        parent::boot();
         self::hasCreator();
     }
 

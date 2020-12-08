@@ -320,6 +320,6 @@ return [
         'dir' => base_path('dcat-admin-extensions'),
     ],
 
-    'demo' => env('ADMIN_DEMO'),
+    'demo' => env('ADMIN_DEMO', false),
     'chemex_version' => '2.0.1'
 ];

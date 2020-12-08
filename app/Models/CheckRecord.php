@@ -19,9 +19,8 @@ class CheckRecord extends Model
 
     protected $table = 'check_records';
 
-    protected static function boot()
+    protected static function booted()
     {
-        parent::boot();
         self::hasCreator();
     }
 
