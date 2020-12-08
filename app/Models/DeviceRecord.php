@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use Dcat\Admin\Admin;
+use App\Traits\HasCreator;
+use Dcat\Admin\Form\Field\Datetime;
 use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
@@ -12,46 +13,32 @@ use Illuminate\Support\Facades\Crypt;
 
 /**
  * @method static where(string $key, string $value, string $value = null)
- * @property mixed name
- * @property mixed description
- * @property mixed category_id
- * @property mixed vendor_id
- * @property mixed sn
- * @property mixed mac
- * @property mixed ip
- * @property mixed price
- * @property mixed purchased
- * @property mixed expired
- * @property mixed purchased_channel_id
- * @property mixed security_password
- * @property mixed admin_password
+ * @property string name
+ * @property string description
+ * @property int category_id
+ * @property int vendor_id
+ * @property string sn
+ * @property string mac
+ * @property string ip
+ * @property double price
+ * @property Datetime purchased
+ * @property Datetime expired
+ * @property int purchased_channel_id
+ * @property string security_password
+ * @property string admin_password
  */
 class DeviceRecord extends Model
 {
     use HasDateTimeFormatter;
     use SoftDeletes;
+    use HasCreator;
 
     protected $table = 'device_records';
 
-    /**
-     * 模型的 "booted" 方法
-     *
-     * @return void
-     */
-    protected static function booted()
+    protected static function boot()
     {
-        static::saving(function ($model) {
-            $admin_user = Admin::user();
-            $jwt_user = auth('api')->user();
-            if (empty($admin_user) && !empty($jwt_user)) {
-                $name = $jwt_user->name;
-            } elseif (!empty($admin_user) && empty($jwt_user)) {
-                $name = $admin_user->name;
-            } else {
-                $name = '未知';
-            }
-            $model->creator = $name;
-        });
+        parent::boot();
+        self::hasCreator();
     }
 
     /**

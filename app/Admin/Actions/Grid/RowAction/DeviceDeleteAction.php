@@ -34,7 +34,6 @@ class DeviceDeleteAction extends RowAction
         $device = DeviceRecord::where('id', $this->getKey())->first();
         if (empty($device)) {
             return $this->response()
-                ->alert()
                 ->error('没有此硬件记录！');
         }
 
@@ -65,7 +64,6 @@ class DeviceDeleteAction extends RowAction
         $device->delete();
 
         return $this->response()
-            ->alert()
             ->success('成功删除设备: ' . $device->name)
             ->refresh();
     }

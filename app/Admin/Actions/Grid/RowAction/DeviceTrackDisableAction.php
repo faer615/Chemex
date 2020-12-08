@@ -31,14 +31,12 @@ class DeviceTrackDisableAction extends RowAction
 
         if (empty($device_track)) {
             return $this->response()
-                ->alert()
                 ->error('找不到此设备归属记录！');
         }
 
         $device_track->delete();
 
         return $this->response()
-            ->alert()
             ->success('设备归属解除成功！')
             ->refresh();
     }

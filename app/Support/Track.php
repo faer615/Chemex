@@ -22,8 +22,7 @@ class Track
      */
     public static function currentDeviceTrackStaff($device_id)
     {
-        $device_track = DeviceTrack::where('device_id', $device_id)
-            ->first();
+        $device_track = DeviceTrack::where('device_id', $device_id)->first();
         if (empty($device_track)) {
             return 0;
         } else {
@@ -43,8 +42,7 @@ class Track
      */
     public static function currentHardwareTrack($hardware_id): string
     {
-        $hardware_track = HardwareTrack::where('hardware_id', $hardware_id)
-            ->first();
+        $hardware_track = HardwareTrack::where('hardware_id', $hardware_id)->first();
         if (empty($hardware_track)) {
             return '闲置';
         } else {
@@ -64,13 +62,11 @@ class Track
      */
     public static function leftSoftwareCounts($software_id)
     {
-        $software = SoftwareRecord::where('id', $software_id)
-            ->first();
+        $software = SoftwareRecord::where('id', $software_id)->first();
         if (empty($software)) {
             return '软件状态异常';
         }
-        $software_tracks = SoftwareTrack::where('software_id', $software_id)
-            ->get();
+        $software_tracks = SoftwareTrack::where('software_id', $software_id)->get();
         $used = count($software_tracks);
         if ($software->counts == -1) {
             return '不受限';
@@ -142,5 +138,25 @@ class Track
         }
         $services = json_decode($services, true);
         return $services;
+    }
+
+    /**
+     * 物品履历 形成清单数组（未排序）
+     * @param $template
+     * @param $item_track
+     * @param array $data
+     * @return array
+     */
+    public static function itemTrack($template, $item_track, $data = []): array
+    {
+        $template['status'] = '+';
+        $template['datetime'] = json_decode($item_track, true)['created_at'];
+        array_push($data, $template);
+        if (!empty($item_track->deleted_at)) {
+            $template['status'] = '-';
+            $template['datetime'] = json_decode($item_track, true)['deleted_at'];
+            array_push($data, $template);
+        }
+        return $data;
     }
 }

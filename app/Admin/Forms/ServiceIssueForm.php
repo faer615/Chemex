@@ -34,14 +34,16 @@ class ServiceIssueForm extends Form implements LazyRenderable
 
         // 如果没有服务id或者设备id则返回错误
         if (!$service_id || !$issue || !$start) {
-            return $this->response()->alert()->error('参数错误');
+            return $this->response()
+                ->error('参数错误');
         }
 
         // 服务记录
         $service = ServiceRecord::where('id', $service_id)->first();
         // 如果没有找到这个服务记录则返回错误
         if (!$service) {
-            return $this->response()->alert()->error('服务程序不存在');
+            return $this->response()
+                ->error('服务程序不存在');
         }
 
         $service_issue = new ServiceIssue();
@@ -51,7 +53,9 @@ class ServiceIssueForm extends Form implements LazyRenderable
         $service_issue->start = $start;
         $service_issue->save();
 
-        return $this->response()->alert()->success('服务程序异常报告成功')->refresh();
+        return $this->response()
+            ->success('服务程序异常报告成功')
+            ->refresh();
     }
 
     /**

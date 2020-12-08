@@ -4,13 +4,13 @@
 namespace App\Services;
 
 
-use App\Models\SoftwareTrack;
+use App\Models\HardwareTrack;
 use App\Support\Track;
 
-class SoftwareRecordService
+class HardwareRecordService
 {
     /**
-     * 获取软件的履历清单
+     * 获取硬件的履历清单
      * @param $id
      * @return array
      */
@@ -26,14 +26,14 @@ class SoftwareRecordService
             'datetime' => ''
         ];
 
-        $software_tracks = SoftwareTrack::withTrashed()
-            ->where('software_id', $id)
+        $hardware_tracks = HardwareTrack::withTrashed()
+            ->where('hardware_id', $id)
             ->get();
 
-        foreach ($software_tracks as $software_track) {
+        foreach ($hardware_tracks as $hardware_track) {
             $single['type'] = '设备';
-            $single['name'] = optional($software_track->device)->name;
-            $data = Track::itemTrack($single, $software_track, $data);
+            $single['name'] = optional($hardware_track->device)->name;
+            $data = Track::itemTrack($single, $hardware_track, $data);
         }
 
         $datetime = array_column($data, 'datetime');

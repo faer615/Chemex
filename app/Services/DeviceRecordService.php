@@ -9,6 +9,7 @@ use App\Models\DeviceTrack;
 use App\Models\HardwareTrack;
 use App\Models\SoftwareTrack;
 use App\Support\Data;
+use App\Support\Track;
 
 class DeviceRecordService
 {
@@ -72,14 +73,7 @@ class DeviceRecordService
                     ->withTrashed()
                     ->first()
                     ->name;
-            $single['status'] = '+';
-            $single['datetime'] = json_decode($device_track, true)['created_at'];
-            array_push($data, $single);
-            if (!empty($device_track->deleted_at)) {
-                $single['status'] = '-';
-                $single['datetime'] = json_decode($device_track, true)['deleted_at'];
-                array_push($data, $single);
-            }
+            $data = Track::itemTrack($single, $device_track, $data);
         }
 
         // 处理设备硬件变动履历
@@ -90,14 +84,7 @@ class DeviceRecordService
             $single['type'] = '硬件';
             $hardware = $hardware_track->hardware()->withTrashed()->first();
             $single['name'] = $hardware->name . ' - ' . $hardware->specification;
-            $single['status'] = '+';
-            $single['datetime'] = json_decode($hardware_track, true)['created_at'];
-            array_push($data, $single);
-            if (!empty($hardware_track->deleted_at)) {
-                $single['status'] = '-';
-                $single['datetime'] = json_decode($hardware_track, true)['deleted_at'];
-                array_push($data, $single);
-            }
+            $data = Track::itemTrack($single, $hardware_track, $data);
         }
 
         // 处理设备软件变动履历
@@ -108,14 +95,7 @@ class DeviceRecordService
             $single['type'] = '软件';
             $software = $software_track->software()->withTrashed()->first();
             $single['name'] = $software->name . ' ' . $software->version;
-            $single['status'] = '+';
-            $single['datetime'] = json_decode($software_track, true)['created_at'];
-            array_push($data, $single);
-            if (!empty($software_track->deleted_at)) {
-                $single['status'] = '-';
-                $single['datetime'] = json_decode($software_track, true)['deleted_at'];
-                array_push($data, $single);
-            }
+            $data = Track::itemTrack($single, $software_track, $data);
         }
 
         $datetime = array_column($data, 'datetime');

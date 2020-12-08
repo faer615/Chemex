@@ -31,7 +31,6 @@ class StaffDeleteAction extends RowAction
         $staff = StaffRecord::where('id', $this->getKey())->first();
         if (empty($staff)) {
             return $this->response()
-                ->alert()
                 ->error('没有此雇员记录！');
         }
 
@@ -45,7 +44,6 @@ class StaffDeleteAction extends RowAction
         $staff->delete();
 
         return $this->response()
-            ->alert()
             ->success('成功删除雇员: ' . $staff->name)
             ->refresh();
     }

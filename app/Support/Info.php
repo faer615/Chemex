@@ -20,8 +20,7 @@ class Info
      */
     public static function staffIdToName($staff_id): string
     {
-        $staff = StaffRecord::where('id', $staff_id)
-            ->first();
+        $staff = StaffRecord::where('id', $staff_id)->first();
         if (empty($staff)) {
             return '雇员失踪';
         }
@@ -35,8 +34,7 @@ class Info
      */
     public static function staffIdToDepartmentName($staff_id): string
     {
-        $staff = StaffRecord::where('id', $staff_id)
-            ->first();
+        $staff = StaffRecord::where('id', $staff_id)->first();
         if (!empty($staff)) {
             return $staff->department->name;
         } else {

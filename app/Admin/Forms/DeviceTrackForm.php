@@ -30,21 +30,24 @@ class DeviceTrackForm extends Form implements LazyRenderable
 
         // 如果没有设备id或者雇员id则返回错误
         if (!$device_id || !$staff_id) {
-            return $this->response()->alert()->error('参数错误');
+            return $this->response()
+                ->error('参数错误');
         }
 
         // 设备记录
         $device = DeviceRecord::where('id', $device_id)->first();
         // 如果没有找到这个设备记录则返回错误
         if (!$device) {
-            return $this->response()->alert()->error('设备不存在');
+            return $this->response()
+                ->error('设备不存在');
         }
 
         // 雇员记录
         $staff = StaffRecord::where('id', $staff_id)->first();
         // 如果没有找到这个雇员记录则返回错误
         if (!$staff) {
-            return $this->response()->alert()->error('雇员不存在');
+            return $this->response()
+                ->error('雇员不存在');
         }
 
         // 设备追踪
@@ -55,7 +58,8 @@ class DeviceTrackForm extends Form implements LazyRenderable
         if (!empty($device_track)) {
             // 如果新使用者和旧使用者相同，返回错误
             if ($device_track->staff_id == $staff_id) {
-                return $this->response()->alert()->error('使用者没有改变，无需重新分配');
+                return $this->response()
+                    ->error('使用者没有改变，无需重新分配');
             } else {
                 $device_track->delete();
             }
@@ -67,7 +71,9 @@ class DeviceTrackForm extends Form implements LazyRenderable
         $device_track->staff_id = $staff_id;
         $device_track->save();
 
-        return $this->response()->alert()->success('使用者分配成功')->refresh();
+        return $this->response()
+            ->success('使用者分配成功')
+            ->refresh();
     }
 
     /**

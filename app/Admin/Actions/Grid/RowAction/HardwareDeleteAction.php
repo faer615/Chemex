@@ -31,7 +31,6 @@ class HardwareDeleteAction extends RowAction
         $hardware = HardwareRecord::where('id', $this->getKey())->first();
         if (empty($hardware)) {
             return $this->response()
-                ->alert()
                 ->error('没有此硬件记录！');
         }
 
@@ -45,7 +44,6 @@ class HardwareDeleteAction extends RowAction
         $hardware->delete();
 
         return $this->response()
-            ->alert()
             ->success('成功删除硬件: ' . $hardware->name)
             ->refresh();
     }

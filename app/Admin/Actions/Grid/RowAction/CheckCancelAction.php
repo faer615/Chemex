@@ -35,18 +35,15 @@ class CheckCancelAction extends RowAction
         $check_record = CheckRecord::where('id', $this->getKey())->firstOrFail();
         if ($check_record->status == 1) {
             return $this->response()
-                ->alert()
                 ->warning('失败，此项盘点任务已经完成了。');
         }
         if ($check_record->status == 2) {
             return $this->response()
-                ->alert()
                 ->warning('失败，此项盘点任务已经取消过了。');
         }
         $check_record->status = 2;
         $check_record->save();
         return $this->response()
-            ->alert()
             ->success('盘点任务已经取消！')
             ->refresh();
     }

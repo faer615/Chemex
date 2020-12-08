@@ -31,7 +31,6 @@ class SoftwareDeleteAction extends RowAction
         $software = SoftwareRecord::where('id', $this->getKey())->first();
         if (empty($software)) {
             return $this->response()
-                ->alert()
                 ->error('没有此软件记录！');
         }
 
@@ -45,7 +44,6 @@ class SoftwareDeleteAction extends RowAction
         $software->delete();
 
         return $this->response()
-            ->alert()
             ->success('成功删除软件: ' . $software->name)
             ->refresh();
     }

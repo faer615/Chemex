@@ -28,7 +28,7 @@ class ExportService
     }
 
     /**
-     * 设备履历导出
+     * 软件履历导出
      * @param $software_id
      * @return mixed
      */

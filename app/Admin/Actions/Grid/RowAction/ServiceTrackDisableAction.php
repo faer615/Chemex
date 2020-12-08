@@ -31,14 +31,12 @@ class ServiceTrackDisableAction extends RowAction
 
         if (empty($service_track)) {
             return $this->response()
-                ->alert()
                 ->error('找不到此服务归属记录！');
         }
 
         $service_track->delete();
 
         return $this->response()
-            ->alert()
             ->success('服务归属解除成功！')
             ->refresh();
     }

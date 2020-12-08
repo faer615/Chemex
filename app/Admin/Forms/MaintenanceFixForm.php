@@ -29,14 +29,16 @@ class MaintenanceFixForm extends Form implements LazyRenderable
 
         // 如果没有物品、物品id、故障说明、故障时间则返回错误
         if (!$id || !$ok_description || !$ok_time || !$status) {
-            return $this->response()->alert()->error('参数错误');
+            return $this->response()
+                ->error('参数错误');
         }
 
         $maintenance_record = MaintenanceRecord::where('id', $id)->first();
 
         // 如果没有找到这个物品记录则返回错误
         if (!$maintenance_record) {
-            return $this->response()->alert()->error('物品不存在');
+            return $this->response()
+                ->error('物品不存在');
         }
 
         // 创建新的硬件追踪
@@ -45,7 +47,9 @@ class MaintenanceFixForm extends Form implements LazyRenderable
         $maintenance_record->status = $status;
         $maintenance_record->save();
 
-        return $this->response()->alert()->success('维修记录更新成功')->refresh();
+        return $this->response()
+            ->success('维修记录更新成功')
+            ->refresh();
     }
 
     /**

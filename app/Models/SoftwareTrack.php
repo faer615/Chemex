@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Dcat\Admin\Admin;
+use App\Traits\HasCreator;
 use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -10,33 +10,21 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @method static where(string $key, string $value)
+ * @property int software_id
+ * @property int device_id
  */
 class SoftwareTrack extends Model
 {
     use HasDateTimeFormatter;
     use SoftDeletes;
+    use HasCreator;
 
     protected $table = 'software_tracks';
 
-    /**
-     * 模型的 "booted" 方法
-     *
-     * @return void
-     */
-    protected static function booted()
+    protected static function boot()
     {
-        static::saving(function ($model) {
-            $admin_user = Admin::user();
-            $jwt_user = auth('api')->user();
-            if (empty($admin_user) && !empty($jwt_user)) {
-                $name = $jwt_user->name;
-            } elseif (!empty($admin_user) && empty($jwt_user)) {
-                $name = $admin_user->name;
-            } else {
-                $name = '未知';
-            }
-            $model->creator = $name;
-        });
+        parent::boot();
+        self::hasCreator();
     }
 
     public function software(): HasOne

@@ -38,13 +38,13 @@ class CheckTrackForm extends Form implements LazyRenderable
 
         // 如果没有盘点id返回错误
         if (!$track_id || !$status) {
-            return $this->response()->alert()->error('参数错误');
+            return $this->response()
+                ->error('参数错误');
         }
 
         $check_track = CheckTrack::where('id', $track_id)->first();
         if (empty($check_track)) {
             return $this->response()
-                ->alert()
                 ->error('没有找到此盘点追踪');
         } else {
             $check_track->status = $status;
@@ -53,7 +53,9 @@ class CheckTrackForm extends Form implements LazyRenderable
             $check_track->save();
         }
 
-        return $this->response()->alert()->success('盘点操作成功')->refresh();
+        return $this->response()
+            ->success('盘点操作成功')
+            ->refresh();
     }
 
     /**
