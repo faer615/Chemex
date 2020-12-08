@@ -9,14 +9,10 @@ use Dcat\Admin\Grid\RowAction;
 
 class ServiceTrackDisableAction extends RowAction
 {
-    /**
-     * @return string
-     */
     protected $title = '🔗 解除归属';
 
     /**
-     * Handle the action request.
-     *
+     * 处理动作逻辑
      * @return Response
      */
     public function handle(): Response
@@ -42,9 +38,10 @@ class ServiceTrackDisableAction extends RowAction
     }
 
     /**
-     * @return string|array|void
+     * 对话框
+     * @return string[]
      */
-    public function confirm()
+    public function confirm(): array
     {
         return ['确认解除与此设备的关联？'];
     }

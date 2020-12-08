@@ -8,11 +8,12 @@ use Dcat\Admin\Widgets\Modal;
 
 class DeviceSSHInfoAction extends RowAction
 {
-    /**
-     * @return string
-     */
     protected $title = '✍ 编辑SSH连接信息';
 
+    /**
+     * 渲染模态框
+     * @return Modal|string
+     */
     public function render()
     {
         // 实例化表单类并传递自定义参数

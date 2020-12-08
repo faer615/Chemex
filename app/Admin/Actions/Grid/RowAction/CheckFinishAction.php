@@ -10,14 +10,10 @@ use Dcat\Admin\Grid\RowAction;
 
 class CheckFinishAction extends RowAction
 {
-    /**
-     * @return string
-     */
     protected $title = '⚡ 完成任务';
 
     /**
-     * Handle the action request.
-     *
+     * 处理动作逻辑
      * @return Response
      */
     public function handle(): Response
@@ -51,9 +47,10 @@ class CheckFinishAction extends RowAction
     }
 
     /**
-     * @return string|array|void
+     * 对话框
+     * @return string[]
      */
-    public function confirm()
+    public function confirm(): array
     {
         return ['完成盘点任务？', '请确认已经完成了所有相关的盘点追踪工作。'];
     }

@@ -9,11 +9,12 @@ use Dcat\Admin\Widgets\Modal;
 
 class DeviceHistoryAction extends RowAction
 {
-    /**
-     * @return string
-     */
     protected $title = '📃 设备变动履历';
 
+    /**
+     * 渲染模态框
+     * @return Modal|string
+     */
     public function render()
     {
         if (!Admin::user()->can('device.history')) {

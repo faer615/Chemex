@@ -12,7 +12,11 @@ class DeviceSSHInfoForm extends Form implements LazyRenderable
 {
     use LazyWidget;
 
-    // 处理请求
+    /**
+     * 处理表单提交逻辑
+     * @param array $input
+     * @return JsonResponse
+     */
     public function handle(array $input): JsonResponse
     {
         // 获取设备id
@@ -52,7 +56,7 @@ class DeviceSSHInfoForm extends Form implements LazyRenderable
     }
 
     /**
-     * 表单
+     * 构造表单
      */
     public function form()
     {

@@ -9,11 +9,12 @@ use Dcat\Admin\Widgets\Modal;
 
 class HardwareTrackAction extends RowAction
 {
-    /**
-     * @return string
-     */
     protected $title = '💻 归属设备';
 
+    /**
+     * 渲染模态框
+     * @return Modal|string
+     */
     public function render()
     {
         if (!Admin::user()->can('hardware.track')) {

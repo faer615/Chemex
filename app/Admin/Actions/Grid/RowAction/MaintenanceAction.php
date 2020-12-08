@@ -9,20 +9,22 @@ use Dcat\Admin\Widgets\Modal;
 class MaintenanceAction extends RowAction
 {
     protected $item = null;
-    /**
-     * @return string
-     */
+
     protected $title = '🔧 报告维修';
 
     public function __construct($item)
     {
         $this->item = $item;
+
+        parent::__construct();
     }
 
+    /**
+     * 渲染模态框
+     * @return Modal|string
+     */
     public function render()
     {
-        //TODO
-
         // 实例化表单类并传递自定义参数
         $form = MaintenanceForm::make()->payload([
             'item' => $this->item,

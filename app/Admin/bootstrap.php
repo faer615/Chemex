@@ -19,8 +19,9 @@
  *
  */
 
-//优化页脚显示，隐藏底部文字
-
+/**
+ * 自定义全局CSS
+ */
 Admin::style(
     <<<CSS
 .main-footer {

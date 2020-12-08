@@ -11,6 +11,10 @@ class MaintenanceFixAction extends RowAction
 {
     protected $title = '🧱 处理维修';
 
+    /**
+     * 渲染模态框
+     * @return Modal|string
+     */
     public function render()
     {
         if (!Admin::user()->can('maintenance.fix')) {

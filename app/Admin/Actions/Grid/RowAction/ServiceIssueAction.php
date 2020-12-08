@@ -9,11 +9,12 @@ use Dcat\Admin\Widgets\Modal;
 
 class ServiceIssueAction extends RowAction
 {
-    /**
-     * @return string
-     */
     protected $title = '❓ 报告异常';
 
+    /**
+     * 渲染模态框
+     * @return Modal|string
+     */
     public function render()
     {
         if (!Admin::user()->can('service.issue')) {

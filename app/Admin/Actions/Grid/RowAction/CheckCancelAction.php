@@ -10,14 +10,10 @@ use Dcat\Admin\Grid\RowAction;
 
 class CheckCancelAction extends RowAction
 {
-    /**
-     * @return string
-     */
     protected $title = '❌ 取消盘点任务';
 
     /**
-     * Handle the action request.
-     *
+     * 处理动作逻辑
      * @return Response
      */
     public function handle(): Response
@@ -49,9 +45,10 @@ class CheckCancelAction extends RowAction
     }
 
     /**
-     * @return string|array|void
+     * 对话框
+     * @return string[]
      */
-    public function confirm()
+    public function confirm(): array
     {
         return ['取消此盘点任务？', '取消后，相应的盘点追踪将全部被移除。'];
     }

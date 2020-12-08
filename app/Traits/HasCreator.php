@@ -8,6 +8,9 @@ use Dcat\Admin\Admin;
 
 trait HasCreator
 {
+    /**
+     * 为模型增加特定字段用于保存创建人
+     */
     public static function hasCreator()
     {
         static::saving(function ($model) {

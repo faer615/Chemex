@@ -5,6 +5,7 @@ namespace App\Admin\Forms;
 use App\Models\CheckTrack;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Contracts\LazyRenderable;
+use Dcat\Admin\Http\JsonResponse;
 use Dcat\Admin\Traits\LazyWidget;
 use Dcat\Admin\Widgets\Form;
 
@@ -13,13 +14,11 @@ class CheckTrackForm extends Form implements LazyRenderable
     use LazyWidget;
 
     /**
-     * Handle the form request.
-     *
+     * 处理表单提交逻辑
      * @param array $input
-     *
-     * @return mixed
+     * @return JsonResponse
      */
-    public function handle(array $input)
+    public function handle(array $input): JsonResponse
     {
         if (!Admin::user()->can('check.track')) {
             return $this->response()
@@ -59,7 +58,7 @@ class CheckTrackForm extends Form implements LazyRenderable
     }
 
     /**
-     * Build a form here.
+     * 构造表单
      */
     public function form()
     {

@@ -9,11 +9,12 @@ use Dcat\Admin\Widgets\Modal;
 
 class SoftwareHistoryAction extends RowAction
 {
-    /**
-     * @return string
-     */
     protected $title = '📃 软件变动履历';
 
+    /**
+     * 渲染模态框
+     * @return Modal|string
+     */
     public function render()
     {
         if (!Admin::user()->can('software.history')) {

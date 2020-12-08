@@ -10,14 +10,10 @@ use Dcat\Admin\Grid\RowAction;
 
 class SoftwareDeleteAction extends RowAction
 {
-    /**
-     * @return string
-     */
     protected $title = '🔨 删除软件';
 
     /**
-     * Handle the action request.
-     *
+     * 处理动作逻辑
      * @return Response
      */
     public function handle(): Response
@@ -49,9 +45,10 @@ class SoftwareDeleteAction extends RowAction
     }
 
     /**
-     * @return string|array|void
+     * 对话框
+     * @return string[]
      */
-    public function confirm()
+    public function confirm(): array
     {
         return ['确认删除？', '删除的同时将会解除所有与之关联的归属关系'];
     }

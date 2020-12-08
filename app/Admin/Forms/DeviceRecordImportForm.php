@@ -8,6 +8,7 @@ use App\Models\PurchasedChannel;
 use App\Models\VendorRecord;
 use Box\Spout\Common\Exception\IOException;
 use Box\Spout\Common\Exception\UnsupportedTypeException;
+use Dcat\Admin\Http\JsonResponse;
 use Dcat\Admin\Widgets\Form;
 use Dcat\EasyExcel\Excel;
 use Exception;
@@ -16,13 +17,11 @@ use League\Flysystem\FileNotFoundException;
 class DeviceRecordImportForm extends Form
 {
     /**
-     * Handle the form request.
-     *
+     * 处理表单提交逻辑
      * @param array $input
-     *
-     * @return mixed
+     * @return JsonResponse
      */
-    public function handle(array $input)
+    public function handle(array $input): JsonResponse
     {
         $file = $input['file'];
         $file_path = public_path('uploads/' . $file);
@@ -84,7 +83,7 @@ class DeviceRecordImportForm extends Form
     }
 
     /**
-     * Build a form here.
+     * 构造表单
      */
     public function form()
     {

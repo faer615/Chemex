@@ -8,11 +8,12 @@ use Dcat\Admin\Widgets\Modal;
 
 class DeviceRecordImportAction extends AbstractTool
 {
-    /**
-     * @return string
-     */
     protected $title = '<a class="btn btn-primary" style="color: white;">导入数据</a>';
 
+    /**
+     * 渲染模态框
+     * @return Modal|string
+     */
     public function render()
     {
         return Modal::make()

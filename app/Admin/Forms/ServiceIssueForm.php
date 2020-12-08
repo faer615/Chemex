@@ -8,20 +8,17 @@ use Dcat\Admin\Contracts\LazyRenderable;
 use Dcat\Admin\Http\JsonResponse;
 use Dcat\Admin\Traits\LazyWidget;
 use Dcat\Admin\Widgets\Form;
-use Symfony\Component\HttpFoundation\Response;
 
 class ServiceIssueForm extends Form implements LazyRenderable
 {
     use LazyWidget;
 
     /**
-     * Handle the form request.
-     *
+     * 处理表单提交逻辑
      * @param array $input
-     *
-     * @return JsonResponse|Response
+     * @return JsonResponse
      */
-    public function handle(array $input)
+    public function handle(array $input): JsonResponse
     {
         // 获取服务id
         $service_id = $this->payload['id'] ?? null;
@@ -59,7 +56,7 @@ class ServiceIssueForm extends Form implements LazyRenderable
     }
 
     /**
-     * Build a form here.
+     * 构造表单
      */
     public function form()
     {

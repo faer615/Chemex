@@ -9,11 +9,12 @@ use Dcat\Admin\Widgets\Modal;
 
 class DeviceTrackAction extends RowAction
 {
-    /**
-     * @return string
-     */
     protected $title = '👨‍💼 分配使用者';
 
+    /**
+     * 渲染模态框
+     * @return Modal|string
+     */
     public function render()
     {
         if (!Admin::user()->can('device.track')) {

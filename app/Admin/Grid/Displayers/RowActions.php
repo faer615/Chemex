@@ -11,6 +11,7 @@ use Illuminate\View\View;
 class RowActions extends DropdownActions
 {
     /**
+     * 构造行操作菜单按钮
      * @param array $callbacks
      * @return Factory|View
      */

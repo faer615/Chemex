@@ -9,11 +9,12 @@ use Dcat\Admin\Widgets\Modal;
 
 class DeviceRelatedAction extends RowAction
 {
-    /**
-     * @return string
-     */
     protected $title = '📝 设备关联信息清单';
 
+    /**
+     * 渲染模态框
+     * @return Modal|string
+     */
     public function render()
     {
         if (!Admin::user()->can('device.history')) {

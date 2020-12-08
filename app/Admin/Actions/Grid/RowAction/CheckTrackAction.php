@@ -9,11 +9,12 @@ use Dcat\Admin\Widgets\Modal;
 
 class CheckTrackAction extends RowAction
 {
-    /**
-     * @return string
-     */
     protected $title = '👨‍💼 处理盘点';
 
+    /**
+     * 渲染模态框
+     * @return Modal|string
+     */
     public function render()
     {
         if (!Admin::user()->can('check.track')) {
