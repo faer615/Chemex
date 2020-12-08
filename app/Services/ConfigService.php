@@ -8,7 +8,7 @@ use Exception;
 use Illuminate\Support\Facades\Artisan;
 
 /**
- * 安装、升级相关
+ * 和安装、升级相关的功能服务
  * Class InstallService
  * @package App\Services
  */

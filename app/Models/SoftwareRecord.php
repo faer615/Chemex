@@ -26,7 +26,7 @@ class SoftwareRecord extends Model
     }
 
     /**
-     * 软件分类
+     * 软件记录有一个分类
      * @return HasOne
      */
     public function category(): HasOne
@@ -35,7 +35,7 @@ class SoftwareRecord extends Model
     }
 
     /**
-     * 制造商
+     * 软件记录有一个制造商
      * @return HasOne
      */
     public function vendor(): HasOne
@@ -44,7 +44,7 @@ class SoftwareRecord extends Model
     }
 
     /**
-     * 购入途径
+     * 软件记录有一个购入途径
      * @return HasOne
      */
     public function channel(): HasOne

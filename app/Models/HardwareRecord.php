@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Traits\HasCreator;
 use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -28,7 +27,7 @@ class HardwareRecord extends Model
     }
 
     /**
-     * 硬件分类
+     * 硬件记录有一个分类
      * @return HasOne
      */
     public function category(): HasOne
@@ -37,7 +36,7 @@ class HardwareRecord extends Model
     }
 
     /**
-     * 制造商
+     * 硬件记录有一个制造商
      * @return HasOne
      */
     public function vendor(): HasOne
@@ -46,7 +45,7 @@ class HardwareRecord extends Model
     }
 
     /**
-     * 购入途径
+     * 硬件记录有一个购入途径
      * @return HasOne
      */
     public function channel(): HasOne
@@ -55,11 +54,7 @@ class HardwareRecord extends Model
     }
 
     /**
-     * 所属设备
-     * @return BelongsTo
-     */
-    /**
-     * 设备所属雇员
+     * 硬件记录在远处有一个设备
      * @return HasManyThrough
      */
     public function device(): HasManyThrough

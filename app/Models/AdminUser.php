@@ -17,16 +17,11 @@ class AdminUser extends User implements JWTSubject
     use HasDateTimeFormatter;
 
     protected $table = 'admin_users';
-
     protected $hidden = ['password'];
 
-    /**
-     * 模型的 "booted" 方法
-     *
-     * @return void
-     */
-    protected static function booted()
+    protected static function boot()
     {
+        // 保存回调，demo模式下不允许修改管理员信息
         static::saving(function () {
             if (config('admin.demo')) {
                 abort(401, '演示模式下不允许修改');
@@ -34,11 +29,8 @@ class AdminUser extends User implements JWTSubject
         });
     }
 
-    // Rest omitted for brevity
-
     /**
-     * Get the identifier that will be stored in the subject claim of the JWT.
-     *
+     * 获取JWT验证器
      * @return mixed
      */
     public function getJWTIdentifier()
@@ -47,8 +39,7 @@ class AdminUser extends User implements JWTSubject
     }
 
     /**
-     * Return a key value array, containing any custom claims to be added to the JWT.
-     *
+     * 构造JWT自定义的声明key-values
      * @return array
      */
     public function getJWTCustomClaims(): array

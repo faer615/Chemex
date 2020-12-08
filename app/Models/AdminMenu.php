@@ -13,13 +13,9 @@ class AdminMenu extends Model
 
     protected $table = 'admin_menu';
 
-    /**
-     * 模型的 "booted" 方法
-     *
-     * @return void
-     */
-    protected static function booted()
+    protected static function boot()
     {
+        // 保存回调，demo模式下不允许修改菜单
         static::saving(function () {
             if (config('admin.demo')) {
                 abort(401, '演示模式下不允许修改');

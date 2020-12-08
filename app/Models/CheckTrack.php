@@ -29,11 +29,19 @@ class CheckTrack extends Model
         self::hasCreator();
     }
 
+    /**
+     * 盘点追踪有一个负责人
+     * @return HasOne
+     */
     public function user(): HasOne
     {
         return $this->hasOne(AdminUser::class, 'id', 'checker');
     }
 
+    /**
+     * 盘点追踪有一个盘点任务
+     * @return HasOne
+     */
     public function check(): HasOne
     {
         return $this->hasOne(CheckRecord::class, 'id', 'check_id');

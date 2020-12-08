@@ -11,6 +11,11 @@ use App\Models\SoftwareTrack;
 use App\Support\Data;
 use App\Support\Track;
 
+/**
+ * 和设备记录相关的功能服务
+ * Class DeviceRecordService
+ * @package App\Services
+ */
 class DeviceRecordService
 {
     /**

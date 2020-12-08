@@ -26,7 +26,7 @@ class ServiceRecord extends Model
     }
 
     /**
-     * 所属设备
+     * 服务程序在远处有一个设备记录
      * @return HasOneThrough
      */
     public function device(): HasOneThrough

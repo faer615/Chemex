@@ -7,6 +7,11 @@ namespace App\Services;
 use App\Models\SoftwareTrack;
 use App\Support\Track;
 
+/**
+ * 和软件记录相关的功能服务
+ * Class SoftwareRecordService
+ * @package App\Services
+ */
 class SoftwareRecordService
 {
     /**

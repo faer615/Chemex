@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Support\Info;
 use Tests\TestCase;
 
 class InfoTest extends TestCase
@@ -14,7 +13,6 @@ class InfoTest extends TestCase
      */
     public function testInfoStaffIdToName()
     {
-        $result = Info::staffIdToName(1);
 
     }
 }

@@ -7,6 +7,11 @@ namespace App\Services;
 use App\Models\HardwareTrack;
 use App\Support\Track;
 
+/**
+ * 和硬件记录相关的功能服务
+ * Class HardwareRecordService
+ * @package App\Services
+ */
 class HardwareRecordService
 {
     /**

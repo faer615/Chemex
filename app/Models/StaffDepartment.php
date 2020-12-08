@@ -25,6 +25,10 @@ class StaffDepartment extends Model
         self::hasCreator();
     }
 
+    /**
+     * 组织部门有一个父组织部门
+     * @return HasOne
+     */
     public function parent(): HasOne
     {
         return $this->hasOne(StaffDepartment::class, 'id', 'parent_id');

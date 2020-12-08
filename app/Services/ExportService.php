@@ -8,6 +8,11 @@ use App\Models\DeviceRecord;
 use App\Models\SoftwareRecord;
 use Dcat\EasyExcel\Excel;
 
+/**
+ * 和导出相关的功能模块
+ * Class ExportService
+ * @package App\Services
+ */
 class ExportService
 {
     /**

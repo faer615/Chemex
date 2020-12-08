@@ -27,11 +27,19 @@ class HardwareTrack extends Model
         self::hasCreator();
     }
 
+    /**
+     * 硬件追踪有一个硬件记录
+     * @return HasOne
+     */
     public function hardware(): HasOne
     {
         return $this->hasOne(HardwareRecord::class, 'id', 'hardware_id');
     }
 
+    /**
+     * 硬件追踪有一个设备记录
+     * @return HasOne
+     */
     public function device(): HasOne
     {
         return $this->hasOne(DeviceRecord::class, 'id', 'device_id');

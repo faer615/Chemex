@@ -27,11 +27,19 @@ class SoftwareTrack extends Model
         self::hasCreator();
     }
 
+    /**
+     * 软件追踪有一个软件记录
+     * @return HasOne
+     */
     public function software(): HasOne
     {
         return $this->hasOne(SoftwareRecord::class, 'id', 'software_id');
     }
 
+    /**
+     * 软件追踪有一个设备
+     * @return HasOne
+     */
     public function device(): HasOne
     {
         return $this->hasOne(DeviceRecord::class, 'id', 'device_id');

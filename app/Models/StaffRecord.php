@@ -25,6 +25,10 @@ class StaffRecord extends Model
         self::hasCreator();
     }
 
+    /**
+     * 雇员记录有一个组织部门记录
+     * @return HasOne
+     */
     public function department(): HasOne
     {
         return $this->hasOne(StaffDepartment::class, 'id', 'department_id');

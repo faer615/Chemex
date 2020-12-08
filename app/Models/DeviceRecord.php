@@ -42,7 +42,7 @@ class DeviceRecord extends Model
     }
 
     /**
-     * 设备分类
+     * 设备记录有一个分类
      * @return HasOne
      */
     public function category(): HasOne
@@ -51,7 +51,7 @@ class DeviceRecord extends Model
     }
 
     /**
-     * 制造商
+     * 设备记录有一个制造商
      * @return HasOne
      */
     public function vendor(): HasOne
@@ -60,7 +60,7 @@ class DeviceRecord extends Model
     }
 
     /**
-     * 购入途径
+     * 设备记录有一个购入途径
      * @return HasOne
      */
     public function channel(): HasOne
@@ -69,7 +69,7 @@ class DeviceRecord extends Model
     }
 
     /**
-     * 设备下所有硬件
+     * 设备记录在远处有很多硬件
      * @return HasManyThrough
      */
     public function hardware(): HasManyThrough
@@ -84,7 +84,7 @@ class DeviceRecord extends Model
     }
 
     /**
-     * 设备下所有软件
+     * 设备记录在远处有很多软件
      * @return HasManyThrough
      */
     public function software(): HasManyThrough
@@ -99,7 +99,7 @@ class DeviceRecord extends Model
     }
 
     /**
-     * 设备下所有软件
+     * 设备记录在远处有很多服务程序
      * @return HasManyThrough
      */
     public function service(): HasManyThrough
@@ -114,7 +114,7 @@ class DeviceRecord extends Model
     }
 
     /**
-     * 设备所属雇员
+     * 设备记录在远处有一个使用者（雇员）
      * @return HasManyThrough
      */
     public function staff(): HasManyThrough
