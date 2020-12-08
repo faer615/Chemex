@@ -4,15 +4,15 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 
-class InfoTest extends TestCase
+class BaseTest extends TestCase
 {
     /**
      * A basic feature test example.
      *
      * @return void
      */
-    public function testInfoStaffIdToName()
+    public function test()
     {
-
+        $this->assertTrue(true);
     }
 }
