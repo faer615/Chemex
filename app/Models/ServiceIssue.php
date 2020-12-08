@@ -26,7 +26,9 @@ class ServiceIssue extends Model
 
     protected static function booted()
     {
-        self::hasCreator();
+        static::saving(function ($model) {
+            self::hasCreator($model);
+        });
     }
 
     /**
