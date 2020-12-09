@@ -49,26 +49,26 @@ class DeviceRecordController extends AdminController
             ->title($this->title())
             ->description($this->description()['index'] ?? trans('admin.show'))
             ->body(function (Row $row) use ($id, $name, $history) {
-                $column_b = 0;
-                $column_c = 0;
+                $column_b_width = 0;
+                $column_c_width = 0;
                 // 如果B和C权限都有
                 if (Admin::user()->can('device.related') && Admin::user()->can('device.history')) {
-                    $column_a = 4;
-                    $column_b = 4;
-                    $column_c = 4;
+                    $column_a_width = 4;
+                    $column_b_width = 4;
+                    $column_c_width = 4;
                 } elseif (Admin::user()->can('device.related') && !Admin::user()->can('device.history')) {
                     // 如果只有B
-                    $column_a = 6;
-                    $column_b = 6;
+                    $column_a_width = 6;
+                    $column_b_width = 6;
                 } elseif (!Admin::user()->can('device.related') && Admin::user()->can('device.history')) {
                     //如果只有C
-                    $column_a = 6;
-                    $column_c = 6;
+                    $column_a_width = 6;
+                    $column_c_width = 6;
                 } else {
-                    $column_a = 12;
+                    $column_a_width = 12;
                 }
-                $row->column($column_a, $this->detail($id));
-                $row->column($column_b, function (Column $column) use ($id, $name, $history) {
+                $row->column($column_a_width, $this->detail($id));
+                $row->column($column_b_width, function (Column $column) use ($id, $name, $history) {
                     $column->row(Card::make()->content('当前使用者：' . $name));
                     if (Admin::user()->can('device.related')) {
                         $result = self::hasDeviceRelated($id);
@@ -79,7 +79,7 @@ class DeviceRecordController extends AdminController
                 });
                 if (Admin::user()->can('device.history')) {
                     $card = new Card('履历', view('history')->with('data', $history));
-                    $row->column($column_c, $card->tool('<a class="btn btn-primary btn-xs" href="' . route('export.device.history', $id) . '" target="_blank">导出到 Excel</a>'));
+                    $row->column($column_c_width, $card->tool('<a class="btn btn-primary btn-xs" href="' . route('export.device.history', $id) . '" target="_blank">导出到 Excel</a>'));
                 }
             });
     }
