@@ -53,9 +53,6 @@ class HardwareRecordController extends AdminController
                 if (Admin::user()->can('hardware.track')) {
                     $actions->append(new HardwareTrackAction());
                 }
-                if (Admin::user()->can('hardware.history')) {
-                    $actions->append(new HardwareHistoryAction());
-                }
                 if (Admin::user()->can('hardware.maintenance')) {
                     $actions->append(new MaintenanceAction('hardware'));
                 }

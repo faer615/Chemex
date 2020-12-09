@@ -61,10 +61,9 @@ class SoftwareRecordController extends AdminController
                             });
                             $grid->column('device.staff.name');
 
-                            $grid->disableCreateButton();
+                            $grid->disableToolbar();
                             $grid->disableBatchActions();
                             $grid->disableRowSelector();
-                            $grid->disableRefreshButton();
                             $grid->disableViewButton();
                             $grid->disableEditButton();
                             $grid->disableDeleteButton();
@@ -156,9 +155,6 @@ class SoftwareRecordController extends AdminController
                 }
                 if (Admin::user()->can('software.track')) {
                     $actions->append(new SoftwareTrackAction());
-                }
-                if (Admin::user()->can('software.history')) {
-                    $actions->append(new SoftwareHistoryAction());
                 }
                 if (Admin::user()->can('software.track.list')) {
                     $tracks_route = route('software.tracks.index', ['_search_' => $this->id]);
