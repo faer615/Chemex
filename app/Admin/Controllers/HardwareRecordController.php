@@ -13,7 +13,6 @@ use App\Models\HardwareCategory;
 use App\Models\PurchasedChannel;
 use App\Models\VendorRecord;
 use App\Services\ExpirationService;
-use App\Support\Track;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -44,9 +43,6 @@ class HardwareRecordController extends AdminController
             $grid->column('vendor.name');
             $grid->column('specification');
             $grid->column('sn');
-            $grid->column('', admin_trans_label('Owner'))->display(function () {
-                return Track::currentHardwareTrack($this->id);
-            });
             $grid->column('', admin_trans_label('Expiration Left Days'))->display(function () {
                 return ExpirationService::itemExpirationLeftDaysRender('hardware', $this->id);
             });
@@ -64,16 +60,12 @@ class HardwareRecordController extends AdminController
                     $actions->append(new MaintenanceAction('hardware'));
                 }
             });
-            $grid->column('device.name')->link(function ($device_name) {
-                if (!empty($device_name)) {
-                    return route('device.records.show', $this->device['id']);
-                } else {
-                    return '';
-                }
+            $grid->column('device.name')->link(function () {
+                return route('device.records.show', $this->device['id']);
             });
 
-            $grid->quickSearch('id', 'name')
-                ->placeholder('输入ID或者名称以搜索')
+            $grid->quickSearch('id', 'name', 'device.name')
+                ->placeholder('尝试搜索一下')
                 ->auto(false);
 
             $grid->enableDialogCreate();

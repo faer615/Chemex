@@ -18,11 +18,11 @@ class PurchasedChannelController extends AdminController
     protected function grid(): Grid
     {
         return Grid::make(new PurchasedChannel(), function (Grid $grid) {
-            $grid->column('id')->sortable();
+            $grid->column('id');
             $grid->column('name');
             $grid->column('description');
             $grid->column('created_at');
-            $grid->column('updated_at')->sortable();
+            $grid->column('updated_at');
         });
     }
 

@@ -8,8 +8,6 @@ return [
         'Purchased Channel Id' => '购入途径',
         'Expiration Left Days' => '保固剩余天数',
         'records' => '软件',
-        'Device Name' => '设备名称',
-        'Staff Name' => '雇员名称'
     ],
     'fields' => [
         'qrcode' => '二维码',
@@ -30,7 +28,13 @@ return [
         'expired' => '过保时间',
         'distribution' => '发行方式',
         'sn' => '序列号',
-        'counts' => '授权数量'
+        'counts' => '授权数量',
+        'device' => [
+            'name' => '设备',
+            'staff' => [
+                'name' => '雇员'
+            ]
+        ]
     ],
     'options' => [
     ],

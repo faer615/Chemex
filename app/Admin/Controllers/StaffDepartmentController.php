@@ -15,7 +15,7 @@ class StaffDepartmentController extends AdminController
      *
      * @return Grid
      */
-    protected function grid()
+    protected function grid(): Grid
     {
         return Grid::make(new StaffDepartment(['parent']), function (Grid $grid) {
             $grid->column('id');
@@ -60,7 +60,8 @@ class StaffDepartmentController extends AdminController
             $form->text('name')->required();
             $form->text('description');
             $form->select('parent_id', admin_trans_label('Parent'))
-                ->options(\App\Models\StaffDepartment::all()->pluck('name', 'id'))
+                ->options(\App\Models\StaffDepartment::all()
+                    ->pluck('name', 'id'))
                 ->default(0);
 
             $form->display('created_at');
