@@ -25,11 +25,11 @@
 Admin::style(
     <<<CSS
 .main-footer {
-    display:none;
+    display: none;
 }
 
 .navbar{
-    margin:0 35px 0 35px;
+    margin: 0 35px 0 35px;
     height: 70px;
 }
 
