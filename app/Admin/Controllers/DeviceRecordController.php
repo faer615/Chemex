@@ -17,7 +17,6 @@ use App\Services\DeviceRecordService;
 use App\Services\ExpirationService;
 use App\Services\ExportService;
 use App\Support\Info;
-use App\Support\Track;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -73,7 +72,7 @@ class DeviceRecordController extends AdminController
      */
     protected function detail($id): Show
     {
-        return Show::make($id, new DeviceRecord(['category', 'vendor', 'channel']), function (Show $show) {
+        return Show::make($id, new DeviceRecord(['category', 'vendor', 'channel', 'staff', 'staff.department']), function (Show $show) {
             $show->field('id');
             $show->field('name');
             $show->field('description');
@@ -88,6 +87,8 @@ class DeviceRecordController extends AdminController
             $show->field('purchased');
             $show->field('expired');
             //TODO 对安全密码和管理员密码做权限设定
+            $show->field('staff.name');
+            $show->field('staff.department.name');
             $show->field('security_password');
             $show->field('admin_password');
             $show->field('created_at');
@@ -114,7 +115,7 @@ class DeviceRecordController extends AdminController
      */
     protected function grid(): Grid
     {
-        return Grid::make(new DeviceRecord(['category', 'vendor']), function (Grid $grid) {
+        return Grid::make(new DeviceRecord(['category', 'vendor', 'staff', 'staff.department']), function (Grid $grid) {
 
             $grid->column('id');
             $grid->column('qrcode')->qrcode(function () {
@@ -137,24 +138,8 @@ class DeviceRecordController extends AdminController
             $grid->column('ip');
             $grid->column('price');
             $grid->column('expired');
-            $grid->column('owner')->display(function () {
-                $res = Track::currentDeviceTrackStaff($this->id);
-                switch ($res) {
-                    case -1:
-                        return '雇员失踪';
-                    case 0:
-                        return '闲置';
-                    default:
-                        return Info::staffIdToName($res);
-                }
-            });
-            $grid->column('department')->display(function () {
-                $res = Track::currentDeviceTrackStaff($this->id);
-                if ($res < 0) {
-                    return '';
-                }
-                return Info::staffIdToDepartmentName($res);
-            });
+            $grid->column('staff.name');
+            $grid->column('staff.department.name');
             $grid->column('expiration_left_days', admin_trans_label('Expiration Left Days'))->display(function () {
                 return ExpirationService::itemExpirationLeftDaysRender('device', $this->id);
             });
@@ -187,13 +172,15 @@ class DeviceRecordController extends AdminController
             $grid->showColumnSelector();
             $grid->hideColumns(['description', 'price', 'expired']);
 
-            $grid->quickSearch('id', 'name', 'ip', 'mac')
+            $grid->quickSearch('id', 'name', 'ip', 'mac', 'staff.name', 'staff.department.name')
                 ->placeholder('试着搜索一下')
                 ->auto(false);
 
             $grid->selector(function (Selector $selector) {
-                $selector->select('category_id', '设备分类', DeviceCategory::all()->pluck('name', 'id'));
-                $selector->select('vendor_id', '制造商', VendorRecord::all()->pluck('name', 'id'));
+                $selector->select('category_id', '设备分类', DeviceCategory::all()
+                    ->pluck('name', 'id'));
+                $selector->select('vendor_id', '制造商', VendorRecord::all()
+                    ->pluck('name', 'id'));
             });
 
             $grid->enableDialogCreate();

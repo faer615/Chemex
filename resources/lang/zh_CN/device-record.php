@@ -25,8 +25,12 @@ return [
         'mac' => 'MAC',
         'ip' => 'IP',
         'photo' => '照片',
-        'owner' => '雇员',
-        'department' => '部门',
+        'staff' => [
+            'name' => '雇员',
+            'department' => [
+                'name' => '部门'
+            ]
+        ],
         'price' => '价格',
         'purchased' => '购入日期',
         'expired' => '过保日期',
