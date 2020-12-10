@@ -12,8 +12,8 @@
     <tbody>
     @foreach($services as $service)
         <tr class="table-content">
-            <td>{{$service['device_name']}}</td>
-            <td>{{$service['name']}}</td>
+            <td style="color: #a8a9bb;">{{$service['device_name']}}</td>
+            <td style="color: #a8a9bb;">{{$service['name']}}</td>
             <td class="status">
                 @switch($service['status'])
                     @case(0)
@@ -30,11 +30,11 @@
                     @break
                 @endswitch
             </td>
-            <td>
+            <td style="color: #a8a9bb;">
                 {!! implode('',$service['issues']) !!}
             </td>
-            <td>{{$service['start']}}</td>
-            <td>{{$service['end']}}</td>
+            <td style="color: #a8a9bb;">{{$service['start']}}</td>
+            <td style="color: #a8a9bb;">{{$service['end']}}</td>
         </tr>
     @endforeach
     </tbody>

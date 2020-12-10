@@ -13,7 +13,7 @@ return [
     | login page.
     |
     */
-    'name' => '咖啡壶',
+    'name' => env('ADMIN_NAME', '咖啡壶'),
 
     /*
     |--------------------------------------------------------------------------
@@ -24,7 +24,7 @@ return [
     | `img` tag, eg '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo' => '咖啡壶',
+    'logo' => env('ADMIN_LOGO', '咖啡壶'),
 
     /*
     |--------------------------------------------------------------------------
@@ -36,7 +36,7 @@ return [
     | '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo-mini' => 'CX',
+    'logo-mini' => env('ADMIN_LOGO_MINI', 'CX'),
 
     /*
      |--------------------------------------------------------------------------
@@ -87,7 +87,7 @@ return [
     | Html title for all pages.
     |
     */
-    'title' => '咖啡壶',
+    'title' => env('ADMIN_TITLE', '咖啡壶'),
 
     /*
     |--------------------------------------------------------------------------
@@ -279,12 +279,12 @@ return [
         // default, blue, blue-light, blue-dark, green
         'color' => 'blue-light',
 
-//        'body_class' => 'sidebar-separate',
+        'body_class' => 'dark-mode',
 
         'sidebar_collapsed' => false,
 
         // light, primary, dark
-        'sidebar_style' => 'light',
+        'sidebar_style' => 'primary',
 
 //        'dark_mode_switch' => true,
 

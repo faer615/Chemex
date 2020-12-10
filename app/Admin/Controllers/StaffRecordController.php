@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Actions\Grid\RowAction\StaffDeleteAction;
+use App\Admin\Actions\Grid\ToolAction\StaffRecordImportAction;
 use App\Admin\Grid\Displayers\RowActions;
 use App\Admin\Repositories\StaffRecord;
 use App\Models\StaffDepartment;
@@ -47,6 +48,10 @@ class StaffRecordController extends AdminController
             });
 
             $grid->toolsWithOutline(false);
+
+            $grid->tools([
+                new StaffRecordImportAction()
+            ]);
 
             $grid->export();
         });
