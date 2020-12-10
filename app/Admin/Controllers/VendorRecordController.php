@@ -28,7 +28,6 @@ class VendorRecordController extends AdminController
                 ->placeholder('输入ID或者名称以搜索')
                 ->auto(false);
 
-            $grid->enableDialogCreate();
             $grid->disableRowSelector();
             $grid->disableBatchActions();
 
@@ -78,6 +77,10 @@ class VendorRecordController extends AdminController
             });
             $form->display('created_at');
             $form->display('updated_at');
+
+            $form->disableCreatingCheck();
+            $form->disableEditingCheck();
+            $form->disableViewCheck();
         });
     }
 }

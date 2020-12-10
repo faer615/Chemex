@@ -1,45 +1,35 @@
-@if(count($data)>0)
-    <table class="table table-hover">
-        <thead>
-        <tr class="center">
-            <th></th>
-            <th>状态</th>
-            <th>事件</th>
-            <th>时间</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($data as $key=>$item)
-            <tr class="tr">
-                @if($key == 0)
-                    <td class="center">最新</td>
-                @elseif($key == count($data)-1)
-                    <td class="center">最旧</td>
-                @else
-                    <td class="center">↑</td>
-                @endif
-                @if($item['status']=='+')
-                    <td class="center"><i class="feather icon-plus" style="color:royalblue"></i></td>
-                    <td>关联了{{$item['type'].' : '.$item['name']}}</td>
-                @else
-                    <td class="center"><i class="feather icon-minus" style="color:orangered"></i></td>
-                    <td>解除了{{$item['type'].' : '.$item['name']}}</td>
-                @endif
-                <td class="center">{{$item['datetime']}}</td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
-@else
-    <div class="empty-data"><i class="feather icon-alert-circle"></i>暂无数据</div>
-@endif
-<style>
-    .tr td {
-        height: auto;
-        vertical-align: center;
-    }
-
-    .center {
-        text-align: center;
-    }
-</style>
+<div class="timeline">
+    <div class="time-label">
+        <span class="bg-green">最新记录</span>
+    </div>
+    @foreach($data as $key=>$item)
+        <div>
+            @if($item['status'] == '+')
+                <i class="fa fa-plus" style="background: rgba(98,168,234,1);color: white"></i>
+                <div class="timeline-item">
+                    <span class="time"><i class="feather icon-clock"></i> {{$item['datetime']}}</span>
+                    <h3 class="timeline-header">
+                        关联了 {{$item['type']}}
+                    </h3>
+                    <div class="timeline-body">
+                        {{$item['name']}}
+                    </div>
+                </div>
+            @else
+                <i class="fa fa-minus" style="background: rgba(234,84,85,1);color: white"></i>
+                <div class="timeline-item">
+                    <span class="time"><i class="feather icon-clock"></i> {{$item['datetime']}}</span>
+                    <h3 class="timeline-header">
+                        解除了 {{$item['type']}}
+                    </h3>
+                    <div class="timeline-body">
+                        {{$item['name']}}
+                    </div>
+                </div>
+            @endif
+        </div>
+    @endforeach
+    <div>
+        <i class="fas fa-clock bg-gray"></i>
+    </div>
+</div>

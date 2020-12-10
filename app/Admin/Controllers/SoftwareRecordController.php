@@ -57,14 +57,15 @@ class SoftwareRecordController extends AdminController
 
                             $grid->column('id');
                             $grid->column('device.name')->link(function () {
-                                return route('device.records.show', $this->device['id']);
+                                if (!empty($this->device)) {
+                                    return route('device.records.show', $this->device['id']);
+                                }
                             });
                             $grid->column('device.staff.name');
 
-                            $grid->disableCreateButton();
+                            $grid->disableToolbar();
                             $grid->disableBatchActions();
                             $grid->disableRowSelector();
-                            $grid->disableRefreshButton();
                             $grid->disableViewButton();
                             $grid->disableEditButton();
                             $grid->disableDeleteButton();
@@ -157,9 +158,6 @@ class SoftwareRecordController extends AdminController
                 if (Admin::user()->can('software.track')) {
                     $actions->append(new SoftwareTrackAction());
                 }
-                if (Admin::user()->can('software.history')) {
-                    $actions->append(new SoftwareHistoryAction());
-                }
                 if (Admin::user()->can('software.track.list')) {
                     $tracks_route = route('software.tracks.index', ['_search_' => $this->id]);
                     $actions->append("<a href='$tracks_route'>💿 管理归属</a>");
@@ -218,6 +216,10 @@ class SoftwareRecordController extends AdminController
             $form->display('updated_at');
 
             $form->disableDeleteButton();
+
+            $form->disableCreatingCheck();
+            $form->disableEditingCheck();
+            $form->disableViewCheck();
         });
     }
 }

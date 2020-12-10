@@ -58,6 +58,10 @@ class DeviceCategoryController extends AdminController
             $form->text('description');
             $form->display('created_at');
             $form->display('updated_at');
+
+            $form->disableCreatingCheck();
+            $form->disableEditingCheck();
+            $form->disableViewCheck();
         });
     }
 }

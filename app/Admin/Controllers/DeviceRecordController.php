@@ -3,8 +3,6 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Actions\Grid\RowAction\DeviceDeleteAction;
-use App\Admin\Actions\Grid\RowAction\DeviceHistoryAction;
-use App\Admin\Actions\Grid\RowAction\DeviceRelatedAction;
 use App\Admin\Actions\Grid\RowAction\DeviceTrackAction;
 use App\Admin\Actions\Grid\RowAction\MaintenanceAction;
 use App\Admin\Actions\Grid\ToolAction\DeviceRecordImportAction;
@@ -17,6 +15,7 @@ use App\Services\DeviceRecordService;
 use App\Services\ExpirationService;
 use App\Services\ExportService;
 use App\Support\Info;
+use App\Traits\HasDeviceRelatedGrid;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -33,6 +32,8 @@ use Dcat\Admin\Widgets\Card;
  */
 class DeviceRecordController extends AdminController
 {
+    use HasDeviceRelatedGrid;
+
     /**
      * 详情页构建器
      * 为了复写详情页的布局
@@ -43,23 +44,43 @@ class DeviceRecordController extends AdminController
     public function show($id, Content $content): Content
     {
         $name = Info::deviceIdToStaffName($id);
-        $related = DeviceRecordService::related($id);
         $history = DeviceRecordService::history($id);
         return $content
             ->title($this->title())
             ->description($this->description()['index'] ?? trans('admin.show'))
-            ->body(function (Row $row) use ($id, $name, $related, $history) {
-                $row->column(6, $this->detail($id));
-                $row->column(6, function (Column $column) use ($id, $name, $related, $history) {
-                    $column->row(new Card(view('device_records.staff')->with('name', $name)));
+            ->body(function (Row $row) use ($id, $name, $history) {
+                $column_b_width = 0;
+                $column_c_width = 0;
+                // 如果B和C权限都有
+                if (Admin::user()->can('device.related') && Admin::user()->can('device.history')) {
+                    $column_a_width = 4;
+                    $column_b_width = 4;
+                    $column_c_width = 4;
+                } elseif (Admin::user()->can('device.related') && !Admin::user()->can('device.history')) {
+                    // 如果只有B
+                    $column_a_width = 6;
+                    $column_b_width = 6;
+                } elseif (!Admin::user()->can('device.related') && Admin::user()->can('device.history')) {
+                    //如果只有C
+                    $column_a_width = 6;
+                    $column_c_width = 6;
+                } else {
+                    $column_a_width = 12;
+                }
+                $row->column($column_a_width, $this->detail($id));
+                $row->column($column_b_width, function (Column $column) use ($id, $name, $history) {
+                    $column->row(Card::make()->content('当前使用者：' . $name));
                     if (Admin::user()->can('device.related')) {
-                        $column->row(new Card('归属信息', view('device_records.related')->with('data', $related)));
-                    }
-                    if (Admin::user()->can('device.history')) {
-                        $card = new Card('履历', view('history')->with('data', $history));
-                        $column->row($card->tool('<a class="btn btn-primary btn-xs" href="' . route('export.device.history', $id) . '" target="_blank">导出到 Excel</a>'));
+                        $result = self::hasDeviceRelated($id);
+                        $column->row(new Card('硬件', $result['hardware']));
+                        $column->row(new Card('软件', $result['software']));
+                        $column->row(new Card('服务程序', $result['service']));
                     }
                 });
+                if (Admin::user()->can('device.history')) {
+                    $card = new Card('履历', view('history')->with('data', $history));
+                    $row->column($column_c_width, $card->tool('<a class="btn btn-primary btn-xs" href="' . route('export.device.history', $id) . '" target="_blank">导出到 Excel</a>'));
+                }
             });
     }
 
@@ -158,12 +179,6 @@ class DeviceRecordController extends AdminController
                 if (Admin::user()->can('device.track')) {
                     $actions->append(new DeviceTrackAction());
                 }
-                if (Admin::user()->can('device.related')) {
-                    $actions->append(new DeviceRelatedAction());
-                }
-                if (Admin::user()->can('device.history')) {
-                    $actions->append(new DeviceHistoryAction());
-                }
                 if (Admin::user()->can('device.maintenance')) {
                     $actions->append(new MaintenanceAction('device'));
                 }
@@ -229,6 +244,10 @@ class DeviceRecordController extends AdminController
             $form->display('updated_at');
 
             $form->disableDeleteButton();
+
+            $form->disableCreatingCheck();
+            $form->disableEditingCheck();
+            $form->disableViewCheck();
         });
     }
 }

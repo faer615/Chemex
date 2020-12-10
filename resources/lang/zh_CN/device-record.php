@@ -35,7 +35,32 @@ return [
         'purchased' => '购入日期',
         'expired' => '过保日期',
         'security_password' => '安全密码',
-        'admin_password' => '管理员密码'
+        'admin_password' => '管理员密码',
+        'hardware' => [
+            'category' => [
+                'name' => '分类'
+            ],
+            'name' => '名称',
+            'specification' => '规格',
+            'sn' => '序列号',
+            'vendor' => [
+                'name' => '制造商'
+            ]
+        ],
+        'software' => [
+            'category' => [
+                'name' => '分类'
+            ],
+            'name' => '名称',
+            'version' => '版本',
+            'distribution' => '发行方式',
+            'vendor' => [
+                'name' => '制造商'
+            ]
+        ],
+        'service' => [
+            'name' => '名称'
+        ]
     ],
     'options' => [
     ],

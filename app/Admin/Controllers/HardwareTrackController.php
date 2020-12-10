@@ -25,6 +25,7 @@ class HardwareTrackController extends AdminController
     protected function grid(): Grid
     {
         return Grid::make(new HardwareTrack(['hardware', 'device']), function (Grid $grid) {
+            $grid->model()->where('device_id', '=', 2);
             $grid->column('id');
             $grid->column('hardware.name');
             $grid->column('device.name');
