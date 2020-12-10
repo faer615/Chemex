@@ -29,7 +29,9 @@ trait HasDeviceRelatedGrid
             $grid->column('id');
             $grid->column('hardware.category.name');
             $grid->column('hardware.name')->link(function () {
-                return route('hardware.records.show', $this->hardware['id']);
+                if (!empty($this->hardware)) {
+                    return route('hardware.records.show', $this->hardware['id']);
+                }
             });
             $grid->column('hardware.specification');
             $grid->column('hardware.sn');
@@ -51,7 +53,9 @@ trait HasDeviceRelatedGrid
             $grid->column('id');
             $grid->column('software.category.name');
             $grid->column('software.name')->link(function () {
-                return route('software.records.show', $this->software['id']);
+                if (!empty($this->software)) {
+                    return route('software.records.show', $this->software['id']);
+                }
             });
             $grid->column('software.version');
             $grid->column('software.distribution')->using(Data::distribution());
@@ -72,7 +76,9 @@ trait HasDeviceRelatedGrid
 
             $grid->column('id');
             $grid->column('service.name')->link(function () {
-                return route('service.records.show', $this->service['id']);
+                if (!empty($this->service)) {
+                    return route('service.records.show', $this->service['id']);
+                }
             });
 
             $grid->disableToolbar();

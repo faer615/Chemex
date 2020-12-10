@@ -142,6 +142,10 @@ class CheckRecordController extends AdminController
                     $check_track->save();
                 }
             });
+
+            $form->disableCreatingCheck();
+            $form->disableEditingCheck();
+            $form->disableViewCheck();
         });
     }
 }

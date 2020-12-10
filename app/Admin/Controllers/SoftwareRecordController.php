@@ -57,7 +57,9 @@ class SoftwareRecordController extends AdminController
 
                             $grid->column('id');
                             $grid->column('device.name')->link(function () {
-                                return route('device.records.show', $this->device['id']);
+                                if (!empty($this->device)) {
+                                    return route('device.records.show', $this->device['id']);
+                                }
                             });
                             $grid->column('device.staff.name');
 
@@ -214,6 +216,10 @@ class SoftwareRecordController extends AdminController
             $form->display('updated_at');
 
             $form->disableDeleteButton();
+
+            $form->disableCreatingCheck();
+            $form->disableEditingCheck();
+            $form->disableViewCheck();
         });
     }
 }
