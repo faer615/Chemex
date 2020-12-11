@@ -112,15 +112,13 @@ UI设计来自多个优秀开源项目，例如：Bootstrap、AdminLTE、Apex Ch
 
 7：在 `.env` 中配置数据库信息以及 `APP_URL` 信息。
 
-8：进入项目根目录，执行 `php artisan migrate` 进行数据库迁移。
+8：进入项目根目录，执行 `php artisan chemex:install` 进行安装。
 
-9：进入项目根目录，执行 `php artisan chemex:install` 进行安装，进度会卡住没反应（一般来说5秒），直接按回车继续即可。
+9：你可能使用的web服务器为 `nginx` 以及 `apache`，无论怎样，应用的起始路径在 `/public` 目录，请确保指向正确。
 
-10：你可能使用的web服务器为 `nginx` 以及 `apache`，无论怎样，应用的起始路径在 `/public` 目录，请确保指向正确。
+10：修改web服务器的伪静态规则为：`try_files $uri $uri/ /index.php?$args;`。
 
-11：修改web服务器的伪静态规则为：`try_files $uri $uri/ /index.php?$args;`。
-
-12：此时可以通过访问 `http://your_domain` 来使用 咖啡壶（Chemex）。管理员账号密码为：`admin / admin`。
+11：此时可以通过访问 `http://your_domain` 来使用 咖啡壶（Chemex）。管理员账号密码为：`admin / admin`。
 
 ### OVF 部署
 

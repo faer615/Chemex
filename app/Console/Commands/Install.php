@@ -45,6 +45,8 @@ class Install extends Command
         $this->call('key:generate');
         $this->info('正在配置JWT密钥！');
         $this->call('jwt:secret');
+        $this->info('正在处理数据库迁移！');
+        $this->call('migrate');
         $this->info('正在初始化数据！');
         $this->call('db:seed', ['--class' => 'AdminTablesSeeder']);
         $this->call('chemex:reset');
