@@ -50,6 +50,10 @@ class ServiceIssueController extends AdminController
             $grid->disableEditButton();
             $grid->disableDeleteButton();
 
+            $grid->quickSearch('id', 'service.name', 'issue')
+                ->placeholder('试着搜索一下')
+                ->auto(false);
+
         });
     }
 

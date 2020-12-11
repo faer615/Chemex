@@ -24,8 +24,8 @@ class VendorRecordController extends AdminController
             $grid->column('description');
             $grid->column('location');
 
-            $grid->quickSearch('id', 'name')
-                ->placeholder('输入ID或者名称以搜索')
+            $grid->quickSearch('id', 'name', 'description', 'location')
+                ->placeholder('试着搜索一下')
                 ->auto(false);
 
             $grid->disableRowSelector();

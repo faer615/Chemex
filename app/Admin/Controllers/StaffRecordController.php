@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Actions\Grid\RowAction\StaffDeleteAction;
+use App\Admin\Actions\Grid\ToolAction\StaffRecordImportAction;
 use App\Admin\Grid\Displayers\RowActions;
 use App\Admin\Repositories\StaffRecord;
 use App\Models\StaffDepartment;
@@ -31,10 +32,6 @@ class StaffRecordController extends AdminController
             $grid->column('mobile');
             $grid->column('email');
 
-            $grid->quickSearch('id', 'name')
-                ->placeholder('输入ID或者名称以搜索')
-                ->auto(false);
-
             $grid->enableDialogCreate();
             $grid->disableRowSelector();
             $grid->disableDeleteButton();
@@ -47,6 +44,14 @@ class StaffRecordController extends AdminController
             });
 
             $grid->toolsWithOutline(false);
+
+            $grid->tools([
+                new StaffRecordImportAction()
+            ]);
+
+            $grid->quickSearch('id', 'name', 'department.name', 'gender', 'title', 'mobile', 'email')
+                ->placeholder('试着搜索一下')
+                ->auto(false);
 
             $grid->export();
         });

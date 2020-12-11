@@ -33,3 +33,10 @@
         <i class="fas fa-clock bg-gray"></i>
     </div>
 </div>
+
+<style>
+    .timeline-item, .timeline-header {
+        background: none !important;
+        color: #a8a9bb !important;
+    }
+</style>

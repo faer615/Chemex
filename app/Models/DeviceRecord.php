@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\HasCreator;
 use Dcat\Admin\Form\Field\Datetime;
 use Dcat\Admin\Traits\HasDateTimeFormatter;
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -137,7 +138,11 @@ class DeviceRecord extends Model
     public function getSecurityPasswordAttribute($security_password)
     {
         if (!empty($security_password)) {
-            return Crypt::decryptString($security_password);
+            try {
+                return Crypt::decryptString($security_password);
+            } catch (Exception $exception) {
+                return '密钥已损毁';
+            }
         }
     }
 
@@ -158,7 +163,11 @@ class DeviceRecord extends Model
     public function getAdminPasswordAttribute($admin_password)
     {
         if (!empty($admin_password)) {
-            return Crypt::decryptString($admin_password);
+            try {
+                return Crypt::decryptString($admin_password);
+            } catch (Exception $exception) {
+                return '密钥已损毁';
+            }
         }
     }
 

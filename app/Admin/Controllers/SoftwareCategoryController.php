@@ -25,6 +25,10 @@ class SoftwareCategoryController extends AdminController
             $grid->enableDialogCreate();
 
             $grid->toolsWithOutline(false);
+
+            $grid->quickSearch('id', 'name', 'description')
+                ->placeholder('试着搜索一下')
+                ->auto(false);
         });
     }
 

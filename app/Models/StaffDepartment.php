@@ -10,6 +10,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @method static where(string $key, string $value)
+ * @property string name
+ * @property mixed|null description
+ * @property int parent_id
  */
 class StaffDepartment extends Model
 {
