@@ -67,7 +67,8 @@ Route::group([
     $router->get('/export/software/{software_id}/history', [SoftwareRecordController::class, 'exportHistory'])
         ->name('export.software.history');
 
-    $router->get('/notifications/read_all', [NotificationController::class, 'readAll']);
+    $router->get('/notifications/read_all', [NotificationController::class, 'readAll'])
+        ->name('notification.read.all');
     $router->get('/notifications/read/{id}', [NotificationController::class, 'read'])
         ->name('notification.read');
 });

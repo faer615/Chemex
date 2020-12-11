@@ -34,20 +34,9 @@
                     @endforeach
                 </li>
                 <li class="dropdown-menu-footer">
-                    <a class="dropdown-item p-1 text-center" onclick="readAll()">全部已读</a>
+                    <a class="dropdown-item p-1 text-center" href="{{route('notification.read.all')}}">全部已读</a>
                 </li>
             @endif
         </ul>
     </li>
 </ul>
-<script>
-    function readAll() {
-        $.ajax({
-            url: "/notifications/read_all",
-            method: 'GET',
-            success: function () {
-                location.reload();
-            }
-        });
-    }
-</script>
