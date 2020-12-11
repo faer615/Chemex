@@ -29,7 +29,9 @@ class StaffDepartmentImportForm extends Form
                     if (!empty($row['名称'])) {
                         $staff_department = new StaffDepartment();
                         $staff_department->name = $row['名称'];
-                        $staff_department->description = $row['描述'] ?? null;
+                        if (!empty($row['描述'])) {
+                            $staff_department->description = $row['描述'];
+                        }
                         if (!empty($row['父级部门'])) {
                             $parent_department = StaffDepartment::where('name', $row['父级部门'])->first();
                             if (empty($parent_department)) {
@@ -40,6 +42,9 @@ class StaffDepartmentImportForm extends Form
                             $staff_department->parent_id = $parent_department->id;
                         }
                         $staff_department->save();
+                    } else {
+                        return $this->response()
+                            ->error('缺少必要的字段！');
                     }
                 } catch (Exception $exception) {
                     continue;

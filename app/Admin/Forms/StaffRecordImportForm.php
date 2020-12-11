@@ -38,10 +38,19 @@ class StaffRecordImportForm extends Form
                         $staff_record->name = $row['名称'];
                         $staff_record->department_id = $staff_department->id;
                         $staff_record->gender = $row['性别'];
-                        $staff_record->title = $row['职位'] ?? null;
-                        $staff_record->mobile = $row['手机'] ?? null;
-                        $staff_record->email = $row['邮箱'] ?? null;
+                        if (!empty($row['职位'])) {
+                            $staff_record->title = $row['职位'];
+                        }
+                        if (!empty($row['手机'])) {
+                            $staff_record->mobile = $row['手机'];
+                        }
+                        if (!empty($row['邮箱'])) {
+                            $staff_record->email = $row['邮箱'];
+                        }
                         $staff_record->save();
+                    } else {
+                        return $this->response()
+                            ->error('缺少必要的字段！');
                     }
                 } catch (Exception $exception) {
                     continue;

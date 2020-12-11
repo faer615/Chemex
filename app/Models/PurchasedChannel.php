@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @method static where(string $string, string $value)
+ * @property string name
  */
 class PurchasedChannel extends Model
 {
