@@ -5,7 +5,7 @@
 <p align="center">
 <a href="http://chemex.it" target="_blank">咖啡壶（Chemex）官方网站</a> |
 <a href="https://chemex.famio.cn" target="_blank">Demo 演示站点</a> |
-<a href="https://jq.qq.com/?_wv=1027&k=hPqoSblB" target="_blank">用户交流群</a>
+用户群：添加 ``
 </p>
 
 <p align="center">
@@ -42,6 +42,8 @@
 `Dr. Peter Schlumbohm`，感谢发明了 Chemex 冲煮咖啡。
 
 ## 简介
+
+加入用户微信群请添加微信号 `Celaraze`。
 
 咖啡壶（Chemex）是一个轻量的、现代设计风格的 ICT 资产管理系统。得益于 [Laravel](https://laravel.com/) 框架以及 [Dcat Admin](https://dcatadmin.com)
 开发平台，使其具备了优雅、简洁的优秀体验。 咖啡壶（Chemex）
@@ -110,15 +112,13 @@ UI设计来自多个优秀开源项目，例如：Bootstrap、AdminLTE、Apex Ch
 
 7：在 `.env` 中配置数据库信息以及 `APP_URL` 信息。
 
-8：进入项目根目录，执行 `php artisan migrate` 进行数据库迁移。
+8：进入项目根目录，执行 `php artisan chemex:install` 进行安装。
 
-9：进入项目根目录，执行 `php artisan chemex:install` 进行安装，进度会卡住没反应（一般来说5秒），直接按回车继续即可。
+9：你可能使用的web服务器为 `nginx` 以及 `apache`，无论怎样，应用的起始路径在 `/public` 目录，请确保指向正确。
 
-10：你可能使用的web服务器为 `nginx` 以及 `apache`，无论怎样，应用的起始路径在 `/public` 目录，请确保指向正确。
+10：修改web服务器的伪静态规则为：`try_files $uri $uri/ /index.php?$args;`。
 
-11：修改web服务器的伪静态规则为：`try_files $uri $uri/ /index.php?$args;`。
-
-12：此时可以通过访问 `http://your_domain` 来使用 咖啡壶（Chemex）。管理员账号密码为：`admin / admin`。
+11：此时可以通过访问 `http://your_domain` 来使用 咖啡壶（Chemex）。管理员账号密码为：`admin / admin`。
 
 ### OVF 部署
 
@@ -139,9 +139,7 @@ UI设计来自多个优秀开源项目，例如：Bootstrap、AdminLTE、Apex Ch
 
 随时随地保持更新可以在项目根目录中执行 `sudo git reset --hard && git pull --force` 命令，将会同步分支的最新修改内容。
 
-接着，执行 `php artisan migrate` 来更新数据库结构。
-
-然后，执行 `php artisan db:seed --class=AdminTablesSeeder` 来更新数据库表数据。
+接着，执行 `php artisan chemex:update` 来进行升级。
 
 注意：只有 `main` 分支才是适用于生产环境的分支。
 

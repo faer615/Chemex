@@ -50,6 +50,10 @@ class ServiceTrackController extends AdminController
                 $filter->panel();
                 $filter->scope('history', '查看历史归属记录')->onlyTrashed();
             });
+
+            $grid->quickSearch('id', 'service.name', 'device.name')
+                ->placeholder('试着搜索一下')
+                ->auto(false);
         });
     }
 

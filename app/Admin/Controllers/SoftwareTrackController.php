@@ -44,8 +44,8 @@ class SoftwareTrackController extends AdminController
                 }
             });
 
-            $grid->quickSearch('software_id')
-                ->placeholder('输入软件ID以筛选')
+            $grid->quickSearch('id', 'software.name', 'device.name')
+                ->placeholder('试着搜索一下')
                 ->auto(false);
 
             $grid->filter(function (Grid\Filter $filter) {

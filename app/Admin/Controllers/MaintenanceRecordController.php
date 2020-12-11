@@ -58,7 +58,9 @@ class MaintenanceRecordController extends AdminController
                 }
             });
 
-            $grid->quickSearch();
+            $grid->quickSearch('id', 'item', 'ng_description', 'ok_description')
+                ->placeholder('试着搜索一下')
+                ->auto(false);
 
             $grid->selector(function (Selector $selector) {
                 $selector->select('status', '状态', [

@@ -73,8 +73,9 @@ class CheckTrackController extends AdminController
             });
 
             $grid->toolsWithOutline(false);
-            $grid->quickSearch('check_id')
-                ->placeholder('输入任务ID以筛选')
+
+            $grid->quickSearch('id', 'check_id', 'user.name')
+                ->placeholder('试着搜索一下')
                 ->auto(false);
         });
     }

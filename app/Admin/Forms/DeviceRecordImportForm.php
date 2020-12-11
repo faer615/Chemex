@@ -32,30 +32,59 @@ class DeviceRecordImportForm extends Form
                     if (!empty($row['名称']) && !empty($row['分类']) && !empty($row['制造商'])) {
                         $category = DeviceCategory::where('name', $row['分类'])->first();
                         $vendor = VendorRecord::where('name', $row['制造商'])->first();
-                        if (!empty($category) && !empty($vendor)) {
-                            $device_records = new DeviceRecord();
-                            $device_records->name = $row['名称'];
-                            $device_records->category_id = $category->id;
-                            $device_records->vendor_id = $vendor->id;
-                            $device_records->sn = $row['序列号'] ?? '';
-                            $device_records->mac = $row['MAC'];
-                            $device_records->ip = $row['IP'];
-                            $device_records->security_password = $row['安全密码'] ?? '';
-                            $device_records->admin_password = $row['管理员密码'] ?? '';
-                            $device_records->description = $row['描述'] ?? '';
-                            $device_records->price = $row['价格'] ?? null;
-                            $device_records->purchased = $row['购入日期'] ?? null;
-                            $device_records->expired = $row['过保日期'] ?? null;
-
-                            if (!empty($row['购入途径'])) {
-                                $purchased_channel = PurchasedChannel::where('name', $row['购入途径'])->first();
-                                if (!empty($purchased_channel)) {
-                                    $device_records->purchased_channel_id = $purchased_channel->id;
-                                }
-                            }
-
-                            $device_records->save();
+                        if (empty($category)) {
+                            $category = new DeviceCategory();
+                            $category->name = $row['分类'];
+                            $category->save();
                         }
+                        if (empty($vendor)) {
+                            $vendor = new VendorRecord();
+                            $vendor->name = $row['制造商'];
+                            $vendor->save();
+                        }
+                        $device_records = new DeviceRecord();
+                        $device_records->name = $row['名称'];
+                        $device_records->category_id = $category->id;
+                        $device_records->vendor_id = $vendor->id;
+                        // 这里导入判断空值，不能使用 ?? null 或者 ?? '' 的方式，写入数据库的时候
+                        // 会默认为插入''而不是null，这会导致像price这样的double也是插入''，就会报错
+                        // 其实price应该插入null
+                        if (!empty($row['序列号'])) {
+                            $device_records->sn = $row['序列号'];
+                        }
+                        $device_records->mac = $row['MAC'];
+                        $device_records->ip = $row['IP'];
+                        if (!empty($row['安全密码'])) {
+                            $device_records->security_password = $row['安全密码'];
+                        }
+                        if (!empty($row['管理员密码'])) {
+                            $device_records->admin_password = $row['管理员密码'];
+                        }
+                        if (!empty($row['描述'])) {
+                            $device_records->description = $row['描述'];
+                        }
+                        if (!empty($row['价格'])) {
+                            $device_records->price = $row['价格'];
+                        }
+                        if (!empty($row['购入日期'])) {
+                            $device_records->purchased = $row['购入日期'];
+                        }
+                        if (!empty($row['过保日期'])) {
+                            $device_records->expired = $row['过保日期'];
+                        }
+                        if (!empty($row['购入途径'])) {
+                            $purchased_channel = PurchasedChannel::where('name', $row['购入途径'])->first();
+                            if (empty($purchased_channel)) {
+                                $purchased_channel = new PurchasedChannel();
+                                $purchased_channel->name = $row['购入途径'];
+                                $purchased_channel->save();
+                            }
+                            $device_records->purchased_channel_id = $purchased_channel->id;
+                        }
+                        $device_records->save();
+                    } else {
+                        return $this->response()
+                            ->error('缺少必要的字段！');
                     }
                 } catch (Exception $exception) {
                     continue;

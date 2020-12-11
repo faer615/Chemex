@@ -5,6 +5,7 @@ namespace App\Models;
 use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User;
+use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
@@ -15,6 +16,7 @@ class AdminUser extends User implements JWTSubject
 {
     use HasFactory;
     use HasDateTimeFormatter;
+    use Notifiable;
 
     protected $table = 'admin_users';
     protected $hidden = ['password'];

@@ -63,7 +63,7 @@ class HardwareRecordController extends AdminController
                 }
             });
 
-            $grid->quickSearch('id', 'name', 'device.name')
+            $grid->quickSearch('id', 'name', 'description', 'category.name', 'vendor.name', 'specification', 'sn', 'device.name')
                 ->placeholder('尝试搜索一下')
                 ->auto(false);
 

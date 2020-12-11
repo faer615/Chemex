@@ -22,6 +22,10 @@
 /**
  * 自定义全局CSS
  */
+
+use App\Models\AdminUser;
+use Dcat\Admin\Layout\Navbar;
+
 Admin::style(
     <<<CSS
 .main-footer {
@@ -47,3 +51,14 @@ Admin::style(
 CSS
 
 );
+
+// 获取当前用户的通知
+$user = AdminUser::where('id', auth('admin')->id())->first();
+$notifications = [];
+if (!empty($user)) {
+    $notifications = $user->unreadNotifications;
+    $notifications = json_decode($notifications, true);
+}
+Admin::navbar(function (Navbar $navbar) use ($notifications) {
+    $navbar->right(view('notification')->with('notifications', $notifications));
+});

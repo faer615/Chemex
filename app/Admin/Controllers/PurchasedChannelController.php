@@ -23,6 +23,10 @@ class PurchasedChannelController extends AdminController
             $grid->column('description');
             $grid->column('created_at');
             $grid->column('updated_at');
+
+            $grid->quickSearch('id', 'name', 'description')
+                ->placeholder('试着搜索一下')
+                ->auto(false);
         });
     }
 

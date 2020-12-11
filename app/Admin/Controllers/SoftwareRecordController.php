@@ -164,8 +164,8 @@ class SoftwareRecordController extends AdminController
                 }
             });
 
-            $grid->quickSearch('id', 'name')
-                ->placeholder('输入ID或者名称以搜索')
+            $grid->quickSearch('id', 'name', 'category.name', 'version', 'price')
+                ->placeholder('试着搜索一下')
                 ->auto(false);
 
             $grid->enableDialogCreate();
