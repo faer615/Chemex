@@ -1,6 +1,7 @@
 <?php
 
 use App\Admin\Controllers\DeviceRecordController;
+use App\Admin\Controllers\NotificationController;
 use App\Admin\Controllers\SoftwareRecordController;
 use Dcat\Admin\Admin;
 use Illuminate\Routing\Router;
@@ -46,7 +47,10 @@ Route::group([
         'index' => 'staff.records.index'
     ]]);
     $router->resource('/staff/departments', 'StaffDepartmentController');
-    $router->resource('/check/records', 'CheckRecordController');
+    $router->resource('/check/records', 'CheckRecordController', ['names' => [
+        'index' => 'check.records.index',
+        'show' => 'check.records.show'
+    ]]);
     $router->resource('/check/tracks', 'CheckTrackController');
     $router->resource('/service/records', 'ServiceRecordController', ['names' => [
         'index' => 'service.records.index',
@@ -62,4 +66,8 @@ Route::group([
         ->name('export.device.history');
     $router->get('/export/software/{software_id}/history', [SoftwareRecordController::class, 'exportHistory'])
         ->name('export.software.history');
+
+    $router->get('/notifications/read_all', [NotificationController::class, 'readAll']);
+    $router->get('/notifications/read/{id}', [NotificationController::class, 'read'])
+        ->name('notification.read');
 });
