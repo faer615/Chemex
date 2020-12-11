@@ -1,28 +1,27 @@
-<p align="center">
-    <img src="https://oss.celaraze.com/chemex/logo-mini.png" />
+<p style="text-align: center;">
+    <img src="https://oss.celaraze.com/chemex/logo-mini.png"  alt="chemex"/>
 </p>
 
-<p align="center">
+<p style="text-align: center">
 <a href="http://chemex.it" target="_blank">咖啡壶（Chemex）官方网站</a> |
-<a href="https://chemex.famio.cn" target="_blank">Demo 演示站点</a> |
-<a href="https://jq.qq.com/?_wv=1027&k=hPqoSblB" target="_blank">用户交流群</a>
+<a href="https://chemex.famio.cn" target="_blank">Demo 演示站点</a>
 </p>
 
-<p align="center">
-    <img src="https://img.shields.io/badge/Latest Release-2.0.1-orange" />
-    <img src="https://img.shields.io/badge/PHP-7.3+-green" />
-    <img src="https://img.shields.io/badge/MariaDB-10.2+-blueviolet" />
-    <img src="https://img.shields.io/badge/License-GPL3.0-blue" />
+<p style="text-align: center">
+    <img src="https://img.shields.io/badge/Latest Release-2.0.1-orange"  alt="chemex"/>
+    <img src="https://img.shields.io/badge/PHP-7.3+-green" alt="chemex" />
+    <img src="https://img.shields.io/badge/MariaDB-10.2+-blueviolet" alt="chemex" />
+    <img src="https://img.shields.io/badge/License-GPL3.0-blue" alt="chemex" />
 </p>
 
-<p align="center">
-    <img src="https://travis-ci.com/Celaraze/Chemex.svg?branch=main" />
-    <img src="https://github.com/Celaraze/Chemex/workflows/Laravel/badge.svg?event=push" />
-    <img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FCelaraze%2FChemex.svg?type=shield" />
+<p style="text-align: center">
+    <img src="https://travis-ci.com/Celaraze/Chemex.svg?branch=main" alt="chemex" />
+    <img src="https://github.com/Celaraze/Chemex/workflows/Laravel/badge.svg?event=push" alt="chemex" />
+    <img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FCelaraze%2FChemex.svg?type=shield" alt="chemex" />
 </p>
 
-<p align="center">
-    <img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FCelaraze%2FChemex.svg?type=large" />
+<p style="text-align: center">
+    <img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FCelaraze%2FChemex.svg?type=large" alt="chemex" />
 </p>
 
 ## 鸣谢
@@ -32,7 +31,7 @@
 `JetBrains` 提供优秀的IDE。
 
 <a href="https://www.jetbrains.com/?from=Chemex" target="_blank">
-<img src="https://oss.celaraze.com/chemex/jetbrains.svg" />
+<img src="https://oss.celaraze.com/chemex/jetbrains.svg"  alt="chemex" />
 </a>
 
 [Laravel](https://laravel.com/) ，优雅的 PHP Web 框架。
@@ -43,12 +42,14 @@
 
 ## 简介
 
+加入用户微信群请添加微信号 `Celaraze`。
+
 咖啡壶（Chemex）是一个轻量的、现代设计风格的 ICT 资产管理系统。得益于 [Laravel](https://laravel.com/) 框架以及 [Dcat Admin](https://dcatadmin.com)
 开发平台，使其具备了优雅、简洁的优秀体验。 咖啡壶（Chemex）
 是完全免费且开源的，任何人都可以无限制的修改代码以及部署服务，这对于很多想要对ICT资产做信息化管理的中小型企业来说，是一个很好的选择：低廉的成本换回的是高效的管理方案，同时又有健康的生态提供支持。
 
-<p align="center">
-    <img src="https://oss.celaraze.com/chemex/Chemex%20%E5%92%96%E5%95%A1%E5%A3%B6%20%281%29.png" />
+<p style="text-align: center">
+    <img src="https://oss.celaraze.com/chemex/Chemex%20%E5%92%96%E5%95%A1%E5%A3%B6%20%281%29.png" alt="chemex" />
 </p>
 
 `1.x` 版本升级到 `2.x`
