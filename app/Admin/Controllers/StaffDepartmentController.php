@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Grid\ToolAction\StaffDepartmentImportAction;
 use App\Admin\Repositories\StaffDepartment;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -26,6 +27,12 @@ class StaffDepartmentController extends AdminController
             $grid->enableDialogCreate();
 
             $grid->toolsWithOutline(false);
+
+            $grid->tools([
+                new StaffDepartmentImportAction()
+            ]);
+
+            $grid->quickSearch('id', 'name', 'description', 'parent.name');
         });
     }
 
@@ -36,7 +43,7 @@ class StaffDepartmentController extends AdminController
      *
      * @return Show
      */
-    protected function detail($id)
+    protected function detail($id): Show
     {
         return Show::make($id, new StaffDepartment(['parent']), function (Show $show) {
             $show->field('id');
@@ -53,7 +60,7 @@ class StaffDepartmentController extends AdminController
      *
      * @return Form
      */
-    protected function form()
+    protected function form(): Form
     {
         return Form::make(new StaffDepartment(), function (Form $form) {
             $form->display('id');

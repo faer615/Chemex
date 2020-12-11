@@ -51,6 +51,10 @@ class HardwareTrackController extends AdminController
             });
 
             $grid->toolsWithOutline(false);
+
+            $grid->quickSearch('id', 'hardware.name', 'device.name')
+                ->placeholder('试着搜索一下')
+                ->auto(false);
         });
     }
 

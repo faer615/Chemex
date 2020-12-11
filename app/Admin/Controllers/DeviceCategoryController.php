@@ -24,6 +24,10 @@ class DeviceCategoryController extends AdminController
 
             $grid->toolsWithOutline(false);
             $grid->enableDialogCreate();
+
+            $grid->quickSearch('id', 'name', 'description')
+                ->placeholder('试着搜索一下')
+                ->auto(false);
         });
     }
 

@@ -51,6 +51,10 @@ class DeviceTrackController extends AdminController
             });
 
             $grid->toolsWithOutline(false);
+
+            $grid->quickSearch('id', 'device.name', 'staff.name')
+                ->placeholder('试着搜索一下')
+                ->auto(false);
         });
     }
 
