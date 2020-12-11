@@ -44,14 +44,15 @@ class RowActions extends DropdownActions
         }
 
         // 判断行操作按钮是否启用了删除
-        // 如果禁用了则返回空
-        if (!isset($default[2])) {
-            $delete = '';
+        // 如果启用了则返回空
+        if (isset($default[2])) {
+            array_unshift($this->appends, $default[2]);
+            unset($default[2]);
         }
 
         // 判断有没有查看、编辑和删除这三个默认按钮
         // 如果都没有，则表示这里是独立按钮
-        if (empty($view) && empty($edit) && empty($delete)) {
+        if (empty($view) && empty($edit)) {
             $remove = true;
         } else {
             $remove = false;
