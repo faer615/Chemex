@@ -42,12 +42,16 @@ Admin::style(
 }
 
 .empty-data {
-        text-align: center;
-        color: rgba(0, 0, 0, 0.7);
-        display: flex;
-        align-items: center;
-        justify-content: left;
-    }
+    text-align: center;
+    color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.font-grey {
+    color: #a8a9bb;
+}
 CSS
 
 );

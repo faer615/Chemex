@@ -38,8 +38,8 @@ class ServiceIssueCounts extends Card
         $html = <<<HTML
 <div class="small-box" style="margin-bottom: 0;background: rgba(239,83,80,0.7);border-radius: .25rem">
   <div class="inner">
-    <h3 style="color: #ffffff;">{$counts}</h3>
-    <p style="color: white;">服务程序异常</p>
+    <h3 class="font-grey">{$counts}</h3>
+    <p class="font-grey">服务程序异常</p>
   </div>
   <div class="icon">
     <i class="feather icon-power"></i>

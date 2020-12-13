@@ -40,7 +40,6 @@ class CheckHardwarePercentage extends Card
             } catch (Exception $exception) {
                 $percentage = 0;
             }
-
         } else {
             $done_counts = '未找到在列的盘点任务';
             $percentage = 0;
@@ -48,7 +47,6 @@ class CheckHardwarePercentage extends Card
 
         $html = <<<HTML
 <div class="info-box" style="background:transparent;margin-bottom: 0;padding: 0;">
-<!--  <span class="info-box-icon" style="background: rgba(89,160,217,1);color: white;border-radius: .25rem;"><i class="feather icon-crosshair"></i></span>-->
   <div class="info-box-content">
     <span class="info-box-text">硬件盘点进度</span>
     <span class="info-box-number">{$done_counts}</span>
