@@ -17,7 +17,7 @@ class CreateDepreciationRulesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('description')->nullable();
-            $table->json('rules');
+            $table->longText('rules');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -5,6 +5,7 @@ namespace App\Admin\Controllers;
 use App\Admin\Actions\Grid\RowAction\SoftwareDeleteAction;
 use App\Admin\Actions\Grid\RowAction\SoftwareTrackAction;
 use App\Admin\Actions\Grid\RowAction\SoftwareTrackDisableAction;
+use App\Admin\Actions\Grid\ToolAction\SoftwareRecordImportAction;
 use App\Admin\Grid\Displayers\RowActions;
 use App\Admin\Repositories\SoftwareRecord;
 use App\Admin\Repositories\SoftwareTrack;
@@ -171,6 +172,10 @@ class SoftwareRecordController extends AdminController
             $grid->disableRowSelector();
             $grid->disableDeleteButton();
             $grid->disableBatchActions();
+
+            $grid->tools([
+                new SoftwareRecordImportAction()
+            ]);
 
             $grid->toolsWithOutline(false);
 
