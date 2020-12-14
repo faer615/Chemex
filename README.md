@@ -87,6 +87,8 @@ UI设计来自多个优秀开源项目，例如：Bootstrap、AdminLTE、Apex Ch
 
 `ext-json` 扩展，注意和 PHP 版本相同。
 
+`ext-fileinfo` 扩展，注意和 PHP 版本相同。
+
 ## 部署
 
 ### Git部署
