@@ -18,7 +18,6 @@ use App\Services\ExportService;
 use App\Services\SoftwareRecordService;
 use App\Support\Data;
 use App\Support\Track;
-use DateTime;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -32,7 +31,7 @@ use Dcat\Admin\Widgets\Card;
 /**
  * @property  DeviceRecord device
  * @property  int id
- * @property  DateTime deleted_at
+ * @property  string deleted_at
  */
 class SoftwareRecordController extends AdminController
 {

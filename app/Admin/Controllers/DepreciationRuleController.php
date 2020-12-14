@@ -60,9 +60,8 @@ class DepreciationRuleController extends AdminController
                 $table->number('year')
                     ->min(0)
                     ->required();
-                $table->number('ratio')
-                    ->min(0)
-                    ->max(1)
+                $table->currency('ratio')
+                    ->symbol('0.00 ~ 1.00 之间')
                     ->required();
             });
 

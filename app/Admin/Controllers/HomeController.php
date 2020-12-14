@@ -42,7 +42,7 @@ class HomeController extends Controller
             ->body(function (Row $row) {
                 $row->column(10, function (Column $column) {
                     $column->row(function (Row $row) {
-                        $row->column(4, function (Column $column) {
+                        $row->column(3, function (Column $column) {
                             $user = AdminUser::where('id', auth('admin')->id())->first();
                             $notifications = $user->notifications;
                             $notifications = json_decode($notifications, true);
@@ -51,7 +51,7 @@ class HomeController extends Controller
                             $column->row(new MaintenanceTrend());
                             $column->row(new IssueTrend());
                         });
-                        $row->column(8, function (Column $column) {
+                        $row->column(9, function (Column $column) {
                             $services = Track::getServiceIssueStatus();
                             $column->row(new Card('服务程序状态', view('services_dashboard')->with('services', $services)));
                             $column->row(function (Row $row) {

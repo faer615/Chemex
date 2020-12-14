@@ -4,11 +4,15 @@
 namespace App\Support;
 
 
+use App\Models\DepreciationRule;
+use App\Models\DeviceCategory;
 use App\Models\DeviceRecord;
+use App\Models\HardwareCategory;
 use App\Models\HardwareRecord;
 use App\Models\SoftwareRecord;
 use App\Models\SoftwareTrack;
 use App\Models\StaffRecord;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
 
 class Info
@@ -142,5 +146,63 @@ class Info
         } else {
             return $item_record->name;
         }
+    }
+
+    /**
+     * 获取折旧后的价格
+     * @param $price
+     * @param $date
+     * @param $depreciation_rule_id
+     * @return float|int
+     */
+    public static function depreciationPrice($price, $date, $depreciation_rule_id)
+    {
+        $depreciation = DepreciationRule::where('id', $depreciation_rule_id)->first();
+        if (empty($depreciation)) {
+            return $price;
+        } else {
+            $year = date('Y', strtotime($date));
+            $current_year = date('Y', time());
+            $diff = (int)$current_year - (int)$year;
+
+            $data = $depreciation['rules'];
+
+            // 数组过滤器
+            $return = array_filter($data, function ($item) use ($diff) {
+                return $diff >= (int)$item['year'];
+            });
+
+            if (!empty($return)) {
+                array_multisort(array_column($return, 'year'), SORT_DESC, $return);
+                $price = $price * (double)$return[0]['ratio'];
+            }
+            return $price;
+        }
+    }
+
+    /**
+     * 根据模型查找折旧规则的id（记录的优先级>分类的优先级）
+     * @param Model $model
+     * @return mixed|null
+     */
+    public static function getDepreciationRuleId(Model $model)
+    {
+        $depreciation_rule_id = null;
+        if (empty($model->depreciation_rule_id)) {
+            $category = null;
+            if ($model instanceof DeviceRecord) {
+                $category = DeviceCategory::where('id', $model->category_id)->first();
+            }
+            if ($model instanceof HardwareRecord) {
+                $category = HardwareCategory::where('id', $model->category_id)->first();
+            }
+            if (!empty($category) && !empty($category->depreciation_rule_id)) {
+                $depreciation_rule_id = $category->depreciation_rule_id;
+            }
+        } else {
+            $depreciation_rule_id = $model->depreciation_rule_id;
+        }
+
+        return $depreciation_rule_id;
     }
 }
