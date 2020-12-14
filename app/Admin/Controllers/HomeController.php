@@ -14,6 +14,8 @@ use App\Admin\Metrics\HardwareAboutToExpireCounts;
 use App\Admin\Metrics\HardwareCounts;
 use App\Admin\Metrics\HardwareExpiredCounts;
 use App\Admin\Metrics\HardwareWorth;
+use App\Admin\Metrics\IssueTrend;
+use App\Admin\Metrics\MaintenanceTrend;
 use App\Admin\Metrics\ServiceCounts;
 use App\Admin\Metrics\ServiceIssueCounts;
 use App\Admin\Metrics\SoftwareAboutToExpireCounts;
@@ -46,6 +48,8 @@ class HomeController extends Controller
                             $notifications = json_decode($notifications, true);
                             $column->row(new Card('我的待办', view('todo')->with('notifications', $notifications)));
                             $column->row(new WorthTrend());
+                            $column->row(new MaintenanceTrend());
+                            $column->row(new IssueTrend());
                         });
                         $row->column(8, function (Column $column) {
                             $services = Track::getServiceIssueStatus();

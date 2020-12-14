@@ -637,6 +637,8 @@ class ComposerStaticInitdea0a7b565accb12530b41c12af85cc4
         'App\\Admin\\Metrics\\HardwareCounts' => __DIR__ . '/../..' . '/app/Admin/Metrics/HardwareCounts.php',
         'App\\Admin\\Metrics\\HardwareExpiredCounts' => __DIR__ . '/../..' . '/app/Admin/Metrics/HardwareExpiredCounts.php',
         'App\\Admin\\Metrics\\HardwareWorth' => __DIR__ . '/../..' . '/app/Admin/Metrics/HardwareWorth.php',
+        'App\\Admin\\Metrics\\IssueTrend' => __DIR__ . '/../..' . '/app/Admin/Metrics/IssueTrend.php',
+        'App\\Admin\\Metrics\\MaintenanceTrend' => __DIR__ . '/../..' . '/app/Admin/Metrics/MaintenanceTrend.php',
         'App\\Admin\\Metrics\\ServiceCounts' => __DIR__ . '/../..' . '/app/Admin/Metrics/ServiceCounts.php',
         'App\\Admin\\Metrics\\ServiceIssueCounts' => __DIR__ . '/../..' . '/app/Admin/Metrics/ServiceIssueCounts.php',
         'App\\Admin\\Metrics\\SoftwareAboutToExpireCounts' => __DIR__ . '/../..' . '/app/Admin/Metrics/SoftwareAboutToExpireCounts.php',

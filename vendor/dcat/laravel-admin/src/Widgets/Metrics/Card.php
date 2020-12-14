@@ -98,6 +98,13 @@ class Card extends Widget
     protected $chartMarginBottom;
 
     /**
+     * 图表右间距.
+     *
+     * @var int
+     */
+    protected $chartMarginRight;
+
+    /**
      * 图表配置.
      *
      * @var array
@@ -427,6 +434,10 @@ class Card extends Widget
 
         if ($this->chartMarginBottom !== null) {
             $this->chart->style("margin-bottom: {$this->chartMarginBottom}px;");
+        }
+
+        if ($this->chartMarginRight !== null) {
+            $this->chart->style("margin-right: {$this->chartMarginRight}px;");
         }
     }
 

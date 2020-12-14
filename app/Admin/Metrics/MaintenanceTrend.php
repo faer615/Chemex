@@ -2,16 +2,16 @@
 
 namespace App\Admin\Metrics;
 
-use App\Models\DeviceRecord;
+use App\Models\MaintenanceRecord;
 use Dcat\Admin\Widgets\Metrics\Line;
 use Illuminate\Http\Request;
 
-class WorthTrend extends Line
+class MaintenanceTrend extends Line
 {
     /**
      * @var string
      */
-    protected $label = '资产价值趋势';
+    protected $label = '故障次数趋势';
 
     /**
      * 图表默认高度.
@@ -38,7 +38,7 @@ class WorthTrend extends Line
         $from = date('Y-m-d', mktime(0, 0, 0, 1, 1, $year));
         $to = date('Y-m-d', mktime(23, 59, 59, 12, 31, $year));
 
-        $records = DeviceRecord::whereBetween('purchased', [$from, $to])->get();
+        $records = MaintenanceRecord::whereBetween('ng_time', [$from, $to])->get();
 
         $data = [];
 
@@ -47,15 +47,13 @@ class WorthTrend extends Line
         for ($i = 1; $i <= 12; $i++) {
             $temp = 0;
             foreach ($records as $record) {
-                $month = date('m', strtotime($record->purchased));
+                $month = date('m', strtotime($record->ng_time));
                 if ($i == $month) {
-                    if (!empty($record->price)) {
-                        $temp += $record->price;
-                    }
+                    $temp++;
                 }
                 // 全年数据，以最后一个月来计算，这里12目的是让循环只执行一次
-                if ($i == 12 && !empty($record->price)) {
-                    $year_all += $record->price;
+                if ($i == 12) {
+                    $year_all++;
                 }
             }
             array_push($data, $temp);
@@ -71,9 +69,9 @@ class WorthTrend extends Line
      *
      * @param string $content
      *
-     * @return WorthTrend
+     * @return MaintenanceTrend
      */
-    public function withContent(string $content): WorthTrend
+    public function withContent(string $content): MaintenanceTrend
     {
         return $this->content(
             <<<HTML
@@ -89,15 +87,14 @@ HTML
      *
      * @param array $data
      *
-     * @return WorthTrend
+     * @return MaintenanceTrend
      */
-    public function withChart(array $data): WorthTrend
+    public function withChart(array $data): MaintenanceTrend
     {
-        $this->chartOptions['tooltip']['x']['show'] = true;
         return $this->chart([
             'series' => [
                 [
-                    'name' => '价值',
+                    'name' => '故障次数',
                     'data' => $data,
                 ],
             ],
@@ -105,6 +102,9 @@ HTML
                 'x' => [
                     'show' => true
                 ]
+            ],
+            'colors' => [
+                '#B24447'
             ]
         ]);
     }

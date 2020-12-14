@@ -79,6 +79,8 @@ return array(
     'App\\Admin\\Metrics\\HardwareCounts' => $baseDir . '/app/Admin/Metrics/HardwareCounts.php',
     'App\\Admin\\Metrics\\HardwareExpiredCounts' => $baseDir . '/app/Admin/Metrics/HardwareExpiredCounts.php',
     'App\\Admin\\Metrics\\HardwareWorth' => $baseDir . '/app/Admin/Metrics/HardwareWorth.php',
+    'App\\Admin\\Metrics\\IssueTrend' => $baseDir . '/app/Admin/Metrics/IssueTrend.php',
+    'App\\Admin\\Metrics\\MaintenanceTrend' => $baseDir . '/app/Admin/Metrics/MaintenanceTrend.php',
     'App\\Admin\\Metrics\\ServiceCounts' => $baseDir . '/app/Admin/Metrics/ServiceCounts.php',
     'App\\Admin\\Metrics\\ServiceIssueCounts' => $baseDir . '/app/Admin/Metrics/ServiceIssueCounts.php',
     'App\\Admin\\Metrics\\SoftwareAboutToExpireCounts' => $baseDir . '/app/Admin/Metrics/SoftwareAboutToExpireCounts.php',
