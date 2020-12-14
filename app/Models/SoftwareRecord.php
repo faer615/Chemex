@@ -11,6 +11,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * @method static where(string $key, string $value, string $value = null)
  * @method static whereBetween(string $string, array $array)
+ * @property string name
+ * @property mixed purchased
+ * @property mixed version
+ * @property mixed category_id
+ * @property mixed vendor_id
+ * @property mixed price
+ * @property mixed expired
+ * @property mixed purchased_channel_id
  */
 class SoftwareRecord extends Model
 {
