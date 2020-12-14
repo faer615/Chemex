@@ -61,6 +61,8 @@ Route::group([
     ]]);
     $router->resource('/service/tracks', 'ServiceTrackController');
     $router->resource('/maintenance/records', 'MaintenanceRecordController');
+    $router->resource('/depreciation/rules', 'DepreciationRuleController');
+    $router->resource('/chart/records', 'ChartRecordController');
 
     $router->get('/export/device/{device_id}/history', [DeviceRecordController::class, 'exportHistory'])
         ->name('export.device.history');

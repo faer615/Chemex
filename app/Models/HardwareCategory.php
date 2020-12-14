@@ -9,6 +9,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @method static where(string $key, string $value)
+ * @property string name
+ * @property int category_id
+ * @property int vendor_id
+ * @property string specification
+ * @property mixed description
+ * @property mixed price
+ * @property mixed purchased
+ * @property mixed expired
+ * @property mixed purchased_channel_id
  */
 class HardwareCategory extends Model
 {

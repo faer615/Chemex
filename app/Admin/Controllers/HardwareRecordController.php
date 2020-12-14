@@ -3,9 +3,9 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Actions\Grid\RowAction\HardwareDeleteAction;
-use App\Admin\Actions\Grid\RowAction\HardwareHistoryAction;
 use App\Admin\Actions\Grid\RowAction\HardwareTrackAction;
 use App\Admin\Actions\Grid\RowAction\MaintenanceAction;
+use App\Admin\Actions\Grid\ToolAction\HardwareRecordImportAction;
 use App\Admin\Grid\Displayers\RowActions;
 use App\Admin\Repositories\HardwareRecord;
 use App\Models\DeviceRecord;
@@ -71,6 +71,10 @@ class HardwareRecordController extends AdminController
             $grid->disableRowSelector();
             $grid->disableDeleteButton();
             $grid->disableBatchActions();
+
+            $grid->tools([
+                new HardwareRecordImportAction()
+            ]);
 
             $grid->toolsWithOutline(false);
             $grid->export();
