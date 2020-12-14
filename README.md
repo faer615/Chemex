@@ -148,21 +148,15 @@ UI设计来自多个优秀开源项目，例如：Bootstrap、AdminLTE、Apex Ch
 
 ## 截图
 
-![](https://oss.celaraze.com/cache/screencapture-chemex-dev-famio-cn-auth-login-1603706219204.png)
+![](https://oss.celaraze.com/chemex/screencapture-127-0-0-1-8000-auth-login-1607935370690.png)
 
-![](https://oss.celaraze.com/cache/screencapture-chemex-dev-famio-cn-1603706238227.png)
+![](https://oss.celaraze.com/chemex/screencapture-127-0-0-1-8000-1607935088660.png)
 
-![](https://oss.celaraze.com/cache/screencapture-chemex-dev-famio-cn-device-records-1603706430021.png)
+![](https://oss.celaraze.com/chemex/screencapture-127-0-0-1-8000-software-records-1-1607935148432.png)
 
-![](https://oss.celaraze.com/cache/screencapture-chemex-dev-famio-cn-1603706418946.png)
+![](https://oss.celaraze.com/chemex/screencapture-127-0-0-1-8000-software-records-1-1607935148432.png)
 
-![](https://oss.celaraze.com/cache/screencapture-chemex-dev-famio-cn-update-1603706399037.png)
-
-![](https://oss.celaraze.com/cache/screencapture-chemex-dev-famio-cn-device-records-1603706347150.png)
-
-![](https://oss.celaraze.com/cache/screencapture-chemex-dev-famio-cn-software-records-1603706367326.png)
-
-![](https://oss.celaraze.com/cache/screencapture-chemex-dev-famio-cn-software-records-1603706441673.png)
+![](https://oss.celaraze.com/chemex/screencapture-127-0-0-1-8000-device-records-1607935130912.png)
 
 ## 参与贡献
 
