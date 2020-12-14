@@ -25,6 +25,9 @@ class DeviceWorth extends Card
         }
         $total = DB::select('SELECT SUM(price) as total from device_records WHERE deleted_at IS NULL');
         $total = $total[0]->total;
+        if (empty($total)) {
+            $total = 0;
+        }
         $html = <<<HTML
 <div class="small-box" style="margin-bottom: 0;background: rgba(34,34,51,0.7);border-radius: .25rem">
     <div class="inner">

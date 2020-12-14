@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitedea8484caca667ef3625ef826872aeb
+class ComposerStaticInitdea0a7b565accb12530b41c12af85cc4
 {
     public static $files = array (
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
@@ -645,6 +645,7 @@ class ComposerStaticInitedea8484caca667ef3625ef826872aeb
         'App\\Admin\\Metrics\\SoftwareWorth' => __DIR__ . '/../..' . '/app/Admin/Metrics/SoftwareWorth.php',
         'App\\Admin\\Metrics\\StaffCounts' => __DIR__ . '/../..' . '/app/Admin/Metrics/StaffCounts.php',
         'App\\Admin\\Metrics\\WebSSHStatus' => __DIR__ . '/../..' . '/app/Admin/Metrics/WebSSHStatus.php',
+        'App\\Admin\\Metrics\\WorthTrend' => __DIR__ . '/../..' . '/app/Admin/Metrics/WorthTrend.php',
         'App\\Admin\\Repositories\\CheckRecord' => __DIR__ . '/../..' . '/app/Admin/Repositories/CheckRecord.php',
         'App\\Admin\\Repositories\\CheckTrack' => __DIR__ . '/../..' . '/app/Admin/Repositories/CheckTrack.php',
         'App\\Admin\\Repositories\\DeviceCategory' => __DIR__ . '/../..' . '/app/Admin/Repositories/DeviceCategory.php',
@@ -6403,10 +6404,10 @@ class ComposerStaticInitedea8484caca667ef3625ef826872aeb
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitedea8484caca667ef3625ef826872aeb::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitedea8484caca667ef3625ef826872aeb::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitedea8484caca667ef3625ef826872aeb::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitedea8484caca667ef3625ef826872aeb::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitdea0a7b565accb12530b41c12af85cc4::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitdea0a7b565accb12530b41c12af85cc4::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitdea0a7b565accb12530b41c12af85cc4::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitdea0a7b565accb12530b41c12af85cc4::$classMap;
 
         }, null, ClassLoader::class);
     }

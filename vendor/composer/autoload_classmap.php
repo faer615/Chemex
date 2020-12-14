@@ -87,6 +87,7 @@ return array(
     'App\\Admin\\Metrics\\SoftwareWorth' => $baseDir . '/app/Admin/Metrics/SoftwareWorth.php',
     'App\\Admin\\Metrics\\StaffCounts' => $baseDir . '/app/Admin/Metrics/StaffCounts.php',
     'App\\Admin\\Metrics\\WebSSHStatus' => $baseDir . '/app/Admin/Metrics/WebSSHStatus.php',
+    'App\\Admin\\Metrics\\WorthTrend' => $baseDir . '/app/Admin/Metrics/WorthTrend.php',
     'App\\Admin\\Repositories\\CheckRecord' => $baseDir . '/app/Admin/Repositories/CheckRecord.php',
     'App\\Admin\\Repositories\\CheckTrack' => $baseDir . '/app/Admin/Repositories/CheckTrack.php',
     'App\\Admin\\Repositories\\DeviceCategory' => $baseDir . '/app/Admin/Repositories/DeviceCategory.php',

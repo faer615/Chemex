@@ -21,6 +21,7 @@ use App\Admin\Metrics\SoftwareCounts;
 use App\Admin\Metrics\SoftwareExpiredCounts;
 use App\Admin\Metrics\SoftwareWorth;
 use App\Admin\Metrics\StaffCounts;
+use App\Admin\Metrics\WorthTrend;
 use App\Http\Controllers\Controller;
 use App\Models\AdminUser;
 use App\Support\Track;
@@ -39,10 +40,13 @@ class HomeController extends Controller
             ->body(function (Row $row) {
                 $row->column(10, function (Column $column) {
                     $column->row(function (Row $row) {
-                        $user = AdminUser::where('id', auth('admin')->id())->first();
-                        $notifications = $user->notifications;
-                        $notifications = json_decode($notifications, true);
-                        $row->column(4, new Card('我的待办', view('todo')->with('notifications', $notifications)));
+                        $row->column(4, function (Column $column) {
+                            $user = AdminUser::where('id', auth('admin')->id())->first();
+                            $notifications = $user->notifications;
+                            $notifications = json_decode($notifications, true);
+                            $column->row(new Card('我的待办', view('todo')->with('notifications', $notifications)));
+                            $column->row(new WorthTrend());
+                        });
                         $row->column(8, function (Column $column) {
                             $services = Track::getServiceIssueStatus();
                             $column->row(new Card('服务程序状态', view('services_dashboard')->with('services', $services)));
