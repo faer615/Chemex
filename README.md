@@ -5,7 +5,6 @@
 <p align="center">
 <a href="http://chemex.it" target="_blank">咖啡壶（Chemex）官方网站</a> |
 <a href="https://chemex.famio.cn" target="_blank">Demo 演示站点</a> |
-用户群：添加 ``
 </p>
 
 <p align="center">
@@ -43,7 +42,7 @@
 
 ## 简介
 
-加入用户微信群请添加微信号 `Celaraze`。
+加入用户微信群请添加微信号 `Celaraze`，并且备注 Chemex 用户，无备注将不会通过。
 
 咖啡壶（Chemex）是一个轻量的、现代设计风格的 ICT 资产管理系统。得益于 [Laravel](https://laravel.com/) 框架以及 [Dcat Admin](https://dcatadmin.com)
 开发平台，使其具备了优雅、简洁的优秀体验。 咖啡壶（Chemex）
@@ -87,6 +86,8 @@ UI设计来自多个优秀开源项目，例如：Bootstrap、AdminLTE、Apex Ch
 `ext-zip` 扩展，注意和 PHP 版本相同。
 
 `ext-json` 扩展，注意和 PHP 版本相同。
+
+`ext-fileinfo` 扩展，注意和 PHP 版本相同。
 
 ## 部署
 
@@ -147,21 +148,15 @@ UI设计来自多个优秀开源项目，例如：Bootstrap、AdminLTE、Apex Ch
 
 ## 截图
 
-![](https://oss.celaraze.com/cache/screencapture-chemex-dev-famio-cn-auth-login-1603706219204.png)
+![](https://oss.celaraze.com/chemex/screencapture-127-0-0-1-8000-auth-login-1607935370690.png)
 
-![](https://oss.celaraze.com/cache/screencapture-chemex-dev-famio-cn-1603706238227.png)
+![](https://oss.celaraze.com/chemex/screencapture-127-0-0-1-8000-1607935088660.png)
 
-![](https://oss.celaraze.com/cache/screencapture-chemex-dev-famio-cn-device-records-1603706430021.png)
+![](https://oss.celaraze.com/chemex/screencapture-127-0-0-1-8000-software-records-1-1607935148432.png)
 
-![](https://oss.celaraze.com/cache/screencapture-chemex-dev-famio-cn-1603706418946.png)
+![](https://oss.celaraze.com/chemex/screencapture-127-0-0-1-8000-software-records-1-1607935148432.png)
 
-![](https://oss.celaraze.com/cache/screencapture-chemex-dev-famio-cn-update-1603706399037.png)
-
-![](https://oss.celaraze.com/cache/screencapture-chemex-dev-famio-cn-device-records-1603706347150.png)
-
-![](https://oss.celaraze.com/cache/screencapture-chemex-dev-famio-cn-software-records-1603706367326.png)
-
-![](https://oss.celaraze.com/cache/screencapture-chemex-dev-famio-cn-software-records-1603706441673.png)
+![](https://oss.celaraze.com/chemex/screencapture-127-0-0-1-8000-device-records-1607935130912.png)
 
 ## 参与贡献
 

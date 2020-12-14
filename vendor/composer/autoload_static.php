@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitedea8484caca667ef3625ef826872aeb
+class ComposerStaticInitdea0a7b565accb12530b41c12af85cc4
 {
     public static $files = array (
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
@@ -589,6 +589,7 @@ class ComposerStaticInitedea8484caca667ef3625ef826872aeb
         'App\\Admin\\Actions\\Grid\\ToolAction\\StaffDepartmentImportAction' => __DIR__ . '/../..' . '/app/Admin/Actions/Grid/ToolAction/StaffDepartmentImportAction.php',
         'App\\Admin\\Actions\\Grid\\ToolAction\\StaffRecordImportAction' => __DIR__ . '/../..' . '/app/Admin/Actions/Grid/ToolAction/StaffRecordImportAction.php',
         'App\\Admin\\Controllers\\AuthController' => __DIR__ . '/../..' . '/app/Admin/Controllers/AuthController.php',
+        'App\\Admin\\Controllers\\ChartRecordController' => __DIR__ . '/../..' . '/app/Admin/Controllers/ChartRecordController.php',
         'App\\Admin\\Controllers\\CheckRecordController' => __DIR__ . '/../..' . '/app/Admin/Controllers/CheckRecordController.php',
         'App\\Admin\\Controllers\\CheckTrackController' => __DIR__ . '/../..' . '/app/Admin/Controllers/CheckTrackController.php',
         'App\\Admin\\Controllers\\DeviceCategoryController' => __DIR__ . '/../..' . '/app/Admin/Controllers/DeviceCategoryController.php',
@@ -625,17 +626,30 @@ class ComposerStaticInitedea8484caca667ef3625ef826872aeb
         'App\\Admin\\Forms\\StaffDepartmentImportForm' => __DIR__ . '/../..' . '/app/Admin/Forms/StaffDepartmentImportForm.php',
         'App\\Admin\\Forms\\StaffRecordImportForm' => __DIR__ . '/../..' . '/app/Admin/Forms/StaffRecordImportForm.php',
         'App\\Admin\\Grid\\Displayers\\RowActions' => __DIR__ . '/../..' . '/app/Admin/Grid/Displayers/RowActions.php',
+        'App\\Admin\\Metrics\\AllWorth' => __DIR__ . '/../..' . '/app/Admin/Metrics/AllWorth.php',
         'App\\Admin\\Metrics\\CheckDevicePercentage' => __DIR__ . '/../..' . '/app/Admin/Metrics/CheckDevicePercentage.php',
         'App\\Admin\\Metrics\\CheckHardwarePercentage' => __DIR__ . '/../..' . '/app/Admin/Metrics/CheckHardwarePercentage.php',
-        'App\\Admin\\Metrics\\CheckRecordsReview' => __DIR__ . '/../..' . '/app/Admin/Metrics/CheckRecordsReview.php',
         'App\\Admin\\Metrics\\CheckSoftwarePercentage' => __DIR__ . '/../..' . '/app/Admin/Metrics/CheckSoftwarePercentage.php',
+        'App\\Admin\\Metrics\\DeviceAboutToExpireCounts' => __DIR__ . '/../..' . '/app/Admin/Metrics/DeviceAboutToExpireCounts.php',
         'App\\Admin\\Metrics\\DeviceCounts' => __DIR__ . '/../..' . '/app/Admin/Metrics/DeviceCounts.php',
+        'App\\Admin\\Metrics\\DeviceExpiredCounts' => __DIR__ . '/../..' . '/app/Admin/Metrics/DeviceExpiredCounts.php',
+        'App\\Admin\\Metrics\\DeviceWorth' => __DIR__ . '/../..' . '/app/Admin/Metrics/DeviceWorth.php',
+        'App\\Admin\\Metrics\\HardwareAboutToExpireCounts' => __DIR__ . '/../..' . '/app/Admin/Metrics/HardwareAboutToExpireCounts.php',
         'App\\Admin\\Metrics\\HardwareCounts' => __DIR__ . '/../..' . '/app/Admin/Metrics/HardwareCounts.php',
+        'App\\Admin\\Metrics\\HardwareExpiredCounts' => __DIR__ . '/../..' . '/app/Admin/Metrics/HardwareExpiredCounts.php',
+        'App\\Admin\\Metrics\\HardwareWorth' => __DIR__ . '/../..' . '/app/Admin/Metrics/HardwareWorth.php',
+        'App\\Admin\\Metrics\\IssueTrend' => __DIR__ . '/../..' . '/app/Admin/Metrics/IssueTrend.php',
+        'App\\Admin\\Metrics\\MaintenanceTrend' => __DIR__ . '/../..' . '/app/Admin/Metrics/MaintenanceTrend.php',
         'App\\Admin\\Metrics\\ServiceCounts' => __DIR__ . '/../..' . '/app/Admin/Metrics/ServiceCounts.php',
         'App\\Admin\\Metrics\\ServiceIssueCounts' => __DIR__ . '/../..' . '/app/Admin/Metrics/ServiceIssueCounts.php',
+        'App\\Admin\\Metrics\\SoftwareAboutToExpireCounts' => __DIR__ . '/../..' . '/app/Admin/Metrics/SoftwareAboutToExpireCounts.php',
         'App\\Admin\\Metrics\\SoftwareCounts' => __DIR__ . '/../..' . '/app/Admin/Metrics/SoftwareCounts.php',
+        'App\\Admin\\Metrics\\SoftwareExpiredCounts' => __DIR__ . '/../..' . '/app/Admin/Metrics/SoftwareExpiredCounts.php',
+        'App\\Admin\\Metrics\\SoftwareWorth' => __DIR__ . '/../..' . '/app/Admin/Metrics/SoftwareWorth.php',
         'App\\Admin\\Metrics\\StaffCounts' => __DIR__ . '/../..' . '/app/Admin/Metrics/StaffCounts.php',
         'App\\Admin\\Metrics\\WebSSHStatus' => __DIR__ . '/../..' . '/app/Admin/Metrics/WebSSHStatus.php',
+        'App\\Admin\\Metrics\\WorthTrend' => __DIR__ . '/../..' . '/app/Admin/Metrics/WorthTrend.php',
+        'App\\Admin\\Repositories\\ChartRecord' => __DIR__ . '/../..' . '/app/Admin/Repositories/ChartRecord.php',
         'App\\Admin\\Repositories\\CheckRecord' => __DIR__ . '/../..' . '/app/Admin/Repositories/CheckRecord.php',
         'App\\Admin\\Repositories\\CheckTrack' => __DIR__ . '/../..' . '/app/Admin/Repositories/CheckTrack.php',
         'App\\Admin\\Repositories\\DeviceCategory' => __DIR__ . '/../..' . '/app/Admin/Repositories/DeviceCategory.php',
@@ -674,6 +688,7 @@ class ComposerStaticInitedea8484caca667ef3625ef826872aeb
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Models\\AdminMenu' => __DIR__ . '/../..' . '/app/Models/AdminMenu.php',
         'App\\Models\\AdminUser' => __DIR__ . '/../..' . '/app/Models/AdminUser.php',
+        'App\\Models\\ChartRecord' => __DIR__ . '/../..' . '/app/Models/ChartRecord.php',
         'App\\Models\\CheckRecord' => __DIR__ . '/../..' . '/app/Models/CheckRecord.php',
         'App\\Models\\CheckTrack' => __DIR__ . '/../..' . '/app/Models/CheckTrack.php',
         'App\\Models\\DeviceCategory' => __DIR__ . '/../..' . '/app/Models/DeviceCategory.php',
@@ -6394,10 +6409,10 @@ class ComposerStaticInitedea8484caca667ef3625ef826872aeb
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitedea8484caca667ef3625ef826872aeb::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitedea8484caca667ef3625ef826872aeb::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitedea8484caca667ef3625ef826872aeb::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitedea8484caca667ef3625ef826872aeb::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitdea0a7b565accb12530b41c12af85cc4::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitdea0a7b565accb12530b41c12af85cc4::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitdea0a7b565accb12530b41c12af85cc4::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitdea0a7b565accb12530b41c12af85cc4::$classMap;
 
         }, null, ClassLoader::class);
     }
