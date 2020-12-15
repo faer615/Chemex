@@ -38,6 +38,7 @@ class DeviceRecordController extends AdminController
 {
     use HasDeviceRelatedGrid;
 
+
     /**
      * 详情页构建器
      * 为了复写详情页的布局

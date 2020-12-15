@@ -29,13 +29,13 @@ class SoftwareWorth extends Card
             $total = 0;
         }
         $html = <<<HTML
-<div class="small-box" style="margin-bottom: 0;background: rgba(34,34,51,0.7);border-radius: .25rem">
+<div class="small-box" style="margin-bottom: 0;background: rgba(34,34,51,0.5);border-radius: .25rem">
   <div class="inner">
     <h3 class="font-grey">{$total}</h3>
     <p class="font-grey">软件总价值</p>
   </div>
   <div class="icon">
-    <i class="feather icon-dollar-sign" style="color: rgba(44,44,67,1);"></i>
+    <i class="feather icon-dollar-sign"></i>
   </div>
   <a class="small-box-footer">
     <i class="feather icon-info"></i>
