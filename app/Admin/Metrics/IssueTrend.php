@@ -11,7 +11,7 @@ class IssueTrend extends Line
     /**
      * @var string
      */
-    protected $label = '服务异常趋势';
+    protected $label = '服务异常趋势（每月）';
 
     /**
      * 图表默认高度.

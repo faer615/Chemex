@@ -11,7 +11,7 @@ class WorthTrend extends Line
     /**
      * @var string
      */
-    protected $label = '资产价值趋势';
+    protected $label = '资产价值趋势（每月）';
 
     /**
      * 图表默认高度.

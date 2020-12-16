@@ -52,8 +52,6 @@ class HomeController extends Controller
                             $column->row(new IssueTrend());
                         });
                         $row->column(9, function (Column $column) {
-                            $services = Track::getServiceIssueStatus();
-                            $column->row(new Card('服务程序状态', view('services_dashboard')->with('services', $services)));
                             $column->row(function (Row $row) {
                                 $row->column(3, new AllWorth());
                                 $row->column(3, new DeviceWorth());
@@ -66,6 +64,8 @@ class HomeController extends Controller
                                 $row->column(3, new ServiceCounts());
                                 $row->column(3, new ServiceIssueCounts());
                             });
+                            $services = Track::getServiceIssueStatus();
+                            $column->row(new Card('服务程序状态', view('services_dashboard')->with('services', $services)));
                         });
                     });
                 });

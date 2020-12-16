@@ -45,12 +45,6 @@ class AllWorth extends Card
     <h3 class="font-grey">{$total}</h3>
     <p class="font-grey">资产总价值</p>
   </div>
-  <div class="icon">
-    <i class="feather icon-dollar-sign"></i>
-  </div>
-  <a class="small-box-footer">
-    <i class="feather icon-info"></i>
-  </a>
 </div>
 HTML;
 

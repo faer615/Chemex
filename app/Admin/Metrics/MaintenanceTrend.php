@@ -11,7 +11,7 @@ class MaintenanceTrend extends Line
     /**
      * @var string
      */
-    protected $label = '故障次数趋势';
+    protected $label = '故障次数趋势（每月）';
 
     /**
      * 图表默认高度.
