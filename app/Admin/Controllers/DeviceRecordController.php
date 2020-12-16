@@ -8,6 +8,7 @@ use App\Admin\Actions\Grid\RowAction\MaintenanceAction;
 use App\Admin\Actions\Grid\ToolAction\DeviceRecordImportAction;
 use App\Admin\Grid\Displayers\RowActions;
 use App\Admin\Repositories\DeviceRecord;
+use App\Models\DepreciationRule;
 use App\Models\DeviceCategory;
 use App\Models\PurchasedChannel;
 use App\Models\VendorRecord;
@@ -28,11 +29,15 @@ use Dcat\Admin\Show;
 use Dcat\Admin\Widgets\Card;
 
 /**
- * @property  int id
+ * @property int id
+ * @property double price
+ * @property string purchased
+ * @property int depreciation_rule_id
  */
 class DeviceRecordController extends AdminController
 {
     use HasDeviceRelatedGrid;
+
 
     /**
      * 详情页构建器
@@ -93,7 +98,7 @@ class DeviceRecordController extends AdminController
      */
     protected function detail($id): Show
     {
-        return Show::make($id, new DeviceRecord(['category', 'vendor', 'channel', 'staff', 'staff.department']), function (Show $show) {
+        return Show::make($id, new DeviceRecord(['category', 'vendor', 'channel', 'staff', 'staff.department', 'depreciation']), function (Show $show) {
             $show->field('id');
             $show->field('name');
             $show->field('description');
@@ -112,6 +117,14 @@ class DeviceRecordController extends AdminController
             $show->field('staff.department.name');
             $show->field('security_password');
             $show->field('admin_password');
+            $show->field('depreciation.name');
+            $show->field('', admin_trans_label('Depreciation Price'))->as(function () {
+                $device_record = \App\Models\DeviceRecord::where('id', $this->id)->first();
+                if (!empty($device_record)) {
+                    $depreciation_rule_id = Info::getDepreciationRuleId($device_record);
+                    return Info::depreciationPrice($this->price, $this->purchased, $depreciation_rule_id);
+                }
+            });
             $show->field('created_at');
             $show->field('updated_at');
 
@@ -136,7 +149,7 @@ class DeviceRecordController extends AdminController
      */
     protected function grid(): Grid
     {
-        return Grid::make(new DeviceRecord(['category', 'vendor', 'staff', 'staff.department']), function (Grid $grid) {
+        return Grid::make(new DeviceRecord(['category', 'vendor', 'staff', 'staff.department', 'depreciation']), function (Grid $grid) {
 
             $grid->column('id');
             $grid->column('qrcode')->qrcode(function () {
@@ -164,6 +177,7 @@ class DeviceRecordController extends AdminController
             $grid->column('expiration_left_days', admin_trans_label('Expiration Left Days'))->display(function () {
                 return ExpirationService::itemExpirationLeftDaysRender('device', $this->id);
             });
+            $grid->column('depreciation.name');
 
             $grid->disableRowSelector();
             $grid->disableBatchActions();
@@ -252,6 +266,10 @@ class DeviceRecordController extends AdminController
                 ->help('安全密码，可以代表BIOS密码等。');
             $form->password('admin_password')
                 ->help('管理员密码，可以代表计算机管理员账户密码以及打印机管理员密码等。');
+            $form->select('depreciation_rule_id', admin_trans_label('Depreciation Rule Id'))
+                ->options(DepreciationRule::all()
+                    ->pluck('name', 'id'))
+                ->help('设备记录的折旧规则将优先于其分类所指定的折旧规则。');
             $form->display('created_at');
             $form->display('updated_at');
 

@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Traits\HasCreator;
-use Dcat\Admin\Form\Field\Datetime;
 use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
@@ -23,8 +22,8 @@ use Illuminate\Support\Facades\Crypt;
  * @property string mac
  * @property string ip
  * @property double price
- * @property Datetime purchased
- * @property Datetime expired
+ * @property string purchased
+ * @property string expired
  * @property int purchased_channel_id
  * @property string security_password
  * @property string admin_password
@@ -179,5 +178,14 @@ class DeviceRecord extends Model
     public function setAdminPasswordAttribute($admin_password)
     {
         $this->attributes['admin_password'] = Crypt::encryptString($admin_password);
+    }
+
+    /**
+     * 设备分类有一个折旧规则
+     * @return HasOne
+     */
+    public function depreciation(): HasOne
+    {
+        return $this->hasOne(DepreciationRule::class, 'id', 'depreciation_rule_id');
     }
 }

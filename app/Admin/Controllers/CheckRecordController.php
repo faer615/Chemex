@@ -24,6 +24,30 @@ use Dcat\Admin\Show;
 class CheckRecordController extends AdminController
 {
     /**
+     * Make a show builder.
+     *
+     * @param mixed $id
+     *
+     * @return Show
+     */
+    protected function detail($id): Show
+    {
+        return Show::make($id, new CheckRecord(['user']), function (Show $show) {
+            $show->field('id');
+            $show->field('check_item');
+            $show->field('start_time');
+            $show->field('end_time');
+            $show->field('user.name');
+            $show->field('status')->using(Data::checkRecordStatus());
+            $show->field('created_at');
+            $show->field('updated_at');
+
+            $show->disableEditButton();
+            $show->disableDeleteButton();
+        });
+    }
+
+    /**
      * Make a grid builder.
      *
      * @return Grid
@@ -63,30 +87,6 @@ class CheckRecordController extends AdminController
                 ->auto(false);
 
             $grid->export();
-        });
-    }
-
-    /**
-     * Make a show builder.
-     *
-     * @param mixed $id
-     *
-     * @return Show
-     */
-    protected function detail($id): Show
-    {
-        return Show::make($id, new CheckRecord(['user']), function (Show $show) {
-            $show->field('id');
-            $show->field('check_item');
-            $show->field('start_time');
-            $show->field('end_time');
-            $show->field('user.name');
-            $show->field('status')->using(Data::checkRecordStatus());
-            $show->field('created_at');
-            $show->field('updated_at');
-
-            $show->disableEditButton();
-            $show->disableDeleteButton();
         });
     }
 

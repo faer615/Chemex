@@ -7,7 +7,9 @@ return [
         'Vendor' => '制造商',
         'Purchased Channel Id' => '购入途径',
         'Expiration Left Days' => '保固剩余天数',
-        'records' => '硬件'
+        'records' => '硬件',
+        'Depreciation Rule Id' => '折旧规则',
+        'Depreciation Price' => '折旧价格'
     ],
     'fields' => [
         'qrcode' => '二维码',
@@ -29,7 +31,10 @@ return [
         'sn' => '序列号',
         'price' => '价格',
         'purchased' => '购入日期',
-        'expired' => '过保日期'
+        'expired' => '过保日期',
+        'depreciation' => [
+            'name' => '折旧规则'
+        ]
     ],
     'options' => [
     ],

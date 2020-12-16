@@ -41,12 +41,6 @@ class ServiceIssueCounts extends Card
     <h3 class="font-grey">{$counts}</h3>
     <p class="font-grey">服务程序异常</p>
   </div>
-  <div class="icon">
-    <i class="feather icon-power"></i>
-  </div>
-  <a href="{$route}" class="small-box-footer">
-    前往查看 <i class="feather icon-arrow-right"></i>
-  </a>
 </div>
 HTML;
 

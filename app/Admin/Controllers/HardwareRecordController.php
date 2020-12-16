@@ -8,11 +8,13 @@ use App\Admin\Actions\Grid\RowAction\MaintenanceAction;
 use App\Admin\Actions\Grid\ToolAction\HardwareRecordImportAction;
 use App\Admin\Grid\Displayers\RowActions;
 use App\Admin\Repositories\HardwareRecord;
+use App\Models\DepreciationRule;
 use App\Models\DeviceRecord;
 use App\Models\HardwareCategory;
 use App\Models\PurchasedChannel;
 use App\Models\VendorRecord;
 use App\Services\ExpirationService;
+use App\Support\Info;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -20,8 +22,10 @@ use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Show;
 
 /**
- * @property  DeviceRecord device
- * @property  int id
+ * @property DeviceRecord device
+ * @property int id
+ * @property double price
+ * @property string purchased
  */
 class HardwareRecordController extends AdminController
 {
@@ -32,7 +36,7 @@ class HardwareRecordController extends AdminController
      */
     protected function grid(): Grid
     {
-        return Grid::make(new HardwareRecord(['category', 'vendor', 'device']), function (Grid $grid) {
+        return Grid::make(new HardwareRecord(['category', 'vendor', 'device', 'depreciation']), function (Grid $grid) {
             $grid->column('id');
             $grid->column('qrcode')->qrcode(function () {
                 return base64_encode('hardware:' . $this->id);
@@ -62,6 +66,7 @@ class HardwareRecordController extends AdminController
                     return route('device.records.show', $this->device['id']);
                 }
             });
+            $grid->column('depreciation.name');
 
             $grid->quickSearch('id', 'name', 'description', 'category.name', 'vendor.name', 'specification', 'sn', 'device.name')
                 ->placeholder('尝试搜索一下')
@@ -90,7 +95,7 @@ class HardwareRecordController extends AdminController
      */
     protected function detail($id): Show
     {
-        return Show::make($id, new HardwareRecord(['category', 'vendor', 'channel', 'device']), function (Show $show) {
+        return Show::make($id, new HardwareRecord(['category', 'vendor', 'channel', 'device', 'depreciation']), function (Show $show) {
             $show->field('id');
             $show->field('name');
             $show->field('description');
@@ -103,6 +108,14 @@ class HardwareRecordController extends AdminController
             $show->field('price');
             $show->field('purchased');
             $show->field('expired');
+            $show->field('depreciation.name');
+            $show->field('', admin_trans_label('Depreciation Price'))->as(function () {
+                $hardware_record = \App\Models\HardwareRecord::where('id', $this->id)->first();
+                if (!empty($hardware_record)) {
+                    $depreciation_rule_id = Info::getDepreciationRuleId($hardware_record);
+                    return Info::depreciationPrice($this->price, $this->purchased, $depreciation_rule_id);
+                }
+            });
             $show->field('created_at');
             $show->field('updated_at');
 
@@ -137,6 +150,9 @@ class HardwareRecordController extends AdminController
             $form->currency('price');
             $form->date('purchased');
             $form->date('expired');
+            $form->select('depreciation_rule_id', admin_trans_label('Depreciation Rule Id'))
+                ->options(DepreciationRule::all()
+                    ->pluck('name', 'id'));
 
             $form->display('created_at');
             $form->display('updated_at');

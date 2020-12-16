@@ -126,7 +126,7 @@ UI设计来自多个优秀开源项目，例如：Bootstrap、AdminLTE、Apex Ch
 1：下载 OVF 镜像：[https://pan.baidu.com/s/16mc-q0pGtzwjOR4SqAoBuA](https://pan.baidu.com/s/16mc-q0pGtzwjOR4SqAoBuA)
 ，提取码 `95m4`。
 
-2: OVF 镜像的 LNMP 环境使用了 `AppNode` 面板，部署完后需要更新下 `AppNode` 的面板授权关系和 Chemex 站点域名。
+2: Linux 的 root 用户名和密码都是 `root` ， OVF 镜像的 LNMP 环境使用了 `AppNode` 面板，部署完后需要更新下 `AppNode` 的面板授权关系和 Chemex 站点域名。
 
 3：面板地址：http://your-ip:8888 ，用户名和密码都是 `Chemex`。
 

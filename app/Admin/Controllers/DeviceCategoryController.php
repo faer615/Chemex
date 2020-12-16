@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Repositories\DeviceCategory;
+use App\Models\DepreciationRule;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Http\Controllers\AdminController;
@@ -17,10 +18,11 @@ class DeviceCategoryController extends AdminController
      */
     protected function grid(): Grid
     {
-        return Grid::make(new DeviceCategory(), function (Grid $grid) {
+        return Grid::make(new DeviceCategory(['depreciation']), function (Grid $grid) {
             $grid->column('id');
             $grid->column('name');
             $grid->column('description');
+            $grid->column('depreciation.name');
 
             $grid->toolsWithOutline(false);
             $grid->enableDialogCreate();
@@ -40,10 +42,11 @@ class DeviceCategoryController extends AdminController
      */
     protected function detail($id): Show
     {
-        return Show::make($id, new DeviceCategory(), function (Show $show) {
+        return Show::make($id, new DeviceCategory(['depreciation']), function (Show $show) {
             $show->field('id');
             $show->field('name');
             $show->field('description');
+            $show->field('depreciation.name');
             $show->field('created_at');
             $show->field('updated_at');
         });
@@ -60,6 +63,9 @@ class DeviceCategoryController extends AdminController
             $form->display('id');
             $form->text('name')->required();
             $form->text('description');
+            $form->select('depreciation_rule_id', admin_trans_label('Depreciation Rule Id'))
+                ->options(DepreciationRule::all()
+                    ->pluck('name', 'id'));
             $form->display('created_at');
             $form->display('updated_at');
 

@@ -284,9 +284,9 @@ return [
         'sidebar_collapsed' => false,
 
         // light, primary, dark
-        'sidebar_style' => 'primary',
+        'sidebar_style' => '',
 
-//        'dark_mode_switch' => true,
+        'dark_mode_switch' => true,
 
         // bg-primary, bg-info, bg-warning, bg-success, bg-danger, bg-dark
         'navbar_color' => '',
@@ -321,5 +321,5 @@ return [
     ],
 
     'demo' => env('ADMIN_DEMO', false),
-    'chemex_version' => '2.0.5'
+    'chemex_version' => '2.0.6'
 ];

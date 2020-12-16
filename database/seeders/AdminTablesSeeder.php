@@ -321,15 +321,15 @@ class AdminTablesSeeder extends Seeder
                 ],
                 [
                     "id" => 54,
-                    "parent_id" => 0,
-                    "order" => 28,
+                    "parent_id" => 56,
+                    "order" => 29,
                     "title" => "Version",
                     "icon" => "feather icon-chevrons-down",
                     "uri" => "version",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-10-22 15:05:00",
-                    "updated_at" => "2020-11-25 19:58:20"
+                    "updated_at" => "2020-12-16 18:04:30"
                 ],
                 [
                     "id" => 55,
@@ -346,14 +346,14 @@ class AdminTablesSeeder extends Seeder
                 [
                     "id" => 56,
                     "parent_id" => 0,
-                    "order" => 29,
+                    "order" => 28,
                     "title" => "Settings",
                     "icon" => NULL,
                     "uri" => NULL,
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-11-03 14:23:14",
-                    "updated_at" => "2020-11-25 19:58:20"
+                    "updated_at" => "2020-12-16 18:04:30"
                 ],
                 [
                     "id" => 57,
@@ -402,6 +402,18 @@ class AdminTablesSeeder extends Seeder
                     "show" => 1,
                     "created_at" => "2020-11-18 21:08:58",
                     "updated_at" => "2020-11-18 21:14:55"
+                ],
+                [
+                    "id" => 61,
+                    "parent_id" => 0,
+                    "order" => 27,
+                    "title" => "Depreciation Rules",
+                    "icon" => NULL,
+                    "uri" => "/depreciation/rules",
+                    "extension" => "",
+                    "show" => 1,
+                    "created_at" => "2020-12-14 19:38:17",
+                    "updated_at" => "2020-12-14 19:38:21"
                 ]
             ]
         );
@@ -1965,12 +1977,12 @@ class AdminTablesSeeder extends Seeder
                 [
                     "id" => 1,
                     "username" => "admin",
-                    "password" => "\$2y\$10\$FsFiwYyL039sq4HBCmf5Eu7dR1pD.CWsxtyXlB2bkglrOM0oZtZjO",
+                    "password" => "\$2y\$10\$c3TTfU9ArSf2hvlTG5CTk.BUBzJOgdPale0VKi1MJXCoCG6mAcsPe",
                     "name" => "Administrator",
                     "avatar" => NULL,
                     "remember_token" => NULL,
                     "created_at" => "2020-11-30 09:58:49",
-                    "updated_at" => "2020-11-30 09:58:49"
+                    "updated_at" => "2020-12-16 17:28:14"
                 ]
             ]
         );

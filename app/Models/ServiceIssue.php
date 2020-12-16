@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Traits\HasCreator;
-use Dcat\Admin\Form\Field\Datetime;
 use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -15,7 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int service_id
  * @property string issue
  * @property int status
- * @property Datetime start
+ * @property string start
  */
 class ServiceIssue extends Model
 {

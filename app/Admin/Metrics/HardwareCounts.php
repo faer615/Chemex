@@ -31,12 +31,6 @@ class HardwareCounts extends Card
     <h3 class="font-grey">{$counts}</h3>
     <p class="font-grey">硬件数量</p>
   </div>
-  <div class="icon">
-    <i class="feather icon-server"></i>
-  </div>
-  <a href="{$route}" class="small-box-footer">
-    前往查看 <i class="feather icon-arrow-right"></i>
-  </a>
 </div>
 HTML;
 

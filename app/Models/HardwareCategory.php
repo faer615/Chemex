@@ -5,19 +5,14 @@ namespace App\Models;
 use App\Traits\HasCreator;
 use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @method static where(string $key, string $value)
  * @property string name
- * @property int category_id
- * @property int vendor_id
- * @property string specification
- * @property mixed description
- * @property mixed price
- * @property mixed purchased
- * @property mixed expired
- * @property mixed purchased_channel_id
+ * @property string description
+ * @property int purchased_channel_id
  */
 class HardwareCategory extends Model
 {
@@ -32,5 +27,14 @@ class HardwareCategory extends Model
         static::saving(function ($model) {
             self::hasCreator($model);
         });
+    }
+
+    /**
+     * 硬件分类有一个折旧规则
+     * @return HasOne
+     */
+    public function depreciation(): HasOne
+    {
+        return $this->hasOne(DepreciationRule::class, 'id', 'depreciation_rule_id');
     }
 }

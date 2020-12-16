@@ -50,7 +50,8 @@ Admin::style(
 }
 
 .font-grey {
-    color: #a8a9bb;
+    /*color: #a8a9bb;*/
+    color:white;
 }
 CSS
 
@@ -64,5 +65,6 @@ if (!empty($user)) {
     $notifications = json_decode($notifications, true);
 }
 Admin::navbar(function (Navbar $navbar) use ($notifications) {
-    $navbar->right(view('notification')->with('notifications', $notifications));
+    $navbar->left(view('nav_left'));
+    $navbar->right(view('nav_right')->with('notifications', $notifications));
 });

@@ -6,14 +6,13 @@ use App\Admin\Actions\Grid\RowAction\SoftwareTrackDisableAction;
 use App\Admin\Grid\Displayers\RowActions;
 use App\Admin\Repositories\SoftwareTrack;
 use App\Support\Data;
-use DateTime;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Widgets\Alert;
 
 /**
- * @property DateTime deleted_at
+ * @property string deleted_at
  */
 class SoftwareTrackController extends AdminController
 {

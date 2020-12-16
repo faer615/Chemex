@@ -2,7 +2,7 @@
 return [
     'labels' => [
         'DepreciationRule' => '折旧规则',
-        'depreciation-rule' => '折旧规则',
+        'rules' => '折旧规则',
     ],
     'fields' => [
         'name' => '名称',

@@ -12,6 +12,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * @method static where(string $key, string $value, string $value = null)
  * @method static whereBetween(string $string, array $array)
+ * @property double price
+ * @property string purchased
+ * @property string expired
+ * @property string specification
+ * @property int category_id
+ * @property int vendor_id
  */
 class HardwareRecord extends Model
 {
@@ -68,5 +74,14 @@ class HardwareRecord extends Model
             'id',   // 远程表对中间表的关联字段
             'id',   // 主表对中间表的关联字段
             'device_id'); // 中间表对远程表的关联字段
+    }
+
+    /**
+     * 硬件分类有一个折旧规则
+     * @return HasOne
+     */
+    public function depreciation(): HasOne
+    {
+        return $this->hasOne(DepreciationRule::class, 'id', 'depreciation_rule_id');
     }
 }
