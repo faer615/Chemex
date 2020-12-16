@@ -246,17 +246,17 @@
     },
     {
         "name": "dcat/easy-excel",
-        "version": "1.0.4",
-        "version_normalized": "1.0.4.0",
+        "version": "1.0.5",
+        "version_normalized": "1.0.5.0",
         "source": {
             "type": "git",
             "url": "https://github.com/jqhph/easy-excel.git",
-            "reference": "f3674b15efd96cd3a4f3aae255c7ed2d0c5ae25c"
+            "reference": "da0565ae0a31b306947222c4e014054a7172e4c4"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/jqhph/easy-excel/zipball/f3674b15efd96cd3a4f3aae255c7ed2d0c5ae25c",
-            "reference": "f3674b15efd96cd3a4f3aae255c7ed2d0c5ae25c",
+            "url": "https://api.github.com/repos/jqhph/easy-excel/zipball/da0565ae0a31b306947222c4e014054a7172e4c4",
+            "reference": "da0565ae0a31b306947222c4e014054a7172e4c4",
             "shasum": "",
             "mirrors": [
                 {
@@ -274,7 +274,7 @@
             "friendsofphp/php-cs-fixer": "^2",
             "phpunit/phpunit": "~7|~8.0"
         },
-        "time": "2020-12-06T05:31:29+00:00",
+        "time": "2020-12-14T07:32:36+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -1979,17 +1979,17 @@
     },
     {
         "name": "laravel/framework",
-        "version": "v8.18.1",
-        "version_normalized": "8.18.1.0",
+        "version": "v8.19.0",
+        "version_normalized": "8.19.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/laravel/framework.git",
-            "reference": "31747193c26ba0a9cb7929a912895d3cdefd10cf"
+            "reference": "f5f331cee60f1bbe672503b7eb9ba5b22b2ceacb"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/laravel/framework/zipball/31747193c26ba0a9cb7929a912895d3cdefd10cf",
-            "reference": "31747193c26ba0a9cb7929a912895d3cdefd10cf",
+            "url": "https://api.github.com/repos/laravel/framework/zipball/f5f331cee60f1bbe672503b7eb9ba5b22b2ceacb",
+            "reference": "f5f331cee60f1bbe672503b7eb9ba5b22b2ceacb",
             "shasum": "",
             "mirrors": [
                 {
@@ -2108,7 +2108,7 @@
             "symfony/psr-http-message-bridge": "Required to use PSR-7 bridging features (^2.0).",
             "wildbit/swiftmailer-postmark": "Required to use Postmark mail driver (^3.0)."
         },
-        "time": "2020-12-08T22:05:12+00:00",
+        "time": "2020-12-15T16:16:31+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2632,17 +2632,17 @@
     },
     {
         "name": "monolog/monolog",
-        "version": "2.1.1",
-        "version_normalized": "2.1.1.0",
+        "version": "2.2.0",
+        "version_normalized": "2.2.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/Seldaek/monolog.git",
-            "reference": "f9eee5cec93dfb313a38b6b288741e84e53f02d5"
+            "reference": "1cb1cde8e8dd0f70cc0fe51354a59acad9302084"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Seldaek/monolog/zipball/f9eee5cec93dfb313a38b6b288741e84e53f02d5",
-            "reference": "f9eee5cec93dfb313a38b6b288741e84e53f02d5",
+            "url": "https://api.github.com/repos/Seldaek/monolog/zipball/1cb1cde8e8dd0f70cc0fe51354a59acad9302084",
+            "reference": "1cb1cde8e8dd0f70cc0fe51354a59acad9302084",
             "shasum": "",
             "mirrors": [
                 {
@@ -2661,16 +2661,17 @@
         "require-dev": {
             "aws/aws-sdk-php": "^2.4.9 || ^3.0",
             "doctrine/couchdb": "~1.0@dev",
-            "elasticsearch/elasticsearch": "^6.0",
+            "elasticsearch/elasticsearch": "^7",
             "graylog2/gelf-php": "^1.4.2",
+            "mongodb/mongodb": "^1.8",
             "php-amqplib/php-amqplib": "~2.4",
             "php-console/php-console": "^3.1.3",
-            "php-parallel-lint/php-parallel-lint": "^1.0",
             "phpspec/prophecy": "^1.6.1",
+            "phpstan/phpstan": "^0.12.59",
             "phpunit/phpunit": "^8.5",
             "predis/predis": "^1.1",
             "rollbar/rollbar": "^1.3",
-            "ruflin/elastica": ">=0.90 <3.0",
+            "ruflin/elastica": ">=0.90 <7.0.1",
             "swiftmailer/swiftmailer": "^5.3|^6.0"
         },
         "suggest": {
@@ -2687,11 +2688,11 @@
             "rollbar/rollbar": "Allow sending log messages to Rollbar",
             "ruflin/elastica": "Allow sending log messages to an Elastic Search server"
         },
-        "time": "2020-07-23T08:41:23+00:00",
+        "time": "2020-12-14T13:15:25+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "2.x-dev"
+                "dev-main": "2.x-dev"
             }
         },
         "installation-source": "dist",
@@ -2708,11 +2709,11 @@
             {
                 "name": "Jordi Boggiano",
                 "email": "j.boggiano@seld.be",
-                "homepage": "http://seld.be"
+                "homepage": "https://seld.be"
             }
         ],
         "description": "Sends your logs to files, sockets, inboxes, databases and various web services",
-        "homepage": "http://github.com/Seldaek/monolog",
+        "homepage": "https://github.com/Seldaek/monolog",
         "keywords": [
             "log",
             "logging",

@@ -4,6 +4,7 @@ namespace App\Admin\Actions\Grid\RowAction;
 
 use App\Models\CheckRecord;
 use App\Models\CheckTrack;
+use App\Services\NotificationService;
 use Dcat\Admin\Actions\Response;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Grid\RowAction;
@@ -35,8 +36,12 @@ class CheckFinishAction extends RowAction
                 return $this->response()
                     ->warning('失败，此项盘点任务已经被提前中止了。');
             }
+
+            NotificationService::deleteNotificationWhenCheckFinishedOrCancelled($this->getKey());
+
             $check_record->status = 1;
             $check_record->save();
+
             return $this->response()
                 ->success('太棒了，已经完成了此项盘点全部内容！')
                 ->refresh();
