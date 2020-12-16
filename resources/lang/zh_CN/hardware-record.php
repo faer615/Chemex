@@ -34,7 +34,8 @@ return [
         'expired' => '过保日期',
         'depreciation' => [
             'name' => '折旧规则'
-        ]
+        ],
+        'asset_number' => '资产编号'
     ],
     'options' => [
     ],

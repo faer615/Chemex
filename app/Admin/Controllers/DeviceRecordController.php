@@ -101,6 +101,7 @@ class DeviceRecordController extends AdminController
         return Show::make($id, new DeviceRecord(['category', 'vendor', 'channel', 'staff', 'staff.department', 'depreciation']), function (Show $show) {
             $show->field('id');
             $show->field('name');
+            $show->field('asset_number');
             $show->field('description');
             $show->field('category.name');
             $show->field('vendor.name');
@@ -155,6 +156,7 @@ class DeviceRecordController extends AdminController
             $grid->column('qrcode')->qrcode(function () {
                 return base64_encode('device:' . $this->id);
             }, 200, 200);
+            $grid->column('asset_number');
             $grid->column('photo')->image('', 50, 50);
             $grid->column('name')->display(function ($name) {
                 $tag = Info::getSoftwareIcon($this->id);
@@ -248,6 +250,7 @@ class DeviceRecordController extends AdminController
                 ->options(VendorRecord::all()->pluck('name', 'id'))
                 ->required();
             $form->divider();
+            $form->text('asset_number');
             $form->text('description');
             $form->select('purchased_channel_id', admin_trans_label('Purchased Channel Id'))
                 ->options(PurchasedChannel::all()

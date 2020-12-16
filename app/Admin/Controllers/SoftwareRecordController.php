@@ -95,6 +95,7 @@ class SoftwareRecordController extends AdminController
         return Show::make($id, new SoftwareRecord(['category', 'vendor', 'channel']), function (Show $show) {
             $show->field('id');
             $show->field('name');
+            $show->field('asset_number');
             $show->field('description');
             $show->field('category.name');
             $show->field('version');
@@ -135,6 +136,7 @@ class SoftwareRecordController extends AdminController
                 return base64_encode('software:' . $this->id);
             }, 200, 200);
             $grid->column('name');
+            $grid->column('asset_number');
             $grid->column('category.name');
             $grid->column('version');
             $grid->column('vendor.name');
@@ -193,6 +195,7 @@ class SoftwareRecordController extends AdminController
             $form->display('id');
             $form->text('name')->required();
             $form->text('description');
+            $form->text('asset_number');
             $form->select('category_id', admin_trans_label('Category'))
                 ->options(SoftwareCategory::all()->pluck('name', 'id'))
                 ->required();

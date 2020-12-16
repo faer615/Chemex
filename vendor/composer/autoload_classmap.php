@@ -170,6 +170,7 @@ return array(
     'App\\Services\\ExpirationService' => $baseDir . '/app/Services/ExpirationService.php',
     'App\\Services\\ExportService' => $baseDir . '/app/Services/ExportService.php',
     'App\\Services\\HardwareRecordService' => $baseDir . '/app/Services/HardwareRecordService.php',
+    'App\\Services\\NotificationService' => $baseDir . '/app/Services/NotificationService.php',
     'App\\Services\\SoftwareRecordService' => $baseDir . '/app/Services/SoftwareRecordService.php',
     'App\\Support\\Data' => $baseDir . '/app/Support/Data.php',
     'App\\Support\\Info' => $baseDir . '/app/Support/Info.php',

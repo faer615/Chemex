@@ -34,7 +34,8 @@ return [
             'staff' => [
                 'name' => '雇员'
             ]
-        ]
+        ],
+        'asset_number' => '资产编号'
     ],
     'options' => [
     ],

@@ -728,6 +728,7 @@ class ComposerStaticInitdea0a7b565accb12530b41c12af85cc4
         'App\\Services\\ExpirationService' => __DIR__ . '/../..' . '/app/Services/ExpirationService.php',
         'App\\Services\\ExportService' => __DIR__ . '/../..' . '/app/Services/ExportService.php',
         'App\\Services\\HardwareRecordService' => __DIR__ . '/../..' . '/app/Services/HardwareRecordService.php',
+        'App\\Services\\NotificationService' => __DIR__ . '/../..' . '/app/Services/NotificationService.php',
         'App\\Services\\SoftwareRecordService' => __DIR__ . '/../..' . '/app/Services/SoftwareRecordService.php',
         'App\\Support\\Data' => __DIR__ . '/../..' . '/app/Support/Data.php',
         'App\\Support\\Info' => __DIR__ . '/../..' . '/app/Support/Info.php',
