@@ -12,6 +12,11 @@ return [
         'user' => [
             'name' => '负责人'
         ],
+        'checker' => [
+            'name' => '盘点人'
+        ],
+        'check_id' => '任务ID',
+        'item_id' => '物件',
         'status' => '状态',
         'creator' => '创建者',
     ],

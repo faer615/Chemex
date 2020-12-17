@@ -194,30 +194,32 @@ class SoftwareRecordController extends AdminController
         return Form::make(new SoftwareRecord(), function (Form $form) {
             $form->display('id');
             $form->text('name')->required();
-            $form->text('description');
-            $form->text('asset_number');
+            $form->text('version')->required();
             $form->select('category_id', admin_trans_label('Category'))
                 ->options(SoftwareCategory::all()->pluck('name', 'id'))
                 ->required();
-            $form->text('version')->required();
             $form->select('vendor_id', admin_trans_label('Vendor'))
                 ->options(VendorRecord::all()->pluck('name', 'id'))
                 ->required();
-            $form->select('purchased_channel_id', admin_trans_label('Purchased Channel Id'))
-                ->options(PurchasedChannel::all()->pluck('name', 'id'));
-            $form->currency('price')->default(0);
-            $form->date('purchased');
-            $form->date('expired');
             $form->select('distribution')
                 ->options(Data::distribution())
                 ->default('u')
                 ->required();
-            $form->text('sn');
             $form->number('counts')
                 ->min(-1)
                 ->default(1)
                 ->required()
                 ->help('"-1"表示无限制。');
+            $form->divider();
+            $form->text('sn');
+            $form->text('description');
+            $form->text('asset_number');
+            $form->select('purchased_channel_id', admin_trans_label('Purchased Channel Id'))
+                ->options(PurchasedChannel::all()->pluck('name', 'id'));
+            $form->currency('price')->default(0);
+            $form->date('purchased');
+            $form->date('expired');
+
             $form->display('created_at');
             $form->display('updated_at');
 

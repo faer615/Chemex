@@ -135,20 +135,21 @@ class HardwareRecordController extends AdminController
         return Form::make(new HardwareRecord(), function (Form $form) {
             $form->display('id');
             $form->text('name')->required();
-            $form->text('asset_number');
-            $form->text('description');
             $form->select('category_id', admin_trans_label('Category'))
                 ->options(HardwareCategory::all()
                     ->pluck('name', 'id'))
                 ->required();
+            $form->text('specification')->required();
             $form->select('vendor_id', admin_trans_label('Vendor'))
                 ->options(VendorRecord::all()
                     ->pluck('name', 'id'))
                 ->required();
+            $form->divider();
+            $form->text('asset_number');
+            $form->text('description');
             $form->select('purchased_channel_id', admin_trans_label('Purchased Channel Id'))
                 ->options(PurchasedChannel::all()
                     ->pluck('name', 'id'));
-            $form->text('specification')->required();
             $form->text('sn');
             $form->currency('price');
             $form->date('purchased');
