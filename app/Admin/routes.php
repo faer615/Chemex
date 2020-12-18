@@ -20,6 +20,8 @@ Route::group([
         ->name('migrate');
     $router->get('/version/clear', 'VersionController@clear')
         ->name('clear');
+    $router->get('/tools/chemex_qrcode_generator', 'QrCodeGeneratorController@index')
+        ->name('chemex_qrcode_generator');
     $router->get('/test', 'HomeController@test');
     $router->resource('/device/tracks', 'DeviceTrackController');
     $router->resource('/device/records', 'DeviceRecordController', ['names' => [

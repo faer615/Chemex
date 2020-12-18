@@ -7,8 +7,12 @@
 </div>
 
 <div class="mt-1">
-    <a href="/static/tools/chemex_tool-1.0.0.apk" target="_blank" class="btn btn-primary button">下载 Chemex for Android
+    <a href="/static/tools/chemex_tool-1.0.0.apk" target="_blank" class="btn btn-primary button">Chemex for Android
     </a>
+</div>
+
+<div class="mt-1">
+    <a href="{{route('chemex_qrcode_generator')}}" class="btn btn-primary button">二维码批量生成工具</a>
 </div>
 
 <script>

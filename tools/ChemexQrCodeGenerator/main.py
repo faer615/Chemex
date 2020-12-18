@@ -2,11 +2,14 @@
 import qrcode
 from PIL import Image
 import os
+import sys
 
 is_file_exist = os.path.exists('input.txt')
 
 if not is_file_exist:
     print('文件不存在，请确认input.txt位置处于当前程序根目录中')
+    input('按回车退出')
+    sys.exit()
 
 # 初始化一个列表用于存放txt文件读取的内容
 items = []
@@ -37,3 +40,6 @@ for item in items:
     # 保存为文件
     with open(item_type + '/' + item_id + '.png', 'wb') as f:
         code.save(f)
+
+print('二维码文件生成成功')
+input('按回车退出')
