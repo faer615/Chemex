@@ -4,7 +4,7 @@ return [
         'HardwareRecord' => '硬件',
         'Owner' => '所属设备',
         'Category' => '分类',
-        'Vendor' => '制造商',
+        'Vendor' => '厂商',
         'Purchased Channel Id' => '购入途径',
         'Expiration Left Days' => '保固剩余天数',
         'records' => '硬件',
@@ -19,7 +19,7 @@ return [
             'name' => '分类'
         ],
         'vendor' => [
-            'name' => '制造商'
+            'name' => '厂商'
         ],
         'channel' => [
             'name' => '购入途径'

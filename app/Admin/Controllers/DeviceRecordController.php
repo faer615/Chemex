@@ -38,7 +38,6 @@ class DeviceRecordController extends AdminController
 {
     use HasDeviceRelatedGrid;
 
-
     /**
      * 详情页构建器
      * 为了复写详情页的布局
@@ -79,7 +78,7 @@ class DeviceRecordController extends AdminController
                         $result = self::hasDeviceRelated($id);
                         $column->row(new Card('硬件', $result['hardware']));
                         $column->row(new Card('软件', $result['software']));
-                        $column->row(new Card('服务程序', $result['service']));
+                        $column->row(new Card('服务', $result['service']));
                     }
                 });
                 if (Admin::user()->can('device.history')) {
@@ -222,7 +221,7 @@ class DeviceRecordController extends AdminController
             $grid->selector(function (Selector $selector) {
                 $selector->select('category_id', '设备分类', DeviceCategory::all()
                     ->pluck('name', 'id'));
-                $selector->select('vendor_id', '制造商', VendorRecord::all()
+                $selector->select('vendor_id', '厂商', VendorRecord::all()
                     ->pluck('name', 'id'));
             });
 

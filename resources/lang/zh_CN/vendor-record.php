@@ -1,8 +1,8 @@
 <?php
 return [
     'labels' => [
-        'VendorRecord' => '制造商',
-        'records' => '制造商'
+        'VendorRecord' => '厂商',
+        'records' => '厂商'
     ],
     'fields' => [
         'name_chs' => '中文名',

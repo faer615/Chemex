@@ -44,7 +44,7 @@ class HardwareRecord extends Model
     }
 
     /**
-     * 硬件记录有一个制造商
+     * 硬件记录有一个厂商
      * @return HasOne
      */
     public function vendor(): HasOne

@@ -50,7 +50,6 @@ Admin::style(
 }
 
 .font-grey {
-    /*color: #a8a9bb;*/
     color:white;
 }
 CSS
