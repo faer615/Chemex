@@ -12,6 +12,5 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 composer.lock
-.idea/workspace.xml
 /tools/ChemexTool/unpackage
 /vendor/bin
