@@ -45,7 +45,7 @@ class SoftwareRecord extends Model
     }
 
     /**
-     * 软件记录有一个制造商
+     * 软件记录有一个厂商
      * @return HasOne
      */
     public function vendor(): HasOne

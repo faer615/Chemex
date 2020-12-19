@@ -1,8 +1,8 @@
 <?php
 return [
     'labels' => [
-        'MaintenanceRecord' => '维修记录',
-        'records' => '维修记录'
+        'MaintenanceRecord' => '物资故障',
+        'records' => '物资故障'
     ],
     'fields' => [
         'item' => '物品类型',

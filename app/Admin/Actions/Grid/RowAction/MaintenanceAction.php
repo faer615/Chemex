@@ -10,7 +10,7 @@ class MaintenanceAction extends RowAction
 {
     protected $item = null;
 
-    protected $title = '🔧 报告维修';
+    protected $title = '🔧 报告故障';
 
     public function __construct($item)
     {
@@ -33,7 +33,7 @@ class MaintenanceAction extends RowAction
 
         return Modal::make()
             ->lg()
-            ->title('将 ' . $this->getRow()->name . ' 报告为维修')
+            ->title('报告 ' . $this->getRow()->name . ' 发生的故障')
             ->body($form)
             ->button($this->title);
     }

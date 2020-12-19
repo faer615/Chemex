@@ -11,6 +11,7 @@ use Dcat\Admin\Show;
 
 class DeviceCategoryController extends AdminController
 {
+
     /**
      * Make a grid builder.
      *

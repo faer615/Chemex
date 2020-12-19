@@ -9,7 +9,7 @@ use Dcat\Admin\Widgets\Modal;
 
 class ServiceIssueAction extends RowAction
 {
-    protected $title = '❓ 报告异常';
+    protected $title = '❓ 报告故障';
 
     /**
      * 渲染模态框
@@ -26,7 +26,7 @@ class ServiceIssueAction extends RowAction
 
         return Modal::make()
             ->lg()
-            ->title('报告 ' . $this->getRow()->name . ' 发生的异常')
+            ->title('报告 ' . $this->getRow()->name . ' 发生的故障')
             ->body($form)
             ->button($this->title);
     }

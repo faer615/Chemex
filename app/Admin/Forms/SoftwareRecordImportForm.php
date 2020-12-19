@@ -28,9 +28,9 @@ class SoftwareRecordImportForm extends Form
             $rows = Excel::import($file_path)->first()->toArray();
             foreach ($rows as $row) {
                 try {
-                    if (!empty($row['名称']) && !empty($row['分类']) && !empty($row['制造商'] && !empty($row['版本']))) {
+                    if (!empty($row['名称']) && !empty($row['分类']) && !empty($row['厂商'] && !empty($row['版本']))) {
                         $category = SoftwareRecord::where('name', $row['分类'])->first();
-                        $vendor = VendorRecord::where('name', $row['制造商'])->first();
+                        $vendor = VendorRecord::where('name', $row['厂商'])->first();
                         if (empty($category)) {
                             $category = new SoftwareRecord();
                             $category->name = $row['分类'];
@@ -38,7 +38,7 @@ class SoftwareRecordImportForm extends Form
                         }
                         if (empty($vendor)) {
                             $vendor = new VendorRecord();
-                            $vendor->name = $row['制造商'];
+                            $vendor->name = $row['厂商'];
                             $vendor->save();
                         }
                         $software_records = new SoftwareRecord();
@@ -108,6 +108,6 @@ class SoftwareRecordImportForm extends Form
             ->accept('xls,xlsx,csv')
             ->autoUpload()
             ->required()
-            ->help('导入支持xls、xlsx、csv文件，且表格头必须使用【名称，描述，分类，制造商，版本，价格，购入日期，过保日期，购入途径】。');
+            ->help('导入支持xls、xlsx、csv文件，且表格头必须使用【名称，描述，分类，厂商，版本，价格，购入日期，过保日期，购入途径】。');
     }
 }

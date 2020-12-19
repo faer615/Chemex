@@ -1,4 +1,42 @@
 <ul class="nav navbar-nav">
+    {{--全局按钮--}}
+    <li class="dropdown dropdown-notification nav-item">
+        <a class="nav-link nav-link-label" href="#" data-toggle="dropdown" aria-expanded="true">
+            <i class="ficon feather icon-loader"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right shadow-200">
+            <li class="scrollable-container media-list ps ps--active-y">
+                <a class="media d-flex justify-content-between" href="#" onclick="clearCache()">
+                    <div class="d-flex align-items-start">
+                        <div class="media-left">
+                        </div>
+                        <div class="media-body">
+                            <h6 class="primary media-heading">刷新缓存</h6>
+                            <small class="notification-text">
+                                如果遇到了一些无法捉摸的问题，可以试试我。
+                            </small>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="scrollable-container media-list ps ps--active-y">
+                <a class="media d-flex justify-content-between" href="#" onclick="migrate()">
+                    <div class="d-flex align-items-start">
+                        <div class="media-left">
+                        </div>
+                        <div class="media-body">
+                            <h6 class="primary media-heading">更新数据库结构</h6>
+                            <small class="notification-text">
+                                在每次升级完成后，如果忘记了数据库结构的更新动作，我会帮助你。
+                            </small>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </li>
+
+    {{--帮助信息--}}
     <li class="dropdown dropdown-notification nav-item">
         <a class="nav-link nav-link-label" href="#" data-toggle="dropdown" aria-expanded="true">
             <i class="ficon feather icon-help-circle"></i>
@@ -53,6 +91,8 @@
             </li>
         </ul>
     </li>
+
+    {{--通知--}}
     <li class="dropdown dropdown-notification nav-item">
         <a class="nav-link nav-link-label" href="#" data-toggle="dropdown" aria-expanded="true">
             <i class="ficon feather icon-bell"></i>
@@ -94,3 +134,43 @@
         </ul>
     </li>
 </ul>
+
+<script>
+    /**
+     * 更新数据库结构
+     */
+    function migrate() {
+        $.ajax({
+            url: "/version/migrate",
+            success: function (res) {
+                if (res.code === 200) {
+                    Dcat.success(res.message);
+                } else {
+                    Dcat.warning(res.message);
+                }
+            },
+            error: function (res) {
+                Dcat.error('执行错误：' + res);
+            }
+        });
+    }
+
+    /**
+     * 清理缓存
+     */
+    function clearCache() {
+        $.ajax({
+            url: "/version/clear",
+            success: function (res) {
+                if (res.code === 200) {
+                    Dcat.success(res.message);
+                } else {
+                    Dcat.warning(res.message);
+                }
+            },
+            error: function (res) {
+                Dcat.error('执行错误：' + res);
+            }
+        });
+    }
+</script>

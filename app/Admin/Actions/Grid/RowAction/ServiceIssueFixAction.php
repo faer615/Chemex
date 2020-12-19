@@ -9,7 +9,7 @@ use Dcat\Admin\Widgets\Modal;
 
 class ServiceIssueFixAction extends RowAction
 {
-    protected $title = '🔧 修复问题';
+    protected $title = '🔧 修复故障';
 
     /**
      * 渲染模态框
@@ -26,7 +26,7 @@ class ServiceIssueFixAction extends RowAction
 
         return Modal::make()
             ->lg()
-            ->title('处理服务程序异常')
+            ->title('处理服务故障')
             ->body($form)
             ->button($this->title);
     }

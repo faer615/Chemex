@@ -27,7 +27,6 @@ class InfoController extends Controller
      */
     public function info($string): JsonResponse
     {
-        $string = base64_decode($string);
         $item = explode(':', $string)[0];
         $id = explode(':', $string)[1];
         switch ($item) {
@@ -63,7 +62,6 @@ class InfoController extends Controller
      */
     public function check($string): JsonResponse
     {
-        $string = base64_decode($string);
         $item = explode(':', $string)[0];
         $id = explode(':', $string)[1];
         if (!empty($item) && !empty($id)) {

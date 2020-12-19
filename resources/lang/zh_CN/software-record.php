@@ -3,7 +3,7 @@ return [
     'labels' => [
         'SoftwareRecord' => '软件',
         'Category' => '分类',
-        'Vendor' => '制造商',
+        'Vendor' => '厂商',
         'Left Counts' => '剩余授权数量',
         'Purchased Channel Id' => '购入途径',
         'Expiration Left Days' => '保固剩余天数',
@@ -18,7 +18,7 @@ return [
         ],
         'version' => '版本',
         'vendor' => [
-            'name' => '制造商'
+            'name' => '厂商'
         ],
         'channel' => [
             'name' => '购入途径'
@@ -34,7 +34,8 @@ return [
             'staff' => [
                 'name' => '雇员'
             ]
-        ]
+        ],
+        'asset_number' => '资产编号'
     ],
     'options' => [
     ],

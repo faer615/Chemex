@@ -38,7 +38,6 @@ class DeviceRecordController extends AdminController
 {
     use HasDeviceRelatedGrid;
 
-
     /**
      * 详情页构建器
      * 为了复写详情页的布局
@@ -79,7 +78,7 @@ class DeviceRecordController extends AdminController
                         $result = self::hasDeviceRelated($id);
                         $column->row(new Card('硬件', $result['hardware']));
                         $column->row(new Card('软件', $result['software']));
-                        $column->row(new Card('服务程序', $result['service']));
+                        $column->row(new Card('服务', $result['service']));
                     }
                 });
                 if (Admin::user()->can('device.history')) {
@@ -101,6 +100,7 @@ class DeviceRecordController extends AdminController
         return Show::make($id, new DeviceRecord(['category', 'vendor', 'channel', 'staff', 'staff.department', 'depreciation']), function (Show $show) {
             $show->field('id');
             $show->field('name');
+            $show->field('asset_number');
             $show->field('description');
             $show->field('category.name');
             $show->field('vendor.name');
@@ -153,8 +153,9 @@ class DeviceRecordController extends AdminController
 
             $grid->column('id');
             $grid->column('qrcode')->qrcode(function () {
-                return base64_encode('device:' . $this->id);
+                return 'device:' . $this->id;
             }, 200, 200);
+            $grid->column('asset_number');
             $grid->column('photo')->image('', 50, 50);
             $grid->column('name')->display(function ($name) {
                 $tag = Info::getSoftwareIcon($this->id);
@@ -220,7 +221,7 @@ class DeviceRecordController extends AdminController
             $grid->selector(function (Selector $selector) {
                 $selector->select('category_id', '设备分类', DeviceCategory::all()
                     ->pluck('name', 'id'));
-                $selector->select('vendor_id', '制造商', VendorRecord::all()
+                $selector->select('vendor_id', '厂商', VendorRecord::all()
                     ->pluck('name', 'id'));
             });
 
@@ -248,6 +249,7 @@ class DeviceRecordController extends AdminController
                 ->options(VendorRecord::all()->pluck('name', 'id'))
                 ->required();
             $form->divider();
+            $form->text('asset_number');
             $form->text('description');
             $form->select('purchased_channel_id', admin_trans_label('Purchased Channel Id'))
                 ->options(PurchasedChannel::all()

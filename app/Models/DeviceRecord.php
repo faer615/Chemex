@@ -53,7 +53,7 @@ class DeviceRecord extends Model
     }
 
     /**
-     * 设备记录有一个制造商
+     * 设备记录有一个厂商
      * @return HasOne
      */
     public function vendor(): HasOne

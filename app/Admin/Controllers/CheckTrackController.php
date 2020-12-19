@@ -28,7 +28,7 @@ class CheckTrackController extends AdminController
      */
     protected function grid(): Grid
     {
-        return Grid::make(new CheckTrack(['user']), function (Grid $grid) {
+        return Grid::make(new CheckTrack(['checker']), function (Grid $grid) {
             $grid->column('id');
             $grid->column('check_id');
             $grid->column('item_id')->display(function ($item_id) {
@@ -55,7 +55,7 @@ class CheckTrackController extends AdminController
                 }
             });
             $grid->column('status')->using(Data::checkTrackStatus());
-            $grid->column('user.name');
+            $grid->column('checker.name');
             $grid->column('created_at');
             $grid->column('updated_at');
 
@@ -74,7 +74,7 @@ class CheckTrackController extends AdminController
 
             $grid->toolsWithOutline(false);
 
-            $grid->quickSearch('id', 'check_id', 'user.name')
+            $grid->quickSearch('id', 'check_id', 'checker.name')
                 ->placeholder('试着搜索一下')
                 ->auto(false);
         });

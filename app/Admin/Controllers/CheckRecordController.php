@@ -4,6 +4,7 @@ namespace App\Admin\Controllers;
 
 use App\Admin\Actions\Grid\RowAction\CheckCancelAction;
 use App\Admin\Actions\Grid\RowAction\CheckFinishAction;
+use App\Admin\Actions\Grid\RowAction\CheckTrackAction;
 use App\Admin\Grid\Displayers\RowActions;
 use App\Admin\Repositories\CheckRecord;
 use App\Models\AdminUser;
@@ -16,13 +17,89 @@ use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Http\Controllers\AdminController;
+use Dcat\Admin\Layout\Content;
+use Dcat\Admin\Layout\Row;
 use Dcat\Admin\Show;
 
 /**
- * @property  int status
+ * @property int status
+ * @property int check_id
  */
 class CheckRecordController extends AdminController
 {
+
+    /**
+     * Show interface.
+     *
+     * @param mixed $id
+     * @param Content $content
+     *
+     * @return Content
+     */
+    public function show($id, Content $content): Content
+    {
+        $grid = Grid::make(new \App\Admin\Repositories\CheckTrack(['checker']), function (Grid $grid) use ($id) {
+            $grid->model()->where('check_id', $id);
+
+            $grid->column('id');
+            $grid->column('item_id')->display(function ($item_id) {
+                $check = \App\Models\CheckRecord::where('id', $this->check_id)->first();
+                if (empty($check)) {
+                    return '任务状态异常';
+                } else {
+                    $check_item = $check->check_item;
+                    switch ($check_item) {
+                        case 'hardware':
+                            $item = HardwareRecord::where('id', $item_id)->first();
+                            break;
+                        case 'software':
+                            $item = SoftwareRecord::where('id', $item_id)->first();
+                            break;
+                        default:
+                            $item = DeviceRecord::where('id', $item_id)->first();
+                    }
+                    if (empty($item)) {
+                        return '物品状态异常';
+                    } else {
+                        return $item->name;
+                    }
+                }
+            });
+            $grid->column('status')->using(Data::checkTrackStatus());
+            $grid->column('checker.name');
+            $grid->column('created_at');
+            $grid->column('updated_at');
+
+            $grid->disableRowSelector();
+            $grid->disableBatchActions();
+            $grid->disableCreateButton();
+            $grid->disableEditButton();
+            $grid->disableViewButton();
+            $grid->disableDeleteButton();
+
+            $grid->actions(function (RowActions $actions) {
+                if (Admin::user()->can('check.track') && $this->status == 0) {
+                    $actions->append(new CheckTrackAction());
+                }
+            });
+
+            $grid->toolsWithOutline(false);
+
+            $grid->quickSearch('id', 'check_id', 'checker.name')
+                ->placeholder('试着搜索一下')
+                ->auto(false);
+        });
+
+        return $content
+            ->title($this->title())
+            ->description($this->description()['show'] ?? trans('admin.show'))
+            ->body(function (Row $row) use ($grid, $id) {
+                $row->column(12, $this->detail($id));
+                $row->column(12, '<div class="mt-2"></div>');
+                $row->column(12, $grid);
+            });
+    }
+
     /**
      * Make a show builder.
      *
@@ -34,7 +111,7 @@ class CheckRecordController extends AdminController
     {
         return Show::make($id, new CheckRecord(['user']), function (Show $show) {
             $show->field('id');
-            $show->field('check_item');
+            $show->field('check_item')->using(Data::items());;
             $show->field('start_time');
             $show->field('end_time');
             $show->field('user.name');

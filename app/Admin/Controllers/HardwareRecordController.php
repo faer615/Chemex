@@ -39,8 +39,9 @@ class HardwareRecordController extends AdminController
         return Grid::make(new HardwareRecord(['category', 'vendor', 'device', 'depreciation']), function (Grid $grid) {
             $grid->column('id');
             $grid->column('qrcode')->qrcode(function () {
-                return base64_encode('hardware:' . $this->id);
+                return 'hardware:' . $this->id;
             }, 200, 200);
+            $grid->column('asset_number');
             $grid->column('name');
             $grid->column('description');
             $grid->column('category.name');
@@ -98,6 +99,7 @@ class HardwareRecordController extends AdminController
         return Show::make($id, new HardwareRecord(['category', 'vendor', 'channel', 'device', 'depreciation']), function (Show $show) {
             $show->field('id');
             $show->field('name');
+            $show->field('asset_number');
             $show->field('description');
             $show->field('category.name');
             $show->field('vendor.name');
@@ -133,19 +135,21 @@ class HardwareRecordController extends AdminController
         return Form::make(new HardwareRecord(), function (Form $form) {
             $form->display('id');
             $form->text('name')->required();
-            $form->text('description');
             $form->select('category_id', admin_trans_label('Category'))
                 ->options(HardwareCategory::all()
                     ->pluck('name', 'id'))
                 ->required();
+            $form->text('specification')->required();
             $form->select('vendor_id', admin_trans_label('Vendor'))
                 ->options(VendorRecord::all()
                     ->pluck('name', 'id'))
                 ->required();
+            $form->divider();
+            $form->text('asset_number');
+            $form->text('description');
             $form->select('purchased_channel_id', admin_trans_label('Purchased Channel Id'))
                 ->options(PurchasedChannel::all()
                     ->pluck('name', 'id'));
-            $form->text('specification')->required();
             $form->text('sn');
             $form->currency('price');
             $form->date('purchased');

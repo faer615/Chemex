@@ -9,7 +9,7 @@ use Dcat\Admin\Widgets\Modal;
 
 class MaintenanceFixAction extends RowAction
 {
-    protected $title = '🧱 处理维修';
+    protected $title = '🧱 修复故障';
 
     /**
      * 渲染模态框
@@ -26,7 +26,7 @@ class MaintenanceFixAction extends RowAction
 
         return Modal::make()
             ->lg()
-            ->title('处理 ' . $this->getRow()->name . ' 的维修结果')
+            ->title('处理物资故障')
             ->body($form)
             ->button($this->title);
     }

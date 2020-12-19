@@ -48,7 +48,6 @@ class MaintenanceRecordController extends AdminController
             $grid->disableDeleteButton();
             $grid->disableBatchActions();
             $grid->disableRowSelector();
-            $grid->disableRefreshButton();
 
             $grid->toolsWithOutline(false);
 

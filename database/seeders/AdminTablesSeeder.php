@@ -34,26 +34,26 @@ class AdminTablesSeeder extends Seeder
                 [
                     "id" => 8,
                     "parent_id" => 0,
-                    "order" => 6,
+                    "order" => 8,
                     "title" => "Software Management",
                     "icon" => "feather icon-disc",
                     "uri" => "",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-10-10 15:06:21",
-                    "updated_at" => "2020-10-04 10:44:31"
+                    "updated_at" => "2020-12-19 01:10:31"
                 ],
                 [
                     "id" => 9,
                     "parent_id" => 8,
-                    "order" => 8,
+                    "order" => 10,
                     "title" => "Software Categories",
                     "icon" => "",
                     "uri" => "software/categories",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-10-10 15:06:22",
-                    "updated_at" => "2020-10-04 10:44:31"
+                    "updated_at" => "2020-12-19 01:10:31"
                 ],
                 [
                     "id" => 11,
@@ -70,254 +70,254 @@ class AdminTablesSeeder extends Seeder
                 [
                     "id" => 12,
                     "parent_id" => 8,
-                    "order" => 7,
+                    "order" => 9,
                     "title" => "Software Records",
                     "icon" => "",
                     "uri" => "software/records",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-10-10 15:06:23",
-                    "updated_at" => "2020-10-04 10:44:31"
+                    "updated_at" => "2020-12-19 01:10:31"
                 ],
                 [
                     "id" => 13,
                     "parent_id" => 0,
-                    "order" => 10,
+                    "order" => 12,
                     "title" => "Hardware Management",
                     "icon" => "feather icon-server",
                     "uri" => "",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-10-10 15:06:24",
-                    "updated_at" => "2020-10-04 10:44:31"
+                    "updated_at" => "2020-12-19 01:10:31"
                 ],
                 [
                     "id" => 14,
                     "parent_id" => 13,
-                    "order" => 12,
+                    "order" => 14,
                     "title" => "Hardware Categories",
                     "icon" => "",
                     "uri" => "hardware/categories",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-10-10 15:06:24",
-                    "updated_at" => "2020-10-04 10:44:31"
+                    "updated_at" => "2020-12-19 01:10:31"
                 ],
                 [
                     "id" => 15,
                     "parent_id" => 13,
-                    "order" => 11,
+                    "order" => 13,
                     "title" => "Hardware Records",
                     "icon" => "",
                     "uri" => "hardware/records",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-10-10 15:06:24",
-                    "updated_at" => "2020-10-04 10:44:31"
+                    "updated_at" => "2020-12-19 01:10:31"
                 ],
                 [
                     "id" => 16,
                     "parent_id" => 0,
-                    "order" => 2,
+                    "order" => 4,
                     "title" => "Device Management",
                     "icon" => "feather icon-monitor",
                     "uri" => "",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-10-10 15:06:25",
-                    "updated_at" => "2020-10-10 15:06:18"
+                    "updated_at" => "2020-12-19 01:10:31"
                 ],
                 [
                     "id" => 17,
                     "parent_id" => 16,
-                    "order" => 4,
+                    "order" => 6,
                     "title" => "Device Categories",
                     "icon" => "",
                     "uri" => "device/categories",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-10-10 15:06:27",
-                    "updated_at" => "2020-10-10 15:06:18"
+                    "updated_at" => "2020-12-19 01:10:31"
                 ],
                 [
                     "id" => 18,
                     "parent_id" => 0,
-                    "order" => 14,
+                    "order" => 16,
                     "title" => "Staff Management",
                     "icon" => "feather icon-user-check",
                     "uri" => "",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-10-10 15:06:25",
-                    "updated_at" => "2020-11-18 21:14:54"
+                    "updated_at" => "2020-12-19 01:10:31"
                 ],
                 [
                     "id" => 19,
                     "parent_id" => 18,
-                    "order" => 16,
+                    "order" => 18,
                     "title" => "Staff Departments",
                     "icon" => "",
                     "uri" => "staff/departments",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-10-10 15:06:27",
-                    "updated_at" => "2020-11-18 21:14:54"
+                    "updated_at" => "2020-12-19 01:10:31"
                 ],
                 [
                     "id" => 20,
                     "parent_id" => 18,
-                    "order" => 15,
+                    "order" => 17,
                     "title" => "Staff Records",
                     "icon" => "",
                     "uri" => "staff/records",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-10-10 15:06:26",
-                    "updated_at" => "2020-11-18 21:14:54"
+                    "updated_at" => "2020-12-19 01:10:31"
                 ],
                 [
                     "id" => 21,
                     "parent_id" => 16,
-                    "order" => 3,
+                    "order" => 5,
                     "title" => "Device Records",
                     "icon" => "",
                     "uri" => "device/records",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-10-10 15:06:28",
-                    "updated_at" => "2020-10-10 15:06:19"
+                    "updated_at" => "2020-12-19 01:10:31"
                 ],
                 [
                     "id" => 22,
                     "parent_id" => 8,
-                    "order" => 9,
+                    "order" => 11,
                     "title" => "Software Tracks",
                     "icon" => "",
                     "uri" => "software/tracks",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-10-10 15:06:28",
-                    "updated_at" => "2020-10-04 10:44:31"
+                    "updated_at" => "2020-12-19 01:10:31"
                 ],
                 [
                     "id" => 23,
                     "parent_id" => 13,
-                    "order" => 13,
+                    "order" => 15,
                     "title" => "Hardware Tracks",
                     "icon" => "",
                     "uri" => "hardware/tracks",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-10-10 15:06:29",
-                    "updated_at" => "2020-10-04 10:44:31"
+                    "updated_at" => "2020-12-19 01:10:31"
                 ],
                 [
                     "id" => 24,
                     "parent_id" => 16,
-                    "order" => 5,
+                    "order" => 7,
                     "title" => "Device Tracks",
                     "icon" => "",
                     "uri" => "device/tracks",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-10-10 15:06:29",
-                    "updated_at" => "2020-10-04 10:44:31"
+                    "updated_at" => "2020-12-19 01:10:31"
                 ],
                 [
                     "id" => 25,
                     "parent_id" => 0,
-                    "order" => 21,
+                    "order" => 22,
                     "title" => "Check Management",
                     "icon" => "feather icon-check-circle",
                     "uri" => NULL,
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-10-04 10:22:42",
-                    "updated_at" => "2020-11-18 21:14:54"
+                    "updated_at" => "2020-12-19 01:10:21"
                 ],
                 [
                     "id" => 26,
                     "parent_id" => 25,
-                    "order" => 22,
+                    "order" => 23,
                     "title" => "Check Records",
                     "icon" => NULL,
                     "uri" => "check/records",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-10-04 10:23:17",
-                    "updated_at" => "2020-11-18 21:14:55"
+                    "updated_at" => "2020-12-19 01:10:21"
                 ],
                 [
                     "id" => 27,
                     "parent_id" => 25,
-                    "order" => 23,
+                    "order" => 24,
                     "title" => "Check Tracks",
                     "icon" => NULL,
                     "uri" => "check/tracks",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-10-04 10:23:33",
-                    "updated_at" => "2020-11-18 21:14:55"
+                    "updated_at" => "2020-12-19 01:10:21"
                 ],
                 [
                     "id" => 28,
                     "parent_id" => 0,
-                    "order" => 17,
+                    "order" => 19,
                     "title" => "Service Management",
                     "icon" => "feather icon-activity",
                     "uri" => NULL,
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-10-06 21:38:40",
-                    "updated_at" => "2020-11-18 21:14:54"
+                    "updated_at" => "2020-12-19 01:10:31"
                 ],
                 [
                     "id" => 29,
                     "parent_id" => 28,
-                    "order" => 18,
+                    "order" => 20,
                     "title" => "Service Records",
                     "icon" => NULL,
                     "uri" => "service/records",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-10-06 21:39:02",
-                    "updated_at" => "2020-11-18 21:14:54"
+                    "updated_at" => "2020-12-19 01:10:31"
                 ],
                 [
                     "id" => 30,
                     "parent_id" => 28,
-                    "order" => 19,
+                    "order" => 21,
                     "title" => "Service Tracks",
                     "icon" => NULL,
                     "uri" => "service/tracks",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-10-06 22:02:15",
-                    "updated_at" => "2020-11-18 21:14:54"
+                    "updated_at" => "2020-12-19 01:10:31"
                 ],
                 [
                     "id" => 31,
-                    "parent_id" => 28,
-                    "order" => 20,
+                    "parent_id" => 0,
+                    "order" => 3,
                     "title" => "Service Issues",
-                    "icon" => NULL,
+                    "icon" => "feather icon-alert-triangle",
                     "uri" => "service/issues",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-10-06 23:23:22",
-                    "updated_at" => "2020-11-18 21:14:54"
+                    "updated_at" => "2020-12-19 01:10:40"
                 ],
                 [
                     "id" => 53,
                     "parent_id" => 0,
-                    "order" => 24,
+                    "order" => 2,
                     "title" => "Maintenance Records",
                     "icon" => "feather icon-shield",
                     "uri" => "maintenance/records",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-10-10 15:06:15",
-                    "updated_at" => "2020-11-18 21:14:55"
+                    "updated_at" => "2020-12-19 01:10:21"
                 ],
                 [
                     "id" => 54,
@@ -348,12 +348,12 @@ class AdminTablesSeeder extends Seeder
                     "parent_id" => 0,
                     "order" => 28,
                     "title" => "Settings",
-                    "icon" => NULL,
+                    "icon" => "feather icon-settings",
                     "uri" => NULL,
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-11-03 14:23:14",
-                    "updated_at" => "2020-12-16 18:04:30"
+                    "updated_at" => "2020-12-19 01:10:59"
                 ],
                 [
                     "id" => 57,
@@ -408,12 +408,60 @@ class AdminTablesSeeder extends Seeder
                     "parent_id" => 0,
                     "order" => 27,
                     "title" => "Depreciation Rules",
-                    "icon" => NULL,
+                    "icon" => "feather icon-trending-down",
                     "uri" => "/depreciation/rules",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-12-14 19:38:17",
-                    "updated_at" => "2020-12-14 19:38:21"
+                    "updated_at" => "2020-12-19 01:11:08"
+                ],
+                [
+                    "id" => 62,
+                    "parent_id" => 56,
+                    "order" => 29,
+                    "title" => "Configuration",
+                    "icon" => "",
+                    "uri" => "/configurations",
+                    "extension" => "",
+                    "show" => 1,
+                    "created_at" => "2020-12-14 19:38:17",
+                    "updated_at" => "2020-12-19 01:11:08"
+                ],
+                [
+                    "id" => 63,
+                    "parent_id" => 0,
+                    "order" => 28,
+                    "title" => "Tools",
+                    "icon" => "feather icon-layers",
+                    "uri" => "",
+                    "extension" => "",
+                    "show" => 1,
+                    "created_at" => "2020-12-14 19:38:17",
+                    "updated_at" => "2020-12-19 01:11:08"
+                ],
+                [
+                    "id" => 64,
+                    "parent_id" => 63,
+                    "order" => 29,
+                    "title" => "Chemex App",
+                    "icon" => "",
+                    "uri" => "/tools/chemex_app",
+                    "extension" => "",
+                    "show" => 1,
+                    "created_at" => "2020-12-14 19:38:17",
+                    "updated_at" => "2020-12-19 01:11:08"
+                ],
+                [
+                    "id" => 65,
+                    "parent_id" => 63,
+                    "order" => 30,
+                    "title" => "QRCode Generator",
+                    "icon" => "",
+                    "uri" => "/tools/qrcode_generator",
+                    "extension" => "",
+                    "show" => 1,
+                    "created_at" => "2020-12-14 19:38:17",
+                    "updated_at" => "2020-12-19 01:11:08"
                 ]
             ]
         );
@@ -544,14 +592,14 @@ class AdminTablesSeeder extends Seeder
                 ],
                 [
                     "id" => 13,
-                    "name" => "设备维护",
+                    "name" => "设备故障",
                     "slug" => "device.maintenance",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 15,
                     "parent_id" => 7,
                     "created_at" => "2020-11-19 09:23:03",
-                    "updated_at" => "2020-11-19 13:24:56"
+                    "updated_at" => "2020-12-19 01:13:21"
                 ],
                 [
                     "id" => 14,
@@ -599,14 +647,14 @@ class AdminTablesSeeder extends Seeder
                 ],
                 [
                     "id" => 18,
-                    "name" => "服务程序管理",
+                    "name" => "服务管理",
                     "slug" => "service",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 39,
                     "parent_id" => 0,
                     "created_at" => "2020-11-19 10:00:55",
-                    "updated_at" => "2020-11-19 13:41:34"
+                    "updated_at" => "2020-12-19 01:13:48"
                 ],
                 [
                     "id" => 19,
@@ -632,7 +680,7 @@ class AdminTablesSeeder extends Seeder
                 ],
                 [
                     "id" => 21,
-                    "name" => "制造商",
+                    "name" => "厂商",
                     "slug" => "vendor",
                     "http_method" => "",
                     "http_path" => "",
@@ -775,14 +823,14 @@ class AdminTablesSeeder extends Seeder
                 ],
                 [
                     "id" => 34,
-                    "name" => "硬件维护",
+                    "name" => "硬件故障",
                     "slug" => "hardware.maintenance",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 33,
                     "parent_id" => 30,
                     "created_at" => "2020-11-19 10:15:44",
-                    "updated_at" => "2020-11-19 13:38:31"
+                    "updated_at" => "2020-12-19 01:13:30"
                 ],
                 [
                     "id" => 35,
@@ -830,7 +878,7 @@ class AdminTablesSeeder extends Seeder
                 ],
                 [
                     "id" => 39,
-                    "name" => "服务程序删除",
+                    "name" => "服务删除",
                     "slug" => "service.delete",
                     "http_method" => "",
                     "http_path" => "",
@@ -841,7 +889,7 @@ class AdminTablesSeeder extends Seeder
                 ],
                 [
                     "id" => 40,
-                    "name" => "服务程序归属",
+                    "name" => "服务归属",
                     "slug" => "service.track",
                     "http_method" => "",
                     "http_path" => "",
@@ -852,7 +900,7 @@ class AdminTablesSeeder extends Seeder
                 ],
                 [
                     "id" => 41,
-                    "name" => "服务程序报告异常",
+                    "name" => "服务故障",
                     "slug" => "service.issue",
                     "http_method" => "",
                     "http_path" => "",
@@ -863,7 +911,7 @@ class AdminTablesSeeder extends Seeder
                 ],
                 [
                     "id" => 42,
-                    "name" => "服务程序归属解除",
+                    "name" => "服务归属解除",
                     "slug" => "service.track.disable",
                     "http_method" => "",
                     "http_path" => "",
@@ -874,7 +922,7 @@ class AdminTablesSeeder extends Seeder
                 ],
                 [
                     "id" => 43,
-                    "name" => "服务程序异常修复",
+                    "name" => "服务故障修复",
                     "slug" => "service.issue.fix",
                     "http_method" => "",
                     "http_path" => "",
@@ -918,14 +966,14 @@ class AdminTablesSeeder extends Seeder
                 ],
                 [
                     "id" => 48,
-                    "name" => "维修记录修复",
+                    "name" => "物资故障修复",
                     "slug" => "maintenance.fix",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 59,
                     "parent_id" => 47,
                     "created_at" => "2020-11-19 10:31:43",
-                    "updated_at" => "2020-11-30 09:30:13"
+                    "updated_at" => "2020-12-19 01:15:33"
                 ],
                 [
                     "id" => 49,
@@ -965,11 +1013,11 @@ class AdminTablesSeeder extends Seeder
                     "name" => "表单基础：全部",
                     "slug" => "device.all",
                     "http_method" => "",
-                    "http_path" => "device/tracks*,device/tracks/create*,device/records*,device/records/create*,device/categories*,device/categories/create*",
+                    "http_path" => "device/tracks*,device/records*,device/categories*",
                     "order" => 8,
                     "parent_id" => 14,
                     "created_at" => "2020-11-19 13:21:28",
-                    "updated_at" => "2020-11-19 13:32:31"
+                    "updated_at" => "2020-12-19 01:19:54"
                 ],
                 [
                     "id" => 53,
@@ -987,11 +1035,11 @@ class AdminTablesSeeder extends Seeder
                     "name" => "表单基础：全部",
                     "slug" => "software.all",
                     "http_method" => "",
-                    "http_path" => "software/tracks*,software/tracks/create*,software/records*,software/records/create*,software/categories*,software/categories/create*",
+                    "http_path" => "software/tracks*,software/records*,software/categories*",
                     "order" => 18,
                     "parent_id" => 15,
                     "created_at" => "2020-11-19 13:23:56",
-                    "updated_at" => "2020-11-19 13:34:34"
+                    "updated_at" => "2020-12-19 01:19:47"
                 ],
                 [
                     "id" => 55,
@@ -1009,11 +1057,11 @@ class AdminTablesSeeder extends Seeder
                     "name" => "表单基础：全部",
                     "slug" => "hardware.all",
                     "http_method" => "",
-                    "http_path" => "hardware/tracks*,hardware/tracks/create*,hardware/records*,hardware/records/create*,hardware/categories*,hardware/categories/create*",
+                    "http_path" => "hardware/tracks*,hardware/records*,hardware/categories*",
                     "order" => 27,
                     "parent_id" => 16,
                     "created_at" => "2020-11-19 13:38:18",
-                    "updated_at" => "2020-11-19 13:38:31"
+                    "updated_at" => "2020-12-19 01:19:39"
                 ],
                 [
                     "id" => 57,
@@ -1031,11 +1079,11 @@ class AdminTablesSeeder extends Seeder
                     "name" => "表单基础：全部",
                     "slug" => "staff.all",
                     "http_method" => "",
-                    "http_path" => "staff/records*,staff/records/create*,staff/departments*,staff/departments/create*",
+                    "http_path" => "staff/records*,staff/departments*",
                     "order" => 36,
                     "parent_id" => 17,
                     "created_at" => "2020-11-19 13:41:10",
-                    "updated_at" => "2020-11-19 13:41:34"
+                    "updated_at" => "2020-12-19 01:19:30"
                 ],
                 [
                     "id" => 59,
@@ -1053,11 +1101,11 @@ class AdminTablesSeeder extends Seeder
                     "name" => "表单基础：全部",
                     "slug" => "service.all",
                     "http_method" => "",
-                    "http_path" => "service/records*,service/records/create*,service/tracks*,service/tracks/create*,service/issues*,service/issues/create*",
+                    "http_path" => "service/records*,service/tracks*,service/issues*",
                     "order" => 41,
                     "parent_id" => 18,
                     "created_at" => "2020-11-19 13:45:00",
-                    "updated_at" => "2020-11-19 13:45:12"
+                    "updated_at" => "2020-12-19 01:19:23"
                 ],
                 [
                     "id" => 61,
@@ -1075,11 +1123,11 @@ class AdminTablesSeeder extends Seeder
                     "name" => "表单基础：全部",
                     "slug" => "check.all",
                     "http_method" => "",
-                    "http_path" => "check/records*,check/records/create*,check/tracks*,check/tracks/create*",
+                    "http_path" => "check/records*,check/tracks*",
                     "order" => 50,
                     "parent_id" => 19,
                     "created_at" => "2020-11-19 14:00:45",
-                    "updated_at" => "2020-11-19 14:00:55"
+                    "updated_at" => "2020-12-19 01:19:12"
                 ],
                 [
                     "id" => 63,
@@ -1097,11 +1145,11 @@ class AdminTablesSeeder extends Seeder
                     "name" => "表单基础：全部",
                     "slug" => "maintenance.all",
                     "http_method" => "",
-                    "http_path" => "maintenance/records*,maintenance/records/create*",
+                    "http_path" => "maintenance/records*",
                     "order" => 57,
                     "parent_id" => 20,
                     "created_at" => "2020-11-19 14:02:10",
-                    "updated_at" => "2020-11-30 09:30:13"
+                    "updated_at" => "2020-12-19 01:19:02"
                 ],
                 [
                     "id" => 65,
@@ -1119,11 +1167,11 @@ class AdminTablesSeeder extends Seeder
                     "name" => "表单基础：全部",
                     "slug" => "vendor.all",
                     "http_method" => "",
-                    "http_path" => "vendor/records*,vendor/records/create*",
+                    "http_path" => "vendor/records*",
                     "order" => 62,
                     "parent_id" => 21,
                     "created_at" => "2020-11-19 14:03:24",
-                    "updated_at" => "2020-11-30 09:30:14"
+                    "updated_at" => "2020-12-19 01:18:57"
                 ],
                 [
                     "id" => 67,
@@ -1141,11 +1189,11 @@ class AdminTablesSeeder extends Seeder
                     "name" => "表单基础：全部",
                     "slug" => "purchased.all",
                     "http_method" => "",
-                    "http_path" => "purchased/channels*,purchased/channels/create*",
+                    "http_path" => "purchased/channels*",
                     "order" => 65,
                     "parent_id" => 22,
                     "created_at" => "2020-11-19 14:04:39",
-                    "updated_at" => "2020-11-30 09:30:14"
+                    "updated_at" => "2020-12-19 01:18:49"
                 ],
                 [
                     "id" => 69,
@@ -1179,6 +1227,72 @@ class AdminTablesSeeder extends Seeder
                     "parent_id" => 70,
                     "created_at" => "2020-11-19 14:06:39",
                     "updated_at" => "2020-11-30 09:30:14"
+                ],
+                [
+                    "id" => 73,
+                    "name" => "折旧规则",
+                    "slug" => "depreciation_rule",
+                    "http_method" => "",
+                    "http_path" => "",
+                    "order" => 70,
+                    "parent_id" => 0,
+                    "created_at" => "2020-12-19 01:16:23",
+                    "updated_at" => "2020-12-19 01:16:32"
+                ],
+                [
+                    "id" => 74,
+                    "name" => "表单基础：只读",
+                    "slug" => "depreciation_rule.read-only",
+                    "http_method" => "GET",
+                    "http_path" => "depreciation/rules*",
+                    "order" => 71,
+                    "parent_id" => 73,
+                    "created_at" => "2020-12-19 01:17:19",
+                    "updated_at" => "2020-12-19 01:17:32"
+                ],
+                [
+                    "id" => 75,
+                    "name" => "表单基础：全部",
+                    "slug" => "depreciation_rule.all",
+                    "http_method" => "",
+                    "http_path" => "depreciation/rules*",
+                    "order" => 72,
+                    "parent_id" => 73,
+                    "created_at" => "2020-12-19 01:18:30",
+                    "updated_at" => "2020-12-19 01:18:30"
+                ],
+                [
+                    "id" => 76,
+                    "name" => "站点配置",
+                    "slug" => "configuration",
+                    "http_method" => "",
+                    "http_path" => "depreciation/rules*",
+                    "order" => 73,
+                    "parent_id" => 0,
+                    "created_at" => "2020-12-19 01:18:30",
+                    "updated_at" => "2020-12-19 01:18:30"
+                ],
+                [
+                    "id" => 77,
+                    "name" => "表单基础：只读",
+                    "slug" => "configuration.read-only",
+                    "http_method" => "GET",
+                    "http_path" => "configurations*",
+                    "order" => 74,
+                    "parent_id" => 76,
+                    "created_at" => "2020-12-19 01:18:30",
+                    "updated_at" => "2020-12-19 01:18:30"
+                ],
+                [
+                    "id" => 78,
+                    "name" => "表单基础：全部",
+                    "slug" => "configuration.all",
+                    "http_method" => "",
+                    "http_path" => "configurations*",
+                    "order" => 75,
+                    "parent_id" => 76,
+                    "created_at" => "2020-12-19 01:18:30",
+                    "updated_at" => "2020-12-19 01:18:30"
                 ]
             ]
         );
@@ -1204,66 +1318,30 @@ class AdminTablesSeeder extends Seeder
         );
 
         Models\Setting::truncate();
-		Models\Setting::insert(
-			[
-                [
-                    "slug" => "celaraze:dcatadmin-menu-switch",
-                    "value" => "[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]",
-                    "created_at" => "2020-11-09 16:22:52",
-                    "updated_at" => "2020-11-09 16:23:06"
-                ],
-                [
-                    "slug" => "dcat-admin:operation-log",
-                    "value" => "{\"except\":[],\"allowed_methods\":[],\"secret_fields\":[]}",
-                    "created_at" => "2020-11-04 15:19:51",
-                    "updated_at" => "2020-11-04 15:19:51"
-                ]
-            ]
-		);
+        Models\Setting::insert(
+            [
 
-		Models\Extension::truncate();
-		Models\Extension::insert(
-			[
-                [
-                    "id" => 6,
-                    "name" => "celaraze.colorful-bar",
-                    "version" => "1.0.0",
-                    "is_enabled" => 0,
-                    "options" => NULL,
-                    "created_at" => NULL,
-                    "updated_at" => "2020-11-09 15:51:07"
-                ],
-                [
-                    "id" => 7,
-                    "name" => "celaraze.dcatadmin-menu-switch",
-                    "version" => "1.0.0",
-                    "is_enabled" => 1,
-                    "options" => NULL,
-                    "created_at" => "2020-11-09 15:55:26",
-                    "updated_at" => "2020-11-09 15:55:30"
-                ]
             ]
-		);
+        );
 
-		Models\ExtensionHistory::truncate();
-		Models\ExtensionHistory::insert(
-			[
-                [
-                    "id" => 7,
-                    "name" => "celaraze.dcatadmin-menu-switch",
-                    "type" => 1,
-                    "version" => "1.0.0",
-                    "detail" => "Initialize extension.",
-                    "created_at" => "2020-11-09 15:55:26",
-                    "updated_at" => "2020-11-09 15:55:26"
-                ]
+        Models\Extension::truncate();
+        Models\Extension::insert(
+            [
+
             ]
-		);
+        );
+
+        Models\ExtensionHistory::truncate();
+        Models\ExtensionHistory::insert(
+            [
+
+            ]
+        );
 
         // pivot tables
         DB::table('admin_permission_menu')->truncate();
-		DB::table('admin_permission_menu')->insert(
-			[
+        DB::table('admin_permission_menu')->insert(
+            [
                 [
                     "permission_id" => 2,
                     "menu_id" => 32,
@@ -1895,7 +1973,7 @@ class AdminTablesSeeder extends Seeder
                     "updated_at" => NULL
                 ]
             ]
-		);
+        );
 
         DB::table('admin_role_menu')->truncate();
         DB::table('admin_role_menu')->insert(
@@ -1966,6 +2044,12 @@ class AdminTablesSeeder extends Seeder
                     "permission_id" => 69,
                     "created_at" => NULL,
                     "updated_at" => NULL
+                ],
+                [
+                    "role_id" => 2,
+                    "permission_id" => 74,
+                    "created_at" => "2020-12-19 01:20:17",
+                    "updated_at" => "2020-12-19 01:20:17"
                 ]
             ]
         );

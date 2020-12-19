@@ -30,7 +30,6 @@ class VersionController extends Controller
             ->body(function (Row $row) use ($version, $description) {
                 $row->column(3, function (Column $column) use ($version) {
                     $column->row(new Card('当前版本', $version));
-                    $column->row(new Card(view('version_buttons')));
                 });
                 $row->column(9, function (Column $column) use ($version, $description) {
                     $column->row(new Card($description['name'], $description['description']));

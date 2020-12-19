@@ -34,7 +34,7 @@ class CheckTrack extends Model
      * 盘点追踪有一个负责人
      * @return HasOne
      */
-    public function user(): HasOne
+    public function checker(): HasOne
     {
         return $this->hasOne(AdminUser::class, 'id', 'checker');
     }

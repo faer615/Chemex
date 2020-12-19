@@ -28,9 +28,9 @@ class HardwareRecordImportForm extends Form
             $rows = Excel::import($file_path)->first()->toArray();
             foreach ($rows as $row) {
                 try {
-                    if (!empty($row['名称']) && !empty($row['分类']) && !empty($row['制造商'] && !empty($row['规格']))) {
+                    if (!empty($row['名称']) && !empty($row['分类']) && !empty($row['厂商'] && !empty($row['规格']))) {
                         $category = HardwareCategory::where('name', $row['分类'])->first();
-                        $vendor = VendorRecord::where('name', $row['制造商'])->first();
+                        $vendor = VendorRecord::where('name', $row['厂商'])->first();
                         if (empty($category)) {
                             $category = new HardwareCategory();
                             $category->name = $row['分类'];
@@ -38,7 +38,7 @@ class HardwareRecordImportForm extends Form
                         }
                         if (empty($vendor)) {
                             $vendor = new VendorRecord();
-                            $vendor->name = $row['制造商'];
+                            $vendor->name = $row['厂商'];
                             $vendor->save();
                         }
                         $hardware_records = new HardwareCategory();
@@ -112,6 +112,6 @@ class HardwareRecordImportForm extends Form
             ->accept('xls,xlsx,csv')
             ->autoUpload()
             ->required()
-            ->help('导入支持xls、xlsx、csv文件，且表格头必须使用【名称，描述，分类，制造商，序列号，规格，价格，购入日期，过保日期，购入途径】。');
+            ->help('导入支持xls、xlsx、csv文件，且表格头必须使用【名称，描述，分类，厂商，序列号，规格，价格，购入日期，过保日期，购入途径】。');
     }
 }
