@@ -426,6 +426,42 @@ class AdminTablesSeeder extends Seeder
                     "show" => 1,
                     "created_at" => "2020-12-14 19:38:17",
                     "updated_at" => "2020-12-19 01:11:08"
+                ],
+                [
+                    "id" => 63,
+                    "parent_id" => 0,
+                    "order" => 28,
+                    "title" => "Tools",
+                    "icon" => "feather icon-layers",
+                    "uri" => "",
+                    "extension" => "",
+                    "show" => 1,
+                    "created_at" => "2020-12-14 19:38:17",
+                    "updated_at" => "2020-12-19 01:11:08"
+                ],
+                [
+                    "id" => 64,
+                    "parent_id" => 63,
+                    "order" => 29,
+                    "title" => "Chemex App",
+                    "icon" => "",
+                    "uri" => "/tools/chemex_app",
+                    "extension" => "",
+                    "show" => 1,
+                    "created_at" => "2020-12-14 19:38:17",
+                    "updated_at" => "2020-12-19 01:11:08"
+                ],
+                [
+                    "id" => 65,
+                    "parent_id" => 63,
+                    "order" => 30,
+                    "title" => "QRCode Generator",
+                    "icon" => "",
+                    "uri" => "/tools/qrcode_generator",
+                    "extension" => "",
+                    "show" => 1,
+                    "created_at" => "2020-12-14 19:38:17",
+                    "updated_at" => "2020-12-19 01:11:08"
                 ]
             ]
         );

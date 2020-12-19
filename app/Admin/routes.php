@@ -32,8 +32,8 @@ Route::group([
      */
     $router->get('/tools/qrcode_generator', 'ToolQRCodeGeneratorController@index')
         ->name('qrcode_generator');
-    $router->get('/tools/android_app', 'ToolAndroidAppController@index')
-        ->name('android_app');
+    $router->get('/tools/chemex_app', 'ToolChemexAppController@index')
+        ->name('chemex_app');
 
     /**
      * 测试

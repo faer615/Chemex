@@ -153,7 +153,7 @@ class DeviceRecordController extends AdminController
 
             $grid->column('id');
             $grid->column('qrcode')->qrcode(function () {
-                return base64_encode('device:' . $this->id);
+                return 'device:' . $this->id;
             }, 200, 200);
             $grid->column('asset_number');
             $grid->column('photo')->image('', 50, 50);

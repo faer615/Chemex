@@ -133,7 +133,7 @@ class SoftwareRecordController extends AdminController
         return Grid::make(new SoftwareRecord(['category', 'vendor']), function (Grid $grid) {
             $grid->column('id');
             $grid->column('qrcode')->qrcode(function () {
-                return base64_encode('software:' . $this->id);
+                return 'software:' . $this->id;
             }, 200, 200);
             $grid->column('name');
             $grid->column('asset_number');

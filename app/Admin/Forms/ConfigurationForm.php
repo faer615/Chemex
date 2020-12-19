@@ -36,9 +36,11 @@ class ConfigurationForm extends Form
             ->required();
         $this->image('site_logo')
             ->autoUpload()
+            ->uniqueName()
             ->default(admin_setting('site_logo'));
         $this->image('site_logo_mini')
             ->autoUpload()
+            ->uniqueName()
             ->default(admin_setting('site_logo_mini'));
     }
 }

@@ -42,7 +42,7 @@ return [
         'depreciation_rules' => '折旧规则',
         'version' => '版本信息',
         'tools' => '工具',
-        'android_app' => 'Android客户端',
+        'chemex_app' => 'Chemex App',
         'qrcode_generator' => '二维码批量生成',
         'configuration' => '站点配置'
     ],

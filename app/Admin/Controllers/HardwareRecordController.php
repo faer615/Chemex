@@ -39,7 +39,7 @@ class HardwareRecordController extends AdminController
         return Grid::make(new HardwareRecord(['category', 'vendor', 'device', 'depreciation']), function (Grid $grid) {
             $grid->column('id');
             $grid->column('qrcode')->qrcode(function () {
-                return base64_encode('hardware:' . $this->id);
+                return 'hardware:' . $this->id;
             }, 200, 200);
             $grid->column('asset_number');
             $grid->column('name');
