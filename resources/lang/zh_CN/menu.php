@@ -43,6 +43,7 @@ return [
         'version' => '版本信息',
         'tools' => '工具',
         'android_app' => 'Android客户端',
-        'qrcode_generator' => '二维码批量生成'
+        'qrcode_generator' => '二维码批量生成',
+        'configuration' => '站点配置'
     ],
 ];

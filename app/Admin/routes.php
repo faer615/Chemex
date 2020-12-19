@@ -24,6 +24,8 @@ Route::group([
         ->name('migrate');
     $router->get('/version/clear', 'VersionController@clear')
         ->name('clear');
+    $router->get('/configurations', 'ConfigurationController@index')
+        ->name('configurations.index');
 
     /**
      * 工具

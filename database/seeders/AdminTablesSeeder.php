@@ -414,6 +414,18 @@ class AdminTablesSeeder extends Seeder
                     "show" => 1,
                     "created_at" => "2020-12-14 19:38:17",
                     "updated_at" => "2020-12-19 01:11:08"
+                ],
+                [
+                    "id" => 62,
+                    "parent_id" => 56,
+                    "order" => 29,
+                    "title" => "Configuration",
+                    "icon" => "",
+                    "uri" => "/configurations",
+                    "extension" => "",
+                    "show" => 1,
+                    "created_at" => "2020-12-14 19:38:17",
+                    "updated_at" => "2020-12-19 01:11:08"
                 ]
             ]
         );
@@ -1210,6 +1222,39 @@ class AdminTablesSeeder extends Seeder
                     "http_path" => "depreciation/rules*",
                     "order" => 72,
                     "parent_id" => 73,
+                    "created_at" => "2020-12-19 01:18:30",
+                    "updated_at" => "2020-12-19 01:18:30"
+                ],
+                [
+                    "id" => 76,
+                    "name" => "站点配置",
+                    "slug" => "configuration",
+                    "http_method" => "",
+                    "http_path" => "depreciation/rules*",
+                    "order" => 73,
+                    "parent_id" => 0,
+                    "created_at" => "2020-12-19 01:18:30",
+                    "updated_at" => "2020-12-19 01:18:30"
+                ],
+                [
+                    "id" => 77,
+                    "name" => "表单基础：只读",
+                    "slug" => "configuration.read-only",
+                    "http_method" => "GET",
+                    "http_path" => "configurations*",
+                    "order" => 74,
+                    "parent_id" => 76,
+                    "created_at" => "2020-12-19 01:18:30",
+                    "updated_at" => "2020-12-19 01:18:30"
+                ],
+                [
+                    "id" => 78,
+                    "name" => "表单基础：全部",
+                    "slug" => "configuration.all",
+                    "http_method" => "",
+                    "http_path" => "configurations*",
+                    "order" => 75,
+                    "parent_id" => 76,
                     "created_at" => "2020-12-19 01:18:30",
                     "updated_at" => "2020-12-19 01:18:30"
                 ]
