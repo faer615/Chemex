@@ -8,6 +8,7 @@ use App\Admin\Repositories\ServiceIssue;
 use App\Support\Data;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Grid;
+use Dcat\Admin\Grid\Tools\Selector;
 use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Show;
 use Dcat\Admin\Widgets\Alert;
@@ -53,6 +54,13 @@ class ServiceIssueController extends AdminController
             $grid->quickSearch('id', 'service.name', 'issue')
                 ->placeholder('试着搜索一下')
                 ->auto(false);
+
+            $grid->selector(function (Selector $selector) {
+                $selector->select('status', '状态', [
+                    1 => '故障',
+                    2 => '恢复'
+                ]);
+            });
 
         });
     }

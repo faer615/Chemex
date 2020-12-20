@@ -28,12 +28,12 @@ class ConfigurationForm extends Form
     public function form()
     {
         $this->text('site_title')
-            ->default(admin_setting('site_title'))
-            ->required();
+            ->required()
+            ->default(admin_setting('site_title'));
         $this->text('site_logo_text')
-            ->default(admin_setting('site_logo_text'))
             ->help('文本LOGO显示的优先度低于图片，当没有上传图片作为LOGO时，此项将生效。')
-            ->required();
+            ->required()
+            ->default(admin_setting('site_logo_text'));
         $this->image('site_logo')
             ->autoUpload()
             ->uniqueName()
