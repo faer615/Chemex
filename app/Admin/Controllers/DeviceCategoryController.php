@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Grid\ToolAction\DeviceCategoryImportAction;
 use App\Admin\Repositories\DeviceCategory;
 use App\Models\DepreciationRule;
 use Dcat\Admin\Form;
@@ -27,6 +28,10 @@ class DeviceCategoryController extends AdminController
 
             $grid->toolsWithOutline(false);
             $grid->enableDialogCreate();
+
+            $grid->tools([
+                new DeviceCategoryImportAction()
+            ]);
 
             $grid->quickSearch('id', 'name', 'description')
                 ->placeholder('试着搜索一下')

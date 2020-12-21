@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Grid\ToolAction\PurchasedChannelImportAction;
 use App\Admin\Repositories\PurchasedChannel;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -23,6 +24,12 @@ class PurchasedChannelController extends AdminController
             $grid->column('description');
             $grid->column('created_at');
             $grid->column('updated_at');
+
+            $grid->toolsWithOutline(false);
+
+            $grid->tools([
+                new PurchasedChannelImportAction()
+            ]);
 
             $grid->quickSearch('id', 'name', 'description')
                 ->placeholder('试着搜索一下')

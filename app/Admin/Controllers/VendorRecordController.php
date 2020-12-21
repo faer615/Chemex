@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Grid\ToolAction\VendorRecordImportAction;
 use App\Admin\Repositories\VendorRecord;
 use Dcat\Admin\Form;
 use Dcat\Admin\Form\NestedForm;
@@ -32,6 +33,10 @@ class VendorRecordController extends AdminController
             $grid->disableBatchActions();
 
             $grid->toolsWithOutline(false);
+
+            $grid->tools([
+                new VendorRecordImportAction()
+            ]);
 
             $grid->export();
         });

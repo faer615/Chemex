@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * @method static where(string $key, string $value)
  * @property string name
+ * @property string description
+ * @property string location
  */
 class VendorRecord extends Model
 {

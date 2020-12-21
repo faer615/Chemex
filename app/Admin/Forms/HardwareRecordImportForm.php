@@ -3,6 +3,7 @@
 namespace App\Admin\Forms;
 
 use App\Models\HardwareCategory;
+use App\Models\HardwareRecord;
 use App\Models\PurchasedChannel;
 use App\Models\VendorRecord;
 use Box\Spout\Common\Exception\IOException;
@@ -41,28 +42,28 @@ class HardwareRecordImportForm extends Form
                             $vendor->name = $row['厂商'];
                             $vendor->save();
                         }
-                        $hardware_records = new HardwareCategory();
-                        $hardware_records->name = $row['名称'];
-                        $hardware_records->category_id = $category->id;
-                        $hardware_records->vendor_id = $vendor->id;
+                        $hardware_record = new HardwareRecord();
+                        $hardware_record->name = $row['名称'];
+                        $hardware_record->category_id = $category->id;
+                        $hardware_record->vendor_id = $vendor->id;
                         // 这里导入判断空值，不能使用 ?? null 或者 ?? '' 的方式，写入数据库的时候
                         // 会默认为插入''而不是null，这会导致像price这样的double也是插入''，就会报错
                         // 其实price应该插入null
                         if (!empty($row['序列号'])) {
-                            $hardware_records->sn = $row['序列号'];
+                            $hardware_record->sn = $row['序列号'];
                         }
-                        $hardware_records->specification = $row['规格'];
+                        $hardware_record->specification = $row['规格'];
                         if (!empty($row['描述'])) {
-                            $hardware_records->description = $row['描述'];
+                            $hardware_record->description = $row['描述'];
                         }
                         if (!empty($row['价格'])) {
-                            $hardware_records->price = $row['价格'];
+                            $hardware_record->price = $row['价格'];
                         }
                         if (!empty($row['购入日期'])) {
-                            $hardware_records->purchased = $row['购入日期'];
+                            $hardware_record->purchased = $row['购入日期'];
                         }
                         if (!empty($row['过保日期'])) {
-                            $hardware_records->expired = $row['过保日期'];
+                            $hardware_record->expired = $row['过保日期'];
                         }
                         if (!empty($row['购入途径'])) {
                             $purchased_channel = PurchasedChannel::where('name', $row['购入途径'])->first();
@@ -71,9 +72,9 @@ class HardwareRecordImportForm extends Form
                                 $purchased_channel->name = $row['购入途径'];
                                 $purchased_channel->save();
                             }
-                            $hardware_records->purchased_channel_id = $purchased_channel->id;
+                            $hardware_record->purchased_channel_id = $purchased_channel->id;
                         }
-                        $hardware_records->save();
+                        $hardware_record->save();
                     } else {
                         return $this->response()
                             ->error('缺少必要的字段！');

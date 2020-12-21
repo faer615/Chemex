@@ -18,6 +18,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string specification
  * @property int category_id
  * @property int vendor_id
+ * @property string name
+ * @property string description
+ * @property string sn
+ * @property int purchased_channel_id
  */
 class HardwareRecord extends Model
 {

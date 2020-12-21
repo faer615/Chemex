@@ -41,24 +41,24 @@ class SoftwareRecordImportForm extends Form
                             $vendor->name = $row['厂商'];
                             $vendor->save();
                         }
-                        $software_records = new SoftwareRecord();
-                        $software_records->name = $row['名称'];
-                        $software_records->category_id = $category->id;
-                        $software_records->vendor_id = $vendor->id;
+                        $software_record = new SoftwareRecord();
+                        $software_record->name = $row['名称'];
+                        $software_record->category_id = $category->id;
+                        $software_record->vendor_id = $vendor->id;
                         // 这里导入判断空值，不能使用 ?? null 或者 ?? '' 的方式，写入数据库的时候
                         // 会默认为插入''而不是null，这会导致像price这样的double也是插入''，就会报错
                         // 其实price应该插入null
                         if (!empty($row['版本'])) {
-                            $software_records->version = $row['版本'];
+                            $software_record->version = $row['版本'];
                         }
                         if (!empty($row['价格'])) {
-                            $software_records->price = $row['价格'];
+                            $software_record->price = $row['价格'];
                         }
                         if (!empty($row['购入日期'])) {
-                            $software_records->purchased = $row['购入日期'];
+                            $software_record->purchased = $row['购入日期'];
                         }
                         if (!empty($row['过保日期'])) {
-                            $software_records->expired = $row['过保日期'];
+                            $software_record->expired = $row['过保日期'];
                         }
                         if (!empty($row['购入途径'])) {
                             $purchased_channel = PurchasedChannel::where('name', $row['购入途径'])->first();
@@ -67,7 +67,7 @@ class SoftwareRecordImportForm extends Form
                                 $purchased_channel->name = $row['购入途径'];
                                 $purchased_channel->save();
                             }
-                            $software_records->purchased_channel_id = $purchased_channel->id;
+                            $software_record->purchased_channel_id = $purchased_channel->id;
                         }
                         $software_records->save();
                     } else {

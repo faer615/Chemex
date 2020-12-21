@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static where(string $key, string $value)
  * @property string name
  * @property string description
- * @property int purchased_channel_id
  */
 class HardwareCategory extends Model
 {

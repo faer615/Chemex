@@ -27,6 +27,10 @@ class ConfigurationForm extends Form
      */
     public function form()
     {
+        $this->url('site_url')
+            ->help('站点域名决定了静态资源（头像、图片等）的显示路径，可以包含端口号，例如 http://chemex.it:8000 。')
+            ->required()
+            ->default(admin_setting('site_url'));
         $this->text('site_title')
             ->required()
             ->default(admin_setting('site_title'));

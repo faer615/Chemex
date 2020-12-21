@@ -42,14 +42,25 @@ if (empty(admin_setting('site_logo_mini'))) {
     $logo_mini = "<img src='$logo_mini'>";
 }
 
+if (empty(admin_setting('site_url'))) {
+    $site_url = 'http://localhost';
+} else {
+    $site_url = admin_setting('site_url');
+}
+
 /**
  * 复写admin站点配置
  */
 config([
+    'app.url' => $site_url,
+
     'admin.title' => admin_setting('site_title'),
     'admin.logo' => $logo,
-    'admin.logo-mini' => $logo_mini
+    'admin.logo-mini' => $logo_mini,
+
+    'filesystems.disks.admin.url' => $site_url . '/uploads'
 ]);
+//dd(config());
 
 /**
  * 自定义全局CSS
