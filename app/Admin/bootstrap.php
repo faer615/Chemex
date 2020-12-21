@@ -60,7 +60,6 @@ config([
 
     'filesystems.disks.admin.url' => $site_url . '/uploads'
 ]);
-//dd(config());
 
 /**
  * 自定义全局CSS

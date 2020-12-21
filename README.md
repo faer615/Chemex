@@ -1,3 +1,8 @@
+```PHP
+$user = \App\Models\ChartRecord::class;
+```
+
+
 <p align="center">
     <img src="https://oss.celaraze.com/chemex/logo-mini.png" />
 </p>

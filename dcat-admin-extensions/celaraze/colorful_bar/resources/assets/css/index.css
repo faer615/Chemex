@@ -1,7 +1,7 @@
 .header-navbar {
     background: linear-gradient(
         90deg,
-        rgba(255, 255, 255, 1),
+        transparent,
         rgba(168, 47, 67, 0.1),
         rgba(231, 72, 98, 0.1),
         rgba(229, 129, 67, 0.1),
@@ -11,6 +11,7 @@
         rgba(19, 185, 203, 0.1),
         rgba(187, 133, 160, 0.1),
         rgba(237, 132, 193, 0.1),
-        rgba(255, 255, 255, 1)
+        rgba(255, 255, 255, 1),
+        transparent
     );
 }
