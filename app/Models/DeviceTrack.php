@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Traits\HasCreator;
 use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -15,16 +14,8 @@ class DeviceTrack extends Model
 {
     use HasDateTimeFormatter;
     use SoftDeletes;
-    use HasCreator;
 
     protected $table = 'device_tracks';
-
-    protected static function booted()
-    {
-        static::saving(function ($model) {
-            self::hasCreator($model);
-        });
-    }
 
     /**
      * 设备追踪有一个设备记录

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Traits\HasCreator;
 use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -17,16 +16,8 @@ class HardwareCategory extends Model
 {
     use HasDateTimeFormatter;
     use SoftDeletes;
-    use HasCreator;
 
     protected $table = 'hardware_categories';
-
-    protected static function booted()
-    {
-        static::saving(function ($model) {
-            self::hasCreator($model);
-        });
-    }
 
     /**
      * 硬件分类有一个折旧规则

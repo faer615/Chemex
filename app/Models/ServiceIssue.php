@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Traits\HasCreator;
 use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -20,16 +19,8 @@ class ServiceIssue extends Model
 {
     use HasDateTimeFormatter;
     use SoftDeletes;
-    use HasCreator;
 
     protected $table = 'service_issues';
-
-    protected static function booted()
-    {
-        static::saving(function ($model) {
-            self::hasCreator($model);
-        });
-    }
 
     /**
      * 服务程序异常有一个服务程序记录

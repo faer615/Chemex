@@ -7,10 +7,25 @@ use App\Admin\Repositories\StaffDepartment;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Http\Controllers\AdminController;
+use Dcat\Admin\Layout\Content;
+use Dcat\Admin\Layout\Row;
 use Dcat\Admin\Show;
+use Dcat\Admin\Tree;
 
 class StaffDepartmentController extends AdminController
 {
+
+    public function index(Content $content)
+    {
+        return $content
+            ->title($this->title())
+            ->description(trans('admin.list'))
+            ->body(function (Row $row) {
+                $tree = new Tree(new \App\Models\StaffDepartment());
+                $row->column(12, $tree);
+            });
+    }
+
     /**
      * Make a grid builder.
      *
