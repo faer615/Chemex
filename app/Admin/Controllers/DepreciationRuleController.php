@@ -24,6 +24,10 @@ class DepreciationRuleController extends AdminController
             $grid->column('description');
 
             $grid->toolsWithOutline(false);
+
+            $grid->quickSearch('id', 'name', 'description')
+                ->placeholder('试着搜索以下')
+                ->auto(false);
         });
     }
 

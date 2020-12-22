@@ -58,7 +58,7 @@
                 </a>
             </li>
             <li class="scrollable-container media-list ps ps--active-y">
-                <a class="media d-flex justify-content-between" href="https://gitee.com/celaraze/Chemex/wikis"
+                <a class="media d-flex justify-content-between" href="https://gitee.com/celaraze/Chemex/wikis/pages"
                    target="_blank">
                     <div class="d-flex align-items-start">
                         <div class="media-left">
