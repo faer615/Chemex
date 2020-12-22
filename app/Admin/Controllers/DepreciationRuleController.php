@@ -22,6 +22,8 @@ class DepreciationRuleController extends AdminController
             $grid->column('id');
             $grid->column('name');
             $grid->column('description');
+
+            $grid->toolsWithOutline(false);
         });
     }
 
