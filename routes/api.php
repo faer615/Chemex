@@ -34,3 +34,7 @@ Route::get('check/{string}', [InfoController::class, 'check']);
 Route::get('phpinfo', function () {
     return phpinfo();
 });
+
+Route::get('test', function () {
+
+});
