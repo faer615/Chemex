@@ -108,9 +108,6 @@ class HardwareRecordController extends AdminController
             $show->field('specification');
             $show->field('sn');
             $show->field('price');
-            $show->field('purchased');
-            $show->field('expired');
-            $show->field('depreciation.name');
             $show->field('', admin_trans_label('Depreciation Price'))->as(function () {
                 $hardware_record = \App\Models\HardwareRecord::where('id', $this->id)->first();
                 if (!empty($hardware_record)) {
@@ -118,6 +115,9 @@ class HardwareRecordController extends AdminController
                     return Info::depreciationPrice($this->price, $this->purchased, $depreciation_rule_id);
                 }
             });
+            $show->field('purchased');
+            $show->field('expired');
+            $show->field('depreciation.name');
             $show->field('created_at');
             $show->field('updated_at');
 

@@ -110,6 +110,13 @@ class DeviceRecordController extends AdminController
             $show->field('ip');
             $show->field('photo')->image();
             $show->field('price');
+            $show->field('', admin_trans_label('Depreciation Price'))->as(function () {
+                $device_record = \App\Models\DeviceRecord::where('id', $this->id)->first();
+                if (!empty($device_record)) {
+                    $depreciation_rule_id = Info::getDepreciationRuleId($device_record);
+                    return Info::depreciationPrice($this->price, $this->purchased, $depreciation_rule_id);
+                }
+            });
             $show->field('purchased');
             $show->field('expired');
             //TODO 对安全密码和管理员密码做权限设定
@@ -118,13 +125,6 @@ class DeviceRecordController extends AdminController
             $show->field('security_password');
             $show->field('admin_password');
             $show->field('depreciation.name');
-            $show->field('', admin_trans_label('Depreciation Price'))->as(function () {
-                $device_record = \App\Models\DeviceRecord::where('id', $this->id)->first();
-                if (!empty($device_record)) {
-                    $depreciation_rule_id = Info::getDepreciationRuleId($device_record);
-                    return Info::depreciationPrice($this->price, $this->purchased, $depreciation_rule_id);
-                }
-            });
             $show->field('created_at');
             $show->field('updated_at');
 

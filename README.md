@@ -60,7 +60,7 @@
 
 ## 简介
 
-加入用户微信群请添加微信号 `Celaraze`，并且备注 Chemex 用户，无备注将不会通过。
+加入用户微信群请添加微信号 `Celaraze`，并且备注 Chemex 用户，无备注将不会通过，有问题可以在群内反馈讨论，非紧急也请不要@我，多次影响我作息会被请出，恕不私聊。
 
 咖啡壶（Chemex）是一个轻量的、现代设计风格的 ICT 资产管理系统。得益于 [Laravel](https://laravel.com/) 框架以及 [Dcat Admin](https://dcatadmin.com)
 开发平台，使其具备了优雅、简洁的优秀体验。 咖啡壶（Chemex）
@@ -133,7 +133,8 @@ UI设计来自多个优秀开源项目，例如：Bootstrap、AdminLTE、Apex Ch
 
 8：进入项目根目录，执行 `php artisan chemex:install` 进行安装。
 
-9：你可能使用的web服务器为 `nginx` 以及 `apache`，无论怎样，应用的起始路径在 `/public` 目录，请确保指向正确。
+9：你可能使用的web服务器为 `nginx` 以及 `apache`，无论怎样，应用的起始路径在 `/public` 目录，请确保指向正确，同时程序的根目录权限应该调整为：拥有者和你的 Web
+服务器运行用户一致，且根目录权限为 `755`。
 
 10：修改web服务器的伪静态规则为：`try_files $uri $uri/ /index.php?$args;`。
 
@@ -176,9 +177,11 @@ UI设计来自多个优秀开源项目，例如：Bootstrap、AdminLTE、Apex Ch
 
 ![](https://oss.celaraze.com/chemex/screencapture-127-0-0-1-8000-device-records-1607935130912.png)
 
-## 参与贡献
+## 咖啡壶没有满足我的需求，我想要咖啡壶成为我想要的样子
 
-`Fork` 本仓库，修改代码，提交 `Pull Request`。
+咖啡壶是开源的，程序本体及其衍生工具的源码都在你的手中，你可以自行修改成为你想要的样子。
+
+`Fork` 本仓库，修改代码，成为你的。
 
 ## 开源协议
 
