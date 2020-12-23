@@ -205,8 +205,7 @@ class CheckRecordController extends AdminController
 
             // 保存回调，创建盘点任务的同时，自动生成与之相关的全部盘点追踪记录
             $form->saved(function (Form $form) {
-                $check_record = $form->model();
-                switch ($check_record->check_item) {
+                switch ($form->check_item) {
                     case 'hardware':
                         $items = HardwareRecord::all();
                         break;

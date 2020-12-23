@@ -13,6 +13,12 @@ class CheckFinishAction extends RowAction
 {
     protected $title = '⚡ 完成任务';
 
+    public function __construct($title = null)
+    {
+        $this->title = admin_setting('title');
+        parent::__construct($title);
+    }
+
     /**
      * 处理动作逻辑
      * @return Response
