@@ -8,7 +8,8 @@ return [
         'name' => '名称',
         'description' => '描述',
         'rules' => '规则',
-        'year' => '年份',
+        'number' => '周期',
+        'scale' => '尺度',
         'ratio' => '比率'
     ],
     'options' => [

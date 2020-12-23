@@ -61,10 +61,17 @@ class DepreciationRuleController extends AdminController
             $form->display('id');
             $form->text('name')->required();
             $form->text('description')
-                ->help('年份填入最大即可，例如2年代表超过2年，5年代表超过5年，规则会优先从高到低匹配，先判断是否超过5年，如果没有超过则再判断是否超过3年，以此类推。');
+                ->help('周期填入最大即可，例如2年代表超过2年，5年代表超过5年，规则会优先从高到低匹配，先判断是否超过5年，如果没有超过则再判断是否超过3年，以此类推。');
             $form->table('rules', function (NestedForm $table) {
-                $table->number('year')
+                $table->number('number')
                     ->min(0)
+                    ->required();
+                $table->select('scale')
+                    ->options([
+                        'day' => '天',
+                        'month' => '月',
+                        'year' => '年'
+                    ])
                     ->required();
                 $table->currency('ratio')
                     ->symbol('0.00 ~ 1.00 之间')

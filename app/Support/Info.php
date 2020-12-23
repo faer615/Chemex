@@ -161,19 +161,35 @@ class Info
         if (empty($depreciation)) {
             return $price;
         } else {
-            $year = date('Y', strtotime($date));
-            $current_year = date('Y', time());
-            $diff = (int)$current_year - (int)$year;
+
+            $purchased_timestamp = strtotime($date);
+            $now_timestamp = time();
+
+            $diff = $now_timestamp - $purchased_timestamp;
+            if ($diff < 0) {
+                return $price;
+            }
 
             $data = $depreciation['rules'];
 
             // 数组过滤器
             $return = array_filter($data, function ($item) use ($diff) {
-                return $diff >= (int)$item['year'];
+                switch ($item['scale']) {
+                    case 'month':
+                        $number = (int)$item['number'] * 24 * 60 * 60 * 30;
+                        break;
+                    case 'year':
+                        $number = (int)$item['number'] * 24 * 60 * 60 * 365;
+                        break;
+                    default:
+                        $number = (int)$item['number'] * 24 * 60 * 60;
+                }
+
+                return $diff >= $number;
             });
 
             if (!empty($return)) {
-                array_multisort(array_column($return, 'year'), SORT_DESC, $return);
+                array_multisort(array_column($return, 'number'), SORT_DESC, $return);
                 $price = $price * (double)$return[0]['ratio'];
             }
             return $price;

@@ -234,4 +234,17 @@ class Data
         return $data;
     }
 
+    /**
+     * 返回时间尺度
+     * @return string[]
+     */
+    public static function timeScales(): array
+    {
+        return [
+            'day' => '天',
+            'month' => '月',
+            'year' => '年'
+        ];
+    }
+
 }
