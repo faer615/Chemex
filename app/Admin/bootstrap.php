@@ -101,6 +101,7 @@ if (!empty($user)) {
     $notifications = $user->unreadNotifications;
     $notifications = json_decode($notifications, true);
 }
+
 Admin::navbar(function (Navbar $navbar) use ($notifications) {
     $navbar->left(view('nav_left'));
     $navbar->right(view('nav_right')->with('notifications', $notifications));

@@ -1,10 +1,24 @@
 <ul class="nav navbar-nav">
     {{--全局按钮--}}
-    <li class="dropdown dropdown-notification nav-item">
-        <a class="nav-link nav-link-label" href="#" data-toggle="dropdown" aria-expanded="true">
+    <li class="dropdown dropdown-notification nav-item mr-1">
+        <a class="nav-link nav-link-label" href="#" data-toggle="dropdown" aria-expanded="true" onclick="checkUpdate()">
             <i class="ficon feather icon-loader"></i>
         </a>
         <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right shadow-200">
+            <li class="scrollable-container media-list ps ps--active-y">
+                <a class="media d-flex justify-content-between" href="#">
+                    <div class="d-flex align-items-start">
+                        <div class="media-left">
+                        </div>
+                        <div class="media-body">
+                            <h6 class="primary media-heading">版本</h6>
+                            <small class="notification-text" id="version_text">
+
+                            </small>
+                        </div>
+                    </div>
+                </a>
+            </li>
             <li class="scrollable-container media-list ps ps--active-y">
                 <a class="media d-flex justify-content-between" href="#" onclick="clearCache()">
                     <div class="d-flex align-items-start">
@@ -37,7 +51,7 @@
     </li>
 
     {{--帮助信息--}}
-    <li class="dropdown dropdown-notification nav-item">
+    <li class="dropdown dropdown-notification nav-item mr-1">
         <a class="nav-link nav-link-label" href="#" data-toggle="dropdown" aria-expanded="true">
             <i class="ficon feather icon-help-circle"></i>
         </a>
@@ -83,7 +97,7 @@
                                 如果你想和其他咖啡壶用户交流，可以添加以下二维码，如果提示二维码过期，请更新咖啡壶至最新版本即可。
                             </small>
                             <div class="mt-1">
-                                <img src="/static/images/qrcode.jpg" style="width: 100%;">
+                                <img src="https://chemex.celaraze.com/wechat_qrcode.jpg" style="width: 100%;">
                             </div>
                         </div>
                     </div>
@@ -93,7 +107,7 @@
     </li>
 
     {{--通知--}}
-    <li class="dropdown dropdown-notification nav-item">
+    <li class="dropdown dropdown-notification nav-item mr-1" style="text-align: center">
         <a class="nav-link nav-link-label" href="#" data-toggle="dropdown" aria-expanded="true">
             <i class="ficon feather icon-bell"></i>
             @if(count($notifications)>0)
@@ -136,6 +150,25 @@
 </ul>
 
 <script>
+    function checkUpdate() {
+        let html = document.getElementById('version_text');
+        html.innerHTML = '正在检查新版本...';
+        $.ajax({
+            url: "/version/remote",
+            success: function (res) {
+                if (res !== '') {
+                    console.log(res);
+                    html.innerHTML = '<a href="https://gitee.com/celaraze/Chemex/tree/' + res + '" target="_blank">版本：' + res + ' 已发布。</a>';
+                } else {
+                    html.innerHTML = '很棒，已经是最新版本了！';
+                }
+            },
+            error: function (res) {
+                Dcat.error('执行错误：' + res);
+            }
+        });
+    }
+
     /**
      * 更新数据库结构
      */

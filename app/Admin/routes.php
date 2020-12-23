@@ -20,6 +20,8 @@ Route::group([
      * 辅助信息
      */
     $router->get('/version', 'VersionController@index');
+    $router->get('/version/remote', 'VersionController@getRemoteVersion')
+        ->name('remote');
     $router->get('/version/migrate', 'VersionController@migrate')
         ->name('migrate');
     $router->get('/version/clear', 'VersionController@clear')

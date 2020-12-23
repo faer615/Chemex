@@ -4,6 +4,7 @@ namespace App\Admin\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Services\ConfigService;
+use App\Support\System;
 use App\Support\Version;
 use Dcat\Admin\Layout\Column;
 use Dcat\Admin\Layout\Content;
@@ -65,5 +66,14 @@ class VersionController extends Controller
             $return = Uni::rr(500, '缓存清理失败');
         }
         return response()->json($return);
+    }
+
+    /**
+     * 获取远程版本号
+     * @return string|null
+     */
+    public function getRemoteVersion(): ?string
+    {
+        return System::getLatestVersionFromGitee();
     }
 }
