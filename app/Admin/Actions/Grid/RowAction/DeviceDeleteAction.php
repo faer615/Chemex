@@ -4,7 +4,7 @@ namespace App\Admin\Actions\Grid\RowAction;
 
 use App\Models\DeviceRecord;
 use App\Models\DeviceTrack;
-use App\Models\HardwareTrack;
+use App\Models\PartTrack;
 use App\Models\ServiceTrack;
 use App\Models\SoftwareTrack;
 use Dcat\Admin\Actions\Response;
@@ -30,7 +30,7 @@ class DeviceDeleteAction extends RowAction
         $device = DeviceRecord::where('id', $this->getKey())->first();
         if (empty($device)) {
             return $this->response()
-                ->error('没有此硬件记录！');
+                ->error('没有此配件记录！');
         }
 
         // 软删除设备归属记录
@@ -39,10 +39,10 @@ class DeviceDeleteAction extends RowAction
             $device_track->delete();
         }
 
-        // 软删除硬件归属记录
-        $hardware_tracks = HardwareTrack::where('device_id', $device->id)->get();
-        foreach ($hardware_tracks as $hardware_track) {
-            $hardware_track->delete();
+        // 软删除配件归属记录
+        $part_tracks = PartTrack::where('device_id', $device->id)->get();
+        foreach ($part_tracks as $part_track) {
+            $part_track->delete();
         }
 
         // 软删除软件归属记录

@@ -2,10 +2,10 @@
 
 namespace App\Admin\Repositories;
 
-use App\Models\HardwareCategory as Model;
+use App\Models\PartTrack as Model;
 use Dcat\Admin\Repositories\EloquentRepository;
 
-class HardwareCategory extends EloquentRepository
+class PartTrack extends EloquentRepository
 {
     /**
      * Model.

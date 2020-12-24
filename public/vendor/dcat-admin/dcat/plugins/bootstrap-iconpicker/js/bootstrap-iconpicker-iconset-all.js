@@ -12640,7 +12640,7 @@
                     'gym',
                     'hair-care',
                     'hang-gliding',
-                    'hardware-store',
+                    'part-store',
                     'health',
                     'hindu-temple',
                     'horse-riding',

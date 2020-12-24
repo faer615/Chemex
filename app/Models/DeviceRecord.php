@@ -62,18 +62,18 @@ class DeviceRecord extends Model
     }
 
     /**
-     * 设备记录在远处有很多硬件
+     * 设备记录在远处有很多配件
      * @return HasManyThrough
      */
-    public function hardware(): HasManyThrough
+    public function part(): HasManyThrough
     {
         return $this->hasManyThrough(
-            HardwareRecord::class,  // 远程表
-            HardwareTrack::class,   // 中间表
+            PartRecord::class,  // 远程表
+            PartTrack::class,   // 中间表
             'device_id',    // 中间表对主表的关联字段
             'id',   // 远程表对中间表的关联字段
             'id',   // 主表对中间表的关联字段
-            'hardware_id'); // 中间表对远程表的关联字段
+            'part_id'); // 中间表对远程表的关联字段
     }
 
     /**

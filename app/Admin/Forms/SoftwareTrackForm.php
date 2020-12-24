@@ -79,7 +79,7 @@ class SoftwareTrackForm extends Form implements LazyRenderable
             }
         }
 
-        // 创建新的硬件追踪
+        // 创建新的配件追踪
         $software_track = new SoftwareTrack();
         $software_track->software_id = $software_id;
         $software_track->device_id = $device_id;

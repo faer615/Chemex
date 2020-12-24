@@ -2,8 +2,8 @@
 
 namespace App\Admin\Forms;
 
-use App\Models\HardwareCategory;
-use App\Models\HardwareRecord;
+use App\Models\PartCategory;
+use App\Models\PartRecord;
 use App\Models\PurchasedChannel;
 use App\Models\VendorRecord;
 use Box\Spout\Common\Exception\IOException;
@@ -14,7 +14,7 @@ use Dcat\EasyExcel\Excel;
 use Exception;
 use League\Flysystem\FileNotFoundException;
 
-class HardwareRecordImportForm extends Form
+class PartRecordImportForm extends Form
 {
     /**
      * 处理表单提交逻辑
@@ -30,10 +30,10 @@ class HardwareRecordImportForm extends Form
             foreach ($rows as $row) {
                 try {
                     if (!empty($row['名称']) && !empty($row['分类']) && !empty($row['厂商'] && !empty($row['规格']))) {
-                        $category = HardwareCategory::where('name', $row['分类'])->first();
+                        $category = PartCategory::where('name', $row['分类'])->first();
                         $vendor = VendorRecord::where('name', $row['厂商'])->first();
                         if (empty($category)) {
-                            $category = new HardwareCategory();
+                            $category = new PartCategory();
                             $category->name = $row['分类'];
                             $category->save();
                         }
@@ -42,28 +42,28 @@ class HardwareRecordImportForm extends Form
                             $vendor->name = $row['厂商'];
                             $vendor->save();
                         }
-                        $hardware_record = new HardwareRecord();
-                        $hardware_record->name = $row['名称'];
-                        $hardware_record->category_id = $category->id;
-                        $hardware_record->vendor_id = $vendor->id;
+                        $part_record = new PartRecord();
+                        $part_record->name = $row['名称'];
+                        $part_record->category_id = $category->id;
+                        $part_record->vendor_id = $vendor->id;
                         // 这里导入判断空值，不能使用 ?? null 或者 ?? '' 的方式，写入数据库的时候
                         // 会默认为插入''而不是null，这会导致像price这样的double也是插入''，就会报错
                         // 其实price应该插入null
                         if (!empty($row['序列号'])) {
-                            $hardware_record->sn = $row['序列号'];
+                            $part_record->sn = $row['序列号'];
                         }
-                        $hardware_record->specification = $row['规格'];
+                        $part_record->specification = $row['规格'];
                         if (!empty($row['描述'])) {
-                            $hardware_record->description = $row['描述'];
+                            $part_record->description = $row['描述'];
                         }
                         if (!empty($row['价格'])) {
-                            $hardware_record->price = $row['价格'];
+                            $part_record->price = $row['价格'];
                         }
                         if (!empty($row['购入日期'])) {
-                            $hardware_record->purchased = $row['购入日期'];
+                            $part_record->purchased = $row['购入日期'];
                         }
                         if (!empty($row['过保日期'])) {
-                            $hardware_record->expired = $row['过保日期'];
+                            $part_record->expired = $row['过保日期'];
                         }
                         if (!empty($row['购入途径'])) {
                             $purchased_channel = PurchasedChannel::where('name', $row['购入途径'])->first();
@@ -72,9 +72,9 @@ class HardwareRecordImportForm extends Form
                                 $purchased_channel->name = $row['购入途径'];
                                 $purchased_channel->save();
                             }
-                            $hardware_record->purchased_channel_id = $purchased_channel->id;
+                            $part_record->purchased_channel_id = $purchased_channel->id;
                         }
-                        $hardware_record->save();
+                        $part_record->save();
                     } else {
                         return $this->response()
                             ->error('缺少必要的字段！');

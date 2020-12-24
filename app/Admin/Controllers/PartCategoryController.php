@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Repositories\HardwareCategory;
+use App\Admin\Repositories\PartCategory;
 use App\Models\DepreciationRule;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -12,7 +12,7 @@ use Dcat\Admin\Layout\Row;
 use Dcat\Admin\Show;
 use Dcat\Admin\Tree;
 
-class HardwareCategoryController extends AdminController
+class PartCategoryController extends AdminController
 {
     public function index(Content $content): Content
     {
@@ -20,7 +20,7 @@ class HardwareCategoryController extends AdminController
             ->title($this->title())
             ->description(trans('admin.list'))
             ->body(function (Row $row) {
-                $tree = new Tree(new \App\Models\HardwareCategory());
+                $tree = new Tree(new \App\Models\PartCategory());
                 $row->column(12, $tree);
             });
     }
@@ -32,7 +32,7 @@ class HardwareCategoryController extends AdminController
      */
     protected function grid(): Grid
     {
-        return Grid::make(new HardwareCategory(['parent', 'depreciation']), function (Grid $grid) {
+        return Grid::make(new PartCategory(['parent', 'depreciation']), function (Grid $grid) {
             $grid->column('id');
             $grid->column('name');
             $grid->column('description');
@@ -58,7 +58,7 @@ class HardwareCategoryController extends AdminController
      */
     protected function detail($id): Show
     {
-        return Show::make($id, new HardwareCategory(['parent', 'depreciation']), function (Show $show) {
+        return Show::make($id, new PartCategory(['parent', 'depreciation']), function (Show $show) {
             $show->field('id');
             $show->field('name');
             $show->field('description');
@@ -76,12 +76,12 @@ class HardwareCategoryController extends AdminController
      */
     protected function form(): Form
     {
-        return Form::make(new HardwareCategory(), function (Form $form) {
+        return Form::make(new PartCategory(), function (Form $form) {
             $form->display('id');
             $form->text('name')->required();
             $form->text('description');
             $form->select('parent_id', admin_trans_label('Parent'))
-                ->options(\App\Models\HardwareCategory::all()
+                ->options(\App\Models\PartCategory::all()
                     ->pluck('name', 'id'));
             $form->select('depreciation_rule_id', admin_trans_label('Depreciation Rule Id'))
                 ->options(DepreciationRule::all()

@@ -2,10 +2,10 @@
 
 namespace App\Admin\Repositories;
 
-use App\Models\HardwareRecord as Model;
+use App\Models\PartCategory as Model;
 use Dcat\Admin\Repositories\EloquentRepository;
 
-class HardwareRecord extends EloquentRepository
+class PartCategory extends EloquentRepository
 {
     /**
      * Model.

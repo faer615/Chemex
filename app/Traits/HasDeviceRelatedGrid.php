@@ -4,7 +4,7 @@
 namespace App\Traits;
 
 
-use App\Admin\Repositories\HardwareTrack;
+use App\Admin\Repositories\PartTrack;
 use App\Admin\Repositories\ServiceTrack;
 use App\Admin\Repositories\SoftwareTrack;
 use App\Support\Data;
@@ -13,36 +13,36 @@ use Dcat\Admin\Grid;
 trait HasDeviceRelatedGrid
 {
     /**
-     * 查看某个设备下面的全部关联硬件&软件&服务程序，并且返回它们的渲染集合
+     * 查看某个设备下面的全部关联配件&软件&服务程序，并且返回它们的渲染集合
      * @param $device_id
      * @return array
      */
     public static function hasDeviceRelated($device_id): array
     {
         $result = [];
-        // 硬件
-        $grid = Grid::make(new HardwareTrack(['hardware', 'hardware.category', 'hardware.vendor']), function (Grid $grid) use ($device_id) {
+        // 配件
+        $grid = Grid::make(new PartTrack(['part', 'part.category', 'part.vendor']), function (Grid $grid) use ($device_id) {
             $grid->model()->where('device_id', '=', $device_id);
             $grid->tableCollapse(false);
             $grid->withBorder();
 
             $grid->column('id');
-            $grid->column('hardware.category.name');
-            $grid->column('hardware.name')->link(function () {
-                if (!empty($this->hardware)) {
-                    return route('hardware.records.show', $this->hardware['id']);
+            $grid->column('part.category.name');
+            $grid->column('part.name')->link(function () {
+                if (!empty($this->part)) {
+                    return route('part.records.show', $this->part['id']);
                 }
             });
-            $grid->column('hardware.specification');
-            $grid->column('hardware.sn');
-            $grid->column('hardware.vendor.name');
+            $grid->column('part.specification');
+            $grid->column('part.sn');
+            $grid->column('part.vendor.name');
 
             $grid->disableToolbar();
             $grid->disableBatchActions();
             $grid->disableRowSelector();
             $grid->disableActions();
         });
-        $result['hardware'] = $grid;
+        $result['part'] = $grid;
 
         // 软件
         $grid = Grid::make(new SoftwareTrack(['software', 'software.category', 'software.vendor']), function (Grid $grid) use ($device_id) {

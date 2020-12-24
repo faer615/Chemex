@@ -4,35 +4,36 @@
 namespace App\Admin\Metrics;
 
 
-use App\Models\HardwareRecord;
+use App\Models\PartRecord;
 use Closure;
 use Dcat\Admin\Grid\LazyRenderable as LazyGrid;
 use Dcat\Admin\Traits\LazyWidget;
 use Dcat\Admin\Widgets\Card;
 use Illuminate\Contracts\Support\Renderable;
 
-class HardwareExpiredCounts extends Card
+class PartAboutToExpireCounts extends Card
 {
     /**
      * @param string|Closure|Renderable|LazyWidget $content
      *
-     * @return HardwareExpiredCounts
+     * @return PartAboutToExpireCounts
      */
-    public function content($content): HardwareExpiredCounts
+    public function content($content): PartAboutToExpireCounts
     {
         if ($content instanceof LazyGrid) {
             $content->simple();
         }
-
-        $counts = HardwareRecord::where('expired', '<', date(now()))->count();
+        $from = date('Y-m-d', time());
+        $to = date('Y-m-d', time() + (60 * 60 * 24 * 30));
+        $counts = PartRecord::whereBetween('expired', [$from, $to])->count();
 
         $html = <<<HTML
 <div class="info-box" style="background:transparent;margin-bottom: 0;padding: 0;">
-    <span class="info-box-icon"><i class="feather icon-server" style="color:rgba(178,68,71,1);"></i></span>
-    <div class="info-box-content">
-        <span class="info-box-text mt-1">已过保的硬件数量</span>
-        <span class="info-box-number">{$counts}</span>
-    </div>
+<span class="info-box-icon"><i class="feather icon-server" style="color:rgba(255,153,76,1);"></i></span>
+  <div class="info-box-content">
+    <span class="info-box-text mt-1">即将过保的设备数量</span>
+    <span class="info-box-number">{$counts}</span>
+  </div>
 </div>
 HTML;
 

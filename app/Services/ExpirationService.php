@@ -5,7 +5,7 @@ namespace App\Services;
 
 
 use App\Models\DeviceRecord;
-use App\Models\HardwareRecord;
+use App\Models\PartRecord;
 use App\Models\SoftwareRecord;
 
 /**
@@ -65,8 +65,8 @@ class ExpirationService
     {
         $item = null;
         switch ($item_type) {
-            case 'hardware':
-                $item = HardwareRecord::where('id', $id)->first();
+            case 'part':
+                $item = PartRecord::where('id', $id)->first();
                 break;
             case 'software':
                 $item = SoftwareRecord::where('id', $id)->first();

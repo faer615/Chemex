@@ -38,7 +38,7 @@ return [
         'expired' => '过保日期',
         'security_password' => '安全密码',
         'admin_password' => '管理员密码',
-        'hardware' => [
+        'part' => [
             'category' => [
                 'name' => '分类'
             ],

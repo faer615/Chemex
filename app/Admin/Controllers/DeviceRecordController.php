@@ -76,7 +76,7 @@ class DeviceRecordController extends AdminController
                     $column->row(Card::make()->content('当前使用者：' . $name));
                     if (Admin::user()->can('device.related')) {
                         $result = self::hasDeviceRelated($id);
-                        $column->row(new Card('硬件', $result['hardware']));
+                        $column->row(new Card('配件', $result['part']));
                         $column->row(new Card('软件', $result['software']));
                         $column->row(new Card('服务', $result['service']));
                     }

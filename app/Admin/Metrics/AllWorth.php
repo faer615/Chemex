@@ -28,17 +28,17 @@ class AllWorth extends Card
         if (empty($device)) {
             $device = 0;
         }
-        $hardware = DB::select('SELECT SUM(price) as total from hardware_records WHERE deleted_at IS NULL');
-        $hardware = $hardware[0]->total;
-        if (empty($hardware)) {
-            $hardware = 0;
+        $part = DB::select('SELECT SUM(price) as total from part_records WHERE deleted_at IS NULL');
+        $part = $part[0]->total;
+        if (empty($part)) {
+            $part = 0;
         }
         $software = DB::select('SELECT SUM(price) as total from software_records WHERE deleted_at IS NULL');
         $software = $software[0]->total;
         if (empty($software)) {
             $software = 0;
         }
-        $total = $device + $hardware + $software;
+        $total = $device + $part + $software;
         $html = <<<HTML
 <div class="small-box" style="margin-bottom: 0;background: rgba(34,34,51,0.5);border-radius: .25rem;">
   <div class="inner">

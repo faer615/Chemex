@@ -3,8 +3,8 @@
 namespace App\Admin\Forms;
 
 use App\Models\DeviceRecord;
-use App\Models\HardwareRecord;
 use App\Models\MaintenanceRecord;
+use App\Models\PartRecord;
 use Dcat\Admin\Contracts\LazyRenderable;
 use Dcat\Admin\Http\JsonResponse;
 use Dcat\Admin\Traits\LazyWidget;
@@ -40,8 +40,8 @@ class MaintenanceForm extends Form implements LazyRenderable
         }
 
         switch ($item) {
-            case 'hardware':
-                $item_record = HardwareRecord::where('id', $item_id)->first();
+            case 'part':
+                $item_record = PartRecord::where('id', $item_id)->first();
                 break;
             default:
                 $item_record = DeviceRecord::where('id', $item_id)->first();
@@ -53,7 +53,7 @@ class MaintenanceForm extends Form implements LazyRenderable
                 ->error('物品不存在');
         }
 
-        // 创建新的硬件追踪
+        // 创建新的配件追踪
         $maintenance_record = new MaintenanceRecord();
         $maintenance_record->item = $item;
         $maintenance_record->item_id = $item_id;

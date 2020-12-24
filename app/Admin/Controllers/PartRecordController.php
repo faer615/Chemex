@@ -2,15 +2,15 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Actions\Grid\RowAction\HardwareDeleteAction;
-use App\Admin\Actions\Grid\RowAction\HardwareTrackAction;
 use App\Admin\Actions\Grid\RowAction\MaintenanceAction;
-use App\Admin\Actions\Grid\ToolAction\HardwareRecordImportAction;
+use App\Admin\Actions\Grid\RowAction\PartDeleteAction;
+use App\Admin\Actions\Grid\RowAction\PartTrackAction;
+use App\Admin\Actions\Grid\ToolAction\PartRecordImportAction;
 use App\Admin\Grid\Displayers\RowActions;
-use App\Admin\Repositories\HardwareRecord;
+use App\Admin\Repositories\PartRecord;
 use App\Models\DepreciationRule;
 use App\Models\DeviceRecord;
-use App\Models\HardwareCategory;
+use App\Models\PartCategory;
 use App\Models\PurchasedChannel;
 use App\Models\VendorRecord;
 use App\Services\ExpirationService;
@@ -27,7 +27,7 @@ use Dcat\Admin\Show;
  * @property double price
  * @property string purchased
  */
-class HardwareRecordController extends AdminController
+class PartRecordController extends AdminController
 {
     /**
      * Make a grid builder.
@@ -36,10 +36,10 @@ class HardwareRecordController extends AdminController
      */
     protected function grid(): Grid
     {
-        return Grid::make(new HardwareRecord(['category', 'vendor', 'device', 'depreciation']), function (Grid $grid) {
+        return Grid::make(new PartRecord(['category', 'vendor', 'device', 'depreciation']), function (Grid $grid) {
             $grid->column('id');
             $grid->column('qrcode')->qrcode(function () {
-                return 'hardware:' . $this->id;
+                return 'part:' . $this->id;
             }, 200, 200);
             $grid->column('asset_number');
             $grid->column('name');
@@ -49,17 +49,17 @@ class HardwareRecordController extends AdminController
             $grid->column('specification');
             $grid->column('sn');
             $grid->column('', admin_trans_label('Expiration Left Days'))->display(function () {
-                return ExpirationService::itemExpirationLeftDaysRender('hardware', $this->id);
+                return ExpirationService::itemExpirationLeftDaysRender('part', $this->id);
             });
             $grid->actions(function (RowActions $actions) {
-                if (Admin::user()->can('hardware.delete')) {
-                    $actions->append(new HardwareDeleteAction());
+                if (Admin::user()->can('part.delete')) {
+                    $actions->append(new PartDeleteAction());
                 }
-                if (Admin::user()->can('hardware.track')) {
-                    $actions->append(new HardwareTrackAction());
+                if (Admin::user()->can('part.track')) {
+                    $actions->append(new PartTrackAction());
                 }
-                if (Admin::user()->can('hardware.maintenance')) {
-                    $actions->append(new MaintenanceAction('hardware'));
+                if (Admin::user()->can('part.maintenance')) {
+                    $actions->append(new MaintenanceAction('part'));
                 }
             });
             $grid->column('device.name')->link(function () {
@@ -79,7 +79,7 @@ class HardwareRecordController extends AdminController
             $grid->disableBatchActions();
 
             $grid->tools([
-                new HardwareRecordImportAction()
+                new PartRecordImportAction()
             ]);
 
             $grid->toolsWithOutline(false);
@@ -96,7 +96,7 @@ class HardwareRecordController extends AdminController
      */
     protected function detail($id): Show
     {
-        return Show::make($id, new HardwareRecord(['category', 'vendor', 'channel', 'device', 'depreciation']), function (Show $show) {
+        return Show::make($id, new PartRecord(['category', 'vendor', 'channel', 'device', 'depreciation']), function (Show $show) {
             $show->field('id');
             $show->field('name');
             $show->field('asset_number');
@@ -109,9 +109,9 @@ class HardwareRecordController extends AdminController
             $show->field('sn');
             $show->field('price');
             $show->field('', admin_trans_label('Depreciation Price'))->as(function () {
-                $hardware_record = \App\Models\HardwareRecord::where('id', $this->id)->first();
-                if (!empty($hardware_record)) {
-                    $depreciation_rule_id = Info::getDepreciationRuleId($hardware_record);
+                $part_record = \App\Models\PartRecord::where('id', $this->id)->first();
+                if (!empty($part_record)) {
+                    $depreciation_rule_id = Info::getDepreciationRuleId($part_record);
                     return Info::depreciationPrice($this->price, $this->purchased, $depreciation_rule_id);
                 }
             });
@@ -132,11 +132,11 @@ class HardwareRecordController extends AdminController
      */
     protected function form(): Form
     {
-        return Form::make(new HardwareRecord(), function (Form $form) {
+        return Form::make(new PartRecord(), function (Form $form) {
             $form->display('id');
             $form->text('name')->required();
             $form->select('category_id', admin_trans_label('Category'))
-                ->options(HardwareCategory::selectOptions())
+                ->options(PartCategory::selectOptions())
                 ->required();
             $form->text('specification')->required();
             $form->select('vendor_id', admin_trans_label('Vendor'))

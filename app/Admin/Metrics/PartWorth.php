@@ -11,19 +11,19 @@ use Dcat\Admin\Widgets\Card;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Facades\DB;
 
-class HardwareWorth extends Card
+class PartWorth extends Card
 {
     /**
      * @param string|Closure|Renderable|LazyWidget $content
      *
-     * @return HardwareWorth
+     * @return PartWorth
      */
-    public function content($content): HardwareWorth
+    public function content($content): PartWorth
     {
         if ($content instanceof LazyGrid) {
             $content->simple();
         }
-        $total = DB::select('SELECT SUM(price) as total from hardware_records WHERE deleted_at IS NULL');
+        $total = DB::select('SELECT SUM(price) as total from part_records WHERE deleted_at IS NULL');
         $total = $total[0]->total;
         if (empty($total)) {
             $total = 0;
@@ -32,7 +32,7 @@ class HardwareWorth extends Card
 <div class="small-box" style="margin-bottom: 0;background: rgba(34,34,51,0.5);border-radius: .25rem">
   <div class="inner">
     <h3 class="font-grey">{$total}</h3>
-    <p class="font-grey">硬件总价值</p>
+    <p class="font-grey">配件总价值</p>
   </div>
 </div>
 HTML;

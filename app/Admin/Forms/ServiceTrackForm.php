@@ -53,7 +53,7 @@ class ServiceTrackForm extends Form implements LazyRenderable
         $service_track = ServiceTrack::where('service_id', $service_id)
             ->first();
 
-        // 如果硬件追踪非空，则删除旧追踪，为了留下流水记录
+        // 如果配件追踪非空，则删除旧追踪，为了留下流水记录
         if (!empty($service_track)) {
             // 如果新设备和旧设备相同，返回错误
             if ($service_track->device_id == $device_id) {
@@ -64,7 +64,7 @@ class ServiceTrackForm extends Form implements LazyRenderable
             }
         }
 
-        // 创建新的硬件追踪
+        // 创建新的配件追踪
         $service_track = new ServiceTrack();
         $service_track->service_id = $service_id;
         $service_track->device_id = $device_id;

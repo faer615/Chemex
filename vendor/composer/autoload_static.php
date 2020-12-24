@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitdea0a7b565accb12530b41c12af85cc4
+class ComposerStaticInit1b0e3bdc513b415a6ce4c0d7fd1222be
 {
     public static $files = array (
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
@@ -734,11 +734,11 @@ class ComposerStaticInitdea0a7b565accb12530b41c12af85cc4
         'App\\Admin\\Actions\\Grid\\RowAction\\DeviceSSHInfoAction' => __DIR__ . '/../..' . '/app/Admin/Actions/Grid/RowAction/DeviceSSHInfoAction.php',
         'App\\Admin\\Actions\\Grid\\RowAction\\DeviceTrackAction' => __DIR__ . '/../..' . '/app/Admin/Actions/Grid/RowAction/DeviceTrackAction.php',
         'App\\Admin\\Actions\\Grid\\RowAction\\DeviceTrackDisableAction' => __DIR__ . '/../..' . '/app/Admin/Actions/Grid/RowAction/DeviceTrackDisableAction.php',
-        'App\\Admin\\Actions\\Grid\\RowAction\\HardwareDeleteAction' => __DIR__ . '/../..' . '/app/Admin/Actions/Grid/RowAction/HardwareDeleteAction.php',
-        'App\\Admin\\Actions\\Grid\\RowAction\\HardwareTrackAction' => __DIR__ . '/../..' . '/app/Admin/Actions/Grid/RowAction/HardwareTrackAction.php',
-        'App\\Admin\\Actions\\Grid\\RowAction\\HardwareTrackDisableAction' => __DIR__ . '/../..' . '/app/Admin/Actions/Grid/RowAction/HardwareTrackDisableAction.php',
         'App\\Admin\\Actions\\Grid\\RowAction\\MaintenanceAction' => __DIR__ . '/../..' . '/app/Admin/Actions/Grid/RowAction/MaintenanceAction.php',
         'App\\Admin\\Actions\\Grid\\RowAction\\MaintenanceFixAction' => __DIR__ . '/../..' . '/app/Admin/Actions/Grid/RowAction/MaintenanceFixAction.php',
+        'App\\Admin\\Actions\\Grid\\RowAction\\PartDeleteAction' => __DIR__ . '/../..' . '/app/Admin/Actions/Grid/RowAction/PartDeleteAction.php',
+        'App\\Admin\\Actions\\Grid\\RowAction\\PartTrackAction' => __DIR__ . '/../..' . '/app/Admin/Actions/Grid/RowAction/PartTrackAction.php',
+        'App\\Admin\\Actions\\Grid\\RowAction\\PartTrackDisableAction' => __DIR__ . '/../..' . '/app/Admin/Actions/Grid/RowAction/PartTrackDisableAction.php',
         'App\\Admin\\Actions\\Grid\\RowAction\\ServiceDeleteAction' => __DIR__ . '/../..' . '/app/Admin/Actions/Grid/RowAction/ServiceDeleteAction.php',
         'App\\Admin\\Actions\\Grid\\RowAction\\ServiceIssueAction' => __DIR__ . '/../..' . '/app/Admin/Actions/Grid/RowAction/ServiceIssueAction.php',
         'App\\Admin\\Actions\\Grid\\RowAction\\ServiceIssueFixAction' => __DIR__ . '/../..' . '/app/Admin/Actions/Grid/RowAction/ServiceIssueFixAction.php',
@@ -750,7 +750,7 @@ class ComposerStaticInitdea0a7b565accb12530b41c12af85cc4
         'App\\Admin\\Actions\\Grid\\RowAction\\StaffDeleteAction' => __DIR__ . '/../..' . '/app/Admin/Actions/Grid/RowAction/StaffDeleteAction.php',
         'App\\Admin\\Actions\\Grid\\ToolAction\\DeviceCategoryImportAction' => __DIR__ . '/../..' . '/app/Admin/Actions/Grid/ToolAction/DeviceCategoryImportAction.php',
         'App\\Admin\\Actions\\Grid\\ToolAction\\DeviceRecordImportAction' => __DIR__ . '/../..' . '/app/Admin/Actions/Grid/ToolAction/DeviceRecordImportAction.php',
-        'App\\Admin\\Actions\\Grid\\ToolAction\\HardwareRecordImportAction' => __DIR__ . '/../..' . '/app/Admin/Actions/Grid/ToolAction/HardwareRecordImportAction.php',
+        'App\\Admin\\Actions\\Grid\\ToolAction\\PartRecordImportAction' => __DIR__ . '/../..' . '/app/Admin/Actions/Grid/ToolAction/PartRecordImportAction.php',
         'App\\Admin\\Actions\\Grid\\ToolAction\\PurchasedChannelImportAction' => __DIR__ . '/../..' . '/app/Admin/Actions/Grid/ToolAction/PurchasedChannelImportAction.php',
         'App\\Admin\\Actions\\Grid\\ToolAction\\SoftwareRecordImportAction' => __DIR__ . '/../..' . '/app/Admin/Actions/Grid/ToolAction/SoftwareRecordImportAction.php',
         'App\\Admin\\Actions\\Grid\\ToolAction\\StaffDepartmentImportAction' => __DIR__ . '/../..' . '/app/Admin/Actions/Grid/ToolAction/StaffDepartmentImportAction.php',
@@ -766,12 +766,12 @@ class ComposerStaticInitdea0a7b565accb12530b41c12af85cc4
         'App\\Admin\\Controllers\\DeviceCategoryController' => __DIR__ . '/../..' . '/app/Admin/Controllers/DeviceCategoryController.php',
         'App\\Admin\\Controllers\\DeviceRecordController' => __DIR__ . '/../..' . '/app/Admin/Controllers/DeviceRecordController.php',
         'App\\Admin\\Controllers\\DeviceTrackController' => __DIR__ . '/../..' . '/app/Admin/Controllers/DeviceTrackController.php',
-        'App\\Admin\\Controllers\\HardwareCategoryController' => __DIR__ . '/../..' . '/app/Admin/Controllers/HardwareCategoryController.php',
-        'App\\Admin\\Controllers\\HardwareRecordController' => __DIR__ . '/../..' . '/app/Admin/Controllers/HardwareRecordController.php',
-        'App\\Admin\\Controllers\\HardwareTrackController' => __DIR__ . '/../..' . '/app/Admin/Controllers/HardwareTrackController.php',
         'App\\Admin\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Admin/Controllers/HomeController.php',
         'App\\Admin\\Controllers\\MaintenanceRecordController' => __DIR__ . '/../..' . '/app/Admin/Controllers/MaintenanceRecordController.php',
         'App\\Admin\\Controllers\\NotificationController' => __DIR__ . '/../..' . '/app/Admin/Controllers/NotificationController.php',
+        'App\\Admin\\Controllers\\PartCategoryController' => __DIR__ . '/../..' . '/app/Admin/Controllers/PartCategoryController.php',
+        'App\\Admin\\Controllers\\PartRecordController' => __DIR__ . '/../..' . '/app/Admin/Controllers/PartRecordController.php',
+        'App\\Admin\\Controllers\\PartTrackController' => __DIR__ . '/../..' . '/app/Admin/Controllers/PartTrackController.php',
         'App\\Admin\\Controllers\\PurchasedChannelController' => __DIR__ . '/../..' . '/app/Admin/Controllers/PurchasedChannelController.php',
         'App\\Admin\\Controllers\\ServiceIssueController' => __DIR__ . '/../..' . '/app/Admin/Controllers/ServiceIssueController.php',
         'App\\Admin\\Controllers\\ServiceRecordController' => __DIR__ . '/../..' . '/app/Admin/Controllers/ServiceRecordController.php',
@@ -792,10 +792,10 @@ class ComposerStaticInitdea0a7b565accb12530b41c12af85cc4
         'App\\Admin\\Forms\\DeviceRecordImportForm' => __DIR__ . '/../..' . '/app/Admin/Forms/DeviceRecordImportForm.php',
         'App\\Admin\\Forms\\DeviceSSHInfoForm' => __DIR__ . '/../..' . '/app/Admin/Forms/DeviceSSHInfoForm.php',
         'App\\Admin\\Forms\\DeviceTrackForm' => __DIR__ . '/../..' . '/app/Admin/Forms/DeviceTrackForm.php',
-        'App\\Admin\\Forms\\HardwareRecordImportForm' => __DIR__ . '/../..' . '/app/Admin/Forms/HardwareRecordImportForm.php',
-        'App\\Admin\\Forms\\HardwareTrackForm' => __DIR__ . '/../..' . '/app/Admin/Forms/HardwareTrackForm.php',
         'App\\Admin\\Forms\\MaintenanceFixForm' => __DIR__ . '/../..' . '/app/Admin/Forms/MaintenanceFixForm.php',
         'App\\Admin\\Forms\\MaintenanceForm' => __DIR__ . '/../..' . '/app/Admin/Forms/MaintenanceForm.php',
+        'App\\Admin\\Forms\\PartRecordImportForm' => __DIR__ . '/../..' . '/app/Admin/Forms/PartRecordImportForm.php',
+        'App\\Admin\\Forms\\PartTrackForm' => __DIR__ . '/../..' . '/app/Admin/Forms/PartTrackForm.php',
         'App\\Admin\\Forms\\PurchasedChannelImportForm' => __DIR__ . '/../..' . '/app/Admin/Forms/PurchasedChannelImportForm.php',
         'App\\Admin\\Forms\\ServiceIssueFixForm' => __DIR__ . '/../..' . '/app/Admin/Forms/ServiceIssueFixForm.php',
         'App\\Admin\\Forms\\ServiceIssueForm' => __DIR__ . '/../..' . '/app/Admin/Forms/ServiceIssueForm.php',
@@ -808,18 +808,18 @@ class ComposerStaticInitdea0a7b565accb12530b41c12af85cc4
         'App\\Admin\\Grid\\Displayers\\RowActions' => __DIR__ . '/../..' . '/app/Admin/Grid/Displayers/RowActions.php',
         'App\\Admin\\Metrics\\AllWorth' => __DIR__ . '/../..' . '/app/Admin/Metrics/AllWorth.php',
         'App\\Admin\\Metrics\\CheckDevicePercentage' => __DIR__ . '/../..' . '/app/Admin/Metrics/CheckDevicePercentage.php',
-        'App\\Admin\\Metrics\\CheckHardwarePercentage' => __DIR__ . '/../..' . '/app/Admin/Metrics/CheckHardwarePercentage.php',
+        'App\\Admin\\Metrics\\CheckPartPercentage' => __DIR__ . '/../..' . '/app/Admin/Metrics/CheckPartPercentage.php',
         'App\\Admin\\Metrics\\CheckSoftwarePercentage' => __DIR__ . '/../..' . '/app/Admin/Metrics/CheckSoftwarePercentage.php',
         'App\\Admin\\Metrics\\DeviceAboutToExpireCounts' => __DIR__ . '/../..' . '/app/Admin/Metrics/DeviceAboutToExpireCounts.php',
         'App\\Admin\\Metrics\\DeviceCounts' => __DIR__ . '/../..' . '/app/Admin/Metrics/DeviceCounts.php',
         'App\\Admin\\Metrics\\DeviceExpiredCounts' => __DIR__ . '/../..' . '/app/Admin/Metrics/DeviceExpiredCounts.php',
         'App\\Admin\\Metrics\\DeviceWorth' => __DIR__ . '/../..' . '/app/Admin/Metrics/DeviceWorth.php',
-        'App\\Admin\\Metrics\\HardwareAboutToExpireCounts' => __DIR__ . '/../..' . '/app/Admin/Metrics/HardwareAboutToExpireCounts.php',
-        'App\\Admin\\Metrics\\HardwareCounts' => __DIR__ . '/../..' . '/app/Admin/Metrics/HardwareCounts.php',
-        'App\\Admin\\Metrics\\HardwareExpiredCounts' => __DIR__ . '/../..' . '/app/Admin/Metrics/HardwareExpiredCounts.php',
-        'App\\Admin\\Metrics\\HardwareWorth' => __DIR__ . '/../..' . '/app/Admin/Metrics/HardwareWorth.php',
         'App\\Admin\\Metrics\\IssueTrend' => __DIR__ . '/../..' . '/app/Admin/Metrics/IssueTrend.php',
         'App\\Admin\\Metrics\\MaintenanceTrend' => __DIR__ . '/../..' . '/app/Admin/Metrics/MaintenanceTrend.php',
+        'App\\Admin\\Metrics\\PartAboutToExpireCounts' => __DIR__ . '/../..' . '/app/Admin/Metrics/PartAboutToExpireCounts.php',
+        'App\\Admin\\Metrics\\PartCounts' => __DIR__ . '/../..' . '/app/Admin/Metrics/PartCounts.php',
+        'App\\Admin\\Metrics\\PartExpiredCounts' => __DIR__ . '/../..' . '/app/Admin/Metrics/PartExpiredCounts.php',
+        'App\\Admin\\Metrics\\PartWorth' => __DIR__ . '/../..' . '/app/Admin/Metrics/PartWorth.php',
         'App\\Admin\\Metrics\\ServiceCounts' => __DIR__ . '/../..' . '/app/Admin/Metrics/ServiceCounts.php',
         'App\\Admin\\Metrics\\ServiceIssueCounts' => __DIR__ . '/../..' . '/app/Admin/Metrics/ServiceIssueCounts.php',
         'App\\Admin\\Metrics\\SoftwareAboutToExpireCounts' => __DIR__ . '/../..' . '/app/Admin/Metrics/SoftwareAboutToExpireCounts.php',
@@ -836,10 +836,10 @@ class ComposerStaticInitdea0a7b565accb12530b41c12af85cc4
         'App\\Admin\\Repositories\\DeviceCategory' => __DIR__ . '/../..' . '/app/Admin/Repositories/DeviceCategory.php',
         'App\\Admin\\Repositories\\DeviceRecord' => __DIR__ . '/../..' . '/app/Admin/Repositories/DeviceRecord.php',
         'App\\Admin\\Repositories\\DeviceTrack' => __DIR__ . '/../..' . '/app/Admin/Repositories/DeviceTrack.php',
-        'App\\Admin\\Repositories\\HardwareCategory' => __DIR__ . '/../..' . '/app/Admin/Repositories/HardwareCategory.php',
-        'App\\Admin\\Repositories\\HardwareRecord' => __DIR__ . '/../..' . '/app/Admin/Repositories/HardwareRecord.php',
-        'App\\Admin\\Repositories\\HardwareTrack' => __DIR__ . '/../..' . '/app/Admin/Repositories/HardwareTrack.php',
         'App\\Admin\\Repositories\\MaintenanceRecord' => __DIR__ . '/../..' . '/app/Admin/Repositories/MaintenanceRecord.php',
+        'App\\Admin\\Repositories\\PartCategory' => __DIR__ . '/../..' . '/app/Admin/Repositories/PartCategory.php',
+        'App\\Admin\\Repositories\\PartRecord' => __DIR__ . '/../..' . '/app/Admin/Repositories/PartRecord.php',
+        'App\\Admin\\Repositories\\PartTrack' => __DIR__ . '/../..' . '/app/Admin/Repositories/PartTrack.php',
         'App\\Admin\\Repositories\\PurchasedChannel' => __DIR__ . '/../..' . '/app/Admin/Repositories/PurchasedChannel.php',
         'App\\Admin\\Repositories\\ServiceIssue' => __DIR__ . '/../..' . '/app/Admin/Repositories/ServiceIssue.php',
         'App\\Admin\\Repositories\\ServiceRecord' => __DIR__ . '/../..' . '/app/Admin/Repositories/ServiceRecord.php',
@@ -876,11 +876,11 @@ class ComposerStaticInitdea0a7b565accb12530b41c12af85cc4
         'App\\Models\\DeviceCategory' => __DIR__ . '/../..' . '/app/Models/DeviceCategory.php',
         'App\\Models\\DeviceRecord' => __DIR__ . '/../..' . '/app/Models/DeviceRecord.php',
         'App\\Models\\DeviceTrack' => __DIR__ . '/../..' . '/app/Models/DeviceTrack.php',
-        'App\\Models\\HardwareCategory' => __DIR__ . '/../..' . '/app/Models/HardwareCategory.php',
-        'App\\Models\\HardwareRecord' => __DIR__ . '/../..' . '/app/Models/HardwareRecord.php',
-        'App\\Models\\HardwareTrack' => __DIR__ . '/../..' . '/app/Models/HardwareTrack.php',
         'App\\Models\\MaintenanceRecord' => __DIR__ . '/../..' . '/app/Models/MaintenanceRecord.php',
         'App\\Models\\Notification' => __DIR__ . '/../..' . '/app/Models/Notification.php',
+        'App\\Models\\PartCategory' => __DIR__ . '/../..' . '/app/Models/PartCategory.php',
+        'App\\Models\\PartRecord' => __DIR__ . '/../..' . '/app/Models/PartRecord.php',
+        'App\\Models\\PartTrack' => __DIR__ . '/../..' . '/app/Models/PartTrack.php',
         'App\\Models\\PurchasedChannel' => __DIR__ . '/../..' . '/app/Models/PurchasedChannel.php',
         'App\\Models\\ServiceIssue' => __DIR__ . '/../..' . '/app/Models/ServiceIssue.php',
         'App\\Models\\ServiceRecord' => __DIR__ . '/../..' . '/app/Models/ServiceRecord.php',
@@ -902,8 +902,8 @@ class ComposerStaticInitdea0a7b565accb12530b41c12af85cc4
         'App\\Services\\DeviceRecordService' => __DIR__ . '/../..' . '/app/Services/DeviceRecordService.php',
         'App\\Services\\ExpirationService' => __DIR__ . '/../..' . '/app/Services/ExpirationService.php',
         'App\\Services\\ExportService' => __DIR__ . '/../..' . '/app/Services/ExportService.php',
-        'App\\Services\\HardwareRecordService' => __DIR__ . '/../..' . '/app/Services/HardwareRecordService.php',
         'App\\Services\\NotificationService' => __DIR__ . '/../..' . '/app/Services/NotificationService.php',
+        'App\\Services\\PartRecordService' => __DIR__ . '/../..' . '/app/Services/PartRecordService.php',
         'App\\Services\\SoftwareRecordService' => __DIR__ . '/../..' . '/app/Services/SoftwareRecordService.php',
         'App\\Support\\Data' => __DIR__ . '/../..' . '/app/Support/Data.php',
         'App\\Support\\Info' => __DIR__ . '/../..' . '/app/Support/Info.php',
@@ -3162,6 +3162,7 @@ class ComposerStaticInitdea0a7b565accb12530b41c12af85cc4
         'Illuminate\\Database\\Console\\Seeds\\SeedCommand' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Console/Seeds/SeedCommand.php',
         'Illuminate\\Database\\Console\\Seeds\\SeederMakeCommand' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Console/Seeds/SeederMakeCommand.php',
         'Illuminate\\Database\\Console\\WipeCommand' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Console/WipeCommand.php',
+        'Illuminate\\Database\\DBAL\\TimestampType' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/DBAL/TimestampType.php',
         'Illuminate\\Database\\DatabaseManager' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/DatabaseManager.php',
         'Illuminate\\Database\\DatabaseServiceProvider' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/DatabaseServiceProvider.php',
         'Illuminate\\Database\\DatabaseTransactionRecord' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/DatabaseTransactionRecord.php',
@@ -6607,10 +6608,10 @@ class ComposerStaticInitdea0a7b565accb12530b41c12af85cc4
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitdea0a7b565accb12530b41c12af85cc4::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitdea0a7b565accb12530b41c12af85cc4::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitdea0a7b565accb12530b41c12af85cc4::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitdea0a7b565accb12530b41c12af85cc4::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit1b0e3bdc513b415a6ce4c0d7fd1222be::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit1b0e3bdc513b415a6ce4c0d7fd1222be::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit1b0e3bdc513b415a6ce4c0d7fd1222be::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit1b0e3bdc513b415a6ce4c0d7fd1222be::$classMap;
 
         }, null, ClassLoader::class);
     }

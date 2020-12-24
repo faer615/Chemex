@@ -10,7 +10,7 @@ use App\Admin\Repositories\CheckRecord;
 use App\Models\AdminUser;
 use App\Models\CheckTrack;
 use App\Models\DeviceRecord;
-use App\Models\HardwareRecord;
+use App\Models\PartRecord;
 use App\Models\SoftwareRecord;
 use App\Support\Data;
 use Dcat\Admin\Admin;
@@ -49,8 +49,8 @@ class CheckRecordController extends AdminController
                 } else {
                     $check_item = $check->check_item;
                     switch ($check_item) {
-                        case 'hardware':
-                            $item = HardwareRecord::where('id', $item_id)->first();
+                        case 'part':
+                            $item = PartRecord::where('id', $item_id)->first();
                             break;
                         case 'software':
                             $item = SoftwareRecord::where('id', $item_id)->first();
@@ -206,8 +206,8 @@ class CheckRecordController extends AdminController
             // 保存回调，创建盘点任务的同时，自动生成与之相关的全部盘点追踪记录
             $form->saved(function (Form $form) {
                 switch ($form->check_item) {
-                    case 'hardware':
-                        $items = HardwareRecord::all();
+                    case 'part':
+                        $items = PartRecord::all();
                         break;
                     case 'software':
                         $items = SoftwareRecord::all();

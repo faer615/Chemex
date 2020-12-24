@@ -5,7 +5,7 @@ namespace App\Support;
 
 
 use App\Models\DeviceTrack;
-use App\Models\HardwareTrack;
+use App\Models\PartTrack;
 use App\Models\ServiceIssue;
 use App\Models\ServiceRecord;
 use App\Models\ServiceTrack;
@@ -36,17 +36,17 @@ class Track
     }
 
     /**
-     * 获取硬件当前归属的设备
-     * @param $hardware_id
+     * 获取配件当前归属的设备
+     * @param $part_id
      * @return string
      */
-    public static function currentHardwareTrack($hardware_id): string
+    public static function currentPartTrack($part_id): string
     {
-        $hardware_track = HardwareTrack::where('hardware_id', $hardware_id)->first();
-        if (empty($hardware_track)) {
+        $part_track = PartTrack::where('part_id', $part_id)->first();
+        if (empty($part_track)) {
             return '闲置';
         } else {
-            $device = $hardware_track->device;
+            $device = $part_track->device;
             if (empty($device)) {
                 return '设备失踪';
             } else {

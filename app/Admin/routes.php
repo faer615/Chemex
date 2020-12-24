@@ -70,19 +70,19 @@ Route::group([
     ]]);
 
     /**
-     * 硬件管理
+     * 配件管理
      */
-    $router->resource('/hardware/records', 'HardwareRecordController', ['names' => [
-        'index' => 'hardware.records.index',
-        'show' => 'hardware.records.show'
+    $router->resource('/part/records', 'PartRecordController', ['names' => [
+        'index' => 'part.records.index',
+        'show' => 'part.records.show'
     ]]);
-    $router->resource('/hardware/tracks', 'HardwareTrackController', ['names' => [
-        'index' => 'hardware.tracks.index',
-        'show' => 'hardware.tracks.show'
+    $router->resource('/part/tracks', 'PartTrackController', ['names' => [
+        'index' => 'part.tracks.index',
+        'show' => 'part.tracks.show'
     ]]);
-    $router->resource('/hardware/categories', 'HardwareCategoryController', ['names' => [
-        'index' => 'hardware.categories.index',
-        'show' => 'hardware.categories.show'
+    $router->resource('/part/categories', 'PartCategoryController', ['names' => [
+        'index' => 'part.categories.index',
+        'show' => 'part.categories.show'
     ]]);
 
     /**

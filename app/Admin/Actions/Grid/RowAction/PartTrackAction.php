@@ -2,12 +2,12 @@
 
 namespace App\Admin\Actions\Grid\RowAction;
 
-use App\Admin\Forms\HardwareTrackForm;
+use App\Admin\Forms\PartTrackForm;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Grid\RowAction;
 use Dcat\Admin\Widgets\Modal;
 
-class HardwareTrackAction extends RowAction
+class PartTrackAction extends RowAction
 {
     protected $title = '💻 归属设备';
 
@@ -17,12 +17,12 @@ class HardwareTrackAction extends RowAction
      */
     public function render()
     {
-        if (!Admin::user()->can('hardware.track')) {
+        if (!Admin::user()->can('part.track')) {
             return '你没有权限执行此操作！';
         }
 
         // 实例化表单类并传递自定义参数
-        $form = HardwareTrackForm::make()->payload(['id' => $this->getKey()]);
+        $form = PartTrackForm::make()->payload(['id' => $this->getKey()]);
 
         return Modal::make()
             ->lg()

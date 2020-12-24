@@ -7,7 +7,7 @@ use App\Admin\Grid\Displayers\RowActions;
 use App\Admin\Repositories\CheckTrack;
 use App\Models\CheckRecord;
 use App\Models\DeviceRecord;
-use App\Models\HardwareRecord;
+use App\Models\PartRecord;
 use App\Models\SoftwareRecord;
 use App\Support\Data;
 use Dcat\Admin\Admin;
@@ -38,8 +38,8 @@ class CheckTrackController extends AdminController
                 } else {
                     $check_item = $check->check_item;
                     switch ($check_item) {
-                        case 'hardware':
-                            $item = HardwareRecord::where('id', $item_id)->first();
+                        case 'part':
+                            $item = PartRecord::where('id', $item_id)->first();
                             break;
                         case 'software':
                             $item = SoftwareRecord::where('id', $item_id)->first();

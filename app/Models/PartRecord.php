@@ -22,24 +22,24 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string sn
  * @property int purchased_channel_id
  */
-class HardwareRecord extends Model
+class PartRecord extends Model
 {
     use HasDateTimeFormatter;
     use SoftDeletes;
 
-    protected $table = 'hardware_records';
+    protected $table = 'part_records';
 
     /**
-     * 硬件记录有一个分类
+     * 配件记录有一个分类
      * @return HasOne
      */
     public function category(): HasOne
     {
-        return $this->hasOne(HardwareCategory::class, 'id', 'category_id');
+        return $this->hasOne(PartCategory::class, 'id', 'category_id');
     }
 
     /**
-     * 硬件记录有一个厂商
+     * 配件记录有一个厂商
      * @return HasOne
      */
     public function vendor(): HasOne
@@ -48,7 +48,7 @@ class HardwareRecord extends Model
     }
 
     /**
-     * 硬件记录有一个购入途径
+     * 配件记录有一个购入途径
      * @return HasOne
      */
     public function channel(): HasOne
@@ -57,22 +57,22 @@ class HardwareRecord extends Model
     }
 
     /**
-     * 硬件记录在远处有一个设备
+     * 配件记录在远处有一个设备
      * @return HasManyThrough
      */
     public function device(): HasManyThrough
     {
         return $this->hasOneThrough(
             DeviceRecord::class,  // 远程表
-            HardwareTrack::class,   // 中间表
-            'hardware_id',    // 中间表对主表的关联字段
+            PartTrack::class,   // 中间表
+            'part_id',    // 中间表对主表的关联字段
             'id',   // 远程表对中间表的关联字段
             'id',   // 主表对中间表的关联字段
             'device_id'); // 中间表对远程表的关联字段
     }
 
     /**
-     * 硬件分类有一个折旧规则
+     * 配件分类有一个折旧规则
      * @return HasOne
      */
     public function depreciation(): HasOne

@@ -2,11 +2,11 @@
 
 namespace App\Admin\Actions\Grid\ToolAction;
 
-use App\Admin\Forms\HardwareRecordImportForm;
+use App\Admin\Forms\PartRecordImportForm;
 use Dcat\Admin\Grid\Tools\AbstractTool;
 use Dcat\Admin\Widgets\Modal;
 
-class HardwareRecordImportAction extends AbstractTool
+class PartRecordImportAction extends AbstractTool
 {
     protected $title = '<a class="btn btn-primary" style="color: white;">导入数据</a>';
 
@@ -18,7 +18,7 @@ class HardwareRecordImportAction extends AbstractTool
     {
         return Modal::make()
             ->lg()
-            ->body(new HardwareRecordImportForm())
+            ->body(new PartRecordImportForm())
             ->button($this->title);
     }
 }

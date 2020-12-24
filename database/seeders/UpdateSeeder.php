@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Dcat\Admin\Models;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class UpdateSeeder extends Seeder
 {
@@ -14,6 +15,8 @@ class UpdateSeeder extends Seeder
      */
     public function run()
     {
+        DB::select("update check_records set check_item = 'part' where check_item = 'hardware'");
+
         // 菜单
         Models\Menu::truncate();
         Models\Menu::insert(

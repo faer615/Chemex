@@ -41,8 +41,8 @@ class NewCheckRecord extends Notification
     public function toArray(): array
     {
         switch ($this->check_record->check_item) {
-            case 'hardware':
-                $item_type = '硬件';
+            case 'part':
+                $item_type = '配件';
                 break;
             case 'software':
                 $item_type = '软件';

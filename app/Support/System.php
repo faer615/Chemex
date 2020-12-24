@@ -39,6 +39,25 @@ class System
     }
 
     /**
+     * 从Gitee获取最新发行版本
+     * @return string|null
+     */
+    public static function getLatestVersionFromGitee(): ?string
+    {
+        $response = Http::get('https://gitee.com/api/v5/repos/celaraze/Chemex/tags')->json();
+        $version = $response[count($response) - 1]['name'];
+        $remote_version = str_replace('v', '', $version);
+        $local_version = config('admin.chemex_version');
+        $result = self::diffVersion($local_version, $remote_version);
+
+        if ($result === -1) {
+            return $version;
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * 比较两个语义化版本的大小
      * -1 表示有新版本，0 表示版本相同 ，1 表示本地版本比远程版本新
      * @param $old
@@ -59,24 +78,5 @@ class System
             return $res;
         }
         return $res;
-    }
-
-    /**
-     * 从Gitee获取最新发行版本
-     * @return string|null
-     */
-    public static function getLatestVersionFromGitee(): ?string
-    {
-        $response = Http::get('https://gitee.com/api/v5/repos/celaraze/Chemex/tags')->json();
-        $version = $response[count($response) - 1]['name'];
-        $remote_version = str_replace('v', '', $version);
-        $local_version = config('admin.chemex_version');
-        $result = self::diffVersion($local_version, $remote_version);
-
-        if ($result === -1) {
-            return $version;
-        } else {
-            return null;
-        }
     }
 }

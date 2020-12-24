@@ -13,18 +13,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string name
  * @property string description
  */
-class HardwareCategory extends Model
+class PartCategory extends Model
 {
     use HasDateTimeFormatter;
     use SoftDeletes;
     use ModelTree;
 
-    protected $table = 'hardware_categories';
+    protected $table = 'part_categories';
 
     protected $titleColumn = 'name';
 
     /**
-     * 硬件分类有一个父级分类
+     * 配件分类有一个父级分类
      * @return HasOne
      */
     public function parent(): HasOne
@@ -33,7 +33,7 @@ class HardwareCategory extends Model
     }
 
     /**
-     * 硬件分类有一个折旧规则
+     * 配件分类有一个折旧规则
      * @return HasOne
      */
     public function depreciation(): HasOne

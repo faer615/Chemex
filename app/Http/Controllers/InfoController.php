@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CheckRecord;
 use App\Models\CheckTrack;
 use App\Models\DeviceRecord;
-use App\Models\HardwareRecord;
+use App\Models\PartRecord;
 use App\Models\SoftwareRecord;
 use App\Support\Info;
 use App\Support\Track;
@@ -21,7 +21,7 @@ class InfoController extends Controller
     }
 
     /**
-     * 移动端扫码查看设备硬件软件详情
+     * 移动端扫码查看设备配件软件详情
      * @param $string
      * @return JsonResponse
      */
@@ -38,8 +38,8 @@ class InfoController extends Controller
                     $item->staff = Info::staffIdToName($staff_id);
                 }
                 break;
-            case 'hardware':
-                $item = HardwareRecord::where('id', $id)
+            case 'part':
+                $item = PartRecord::where('id', $id)
                     ->first();
                 break;
             case 'software':
@@ -73,8 +73,8 @@ class InfoController extends Controller
                 return response()->json($return);
             }
             switch ($item) {
-                case 'hardware':
-                    $item = HardwareRecord::where('id', $id)->first();
+                case 'part':
+                    $item = PartRecord::where('id', $id)->first();
                     break;
                 case 'software':
                     $item = SoftwareRecord::where('id', $id)->first();

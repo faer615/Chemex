@@ -5,7 +5,7 @@ namespace App\Support;
 
 
 use App\Models\DeviceRecord;
-use App\Models\HardwareRecord;
+use App\Models\PartRecord;
 use App\Models\SoftwareRecord;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Widgets\Alert;
@@ -47,7 +47,7 @@ class Data
     {
         return [
             'device' => '设备',
-            'hardware' => '硬件',
+            'part' => '配件',
             'software' => '软件'
         ];
     }
@@ -220,13 +220,13 @@ class Data
     {
         $data = [];
         $device_records = DeviceRecord::all();
-        $hardware_records = HardwareRecord::all();
+        $part_records = PartRecord::all();
         $software_records = SoftwareRecord::all();
         foreach ($device_records as $device_record) {
             array_push($data, 'device:' . $device_record->id . '&#10;');
         }
-        foreach ($hardware_records as $hardware_record) {
-            array_push($data, 'hardware:' . $hardware_record->id . '&#10;');
+        foreach ($part_records as $part_record) {
+            array_push($data, 'part:' . $part_record->id . '&#10;');
         }
         foreach ($software_records as $software_record) {
             array_push($data, 'software:' . $software_record->id . '&#10;');

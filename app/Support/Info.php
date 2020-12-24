@@ -7,8 +7,8 @@ namespace App\Support;
 use App\Models\DepreciationRule;
 use App\Models\DeviceCategory;
 use App\Models\DeviceRecord;
-use App\Models\HardwareCategory;
-use App\Models\HardwareRecord;
+use App\Models\PartCategory;
+use App\Models\PartRecord;
 use App\Models\SoftwareRecord;
 use App\Models\SoftwareTrack;
 use App\Models\StaffRecord;
@@ -132,8 +132,8 @@ class Info
     public static function itemIdToItemName($item, $item_id): string
     {
         switch ($item) {
-            case 'hardware':
-                $item_record = HardwareRecord::where('id', $item_id)->first();
+            case 'part':
+                $item_record = PartRecord::where('id', $item_id)->first();
                 break;
             case 'software':
                 $item_record = SoftwareRecord::where('id', $item_id)->first();
@@ -209,8 +209,8 @@ class Info
             if ($model instanceof DeviceRecord) {
                 $category = DeviceCategory::where('id', $model->category_id)->first();
             }
-            if ($model instanceof HardwareRecord) {
-                $category = HardwareCategory::where('id', $model->category_id)->first();
+            if ($model instanceof PartRecord) {
+                $category = PartCategory::where('id', $model->category_id)->first();
             }
             if (!empty($category) && !empty($category->depreciation_rule_id)) {
                 $depreciation_rule_id = $category->depreciation_rule_id;

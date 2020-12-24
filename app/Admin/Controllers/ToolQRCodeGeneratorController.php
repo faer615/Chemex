@@ -20,7 +20,7 @@ class ToolQRCodeGeneratorController extends Controller
     {
         return $content
             ->header('二维码批量生成工具')
-            ->description('用于批量生成设备、硬件、软件的二维码图片文件')
+            ->description('用于批量生成设备、配件、软件的二维码图片文件')
             ->body(function (Row $row) {
                 $row->column(12, function (Column $column) {
                     $column->row(new Card('第一步', view('tool_qrcode_generator.download')));

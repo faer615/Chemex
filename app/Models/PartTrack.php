@@ -9,27 +9,27 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @method static where(string $key, string $value)
- * @property int hardware_id
+ * @property int part_id
  * @property int device_id
  */
-class HardwareTrack extends Model
+class PartTrack extends Model
 {
     use HasDateTimeFormatter;
     use SoftDeletes;
 
-    protected $table = 'hardware_tracks';
+    protected $table = 'part_tracks';
 
     /**
-     * 硬件追踪有一个硬件记录
+     * 配件追踪有一个配件记录
      * @return HasOne
      */
-    public function hardware(): HasOne
+    public function part(): HasOne
     {
-        return $this->hasOne(HardwareRecord::class, 'id', 'hardware_id');
+        return $this->hasOne(PartRecord::class, 'id', 'part_id');
     }
 
     /**
-     * 硬件追踪有一个设备记录
+     * 配件追踪有一个设备记录
      * @return HasOne
      */
     public function device(): HasOne

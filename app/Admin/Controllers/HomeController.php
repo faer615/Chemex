@@ -4,18 +4,18 @@ namespace App\Admin\Controllers;
 
 use App\Admin\Metrics\AllWorth;
 use App\Admin\Metrics\CheckDevicePercentage;
-use App\Admin\Metrics\CheckHardwarePercentage;
+use App\Admin\Metrics\CheckPartPercentage;
 use App\Admin\Metrics\CheckSoftwarePercentage;
 use App\Admin\Metrics\DeviceAboutToExpireCounts;
 use App\Admin\Metrics\DeviceCounts;
 use App\Admin\Metrics\DeviceExpiredCounts;
 use App\Admin\Metrics\DeviceWorth;
-use App\Admin\Metrics\HardwareAboutToExpireCounts;
-use App\Admin\Metrics\HardwareCounts;
-use App\Admin\Metrics\HardwareExpiredCounts;
-use App\Admin\Metrics\HardwareWorth;
 use App\Admin\Metrics\IssueTrend;
 use App\Admin\Metrics\MaintenanceTrend;
+use App\Admin\Metrics\PartAboutToExpireCounts;
+use App\Admin\Metrics\PartCounts;
+use App\Admin\Metrics\PartExpiredCounts;
+use App\Admin\Metrics\PartWorth;
 use App\Admin\Metrics\ServiceCounts;
 use App\Admin\Metrics\ServiceIssueCounts;
 use App\Admin\Metrics\SoftwareAboutToExpireCounts;
@@ -55,10 +55,10 @@ class HomeController extends Controller
                             $column->row(function (Row $row) {
                                 $row->column(3, new AllWorth());
                                 $row->column(3, new DeviceWorth());
-                                $row->column(3, new HardwareWorth());
+                                $row->column(3, new PartWorth());
                                 $row->column(3, new SoftwareWorth());
                                 $row->column(3, new DeviceCounts());
-                                $row->column(3, new HardwareCounts());
+                                $row->column(3, new PartCounts());
                                 $row->column(3, new SoftwareCounts());
                                 $row->column(3, new StaffCounts());
                                 $row->column(3, new ServiceCounts());
@@ -71,13 +71,13 @@ class HomeController extends Controller
                 });
                 $row->column(2, function (Column $column) {
                     $column->row(new CheckDevicePercentage());
-                    $column->row(new CheckHardwarePercentage());
+                    $column->row(new CheckPartPercentage());
                     $column->row(new CheckSoftwarePercentage());
                     $column->row(new DeviceAboutToExpireCounts());
-                    $column->row(new HardwareAboutToExpireCounts());
+                    $column->row(new PartAboutToExpireCounts());
                     $column->row(new SoftwareAboutToExpireCounts());
                     $column->row(new DeviceExpiredCounts());
-                    $column->row(new HardwareExpiredCounts());
+                    $column->row(new PartExpiredCounts());
                     $column->row(new SoftwareExpiredCounts());
                 });
             });

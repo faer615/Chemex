@@ -3,8 +3,8 @@
 namespace App\Admin\Forms;
 
 use App\Models\DeviceRecord;
-use App\Models\HardwareRecord;
-use App\Models\HardwareTrack;
+use App\Models\PartRecord;
+use App\Models\PartTrack;
 use Dcat\Admin\Contracts\LazyRenderable;
 use Dcat\Admin\Http\JsonResponse;
 use Dcat\Admin\Traits\LazyWidget;
@@ -15,7 +15,7 @@ use Dcat\Admin\Widgets\Form;
  * Class DeviceTrackForm
  * @package App\Admin\Forms
  */
-class HardwareTrackForm extends Form implements LazyRenderable
+class PartTrackForm extends Form implements LazyRenderable
 {
     use LazyWidget;
 
@@ -26,24 +26,24 @@ class HardwareTrackForm extends Form implements LazyRenderable
      */
     public function handle(array $input): JsonResponse
     {
-        // 获取硬件id
-        $hardware_id = $this->payload['id'] ?? null;
+        // 获取配件id
+        $part_id = $this->payload['id'] ?? null;
 
         // 获取设备id，来自表单传参
         $device_id = $input['device_id'] ?? null;
 
-        // 如果没有硬件id或者设备id则返回错误
-        if (!$hardware_id || !$device_id) {
+        // 如果没有配件id或者设备id则返回错误
+        if (!$part_id || !$device_id) {
             return $this->response()
                 ->error('参数错误');
         }
 
-        // 硬件记录
-        $hardware = HardwareRecord::where('id', $hardware_id)->first();
-        // 如果没有找到这个硬件记录则返回错误
-        if (!$hardware) {
+        // 配件记录
+        $part = PartRecord::where('id', $part_id)->first();
+        // 如果没有找到这个配件记录则返回错误
+        if (!$part) {
             return $this->response()
-                ->error('硬件不存在');
+                ->error('配件不存在');
         }
 
         // 设备记录
@@ -54,29 +54,29 @@ class HardwareTrackForm extends Form implements LazyRenderable
                 ->error('设备不存在');
         }
 
-        // 硬件追踪
-        $hardware_track = HardwareTrack::where('hardware_id', $hardware_id)
+        // 配件追踪
+        $part_track = PartTrack::where('part_id', $part_id)
             ->first();
 
-        // 如果硬件追踪非空，则删除旧追踪，为了留下流水记录
-        if (!empty($hardware_track)) {
+        // 如果配件追踪非空，则删除旧追踪，为了留下流水记录
+        if (!empty($part_track)) {
             // 如果新设备和旧设备相同，返回错误
-            if ($hardware_track->device_id == $device_id) {
+            if ($part_track->device_id == $device_id) {
                 return $this->response()
                     ->error('设备没有改变，无需重新归属');
             } else {
-                $hardware_track->delete();
+                $part_track->delete();
             }
         }
 
-        // 创建新的硬件追踪
-        $hardware_track = new HardwareTrack();
-        $hardware_track->hardware_id = $hardware_id;
-        $hardware_track->device_id = $device_id;
-        $hardware_track->save();
+        // 创建新的配件追踪
+        $part_track = new PartTrack();
+        $part_track->part_id = $part_id;
+        $part_track->device_id = $device_id;
+        $part_track->save();
 
         return $this->response()
-            ->success('硬件归属成功')
+            ->success('配件归属成功')
             ->refresh();
     }
 
@@ -87,7 +87,7 @@ class HardwareTrackForm extends Form implements LazyRenderable
     {
         $this->select('device_id', '新设备')
             ->options(DeviceRecord::all()->pluck('name', 'id'))
-            ->help('选择新设备后，将会自动解除此硬件与老设备的归属关系。')
+            ->help('选择新设备后，将会自动解除此配件与老设备的归属关系。')
             ->required();
     }
 }

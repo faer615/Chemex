@@ -45,7 +45,7 @@ class MaintenanceFixForm extends Form implements LazyRenderable
                 ->error('物品不存在');
         }
 
-        // 创建新的硬件追踪
+        // 创建新的配件追踪
         $maintenance_record->ok_description = $ok_description;
         $maintenance_record->ok_time = $ok_time;
         $maintenance_record->status = $status;

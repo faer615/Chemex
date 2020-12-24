@@ -2,15 +2,15 @@
 
 namespace App\Admin\Actions\Grid\RowAction;
 
-use App\Models\HardwareRecord;
-use App\Models\HardwareTrack;
+use App\Models\PartRecord;
+use App\Models\PartTrack;
 use Dcat\Admin\Actions\Response;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Grid\RowAction;
 
-class HardwareDeleteAction extends RowAction
+class PartDeleteAction extends RowAction
 {
-    protected $title = '🔨 删除硬件';
+    protected $title = '🔨 删除配件';
 
     /**
      * 处理动作逻辑
@@ -18,29 +18,29 @@ class HardwareDeleteAction extends RowAction
      */
     public function handle(): Response
     {
-        if (!Admin::user()->can('hardware.delete')) {
+        if (!Admin::user()->can('part.delete')) {
             return $this->response()
                 ->error('你没有权限执行此操作！')
                 ->refresh();
         }
 
-        $hardware = HardwareRecord::where('id', $this->getKey())->first();
-        if (empty($hardware)) {
+        $part = PartRecord::where('id', $this->getKey())->first();
+        if (empty($part)) {
             return $this->response()
-                ->error('没有此硬件记录！');
+                ->error('没有此配件记录！');
         }
 
-        $hardware_tracks = HardwareTrack::where('hardware_id', $hardware->id)
+        $part_tracks = PartTrack::where('part_id', $part->id)
             ->get();
 
-        foreach ($hardware_tracks as $hardware_track) {
-            $hardware_track->delete();
+        foreach ($part_tracks as $part_track) {
+            $part_track->delete();
         }
 
-        $hardware->delete();
+        $part->delete();
 
         return $this->response()
-            ->success('成功删除硬件: ' . $hardware->name)
+            ->success('成功删除配件: ' . $part->name)
             ->refresh();
     }
 

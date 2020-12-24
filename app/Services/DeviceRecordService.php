@@ -6,7 +6,7 @@ namespace App\Services;
 
 use App\Models\DeviceRecord;
 use App\Models\DeviceTrack;
-use App\Models\HardwareTrack;
+use App\Models\PartTrack;
 use App\Models\SoftwareTrack;
 use App\Support\Data;
 use App\Support\Track;
@@ -19,7 +19,7 @@ use App\Support\Track;
 class DeviceRecordService
 {
     /**
-     * 获取设备的软硬件内容
+     * 获取设备的软配件内容
      * @param $id
      * @return mixed
      */
@@ -28,8 +28,8 @@ class DeviceRecordService
         $device = DeviceRecord::where('id', $id)
             ->firstOrFail();
 
-        // 获取所有硬件
-        $hardware = $device->hardware;
+        // 获取所有配件
+        $part = $device->part;
         // 获取所有软件
         $software = $device->software;
         // 获取所有服务程序
@@ -40,7 +40,7 @@ class DeviceRecordService
             $item->distribution = Data::distribution()[$item->distribution];
         }
 
-        $data['hardware'] = $hardware;
+        $data['part'] = $part;
         $data['software'] = $software;
         $data['service'] = $service;
 
@@ -81,15 +81,15 @@ class DeviceRecordService
             $data = Track::itemTrack($single, $device_track, $data);
         }
 
-        // 处理设备硬件变动履历
-        $hardware_tracks = HardwareTrack::withTrashed()
+        // 处理设备配件变动履历
+        $part_tracks = PartTrack::withTrashed()
             ->where('device_id', $id)
             ->get();
-        foreach ($hardware_tracks as $hardware_track) {
-            $single['type'] = '硬件';
-            $hardware = $hardware_track->hardware()->withTrashed()->first();
-            $single['name'] = $hardware->name . ' - ' . $hardware->specification;
-            $data = Track::itemTrack($single, $hardware_track, $data);
+        foreach ($part_tracks as $part_track) {
+            $single['type'] = '配件';
+            $part = $part_track->part()->withTrashed()->first();
+            $single['name'] = $part->name . ' - ' . $part->specification;
+            $data = Track::itemTrack($single, $part_track, $data);
         }
 
         // 处理设备软件变动履历

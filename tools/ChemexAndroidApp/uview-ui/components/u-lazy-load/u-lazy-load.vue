@@ -170,7 +170,7 @@
 				if (this.loadStatus == '') {
 					this.loadStatus = 'lazyed';
 				}
-				// 真正的图片加载完成 
+				// 真正的图片加载完成
 				else if (this.loadStatus == 'lazyed') {
 					this.loadStatus = 'loaded';
 					this.$emit('load', this.index);
@@ -225,7 +225,7 @@
 
 <style scoped lang="scss">
 	@import "../../libs/css/style.components.scss";
-	
+
 	.u-wrap {
 		background-color: #eee;
 		overflow: hidden;
@@ -233,7 +233,7 @@
 
 	.u-lazy-item {
 		width: 100%;
-		// 骗系统开启硬件加速
+		// 骗系统开启配件加速
 		transform: transition3d(0, 0, 0);
 		// 防止图片加载“闪一下”
 		will-change: transform;
