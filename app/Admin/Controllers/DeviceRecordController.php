@@ -119,7 +119,6 @@ class DeviceRecordController extends AdminController
             });
             $show->field('purchased');
             $show->field('expired');
-            //TODO 对安全密码和管理员密码做权限设定
             $show->field('staff.name');
             $show->field('staff.department.name');
             $show->field('security_password');
@@ -280,6 +279,10 @@ class DeviceRecordController extends AdminController
             $form->disableCreatingCheck();
             $form->disableEditingCheck();
             $form->disableViewCheck();
+
+            $form->saving(function () {
+                dd(123);
+            });
         });
     }
 }

@@ -15,7 +15,7 @@
         "ext-zip": "*",
         "celaraze/pour": "dev-master",
         "dcat/easy-excel": "^1.0",
-        "dcat/laravel-admin": "2.*",
+        "dcat/laravel-admin": "2.0.13-beta",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",

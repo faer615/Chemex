@@ -2,8 +2,8 @@
 
 namespace Celaraze\DcatAdminMenuSwitch\Http\Controllers;
 
-use Dcat\Admin\Layout\Content;
 use Dcat\Admin\Admin;
+use Dcat\Admin\Layout\Content;
 use Illuminate\Routing\Controller;
 
 class DcatadminMenuSwitchController extends Controller
