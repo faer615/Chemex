@@ -16,6 +16,11 @@ Route::group([
 ], function (Router $router) {
     $router->get('/', 'HomeController@index');
 
+    $router->get('/auth/login/ldap', function () {
+        $ldap = new \App\Support\LDAP();
+        return $ldap->auth();
+    });
+
     /**
      * 辅助信息
      */
@@ -26,8 +31,14 @@ Route::group([
         ->name('migrate');
     $router->get('/version/clear', 'VersionController@clear')
         ->name('clear');
-    $router->get('/configurations', 'ConfigurationController@index')
-        ->name('configurations.index');
+
+    /**
+     * 配置
+     */
+    $router->get('/configurations/site', 'ConfigurationSiteController@index')
+        ->name('configurations.site.index');
+    $router->get('/configurations/ldap', 'ConfigurationLDAPController@index')
+        ->name('configurations.ldap.index');
 
     /**
      * 工具

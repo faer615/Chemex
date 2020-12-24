@@ -2,12 +2,12 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Forms\ConfigurationForm;
+use App\Admin\Forms\ConfigurationSiteForm;
 use App\Http\Controllers\Controller;
 use Dcat\Admin\Layout\Content;
 use Dcat\Admin\Widgets\Card;
 
-class ConfigurationController extends Controller
+class ConfigurationSiteController extends Controller
 {
     /**
      * 页面
@@ -19,6 +19,6 @@ class ConfigurationController extends Controller
         return $content
             ->header('站点配置')
             ->description('提供了一些对站点个性化的配置')
-            ->body(new Card(new ConfigurationForm()));
+            ->body(new Card(new ConfigurationSiteForm()));
     }
 }

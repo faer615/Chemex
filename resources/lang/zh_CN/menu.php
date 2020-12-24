@@ -44,6 +44,7 @@ return [
         'tools' => '工具',
         'chemex_app' => 'Chemex App',
         'qrcode_generator' => '二维码批量生成',
-        'configuration' => '站点配置'
+        'configuration_site' => '站点配置',
+        'configuration_ldap' => 'LDAP配置'
     ],
 ];

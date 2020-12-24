@@ -196,7 +196,7 @@ class SoftwareRecordController extends AdminController
             $form->text('name')->required();
             $form->text('version')->required();
             $form->select('category_id', admin_trans_label('Category'))
-                ->options(SoftwareCategory::all()->pluck('name', 'id'))
+                ->options(SoftwareCategory::selectOptions())
                 ->required();
             $form->select('vendor_id', admin_trans_label('Vendor'))
                 ->options(VendorRecord::all()->pluck('name', 'id'))

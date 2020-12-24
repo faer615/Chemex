@@ -4,7 +4,7 @@ namespace App\Admin\Forms;
 
 use Dcat\Admin\Widgets\Form;
 
-class ConfigurationForm extends Form
+class ConfigurationSiteForm extends Form
 {
     /**
      * Handle the form request.

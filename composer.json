@@ -13,6 +13,7 @@
         "php": "^7.3",
         "ext-json": "*",
         "ext-zip": "*",
+        "adldap2/adldap2-laravel": "^6.1",
         "celaraze/pour": "dev-master",
         "dcat/easy-excel": "^1.0",
         "dcat/laravel-admin": "2.0.13-beta",

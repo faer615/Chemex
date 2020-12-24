@@ -149,13 +149,13 @@ UI设计来自多个优秀开源项目，例如：Bootstrap、AdminLTE、Apex Ch
 
 2: Linux 的 root 用户名和密码都是 `root` ， OVF 镜像的 LNMP 环境使用了 `AppNode` 面板，部署完后需要更新下 `AppNode` 的面板授权关系和 Chemex 站点域名。
 
-3：面板地址：http://your-ip:8888 ，用户名和密码都是 `Chemex`。
+3：面板地址：http://your-ip:8888 ，用户名和密码都是 `admin`，数据库 root 用户的密码是 `chemex`。
 
 4：具体使用方法可以参考 `AppNode` 官方说明：[https://www.appnode.com/](https://www.appnode.com/) 。
 
 5：为什么不用 `宝塔面板` ：因为宝塔在部署完成后必须要绑定手机号码才能继续使用，我无法将自己的手机号码绑定到面板中去再通过 OVF 镜像分发给你们。
 
-6：访问 `http://your-ip/admin` 来访问咖啡壶（Chemex），用户名密码都是 `admin`。
+6：访问 `http://your-ip` 来访问咖啡壶（Chemex），用户名密码都是 `admin`。
 
 ## 更新（通过Git Pull方式）
 

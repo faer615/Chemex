@@ -68,7 +68,7 @@ trait HasDeviceRelatedGrid
         });
         $result['software'] = $grid;
 
-        // 服务程序
+        // 服务
         $grid = Grid::make(new ServiceTrack(['service']), function (Grid $grid) use ($device_id) {
             $grid->model()->where('device_id', '=', $device_id);
             $grid->tableCollapse(false);

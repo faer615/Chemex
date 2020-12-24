@@ -20,46 +20,10 @@
  */
 
 use App\Models\AdminUser;
+use App\Services\ConfigService;
 use Dcat\Admin\Layout\Navbar;
 
-/**
- * 处理站点LOGO自定义
- */
-if (empty(admin_setting('site_logo'))) {
-    $logo = admin_setting('site_logo_text');
-} else {
-    $logo = config('app.url') . '/uploads/' . admin_setting('site_logo');
-    $logo = "<img src='$logo'>";
-}
-
-/**
- * 处理站点LOGO-MINI自定义
- */
-if (empty(admin_setting('site_logo_mini'))) {
-    $logo_mini = admin_setting('site_logo_text');
-} else {
-    $logo_mini = config('app.url') . '/uploads/' . admin_setting('site_logo_mini');
-    $logo_mini = "<img src='$logo_mini'>";
-}
-
-if (empty(admin_setting('site_url'))) {
-    $site_url = 'http://localhost';
-} else {
-    $site_url = admin_setting('site_url');
-}
-
-/**
- * 复写admin站点配置
- */
-config([
-    'app.url' => $site_url,
-
-    'admin.title' => admin_setting('site_title'),
-    'admin.logo' => $logo,
-    'admin.logo-mini' => $logo_mini,
-
-    'filesystems.disks.admin.url' => $site_url . '/uploads'
-]);
+ConfigService::init();
 
 /**
  * 自定义全局CSS

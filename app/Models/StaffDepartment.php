@@ -30,7 +30,7 @@ class StaffDepartment extends Model
      */
     public function parent(): HasOne
     {
-        return $this->hasOne(StaffDepartment::class, 'id', 'parent_id');
+        return $this->hasOne(self::class, 'id', 'parent_id');
     }
 
     /**

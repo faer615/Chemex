@@ -19,6 +19,9 @@
 				},
 			}
 		},
+		onLoad() {
+			this.getSettings();
+		},
 		methods: {
 			bindDomainChange(e) {
 				this.settings.domain = e.target.value;
@@ -28,6 +31,17 @@
 			},
 			bindPasswordChange(e) {
 				this.settings.password = e.target.value;
+			},
+			getSettings() {
+				let that = this;
+				uni.getStorage({
+					key: 'settings',
+					success(res) {
+						that.settings.domain = res.data.domain;
+						that.settings.username = res.data.username;
+						that.settings.password = res.data.password;
+					}
+				})
 			},
 			save() {
 				let that = this;
@@ -53,6 +67,9 @@
 										title: '提示',
 										content: '登录成功',
 										showCancel: false
+									})
+									uni.reLaunch({
+										url: '../index/index'
 									})
 								},
 								fail(res) {

@@ -241,8 +241,7 @@ class DeviceRecordController extends AdminController
             $form->display('id');
             $form->text('name')->required();
             $form->select('category_id', admin_trans_label('Category'))
-                ->options(DeviceCategory::all()
-                    ->pluck('name', 'id'))
+                ->options(DeviceCategory::selectOptions())
                 ->required();
             $form->select('vendor_id', admin_trans_label('Vendor'))
                 ->options(VendorRecord::all()->pluck('name', 'id'))

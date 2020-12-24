@@ -8,10 +8,24 @@ use App\Models\DepreciationRule;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Http\Controllers\AdminController;
+use Dcat\Admin\Layout\Content;
+use Dcat\Admin\Layout\Row;
 use Dcat\Admin\Show;
+use Dcat\Admin\Tree;
 
 class DeviceCategoryController extends AdminController
 {
+
+    public function index(Content $content): Content
+    {
+        return $content
+            ->title($this->title())
+            ->description(trans('admin.list'))
+            ->body(function (Row $row) {
+                $tree = new Tree(new \App\Models\DeviceCategory());
+                $row->column(12, $tree);
+            });
+    }
 
     /**
      * Make a grid builder.
@@ -20,10 +34,11 @@ class DeviceCategoryController extends AdminController
      */
     protected function grid(): Grid
     {
-        return Grid::make(new DeviceCategory(['depreciation']), function (Grid $grid) {
+        return Grid::make(new DeviceCategory(['parent', 'depreciation']), function (Grid $grid) {
             $grid->column('id');
             $grid->column('name');
             $grid->column('description');
+            $grid->column('parent.name');
             $grid->column('depreciation.name');
 
             $grid->toolsWithOutline(false);
@@ -48,10 +63,11 @@ class DeviceCategoryController extends AdminController
      */
     protected function detail($id): Show
     {
-        return Show::make($id, new DeviceCategory(['depreciation']), function (Show $show) {
+        return Show::make($id, new DeviceCategory(['parent', 'depreciation']), function (Show $show) {
             $show->field('id');
             $show->field('name');
             $show->field('description');
+            $show->field('parent.name');
             $show->field('depreciation.name');
             $show->field('created_at');
             $show->field('updated_at');
@@ -69,6 +85,9 @@ class DeviceCategoryController extends AdminController
             $form->display('id');
             $form->text('name')->required();
             $form->text('description');
+            $form->select('parent_id', admin_trans_label('Parent'))
+                ->options(\App\Models\DeviceCategory::all()
+                    ->pluck('name', 'id'));
             $form->select('depreciation_rule_id', admin_trans_label('Depreciation Rule Id'))
                 ->options(DepreciationRule::all()
                     ->pluck('name', 'id'));
