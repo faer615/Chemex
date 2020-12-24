@@ -87,7 +87,7 @@ class ConfigService
         /**
          * 处理AD端口号
          */
-        $ad_port = config(admin_setting('ad_port_primary'));
+        $ad_port = admin_setting('ad_port_primary');
         $ad_port = (int)$ad_port;
 
         /**

@@ -48,7 +48,7 @@ class PartRecordController extends AdminController
             $grid->column('vendor.name');
             $grid->column('specification');
             $grid->column('sn');
-            $grid->column('', admin_trans_label('Expiration Left Days'))->display(function () {
+            $grid->column('expiration_left_days', admin_trans_label('Expiration Left Days'))->display(function () {
                 return ExpirationService::itemExpirationLeftDaysRender('part', $this->id);
             });
             $grid->actions(function (RowActions $actions) {
@@ -108,7 +108,7 @@ class PartRecordController extends AdminController
             $show->field('specification');
             $show->field('sn');
             $show->field('price');
-            $show->field('', admin_trans_label('Depreciation Price'))->as(function () {
+            $show->field('expiration_left_days', admin_trans_label('Depreciation Price'))->as(function () {
                 $part_record = \App\Models\PartRecord::where('id', $this->id)->first();
                 if (!empty($part_record)) {
                     $depreciation_rule_id = Info::getDepreciationRuleId($part_record);

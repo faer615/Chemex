@@ -110,7 +110,7 @@ class DeviceRecordController extends AdminController
             $show->field('ip');
             $show->field('photo')->image();
             $show->field('price');
-            $show->field('', admin_trans_label('Depreciation Price'))->as(function () {
+            $show->field('expiration_left_days', admin_trans_label('Depreciation Price'))->as(function () {
                 $device_record = \App\Models\DeviceRecord::where('id', $this->id)->first();
                 if (!empty($device_record)) {
                     $depreciation_rule_id = Info::getDepreciationRuleId($device_record);

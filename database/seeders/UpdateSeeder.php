@@ -15,6 +15,7 @@ class UpdateSeeder extends Seeder
      */
     public function run()
     {
+        // 2.1.0开始，使用配件（part）代替硬件（hardware），这里是更新盘点任务中老数据
         DB::select("update check_records set check_item = 'part' where check_item = 'hardware'");
 
         // 菜单
@@ -85,21 +86,21 @@ class UpdateSeeder extends Seeder
                     "id" => 13,
                     "parent_id" => 0,
                     "order" => 12,
-                    "title" => "Hardware Management",
+                    "title" => "Part Management",
                     "icon" => "feather icon-server",
-                    "uri" => "",
+                    "uri" => NULL,
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-10-10 15:06:24",
-                    "updated_at" => "2020-12-19 01:10:31"
+                    "updated_at" => "2020-12-24 20:43:40"
                 ],
                 [
                     "id" => 14,
                     "parent_id" => 13,
                     "order" => 14,
-                    "title" => "Hardware Categories",
+                    "title" => "Part Categories",
                     "icon" => "",
-                    "uri" => "hardware/categories",
+                    "uri" => "part/categories",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-10-10 15:06:24",
@@ -109,9 +110,9 @@ class UpdateSeeder extends Seeder
                     "id" => 15,
                     "parent_id" => 13,
                     "order" => 13,
-                    "title" => "Hardware Records",
+                    "title" => "Part Records",
                     "icon" => "",
-                    "uri" => "hardware/records",
+                    "uri" => "part/records",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-10-10 15:06:24",
@@ -205,9 +206,9 @@ class UpdateSeeder extends Seeder
                     "id" => 23,
                     "parent_id" => 13,
                     "order" => 15,
-                    "title" => "Hardware Tracks",
+                    "title" => "Part Tracks",
                     "icon" => "",
-                    "uri" => "hardware/tracks",
+                    "uri" => "part/tracks",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-10-10 15:06:29",
@@ -324,74 +325,74 @@ class UpdateSeeder extends Seeder
                 [
                     "id" => 54,
                     "parent_id" => 56,
-                    "order" => 29,
+                    "order" => 32,
                     "title" => "Version",
                     "icon" => "feather icon-chevrons-down",
                     "uri" => "version",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-10-22 15:05:00",
-                    "updated_at" => "2020-12-16 18:04:30"
+                    "updated_at" => "2020-12-24 21:21:34"
                 ],
                 [
                     "id" => 55,
                     "parent_id" => 56,
-                    "order" => 33,
+                    "order" => 38,
                     "title" => "Menu",
                     "icon" => NULL,
                     "uri" => "auth/menu",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-11-03 14:22:49",
-                    "updated_at" => "2020-11-25 19:58:20"
+                    "updated_at" => "2020-12-24 21:21:34"
                 ],
                 [
                     "id" => 56,
                     "parent_id" => 0,
-                    "order" => 28,
+                    "order" => 31,
                     "title" => "Settings",
                     "icon" => "feather icon-settings",
                     "uri" => NULL,
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-11-03 14:23:14",
-                    "updated_at" => "2020-12-19 01:10:59"
+                    "updated_at" => "2020-12-24 21:21:34"
                 ],
                 [
                     "id" => 57,
                     "parent_id" => 56,
-                    "order" => 30,
+                    "order" => 35,
                     "title" => "Users",
                     "icon" => NULL,
                     "uri" => "auth/users",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-11-03 14:25:13",
-                    "updated_at" => "2020-11-25 19:58:20"
+                    "updated_at" => "2020-12-24 21:21:34"
                 ],
                 [
                     "id" => 58,
                     "parent_id" => 56,
-                    "order" => 31,
+                    "order" => 36,
                     "title" => "Roles",
                     "icon" => NULL,
                     "uri" => "auth/roles",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-11-03 14:25:25",
-                    "updated_at" => "2020-11-25 19:58:20"
+                    "updated_at" => "2020-12-24 21:21:34"
                 ],
                 [
                     "id" => 59,
                     "parent_id" => 56,
-                    "order" => 32,
+                    "order" => 37,
                     "title" => "Permissions",
                     "icon" => NULL,
                     "uri" => "auth/permissions",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-11-03 14:26:37",
-                    "updated_at" => "2020-11-25 19:58:20"
+                    "updated_at" => "2020-12-24 21:21:34"
                 ],
                 [
                     "id" => 60,
@@ -420,14 +421,14 @@ class UpdateSeeder extends Seeder
                 [
                     "id" => 62,
                     "parent_id" => 56,
-                    "order" => 29,
-                    "title" => "Configuration",
+                    "order" => 33,
+                    "title" => "Configuration Site",
                     "icon" => "",
                     "uri" => "/configurations",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-12-14 19:38:17",
-                    "updated_at" => "2020-12-19 01:11:08"
+                    "updated_at" => "2020-12-24 21:21:34"
                 ],
                 [
                     "id" => 63,
@@ -464,8 +465,19 @@ class UpdateSeeder extends Seeder
                     "show" => 1,
                     "created_at" => "2020-12-14 19:38:17",
                     "updated_at" => "2020-12-19 01:11:08"
+                ],
+                [
+                    "id" => 66,
+                    "parent_id" => 56,
+                    "order" => 34,
+                    "title" => "Configuration LDAP",
+                    "icon" => NULL,
+                    "uri" => "/configurations/ldap",
+                    "extension" => "",
+                    "show" => 1,
+                    "created_at" => "2020-12-24 21:21:27",
+                    "updated_at" => "2020-12-24 21:21:27"
                 ]
-
             ]
         );
 
@@ -629,8 +641,8 @@ class UpdateSeeder extends Seeder
                 ],
                 [
                     "id" => 16,
-                    "name" => "硬件管理",
-                    "slug" => "hardware",
+                    "name" => "配件管理",
+                    "slug" => "part",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 25,
@@ -784,7 +796,7 @@ class UpdateSeeder extends Seeder
                 [
                     "id" => 30,
                     "name" => "动作",
-                    "slug" => "hardware.actions",
+                    "slug" => "part.actions",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 28,
@@ -794,8 +806,8 @@ class UpdateSeeder extends Seeder
                 ],
                 [
                     "id" => 31,
-                    "name" => "硬件删除",
-                    "slug" => "hardware.delete",
+                    "name" => "配件删除",
+                    "slug" => "part.delete",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 29,
@@ -805,8 +817,8 @@ class UpdateSeeder extends Seeder
                 ],
                 [
                     "id" => 32,
-                    "name" => "硬件归属",
-                    "slug" => "hardware.track",
+                    "name" => "配件归属",
+                    "slug" => "part.track",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 30,
@@ -816,8 +828,8 @@ class UpdateSeeder extends Seeder
                 ],
                 [
                     "id" => 33,
-                    "name" => "硬件变动履历",
-                    "slug" => "hardware.history",
+                    "name" => "配件变动履历",
+                    "slug" => "part.history",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 32,
@@ -827,8 +839,8 @@ class UpdateSeeder extends Seeder
                 ],
                 [
                     "id" => 34,
-                    "name" => "硬件故障",
-                    "slug" => "hardware.maintenance",
+                    "name" => "配件故障",
+                    "slug" => "part.maintenance",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 33,
@@ -838,8 +850,8 @@ class UpdateSeeder extends Seeder
                 ],
                 [
                     "id" => 35,
-                    "name" => "硬件归属解除",
-                    "slug" => "hardware.track.disable",
+                    "name" => "配件归属解除",
+                    "slug" => "part.track.disable",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 31,
@@ -1050,7 +1062,7 @@ class UpdateSeeder extends Seeder
                     "name" => "表单基础：只读",
                     "slug" => "hardware.read-only",
                     "http_method" => "GET",
-                    "http_path" => "hardware/tracks*,hardware/records*,hardware/categories*",
+                    "http_path" => "part/tracks*,part/records*,part/categories*",
                     "order" => 26,
                     "parent_id" => 16,
                     "created_at" => "2020-11-19 13:37:36",
@@ -1061,7 +1073,7 @@ class UpdateSeeder extends Seeder
                     "name" => "表单基础：全部",
                     "slug" => "hardware.all",
                     "http_method" => "",
-                    "http_path" => "hardware/tracks*,hardware/records*,hardware/categories*",
+                    "http_path" => "part/tracks*,part/records*,part/categories*",
                     "order" => 27,
                     "parent_id" => 16,
                     "created_at" => "2020-11-19 13:38:18",
