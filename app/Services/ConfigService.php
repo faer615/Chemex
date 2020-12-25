@@ -112,9 +112,9 @@ class ConfigService
 
             'ldap.connections.default.settings.hosts' => $ad_hosts,
             'ldap.connections.default.settings.port' => $ad_port,
-            'ldap.connections.default.settings.base_dn' => config(admin_setting('ad_base_dn')),
-            'ldap.connections.default.settings.username' => config(admin_setting('ad_username')),
-            'ldap.connections.default.settings.password' => config(admin_setting('ad_password')),
+            'ldap.connections.default.settings.base_dn' => admin_setting('ad_base_dn'),
+            'ldap.connections.default.settings.username' => admin_setting('ad_username'),
+            'ldap.connections.default.settings.password' => admin_setting('ad_password'),
             'ldap.connections.default.settings.use_ssl' => $ad_use_ssl,
             'ldap.connections.default.settings.use_tls' => $ad_use_tls,
         ]);

@@ -16,10 +16,7 @@ Route::group([
 ], function (Router $router) {
     $router->get('/', 'HomeController@index');
 
-    $router->get('/auth/login/ldap', function () {
-        $ldap = new \App\Support\LDAP();
-        return $ldap->auth();
-    });
+    $router->get('/ldap/test', 'LDAPController@test')->name('ldap.test');
 
     /**
      * 辅助信息

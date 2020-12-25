@@ -13,7 +13,9 @@ return [
         'ad_username' => '域控验证用户',
         'ad_password' => '域控验证密码',
         'ad_use_ssl' => '启用SSL',
-        'ad_use_tls' => '启用TLS'
+        'ad_use_tls' => '启用TLS',
+        'ad_login' => '启用域登录',
+        'ad_bind_administrator' => '域管理员的账户'
     ],
     'options' => [
     ],
