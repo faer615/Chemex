@@ -20,7 +20,7 @@ class LDAP
      * @throws PasswordRequiredException
      * @throws UsernameRequiredException
      */
-    public function auth($username = null, $password = null): bool
+    public static function auth($username = null, $password = null): bool
     {
         $username = $username == null ? admin_setting('ad_username') : $username;
         $password = $password == null ? admin_setting('ad_password') : $password;

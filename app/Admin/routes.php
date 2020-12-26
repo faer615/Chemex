@@ -17,6 +17,7 @@ Route::group([
     $router->get('/', 'HomeController@index');
 
     $router->get('/ldap/test', 'LDAPController@test')->name('ldap.test');
+    $router->get('/ldap/test_mode', 'LDAPController@testMode');
 
     /**
      * 辅助信息

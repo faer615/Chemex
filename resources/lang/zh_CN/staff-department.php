@@ -11,6 +11,7 @@ return [
         'parent' => [
             'name' => '父级部门'
         ],
+        'mode' => '模式'
     ],
     'options' => [
     ],

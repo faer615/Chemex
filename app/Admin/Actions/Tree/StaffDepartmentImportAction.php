@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Admin\Actions\Grid\ToolAction;
+namespace App\Admin\Actions\Tree;
 
 use App\Admin\Forms\StaffDepartmentImportForm;
-use Dcat\Admin\Grid\Tools\AbstractTool;
+use Dcat\Admin\Tree\AbstractTool;
 use Dcat\Admin\Widgets\Modal;
 
 class StaffDepartmentImportAction extends AbstractTool
 {
-    protected $title = '<a class="btn btn-primary" style="color: white;">导入数据</a>';
+    protected $title = '导入';
 
     /**
      * 渲染模态框
@@ -16,9 +16,10 @@ class StaffDepartmentImportAction extends AbstractTool
      */
     public function render()
     {
+
         return Modal::make()
             ->lg()
             ->body(new StaffDepartmentImportForm())
-            ->button($this->title);
+            ->button("<a class='btn btn-sm btn-success' style='color: white;'>$this->title</a>");
     }
 }

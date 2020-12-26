@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Actions\Grid\ToolAction\StaffDepartmentImportAction;
+use App\Admin\Actions\Tree\StaffDepartmentImportAction;
 use App\Admin\Repositories\StaffDepartment;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -21,9 +21,17 @@ class StaffDepartmentController extends AdminController
             ->title($this->title())
             ->description(trans('admin.list'))
             ->body(function (Row $row) {
-                $tree = new Tree(new \App\Models\StaffDepartment());
-                $row->column(12, $tree);
+                $row->column(12, $this->treeView());
             });
+    }
+
+    protected function treeView(): Tree
+    {
+        return new Tree(new \App\Models\StaffDepartment(), function (Tree $tree) {
+            $tree->tools(function (Tree\Tools $tools) {
+                $tools->add(new StaffDepartmentImportAction());
+            });
+        });
     }
 
     /**
@@ -42,10 +50,6 @@ class StaffDepartmentController extends AdminController
             $grid->enableDialogCreate();
 
             $grid->toolsWithOutline(false);
-
-            $grid->tools([
-                new StaffDepartmentImportAction()
-            ]);
 
             $grid->quickSearch('id', 'name', 'description', 'parent.name');
         });
