@@ -7,6 +7,9 @@ use App\Admin\Actions\Grid\RowAction\PartDeleteAction;
 use App\Admin\Actions\Grid\RowAction\PartTrackAction;
 use App\Admin\Actions\Grid\ToolAction\PartRecordImportAction;
 use App\Admin\Grid\Displayers\RowActions;
+use App\Admin\Metrics\CheckPartPercentage;
+use App\Admin\Metrics\PartAboutToExpireCounts;
+use App\Admin\Metrics\PartExpiredCounts;
 use App\Admin\Repositories\PartRecord;
 use App\Models\DepreciationRule;
 use App\Models\DeviceRecord;
@@ -19,6 +22,9 @@ use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Http\Controllers\AdminController;
+use Dcat\Admin\Layout\Column;
+use Dcat\Admin\Layout\Content;
+use Dcat\Admin\Layout\Row;
 use Dcat\Admin\Show;
 
 /**
@@ -29,6 +35,23 @@ use Dcat\Admin\Show;
  */
 class PartRecordController extends AdminController
 {
+    public function index(Content $content)
+    {
+        return $content
+            ->title($this->title())
+            ->description($this->description()['index'] ?? trans('admin.list'))
+            ->body(function (Row $row) {
+                $row->column(12, function (Column $column) {
+                    $column->row(function (Row $row) {
+                        $row->column(3, new CheckPartPercentage());
+                        $row->column(3, new PartAboutToExpireCounts());
+                        $row->column(3, new PartExpiredCounts());
+                    });
+                });
+                $row->column(12, $this->grid());
+            });
+    }
+
     /**
      * Make a grid builder.
      *

@@ -7,6 +7,9 @@ use App\Admin\Actions\Grid\RowAction\SoftwareTrackAction;
 use App\Admin\Actions\Grid\RowAction\SoftwareTrackDisableAction;
 use App\Admin\Actions\Grid\ToolAction\SoftwareRecordImportAction;
 use App\Admin\Grid\Displayers\RowActions;
+use App\Admin\Metrics\CheckSoftwarePercentage;
+use App\Admin\Metrics\SoftwareAboutToExpireCounts;
+use App\Admin\Metrics\SoftwareExpiredCounts;
 use App\Admin\Repositories\SoftwareRecord;
 use App\Admin\Repositories\SoftwareTrack;
 use App\Models\DeviceRecord;
@@ -35,6 +38,22 @@ use Dcat\Admin\Widgets\Card;
  */
 class SoftwareRecordController extends AdminController
 {
+    public function index(Content $content)
+    {
+        return $content
+            ->title($this->title())
+            ->description($this->description()['index'] ?? trans('admin.list'))
+            ->body(function (Row $row) {
+                $row->column(12, function (Column $column) {
+                    $column->row(function (Row $row) {
+                        $row->column(3, new CheckSoftwarePercentage());
+                        $row->column(3, new SoftwareAboutToExpireCounts());
+                        $row->column(3, new SoftwareExpiredCounts());
+                    });
+                });
+                $row->column(12, $this->grid());
+            });
+    }
 
     public function show($id, Content $content): Content
     {

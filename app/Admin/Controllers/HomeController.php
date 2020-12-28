@@ -3,24 +3,15 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Metrics\AllWorth;
-use App\Admin\Metrics\CheckDevicePercentage;
-use App\Admin\Metrics\CheckPartPercentage;
-use App\Admin\Metrics\CheckSoftwarePercentage;
-use App\Admin\Metrics\DeviceAboutToExpireCounts;
 use App\Admin\Metrics\DeviceCounts;
-use App\Admin\Metrics\DeviceExpiredCounts;
 use App\Admin\Metrics\DeviceWorth;
 use App\Admin\Metrics\IssueTrend;
 use App\Admin\Metrics\MaintenanceTrend;
-use App\Admin\Metrics\PartAboutToExpireCounts;
 use App\Admin\Metrics\PartCounts;
-use App\Admin\Metrics\PartExpiredCounts;
 use App\Admin\Metrics\PartWorth;
 use App\Admin\Metrics\ServiceCounts;
 use App\Admin\Metrics\ServiceIssueCounts;
-use App\Admin\Metrics\SoftwareAboutToExpireCounts;
 use App\Admin\Metrics\SoftwareCounts;
-use App\Admin\Metrics\SoftwareExpiredCounts;
 use App\Admin\Metrics\SoftwareWorth;
 use App\Admin\Metrics\StaffCounts;
 use App\Admin\Metrics\WorthTrend;
@@ -40,7 +31,7 @@ class HomeController extends Controller
             ->header('仪表盘')
             ->description('随时掌握你的资源情况')
             ->body(function (Row $row) {
-                $row->column(10, function (Column $column) {
+                $row->column(12, function (Column $column) {
                     $column->row(function (Row $row) {
                         $row->column(3, function (Column $column) {
                             $user = AdminUser::where('id', auth('admin')->id())->first();
@@ -69,17 +60,17 @@ class HomeController extends Controller
                         });
                     });
                 });
-                $row->column(2, function (Column $column) {
-                    $column->row(new CheckDevicePercentage());
-                    $column->row(new CheckPartPercentage());
-                    $column->row(new CheckSoftwarePercentage());
-                    $column->row(new DeviceAboutToExpireCounts());
-                    $column->row(new PartAboutToExpireCounts());
-                    $column->row(new SoftwareAboutToExpireCounts());
-                    $column->row(new DeviceExpiredCounts());
-                    $column->row(new PartExpiredCounts());
-                    $column->row(new SoftwareExpiredCounts());
-                });
+//                $row->column(2, function (Column $column) {
+//                    $column->row(new CheckDevicePercentage());
+//                    $column->row(new CheckPartPercentage());
+//                    $column->row(new CheckSoftwarePercentage());
+//                    $column->row(new DeviceAboutToExpireCounts());
+//                    $column->row(new PartAboutToExpireCounts());
+//                    $column->row(new SoftwareAboutToExpireCounts());
+//                    $column->row(new DeviceExpiredCounts());
+//                    $column->row(new PartExpiredCounts());
+//                    $column->row(new SoftwareExpiredCounts());
+//                });
             });
     }
 }

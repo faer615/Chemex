@@ -7,6 +7,9 @@ use App\Admin\Actions\Grid\RowAction\DeviceTrackAction;
 use App\Admin\Actions\Grid\RowAction\MaintenanceAction;
 use App\Admin\Actions\Grid\ToolAction\DeviceRecordImportAction;
 use App\Admin\Grid\Displayers\RowActions;
+use App\Admin\Metrics\CheckDevicePercentage;
+use App\Admin\Metrics\DeviceAboutToExpireCounts;
+use App\Admin\Metrics\DeviceExpiredCounts;
 use App\Admin\Repositories\DeviceRecord;
 use App\Models\DepreciationRule;
 use App\Models\DeviceCategory;
@@ -85,6 +88,23 @@ class DeviceRecordController extends AdminController
                     $card = new Card('履历', view('history')->with('data', $history));
                     $row->column($column_c_width, $card->tool('<a class="btn btn-primary btn-xs" href="' . route('export.device.history', $id) . '" target="_blank">导出到 Excel</a>'));
                 }
+            });
+    }
+
+    public function index(Content $content)
+    {
+        return $content
+            ->title($this->title())
+            ->description($this->description()['index'] ?? trans('admin.list'))
+            ->body(function (Row $row) {
+                $row->column(12, function (Column $column) {
+                    $column->row(function (Row $row) {
+                        $row->column(3, new CheckDevicePercentage());
+                        $row->column(3, new DeviceAboutToExpireCounts());
+                        $row->column(3, new DeviceExpiredCounts());
+                    });
+                });
+                $row->column(12, $this->grid());
             });
     }
 
