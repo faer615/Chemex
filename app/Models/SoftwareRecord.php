@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property double price
  * @property string expired
  * @property int purchased_channel_id
+ * @property string asset_number
  */
 class SoftwareRecord extends Model
 {

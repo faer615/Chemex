@@ -55,6 +55,7 @@ class DeviceRecordImportForm extends Form
                         if (!empty($row['序列号'])) {
                             $device_record->sn = $row['序列号'];
                         }
+                        $device_record->asset_number = $row['资产编号'];
                         $device_record->mac = $row['MAC'];
                         $device_record->ip = $row['IP'];
                         if (!empty($row['安全密码'])) {
@@ -130,6 +131,6 @@ class DeviceRecordImportForm extends Form
             ->accept('xls,xlsx,csv')
             ->autoUpload()
             ->required()
-            ->help('导入支持xls、xlsx、csv文件，且表格头必须使用【名称，描述，分类，厂商，雇员，序列号，MAC，IP，价格，购入日期，过保日期，购入途径】。');
+            ->help('导入支持xls、xlsx、csv文件，且表格头必须使用【名称，描述，分类，厂商，资产编号，雇员，序列号，MAC，IP，价格，购入日期，过保日期，购入途径】。');
     }
 }

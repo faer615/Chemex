@@ -48,6 +48,7 @@ class SoftwareRecordImportForm extends Form
                         // 这里导入判断空值，不能使用 ?? null 或者 ?? '' 的方式，写入数据库的时候
                         // 会默认为插入''而不是null，这会导致像price这样的double也是插入''，就会报错
                         // 其实price应该插入null
+                        $software_record->asset_number = $row['资产编号'];
                         if (!empty($row['版本'])) {
                             $software_record->version = $row['版本'];
                         }
@@ -108,6 +109,6 @@ class SoftwareRecordImportForm extends Form
             ->accept('xls,xlsx,csv')
             ->autoUpload()
             ->required()
-            ->help('导入支持xls、xlsx、csv文件，且表格头必须使用【名称，描述，分类，厂商，版本，价格，购入日期，过保日期，购入途径】。');
+            ->help('导入支持xls、xlsx、csv文件，且表格头必须使用【名称，描述，分类，资产编号，厂商，版本，价格，购入日期，过保日期，购入途径】。');
     }
 }

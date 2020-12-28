@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string description
  * @property string sn
  * @property int purchased_channel_id
+ * @property string asset_number
  */
 class PartRecord extends Model
 {

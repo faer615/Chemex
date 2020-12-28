@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Crypt;
  * @property int purchased_channel_id
  * @property string security_password
  * @property string admin_password
+ * @property string asset_number
  */
 class DeviceRecord extends Model
 {

@@ -136,7 +136,7 @@ class DeviceRecordController extends AdminController
         });
     }
 
-    public function index(Content $content)
+    public function index(Content $content): Content
     {
         return $content
             ->title($this->title())

@@ -16,7 +16,7 @@ class UpdateSeeder extends Seeder
     public function run()
     {
         // 2.1.0开始，使用配件（part）代替硬件（hardware），这里是更新盘点任务中老数据
-        DB::select("update check_records set check_item = 'part' where check_item = 'hardware'");
+        DB::getPdo()->exec("update check_records set check_item = 'part' where check_item = 'hardware'");
 
         // 菜单
         Models\Menu::truncate();
