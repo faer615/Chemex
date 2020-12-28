@@ -4,7 +4,9 @@ namespace App\Admin\Forms;
 
 use App\Models\DeviceCategory;
 use App\Models\DeviceRecord;
+use App\Models\DeviceTrack;
 use App\Models\PurchasedChannel;
+use App\Models\StaffRecord;
 use App\Models\VendorRecord;
 use Box\Spout\Common\Exception\IOException;
 use Box\Spout\Common\Exception\UnsupportedTypeException;
@@ -32,6 +34,7 @@ class DeviceRecordImportForm extends Form
                     if (!empty($row['名称']) && !empty($row['分类']) && !empty($row['厂商'])) {
                         $category = DeviceCategory::where('name', $row['分类'])->first();
                         $vendor = VendorRecord::where('name', $row['厂商'])->first();
+                        $staff_record = StaffRecord::where('name', $row['雇员'])->first();
                         if (empty($category)) {
                             $category = new DeviceCategory();
                             $category->name = $row['分类'];
@@ -82,6 +85,13 @@ class DeviceRecordImportForm extends Form
                             $device_record->purchased_channel_id = $purchased_channel->id;
                         }
                         $device_record->save();
+
+                        if (!empty($staff_record)) {
+                            $device_track = new DeviceTrack();
+                            $device_track->device_id = $device_record->id;
+                            $device_track->staff_id = $staff_record->id;
+                            $device_track->save();
+                        }
                     } else {
                         return $this->response()
                             ->error('缺少必要的字段！');
@@ -120,6 +130,6 @@ class DeviceRecordImportForm extends Form
             ->accept('xls,xlsx,csv')
             ->autoUpload()
             ->required()
-            ->help('导入支持xls、xlsx、csv文件，且表格头必须使用【名称，描述，分类，厂商，序列号，MAC，IP，价格，购入日期，过保日期，购入途径】。');
+            ->help('导入支持xls、xlsx、csv文件，且表格头必须使用【名称，描述，分类，厂商，雇员，序列号，MAC，IP，价格，购入日期，过保日期，购入途径】。');
     }
 }

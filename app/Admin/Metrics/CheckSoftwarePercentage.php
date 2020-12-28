@@ -45,15 +45,23 @@ class CheckSoftwarePercentage extends Card
             $percentage = 0;
         }
 
-        $html = <<<HTML
-<div class="info-box" style="background:transparent;margin-bottom: 0;padding: 0;">
-<span class="info-box-icon"><i class="feather icon-disc" style="color:rgba(33,115,186,1);"></i></span>
-    <div class="info-box-content">
-    <span class="info-box-text">软件盘点进度</span>
-    <span class="info-box-number">{$done_counts}</span>
+        $display = <<<HTML
     <div class="progress">
         <div class="progress-bar bg-info" style="background: rgba(70,160,153,1);width: {$percentage}%"></div>
     </div>
+HTML;
+
+
+        if ($percentage == 0) {
+            $display = '';
+        }
+
+        $html = <<<HTML
+<div class="info-box" style="background:transparent;margin-bottom: 0;padding: 0;">
+<span class="info-box-icon"><i class="feather icon-disc" style="color:rgba(33,115,186,1);"></i></span>
+    <div class="info-box-content" style="display: flex;flex-direction: column;justify-content: center;">
+    <span class="info-box-number">{$done_counts}</span>
+    {$display}
     <span class="progress-description">
         {$percentage}%
     </span>

@@ -45,15 +45,22 @@ class CheckDevicePercentage extends Card
             $percentage = 0;
         }
 
+        $display = <<<HTML
+    <div class="progress">
+      <div class="progress-bar" style="background: rgba(131,106,181,1);width: {$percentage}%"></div>
+    </div>
+HTML;
+        if ($percentage == 0) {
+            $display = '';
+        }
+
+
         $html = <<<HTML
 <div class="info-box" style="background:transparent;margin-bottom: 0;padding: 0;">
     <span class="info-box-icon"><i class="feather icon-monitor" style="color:rgba(33,115,186,1);"></i></span>
-    <div class="info-box-content">
-        <span class="info-box-text">设备盘点进度</span>
+    <div class="info-box-content" style="display: flex;flex-direction: column;justify-content: center;">
         <span class="info-box-number">{$done_counts}</span>
-        <div class="progress">
-          <div class="progress-bar" style="background: rgba(131,106,181,1);width: {$percentage}%"></div>
-        </div>
+        {$display}
         <span class="progress-description">
           {$percentage}%
         </span>

@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @method static where(string $key, string $value)
+ * @property int device_id
+ * @property int staff_id
  */
 class DeviceTrack extends Model
 {

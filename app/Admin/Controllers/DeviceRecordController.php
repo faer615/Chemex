@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Grid\BatchAction\DeviceRecordBatchDeleteAction;
 use App\Admin\Actions\Grid\RowAction\DeviceDeleteAction;
 use App\Admin\Actions\Grid\RowAction\DeviceTrackAction;
 use App\Admin\Actions\Grid\RowAction\MaintenanceAction;
@@ -201,41 +202,45 @@ class DeviceRecordController extends AdminController
             $grid->column('depreciation.name');
             $grid->column('location');
 
-            $grid->disableRowSelector();
-            $grid->disableBatchActions();
+            $grid->disableBatchDelete();
             $grid->disableDeleteButton();
+
+            $grid->batchActions([
+                new DeviceRecordBatchDeleteAction()
+            ]);
+
             $grid->tools([
                 new DeviceRecordImportAction()
             ]);
 
             $grid->actions(function (RowActions $actions) {
-                if (Admin::user()->can('device.delete')) {
+                if (Admin::user()->can('device . delete')) {
                     $actions->append(new DeviceDeleteAction());
                 }
-                if (Admin::user()->can('device.track')) {
+                if (Admin::user()->can('device . track')) {
                     $actions->append(new DeviceTrackAction());
                 }
-                if (Admin::user()->can('device.maintenance')) {
+                if (Admin::user()->can('device . maintenance')) {
                     $actions->append(new MaintenanceAction('device'));
                 }
             });
 
             $grid->showColumnSelector();
-            $grid->hideColumns(['description', 'price', 'expired', 'location']);
+            $grid->hideColumns(['description', 'price', 'expired', 'depreciation . name', 'location']);
 
             $grid->quickSearch(
                 'id',
                 'name',
                 'asset_number',
                 'description',
-                'category.name',
-                'vendor.name',
+                'category . name',
+                'vendor . name',
                 'sn',
                 'mac',
                 'ip',
                 'price',
-                'staff.name',
-                'staff.department.name',
+                'staff . name',
+                'staff . department . name',
                 'location'
             )
                 ->placeholder('试着搜索一下')
