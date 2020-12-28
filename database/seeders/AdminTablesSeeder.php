@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
+use DB;
 use Dcat\Admin\Models;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class AdminTablesSeeder extends Seeder
 {
@@ -420,12 +420,12 @@ class AdminTablesSeeder extends Seeder
                     "parent_id" => 56,
                     "order" => 33,
                     "title" => "Configuration Site",
-                    "icon" => "",
-                    "uri" => "/configurations",
+                    "icon" => NULL,
+                    "uri" => "/configurations/site",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-12-14 19:38:17",
-                    "updated_at" => "2020-12-24 21:21:34"
+                    "updated_at" => "2020-12-26 17:33:08"
                 ],
                 [
                     "id" => 63,
@@ -564,10 +564,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "device.track",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 11,
+                    "order" => 12,
                     "parent_id" => 7,
                     "created_at" => "2020-11-19 08:58:23",
-                    "updated_at" => "2020-11-19 13:24:56"
+                    "updated_at" => "2020-12-28 16:24:30"
                 ],
                 [
                     "id" => 10,
@@ -575,10 +575,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "device.track.disable",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 12,
+                    "order" => 13,
                     "parent_id" => 7,
                     "created_at" => "2020-11-19 08:59:02",
-                    "updated_at" => "2020-11-19 13:24:56"
+                    "updated_at" => "2020-12-28 16:24:30"
                 ],
                 [
                     "id" => 11,
@@ -586,10 +586,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "device.related",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 13,
+                    "order" => 14,
                     "parent_id" => 7,
                     "created_at" => "2020-11-19 08:59:54",
-                    "updated_at" => "2020-11-19 13:24:56"
+                    "updated_at" => "2020-12-28 16:24:30"
                 ],
                 [
                     "id" => 12,
@@ -597,10 +597,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "device.history",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 14,
+                    "order" => 15,
                     "parent_id" => 7,
                     "created_at" => "2020-11-19 09:00:27",
-                    "updated_at" => "2020-11-19 13:24:56"
+                    "updated_at" => "2020-12-28 16:24:30"
                 ],
                 [
                     "id" => 13,
@@ -608,10 +608,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "device.maintenance",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 15,
+                    "order" => 16,
                     "parent_id" => 7,
                     "created_at" => "2020-11-19 09:23:03",
-                    "updated_at" => "2020-12-19 01:13:21"
+                    "updated_at" => "2020-12-28 16:24:30"
                 ],
                 [
                     "id" => 14,
@@ -630,10 +630,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "software",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 16,
+                    "order" => 17,
                     "parent_id" => 0,
                     "created_at" => "2020-11-19 09:59:31",
-                    "updated_at" => "2020-11-19 13:24:56"
+                    "updated_at" => "2020-12-28 16:24:30"
                 ],
                 [
                     "id" => 16,
@@ -641,10 +641,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "part",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 25,
+                    "order" => 27,
                     "parent_id" => 0,
                     "created_at" => "2020-11-19 09:59:57",
-                    "updated_at" => "2020-11-19 13:35:38"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 17,
@@ -652,10 +652,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "staff",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 34,
+                    "order" => 37,
                     "parent_id" => 0,
                     "created_at" => "2020-11-19 10:00:31",
-                    "updated_at" => "2020-11-19 13:38:31"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 18,
@@ -663,10 +663,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "service",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 39,
+                    "order" => 42,
                     "parent_id" => 0,
                     "created_at" => "2020-11-19 10:00:55",
-                    "updated_at" => "2020-12-19 01:13:48"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 19,
@@ -674,10 +674,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "check",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 48,
+                    "order" => 51,
                     "parent_id" => 0,
                     "created_at" => "2020-11-19 10:01:27",
-                    "updated_at" => "2020-11-19 13:45:12"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 20,
@@ -685,10 +685,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "maintenance",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 55,
+                    "order" => 58,
                     "parent_id" => 0,
                     "created_at" => "2020-11-19 10:01:59",
-                    "updated_at" => "2020-11-30 09:30:13"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 21,
@@ -696,10 +696,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "vendor",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 60,
+                    "order" => 63,
                     "parent_id" => 0,
                     "created_at" => "2020-11-19 10:03:42",
-                    "updated_at" => "2020-11-30 09:30:13"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 22,
@@ -707,10 +707,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "purchased",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 63,
+                    "order" => 66,
                     "parent_id" => 0,
                     "created_at" => "2020-11-19 10:04:11",
-                    "updated_at" => "2020-11-30 09:30:14"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 23,
@@ -718,10 +718,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "version",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 66,
+                    "order" => 69,
                     "parent_id" => 0,
                     "created_at" => "2020-11-19 10:04:37",
-                    "updated_at" => "2020-11-30 09:30:14"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 24,
@@ -729,10 +729,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "software.actions",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 19,
+                    "order" => 20,
                     "parent_id" => 15,
                     "created_at" => "2020-11-19 10:06:25",
-                    "updated_at" => "2020-11-19 13:35:49"
+                    "updated_at" => "2020-12-28 16:24:30"
                 ],
                 [
                     "id" => 25,
@@ -740,10 +740,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "software.delete",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 20,
+                    "order" => 21,
                     "parent_id" => 24,
                     "created_at" => "2020-11-19 10:09:16",
-                    "updated_at" => "2020-11-19 13:35:38"
+                    "updated_at" => "2020-12-28 16:24:30"
                 ],
                 [
                     "id" => 26,
@@ -751,10 +751,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "software.track",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 21,
+                    "order" => 23,
                     "parent_id" => 24,
                     "created_at" => "2020-11-19 10:09:40",
-                    "updated_at" => "2020-11-19 13:35:38"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 27,
@@ -762,10 +762,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "software.track.disable",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 22,
+                    "order" => 24,
                     "parent_id" => 24,
                     "created_at" => "2020-11-19 10:10:02",
-                    "updated_at" => "2020-11-19 13:35:38"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 28,
@@ -773,10 +773,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "software.history",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 23,
+                    "order" => 25,
                     "parent_id" => 24,
                     "created_at" => "2020-11-19 10:10:28",
-                    "updated_at" => "2020-11-19 13:35:38"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 29,
@@ -784,10 +784,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "software.track.list",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 24,
+                    "order" => 26,
                     "parent_id" => 24,
                     "created_at" => "2020-11-19 10:11:19",
-                    "updated_at" => "2020-11-19 13:35:38"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 30,
@@ -795,10 +795,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "part.actions",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 28,
+                    "order" => 30,
                     "parent_id" => 16,
                     "created_at" => "2020-11-19 10:14:24",
-                    "updated_at" => "2020-11-19 13:38:37"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 31,
@@ -806,10 +806,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "part.delete",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 29,
+                    "order" => 31,
                     "parent_id" => 30,
                     "created_at" => "2020-11-19 10:15:02",
-                    "updated_at" => "2020-11-19 13:38:31"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 32,
@@ -817,10 +817,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "part.track",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 30,
+                    "order" => 33,
                     "parent_id" => 30,
                     "created_at" => "2020-11-19 10:15:12",
-                    "updated_at" => "2020-11-19 13:38:31"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 33,
@@ -828,10 +828,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "part.history",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 32,
+                    "order" => 35,
                     "parent_id" => 30,
                     "created_at" => "2020-11-19 10:15:27",
-                    "updated_at" => "2020-11-19 13:38:31"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 34,
@@ -839,10 +839,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "part.maintenance",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 33,
+                    "order" => 36,
                     "parent_id" => 30,
                     "created_at" => "2020-11-19 10:15:44",
-                    "updated_at" => "2020-12-19 01:13:30"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 35,
@@ -850,10 +850,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "part.track.disable",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 31,
+                    "order" => 34,
                     "parent_id" => 30,
                     "created_at" => "2020-11-19 10:16:04",
-                    "updated_at" => "2020-11-19 13:38:31"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 36,
@@ -861,10 +861,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "staff.actions",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 37,
+                    "order" => 40,
                     "parent_id" => 17,
                     "created_at" => "2020-11-19 10:18:46",
-                    "updated_at" => "2020-11-19 13:41:41"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 37,
@@ -872,10 +872,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "staff.delete",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 38,
+                    "order" => 41,
                     "parent_id" => 36,
                     "created_at" => "2020-11-19 10:18:57",
-                    "updated_at" => "2020-11-19 13:41:34"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 38,
@@ -883,10 +883,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "service.actions",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 42,
+                    "order" => 45,
                     "parent_id" => 18,
                     "created_at" => "2020-11-19 10:19:54",
-                    "updated_at" => "2020-11-19 13:45:19"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 39,
@@ -894,10 +894,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "service.delete",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 43,
+                    "order" => 46,
                     "parent_id" => 38,
                     "created_at" => "2020-11-19 10:20:16",
-                    "updated_at" => "2020-11-19 13:45:12"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 40,
@@ -905,10 +905,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "service.track",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 44,
+                    "order" => 47,
                     "parent_id" => 38,
                     "created_at" => "2020-11-19 10:20:26",
-                    "updated_at" => "2020-11-19 13:45:12"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 41,
@@ -916,10 +916,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "service.issue",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 45,
+                    "order" => 48,
                     "parent_id" => 38,
                     "created_at" => "2020-11-19 10:21:32",
-                    "updated_at" => "2020-11-19 13:45:12"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 42,
@@ -927,10 +927,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "service.track.disable",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 46,
+                    "order" => 49,
                     "parent_id" => 38,
                     "created_at" => "2020-11-19 10:21:56",
-                    "updated_at" => "2020-11-19 13:45:12"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 43,
@@ -938,10 +938,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "service.issue.fix",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 47,
+                    "order" => 50,
                     "parent_id" => 38,
                     "created_at" => "2020-11-19 10:22:25",
-                    "updated_at" => "2020-11-27 15:25:36"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 44,
@@ -949,10 +949,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "check.actions",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 51,
+                    "order" => 54,
                     "parent_id" => 19,
                     "created_at" => "2020-11-19 10:29:48",
-                    "updated_at" => "2020-11-19 14:01:03"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 45,
@@ -960,10 +960,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "check.track",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 52,
+                    "order" => 55,
                     "parent_id" => 44,
                     "created_at" => "2020-11-19 10:30:28",
-                    "updated_at" => "2020-11-27 14:55:44"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 47,
@@ -971,10 +971,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "maintenance.actions",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 58,
+                    "order" => 61,
                     "parent_id" => 20,
                     "created_at" => "2020-11-19 10:31:18",
-                    "updated_at" => "2020-11-30 09:30:13"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 48,
@@ -982,10 +982,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "maintenance.fix",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 59,
+                    "order" => 62,
                     "parent_id" => 47,
                     "created_at" => "2020-11-19 10:31:43",
-                    "updated_at" => "2020-12-19 01:15:33"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 49,
@@ -993,10 +993,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "check.finish",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 53,
+                    "order" => 56,
                     "parent_id" => 44,
                     "created_at" => "2020-11-19 10:35:29",
-                    "updated_at" => "2020-11-30 09:30:13"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 50,
@@ -1004,10 +1004,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "check.cancel",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 54,
+                    "order" => 57,
                     "parent_id" => 44,
                     "created_at" => "2020-11-19 10:35:38",
-                    "updated_at" => "2020-11-30 09:30:13"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 51,
@@ -1037,10 +1037,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "software.read-only",
                     "http_method" => "GET",
                     "http_path" => "software/tracks*,software/records*,software/categories*",
-                    "order" => 17,
+                    "order" => 18,
                     "parent_id" => 15,
                     "created_at" => "2020-11-19 13:22:53",
-                    "updated_at" => "2020-11-19 13:33:29"
+                    "updated_at" => "2020-12-28 16:24:30"
                 ],
                 [
                     "id" => 54,
@@ -1048,10 +1048,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "software.all",
                     "http_method" => "",
                     "http_path" => "software/tracks*,software/records*,software/categories*",
-                    "order" => 18,
+                    "order" => 19,
                     "parent_id" => 15,
                     "created_at" => "2020-11-19 13:23:56",
-                    "updated_at" => "2020-12-19 01:19:47"
+                    "updated_at" => "2020-12-28 16:24:30"
                 ],
                 [
                     "id" => 55,
@@ -1059,10 +1059,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "hardware.read-only",
                     "http_method" => "GET",
                     "http_path" => "part/tracks*,part/records*,part/categories*",
-                    "order" => 26,
+                    "order" => 28,
                     "parent_id" => 16,
                     "created_at" => "2020-11-19 13:37:36",
-                    "updated_at" => "2020-11-19 13:37:43"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 56,
@@ -1070,10 +1070,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "hardware.all",
                     "http_method" => "",
                     "http_path" => "part/tracks*,part/records*,part/categories*",
-                    "order" => 27,
+                    "order" => 29,
                     "parent_id" => 16,
                     "created_at" => "2020-11-19 13:38:18",
-                    "updated_at" => "2020-12-19 01:19:39"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 57,
@@ -1081,10 +1081,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "staff.read-only",
                     "http_method" => "GET",
                     "http_path" => "staff/records*,staff/departments*",
-                    "order" => 35,
+                    "order" => 38,
                     "parent_id" => 17,
                     "created_at" => "2020-11-19 13:40:44",
-                    "updated_at" => "2020-11-19 13:41:34"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 58,
@@ -1092,10 +1092,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "staff.all",
                     "http_method" => "",
                     "http_path" => "staff/records*,staff/departments*",
-                    "order" => 36,
+                    "order" => 39,
                     "parent_id" => 17,
                     "created_at" => "2020-11-19 13:41:10",
-                    "updated_at" => "2020-12-19 01:19:30"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 59,
@@ -1103,10 +1103,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "service.read-only",
                     "http_method" => "GET",
                     "http_path" => "service/records*,service/tracks*,service/issues*",
-                    "order" => 40,
+                    "order" => 43,
                     "parent_id" => 18,
                     "created_at" => "2020-11-19 13:44:25",
-                    "updated_at" => "2020-11-19 13:45:12"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 60,
@@ -1114,10 +1114,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "service.all",
                     "http_method" => "",
                     "http_path" => "service/records*,service/tracks*,service/issues*",
-                    "order" => 41,
+                    "order" => 44,
                     "parent_id" => 18,
                     "created_at" => "2020-11-19 13:45:00",
-                    "updated_at" => "2020-12-19 01:19:23"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 61,
@@ -1125,10 +1125,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "check.read-only",
                     "http_method" => "GET",
                     "http_path" => "check/records*,check/tracks*",
-                    "order" => 49,
+                    "order" => 52,
                     "parent_id" => 19,
                     "created_at" => "2020-11-19 14:00:10",
-                    "updated_at" => "2020-11-19 14:00:55"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 62,
@@ -1136,10 +1136,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "check.all",
                     "http_method" => "",
                     "http_path" => "check/records*,check/tracks*",
-                    "order" => 50,
+                    "order" => 53,
                     "parent_id" => 19,
                     "created_at" => "2020-11-19 14:00:45",
-                    "updated_at" => "2020-12-19 01:19:12"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 63,
@@ -1147,10 +1147,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "maintenance.read-only",
                     "http_method" => "GET",
                     "http_path" => "maintenance/records*",
-                    "order" => 56,
+                    "order" => 59,
                     "parent_id" => 20,
                     "created_at" => "2020-11-19 14:01:46",
-                    "updated_at" => "2020-11-30 09:30:13"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 64,
@@ -1158,10 +1158,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "maintenance.all",
                     "http_method" => "",
                     "http_path" => "maintenance/records*",
-                    "order" => 57,
+                    "order" => 60,
                     "parent_id" => 20,
                     "created_at" => "2020-11-19 14:02:10",
-                    "updated_at" => "2020-12-19 01:19:02"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 65,
@@ -1169,10 +1169,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "vendor.read-only",
                     "http_method" => "GET",
                     "http_path" => "vendor/records*",
-                    "order" => 61,
+                    "order" => 64,
                     "parent_id" => 21,
                     "created_at" => "2020-11-19 14:03:07",
-                    "updated_at" => "2020-11-30 09:30:13"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 66,
@@ -1180,10 +1180,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "vendor.all",
                     "http_method" => "",
                     "http_path" => "vendor/records*",
-                    "order" => 62,
+                    "order" => 65,
                     "parent_id" => 21,
                     "created_at" => "2020-11-19 14:03:24",
-                    "updated_at" => "2020-12-19 01:18:57"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 67,
@@ -1191,10 +1191,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "puchased.read-only",
                     "http_method" => "GET",
                     "http_path" => "purchased/channels*",
-                    "order" => 64,
+                    "order" => 67,
                     "parent_id" => 22,
                     "created_at" => "2020-11-19 14:04:08",
-                    "updated_at" => "2020-11-30 09:30:14"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 68,
@@ -1202,10 +1202,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "purchased.all",
                     "http_method" => "",
                     "http_path" => "purchased/channels*",
-                    "order" => 65,
+                    "order" => 68,
                     "parent_id" => 22,
                     "created_at" => "2020-11-19 14:04:39",
-                    "updated_at" => "2020-12-19 01:18:49"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 69,
@@ -1213,10 +1213,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "version.read-only",
                     "http_method" => "GET",
                     "http_path" => "version",
-                    "order" => 67,
+                    "order" => 70,
                     "parent_id" => 23,
                     "created_at" => "2020-11-19 14:05:14",
-                    "updated_at" => "2020-11-30 09:30:14"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 70,
@@ -1224,10 +1224,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "version.actions",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 68,
+                    "order" => 71,
                     "parent_id" => 23,
                     "created_at" => "2020-11-19 14:05:40",
-                    "updated_at" => "2020-11-30 09:30:14"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 72,
@@ -1235,10 +1235,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "version.migrate",
                     "http_method" => "",
                     "http_path" => "version/migrate",
-                    "order" => 69,
+                    "order" => 72,
                     "parent_id" => 70,
                     "created_at" => "2020-11-19 14:06:39",
-                    "updated_at" => "2020-11-30 09:30:14"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 73,
@@ -1246,10 +1246,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "depreciation_rule",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 70,
+                    "order" => 73,
                     "parent_id" => 0,
                     "created_at" => "2020-12-19 01:16:23",
-                    "updated_at" => "2020-12-19 01:16:32"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 74,
@@ -1257,10 +1257,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "depreciation_rule.read-only",
                     "http_method" => "GET",
                     "http_path" => "depreciation/rules*",
-                    "order" => 71,
+                    "order" => 74,
                     "parent_id" => 73,
                     "created_at" => "2020-12-19 01:17:19",
-                    "updated_at" => "2020-12-19 01:17:32"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 75,
@@ -1268,10 +1268,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "depreciation_rule.all",
                     "http_method" => "",
                     "http_path" => "depreciation/rules*",
-                    "order" => 72,
+                    "order" => 75,
                     "parent_id" => 73,
                     "created_at" => "2020-12-19 01:18:30",
-                    "updated_at" => "2020-12-19 01:18:30"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 76,
@@ -1279,10 +1279,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "configuration",
                     "http_method" => "",
                     "http_path" => "depreciation/rules*",
-                    "order" => 73,
+                    "order" => 76,
                     "parent_id" => 0,
                     "created_at" => "2020-12-19 01:18:30",
-                    "updated_at" => "2020-12-19 01:18:30"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 77,
@@ -1290,10 +1290,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "configuration.read-only",
                     "http_method" => "GET",
                     "http_path" => "configurations*",
-                    "order" => 74,
+                    "order" => 77,
                     "parent_id" => 76,
                     "created_at" => "2020-12-19 01:18:30",
-                    "updated_at" => "2020-12-19 01:18:30"
+                    "updated_at" => "2020-12-28 16:25:16"
                 ],
                 [
                     "id" => 78,
@@ -1301,10 +1301,43 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "configuration.all",
                     "http_method" => "",
                     "http_path" => "configurations*",
-                    "order" => 75,
+                    "order" => 78,
                     "parent_id" => 76,
                     "created_at" => "2020-12-19 01:18:30",
-                    "updated_at" => "2020-12-19 01:18:30"
+                    "updated_at" => "2020-12-28 16:25:16"
+                ],
+                [
+                    "id" => 79,
+                    "name" => "设备批量删除",
+                    "slug" => "device.batch.delete",
+                    "http_method" => "",
+                    "http_path" => "",
+                    "order" => 11,
+                    "parent_id" => 7,
+                    "created_at" => "2020-12-28 16:24:23",
+                    "updated_at" => "2020-12-28 16:24:30"
+                ],
+                [
+                    "id" => 80,
+                    "name" => "软件批量删除",
+                    "slug" => "software.batch.delete",
+                    "http_method" => "",
+                    "http_path" => "",
+                    "order" => 22,
+                    "parent_id" => 24,
+                    "created_at" => "2020-12-28 16:24:50",
+                    "updated_at" => "2020-12-28 16:25:16"
+                ],
+                [
+                    "id" => 81,
+                    "name" => "配件批量删除",
+                    "slug" => "part.batch.delete",
+                    "http_method" => "",
+                    "http_path" => "",
+                    "order" => 32,
+                    "parent_id" => 30,
+                    "created_at" => "2020-12-28 16:25:06",
+                    "updated_at" => "2020-12-28 16:25:16"
                 ]
             ]
         );
@@ -1333,40 +1366,106 @@ class AdminTablesSeeder extends Seeder
         Models\Setting::insert(
             [
                 [
-                    "slug" => "celaraze:dcatadmin-menu-switch",
-                    "value" => "[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]",
-                    "created_at" => "2020-11-09 16:22:52",
-                    "updated_at" => "2020-11-09 16:23:06"
+                    "slug" => "ad_base_dn",
+                    "value" => "dc=test,dc=com",
+                    "created_at" => "2020-12-24 14:47:12",
+                    "updated_at" => "2020-12-24 14:47:12"
                 ],
                 [
-                    "slug" => "dcat-admin:operation-log",
-                    "value" => "{\"except\":[],\"allowed_methods\":[],\"secret_fields\":[]}",
-                    "created_at" => "2020-11-04 15:19:51",
-                    "updated_at" => "2020-11-04 15:19:51"
+                    "slug" => "ad_bind_administrator",
+                    "value" => "wangwu@test.com",
+                    "created_at" => "2020-12-25 09:39:09",
+                    "updated_at" => "2020-12-25 09:52:09"
+                ],
+                [
+                    "slug" => "ad_enabled",
+                    "value" => "1",
+                    "created_at" => "2020-12-24 14:21:43",
+                    "updated_at" => "2020-12-25 09:45:10"
+                ],
+                [
+                    "slug" => "ad_host_primary",
+                    "value" => "192.168.197.141",
+                    "created_at" => "2020-12-24 14:21:43",
+                    "updated_at" => "2020-12-28 09:47:35"
+                ],
+                [
+                    "slug" => "ad_host_secondary",
+                    "value" => "",
+                    "created_at" => "2020-12-24 14:21:43",
+                    "updated_at" => "2020-12-24 14:21:43"
+                ],
+                [
+                    "slug" => "ad_login",
+                    "value" => "1",
+                    "created_at" => "2020-12-25 09:39:09",
+                    "updated_at" => "2020-12-25 10:16:37"
+                ],
+                [
+                    "slug" => "ad_password",
+                    "value" => "A123456!",
+                    "created_at" => "2020-12-24 14:21:43",
+                    "updated_at" => "2020-12-24 14:21:43"
+                ],
+                [
+                    "slug" => "ad_port_primary",
+                    "value" => "389",
+                    "created_at" => "2020-12-24 14:21:43",
+                    "updated_at" => "2020-12-24 14:21:43"
+                ],
+                [
+                    "slug" => "ad_port_secondary",
+                    "value" => "0",
+                    "created_at" => "2020-12-24 14:21:43",
+                    "updated_at" => "2020-12-24 14:21:43"
+                ],
+                [
+                    "slug" => "ad_use_ssl",
+                    "value" => "0",
+                    "created_at" => "2020-12-24 14:47:12",
+                    "updated_at" => "2020-12-24 14:47:12"
+                ],
+                [
+                    "slug" => "ad_use_tls",
+                    "value" => "0",
+                    "created_at" => "2020-12-24 14:47:12",
+                    "updated_at" => "2020-12-24 14:47:12"
+                ],
+                [
+                    "slug" => "ad_username",
+                    "value" => "administrator@test.com",
+                    "created_at" => "2020-12-24 14:21:43",
+                    "updated_at" => "2020-12-24 14:21:43"
                 ],
                 [
                     "slug" => "site_logo",
                     "value" => "",
-                    "created_at" => "2020-12-20 13:57:11",
-                    "updated_at" => "2020-12-20 13:57:11"
+                    "created_at" => "2020-12-21 11:42:06",
+                    "updated_at" => "2020-12-21 11:42:06"
                 ],
                 [
                     "slug" => "site_logo_mini",
                     "value" => "",
-                    "created_at" => "2020-12-20 13:57:11",
-                    "updated_at" => "2020-12-20 13:57:11"
+                    "created_at" => "2020-12-21 11:42:06",
+                    "updated_at" => "2020-12-21 11:42:06"
                 ],
                 [
                     "slug" => "site_logo_text",
-                    "value" => "咖啡壶",
-                    "created_at" => "2020-12-20 13:57:11",
-                    "updated_at" => "2020-12-20 13:57:11"
+                    "value" => "本地咖啡壶",
+                    "created_at" => "2020-12-21 11:42:06",
+                    "updated_at" => "2020-12-21 11:42:33"
                 ],
                 [
                     "slug" => "site_title",
-                    "value" => "咖啡壶",
-                    "created_at" => "2020-12-20 13:57:11",
-                    "updated_at" => "2020-12-20 13:57:11"
+                    "value" => "本地咖啡壶",
+                    "created_at" => "2020-12-21 11:42:06",
+                    "updated_at" => "2020-12-21 11:42:06"
+                ],
+                [
+                    "slug" => "site_url",
+                    "value" => "http://127.0.0.1:8000",
+                    "created_at" => "2020-12-21 11:42:06",
+                    "updated_at" => "2020-12-23 16:57:02"
                 ]
             ]
         );
@@ -1381,16 +1480,25 @@ class AdminTablesSeeder extends Seeder
                     "is_enabled" => 0,
                     "options" => NULL,
                     "created_at" => NULL,
-                    "updated_at" => "2020-11-09 15:51:07"
+                    "updated_at" => "2020-12-23 15:37:43"
                 ],
                 [
                     "id" => 7,
                     "name" => "celaraze.dcatadmin-menu-switch",
                     "version" => "1.0.0",
-                    "is_enabled" => 1,
+                    "is_enabled" => 0,
                     "options" => NULL,
                     "created_at" => "2020-11-09 15:55:26",
-                    "updated_at" => "2020-11-09 15:55:30"
+                    "updated_at" => "2020-12-24 09:02:03"
+                ],
+                [
+                    "id" => 8,
+                    "name" => "dcat-admin.operation-log",
+                    "version" => "1.0.0",
+                    "is_enabled" => 1,
+                    "options" => NULL,
+                    "created_at" => "2020-12-24 09:02:11",
+                    "updated_at" => "2020-12-24 09:02:14"
                 ]
             ]
         );
@@ -1406,6 +1514,24 @@ class AdminTablesSeeder extends Seeder
                     "detail" => "Initialize extension.",
                     "created_at" => "2020-11-09 15:55:26",
                     "updated_at" => "2020-11-09 15:55:26"
+                ],
+                [
+                    "id" => 8,
+                    "name" => "dcat-admin.operation-log",
+                    "type" => 2,
+                    "version" => "1.0.0",
+                    "detail" => "create_opration_log_table.php",
+                    "created_at" => "2020-12-24 09:02:11",
+                    "updated_at" => "2020-12-24 09:02:11"
+                ],
+                [
+                    "id" => 9,
+                    "name" => "dcat-admin.operation-log",
+                    "type" => 1,
+                    "version" => "1.0.0",
+                    "detail" => "Initialize extension.",
+                    "created_at" => "2020-12-24 09:02:11",
+                    "updated_at" => "2020-12-24 09:02:11"
                 ]
             ]
         );
@@ -2127,12 +2253,32 @@ class AdminTablesSeeder extends Seeder
                 [
                     "id" => 1,
                     "username" => "admin",
-                    "password" => "\$2y\$10\$c3TTfU9ArSf2hvlTG5CTk.BUBzJOgdPale0VKi1MJXCoCG6mAcsPe",
+                    "password" => "\$2y\$10\$uBArS4TPx.UZ5sU1.d0ixem5F4n3XHk7Cgnu/bn3kxtomGPfxJ1Vi",
                     "name" => "Administrator",
                     "avatar" => NULL,
                     "remember_token" => NULL,
                     "created_at" => "2020-11-30 09:58:49",
-                    "updated_at" => "2020-12-16 17:28:14"
+                    "updated_at" => "2020-12-11 10:25:15"
+                ],
+                [
+                    "id" => 3,
+                    "username" => "administrator@test.com",
+                    "password" => "\$2y\$10\$q4X71GxI.TxZ2.hH6fWRzOWVwwdzqra2SBAXdh59NIHWUF5v0AyXC",
+                    "name" => "administrator@test.com",
+                    "avatar" => NULL,
+                    "remember_token" => NULL,
+                    "created_at" => "2020-12-25 10:37:05",
+                    "updated_at" => "2020-12-25 10:41:56"
+                ],
+                [
+                    "id" => 4,
+                    "username" => "wangwu@test.com",
+                    "password" => "\$2y\$10\$1KTn04Wr0E5qBBK36VYVx.KS6P2tLGjoIhjBt2GQqEWZBpsXdss.O",
+                    "name" => "wangwu@test.com",
+                    "avatar" => NULL,
+                    "remember_token" => NULL,
+                    "created_at" => "2020-12-25 10:42:27",
+                    "updated_at" => "2020-12-25 10:49:36"
                 ]
             ]
         );
@@ -2145,6 +2291,24 @@ class AdminTablesSeeder extends Seeder
                     "user_id" => 1,
                     "created_at" => NULL,
                     "updated_at" => NULL
+                ],
+                [
+                    "role_id" => 1,
+                    "user_id" => 4,
+                    "created_at" => "2020-12-25 10:48:40",
+                    "updated_at" => "2020-12-25 10:48:40"
+                ],
+                [
+                    "role_id" => 2,
+                    "user_id" => 3,
+                    "created_at" => "2020-12-25 10:41:56",
+                    "updated_at" => "2020-12-25 10:41:56"
+                ],
+                [
+                    "role_id" => 2,
+                    "user_id" => 4,
+                    "created_at" => "2020-12-25 10:42:27",
+                    "updated_at" => "2020-12-25 10:42:27"
                 ]
             ]
         );

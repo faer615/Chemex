@@ -55,6 +55,80 @@ class SoftwareRecordController extends AdminController
             });
     }
 
+    /**
+     * Make a grid builder.
+     *
+     * @return Grid
+     */
+    protected function grid(): Grid
+    {
+        return Grid::make(new SoftwareRecord(['category', 'vendor']), function (Grid $grid) {
+            $grid->column('id');
+            $grid->column('qrcode')->qrcode(function () {
+                return 'software:' . $this->id;
+            }, 200, 200);
+            $grid->column('name');
+            $grid->column('description');
+            $grid->column('asset_number');
+            $grid->column('category.name');
+            $grid->column('version');
+            $grid->column('vendor.name');
+            $grid->column('price');
+            $grid->column('purchased');
+            $grid->column('expired');
+            $grid->column('distribution')->using(Data::distribution());
+            $grid->column('counts');
+            $grid->column('', admin_trans_label('Left Counts'))->display(function () {
+                return Track::leftSoftwareCounts($this->id);
+            });
+            $grid->column('', admin_trans_label('Expiration Left Days'))->display(function () {
+                return ExpirationService::itemExpirationLeftDaysRender('software', $this->id);
+            });
+            $grid->column('location');
+
+            $grid->actions(function (RowActions $actions) {
+                if (Admin::user()->can('software.delete')) {
+                    $actions->append(new SoftwareDeleteAction());
+                }
+                if (Admin::user()->can('software.track')) {
+                    $actions->append(new SoftwareTrackAction());
+                }
+                if (Admin::user()->can('software.track.list')) {
+                    $tracks_route = route('software.tracks.index', ['_search_' => $this->id]);
+                    $actions->append("<a href='$tracks_route'>💿 管理归属</a>");
+                }
+            });
+
+            $grid->showColumnSelector();
+            $grid->hideColumns(['description', 'price', 'expired', 'location']);
+
+            $grid->quickSearch(
+                'id',
+                'name',
+                'asset_number',
+                'category.name',
+                'version',
+                'price',
+                'location'
+            )
+                ->placeholder('试着搜索一下')
+                ->auto(false);
+
+            $grid->enableDialogCreate();
+            $grid->disableRowSelector();
+            $grid->disableDeleteButton();
+            $grid->disableBatchActions();
+
+            $grid->tools([
+                new SoftwareRecordImportAction()
+            ]);
+
+            $grid->toolsWithOutline(false);
+
+            $grid->export();
+        });
+    }
+
     public function show($id, Content $content): Content
     {
         $history = SoftwareRecordService::history($id);
@@ -141,80 +215,6 @@ class SoftwareRecordController extends AdminController
     public function exportHistory($software_id)
     {
         return ExportService::SoftwareHistory($software_id);
-    }
-
-    /**
-     * Make a grid builder.
-     *
-     * @return Grid
-     */
-    protected function grid(): Grid
-    {
-        return Grid::make(new SoftwareRecord(['category', 'vendor']), function (Grid $grid) {
-            $grid->column('id');
-            $grid->column('qrcode')->qrcode(function () {
-                return 'software:' . $this->id;
-            }, 200, 200);
-            $grid->column('name');
-            $grid->column('description');
-            $grid->column('asset_number');
-            $grid->column('category.name');
-            $grid->column('version');
-            $grid->column('vendor.name');
-            $grid->column('price');
-            $grid->column('purchased');
-            $grid->column('expired');
-            $grid->column('distribution')->using(Data::distribution());
-            $grid->column('counts');
-            $grid->column('', admin_trans_label('Left Counts'))->display(function () {
-                return Track::leftSoftwareCounts($this->id);
-            });
-            $grid->column('', admin_trans_label('Expiration Left Days'))->display(function () {
-                return ExpirationService::itemExpirationLeftDaysRender('software', $this->id);
-            });
-            $grid->column('location');
-
-            $grid->actions(function (RowActions $actions) {
-                if (Admin::user()->can('software.delete')) {
-                    $actions->append(new SoftwareDeleteAction());
-                }
-                if (Admin::user()->can('software.track')) {
-                    $actions->append(new SoftwareTrackAction());
-                }
-                if (Admin::user()->can('software.track.list')) {
-                    $tracks_route = route('software.tracks.index', ['_search_' => $this->id]);
-                    $actions->append("<a href='$tracks_route'>💿 管理归属</a>");
-                }
-            });
-
-            $grid->showColumnSelector();
-            $grid->hideColumns(['description', 'price', 'expired', 'location']);
-
-            $grid->quickSearch(
-                'id',
-                'name',
-                'asset_number',
-                'category.name',
-                'version',
-                'price',
-                'location'
-            )
-                ->placeholder('试着搜索一下')
-                ->auto(false);
-
-            $grid->enableDialogCreate();
-            $grid->disableRowSelector();
-            $grid->disableDeleteButton();
-            $grid->disableBatchActions();
-
-            $grid->tools([
-                new SoftwareRecordImportAction()
-            ]);
-
-            $grid->toolsWithOutline(false);
-
-            $grid->export();
-        });
     }
 
     /**

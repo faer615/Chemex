@@ -2,8 +2,7 @@
 
 namespace App\Admin\Actions\Grid\RowAction;
 
-use App\Models\SoftwareRecord;
-use App\Models\SoftwareTrack;
+use App\Services\SoftwareRecordService;
 use Dcat\Admin\Actions\Response;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Grid\RowAction;
@@ -24,23 +23,10 @@ class SoftwareDeleteAction extends RowAction
                 ->refresh();
         }
 
-        $software = SoftwareRecord::where('id', $this->getKey())->first();
-        if (empty($software)) {
-            return $this->response()
-                ->error('没有此软件记录！');
-        }
-
-        $software_tracks = SoftwareTrack::where('software_id', $software->id)
-            ->get();
-
-        foreach ($software_tracks as $software_track) {
-            $software_track->delete();
-        }
-
-        $software->delete();
+        SoftwareRecordService::deleteSoftware($this->getKey());
 
         return $this->response()
-            ->success('成功删除软件: ' . $software->name)
+            ->success('成功删除软件！')
             ->refresh();
     }
 

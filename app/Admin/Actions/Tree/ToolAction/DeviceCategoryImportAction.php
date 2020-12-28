@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Admin\Actions\Tree;
+namespace App\Admin\Actions\Tree\ToolAction;
 
-use App\Admin\Forms\StaffDepartmentImportForm;
+use App\Admin\Forms\DeviceCategoryImportForm;
 use Dcat\Admin\Tree\AbstractTool;
 use Dcat\Admin\Widgets\Modal;
 
-class StaffDepartmentImportAction extends AbstractTool
+class DeviceCategoryImportAction extends AbstractTool
 {
     protected $title = '导入';
 
@@ -19,7 +19,7 @@ class StaffDepartmentImportAction extends AbstractTool
 
         return Modal::make()
             ->lg()
-            ->body(new StaffDepartmentImportForm())
+            ->body(new DeviceCategoryImportForm())
             ->button("<a class='btn btn-sm btn-success' style='color: white;'><i class='feather icon-package'></i>&nbsp;$this->title</a>");
     }
 }

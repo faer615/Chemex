@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Actions\Tree\StaffDepartmentImportAction;
+use App\Admin\Actions\Tree\ToolAction\StaffDepartmentImportAction;
 use App\Admin\Repositories\StaffDepartment;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;

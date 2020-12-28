@@ -92,23 +92,6 @@ class DeviceRecordController extends AdminController
             });
     }
 
-    public function index(Content $content)
-    {
-        return $content
-            ->title($this->title())
-            ->description($this->description()['index'] ?? trans('admin.list'))
-            ->body(function (Row $row) {
-                $row->column(12, function (Column $column) {
-                    $column->row(function (Row $row) {
-                        $row->column(3, new CheckDevicePercentage());
-                        $row->column(3, new DeviceAboutToExpireCounts());
-                        $row->column(3, new DeviceExpiredCounts());
-                    });
-                });
-                $row->column(12, $this->grid());
-            });
-    }
-
     /**
      * Make a show builder.
      *
@@ -153,14 +136,21 @@ class DeviceRecordController extends AdminController
         });
     }
 
-    /**
-     * 履历导出
-     * @param $device_id
-     * @return mixed
-     */
-    public function exportHistory($device_id)
+    public function index(Content $content)
     {
-        return ExportService::DeviceHistory($device_id);
+        return $content
+            ->title($this->title())
+            ->description($this->description()['index'] ?? trans('admin.list'))
+            ->body(function (Row $row) {
+                $row->column(12, function (Column $column) {
+                    $column->row(function (Row $row) {
+                        $row->column(3, new CheckDevicePercentage());
+                        $row->column(3, new DeviceAboutToExpireCounts());
+                        $row->column(3, new DeviceExpiredCounts());
+                    });
+                });
+                $row->column(12, $this->grid());
+            });
     }
 
     /**
@@ -257,6 +247,16 @@ class DeviceRecordController extends AdminController
             $grid->toolsWithOutline(false);
             $grid->export();
         });
+    }
+
+    /**
+     * 履历导出
+     * @param $device_id
+     * @return mixed
+     */
+    public function exportHistory($device_id)
+    {
+        return ExportService::DeviceHistory($device_id);
     }
 
     /**

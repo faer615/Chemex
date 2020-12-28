@@ -2,8 +2,7 @@
 
 namespace App\Admin\Actions\Grid\RowAction;
 
-use App\Models\PartRecord;
-use App\Models\PartTrack;
+use App\Services\PartRecordService;
 use Dcat\Admin\Actions\Response;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Grid\RowAction;
@@ -24,23 +23,10 @@ class PartDeleteAction extends RowAction
                 ->refresh();
         }
 
-        $part = PartRecord::where('id', $this->getKey())->first();
-        if (empty($part)) {
-            return $this->response()
-                ->error('没有此配件记录！');
-        }
-
-        $part_tracks = PartTrack::where('part_id', $part->id)
-            ->get();
-
-        foreach ($part_tracks as $part_track) {
-            $part_track->delete();
-        }
-
-        $part->delete();
+        PartRecordService::partDelete($this->getKey());
 
         return $this->response()
-            ->success('成功删除配件: ' . $part->name)
+            ->success('成功删除配件！')
             ->refresh();
     }
 

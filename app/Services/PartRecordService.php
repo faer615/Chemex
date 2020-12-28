@@ -4,6 +4,7 @@
 namespace App\Services;
 
 
+use App\Models\PartRecord;
 use App\Models\PartTrack;
 use App\Support\Track;
 
@@ -45,5 +46,26 @@ class PartRecordService
         array_multisort($datetime, SORT_DESC, $data);
 
         return $data;
+    }
+
+    /**
+     * 配件删除
+     * @param $part_id
+     */
+    public static function partDelete($part_id)
+    {
+        $part = PartRecord::where('id', $part_id)->first();
+        if (!empty($part)) {
+            $part_tracks = PartTrack::where('part_id', $part->id)
+                ->get();
+
+            foreach ($part_tracks as $part_track) {
+                $part_track->delete();
+            }
+
+            $part->delete();
+        }
+
+
     }
 }

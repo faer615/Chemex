@@ -4,6 +4,7 @@
 namespace App\Services;
 
 
+use App\Models\SoftwareRecord;
 use App\Models\SoftwareTrack;
 use App\Support\Track;
 
@@ -45,5 +46,24 @@ class SoftwareRecordService
         array_multisort($datetime, SORT_DESC, $data);
 
         return $data;
+    }
+
+    /**
+     * 删除软件
+     * @param $software_id
+     */
+    public static function deleteSoftware($software_id)
+    {
+        $software = SoftwareRecord::where('id', $software_id)->first();
+        if (!empty($software)) {
+            $software_tracks = SoftwareTrack::where('software_id', $software->id)
+                ->get();
+
+            foreach ($software_tracks as $software_track) {
+                $software_track->delete();
+            }
+
+            $software->delete();
+        }
     }
 }
