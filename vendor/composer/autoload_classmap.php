@@ -329,6 +329,7 @@ return array(
     'App\\Services\\DeviceRecordService' => $baseDir . '/app/Services/DeviceRecordService.php',
     'App\\Services\\ExpirationService' => $baseDir . '/app/Services/ExpirationService.php',
     'App\\Services\\ExportService' => $baseDir . '/app/Services/ExportService.php',
+    'App\\Services\\LDAPService' => $baseDir . '/app/Services/LDAPService.php',
     'App\\Services\\NotificationService' => $baseDir . '/app/Services/NotificationService.php',
     'App\\Services\\PartRecordService' => $baseDir . '/app/Services/PartRecordService.php',
     'App\\Services\\SoftwareRecordService' => $baseDir . '/app/Services/SoftwareRecordService.php',

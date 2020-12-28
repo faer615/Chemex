@@ -20,6 +20,6 @@ class StaffDepartmentImportAction extends AbstractTool
         return Modal::make()
             ->lg()
             ->body(new StaffDepartmentImportForm())
-            ->button("<a class='btn btn-sm btn-success' style='color: white;'>$this->title</a>");
+            ->button("<a class='btn btn-sm btn-success' style='color: white;'><i class='feather icon-package'></i>&nbsp;$this->title</a>");
     }
 }

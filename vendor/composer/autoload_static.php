@@ -904,6 +904,7 @@ class ComposerStaticInit1b0e3bdc513b415a6ce4c0d7fd1222be
         'App\\Services\\DeviceRecordService' => __DIR__ . '/../..' . '/app/Services/DeviceRecordService.php',
         'App\\Services\\ExpirationService' => __DIR__ . '/../..' . '/app/Services/ExpirationService.php',
         'App\\Services\\ExportService' => __DIR__ . '/../..' . '/app/Services/ExportService.php',
+        'App\\Services\\LDAPService' => __DIR__ . '/../..' . '/app/Services/LDAPService.php',
         'App\\Services\\NotificationService' => __DIR__ . '/../..' . '/app/Services/NotificationService.php',
         'App\\Services\\PartRecordService' => __DIR__ . '/../..' . '/app/Services/PartRecordService.php',
         'App\\Services\\SoftwareRecordService' => __DIR__ . '/../..' . '/app/Services/SoftwareRecordService.php',

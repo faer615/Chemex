@@ -25,7 +25,11 @@ class StaffRecordController extends AdminController
     {
         return Grid::make(new StaffRecord(['department']), function (Grid $grid) {
             $grid->column('id');
-            $grid->column('name');
+            $grid->column('name')->display(function ($name) {
+                if ($this->ad_tag === 1) {
+                    return "<span class='badge badge-primary mr-1'>AD</span>$name";
+                }
+            });
             $grid->column('department.name');
             $grid->column('gender');
             $grid->column('title');
@@ -68,7 +72,11 @@ class StaffRecordController extends AdminController
     {
         return Show::make($id, new StaffRecord(['department']), function (Show $show) {
             $show->field('id');
-            $show->field('name');
+            $show->field('name')->unescape()->as(function ($name) {
+                if ($this->ad_tag === 1) {
+                    return "<span class='badge badge-primary mr-1'>AD</span>$name";
+                }
+            });
             $show->field('department.name');
             $show->field('gender');
             $show->field('title');

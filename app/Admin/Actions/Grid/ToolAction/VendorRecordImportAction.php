@@ -8,7 +8,7 @@ use Dcat\Admin\Widgets\Modal;
 
 class VendorRecordImportAction extends AbstractTool
 {
-    protected $title = '<a class="btn btn-primary" style="color: white;">导入数据</a>';
+    protected $title = '导入';
 
     /**
      * 渲染模态框
@@ -19,6 +19,6 @@ class VendorRecordImportAction extends AbstractTool
         return Modal::make()
             ->lg()
             ->body(new VendorRecordImportForm())
-            ->button($this->title);
+            ->button("<a class='btn btn-success' style='color: white;'><i class='feather icon-package'></i>&nbsp;$this->title</a>");
     }
 }

@@ -20,9 +20,17 @@ class PartCategoryController extends AdminController
             ->title($this->title())
             ->description(trans('admin.list'))
             ->body(function (Row $row) {
-                $tree = new Tree(new \App\Models\PartCategory());
-                $row->column(12, $tree);
+                $row->column(12, $this->treeView());
             });
+    }
+
+    protected function treeView(): Tree
+    {
+        return new Tree(new \App\Models\PartCategory(), function (Tree $tree) {
+            $tree->tools(function (Tree\Tools $tools) {
+
+            });
+        });
     }
 
     /**

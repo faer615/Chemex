@@ -9,12 +9,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @method static where(string $key, string $value)
+ * @method static truncate()
  * @property int department_id
  * @property string name
  * @property string gender
  * @property string|null title
  * @property string|null mobile
  * @property string|null email
+ * @property int ad_tag
  */
 class StaffRecord extends Model
 {

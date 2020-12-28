@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Actions\Grid\ToolAction\DeviceCategoryImportAction;
+use App\Admin\Actions\Tree\DeviceCategoryImportAction;
 use App\Admin\Repositories\DeviceCategory;
 use App\Models\DepreciationRule;
 use Dcat\Admin\Form;
@@ -22,9 +22,17 @@ class DeviceCategoryController extends AdminController
             ->title($this->title())
             ->description(trans('admin.list'))
             ->body(function (Row $row) {
-                $tree = new Tree(new \App\Models\DeviceCategory());
-                $row->column(12, $tree);
+                $row->column(12, $this->treeView());
             });
+    }
+
+    protected function treeView(): Tree
+    {
+        return new Tree(new \App\Models\DeviceCategory(), function (Tree $tree) {
+            $tree->tools(function (Tree\Tools $tools) {
+                $tools->add(new DeviceCategoryImportAction());
+            });
+        });
     }
 
     /**
@@ -43,10 +51,6 @@ class DeviceCategoryController extends AdminController
 
             $grid->toolsWithOutline(false);
             $grid->enableDialogCreate();
-
-            $grid->tools([
-                new DeviceCategoryImportAction()
-            ]);
 
             $grid->quickSearch('id', 'name', 'description')
                 ->placeholder('试着搜索一下')

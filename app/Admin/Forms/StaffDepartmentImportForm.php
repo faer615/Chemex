@@ -52,36 +52,29 @@ class StaffDepartmentImportForm extends Form
                         continue;
                     }
                 }
-                $return = $this
-                    ->response()
+                return $this->response()
                     ->success('文件导入成功！')
                     ->refresh();
             } catch (IOException $e) {
-                $return = $this
-                    ->response()
+                return $this->response()
                     ->error('文件读写失败：' . $e->getMessage());
             } catch (UnsupportedTypeException $e) {
-                $return = $this
-                    ->response()
+                return $this->response()
                     ->error('不支持的文件类型：' . $e->getMessage());
             } catch (FileNotFoundException $e) {
-                $return = $this
-                    ->response()
+                return $this->response()
                     ->error('文件不存在：' . $e->getMessage());
             }
-            return $return;
         }
 
         if ($input['type'] == 'ldap') {
             $result = LDAPService::importStaffDepartments($input['mode']);
             if ($result) {
-                return $this
-                    ->response()
+                return $this->response()
                     ->success('LDAP导入成功！')
                     ->refresh();
             } else {
-                return $this
-                    ->response()
+                return $this->response()
                     ->error($result);
             }
         }
@@ -92,13 +85,12 @@ class StaffDepartmentImportForm extends Form
      */
     public function form()
     {
-        $this->radio('type')
+        $this->select('type')
             ->when('file', function (Form $form) {
                 $form->file('file', '表格文件')
                     ->help('导入支持xls、xlsx、csv文件，且表格头必填栏位【名称】，可选栏位【描述、父级部门】。')
                     ->accept('xls,xlsx,csv')
-                    ->autoUpload()
-                    ->default(null);
+                    ->autoUpload();
             })
             ->when('ldap', function (Form $form) {
                 $form->radio('mode')
