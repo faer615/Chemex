@@ -190,7 +190,15 @@ class SoftwareRecordController extends AdminController
             $grid->showColumnSelector();
             $grid->hideColumns(['description', 'price', 'expired', 'location']);
 
-            $grid->quickSearch('id', 'name', 'category.name', 'version', 'price')
+            $grid->quickSearch(
+                'id',
+                'name',
+                'asset_number',
+                'category.name',
+                'version',
+                'price',
+                'location'
+            )
                 ->placeholder('试着搜索一下')
                 ->auto(false);
 

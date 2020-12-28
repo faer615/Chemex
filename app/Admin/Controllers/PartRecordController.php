@@ -96,7 +96,18 @@ class PartRecordController extends AdminController
             $grid->showColumnSelector();
 //            $grid->hideColumns(['description', 'price', 'expired', 'location']);
 
-            $grid->quickSearch('id', 'name', 'description', 'category.name', 'vendor.name', 'specification', 'sn', 'device.name')
+            $grid->quickSearch(
+                'id',
+                'name',
+                'asset_number',
+                'description',
+                'category.name',
+                'vendor.name',
+                'specification',
+                'sn',
+                'device.name',
+                'location'
+            )
                 ->placeholder('尝试搜索一下')
                 ->auto(false);
 

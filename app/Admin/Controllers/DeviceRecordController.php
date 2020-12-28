@@ -226,6 +226,7 @@ class DeviceRecordController extends AdminController
             $grid->quickSearch(
                 'id',
                 'name',
+                'asset_number',
                 'description',
                 'category.name',
                 'vendor.name',
@@ -234,7 +235,8 @@ class DeviceRecordController extends AdminController
                 'ip',
                 'price',
                 'staff.name',
-                'staff.department.name'
+                'staff.department.name',
+                'location'
             )
                 ->placeholder('试着搜索一下')
                 ->auto(false);
@@ -302,10 +304,6 @@ class DeviceRecordController extends AdminController
             $form->disableCreatingCheck();
             $form->disableEditingCheck();
             $form->disableViewCheck();
-
-            $form->saving(function () {
-                dd(123);
-            });
         });
     }
 }
