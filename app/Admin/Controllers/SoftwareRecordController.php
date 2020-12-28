@@ -106,6 +106,7 @@ class SoftwareRecordController extends AdminController
             $show->field('expired');
             $show->field('distribution')->using(Data::distribution());
             $show->field('counts');
+            $show->field('location');
             $show->field('created_at');
             $show->field('updated_at');
 
@@ -136,6 +137,7 @@ class SoftwareRecordController extends AdminController
                 return 'software:' . $this->id;
             }, 200, 200);
             $grid->column('name');
+            $grid->column('description');
             $grid->column('asset_number');
             $grid->column('category.name');
             $grid->column('version');
@@ -151,6 +153,7 @@ class SoftwareRecordController extends AdminController
             $grid->column('', admin_trans_label('Expiration Left Days'))->display(function () {
                 return ExpirationService::itemExpirationLeftDaysRender('software', $this->id);
             });
+            $grid->column('location');
 
             $grid->actions(function (RowActions $actions) {
                 if (Admin::user()->can('software.delete')) {
@@ -164,6 +167,9 @@ class SoftwareRecordController extends AdminController
                     $actions->append("<a href='$tracks_route'>💿 管理归属</a>");
                 }
             });
+
+            $grid->showColumnSelector();
+            $grid->hideColumns(['description', 'price', 'expired', 'location']);
 
             $grid->quickSearch('id', 'name', 'category.name', 'version', 'price')
                 ->placeholder('试着搜索一下')
@@ -219,6 +225,8 @@ class SoftwareRecordController extends AdminController
             $form->currency('price')->default(0);
             $form->date('purchased');
             $form->date('expired');
+            $form->text('location')
+                ->help('记录存放位置，例如某个货架、某个抽屉。');
 
             $form->display('created_at');
             $form->display('updated_at');

@@ -124,6 +124,7 @@ class DeviceRecordController extends AdminController
             $show->field('security_password');
             $show->field('admin_password');
             $show->field('depreciation.name');
+            $show->field('location');
             $show->field('created_at');
             $show->field('updated_at');
 
@@ -178,6 +179,7 @@ class DeviceRecordController extends AdminController
                 return ExpirationService::itemExpirationLeftDaysRender('device', $this->id);
             });
             $grid->column('depreciation.name');
+            $grid->column('location');
 
             $grid->disableRowSelector();
             $grid->disableBatchActions();
@@ -199,7 +201,7 @@ class DeviceRecordController extends AdminController
             });
 
             $grid->showColumnSelector();
-            $grid->hideColumns(['description', 'price', 'expired']);
+            $grid->hideColumns(['description', 'price', 'expired', 'location']);
 
             $grid->quickSearch(
                 'id',
@@ -270,6 +272,8 @@ class DeviceRecordController extends AdminController
                 ->options(DepreciationRule::all()
                     ->pluck('name', 'id'))
                 ->help('设备记录的折旧规则将优先于其分类所指定的折旧规则。');
+            $form->text('location')
+                ->help('记录存放位置，例如某个货架、某个抽屉。');
             $form->display('created_at');
             $form->display('updated_at');
 

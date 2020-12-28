@@ -35,7 +35,8 @@ return [
         'depreciation' => [
             'name' => '折旧规则'
         ],
-        'asset_number' => '资产编号'
+        'asset_number' => '资产编号',
+        'location' => '位置'
     ],
     'options' => [
     ],

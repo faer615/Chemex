@@ -68,6 +68,10 @@ class PartRecordController extends AdminController
                 }
             });
             $grid->column('depreciation.name');
+            $grid->column('location');
+
+            $grid->showColumnSelector();
+//            $grid->hideColumns(['description', 'price', 'expired', 'location']);
 
             $grid->quickSearch('id', 'name', 'description', 'category.name', 'vendor.name', 'specification', 'sn', 'device.name')
                 ->placeholder('尝试搜索一下')
@@ -118,6 +122,7 @@ class PartRecordController extends AdminController
             $show->field('purchased');
             $show->field('expired');
             $show->field('depreciation.name');
+            $show->field('location');
             $show->field('created_at');
             $show->field('updated_at');
 
@@ -156,6 +161,8 @@ class PartRecordController extends AdminController
             $form->select('depreciation_rule_id', admin_trans_label('Depreciation Rule Id'))
                 ->options(DepreciationRule::all()
                     ->pluck('name', 'id'));
+            $form->text('location')
+                ->help('记录存放位置，例如某个货架、某个抽屉。');
 
             $form->display('created_at');
             $form->display('updated_at');
