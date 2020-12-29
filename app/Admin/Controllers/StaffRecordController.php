@@ -80,6 +80,7 @@ class StaffRecordController extends AdminController
                 if ($this->ad_tag === 1) {
                     return "<span class='badge badge-primary mr-1'>AD</span>$name";
                 }
+                return $name;
             });
             $show->field('department.name');
             $show->field('gender');
