@@ -14,6 +14,9 @@ use Dcat\Admin\Grid;
 use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Show;
 
+/**
+ * @property int ad_tag
+ */
 class StaffRecordController extends AdminController
 {
     /**

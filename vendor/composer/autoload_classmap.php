@@ -279,7 +279,6 @@ return array(
     'App\\Admin\\Repositories\\StaffDepartment' => $baseDir . '/app/Admin/Repositories/StaffDepartment.php',
     'App\\Admin\\Repositories\\StaffRecord' => $baseDir . '/app/Admin/Repositories/StaffRecord.php',
     'App\\Admin\\Repositories\\VendorRecord' => $baseDir . '/app/Admin/Repositories/VendorRecord.php',
-    'App\\Console\\Commands\\ChemexTest' => $baseDir . '/app/Console/Commands/ChemexTest.php',
     'App\\Console\\Commands\\Install' => $baseDir . '/app/Console/Commands/Install.php',
     'App\\Console\\Commands\\ResetAdminAuth' => $baseDir . '/app/Console/Commands/ResetAdminAuth.php',
     'App\\Console\\Commands\\Update' => $baseDir . '/app/Console/Commands/Update.php',

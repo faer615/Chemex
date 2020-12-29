@@ -60,17 +60,6 @@ class HomeController extends Controller
                         });
                     });
                 });
-//                $row->column(2, function (Column $column) {
-//                    $column->row(new CheckDevicePercentage());
-//                    $column->row(new CheckPartPercentage());
-//                    $column->row(new CheckSoftwarePercentage());
-//                    $column->row(new DeviceAboutToExpireCounts());
-//                    $column->row(new PartAboutToExpireCounts());
-//                    $column->row(new SoftwareAboutToExpireCounts());
-//                    $column->row(new DeviceExpiredCounts());
-//                    $column->row(new PartExpiredCounts());
-//                    $column->row(new SoftwareExpiredCounts());
-//                });
             });
     }
 }

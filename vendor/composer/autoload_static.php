@@ -854,7 +854,6 @@ class ComposerStaticInit1b0e3bdc513b415a6ce4c0d7fd1222be
         'App\\Admin\\Repositories\\StaffDepartment' => __DIR__ . '/../..' . '/app/Admin/Repositories/StaffDepartment.php',
         'App\\Admin\\Repositories\\StaffRecord' => __DIR__ . '/../..' . '/app/Admin/Repositories/StaffRecord.php',
         'App\\Admin\\Repositories\\VendorRecord' => __DIR__ . '/../..' . '/app/Admin/Repositories/VendorRecord.php',
-        'App\\Console\\Commands\\ChemexTest' => __DIR__ . '/../..' . '/app/Console/Commands/ChemexTest.php',
         'App\\Console\\Commands\\Install' => __DIR__ . '/../..' . '/app/Console/Commands/Install.php',
         'App\\Console\\Commands\\ResetAdminAuth' => __DIR__ . '/../..' . '/app/Console/Commands/ResetAdminAuth.php',
         'App\\Console\\Commands\\Update' => __DIR__ . '/../..' . '/app/Console/Commands/Update.php',

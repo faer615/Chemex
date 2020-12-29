@@ -6,7 +6,6 @@ use Adldap\Auth\BindException;
 use Adldap\Auth\PasswordRequiredException;
 use Adldap\Auth\UsernameRequiredException;
 use App\Http\Controllers\Controller;
-use App\Services\LDAPService;
 use App\Support\LDAP;
 
 class LDAPController extends Controller
@@ -33,6 +32,6 @@ class LDAPController extends Controller
 
     public function testMode()
     {
-        return LDAPService::importStaffRecords();
+
     }
 }
