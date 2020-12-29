@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use DB;
 use Dcat\Admin\Models;
 use Illuminate\Database\Seeder;
+use DB;
 
 class AdminTablesSeeder extends Seeder
 {
@@ -29,7 +29,7 @@ class AdminTablesSeeder extends Seeder
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2020-10-10 15:06:20",
-                    "updated_at" => "2020-11-09 16:22:51"
+                    "updated_at" => "2020-12-29 21:39:06"
                 ],
                 [
                     "id" => 8,
@@ -539,7 +539,7 @@ class AdminTablesSeeder extends Seeder
                 [
                     "id" => 7,
                     "name" => "动作",
-                    "slug" => "device.actions",
+                    "slug" => "device.action",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 9,
@@ -550,7 +550,7 @@ class AdminTablesSeeder extends Seeder
                 [
                     "id" => 8,
                     "name" => "设备删除",
-                    "slug" => "device.delete",
+                    "slug" => "device.record.delete",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 10,
@@ -561,7 +561,7 @@ class AdminTablesSeeder extends Seeder
                 [
                     "id" => 9,
                     "name" => "设备归属",
-                    "slug" => "device.track",
+                    "slug" => "device.track.create_update",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 12,
@@ -572,7 +572,7 @@ class AdminTablesSeeder extends Seeder
                 [
                     "id" => 10,
                     "name" => "设备归属解除",
-                    "slug" => "device.track.disable",
+                    "slug" => "device.track.delete",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 13,
@@ -605,7 +605,7 @@ class AdminTablesSeeder extends Seeder
                 [
                     "id" => 13,
                     "name" => "设备故障",
-                    "slug" => "device.maintenance",
+                    "slug" => "device.maintenance.create",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 16,
@@ -648,14 +648,14 @@ class AdminTablesSeeder extends Seeder
                 ],
                 [
                     "id" => 17,
-                    "name" => "雇员管理",
+                    "name" => "组织管理",
                     "slug" => "staff",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 37,
                     "parent_id" => 0,
                     "created_at" => "2020-11-19 10:00:31",
-                    "updated_at" => "2020-12-28 16:25:16"
+                    "updated_at" => "2020-12-29 23:52:18"
                 ],
                 [
                     "id" => 18,
@@ -663,10 +663,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "service",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 42,
+                    "order" => 43,
                     "parent_id" => 0,
                     "created_at" => "2020-11-19 10:00:55",
-                    "updated_at" => "2020-12-28 16:25:16"
+                    "updated_at" => "2020-12-29 23:52:05"
                 ],
                 [
                     "id" => 19,
@@ -674,21 +674,21 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "check",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 51,
+                    "order" => 52,
                     "parent_id" => 0,
                     "created_at" => "2020-11-19 10:01:27",
-                    "updated_at" => "2020-12-28 16:25:16"
+                    "updated_at" => "2020-12-29 23:52:05"
                 ],
                 [
                     "id" => 20,
-                    "name" => "维修记录",
+                    "name" => "物资故障",
                     "slug" => "maintenance",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 58,
+                    "order" => 59,
                     "parent_id" => 0,
                     "created_at" => "2020-11-19 10:01:59",
-                    "updated_at" => "2020-12-28 16:25:16"
+                    "updated_at" => "2020-12-29 23:52:05"
                 ],
                 [
                     "id" => 21,
@@ -696,10 +696,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "vendor",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 63,
+                    "order" => 64,
                     "parent_id" => 0,
                     "created_at" => "2020-11-19 10:03:42",
-                    "updated_at" => "2020-12-28 16:25:16"
+                    "updated_at" => "2020-12-29 23:52:05"
                 ],
                 [
                     "id" => 22,
@@ -707,10 +707,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "purchased",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 66,
+                    "order" => 67,
                     "parent_id" => 0,
                     "created_at" => "2020-11-19 10:04:11",
-                    "updated_at" => "2020-12-28 16:25:16"
+                    "updated_at" => "2020-12-29 23:52:05"
                 ],
                 [
                     "id" => 23,
@@ -718,15 +718,15 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "version",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 69,
+                    "order" => 70,
                     "parent_id" => 0,
                     "created_at" => "2020-11-19 10:04:37",
-                    "updated_at" => "2020-12-28 16:25:16"
+                    "updated_at" => "2020-12-29 23:52:05"
                 ],
                 [
                     "id" => 24,
                     "name" => "动作",
-                    "slug" => "software.actions",
+                    "slug" => "software.action",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 20,
@@ -737,7 +737,7 @@ class AdminTablesSeeder extends Seeder
                 [
                     "id" => 25,
                     "name" => "软件删除",
-                    "slug" => "software.delete",
+                    "slug" => "software.record.delete",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 21,
@@ -748,7 +748,7 @@ class AdminTablesSeeder extends Seeder
                 [
                     "id" => 26,
                     "name" => "软件归属",
-                    "slug" => "software.track",
+                    "slug" => "software.track.create_update",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 23,
@@ -759,7 +759,7 @@ class AdminTablesSeeder extends Seeder
                 [
                     "id" => 27,
                     "name" => "软件归属解除",
-                    "slug" => "software.track.disable",
+                    "slug" => "software.track.delete",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 24,
@@ -792,7 +792,7 @@ class AdminTablesSeeder extends Seeder
                 [
                     "id" => 30,
                     "name" => "动作",
-                    "slug" => "part.actions",
+                    "slug" => "part.action",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 30,
@@ -803,7 +803,7 @@ class AdminTablesSeeder extends Seeder
                 [
                     "id" => 31,
                     "name" => "配件删除",
-                    "slug" => "part.delete",
+                    "slug" => "part.record.delete",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 31,
@@ -814,7 +814,7 @@ class AdminTablesSeeder extends Seeder
                 [
                     "id" => 32,
                     "name" => "配件归属",
-                    "slug" => "part.track",
+                    "slug" => "part.track.create_update",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 33,
@@ -836,7 +836,7 @@ class AdminTablesSeeder extends Seeder
                 [
                     "id" => 34,
                     "name" => "配件故障",
-                    "slug" => "part.maintenance",
+                    "slug" => "part.maintenance.create",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 36,
@@ -847,7 +847,7 @@ class AdminTablesSeeder extends Seeder
                 [
                     "id" => 35,
                     "name" => "配件归属解除",
-                    "slug" => "part.track.disable",
+                    "slug" => "part.track.delete",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 34,
@@ -858,7 +858,7 @@ class AdminTablesSeeder extends Seeder
                 [
                     "id" => 36,
                     "name" => "动作",
-                    "slug" => "staff.actions",
+                    "slug" => "staff.action",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 40,
@@ -869,7 +869,7 @@ class AdminTablesSeeder extends Seeder
                 [
                     "id" => 37,
                     "name" => "雇员删除",
-                    "slug" => "staff.delete",
+                    "slug" => "staff.record.delete",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 41,
@@ -880,134 +880,134 @@ class AdminTablesSeeder extends Seeder
                 [
                     "id" => 38,
                     "name" => "动作",
-                    "slug" => "service.actions",
+                    "slug" => "service.action",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 45,
+                    "order" => 46,
                     "parent_id" => 18,
                     "created_at" => "2020-11-19 10:19:54",
-                    "updated_at" => "2020-12-28 16:25:16"
+                    "updated_at" => "2020-12-29 23:52:05"
                 ],
                 [
                     "id" => 39,
                     "name" => "服务删除",
-                    "slug" => "service.delete",
-                    "http_method" => "",
-                    "http_path" => "",
-                    "order" => 46,
-                    "parent_id" => 38,
-                    "created_at" => "2020-11-19 10:20:16",
-                    "updated_at" => "2020-12-28 16:25:16"
-                ],
-                [
-                    "id" => 40,
-                    "name" => "服务归属",
-                    "slug" => "service.track",
+                    "slug" => "service.record.delete",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 47,
                     "parent_id" => 38,
-                    "created_at" => "2020-11-19 10:20:26",
-                    "updated_at" => "2020-12-28 16:25:16"
+                    "created_at" => "2020-11-19 10:20:16",
+                    "updated_at" => "2020-12-29 23:52:05"
                 ],
                 [
-                    "id" => 41,
-                    "name" => "服务故障",
-                    "slug" => "service.issue",
+                    "id" => 40,
+                    "name" => "服务归属",
+                    "slug" => "service.track.create_update",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 48,
                     "parent_id" => 38,
-                    "created_at" => "2020-11-19 10:21:32",
-                    "updated_at" => "2020-12-28 16:25:16"
+                    "created_at" => "2020-11-19 10:20:26",
+                    "updated_at" => "2020-12-29 23:52:05"
                 ],
                 [
-                    "id" => 42,
-                    "name" => "服务归属解除",
-                    "slug" => "service.track.disable",
+                    "id" => 41,
+                    "name" => "服务故障",
+                    "slug" => "service.issue.create",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 49,
                     "parent_id" => 38,
-                    "created_at" => "2020-11-19 10:21:56",
-                    "updated_at" => "2020-12-28 16:25:16"
+                    "created_at" => "2020-11-19 10:21:32",
+                    "updated_at" => "2020-12-29 23:52:05"
                 ],
                 [
-                    "id" => 43,
-                    "name" => "服务故障修复",
-                    "slug" => "service.issue.fix",
+                    "id" => 42,
+                    "name" => "服务归属解除",
+                    "slug" => "service.track.delete",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 50,
                     "parent_id" => 38,
+                    "created_at" => "2020-11-19 10:21:56",
+                    "updated_at" => "2020-12-29 23:52:05"
+                ],
+                [
+                    "id" => 43,
+                    "name" => "服务故障修复",
+                    "slug" => "service.issue.update",
+                    "http_method" => "",
+                    "http_path" => "",
+                    "order" => 51,
+                    "parent_id" => 38,
                     "created_at" => "2020-11-19 10:22:25",
-                    "updated_at" => "2020-12-28 16:25:16"
+                    "updated_at" => "2020-12-29 23:52:05"
                 ],
                 [
                     "id" => 44,
                     "name" => "动作",
-                    "slug" => "check.actions",
+                    "slug" => "check.action",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 54,
+                    "order" => 55,
                     "parent_id" => 19,
                     "created_at" => "2020-11-19 10:29:48",
-                    "updated_at" => "2020-12-28 16:25:16"
+                    "updated_at" => "2020-12-29 23:52:05"
                 ],
                 [
                     "id" => 45,
                     "name" => "盘点动作",
-                    "slug" => "check.track",
-                    "http_method" => "",
-                    "http_path" => "",
-                    "order" => 55,
-                    "parent_id" => 44,
-                    "created_at" => "2020-11-19 10:30:28",
-                    "updated_at" => "2020-12-28 16:25:16"
-                ],
-                [
-                    "id" => 47,
-                    "name" => "动作",
-                    "slug" => "maintenance.actions",
-                    "http_method" => "",
-                    "http_path" => "",
-                    "order" => 61,
-                    "parent_id" => 20,
-                    "created_at" => "2020-11-19 10:31:18",
-                    "updated_at" => "2020-12-28 16:25:16"
-                ],
-                [
-                    "id" => 48,
-                    "name" => "物资故障修复",
-                    "slug" => "maintenance.fix",
-                    "http_method" => "",
-                    "http_path" => "",
-                    "order" => 62,
-                    "parent_id" => 47,
-                    "created_at" => "2020-11-19 10:31:43",
-                    "updated_at" => "2020-12-28 16:25:16"
-                ],
-                [
-                    "id" => 49,
-                    "name" => "盘点完成",
-                    "slug" => "check.finish",
+                    "slug" => "check.track.update",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 56,
                     "parent_id" => 44,
-                    "created_at" => "2020-11-19 10:35:29",
-                    "updated_at" => "2020-12-28 16:25:16"
+                    "created_at" => "2020-11-19 10:30:28",
+                    "updated_at" => "2020-12-29 23:52:05"
                 ],
                 [
-                    "id" => 50,
-                    "name" => "盘点取消",
-                    "slug" => "check.cancel",
+                    "id" => 47,
+                    "name" => "动作",
+                    "slug" => "maintenance.action",
+                    "http_method" => "",
+                    "http_path" => "",
+                    "order" => 62,
+                    "parent_id" => 20,
+                    "created_at" => "2020-11-19 10:31:18",
+                    "updated_at" => "2020-12-29 23:52:05"
+                ],
+                [
+                    "id" => 48,
+                    "name" => "物资故障修复",
+                    "slug" => "maintenance.update",
+                    "http_method" => "",
+                    "http_path" => "",
+                    "order" => 63,
+                    "parent_id" => 47,
+                    "created_at" => "2020-11-19 10:31:43",
+                    "updated_at" => "2020-12-29 23:52:05"
+                ],
+                [
+                    "id" => 49,
+                    "name" => "盘点完成",
+                    "slug" => "check.record.update.yes",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 57,
                     "parent_id" => 44,
+                    "created_at" => "2020-11-19 10:35:29",
+                    "updated_at" => "2020-12-29 23:52:05"
+                ],
+                [
+                    "id" => 50,
+                    "name" => "盘点取消",
+                    "slug" => "check.record.update.no",
+                    "http_method" => "",
+                    "http_path" => "",
+                    "order" => 58,
+                    "parent_id" => 44,
                     "created_at" => "2020-11-19 10:35:38",
-                    "updated_at" => "2020-12-28 16:25:16"
+                    "updated_at" => "2020-12-29 23:52:05"
                 ],
                 [
                     "id" => 51,
@@ -1103,10 +1103,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "service.read-only",
                     "http_method" => "GET",
                     "http_path" => "service/records*,service/tracks*,service/issues*",
-                    "order" => 43,
+                    "order" => 44,
                     "parent_id" => 18,
                     "created_at" => "2020-11-19 13:44:25",
-                    "updated_at" => "2020-12-28 16:25:16"
+                    "updated_at" => "2020-12-29 23:52:05"
                 ],
                 [
                     "id" => 60,
@@ -1114,10 +1114,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "service.all",
                     "http_method" => "",
                     "http_path" => "service/records*,service/tracks*,service/issues*",
-                    "order" => 44,
+                    "order" => 45,
                     "parent_id" => 18,
                     "created_at" => "2020-11-19 13:45:00",
-                    "updated_at" => "2020-12-28 16:25:16"
+                    "updated_at" => "2020-12-29 23:52:05"
                 ],
                 [
                     "id" => 61,
@@ -1125,10 +1125,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "check.read-only",
                     "http_method" => "GET",
                     "http_path" => "check/records*,check/tracks*",
-                    "order" => 52,
+                    "order" => 53,
                     "parent_id" => 19,
                     "created_at" => "2020-11-19 14:00:10",
-                    "updated_at" => "2020-12-28 16:25:16"
+                    "updated_at" => "2020-12-29 23:52:05"
                 ],
                 [
                     "id" => 62,
@@ -1136,10 +1136,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "check.all",
                     "http_method" => "",
                     "http_path" => "check/records*,check/tracks*",
-                    "order" => 53,
+                    "order" => 54,
                     "parent_id" => 19,
                     "created_at" => "2020-11-19 14:00:45",
-                    "updated_at" => "2020-12-28 16:25:16"
+                    "updated_at" => "2020-12-29 23:52:05"
                 ],
                 [
                     "id" => 63,
@@ -1147,10 +1147,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "maintenance.read-only",
                     "http_method" => "GET",
                     "http_path" => "maintenance/records*",
-                    "order" => 59,
+                    "order" => 60,
                     "parent_id" => 20,
                     "created_at" => "2020-11-19 14:01:46",
-                    "updated_at" => "2020-12-28 16:25:16"
+                    "updated_at" => "2020-12-29 23:52:05"
                 ],
                 [
                     "id" => 64,
@@ -1158,10 +1158,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "maintenance.all",
                     "http_method" => "",
                     "http_path" => "maintenance/records*",
-                    "order" => 60,
+                    "order" => 61,
                     "parent_id" => 20,
                     "created_at" => "2020-11-19 14:02:10",
-                    "updated_at" => "2020-12-28 16:25:16"
+                    "updated_at" => "2020-12-29 23:52:05"
                 ],
                 [
                     "id" => 65,
@@ -1169,10 +1169,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "vendor.read-only",
                     "http_method" => "GET",
                     "http_path" => "vendor/records*",
-                    "order" => 64,
+                    "order" => 65,
                     "parent_id" => 21,
                     "created_at" => "2020-11-19 14:03:07",
-                    "updated_at" => "2020-12-28 16:25:16"
+                    "updated_at" => "2020-12-29 23:52:05"
                 ],
                 [
                     "id" => 66,
@@ -1180,10 +1180,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "vendor.all",
                     "http_method" => "",
                     "http_path" => "vendor/records*",
-                    "order" => 65,
+                    "order" => 66,
                     "parent_id" => 21,
                     "created_at" => "2020-11-19 14:03:24",
-                    "updated_at" => "2020-12-28 16:25:16"
+                    "updated_at" => "2020-12-29 23:52:05"
                 ],
                 [
                     "id" => 67,
@@ -1191,10 +1191,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "puchased.read-only",
                     "http_method" => "GET",
                     "http_path" => "purchased/channels*",
-                    "order" => 67,
+                    "order" => 68,
                     "parent_id" => 22,
                     "created_at" => "2020-11-19 14:04:08",
-                    "updated_at" => "2020-12-28 16:25:16"
+                    "updated_at" => "2020-12-29 23:52:05"
                 ],
                 [
                     "id" => 68,
@@ -1202,10 +1202,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "purchased.all",
                     "http_method" => "",
                     "http_path" => "purchased/channels*",
-                    "order" => 68,
+                    "order" => 69,
                     "parent_id" => 22,
                     "created_at" => "2020-11-19 14:04:39",
-                    "updated_at" => "2020-12-28 16:25:16"
+                    "updated_at" => "2020-12-29 23:52:05"
                 ],
                 [
                     "id" => 69,
@@ -1213,21 +1213,21 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "version.read-only",
                     "http_method" => "GET",
                     "http_path" => "version",
-                    "order" => 70,
+                    "order" => 71,
                     "parent_id" => 23,
                     "created_at" => "2020-11-19 14:05:14",
-                    "updated_at" => "2020-12-28 16:25:16"
+                    "updated_at" => "2020-12-29 23:52:05"
                 ],
                 [
                     "id" => 70,
                     "name" => "动作",
-                    "slug" => "version.actions",
+                    "slug" => "version.action",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 71,
+                    "order" => 72,
                     "parent_id" => 23,
                     "created_at" => "2020-11-19 14:05:40",
-                    "updated_at" => "2020-12-28 16:25:16"
+                    "updated_at" => "2020-12-29 23:52:05"
                 ],
                 [
                     "id" => 72,
@@ -1235,10 +1235,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "version.migrate",
                     "http_method" => "",
                     "http_path" => "version/migrate",
-                    "order" => 72,
+                    "order" => 73,
                     "parent_id" => 70,
                     "created_at" => "2020-11-19 14:06:39",
-                    "updated_at" => "2020-12-28 16:25:16"
+                    "updated_at" => "2020-12-29 23:52:05"
                 ],
                 [
                     "id" => 73,
@@ -1246,10 +1246,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "depreciation_rule",
                     "http_method" => "",
                     "http_path" => "",
-                    "order" => 73,
+                    "order" => 74,
                     "parent_id" => 0,
                     "created_at" => "2020-12-19 01:16:23",
-                    "updated_at" => "2020-12-28 16:25:16"
+                    "updated_at" => "2020-12-29 23:52:05"
                 ],
                 [
                     "id" => 74,
@@ -1257,10 +1257,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "depreciation_rule.read-only",
                     "http_method" => "GET",
                     "http_path" => "depreciation/rules*",
-                    "order" => 74,
+                    "order" => 75,
                     "parent_id" => 73,
                     "created_at" => "2020-12-19 01:17:19",
-                    "updated_at" => "2020-12-28 16:25:16"
+                    "updated_at" => "2020-12-29 23:52:05"
                 ],
                 [
                     "id" => 75,
@@ -1268,21 +1268,21 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "depreciation_rule.all",
                     "http_method" => "",
                     "http_path" => "depreciation/rules*",
-                    "order" => 75,
+                    "order" => 76,
                     "parent_id" => 73,
                     "created_at" => "2020-12-19 01:18:30",
-                    "updated_at" => "2020-12-28 16:25:16"
+                    "updated_at" => "2020-12-29 23:52:05"
                 ],
                 [
                     "id" => 76,
                     "name" => "站点配置",
                     "slug" => "configuration",
                     "http_method" => "",
-                    "http_path" => "depreciation/rules*",
-                    "order" => 76,
+                    "http_path" => "",
+                    "order" => 77,
                     "parent_id" => 0,
                     "created_at" => "2020-12-19 01:18:30",
-                    "updated_at" => "2020-12-28 16:25:16"
+                    "updated_at" => "2020-12-29 23:52:05"
                 ],
                 [
                     "id" => 77,
@@ -1290,10 +1290,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "configuration.read-only",
                     "http_method" => "GET",
                     "http_path" => "configurations*",
-                    "order" => 77,
+                    "order" => 78,
                     "parent_id" => 76,
                     "created_at" => "2020-12-19 01:18:30",
-                    "updated_at" => "2020-12-28 16:25:16"
+                    "updated_at" => "2020-12-29 23:52:05"
                 ],
                 [
                     "id" => 78,
@@ -1301,15 +1301,15 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "configuration.all",
                     "http_method" => "",
                     "http_path" => "configurations*",
-                    "order" => 78,
+                    "order" => 79,
                     "parent_id" => 76,
                     "created_at" => "2020-12-19 01:18:30",
-                    "updated_at" => "2020-12-28 16:25:16"
+                    "updated_at" => "2020-12-29 23:52:05"
                 ],
                 [
                     "id" => 79,
                     "name" => "设备批量删除",
-                    "slug" => "device.batch.delete",
+                    "slug" => "device.record.batch.delete",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 11,
@@ -1320,7 +1320,7 @@ class AdminTablesSeeder extends Seeder
                 [
                     "id" => 80,
                     "name" => "软件批量删除",
-                    "slug" => "software.batch.delete",
+                    "slug" => "software.record.batch.delete",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 22,
@@ -1331,13 +1331,24 @@ class AdminTablesSeeder extends Seeder
                 [
                     "id" => 81,
                     "name" => "配件批量删除",
-                    "slug" => "part.batch.delete",
+                    "slug" => "part.record.batch.delete",
                     "http_method" => "",
                     "http_path" => "",
                     "order" => 32,
                     "parent_id" => 30,
                     "created_at" => "2020-12-28 16:25:06",
                     "updated_at" => "2020-12-28 16:25:16"
+                ],
+                [
+                    "id" => 82,
+                    "name" => "雇员批量删除",
+                    "slug" => "staff.record.batch.delete",
+                    "http_method" => "",
+                    "http_path" => "",
+                    "order" => 42,
+                    "parent_id" => 36,
+                    "created_at" => "2020-12-29 23:51:57",
+                    "updated_at" => "2020-12-29 23:52:05"
                 ]
             ]
         );
@@ -1363,116 +1374,50 @@ class AdminTablesSeeder extends Seeder
         );
 
         Models\Setting::truncate();
-        Models\Setting::insert(
-            [
+		Models\Setting::insert(
+			[
                 [
-                    "slug" => "ad_base_dn",
-                    "value" => "dc=test,dc=com",
-                    "created_at" => "2020-12-24 14:47:12",
-                    "updated_at" => "2020-12-24 14:47:12"
+                    "slug" => "celaraze:dcatadmin-menu-switch",
+                    "value" => "[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]",
+                    "created_at" => "2020-11-09 16:22:52",
+                    "updated_at" => "2020-11-09 16:23:06"
                 ],
                 [
-                    "slug" => "ad_bind_administrator",
-                    "value" => "wangwu@test.com",
-                    "created_at" => "2020-12-25 09:39:09",
-                    "updated_at" => "2020-12-25 09:52:09"
-                ],
-                [
-                    "slug" => "ad_enabled",
-                    "value" => "1",
-                    "created_at" => "2020-12-24 14:21:43",
-                    "updated_at" => "2020-12-25 09:45:10"
-                ],
-                [
-                    "slug" => "ad_host_primary",
-                    "value" => "192.168.197.141",
-                    "created_at" => "2020-12-24 14:21:43",
-                    "updated_at" => "2020-12-28 09:47:35"
-                ],
-                [
-                    "slug" => "ad_host_secondary",
-                    "value" => "",
-                    "created_at" => "2020-12-24 14:21:43",
-                    "updated_at" => "2020-12-24 14:21:43"
-                ],
-                [
-                    "slug" => "ad_login",
-                    "value" => "1",
-                    "created_at" => "2020-12-25 09:39:09",
-                    "updated_at" => "2020-12-25 10:16:37"
-                ],
-                [
-                    "slug" => "ad_password",
-                    "value" => "A123456!",
-                    "created_at" => "2020-12-24 14:21:43",
-                    "updated_at" => "2020-12-24 14:21:43"
-                ],
-                [
-                    "slug" => "ad_port_primary",
-                    "value" => "389",
-                    "created_at" => "2020-12-24 14:21:43",
-                    "updated_at" => "2020-12-24 14:21:43"
-                ],
-                [
-                    "slug" => "ad_port_secondary",
-                    "value" => "0",
-                    "created_at" => "2020-12-24 14:21:43",
-                    "updated_at" => "2020-12-24 14:21:43"
-                ],
-                [
-                    "slug" => "ad_use_ssl",
-                    "value" => "0",
-                    "created_at" => "2020-12-24 14:47:12",
-                    "updated_at" => "2020-12-24 14:47:12"
-                ],
-                [
-                    "slug" => "ad_use_tls",
-                    "value" => "0",
-                    "created_at" => "2020-12-24 14:47:12",
-                    "updated_at" => "2020-12-24 14:47:12"
-                ],
-                [
-                    "slug" => "ad_username",
-                    "value" => "administrator@test.com",
-                    "created_at" => "2020-12-24 14:21:43",
-                    "updated_at" => "2020-12-24 14:21:43"
+                    "slug" => "dcat-admin:operation-log",
+                    "value" => "{\"except\":[],\"allowed_methods\":[],\"secret_fields\":[]}",
+                    "created_at" => "2020-11-04 15:19:51",
+                    "updated_at" => "2020-11-04 15:19:51"
                 ],
                 [
                     "slug" => "site_logo",
                     "value" => "",
-                    "created_at" => "2020-12-21 11:42:06",
-                    "updated_at" => "2020-12-21 11:42:06"
+                    "created_at" => "2020-12-20 13:57:11",
+                    "updated_at" => "2020-12-20 13:57:11"
                 ],
                 [
                     "slug" => "site_logo_mini",
                     "value" => "",
-                    "created_at" => "2020-12-21 11:42:06",
-                    "updated_at" => "2020-12-21 11:42:06"
+                    "created_at" => "2020-12-20 13:57:11",
+                    "updated_at" => "2020-12-20 13:57:11"
                 ],
                 [
                     "slug" => "site_logo_text",
-                    "value" => "本地咖啡壶",
-                    "created_at" => "2020-12-21 11:42:06",
-                    "updated_at" => "2020-12-21 11:42:33"
+                    "value" => "咖啡壶",
+                    "created_at" => "2020-12-20 13:57:11",
+                    "updated_at" => "2020-12-20 13:57:11"
                 ],
                 [
                     "slug" => "site_title",
-                    "value" => "本地咖啡壶",
-                    "created_at" => "2020-12-21 11:42:06",
-                    "updated_at" => "2020-12-21 11:42:06"
-                ],
-                [
-                    "slug" => "site_url",
-                    "value" => "http://127.0.0.1:8000",
-                    "created_at" => "2020-12-21 11:42:06",
-                    "updated_at" => "2020-12-23 16:57:02"
+                    "value" => "咖啡壶",
+                    "created_at" => "2020-12-20 13:57:11",
+                    "updated_at" => "2020-12-20 13:57:11"
                 ]
             ]
-        );
+		);
 
-        Models\Extension::truncate();
-        Models\Extension::insert(
-            [
+		Models\Extension::truncate();
+		Models\Extension::insert(
+			[
                 [
                     "id" => 6,
                     "name" => "celaraze.colorful-bar",
@@ -1480,32 +1425,23 @@ class AdminTablesSeeder extends Seeder
                     "is_enabled" => 0,
                     "options" => NULL,
                     "created_at" => NULL,
-                    "updated_at" => "2020-12-23 15:37:43"
+                    "updated_at" => "2020-11-09 15:51:07"
                 ],
                 [
                     "id" => 7,
                     "name" => "celaraze.dcatadmin-menu-switch",
                     "version" => "1.0.0",
-                    "is_enabled" => 0,
-                    "options" => NULL,
-                    "created_at" => "2020-11-09 15:55:26",
-                    "updated_at" => "2020-12-24 09:02:03"
-                ],
-                [
-                    "id" => 8,
-                    "name" => "dcat-admin.operation-log",
-                    "version" => "1.0.0",
                     "is_enabled" => 1,
                     "options" => NULL,
-                    "created_at" => "2020-12-24 09:02:11",
-                    "updated_at" => "2020-12-24 09:02:14"
+                    "created_at" => "2020-11-09 15:55:26",
+                    "updated_at" => "2020-11-09 15:55:30"
                 ]
             ]
-        );
+		);
 
-        Models\ExtensionHistory::truncate();
-        Models\ExtensionHistory::insert(
-            [
+		Models\ExtensionHistory::truncate();
+		Models\ExtensionHistory::insert(
+			[
                 [
                     "id" => 7,
                     "name" => "celaraze.dcatadmin-menu-switch",
@@ -1514,32 +1450,14 @@ class AdminTablesSeeder extends Seeder
                     "detail" => "Initialize extension.",
                     "created_at" => "2020-11-09 15:55:26",
                     "updated_at" => "2020-11-09 15:55:26"
-                ],
-                [
-                    "id" => 8,
-                    "name" => "dcat-admin.operation-log",
-                    "type" => 2,
-                    "version" => "1.0.0",
-                    "detail" => "create_opration_log_table.php",
-                    "created_at" => "2020-12-24 09:02:11",
-                    "updated_at" => "2020-12-24 09:02:11"
-                ],
-                [
-                    "id" => 9,
-                    "name" => "dcat-admin.operation-log",
-                    "type" => 1,
-                    "version" => "1.0.0",
-                    "detail" => "Initialize extension.",
-                    "created_at" => "2020-12-24 09:02:11",
-                    "updated_at" => "2020-12-24 09:02:11"
                 ]
             ]
-        );
+		);
 
         // pivot tables
         DB::table('admin_permission_menu')->truncate();
-        DB::table('admin_permission_menu')->insert(
-            [
+		DB::table('admin_permission_menu')->insert(
+			[
                 [
                     "permission_id" => 2,
                     "menu_id" => 32,
@@ -2171,7 +2089,7 @@ class AdminTablesSeeder extends Seeder
                     "updated_at" => NULL
                 ]
             ]
-        );
+		);
 
         DB::table('admin_role_menu')->truncate();
         DB::table('admin_role_menu')->insert(
@@ -2253,32 +2171,12 @@ class AdminTablesSeeder extends Seeder
                 [
                     "id" => 1,
                     "username" => "admin",
-                    "password" => "\$2y\$10\$uBArS4TPx.UZ5sU1.d0ixem5F4n3XHk7Cgnu/bn3kxtomGPfxJ1Vi",
+                    "password" => "\$2y\$10\$eJMZneFCSx.ct3kvBY2ZrOiOvSkq/WE/eFrtuA7JWIk7cx2Wog6qi",
                     "name" => "Administrator",
                     "avatar" => NULL,
                     "remember_token" => NULL,
                     "created_at" => "2020-11-30 09:58:49",
-                    "updated_at" => "2020-12-11 10:25:15"
-                ],
-                [
-                    "id" => 3,
-                    "username" => "administrator@test.com",
-                    "password" => "\$2y\$10\$q4X71GxI.TxZ2.hH6fWRzOWVwwdzqra2SBAXdh59NIHWUF5v0AyXC",
-                    "name" => "administrator@test.com",
-                    "avatar" => NULL,
-                    "remember_token" => NULL,
-                    "created_at" => "2020-12-25 10:37:05",
-                    "updated_at" => "2020-12-25 10:41:56"
-                ],
-                [
-                    "id" => 4,
-                    "username" => "wangwu@test.com",
-                    "password" => "\$2y\$10\$1KTn04Wr0E5qBBK36VYVx.KS6P2tLGjoIhjBt2GQqEWZBpsXdss.O",
-                    "name" => "wangwu@test.com",
-                    "avatar" => NULL,
-                    "remember_token" => NULL,
-                    "created_at" => "2020-12-25 10:42:27",
-                    "updated_at" => "2020-12-25 10:49:36"
+                    "updated_at" => "2020-12-28 22:08:58"
                 ]
             ]
         );
@@ -2291,24 +2189,6 @@ class AdminTablesSeeder extends Seeder
                     "user_id" => 1,
                     "created_at" => NULL,
                     "updated_at" => NULL
-                ],
-                [
-                    "role_id" => 1,
-                    "user_id" => 4,
-                    "created_at" => "2020-12-25 10:48:40",
-                    "updated_at" => "2020-12-25 10:48:40"
-                ],
-                [
-                    "role_id" => 2,
-                    "user_id" => 3,
-                    "created_at" => "2020-12-25 10:41:56",
-                    "updated_at" => "2020-12-25 10:41:56"
-                ],
-                [
-                    "role_id" => 2,
-                    "user_id" => 4,
-                    "created_at" => "2020-12-25 10:42:27",
-                    "updated_at" => "2020-12-25 10:42:27"
                 ]
             ]
         );

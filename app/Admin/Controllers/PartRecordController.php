@@ -2,9 +2,10 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Actions\Grid\RowAction\MaintenanceAction;
-use App\Admin\Actions\Grid\RowAction\PartDeleteAction;
-use App\Admin\Actions\Grid\RowAction\PartTrackAction;
+use App\Admin\Actions\Grid\BatchAction\PartRecordBatchDeleteAction;
+use App\Admin\Actions\Grid\RowAction\MaintenanceCreateAction;
+use App\Admin\Actions\Grid\RowAction\PartRecordDeleteAction;
+use App\Admin\Actions\Grid\RowAction\PartTrackCreateUpdateAction;
 use App\Admin\Actions\Grid\ToolAction\PartRecordImportAction;
 use App\Admin\Grid\Displayers\RowActions;
 use App\Admin\Metrics\CheckPartPercentage;
@@ -75,14 +76,14 @@ class PartRecordController extends AdminController
                 return ExpirationService::itemExpirationLeftDaysRender('part', $this->id);
             });
             $grid->actions(function (RowActions $actions) {
-                if (Admin::user()->can('part.delete')) {
-                    $actions->append(new PartDeleteAction());
+                if (Admin::user()->can('part.record.delete')) {
+                    $actions->append(new PartRecordDeleteAction());
                 }
-                if (Admin::user()->can('part.track')) {
-                    $actions->append(new PartTrackAction());
+                if (Admin::user()->can('part.track.create_update')) {
+                    $actions->append(new PartTrackCreateUpdateAction());
                 }
-                if (Admin::user()->can('part.maintenance')) {
-                    $actions->append(new MaintenanceAction('part'));
+                if (Admin::user()->can('part.maintenance.create')) {
+                    $actions->append(new MaintenanceCreateAction('part'));
                 }
             });
             $grid->column('device.name')->link(function () {
@@ -112,9 +113,12 @@ class PartRecordController extends AdminController
                 ->auto(false);
 
             $grid->enableDialogCreate();
-            $grid->disableRowSelector();
             $grid->disableDeleteButton();
-            $grid->disableBatchActions();
+            $grid->disableBatchDelete();
+
+            $grid->batchActions([
+                new PartRecordBatchDeleteAction()
+            ]);
 
             $grid->tools([
                 new PartRecordImportAction()

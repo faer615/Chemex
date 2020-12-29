@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Actions\Grid\RowAction\PartTrackDisableAction;
+use App\Admin\Actions\Grid\RowAction\PartTrackDeleteAction;
 use App\Admin\Grid\Displayers\RowActions;
 use App\Admin\Repositories\PartTrack;
 use App\Support\Data;
@@ -39,8 +39,8 @@ class PartTrackController extends AdminController
             $grid->disableDeleteButton();
 
             $grid->actions(function (RowActions $actions) {
-                if (Admin::user()->can('part.track.disable') && $this->deleted_at == null) {
-                    $actions->append(new PartTrackDisableAction());
+                if (Admin::user()->can('part.track.delete') && $this->deleted_at == null) {
+                    $actions->append(new PartTrackDeleteAction());
                 }
             });
 

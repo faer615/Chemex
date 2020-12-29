@@ -2,9 +2,9 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Actions\Grid\RowAction\CheckCancelAction;
-use App\Admin\Actions\Grid\RowAction\CheckFinishAction;
-use App\Admin\Actions\Grid\RowAction\CheckTrackAction;
+use App\Admin\Actions\Grid\RowAction\CheckRecordUpdateNoAction;
+use App\Admin\Actions\Grid\RowAction\CheckRecordUpdateYesAction;
+use App\Admin\Actions\Grid\RowAction\CheckTrackUpdateAction;
 use App\Admin\Grid\Displayers\RowActions;
 use App\Admin\Repositories\CheckRecord;
 use App\Models\AdminUser;
@@ -79,7 +79,7 @@ class CheckRecordController extends AdminController
 
             $grid->actions(function (RowActions $actions) {
                 if (Admin::user()->can('check.track') && $this->status == 0) {
-                    $actions->append(new CheckTrackAction());
+                    $actions->append(new CheckTrackUpdateAction());
                 }
             });
 
@@ -146,11 +146,11 @@ class CheckRecordController extends AdminController
 
             $grid->actions(function (RowActions $actions) {
                 if ($this->status == 0) {
-                    if (Admin::user()->can('check.finish')) {
-                        $actions->append(new CheckFinishAction());
+                    if (Admin::user()->can('check.record.update.yes')) {
+                        $actions->append(new CheckRecordUpdateYesAction());
                     }
-                    if (Admin::user()->can('check.cancel')) {
-                        $actions->append(new CheckCancelAction());
+                    if (Admin::user()->can('check.record.update.no')) {
+                        $actions->append(new CheckRecordUpdateNoAction());
                     }
                 }
             });

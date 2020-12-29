@@ -2,9 +2,9 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Actions\Grid\RowAction\ServiceDeleteAction;
-use App\Admin\Actions\Grid\RowAction\ServiceIssueAction;
-use App\Admin\Actions\Grid\RowAction\ServiceTrackAction;
+use App\Admin\Actions\Grid\RowAction\ServiceIssueCreateAction;
+use App\Admin\Actions\Grid\RowAction\ServiceRecordDeleteAction;
+use App\Admin\Actions\Grid\RowAction\ServiceTrackCreateUpdateAction;
 use App\Admin\Grid\Displayers\RowActions;
 use App\Admin\Repositories\ServiceRecord;
 use App\Models\DeviceRecord;
@@ -37,14 +37,14 @@ class ServiceRecordController extends AdminController
                 }
             });
             $grid->actions(function (RowActions $actions) {
-                if (Admin::user()->can('service.delete')) {
-                    $actions->append(new ServiceDeleteAction());
+                if (Admin::user()->can('service.record.delete')) {
+                    $actions->append(new ServiceRecordDeleteAction());
                 }
-                if (Admin::user()->can('service.track')) {
-                    $actions->append(new ServiceTrackAction());
+                if (Admin::user()->can('service.track.create_update')) {
+                    $actions->append(new ServiceTrackCreateUpdateAction());
                 }
-                if (Admin::user()->can('service.issue')) {
-                    $actions->append(new ServiceIssueAction());
+                if (Admin::user()->can('service.issue.create')) {
+                    $actions->append(new ServiceIssueCreateAction());
                 }
             });
 

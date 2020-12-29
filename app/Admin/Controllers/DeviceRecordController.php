@@ -3,9 +3,9 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Actions\Grid\BatchAction\DeviceRecordBatchDeleteAction;
-use App\Admin\Actions\Grid\RowAction\DeviceDeleteAction;
-use App\Admin\Actions\Grid\RowAction\DeviceTrackAction;
-use App\Admin\Actions\Grid\RowAction\MaintenanceAction;
+use App\Admin\Actions\Grid\RowAction\DeviceRecordDeleteAction;
+use App\Admin\Actions\Grid\RowAction\DeviceTrackCreateUpdateAction;
+use App\Admin\Actions\Grid\RowAction\MaintenanceCreateAction;
 use App\Admin\Actions\Grid\ToolAction\DeviceRecordImportAction;
 use App\Admin\Grid\Displayers\RowActions;
 use App\Admin\Metrics\CheckDevicePercentage;
@@ -204,14 +204,14 @@ class DeviceRecordController extends AdminController
             ]);
 
             $grid->actions(function (RowActions $actions) {
-                if (Admin::user()->can('device . delete')) {
-                    $actions->append(new DeviceDeleteAction());
+                if (Admin::user()->can('device.record.delete')) {
+                    $actions->append(new DeviceRecordDeleteAction());
                 }
-                if (Admin::user()->can('device . track')) {
-                    $actions->append(new DeviceTrackAction());
+                if (Admin::user()->can('device.track.create_update')) {
+                    $actions->append(new DeviceTrackCreateUpdateAction());
                 }
-                if (Admin::user()->can('device . maintenance')) {
-                    $actions->append(new MaintenanceAction('device'));
+                if (Admin::user()->can('device.maintenance.create')) {
+                    $actions->append(new MaintenanceCreateAction('device'));
                 }
             });
 

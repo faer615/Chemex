@@ -34,7 +34,7 @@ class CheckPartPercentage extends Card
                 ->where('status', '!=', 0)
                 ->get()
                 ->count();
-            $done_counts = $check_tracks_counts . ' / ' . $part_records_all;
+            $done_counts = '盘点进度：' . $check_tracks_counts . ' / ' . $part_records_all;
             try {
                 $percentage = round($check_tracks_counts / $part_records_all * 100, 2);
             } catch (Exception $exception) {

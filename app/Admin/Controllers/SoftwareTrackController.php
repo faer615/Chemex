@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Actions\Grid\RowAction\SoftwareTrackDisableAction;
+use App\Admin\Actions\Grid\RowAction\SoftwareTrackDeleteAction;
 use App\Admin\Grid\Displayers\RowActions;
 use App\Admin\Repositories\SoftwareTrack;
 use App\Support\Data;
@@ -38,8 +38,8 @@ class SoftwareTrackController extends AdminController
             $grid->disableDeleteButton();
 
             $grid->actions(function (RowActions $actions) {
-                if (Admin::user()->can('software.track.disable') && $this->deleted_at == null) {
-                    $actions->append(new SoftwareTrackDisableAction());
+                if (Admin::user()->can('software.track.delete') && $this->deleted_at == null) {
+                    $actions->append(new SoftwareTrackDeleteAction());
                 }
             });
 

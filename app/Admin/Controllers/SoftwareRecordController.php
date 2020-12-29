@@ -2,9 +2,10 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Actions\Grid\RowAction\SoftwareDeleteAction;
-use App\Admin\Actions\Grid\RowAction\SoftwareTrackAction;
-use App\Admin\Actions\Grid\RowAction\SoftwareTrackDisableAction;
+use App\Admin\Actions\Grid\BatchAction\SoftwareRecordBatchDeleteAction;
+use App\Admin\Actions\Grid\RowAction\SoftwareRecordDeleteAction;
+use App\Admin\Actions\Grid\RowAction\SoftwareTrackCreateUpdateAction;
+use App\Admin\Actions\Grid\RowAction\SoftwareTrackDeleteAction;
 use App\Admin\Actions\Grid\ToolAction\SoftwareRecordImportAction;
 use App\Admin\Grid\Displayers\RowActions;
 use App\Admin\Metrics\CheckSoftwarePercentage;
@@ -87,11 +88,11 @@ class SoftwareRecordController extends AdminController
             $grid->column('location');
 
             $grid->actions(function (RowActions $actions) {
-                if (Admin::user()->can('software.delete')) {
-                    $actions->append(new SoftwareDeleteAction());
+                if (Admin::user()->can('software.record.delete')) {
+                    $actions->append(new SoftwareRecordDeleteAction());
                 }
-                if (Admin::user()->can('software.track')) {
-                    $actions->append(new SoftwareTrackAction());
+                if (Admin::user()->can('software.track.create_update')) {
+                    $actions->append(new SoftwareTrackCreateUpdateAction());
                 }
                 if (Admin::user()->can('software.track.list')) {
                     $tracks_route = route('software.tracks.index', ['_search_' => $this->id]);
@@ -115,9 +116,12 @@ class SoftwareRecordController extends AdminController
                 ->auto(false);
 
             $grid->enableDialogCreate();
-            $grid->disableRowSelector();
             $grid->disableDeleteButton();
-            $grid->disableBatchActions();
+            $grid->disableBatchDelete();
+
+            $grid->batchActions([
+                new SoftwareRecordBatchDeleteAction()
+            ]);
 
             $grid->tools([
                 new SoftwareRecordImportAction()
@@ -156,7 +160,7 @@ class SoftwareRecordController extends AdminController
                             $grid->column('device.staff.name');
 
                             $grid->disableToolbar();
-                            $grid->disableBatchActions();
+                            $grid->disableBatchDelete();
                             $grid->disableRowSelector();
                             $grid->disableViewButton();
                             $grid->disableEditButton();
@@ -164,7 +168,7 @@ class SoftwareRecordController extends AdminController
 
                             $grid->actions(function (RowActions $actions) {
                                 if (Admin::user()->can('software.track.disable') && $this->deleted_at == null) {
-                                    $actions->append(new SoftwareTrackDisableAction());
+                                    $actions->append(new SoftwareTrackDeleteAction());
                                 }
                             });
                         });

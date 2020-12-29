@@ -2,7 +2,8 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Actions\Grid\RowAction\StaffDeleteAction;
+use App\Admin\Actions\Grid\BatchAction\StaffRecordBatchDeleteAction;
+use App\Admin\Actions\Grid\RowAction\StaffRecordDeleteAction;
 use App\Admin\Actions\Grid\ToolAction\StaffRecordImportAction;
 use App\Admin\Grid\Displayers\RowActions;
 use App\Admin\Repositories\StaffRecord;
@@ -41,13 +42,16 @@ class StaffRecordController extends AdminController
             $grid->column('email');
 
             $grid->enableDialogCreate();
-            $grid->disableRowSelector();
             $grid->disableDeleteButton();
-            $grid->disableBatchActions();
+            $grid->disableBatchDelete();
+
+            $grid->batchActions([
+                new StaffRecordBatchDeleteAction()
+            ]);
 
             $grid->actions(function (RowActions $actions) {
-                if (Admin::user()->can('staff.delete')) {
-                    $actions->append(new StaffDeleteAction());
+                if (Admin::user()->can('staff.record.delete')) {
+                    $actions->append(new StaffRecordDeleteAction());
                 }
             });
 

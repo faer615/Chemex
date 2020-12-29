@@ -3,7 +3,7 @@
 @import "uview-ui/index.scss";
 
 .row {
-    margin: 20 upx 20 upx 0 20 upx;
+    margin: 20upx 20upx 0 20upx;
 }
 </style>
 

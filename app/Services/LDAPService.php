@@ -16,7 +16,7 @@ class LDAPService
      * @param $mode
      * @return bool|string
      */
-    public static function importStaffDepartments($mode)
+    public static function importStaffDepartments($mode): string
     {
         try {
             // 如果模式是复写，先执行清空表
@@ -66,8 +66,10 @@ class LDAPService
 
     /**
      * 获取AD中全部的User，并且自动写入部门
+     * @param $mode
+     * @return string
      */
-    public static function importStaffRecords($mode)
+    public static function importStaffRecords($mode): string
     {
         try {
 

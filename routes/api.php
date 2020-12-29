@@ -13,7 +13,8 @@
 */
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\InfoController;
+use App\Http\Controllers\CheckController;
+use App\Http\Controllers\QueryController;
 use Illuminate\Support\Facades\Route;
 
 Route::group([
@@ -25,11 +26,9 @@ Route::group([
     Route::post('me', [AuthController::class, 'me']);
 });
 
-Route::get('info/{item_id}', [InfoController::class, 'info']);
-Route::get('check/{string}', [InfoController::class, 'check']);
-Route::post('check/do', [InfoController::class, 'checkDo']);
-
-Route::get('check/{string}', [InfoController::class, 'check']);
+Route::get('query/{item_id}', [QueryController::class, 'query']);
+Route::get('check/{string}', [CheckController::class, 'check']);
+Route::post('check/do', [CheckController::class, 'checkDo']);
 
 Route::get('phpinfo', function () {
     return phpinfo();
