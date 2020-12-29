@@ -96,7 +96,7 @@ function test(){
             },
             error: function (res) {
                 console.log(res);
-                Dcat.error('执行错误：' + res.data);
+                Dcat.error('执行错误：' + res);
             }
         });
 }

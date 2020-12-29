@@ -223,14 +223,14 @@ class DeviceRecordController extends AdminController
                 'name',
                 'asset_number',
                 'description',
-                'category . name',
-                'vendor . name',
+                'category.name',
+                'vendor.name',
                 'sn',
                 'mac',
                 'ip',
                 'price',
-                'staff . name',
-                'staff . department . name',
+                'staff.name',
+                'staff.department.name',
                 'location'
             )
                 ->placeholder('试着搜索一下')
