@@ -95,7 +95,8 @@ function test(){
                 }
             },
             error: function (res) {
-                Dcat.error('执行错误：' + res);
+                console.log(res);
+                Dcat.error('执行错误：' + res.data);
             }
         });
 }
