@@ -45,6 +45,9 @@ class System
     public static function getLatestVersionFromGitee(): ?string
     {
         $response = Http::get('https://gitee.com/api/v5/repos/celaraze/Chemex/tags')->json();
+        if (empty($response)) {
+            return null;
+        }
         $version = $response[count($response) - 1]['name'];
         $remote_version = str_replace('v', '', $version);
         $local_version = config('admin.chemex_version');
